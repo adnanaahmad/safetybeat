@@ -1,0 +1,13 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.login-container > * {
+    width: 100%;
+  }
+  .image{
+      width: 225px;
+      height: 225px;
+      border-radius: 20px;
+  } 
