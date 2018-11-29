@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title>Login Form</mat-card-title>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="input">
+    <div class="form-group">
       <mat-form-field>
         <input matInput type="text" placeholder="User Name" formControlName="username" required />
         <mat-error *ngIf="submitted && f.username.errors">
@@ -9,7 +9,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="input">
+    <div class="form-group">
       <mat-form-field>
         <input matInput type="text" placeholder="Email" formControlName="email" />
         <mat-error *ngIf="submitted && f.email.errors">
@@ -17,7 +17,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="password">
+    <div class="form-group">
       <mat-form-field>
         <input matInput type="password" placeholder="Password" formControlName="password" required />
         <mat-error *ngIf="submitted && f.password.errors">
@@ -25,7 +25,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="button">
+    <div class="form-group">
       <button mat-raised-button [disabled]="loading" color="primary">Login</button>
       <button mat-raised-button routerLink="/signup">Register</button>
     </div>
