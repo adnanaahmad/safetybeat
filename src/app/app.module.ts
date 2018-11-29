@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from '../components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from '../services/login/login.service';
+import { HttpClientModule } from '@angular/common/http';
 import {
   MatToolbarModule,
   MatCardModule,
@@ -22,6 +24,7 @@ import { ForgotpasswordComponent } from '../components/forgotpassword/forgotpass
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
+    HttpClientModule,
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
@@ -29,7 +32,9 @@ import { ForgotpasswordComponent } from '../components/forgotpassword/forgotpass
     ReactiveFormsModule,
 
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

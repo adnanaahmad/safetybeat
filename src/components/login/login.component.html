@@ -9,6 +9,14 @@
         </mat-error>
       </mat-form-field>
     </div>
+    <div class="input">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Email" formControlName="email" />
+        <mat-error *ngIf="submitted && f.email.errors">
+          Email is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
     <div class="password">
       <mat-form-field>
         <input matInput type="password" placeholder="Password" formControlName="password" required />

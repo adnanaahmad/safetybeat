@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public login: LoginService,
   ) {
     // redirect to home if already logged in
 
@@ -23,7 +25,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      email: ['', Validators.email]
     });
   }
   get f() { return this.loginForm.controls; }
@@ -33,6 +36,16 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    this.loading = true;
+    this.login.authenticateUser(this.loginForm.value)
+      .subscribe(
+        (data) => {
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.loading = false;
+        }
+      );
     // stop here if form is invalid
   }
 }
