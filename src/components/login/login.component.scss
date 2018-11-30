@@ -1,13 +1,11 @@
-.login-container {
-    display: flex;
-    flex-direction: column;
+mat-card {
+    max-width: 400px;
+    margin: 2em auto;
+    text-align: center;
   }
-  
-.login-container > * {
+  .signin-content {
+    padding: 60px 1rem;
+  }
+  .full-width-input {
     width: 100%;
   }
-  .image{
-      width: 225px;
-      height: 225px;
-      border-radius: 20px;
-  } 
