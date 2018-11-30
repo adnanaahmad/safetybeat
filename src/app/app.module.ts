@@ -27,7 +27,13 @@ import { ForgotpasswordComponent } from '../components/forgotpassword/forgotpass
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ForgotpasswordComponent, RegistrationComponent, DashboardComponent],
+  declarations: [
+    AppComponent, 
+    LoginComponent, 
+    ForgotpasswordComponent, 
+    RegistrationComponent, 
+    DashboardComponent
+  ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,

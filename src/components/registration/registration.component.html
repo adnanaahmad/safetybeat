@@ -1,7 +1,6 @@
-<mat-card class="card-size">
-  <mat-card-title>
-    registration works!
-  </mat-card-title>
+<mat-card class="midbox loginbox">
+  <mat-card-title>Sign Up</mat-card-title>
+  <p class="subheading">If you are not already registered, create an account</p>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <mat-form-field>
@@ -37,7 +36,7 @@
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="number" placeholder="Mobile No." formControlName="mobile_no" required />
+        <input matInput type="text" placeholder="Mobile No." formControlName="mobile_no" required />
         <mat-error *ngIf="submitted && f.mobile_no.errors ">
           Please enter a valid mobile number
         </mat-error>
@@ -64,10 +63,9 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="form-group">
-      <button mat-raised-button [disabled]="loading" color="primary">
-        Register
-      </button>
+    <div class="button">
+      <button mat-raised-button [disabled]="loading" color="primary">Register</button>
+      <span class="or">OR</span>
       <a mat-raised-button routerLink="/login">Cancel</a>
     </div>
   </form>

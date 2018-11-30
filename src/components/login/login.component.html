@@ -1,19 +1,12 @@
-<mat-card>
-  <mat-card-title>Login Form</mat-card-title>
+<mat-card class="midbox loginbox">
+  <mat-card-title>Login</mat-card-title>
+  <p class="subheading">You need to sign in to get access</p>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="input">
       <mat-form-field>
-        <input matInput type="text" placeholder="User Name" formControlName="username" required />
+        <input matInput type="text" placeholder="User Name/Email" formControlName="username" required />
         <mat-error *ngIf="submitted && f.username.errors">
           Username is required.
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="input">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Email" formControlName="email" />
-        <mat-error *ngIf="submitted && f.email.errors">
-          Email is required.
         </mat-error>
       </mat-form-field>
     </div>
@@ -27,6 +20,7 @@
     </div>
     <div class="button">
       <button mat-raised-button [disabled]="loading" color="primary">Login</button>
+      <span class="or">OR</span>
       <button mat-raised-button routerLink="/signup">Register</button>
     </div>
     <div class="link">
