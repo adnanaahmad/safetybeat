@@ -12,7 +12,9 @@ import {
   MatButtonModule,
   MatInputModule,
   MatFormFieldModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatStepperModule,
+  MatSelectModule
 } from '@angular/material';
 
 // app components
@@ -28,10 +30,10 @@ import { DashboardComponent } from '../components/dashboard/dashboard.component'
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    LoginComponent, 
-    ForgotpasswordComponent, 
-    RegistrationComponent, 
+    AppComponent,
+    LoginComponent,
+    ForgotpasswordComponent,
+    RegistrationComponent,
     DashboardComponent
   ],
   imports: [
@@ -47,8 +49,8 @@ import { DashboardComponent } from '../components/dashboard/dashboard.component'
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatInputModule,
-
-
+    MatStepperModule,
+    MatSelectModule
   ],
   providers: [
     LoginService,
