@@ -4,6 +4,6 @@
     Anonymous SafetyBeat Project
   </span>
   <span class="fill-remaining-space"></span>
-  <button mat-raised-button routerLink="/login">Login</button>
-  <button mat-raised-button (click)="onLogout()">Logout</button>
+  <button mat-raised-button routerLink="/login" *ngIf="login.selected">Login</button>
+  <button mat-raised-button (click)="onLogout()" *ngIf="!login.selected">Logout</button>
 </mat-toolbar>

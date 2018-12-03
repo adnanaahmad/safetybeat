@@ -5,24 +5,24 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class LoginService {
-
-
+    selected = true;
     private loggedIn = new BehaviorSubject<boolean>(false);
     get isLoggedIn() {
         return this.loggedIn.asObservable();
     }
     constructor(
         private http: HttpClient,
-        private router: Router
+        private router: Router,
     ) { }
 
     authenticateUser(data) {
-        debugger
+        this.selected = false;
         this.loggedIn.next(true);
         console.log(this.http.post(`${environment.apiUrl}/anonymous/login/`, data));
         return this.http.post(`${environment.apiUrl}/anonymous/login/`, data);
     }
     logoutUser() {
+        this.selected = true;
         localStorage.removeItem('token');
         this.loggedIn.next(false);
         this.router.navigate(['/login']);

@@ -46,19 +46,18 @@ export class RegistrationComponent implements OnInit {
     this.submitted = true;
     if (this.registerForm.invalid) {
       return;
-    } else {
-
-      this.loading = true;
-      this.registerForm.value.mobile_no = this.registerForm.value.mobile_no.toString();
-      this.regService.registerUser(this.registerForm.value)
-        .subscribe(
-          data => {
-            this.router.navigate(['/login']);
-          },
-          error => {
-            this.loading = false;
-          });
     }
+    this.loading = true;
+    this.registerForm.value.mobile_no = this.registerForm.value.mobile_no.toString();
+    this.regService.registerUser(this.registerForm.value)
+      .subscribe(
+        data => {
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.loading = false;
+        });
+
   }
 
 }
