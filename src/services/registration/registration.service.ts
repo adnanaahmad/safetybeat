@@ -9,4 +9,8 @@ export class RegistrationService {
     registerUser(data) {
         return this.http.post(`${environment.apiUrl}/anonymous/registration/`, data);
     }
+
+    companyType(){
+        return this.http.get(`${environment.apiUrl}/anonymous/companyTypes/`);
+    }
 }

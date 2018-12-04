@@ -2,51 +2,58 @@
   Welcome to Anonymous project
 </h1>
 
-<mat-horizontal-stepper linear #stepper labelPosition="bottom">
-
-
-
-
+<mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
   <mat-step [stepControl]="organizationForm">
     <form [formGroup]="organizationForm">
       <ng-template matStepLabel>Enter your Orginazation Details.</ng-template>
-
-
       <div class="form-group">
         <mat-form-field>
           <input matInput type="text" placeholder="Name" formControlName="name" required />
-          <mat-error *ngIf="o.name.errors && o.name.errors.required">
+          <mat-error *ngIf="orgForm.name.errors && orgForm.name.errors.required">
             Please enter username.
           </mat-error>
         </mat-form-field>
       </div>
-
-      <mat-form-field>
-        <mat-select placeholder="Select Type" formControlName="type" required>
-          <mat-option [value]="saab">Saab</mat-option>
-          <mat-option [value]="mercedes">Mercedes</mat-option>
-          <mat-option [value]="audi">Audi</mat-option>
-          <!-- <mat-option *ngFor="let animal of animals" [value]="animal">
-            {{animal.name}}
-          </mat-option> -->
-        </mat-select>
-        <mat-error *ngIf="o.type.errors && o.type.errors.required">
-          Please enter username.
-        </mat-error>
-      </mat-form-field>
-
+      <div class="form-group">
+        <mat-form-field>
+          <mat-select placeholder="Select Type" formControlName="type" multiple required>
+            <mat-option *ngFor="let type of types" [value]="type.name">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="orgForm.type.errors && orgForm.type.errors.required">
+            Please Select type.
+          </mat-error>
+        </mat-form-field>
+      </div>
       <div class="form-group">
         <mat-form-field>
           <input matInput type="text" placeholder="Address" formControlName="address" required />
-          <mat-error *ngIf="o.address.errors && o.address.errors.required">
+          <mat-error *ngIf="orgForm.address.errors && orgForm.address.errors.required">
             Please enter Address.
           </mat-error>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field>
-          <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" required />
-          <mat-error *ngIf="o.zipCode.errors && o.zipCode.errors.required">
+          <input matInput type="text" placeholder="City" formControlName="city" required />
+          <mat-error *ngIf="orgForm.city.errors && orgForm.city.errors.required">
+            Please enter City.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput type="text" placeholder="Country" formControlName="country" required />
+          <mat-error *ngIf="orgForm.country.errors && orgForm.country.errors.required">
+            Please enter Country.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Zip Code" formControlName="zipCode" required />
+          <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
             Please enter Zip Code.
           </mat-error>
         </mat-form-field>
@@ -54,7 +61,7 @@
       <div class="form-group">
         <mat-form-field>
           <input matInput type="email" placeholder="Billing Email" formControlName="billingEmail" required />
-          <mat-error *ngIf="o.billingEmail.errors && o.billingEmail.errors.required">
+          <mat-error *ngIf="orgForm.billingEmail.errors && orgForm.billingEmail.errors.required">
             Please enter Billing Email.
           </mat-error>
         </mat-form-field>
@@ -62,7 +69,7 @@
       <div class="form-group">
         <mat-form-field>
           <input matInput type="number" placeholder="Account No" formControlName="accountNo" required />
-          <mat-error *ngIf="o.accountNo.errors && o.accountNo.errors.required">
+          <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
             Please enter Account No.
           </mat-error>
         </mat-form-field>
@@ -70,39 +77,40 @@
       <div class="form-group">
         <mat-form-field>
           <input matInput type="number" placeholder="Phone No" formControlName="phoneNo" required />
-          <mat-error *ngIf="o.phoneNo.errors && o.phoneNo.errors.required">
+          <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
             Please enter Phone No.
           </mat-error>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field>
-          <input matInput type="text" placeholder="Fax" formControlName="fax" required />
-          <mat-error *ngIf="o.fax.errors && o.fax.errors.required">
-            Please enter Zip Code.
+          <input matInput type="number" placeholder="Fax" formControlName="fax" required />
+          <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
+            Please enter Fax no.
           </mat-error>
         </mat-form-field>
       </div>
-
-
-
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
 
-
-
-
-
-
   <mat-step [stepControl]="moduleForm">
     <form [formGroup]="moduleForm">
       <ng-template matStepLabel>Select Module/Modules</ng-template>
-      <!-- <mat-form-field>
-        <input matInput placeholder="Address" formControlName="modules" required>
-      </mat-form-field> -->
+      <div class="form-group">
+        <mat-form-field>
+          <mat-select placeholder="Select Module/Modules" formControlName="name" multiple required>
+            <mat-option *ngFor="let module of modules" [value]="module.id">
+              {{module.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="modForm.name.errors && modForm.name.errors.required">
+            Please Select atleast one Module.
+          </mat-error>
+        </mat-form-field>
+      </div>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -113,9 +121,15 @@
   <mat-step [stepControl]="packageForm">
     <form [formGroup]="packageForm">
       <ng-template matStepLabel>Select Package</ng-template>
-      <!-- <mat-form-field>
-        <input matInput placeholder="Address" formControlName="package" required>
-      </mat-form-field> -->
+      <mat-card *ngFor="let package of packages">
+        <mat-card-title>{{package.packageName}}</mat-card-title>
+        <mat-card-content>
+          <div>
+            <h3>{{package.cost}}</h3>
+            <p>{{package.noOfUsers}}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
@@ -128,7 +142,7 @@
     You are now done.
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button>Submit</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
