@@ -119,30 +119,21 @@
   </mat-step>
 
   <mat-step [stepControl]="packageForm">
-    <form [formGroup]="packageForm">
-      <ng-template matStepLabel>Select Package</ng-template>
-      <mat-card *ngFor="let package of packages">
-        <mat-card-title>{{package.packageName}}</mat-card-title>
-        <mat-card-content>
-          <div>
-            <h3>{{package.cost}}</h3>
-            <p>{{package.noOfUsers}}</p>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
+    <ng-template matStepLabel>Select Package</ng-template>
+    <mat-card *ngFor="let package of packages" (click)="selectPackage(package)">
+      <mat-card-title>{{package.packageName}}</mat-card-title>
+      <mat-card-content>
+        <div>
+          <h3>{{package.cost}}</h3>
+          <p>{{package.noOfUsers}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button>Submit</button>
     </div>
   </mat-step>
+
+
 </mat-horizontal-stepper>

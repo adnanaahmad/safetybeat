@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   organizationForm: FormGroup;
   moduleForm: FormGroup;
   packageForm: FormGroup;
-
+  selectedPackage: any = {}
   types: any = [
     {
       "name": "IT"
@@ -81,20 +81,26 @@ export class DashboardComponent implements OnInit {
       billingEmail: ['', Validators.required],
       accountNo: ['', Validators.required],
       phoneNo: ['', Validators.required]
-    }, { validator: this.checkPasswords });
+    });
     this.moduleForm = this.formBuilder.group({
       name: [[], Validators.required]
     })
-    this.packageForm = this.formBuilder.group({
-      // packageName: ['', Validators.required],
-      // cost: ['', Validators.required],
-      // noOfUsers: ['', Validators.required]
-    })
   }
-  checkPasswords(group: FormGroup) {
-    const pass = group.controls.type.value;
+  selectPackage(data: any) {
+    this.selectedPackage = data;
+    console.log('package selected', this.selectedPackage)
   }
   get orgForm() { return this.organizationForm.controls; }
   get modForm() { return this.moduleForm.controls; }
-  get pac() { return this.packageForm.controls; }
+
+
+  registerOrginazation() {
+    if (this.organizationForm.invalid || this.moduleForm.invalid) {
+      return;
+    } else {
+      
+    }
+  }
+
+
 }
