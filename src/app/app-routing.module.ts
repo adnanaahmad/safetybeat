@@ -4,12 +4,13 @@ import { RegistrationComponent } from '../components/registration/registration.c
 import { LoginComponent } from '../components/login/login.component';
 import { ForgotpasswordComponent } from '../components/forgotpassword/forgotpassword.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
+import { HeaderComponent } from '../components/header/header.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', component: LoginComponent },
   { path: 'signup', component: RegistrationComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+
 
 ];
 

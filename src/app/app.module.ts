@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 // material modules
 import {
   MatCardModule,
@@ -22,11 +23,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from '../components/login/login.component';
 import { LoginService } from '../services/login/login.service';
 import { RegistrationComponent } from '../components/registration/registration.component';
+import { AuthGuard } from '../services/auth/auth.guard';
+import { TokenInterceptorService } from '../services/auth/token-interceptor';
 
 // app services
 import { RegistrationService } from '../services/registration/registration.service';
 import { ForgotpasswordComponent } from '../components/forgotpassword/forgotpassword.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
+import { HeaderComponent } from '../components/header/header.component';
+// import { LogoutComponent } from '../components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,9 @@ import { DashboardComponent } from '../components/dashboard/dashboard.component'
     LoginComponent,
     ForgotpasswordComponent,
     RegistrationComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeaderComponent,
+    // LogoutComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -54,7 +61,9 @@ import { DashboardComponent } from '../components/dashboard/dashboard.component'
   ],
   providers: [
     LoginService,
-    RegistrationService
+    RegistrationService,
+    AuthGuard,
+    TokenInterceptorService
   ],
   bootstrap: [AppComponent]
 })
