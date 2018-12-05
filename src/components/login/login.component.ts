@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  data: any;
   name_invalid_message = 'username is required';
 
   constructor(
@@ -49,9 +50,9 @@ export class LoginComponent implements OnInit {
       this.login.authenticateUser(this.loginForm.value)
         .subscribe(
           data => {
-            console.log('This is me ', data.key);
+            this.data = data;
 
-            data ? localStorage.setItem('token', data.key) : localStorage.setItem('token', "");
+            data ? localStorage.setItem('token', this.data.key) : localStorage.setItem('token', '');
             this.router.navigate(['/dashboard']);
           },
           error => {
