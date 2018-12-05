@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'anonymous-FrontEnd';
-  update = 'Awais is part of this project';
 }
 

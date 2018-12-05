@@ -1,1 +1,85 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// custom css by Sohaib
+
+.midbox{
+    .mat-form-field-underline{
+        background-color: rgba(0,0,0,0.10);
+    }
+    width:25%;
+    margin:5% auto;
+    border-top:4px solid #3f51b5;
+    box-shadow: 0 0px 60px -20px #0000007a !important;
+    border-radius: 10px !important;
+    &:before{
+        content:"";
+        background: #ff4500;
+        height: 4px;
+        width: 32%;
+        position: absolute;
+        left:20%;
+        top:-4px;
+    }
+    &:after{
+        content:"";
+        background: #66cdaa;
+        height: 4px;
+        width: 30%;
+        position: absolute;
+        left:50%;
+        top:-4px;
+    }
+}
+.loginbox{
+    text-align: center;
+    padding: 40px !important;
+    mat-form-field{
+        width:100%;
+    }
+    mat-card-title{
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size:20px;
+    }
+    .subheading{
+        opacity: .5;
+    }
+    div.button{
+        margin: 20px 0;
+        span.or{
+            padding:16px;
+        }
+    }
+    div.link{
+        a{
+            text-decoration: none;
+        }
+    }
+}
+@media screen and (max-width:991px){
+    .midbox{
+        width: 35%;
+    }
+}
+@media screen and (max-width:767px){
+    .midbox{
+        width: 45%;
+    }
+}
+@media screen and (max-width:574px){
+    .midbox{
+        width: 70%;
+        padding: 20px !important;
+    }
+    .loginbox{
+        div.button{
+            span.or{
+                padding:0;
+                opacity: 0;
+            }
+        }
+    }
+}
