@@ -18,7 +18,6 @@ export class LoginService {
     authenticateUser(data) {
         this.selected = false;
         this.loggedIn.next(true);
-        console.log(this.http.post(`${environment.apiUrl}/anonymous/login/`, data));
         return this.http.post(`${environment.apiUrl}/anonymous/login/`, data);
     }
     logoutUser() {

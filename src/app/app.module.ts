@@ -21,16 +21,18 @@ import {
 // app components
 import { AppComponent } from './app.component';
 import { LoginComponent } from '../components/login/login.component';
-import { LoginService } from '../services/login/login.service';
-import { RegistrationComponent } from '../components/registration/registration.component';
-import { AuthGuard } from '../services/auth/auth.guard';
-import { TokenInterceptorService } from '../services/auth/token-interceptor';
-
-// app services
-import { RegistrationService } from '../services/registration/registration.service';
 import { ForgotpasswordComponent } from '../components/forgotpassword/forgotpassword.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { HeaderComponent } from '../components/header/header.component';
+import { RegistrationComponent } from '../components/registration/registration.component';
+
+// app services
+import { RegistrationService } from '../services/registration/registration.service';
+import { LoginService } from '../services/login/login.service';
+import { AuthGuard } from '../services/auth/auth.guard';
+import { TokenInterceptorService } from '../services/auth/token-interceptor';
+import { JwtInterceptor } from '../services/auth/JWT.interceptor';
+import { ErrorInterceptor } from '../services/auth/error.interceptor';
 // import { LogoutComponent } from '../components/logout/logout.component';
 
 @NgModule({
@@ -63,7 +65,9 @@ import { HeaderComponent } from '../components/header/header.component';
     LoginService,
     RegistrationService,
     AuthGuard,
-    TokenInterceptorService
+    TokenInterceptorService,
+    ErrorInterceptor,
+    JwtInterceptor
   ],
   bootstrap: [AppComponent]
 })

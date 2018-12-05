@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
             this.data = data;
-
             data ? localStorage.setItem('token', this.data.key) : localStorage.setItem('token', '');
             this.router.navigate(['/dashboard']);
           },

@@ -4,13 +4,18 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RegistrationService {
-    constructor(private http: HttpClient) { }
+    private options: any;
+    constructor(private http: HttpClient) {
+        this.options = {
+            'content-type': 'application/json',
+            'Authorization': `Token ${localStorage.getItem('token')}`
+        };
+    }
 
     registerUser(data) {
         return this.http.post(`${environment.apiUrl}/anonymous/registration/`, data);
     }
-
-    companyType(){
-        return this.http.get(`${environment.apiUrl}/anonymous/companyTypes/`);
+    companyType() {
+        return this.http.get(`${environment.apiUrl}/anonymous/companyTypes/`, { headers: this.options });
     }
 }
