@@ -49,8 +49,9 @@ export class LoginComponent implements OnInit {
       this.login.authenticateUser(this.loginForm.value)
         .subscribe(
           data => {
-            console.log('This is me ', data);
-            localStorage.setItem('token', data.key);
+            console.log('This is me ', data.key);
+
+            data ? localStorage.setItem('token', data.key) : localStorage.setItem('token', "");
             this.router.navigate(['/dashboard']);
           },
           error => {
