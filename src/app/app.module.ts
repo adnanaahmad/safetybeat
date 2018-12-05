@@ -13,7 +13,9 @@ import {
   MatButtonModule,
   MatInputModule,
   MatFormFieldModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatStepperModule,
+  MatSelectModule
 } from '@angular/material';
 
 // app components
@@ -54,8 +56,8 @@ import { HeaderComponent } from '../components/header/header.component';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatInputModule,
-
-
+    MatStepperModule,
+    MatSelectModule
   ],
   providers: [
     LoginService,
