@@ -45,20 +45,20 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.login.authenticateUser(this.loginForm.value).pipe(first())
-      .subscribe(
-        (data) => {
-          if (this.loginForm.value.username !== '' && this.loginForm.value.password !== '') {
+    if (this.loginForm.value.username !== '' && this.loginForm.value.password !== '') {
+      this.login.authenticateUser(this.loginForm.value)
+        .subscribe(
+          data => {
             console.log('This is me ', data);
             localStorage.setItem('token', data.key);
             this.router.navigate(['/dashboard']);
+          },
+          error => {
+            this.error = error;
+            this.loading = false;
           }
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        }
-      );
+        );
+    }
     // stop here if form is invalid
   }
 }

@@ -30,4 +30,7 @@ export class LoginService {
     getToken() {
         return localStorage.getItem('token');
     }
+    forgotPassword(data) {
+        return this.http.post(`${environment.apiUrl}/anonymous/password/reset/`, data);
+    }
 }

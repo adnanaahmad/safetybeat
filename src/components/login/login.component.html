@@ -1,36 +1,32 @@
-<div class="signin-content">
-  <mat-card>
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-card-title>Login Form</mat-card-title>
-        <mat-form-field class="full-width-input">
-          <input matInput type="text" placeholder="User Name" formControlName="username" required />
-          <mat-error *ngIf="submitted && f.username.errors">
-            Username is required.
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput type="text" placeholder="Email" formControlName="email" />
-          <mat-error *ngIf="submitted && f.email.errors">
-            Email is required.
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput type="password" placeholder="Password" formControlName="password" required />
-          <mat-error *ngIf="submitted && f.password.errors">
-            Password is required.
-          </mat-error>
-        </mat-form-field>
-        <div>
-          <button mat-raised-button [disabled]="loading" color="primary">Login</button>
-          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-          <button mat-raised-button routerLink="/signup">Register</button>
-        </div>
-        <div class="link">
-          <a routerLink="/forgotpassword">Forgot Password?</a>
-        </div>
-        <div *ngIf="error" class="alert alert-danger"> {{erro}}</div>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-card class="midbox loginbox">
+  <mat-card-title>Login</mat-card-title>
+  <p class="subheading">You need to sign in to get access</p>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="input">
+      <mat-form-field>
+        <input matInput type="text" placeholder="User Name/Email" formControlName="username" required />
+        <mat-error *ngIf="submitted && f.username.errors">
+          Username is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="password">
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" formControlName="password" required />
+        <mat-error *ngIf="submitted && f.password.errors">
+          Password is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="button">
+      <button mat-raised-button [disabled]="loading" color="primary">Login</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+      <span class="or">OR</span>
+      <button mat-raised-button routerLink="/signup">Register</button>
+    </div>
+    <div class="link">
+      <a routerLink="/forgotpassword">Forgot Password?</a>
+    </div>
+  </form>
+</mat-card>
