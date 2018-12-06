@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // material modules
 import {
@@ -33,6 +33,8 @@ import { AuthGuard } from '../services/auth/auth.guard';
 import { TokenInterceptorService } from '../services/auth/token-interceptor';
 import { JwtInterceptor } from '../services/auth/JWT.interceptor';
 import { ErrorInterceptor } from '../services/auth/error.interceptor';
+import { CookieService } from 'ngx-cookie-service';
+
 // import { LogoutComponent } from '../components/logout/logout.component';
 
 @NgModule({
@@ -65,9 +67,14 @@ import { ErrorInterceptor } from '../services/auth/error.interceptor';
     LoginService,
     RegistrationService,
     AuthGuard,
-    TokenInterceptorService,
     ErrorInterceptor,
-    JwtInterceptor
+    JwtInterceptor,
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

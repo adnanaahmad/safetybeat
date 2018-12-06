@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 import { LoginService } from '../../services/login/login.service';
-
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   templateUrl: 'login.component.html',
   selector: 'app-login',
@@ -21,6 +20,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public login: LoginService,
+    private cookie: CookieService
   ) {
     // redirect to home if already logged in
 
@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
           data => {
             this.data = data;
             data ? localStorage.setItem('token', this.data.key) : localStorage.setItem('token', '');
+            const abc = this.cookie.set('token', this.data);
+            console.log('I have come in cookie', JSON.stringify(abc));
             this.router.navigate(['/dashboard']);
           },
           error => {

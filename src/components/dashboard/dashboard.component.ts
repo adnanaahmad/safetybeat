@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from '../../services/registration/registration.service';
-import { LoginService } from '../../services/login/login.service';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +12,6 @@ export class DashboardComponent implements OnInit {
   organizationForm: FormGroup;
   moduleForm: FormGroup;
   packageForm: FormGroup;
-  isLoggedin = false;
   selectedPackage: any = {};
   types: any = [
     {
@@ -61,7 +58,6 @@ export class DashboardComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private regService: RegistrationService,
-    private login: LoginService
   ) {
     this.regService.companyType()
       .subscribe(data => {
@@ -88,9 +84,6 @@ export class DashboardComponent implements OnInit {
     this.moduleForm = this.formBuilder.group({
       name: [[], Validators.required]
     });
-    if (this.login.getToken()) {
-      this.isLoggedin = true;
-    }
   }
   selectPackage(data: any) {
     this.selectedPackage = data;

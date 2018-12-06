@@ -2,9 +2,9 @@
   Welcome to Anonymous project
 </h1>
 
-<mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
+<mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
   <mat-step [stepControl]="organizationForm">
-    <form [formGroup]="organizationForm">
+    <form [formGroup]="organizationForm" (ngSubmit)="registerOrginazation()">
       <ng-template matStepLabel>Enter your Orginazation Details.</ng-template>
       <div class="form-group">
         <mat-form-field>
@@ -131,7 +131,7 @@
     </mat-card>
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button>Submit</button>
+      <button mat-button (click)="registerOrginazation()">Submit</button>
     </div>
   </mat-step>
 
