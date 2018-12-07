@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 // app modules
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // material modules
 import {
@@ -21,17 +21,17 @@ import {
 // app components
 import { AppComponent } from './app.component';
 import { LoginComponent } from '../components/login/login.component';
-import { LoginService } from '../services/login/login.service';
-import { RegistrationComponent } from '../components/registration/registration.component';
-import { AuthGuard } from '../services/auth/auth.guard';
-import { TokenInterceptorService } from '../services/auth/token-interceptor';
-
-// app services
-import { RegistrationService } from '../services/registration/registration.service';
 import { ForgotpasswordComponent } from '../components/forgotpassword/forgotpassword.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { HeaderComponent } from '../components/header/header.component';
-// import { LogoutComponent } from '../components/logout/logout.component';
+import { RegistrationComponent } from '../components/registration/registration.component';
+
+// app services
+import { OrganizationService } from '../services/organization/organization.service';
+import { AuthService } from '../services/auth/auth.service';
+import { AuthGuard } from '../services/auth/auth.guard';
+import { TokenInterceptorService } from '../services/auth/token-interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -60,10 +60,15 @@ import { HeaderComponent } from '../components/header/header.component';
     MatSelectModule
   ],
   providers: [
-    LoginService,
-    RegistrationService,
+    AuthService,
     AuthGuard,
-    TokenInterceptorService
+    OrganizationService,
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

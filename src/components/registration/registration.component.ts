@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from '../../services/registration/registration.service';
 
+// services
+import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -13,11 +14,10 @@ export class RegistrationComponent implements OnInit {
   loading = false;
   submitted = false;
 
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private regService: RegistrationService,
+    private auth: AuthService,
   ) {
 
   }
@@ -49,7 +49,7 @@ export class RegistrationComponent implements OnInit {
     }
     this.loading = true;
     this.registerForm.value.mobile_no = this.registerForm.value.mobile_no.toString();
-    this.regService.registerUser(this.registerForm.value)
+    this.auth.registerUser(this.registerForm.value)
       .subscribe(
         data => {
           this.router.navigate(['/login']);
@@ -57,7 +57,6 @@ export class RegistrationComponent implements OnInit {
         error => {
           this.loading = false;
         });
-
   }
 
 }

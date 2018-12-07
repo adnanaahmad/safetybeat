@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from '../../services/registration/registration.service';
+
+// services
+import { OrganizationService } from '../../services/organization/organization.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,60 +14,59 @@ export class DashboardComponent implements OnInit {
   organizationForm: FormGroup;
   moduleForm: FormGroup;
   packageForm: FormGroup;
-  selectedPackage: any = {}
+  selectedPackage: any = {};
   types: any = [
     {
-      "name": "IT"
+      'name': 'IT'
     },
     {
-      "name": "Business"
+      'name': 'Business'
     },
     {
-      "name": "Architecture"
+      'name': 'Architecture'
     },
     {
-      "name": "Educational"
+      'name': 'Educational'
     }
-  ]
+  ];
   modules: any = [
     {
-      "id": 1,
-      "name": "Safetybeat"
+      'id': 1,
+      'name': 'Safetybeat'
     },
     {
-      "id": 2,
-      "name": "Field Communication"
+      'id': 2,
+      'name': 'Field Communication'
     }
-  ]
+  ];
   packages: any = [
     {
-      packageName: "standard",
-      cost: "50$",
-      noOfUsers: "10-15"
+      packageName: 'standard',
+      cost: '50$',
+      noOfUsers: '10-15'
     },
     {
-      packageName: "express",
-      cost: "150$",
-      noOfUsers: "25-75"
+      packageName: 'express',
+      cost: '150$',
+      noOfUsers: '25-75'
     },
     {
-      packageName: "premium",
-      cost: "500$",
-      noOfUsers: "100-250"
+      packageName: 'premium',
+      cost: '500$',
+      noOfUsers: '100-250'
     }
-  ]
+  ];
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private regService: RegistrationService,
+    private orgService: OrganizationService,
   ) {
-    this.regService.companyType()
+    this.orgService.companyType()
       .subscribe(data => {
-        debugger
-        console.log("data", data)
+        console.log('data', data);
       },
         error => {
-          console.log("error", error)
+          console.log('error', error);
         });
   }
 
@@ -84,21 +85,19 @@ export class DashboardComponent implements OnInit {
     });
     this.moduleForm = this.formBuilder.group({
       name: [[], Validators.required]
-    })
+    });
   }
   selectPackage(data: any) {
     this.selectedPackage = data;
-    console.log('package selected', this.selectedPackage)
   }
   get orgForm() { return this.organizationForm.controls; }
   get modForm() { return this.moduleForm.controls; }
-
 
   registerOrginazation() {
     if (this.organizationForm.invalid || this.moduleForm.invalid) {
       return;
     } else {
-      
+
     }
   }
 
