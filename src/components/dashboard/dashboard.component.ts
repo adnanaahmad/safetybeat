@@ -94,7 +94,6 @@ export class DashboardComponent implements OnInit {
   get orgForm() { return this.organizationForm.controls; }
   get modForm() { return this.moduleForm.controls; }
 
-
   registerOrginazation() {
     if (this.organizationForm.invalid || this.moduleForm.invalid) {
       return;
