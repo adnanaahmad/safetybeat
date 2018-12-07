@@ -4,7 +4,7 @@
     Anonymous SafetyBeat Project
   </span>
 
-  <button mat-button routerLink="/login" routerLinkActive="active" *ngIf="!login.getToken()">Login</button>
-  <button mat-button routerLink="/signup" routerLinkActive="active" *ngIf="!login.getToken()">Register</button>
-  <button mat-button (click)="onLogout()" routerLinkActive="active" *ngIf="login.getToken()">Logout</button>
+  <button mat-button routerLink="/login" routerLinkActive="active" *ngIf="!auth.getToken()">Login</button>
+  <button mat-button routerLink="/signup" routerLinkActive="active" *ngIf="!auth.getToken()">Register</button>
+  <button mat-button (click)="onLogout()" routerLinkActive="active" *ngIf="auth.getToken()">Logout</button>
 </mat-toolbar>

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 // app modules
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,14 +28,10 @@ import { RegistrationComponent } from '../components/registration/registration.c
 
 // app services
 import { RegistrationService } from '../services/registration/registration.service';
-import { LoginService } from '../services/login/login.service';
+import { AuthService } from '../services/auth/auth.service';
 import { AuthGuard } from '../services/auth/auth.guard';
 import { TokenInterceptorService } from '../services/auth/token-interceptor';
-import { JwtInterceptor } from '../services/auth/JWT.interceptor';
-import { ErrorInterceptor } from '../services/auth/error.interceptor';
 import { CookieService } from 'ngx-cookie-service';
-
-// import { LogoutComponent } from '../components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -64,16 +60,14 @@ import { CookieService } from 'ngx-cookie-service';
     MatSelectModule
   ],
   providers: [
-    LoginService,
+    AuthService,
     RegistrationService,
     AuthGuard,
-    ErrorInterceptor,
-    JwtInterceptor,
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]
