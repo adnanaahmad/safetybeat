@@ -4,7 +4,7 @@
 
 <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
   <mat-step [stepControl]="organizationForm">
-    <form [formGroup]="organizationForm" (ngSubmit)="registerOrginazation()">
+    <form [formGroup]="organizationForm">
       <ng-template matStepLabel>Enter your Orginazation Details.</ng-template>
       <div class="form-group">
         <mat-form-field>

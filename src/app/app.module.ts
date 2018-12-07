@@ -27,7 +27,7 @@ import { HeaderComponent } from '../components/header/header.component';
 import { RegistrationComponent } from '../components/registration/registration.component';
 
 // app services
-import { RegistrationService } from '../services/registration/registration.service';
+import { OrganizationService } from '../services/organization/organization.service';
 import { AuthService } from '../services/auth/auth.service';
 import { AuthGuard } from '../services/auth/auth.guard';
 import { TokenInterceptorService } from '../services/auth/token-interceptor';
@@ -61,8 +61,8 @@ import { CookieService } from 'ngx-cookie-service';
   ],
   providers: [
     AuthService,
-    RegistrationService,
     AuthGuard,
+    OrganizationService,
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,

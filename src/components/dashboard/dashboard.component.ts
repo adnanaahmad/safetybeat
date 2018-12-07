@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // services
-import { RegistrationService } from '../../services/registration/registration.service';
+import { OrganizationService } from '../../services/organization/organization.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -59,9 +59,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private regService: RegistrationService,
+    private orgService: OrganizationService,
   ) {
-    this.regService.companyType()
+    this.orgService.companyType()
       .subscribe(data => {
         console.log('data', data);
       },
@@ -89,7 +89,6 @@ export class DashboardComponent implements OnInit {
   }
   selectPackage(data: any) {
     this.selectedPackage = data;
-    console.log('package selected', this.selectedPackage);
   }
   get orgForm() { return this.organizationForm.controls; }
   get modForm() { return this.moduleForm.controls; }

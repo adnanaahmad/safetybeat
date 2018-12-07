@@ -6,10 +6,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptorService } from '../auth/token-interceptor';
 @Injectable({ providedIn: 'root' })
-export class RegistrationService {
+export class OrganizationService {
     constructor(private http: HttpClient, public auth: AuthService) {
     }
-
 
     companyType() {
         return this.http.get(`${environment.apiUrl}/anonymous/companyTypes/`);
