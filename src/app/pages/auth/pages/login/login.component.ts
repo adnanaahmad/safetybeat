@@ -12,9 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  error = '';
+  loading:boolean = false;
+  submitted:boolean = false;
+  error:string = '';
   data: any;
   username: string;
   password: string;

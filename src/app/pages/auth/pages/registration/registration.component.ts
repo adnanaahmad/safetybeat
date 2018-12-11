@@ -11,7 +11,11 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  registerForm: FormGroup;
+  userForm: FormGroup;
+  organizationForm: FormGroup;
+  moduleForm: FormGroup;
+  selectedPackage: any = {};
+  registerData: any = [];
   username: string;
   password: string;
   email: string;
@@ -37,6 +41,10 @@ export class RegistrationComponent implements OnInit {
   first_name: string;
   last_name: string;
   mobile_no: string;
+
+  types: any;
+  modules: any;
+  packages: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -73,7 +81,7 @@ export class RegistrationComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
+    this.userForm = this.formBuilder.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
@@ -82,30 +90,64 @@ export class RegistrationComponent implements OnInit {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
+    this.organizationForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      type: ['', Validators.required],
+      address: ['', Validators.required],
+      zipCode: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
+      fax: ['', Validators.required],
+      billingEmail: ['', Validators.required],
+      accountNo: ['', Validators.required],
+      phoneNo: ['', Validators.required]
+    });
+    this.moduleForm = this.formBuilder.group({
+      name: [[], Validators.required]
+    });
   }
+
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
 
-  get f() {
-    return this.registerForm.controls;
+  get userDetailForm() { return this.userForm.controls; }
+  get orgForm() { return this.organizationForm.controls; }
+  get modForm() { return this.moduleForm.controls; }
+
+  selectPackage(name: any, data: any) {
+    this.selectedPackage[name] = data;
   }
 
-  onSubmit() {
-    if (this.registerForm.invalid) {
+
+  registerOrginazation() {
+    this.submitted = true;
+    this.registerData = {
+      'user': this.userForm.value,
+      'organization': this.organizationForm.value,
+      'module_pkg': []
+    }
+
+    for (const key in this.selectedPackage) {
+      if (this.selectedPackage.hasOwnProperty(key)) {
+        this.registerData.module_pkg.push({ name: key, package: this.selectedPackage[key] })
+      }
+    }
+
+    if (this.userForm.invalid) {
       return;
     }
-    this.registerForm.value.mobile_no = this.registerForm.value.mobile_no.toString();
-    this.auth.registerUser(this.registerForm.value)
-      .subscribe(
-        data => {
-          this.router.navigate(['']);
-        },
-        error => {
-          console.log('Error has been occured');
-        });
+    this.loading = true;
+    // this.auth.registerUser(this.userForm.value)
+    //   .subscribe(
+    //     data => {
+    //       this.router.navigate(['']);
+    //     },
+    //     error => {
+    //       this.loading = false;
+    //     });
   }
 
 }

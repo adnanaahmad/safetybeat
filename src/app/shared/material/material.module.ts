@@ -19,10 +19,11 @@ import {
   MatDialogModule,
   MatGridListModule,
   MatCheckboxModule,
-  // MatDividerModule,
+  MatStepperModule,
   MatSliderModule,
   MatMenuModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatRadioModule
 } from '@angular/material';
 
 @NgModule({
@@ -47,7 +48,9 @@ import {
     MatSortModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatSliderModule
+    MatSliderModule,
+    MatStepperModule,
+    MatRadioModule
   ],
   declarations: [],
   exports: [
@@ -71,7 +74,9 @@ import {
     MatSortModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatSliderModule
+    MatSliderModule,
+    MatStepperModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {}
