@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Observable, forkJoin } from 'rxjs'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -19,13 +19,17 @@ export class AuthService {
     ) { }
 
     loginUser(data) {
-        debugger;
         this.selected = false;
         return this.http.post(`${environment.apiUrl}/anonymous/login/`, data, this.Headers);
     }
+    registrationData(): Observable<any> {
+        let companyTypes = this.http.get(`${environment.apiUrl}/anonymous/companyTypes/`)
+        let modules = this.http.get(`${environment.apiUrl}/anonymous/modules/`)
+        let packages = this.http.get(`${environment.apiUrl}/anonymous/packages/`)
+        return forkJoin([companyTypes, modules, packages])
+    }
     registerUser(data) {
-
-        return this.http.post(`${environment.apiUrl}/anonymous/registration/`, data, this.Headers);
+        return this.http.post(`${environment.apiUrl}/anonymous/registration/`, data, this.Headers)
     }
     logoutUser() {
         this.selected = true;
@@ -36,7 +40,7 @@ export class AuthService {
         return localStorage.getItem('token');
     }
     loggedIn() {
-        return !!localStorage.getItem('token');
+        return localStorage.getItem('token');
     }
     forgotPassword(data) {
         return this.http.post(`${environment.apiUrl}/anonymous/password/reset/`, data, this.Headers);

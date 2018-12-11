@@ -10,9 +10,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  error = '';
+  loading:boolean = false;
+  submitted:boolean = false;
+  error:string = '';
   data: any;
   name_invalid_message = 'username is required';
 

@@ -1,74 +1,208 @@
 <mat-card class="midbox loginbox">
   <mat-card-title>Sign Up</mat-card-title>
   <p class="subheading">If you are not already registered, create an account</p>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Username" formControlName="username" required />
-        <mat-error *ngIf="submitted && f.username.errors && f.username.errors.required">
-          Please enter username.
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="text" placeholder="First Name" formControlName="first_name" required />
-        <mat-error *ngIf="submitted && f.first_name.errors ">
-          Please enter first name.
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Last Name" formControlName="last_name" required />
-        <mat-error *ngIf="submitted && f.last_name.errors ">
-          Please enter last name.
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="email" placeholder="Email" formControlName="email" required />
-        <mat-error *ngIf="submitted && f.email.errors ">
-          Please enter a valid email address
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Mobile No." formControlName="mobile_no" required />
-        <mat-error *ngIf="submitted && f.mobile_no.errors ">
-          Please enter a valid mobile number
-        </mat-error>
-      </mat-form-field>
-    </div>
+  <mat-horizontal-stepper linear #stepper labelPosition="bottom">
+    <mat-step [stepControl]="userForm">
+      <form [formGroup]="userForm">
+        <ng-template matStepLabel>Enter User Details.</ng-template>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Username" formControlName="username" required />
+            <mat-error *ngIf="userDetailForm.username.errors && userDetailForm.username.errors.required">
+              Please enter username.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="text" placeholder="First Name" formControlName="first_name" required />
+            <mat-error *ngIf="userDetailForm.first_name.errors ">
+              Please enter first name.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Last Name" formControlName="last_name" required />
+            <mat-error *ngIf="userDetailForm.last_name.errors ">
+              Please enter last name.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="email" placeholder="Email" formControlName="email" required />
+            <mat-error *ngIf="userDetailForm.email.errors ">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Mobile No." formControlName="mobile_no" required />
+            <mat-error *ngIf="userDetailForm.mobile_no.errors ">
+              Please enter a valid mobile number
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="password" placeholder="Password" formControlName="password1" required />
+            <mat-error *ngIf="userDetailForm.password1.errors ">
+              <span *ngIf="userDetailForm.password1.errors.required">Password is required.</span>
+              <span *ngIf="userDetailForm.password1.errors.minlength">Password must be at least 6 characters.</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="password" placeholder="Confirm Password" formControlName="password2" required />
+            <mat-error *ngIf="userDetailForm.password2.errors ">
+              <span *ngIf="userDetailForm.password2.errors?.required">Password is required.</span>
+              <span *ngIf="userDetailForm.password2.errors?.minlength">Password must be at least 6 characters.</span>
+              <span *ngIf="userDetailForm.password2.errors?.notSame">Password not match.</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="organizationForm">
+      <form [formGroup]="organizationForm">
+        <ng-template matStepLabel>Enter your Orginazation Details.</ng-template>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Name" formControlName="name" required />
+            <mat-error *ngIf="orgForm.name.errors && orgForm.name.errors.required">
+              Please enter username.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-select placeholder="Select Type" formControlName="type" required>
+              <mat-option *ngFor="let type of types" value="type.name">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="orgForm.type.errors && orgForm.type.errors.required">
+              Please Select type.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Address" formControlName="address" required />
+            <mat-error *ngIf="orgForm.address.errors && orgForm.address.errors.required">
+              Please enter Address.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="text" placeholder="City" formControlName="city" required />
+            <mat-error *ngIf="orgForm.city.errors && orgForm.city.errors.required">
+              Please enter City.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Country" formControlName="country" required />
+            <mat-error *ngIf="orgForm.country.errors && orgForm.country.errors.required">
+              Please enter Country.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Zip Code" formControlName="zipCode" required />
+            <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
+              Please enter Zip Code.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="email" placeholder="Billing Email" formControlName="billingEmail" required />
+            <mat-error *ngIf="orgForm.billingEmail.errors && orgForm.billingEmail.errors.required">
+              Please enter Billing Email.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Account No" formControlName="accountNo" required />
+            <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
+              Please enter Account No.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Phone No" formControlName="phoneNo" required />
+            <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
+              Please enter Phone No.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <input matInput type="number" placeholder="Fax" formControlName="fax" required />
+            <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
+              Please enter Fax no.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
 
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="password" placeholder="Password" formControlName="password1" required />
-        <mat-error *ngIf="submitted && f.password1.errors ">
-          <span *ngIf="f.password1.errors.required">Password is required.</span>
-          <span *ngIf="f.password1.errors.minlength">Password must be at least 6 characters.</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
+    <mat-step [stepControl]="moduleForm">
+      <form [formGroup]="moduleForm">
+        <ng-template matStepLabel>Select Module/Modules</ng-template>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-select placeholder="Select Module/Modules" formControlName="name" multiple required>
+              <mat-option *ngFor="let module of modules" [value]="module.name">
+                {{module.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="modForm.name.errors && modForm.name.errors.required">
+              Please Select atleast one Module.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
 
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="password" placeholder="Confirm Password" formControlName="password2" required />
-        <mat-error *ngIf="submitted && f.password2.errors ">
-          <span *ngIf="f.password2.errors?.required">Password is required.</span>
-          <span *ngIf="f.password2.errors?.minlength">Password must be at least 6 characters.</span>
-          <span *ngIf="f.password2.errors?.notSame">Password not match.</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <button mat-raised-button [disabled]="loading" color="primary">
-        Register
-      </button>
-      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-      <a mat-raised-button routerLink="">Cancel</a>
-    </div>
-  </form>
+    <mat-step >
+      <ng-template matStepLabel>Select Package</ng-template>
+      <mat-card *ngFor="let module of moduleForm.value.name">
+        <mat-card-title>{{module}}</mat-card-title>
+        <mat-card-content>
+          <mat-radio-group>
+            <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage(module,package)">
+              <div>
+                <h3>{{package.cost}}</h3>
+                <p>{{package.noOfUsers}}</p>
+              </div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+      </mat-card>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="registerOrginazation()">Submit</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
 </mat-card>
