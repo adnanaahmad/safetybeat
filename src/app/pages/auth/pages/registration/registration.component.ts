@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // services
-import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -52,7 +52,7 @@ export class RegistrationComponent implements OnInit {
     this.auth.registerUser(this.registerForm.value)
       .subscribe(
         data => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['']);
         },
         error => {
           this.loading = false;

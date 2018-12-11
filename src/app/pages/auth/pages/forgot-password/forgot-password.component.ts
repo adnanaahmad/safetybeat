@@ -1,16 +1,17 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 // services
-import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-forgotpassword',
-  templateUrl: './forgotpassword.component.html',
-  styleUrls: ['./forgotpassword.component.scss']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotpasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
   forgotPassForm: FormGroup;
   loading = false;
   error = '';
@@ -45,3 +46,4 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
 }
+

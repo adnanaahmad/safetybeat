@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
-import { AuthService } from '../../services/auth/auth.service';
-import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   templateUrl: 'login.component.html',
   selector: 'app-login',
@@ -21,7 +20,6 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public auth: AuthService,
-    private cookie: CookieService
   ) {
 
   }
@@ -51,7 +49,7 @@ export class LoginComponent implements OnInit {
           data => {
             this.data = data;
             data ? localStorage.setItem('token', this.data.key) : localStorage.setItem('token', '');
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/signup']);
           },
           error => {
             this.error = error;
