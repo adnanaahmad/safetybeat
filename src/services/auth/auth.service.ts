@@ -40,4 +40,11 @@ export class AuthService {
     forgotPassword(data) {
         return this.http.post(`${environment.apiUrl}/anonymous/password/reset/`, data, this.Headers);
     }
+
+    isAuthenticated(): boolean {
+        if (this.getToken()) {
+            return true;
+        }
+        return false;
+    }
 }
