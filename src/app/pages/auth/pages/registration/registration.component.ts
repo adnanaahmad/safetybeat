@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // services
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -11,15 +12,65 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
-  loading = false;
-  submitted = false;
+  username: string;
+  password: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  confirmpassword: string;
+  mobileno: string;
+  username_req: string;
+  password_req: string;
+  email_req: string;
+  firstname_req: string;
+  lastname_req: string;
+  confirmpassword_req: string;
+  mobile_req: string;
+  user: string;
+  signup: string;
+  cancel: string;
+  signup_msg: string;
+  password_error: string;
+  match_error: string;
+  password1: string;
+  password2: string;
+  first_name: string;
+  last_name: string;
+  mobile_no: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private auth: AuthService,
+    public translate: TranslateService
   ) {
-
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+      this.username = values.AUTH.USERNAME;
+      this.password = values.AUTH.PASSWORD;
+      this.email = values.AUTH.EMAIL;
+      this.firstname = values.AUTH.FIRSTNAME;
+      this.lastname = values.AUTH.LASTNAME;
+      this.confirmpassword = values.AUTH.CONFIRM_PASSWORD;
+      this.mobileno = values.AUTH.MOBILENO;
+      this.password1 = values.AUTH.PASSWORD1;
+      this.password2 = values.AUTH.PASSWORD2;
+      this.first_name = values.AUTH.FIRST_NAME;
+      this.last_name = values.AUTH.LAST_NAME;
+      this.mobile_no = values.AUTH.MOBILE_NO;
+      this.username_req = values.AUTH.USERNAME_REQ;
+      this.password_req = values.AUTH.PASSWORD_REQ;
+      this.email_req = values.AUTH.EMAIL_REQ;
+      this.firstname_req = values.AUTH.FIRSTNAME_REQ;
+      this.lastname_req = values.AUTH.LASTNAME_REQ;
+      this.confirmpassword_req = values.AUTH.CONFIRMPASSWORD_REQ;
+      this.mobile_req = values.AUTH.MOBILE_REQ;
+      this.user = values.AUTH.USER;
+      this.signup = values.BUTTONS.REGISTER;
+      this.cancel = values.BUTTONS.CANCEL;
+      this.signup_msg = values.MESSAGES.SIGNUPMESSAGE;
+      this.password_error = values.MESSAGES.PASSWORD_ERROR;
+      this.match_error = values.MESSAGES.MATCH_ERROR;
+    });
   }
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -43,11 +94,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
     if (this.registerForm.invalid) {
       return;
     }
-    this.loading = true;
     this.registerForm.value.mobile_no = this.registerForm.value.mobile_no.toString();
     this.auth.registerUser(this.registerForm.value)
       .subscribe(
@@ -55,7 +104,7 @@ export class RegistrationComponent implements OnInit {
           this.router.navigate(['']);
         },
         error => {
-          this.loading = false;
+          console.log('Error has been occured');
         });
   }
 

@@ -1,74 +1,74 @@
 <mat-card class="midbox loginbox">
-  <mat-card-title>Sign Up</mat-card-title>
-  <p class="subheading">If you are not already registered, create an account</p>
+  <mat-card-title>{{signup}}</mat-card-title>
+  <p class="subheading">{{signup_msg}}</p>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="text" placeholder="Username" formControlName="username" required />
-        <mat-error *ngIf="submitted && f.username.errors && f.username.errors.required">
-          Please enter username.
+        <input matInput type="text" placeholder={{username}} formControlName={{username}} required />
+        <mat-error *ngIf="f.username.errors && f.username.errors.required">
+          {{username_req}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="text" placeholder="First Name" formControlName="first_name" required />
-        <mat-error *ngIf="submitted && f.first_name.errors ">
-          Please enter first name.
+        <input matInput type="text" placeholder={{firstname}} formControlName={{first_name}} required />
+        <mat-error *ngIf="f.first_name.errors ">
+          {{firstname_req}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="text" placeholder="Last Name" formControlName="last_name" required />
-        <mat-error *ngIf="submitted && f.last_name.errors ">
-          Please enter last name.
+        <input matInput type="text" placeholder={{lastname}} formControlName={{last_name}} required />
+        <mat-error *ngIf="f.last_name.errors ">
+          {{lastname_req}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="email" placeholder="Email" formControlName="email" required />
-        <mat-error *ngIf="submitted && f.email.errors ">
-          Please enter a valid email address
+        <input matInput type="email" placeholder={{email}} formControlName={{email}} required />
+        <mat-error *ngIf="f.email.errors ">
+          {{email_req}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="text" placeholder="Mobile No." formControlName="mobile_no" required />
-        <mat-error *ngIf="submitted && f.mobile_no.errors ">
-          Please enter a valid mobile number
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field>
-        <input matInput type="password" placeholder="Password" formControlName="password1" required />
-        <mat-error *ngIf="submitted && f.password1.errors ">
-          <span *ngIf="f.password1.errors.required">Password is required.</span>
-          <span *ngIf="f.password1.errors.minlength">Password must be at least 6 characters.</span>
+        <input matInput type="text" placeholder={{mobileno}} formControlName={{mobile_no}} required />
+        <mat-error *ngIf="f.mobile_no.errors ">
+          {{mobile_req}}
         </mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="password" placeholder="Confirm Password" formControlName="password2" required />
-        <mat-error *ngIf="submitted && f.password2.errors ">
-          <span *ngIf="f.password2.errors?.required">Password is required.</span>
-          <span *ngIf="f.password2.errors?.minlength">Password must be at least 6 characters.</span>
-          <span *ngIf="f.password2.errors?.notSame">Password not match.</span>
+        <input matInput type="password" placeholder={{password}} formControlName={{password1}} required />
+        <mat-error *ngIf="f.password1.errors ">
+          <span *ngIf="f.password1.errors.required">{{password_req}}</span>
+          <span *ngIf="f.password1.errors.minlength">{{password_error}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="password" placeholder={{confirmpassword}} formControlName={{password2}} required />
+        <mat-error *ngIf="f.password2.errors ">
+          <span *ngIf="f.password2.errors?.required">{{confirmpassword_req}}</span>
+          <span *ngIf="f.password2.errors?.minlength">{{password_error}}</span>
+          <span *ngIf="f.password2.errors?.notSame">{{match_error}}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <button mat-raised-button [disabled]="loading" color="primary">
-        Register
+        {{signup}}
       </button>
       <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-      <a mat-raised-button routerLink="">Cancel</a>
+      <a mat-raised-button routerLink="">{{cancel}}</a>
     </div>
   </form>
 </mat-card>

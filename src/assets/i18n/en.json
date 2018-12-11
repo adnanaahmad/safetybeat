@@ -1,0 +1,41 @@
+{
+    "AUTH": {
+        "USERNAME": "username",
+        "PASSWORD": "password",
+        "EMAIL": "email",
+        "FIRSTNAME": "first name",
+        "LASTNAME": "last name",
+        "CONFIRM_PASSWORD": "confirm password",
+        "MOBILENO": "mobile no.",
+        "PASSWORD1": "password1",
+        "PASSWORD2": "password2",
+        "USERNAME_REQ": "Username is required",
+        "PASSWORD_REQ": "Password is required",
+        "FIRSTNAME_REQ": "First Name is required",
+        "LASTNAME_REQ": "Last Name is required",
+        "EMAIL_REQ": "Email is required",
+        "CONFIRMPASSWORD_REQ": "Confirm Password is required",
+        "MOBILE_REQ": "Mobile Number is required",
+        "USER": "username/email",
+        "TOKEN": "token",
+        "FIRST_NAME": "first_name",
+        "LAST_NAME": "last_name",
+        "MOBILE_NO": "mobile_no"
+    },
+    "BUTTONS": {
+        "LOGIN": "LOGIN",
+        "REGISTER": "SIGN UP",
+        "FORGOTPASSWORD": "FORGOT PASSWORD?",
+        "CANCEL": "CANCEL",
+        "RESET": "RESET PASSWORD"
+    },
+    "MESSAGES": {
+        "SIGNINMESSAGE": "You need to sign in to get access",
+        "OR": "OR",
+        "SIGNUPMESSAGE": "If you are not already registered, create an account",
+        "PASSWORD_ERROR": "Password must be at least 6 characters.",
+        "MATCH_ERROR": "Password not match.",
+        "RESET_MSG": "Reset Your Password",
+        "EMAIL_MSG": "Please enter a valid email address"
+    }
+}
