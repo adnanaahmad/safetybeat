@@ -22,14 +22,22 @@ export class AuthService {
         this.selected = false;
         return this.http.post(ConstantService.apiRoutes.login, data, this.Headers);
     }
+
+    /**
+     * api calls to recieve data from db of companyTypes, modules and packages for signup form
+     */
     registrationData(): Observable<any> {
         const companyTypes = this.http.get(ConstantService.apiRoutes.companyTypes);
         const modules = this.http.get(ConstantService.apiRoutes.modules);
         const packages = this.http.get(ConstantService.apiRoutes.packages);
         return forkJoin([companyTypes, modules, packages]);
     }
-    registerUser(data) {
-        return this.http.post(ConstantService.apiRoutes.registration, data, this.Headers);
+    /**
+     * api call to register new user 
+     * @param data complete data of user with organization details and packages
+     */
+    registerUser(data: object) {
+        return this.http.post(ConstantService.apiRoutes.registration, data)
     }
     logoutUser() {
         this.selected = true;
