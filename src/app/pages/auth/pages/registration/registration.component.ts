@@ -27,6 +27,9 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
   ) {
+    /**
+     * to get companyTypes, modules & packages from db
+     */
     this.auth.registrationData()
       .subscribe(data => {
         this.types = data[0],
@@ -63,22 +66,34 @@ export class RegistrationComponent implements OnInit {
       name: [[], Validators.required]
     });
   }
-
+  /**
+   * to check if password and confirm password is same
+   * @param group formGroup for user form
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
-
+  /**
+   * handling forms validations
+   */
   get userDetailForm() { return this.userForm.controls; }
   get orgForm() { return this.organizationForm.controls; }
   get modForm() { return this.moduleForm.controls; }
 
-  selectPackage(name: any, data: any) {
+  /**
+   * saves package against module
+   * @param name name of the module 
+   * @param data selected package against module
+   */
+  selectPackage(name: string, data: object) {
     this.selectedPackage[name] = data;
   }
 
-
+  /**
+   * registerOrgnaization function to register new user with organization info
+   */
   registerOrginazation() {
     this.submitted = true;
     this.registerData = {
@@ -93,7 +108,7 @@ export class RegistrationComponent implements OnInit {
       }
     }
 
-    if (this.userForm.invalid) {
+    if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length !== this.registerData.module_pkg.length)) {
       return;
     }
     this.loading = true;

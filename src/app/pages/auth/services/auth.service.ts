@@ -22,13 +22,21 @@ export class AuthService {
         this.selected = false;
         return this.http.post(`${environment.apiUrl}/anonymous/login/`, data, this.Headers);
     }
+
+    /**
+     * api calls to recieve data from db of companyTypes, modules and packages for signup form
+     */
     registrationData(): Observable<any> {
         let companyTypes = this.http.get(`${environment.apiUrl}/anonymous/companyTypes/`)
         let modules = this.http.get(`${environment.apiUrl}/anonymous/modules/`)
         let packages = this.http.get(`${environment.apiUrl}/anonymous/packages/`)
         return forkJoin([companyTypes, modules, packages])
     }
-    registerUser(data) {
+    /**
+     * api call to register new user 
+     * @param data complete data of user with organization details and packages
+     */
+    registerUser(data: object) {
         return this.http.post(`${environment.apiUrl}/anonymous/registration/`, data)
     }
     logoutUser() {
