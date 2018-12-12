@@ -202,8 +202,8 @@
         </mat-card-content>
       </mat-card>
       <div>
-        <button mat-button matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-        <button mat-button (click)="registerOrginazation()">{{translated.BUTTONS.SUBMIT}}</button>
+        <button mat-button matStepperPrevious [disabled]="loading">{{translated.BUTTONS.BACK}}</button>
+        <button mat-button (click)="registerOrginazation()" [disabled]="loading">{{translated.BUTTONS.SUBMIT}}</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
