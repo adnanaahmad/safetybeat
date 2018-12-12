@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // services
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -13,10 +14,11 @@ export class RegistrationComponent implements OnInit {
   userForm: FormGroup;
   organizationForm: FormGroup;
   moduleForm: FormGroup;
+  loading: boolean;
   selectedPackage: any = {};
   registerData: any = [];
-  loading: boolean = false;
-  submitted: boolean = false;
+
+  translated: object;
 
   types: any;
   modules: any;
@@ -26,15 +28,19 @@ export class RegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private auth: AuthService,
+    public translate: TranslateService
   ) {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+      this.translated = values;
+    });
     this.auth.registrationData()
       .subscribe(data => {
-        this.types = data[0],
-          this.modules = data[1],
-          this.packages = data[2]
+        this.types = data[0];
+        this.modules = data[1];
+        this.packages = data[2];
       },
         error => {
-          console.log(error)
+          console.log(error);
         });
   }
   ngOnInit() {
@@ -80,16 +86,15 @@ export class RegistrationComponent implements OnInit {
 
 
   registerOrginazation() {
-    this.submitted = true;
     this.registerData = {
       'user': this.userForm.value,
       'organization': this.organizationForm.value,
       'module_pkg': []
-    }
+    };
 
     for (const key in this.selectedPackage) {
       if (this.selectedPackage.hasOwnProperty(key)) {
-        this.registerData.module_pkg.push({ name: key, package: this.selectedPackage[key] })
+        this.registerData.module_pkg.push({ name: key, package: this.selectedPackage[key] });
       }
     }
 

@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { TranslateService } from '@ngx-translate/core';
 // services
 import { AuthService } from '../../services/auth.service';
 
@@ -13,15 +13,18 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ForgotPasswordComponent implements OnInit {
   forgotPassForm: FormGroup;
-  loading = false;
   error = '';
-  submitted = false;
+  translated: object;
   constructor(
     public auth: AuthService,
     private router: Router,
-    public formBuilder: FormBuilder
-
-  ) { }
+    public formBuilder: FormBuilder,
+    public translate: TranslateService
+  ) {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+      this.translated = values;
+    });
+  }
   ngOnInit() {
     this.forgotPassForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
@@ -29,7 +32,6 @@ export class ForgotPasswordComponent implements OnInit {
   }
   get f() { return this.forgotPassForm.controls; }
   onSubmit() {
-    this.submitted = true;
     if (this.forgotPassForm.invalid) {
       return;
     }
@@ -39,7 +41,6 @@ export class ForgotPasswordComponent implements OnInit {
       },
       error => {
         this.error = error;
-        this.loading = false;
       }
     );
 
