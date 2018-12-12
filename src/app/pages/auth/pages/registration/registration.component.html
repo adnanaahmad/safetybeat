@@ -204,6 +204,7 @@
       <div>
         <button mat-button matStepperPrevious [disabled]="loading">{{translated.BUTTONS.BACK}}</button>
         <button mat-button (click)="registerOrginazation()" [disabled]="loading">{{translated.BUTTONS.SUBMIT}}</button>
+        <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
       </div>
     </mat-step>
   </mat-horizontal-stepper>
