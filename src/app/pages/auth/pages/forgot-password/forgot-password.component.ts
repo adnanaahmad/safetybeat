@@ -14,11 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class ForgotPasswordComponent implements OnInit {
   forgotPassForm: FormGroup;
   error = '';
-  email: string;
-  email_req: string;
-  reset: string;
-  cancel: string;
-  reset_msg: string;
+  translated: object;
   constructor(
     public auth: AuthService,
     private router: Router,
@@ -26,11 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
     public translate: TranslateService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
-      this.email = values.AUTH.EMAIL;
-      this.email_req = values.MESSAGES.EMAIL_MSG;
-      this.reset_msg = values.MESSAGES.RESET_MSG;
-      this.cancel = values.BUTTONS.CANCEL;
-      this.reset = values.BUTTONS.RESET;
+      this.translated = values;
     });
   }
   ngOnInit() {

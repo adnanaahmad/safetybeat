@@ -12,23 +12,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading:boolean = false;
-  submitted:boolean = false;
-  error:string = '';
+  loading: boolean;
+  error: string;
   data: any;
-  username: string;
-  password: string;
-  email: string;
-  username_req: string;
-  password_req: string;
-  email_req: string;
-  user: string;
-  login: string;
-  signup: string;
-  forgotpassword: string;
-  cancel: string;
-  signin_msg: string;
-  or: string;
+  translated: object;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,18 +24,7 @@ export class LoginComponent implements OnInit {
     public translate: TranslateService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
-      this.username = values.AUTH.USERNAME;
-      this.password = values.AUTH.PASSWORD;
-      this.email = values.AUTH.EMAIL;
-      this.username_req = values.AUTH.USERNAME_REQ;
-      this.password_req = values.AUTH.PASSWORD_REQ;
-      this.email_req = values.AUTH.EMAIL_REQ;
-      this.user = values.AUTH.USER;
-      this.login = values.BUTTONS.LOGIN;
-      this.forgotpassword = values.BUTTONS.FORGOTPASSWORD;
-      this.signup = values.BUTTONS.REGISTER;
-      this.signin_msg = values.MESSAGES.SIGNINMESSAGE;
-      this.or = values.MESSAGES.OR;
+      this.translated = values;
     });
 
   }
@@ -60,14 +36,13 @@ export class LoginComponent implements OnInit {
     });
   }
   get f() { return this.loginForm.controls; }
-  isFieldInvalid(field: string) {
-    return (
-      (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
-      (this.loginForm.get(field).untouched && this.submitted)
-    );
-  }
+  // isFieldInvalid(field: string) {
+  //   return (
+  //     (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
+  //     (this.loginForm.get(field).untouched && this.submitted)
+  //   );
+  // }
   onSubmit() {
-    this.submitted = true;
     if (this.loginForm.invalid) {
       return;
     }
@@ -81,8 +56,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/signup']);
           },
           error => {
-            this.error = error;
             this.loading = false;
+            this.error = error;
           }
         );
     }

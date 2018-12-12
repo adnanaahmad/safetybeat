@@ -1,32 +1,32 @@
 <mat-card class="midbox loginbox">
-  <mat-card-title>{{login}}</mat-card-title>
-  <p class="subheading">{{signin_msg}}</p>
+  <mat-card-title>{{translated.BUTTONS.LOGIN}}</mat-card-title>
+  <p class="subheading">{{translated.MESSAGES.SIGNIN}}</p>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="input">
       <mat-form-field>
-        <input matInput type="text" placeholder={{user}} formControlName={{username}} required />
+        <input matInput type="text" [placeholder]=translated.AUTH.USER formControlName=username required />
         <mat-error *ngIf="f.username.errors">
-          {{username_req}}
+          {{translated.AUTH.USERNAME_REQ}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="password">
       <mat-form-field>
-        <input matInput type="password" placeholder={{password}} formControlName={{password}} required />
+        <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName=password required />
         <mat-error *ngIf="f.password.errors">
-          {{password_req}}
+          {{translated.AUTH.PASSWORD_REQ}}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="button">
-      <button mat-raised-button [disabled]="loading" color="primary">{{login}}</button>
+      <button mat-raised-button [disabled]="loading" color="primary">{{translated.BUTTONS.LOGIN}}</button>
       <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
-      <span class="or">{{or}}</span>
-      <button mat-raised-button routerLink="/signup">{{signup}}</button>
+      <span class="or">{{translated.MESSAGES.OR}}</span>
+      <button mat-raised-button routerLink="/signup">{{translated.BUTTONS.REGISTER}}</button>
     </div>
     <div class="link">
-      <a routerLink="/forgotPassword">{{forgotpassword}}</a>
+      <a routerLink="/forgotPassword">{{translated.BUTTONS.FORGOTPASSWORD}}</a>
     </div>
   </form>
 </mat-card>
