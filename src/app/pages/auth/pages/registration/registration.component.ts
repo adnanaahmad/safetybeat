@@ -39,8 +39,8 @@ export class RegistrationComponent implements OnInit {
       this.translated = values;
     });
     /**
-    * to get companyTypes, modules & packages from db
-    */
+     * to get companyTypes, modules & packages from db
+     */
     this.auth.registrationData()
       .subscribe(data => {
         this.types = data[0];
@@ -58,7 +58,7 @@ export class RegistrationComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       mobile_no: ['', Validators.required],
-      password1: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
     this.organizationForm = this.formBuilder.group({
@@ -82,7 +82,7 @@ export class RegistrationComponent implements OnInit {
    * @param group formGroup for user form
    */
   checkPasswords(group: FormGroup) {
-    const pass = group.controls.password1.value;
+    const pass = group.controls.password.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
@@ -92,12 +92,13 @@ export class RegistrationComponent implements OnInit {
   get userDetailForm() { return this.userForm.controls; }
   get orgForm() { return this.organizationForm.controls; }
   get modForm() { return this.moduleForm.controls; }
+
   /**
    * saves package against module
    * @param name name of the module
    * @param data selected package against module
    */
-  selectPackage(name: any, data: any) {
+  selectPackage(name: string, data: object) {
     this.selectedPackage[name] = data;
   }
 
@@ -116,8 +117,8 @@ export class RegistrationComponent implements OnInit {
         this.registerData.module_pkg.push({ name: key, package: this.selectedPackage[key] });
       }
     }
-
-    if (this.userForm.invalid) {
+    // tslint:disable-next-line:max-line-length
+    if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length !== this.registerData.module_pkg.length)) {
       return;
     }
     this.loading = true;

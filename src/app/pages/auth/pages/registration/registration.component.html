@@ -47,10 +47,10 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password1" required />
-            <mat-error *ngIf="userDetailForm.password1.errors ">
-              <span *ngIf="userDetailForm.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-              <span *ngIf="userDetailForm.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+            <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password" required />
+            <mat-error *ngIf="userDetailForm.password.errors ">
+              <span *ngIf="userDetailForm.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+              <span *ngIf="userDetailForm.password.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
             </mat-error>
           </mat-form-field>
         </div>
