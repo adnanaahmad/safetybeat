@@ -1,0 +1,6 @@
+<mat-toolbar color="primary">
+  <button mat-button *ngIf="auth.isAuthenticated" (click)="auth.logoutUser()">Logout</button>
+  <button mat-button (click)="userData()">profile</button>
+
+
+</mat-toolbar>

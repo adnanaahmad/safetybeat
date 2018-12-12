@@ -7,15 +7,12 @@ import { environment } from '../../../environments/environment';
 export class ConstantService {
   constructor(
   ) { }
-  // environmentUrl = environment.apiUrl;
-
   static apiRoutes = {
     login: `${environment.apiUrl}/anonymous/login/`,
     companyTypes: `${environment.apiUrl}/anonymous/companyTypes/`,
     modules: `${environment.apiUrl}/anonymous/modules/`,
     packages: `${environment.apiUrl}/anonymous/packages/`,
-    registration: '/ anonymous / registration/',
-    passwordReset: '/anonymous/password/reset/'
+    registration: `${environment.apiUrl}/anonymous/registration/`,
+    passwordReset: `${environment.apiUrl}/anonymous/password/reset/`
   };
-  // environmentUrl = environment.apiUrl;
 }

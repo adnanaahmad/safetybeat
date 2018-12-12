@@ -39,7 +39,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" [placeholder]=translated.AUTH.MOBILENO formControlName="mobile_no" required />
+            <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="mobile_no" required />
             <mat-error *ngIf="userDetailForm.mobile_no.errors ">
               {{translated.AUTH.MOBILE_REQ}}
             </mat-error>
@@ -47,10 +47,10 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password1" required />
-            <mat-error *ngIf="userDetailForm.password1.errors ">
-              <span *ngIf="userDetailForm.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-              <span *ngIf="userDetailForm.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+            <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password" required />
+            <mat-error *ngIf="userDetailForm.password.errors ">
+              <span *ngIf="userDetailForm.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+              <span *ngIf="userDetailForm.password.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
             </mat-error>
           </mat-form-field>
         </div>
@@ -119,7 +119,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" [placeholder]=translated.AUTH.ZIPCODE formControlName="zipCode" required />
+            <input matInput type="text" [placeholder]=translated.AUTH.ZIPCODE formControlName="zipCode" required />
             <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
               {{translated.AUTH.ZIPCODE_REQ}}
             </mat-error>
@@ -136,7 +136,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" [placeholder]=translated.AUTH.ACCOUNTNO formControlName="accountNo" required />
+            <input matInput type="text" [placeholder]=translated.AUTH.ACCOUNTNO formControlName="accountNo" required />
             <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
               {{translated.AUTH.ACCOUNTNO_REQ}}
             </mat-error>
@@ -144,7 +144,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" [placeholder]=translated.AUTH.MOBILENO formControlName="phoneNo" required />
+            <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="phoneNo" required />
             <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
               {{translated.AUTH.MOBILE_REQ}}
             </mat-error>
@@ -152,7 +152,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" [placeholder]=translated.AUTH.FAX formControlName="fax" required />
+            <input matInput type="text" [placeholder]=translated.AUTH.FAX formControlName="fax" required />
             <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
               {{translated.AUTH.FAXNO_REQ}}
             </mat-error>
