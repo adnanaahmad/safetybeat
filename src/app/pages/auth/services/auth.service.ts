@@ -29,7 +29,7 @@ export class AuthService {
         return forkJoin([companyTypes, modules, packages])
     }
     registerUser(data) {
-        return this.http.post(`${environment.apiUrl}/anonymous/registration/`, data, this.Headers)
+        return this.http.post(`${environment.apiUrl}/anonymous/registration/`, data)
     }
     logoutUser() {
         this.selected = true;

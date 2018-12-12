@@ -44,7 +44,7 @@ export class RegistrationComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       mobile_no: ['', Validators.required],
-      password1: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
     this.organizationForm = this.formBuilder.group({
@@ -65,7 +65,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   checkPasswords(group: FormGroup) {
-    const pass = group.controls.password1.value;
+    const pass = group.controls.password.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
@@ -97,14 +97,14 @@ export class RegistrationComponent implements OnInit {
       return;
     }
     this.loading = true;
-    // this.auth.registerUser(this.userForm.value)
-    //   .subscribe(
-    //     data => {
-    //       this.router.navigate(['']);
-    //     },
-    //     error => {
-    //       this.loading = false;
-    //     });
+    this.auth.registerUser(this.registerData)
+      .subscribe(
+        data => {
+          this.router.navigate(['']);
+        },
+        error => {
+          this.loading = false;
+        });
   }
 
 }

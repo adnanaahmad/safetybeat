@@ -39,7 +39,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" placeholder="Mobile No." formControlName="mobile_no" required />
+            <input matInput type="text" placeholder="Mobile No." formControlName="mobile_no" required />
             <mat-error *ngIf="userDetailForm.mobile_no.errors ">
               Please enter a valid mobile number
             </mat-error>
@@ -47,10 +47,10 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="password" placeholder="Password" formControlName="password1" required />
-            <mat-error *ngIf="userDetailForm.password1.errors ">
-              <span *ngIf="userDetailForm.password1.errors.required">Password is required.</span>
-              <span *ngIf="userDetailForm.password1.errors.minlength">Password must be at least 6 characters.</span>
+            <input matInput type="password" placeholder="Password" formControlName="password" required />
+            <mat-error *ngIf="userDetailForm.password.errors ">
+              <span *ngIf="userDetailForm.password.errors.required">Password is required.</span>
+              <span *ngIf="userDetailForm.password.errors.minlength">Password must be at least 6 characters.</span>
             </mat-error>
           </mat-form-field>
         </div>
@@ -83,7 +83,7 @@
         <div class="form-group">
           <mat-form-field>
             <mat-select placeholder="Select Type" formControlName="type" required>
-              <mat-option *ngFor="let type of types" value="type.name">
+              <mat-option *ngFor="let type of types" [value]="type.id">
                 {{type.name}}
               </mat-option>
             </mat-select>
@@ -118,7 +118,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" placeholder="Zip Code" formControlName="zipCode" required />
+            <input matInput type="text" placeholder="Zip Code" formControlName="zipCode" required />
             <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
               Please enter Zip Code.
             </mat-error>
@@ -134,7 +134,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" placeholder="Account No" formControlName="accountNo" required />
+            <input matInput type="text" placeholder="Account No" formControlName="accountNo" required />
             <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
               Please enter Account No.
             </mat-error>
@@ -142,7 +142,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" placeholder="Phone No" formControlName="phoneNo" required />
+            <input matInput type="text" placeholder="Phone No" formControlName="phoneNo" required />
             <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
               Please enter Phone No.
             </mat-error>
@@ -150,7 +150,7 @@
         </div>
         <div class="form-group">
           <mat-form-field>
-            <input matInput type="number" placeholder="Fax" formControlName="fax" required />
+            <input matInput type="text" placeholder="Fax" formControlName="fax" required />
             <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
               Please enter Fax no.
             </mat-error>

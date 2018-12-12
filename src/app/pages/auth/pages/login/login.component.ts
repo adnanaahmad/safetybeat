@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           data => {
             this.data = data;
             data ? localStorage.setItem('token', this.data.key) : localStorage.setItem('token', '');
-            this.router.navigate(['/signup']);
+            this.router.navigate(['/dashboard']);
           },
           error => {
             this.error = error;
