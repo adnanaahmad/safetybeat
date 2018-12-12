@@ -22,7 +22,13 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public auth: AuthService,
     public translate: TranslateService
-  ) {
+  )
+  /**
+   *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
+   *file
+   */
+  // tslint:disable-next-line:one-line
+  {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
     });
@@ -35,31 +41,32 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.email]
     });
   }
-  get f() { return this.loginForm.controls; }
-  // isFieldInvalid(field: string) {
-  //   return (
-  //     (!this.loginForm.get(field).valid && this.loginForm.get(field).touched) ||
-  //     (this.loginForm.get(field).untouched && this.submitted)
-  //   );
-  // }
+  /**
+   * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
+   */
+  get formValidation() { return this.loginForm.controls; }
+  /**
+   * this function is used when we click on the login button then first of all it is checked that whether the form data is
+   * valid or not if its invalid then its returned and if this is valid then the loginfrom data is sent to the api and if
+   * the data we get then a token is assigned and we save it in the localstorage and then navigate to the dashboard page
+   * and loading is used to disable the sign up button when the loader is in progress
+   */
   onSubmit() {
     if (this.loginForm.invalid) {
       return;
     }
     this.loading = true;
-    if (this.loginForm.value.username !== '' && this.loginForm.value.password !== '') {
-      this.auth.loginUser(this.loginForm.value)
-        .subscribe(
-          data => {
-            this.data = data;
-            data ? localStorage.setItem('token', this.data.key) : localStorage.setItem('token', '');
-            this.router.navigate(['/signup']);
-          },
-          error => {
-            this.loading = false;
-            this.error = error;
-          }
-        );
-    }
+    this.auth.loginUser(this.loginForm.value)
+      .subscribe(
+        data => {
+          this.data = data;
+          data ? localStorage.setItem('token', this.data.key) : localStorage.setItem('token', '');
+          this.router.navigate(['/signup']);
+        },
+        error => {
+          this.loading = false;
+          this.error = error;
+        }
+      );
   }
 }

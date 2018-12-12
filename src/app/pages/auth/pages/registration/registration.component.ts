@@ -19,7 +19,6 @@ export class RegistrationComponent implements OnInit {
   registerData: any = [];
 
   translated: object;
-
   types: any;
   modules: any;
   packages: any;
@@ -29,10 +28,19 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     public translate: TranslateService
-  ) {
+  )
+  /**
+   *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
+   *file
+   */
+  // tslint:disable-next-line:one-line
+  {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
     });
+    /**
+    * to get companyTypes, modules & packages from db
+    */
     this.auth.registrationData()
       .subscribe(data => {
         this.types = data[0];
@@ -69,22 +77,33 @@ export class RegistrationComponent implements OnInit {
       name: [[], Validators.required]
     });
   }
-
+  /**
+   * to check if password and confirm password is same
+   * @param group formGroup for user form
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
-
+  /**
+   * handling forms validations
+   */
   get userDetailForm() { return this.userForm.controls; }
   get orgForm() { return this.organizationForm.controls; }
   get modForm() { return this.moduleForm.controls; }
-
+  /**
+   * saves package against module
+   * @param name name of the module
+   * @param data selected package against module
+   */
   selectPackage(name: any, data: any) {
     this.selectedPackage[name] = data;
   }
 
-
+  /**
+   * registerOrgnaization function to register new user with organization info
+   */
   registerOrginazation() {
     this.registerData = {
       'user': this.userForm.value,

@@ -20,17 +20,35 @@ export class ForgotPasswordComponent implements OnInit {
     private router: Router,
     public formBuilder: FormBuilder,
     public translate: TranslateService
-  ) {
+  )
+  /**
+ *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
+ *file
+ */
+  // tslint:disable-next-line:one-line
+  {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
     });
   }
-  ngOnInit() {
+  ngOnInit()
+  /**
+   *here we are checking the validity of email
+   */
+  // tslint:disable-next-line:one-line
+  {
     this.forgotPassForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
-  get f() { return this.forgotPassForm.controls; }
+  /**
+ * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
+ */
+  get formValidation() { return this.forgotPassForm.controls; }
+  /**
+   * in this function when the user clicks on the reset button on the forgot password page then the reset password email is
+   * sent to the user.and then navigates to the login page
+   */
   onSubmit() {
     if (this.forgotPassForm.invalid) {
       return;
