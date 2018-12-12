@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
-import { ConstantService } from '../../../shared/constant/constant.service';
+import { ConstantService } from '../../shared/constant/constant.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    Headers = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'noToken': 'noToken'
-        })
-    };
     selected = true;
     constructor(
         private http: HttpClient,
@@ -20,7 +13,7 @@ export class AuthService {
 
     loginUser(data) {
         this.selected = false;
-        return this.http.post(ConstantService.apiRoutes.login, data, this.Headers);
+        return this.http.post(ConstantService.apiRoutes.login, data);
     }
 
     /**
@@ -47,11 +40,8 @@ export class AuthService {
     getToken() {
         return localStorage.getItem('token');
     }
-    loggedIn() {
-        return localStorage.getItem('token');
-    }
     forgotPassword(data) {
-        return this.http.post(ConstantService.apiRoutes.passwordReset, data, this.Headers);
+        return this.http.post(ConstantService.apiRoutes.passwordReset, data);
     }
 
     isAuthenticated(): boolean {

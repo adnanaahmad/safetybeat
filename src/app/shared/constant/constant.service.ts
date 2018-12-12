@@ -12,7 +12,7 @@ export class ConstantService {
     companyTypes: `${environment.apiUrl}/anonymous/companyTypes/`,
     modules: `${environment.apiUrl}/anonymous/modules/`,
     packages: `${environment.apiUrl}/anonymous/packages/`,
-    registration: `${environment.apiUrl}/ anonymous / registration/`,
+    registration: `${environment.apiUrl}/anonymous/registration/`,
     passwordReset: `${environment.apiUrl}/anonymous/password/reset/`
   };
 }

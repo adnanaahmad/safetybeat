@@ -7,10 +7,10 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './services/auth.guard';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthGuard } from '../../core/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptorService } from './services/token-interceptor';
+import { TokenInterceptorService } from '../../core/interceptors/token-interceptor';
 @NgModule({
 
   imports: [

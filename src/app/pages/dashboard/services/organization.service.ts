@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { environment } from '../../environments/environment';
-// import { AuthService } from '../auth/auth.service';
-import { HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-// import { TokenInterceptorService } from '../auth/token-interceptor';
+import { environment } from '../../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class OrganizationService {
-    // constructor(private http: HttpClient, public auth: AuthService) {
-    // }
+    constructor(private http: HttpClient) {
+    }
 
-    companyType() {
-        // return this.http.get(`${environment.apiUrl}/anonymous/companyTypes/`);
+    getUser() {
+        return this.http.get(`${environment.apiUrl}/anonymous/organization/`);
     }
 }
