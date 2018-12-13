@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         data => {
           this.data = data;
           data ? localStorage.setItem('token', this.data.token) : localStorage.setItem('token', '');
-          this.router.navigate(['/signup']);
+          this.router.navigate(['/dashboard']);
         },
         error => {
           this.loading = false;

@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 describe('Service:Auth', () => {
     let service: AuthService;
+    // tslint:disable-next-line:prefer-const
     let http: HttpClient;
+    // tslint:disable-next-line:prefer-const
     let router: Router;
     beforeEach(() => {
         service = new AuthService(http, router);

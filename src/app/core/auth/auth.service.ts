@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
-import { ConstantService } from '../../../shared/constant/constant.service';
+import { ConstantService } from '../../shared/constant/constant.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     Headers = {
@@ -12,6 +11,7 @@ export class AuthService {
             'noToken': 'noToken'
         })
     };
+    selected = true;
     constructor(
         private http: HttpClient,
         private router: Router,
@@ -23,7 +23,7 @@ export class AuthService {
      */
 
     loginUser(data) {
-        return this.http.post(ConstantService.apiRoutes.login, data, this.Headers);
+        return this.http.post(ConstantService.apiRoutes.login, data);
     }
     /**
      * in this function all the api calls related to organization registration data are called over here
@@ -66,7 +66,7 @@ export class AuthService {
      * user gets an email to reset his/her password and that email comes backend api.
      */
     forgotPassword(data) {
-        return this.http.post(ConstantService.apiRoutes.passwordReset, data, this.Headers);
+        return this.http.post(ConstantService.apiRoutes.passwordReset, data);
     }
     /**
      * this fucntion only tells that if the user has been assigned any token then return true other wise return false
