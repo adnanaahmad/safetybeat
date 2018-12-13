@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MaterialModule } from 'src/app/shared/material/material.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrganizationService } from './services/organization.service';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';

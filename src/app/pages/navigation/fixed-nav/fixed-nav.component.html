@@ -1,0 +1,16 @@
+<!-- <p>
+  fixed-nav works!
+</p> -->
+<div class="menu-button">
+  <button (click)="toggleSideNav()" mat-mini-fab color="primary">
+    <mat-icon *ngIf="!navOpened">chevron_right</mat-icon>
+    <mat-icon *ngIf="navOpened">chevron_left</mat-icon>
+  </button>
+</div>
+<mat-nav-list class="nav-list">
+  <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.path" routerLinkActive="active">
+    <a class="nav-link">
+      <mat-icon>{{ link.icon }}</mat-icon>
+    </a>
+  </mat-list-item>
+</mat-nav-list>

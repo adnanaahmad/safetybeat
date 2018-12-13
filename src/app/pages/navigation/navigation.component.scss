@@ -1,0 +1,45 @@
+
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  
+  mat-sidenav {
+    width: 160px;
+  }
+  
+  mat-sidenav-container {
+    flex: 1;
+  }
+  
+  .app-content {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+  
+  .header {
+    flex: 0 1 auto;
+  }
+  
+  .page-content {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 0;
+    overflow-y: auto;
+  }
+  
+  // .app-content {
+  //   height: 100vh;
+  //   max-height: 100vh;
+  //   overflow-y: hidden;
+  //   flex: 0 1 auto;
+  //   flex-direction: column;
+  //   .page-content {
+  //     // flex: 1;
+  //     // overflow-y: auto;
+  //   }
+  // }
+  
