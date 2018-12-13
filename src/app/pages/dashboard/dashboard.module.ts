@@ -18,7 +18,7 @@ import { TokenInterceptorService } from 'src/app/core/interceptors/token-interce
     DashboardRoutingModule,
     MaterialModule
   ],
-  providers:[
+  providers: [
     OrganizationService,
     AuthGuard,
     {

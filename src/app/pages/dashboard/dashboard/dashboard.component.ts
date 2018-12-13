@@ -19,9 +19,9 @@ export class DashboardComponent implements OnInit {
 
   userData() {
     this.org.getUser().subscribe(data => {
-      console.log(data)
+      console.log(data);
     }, err => {
-      console.log(err)
-    })
+      console.log(err);
+    });
   }
 }

@@ -19,7 +19,6 @@ export class RegistrationComponent implements OnInit {
   registerData: any = [];
 
   translated: object;
-
   types: any;
   modules: any;
   packages: any;
@@ -29,7 +28,13 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     public translate: TranslateService
-  ) {
+  )
+  /**
+   *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
+   *file
+   */
+  // tslint:disable-next-line:one-line
+  {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
     });
@@ -90,7 +95,7 @@ export class RegistrationComponent implements OnInit {
 
   /**
    * saves package against module
-   * @param name name of the module 
+   * @param name name of the module
    * @param data selected package against module
    */
   selectPackage(name: string, data: object) {
@@ -112,7 +117,7 @@ export class RegistrationComponent implements OnInit {
         this.registerData.module_pkg.push({ name: key, package: this.selectedPackage[key] });
       }
     }
-
+    // tslint:disable-next-line:max-line-length
     if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length !== this.registerData.module_pkg.length)) {
       return;
     }
