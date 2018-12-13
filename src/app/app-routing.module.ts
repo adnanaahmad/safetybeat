@@ -8,10 +8,9 @@ const routes: Routes = [
     loadChildren: './pages/auth/auth.module#AuthModule',
   },
   {
-    path: 'dashboard',
-    // canActivate:[AuthGuard],
-    loadChildren: './pages/dashboard/dashboard.module#DashboardModule',
-    
+    path: 'home',
+    canActivate: [AuthGuard],
+    loadChildren: './pages/navigation/navigation.module#NavigationModule'
   },
   {
     path: '**',
@@ -24,7 +23,7 @@ const routes: Routes = [
     RouterModule.forRoot(
       routes,
       {
-        enableTracing: false,// <-- debugging purposes only
+        enableTracing: false, // <-- debugging purposes only
       }
     )
   ],

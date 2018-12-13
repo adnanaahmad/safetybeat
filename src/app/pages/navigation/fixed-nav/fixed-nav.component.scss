@@ -1,0 +1,15 @@
+:host {
+    // background-color: mat-color($app-background, 800);
+    display: flex;
+    flex-direction: column;
+    // align-items: flex-start;
+  }
+  
+  .menu-button {
+    align-self: center;
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
