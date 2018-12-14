@@ -3,14 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { ConstantService } from '../../shared/constant/constant.service';
+import { loginCredentials, LoginResponse, registerData, ForgotPassword, ForgotPasswordResponse } from '../../features/user/user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    Headers = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'noToken': 'noToken'
-        })
-    };
+    storageKey = 'token'
     selected = true;
     constructor(
         private http: HttpClient,
@@ -22,8 +18,8 @@ export class AuthService {
      * @param data \
      */
 
-    loginUser(data) {
-        return this.http.post(ConstantService.apiRoutes.login, data);
+    loginUser(data: loginCredentials): Observable<LoginResponse> {
+        return this.http.post<LoginResponse>(ConstantService.apiRoutes.login, data);
     }
     /**
      * in this function all the api calls related to organization registration data are called over here
@@ -41,22 +37,34 @@ export class AuthService {
      * in this function all the data that comes in the organization registration form is passed to this function
      * and then it is sent to the related api to register the user with the organization,module and packages data.
      */
-    registerUser(data) {
-        return this.http.post(ConstantService.apiRoutes.registration, data, this.Headers);
+    registerUser(data: object) {
+        return this.http.post(ConstantService.apiRoutes.registration, data);
     }
     /**
-     * in this function when the user clicks on the logout button it removes the token from the localstorage and makes
-     * the user logged out and returns to the login page.
+     * this function logs out the user and returns to login page
      */
     logoutUser() {
-        localStorage.removeItem('token');
+        this.removeToken()
         this.router.navigate(['/login']);
     }
     /**
      * this function is used to get the token key that the user gets when he logs in.
      */
     getToken() {
-        return localStorage.getItem('token');
+        return localStorage.getItem(this.storageKey);
+    }
+    /**
+     * this function is used to set the Token key when the user logs in, 
+     * @param token #string
+     */
+    setToken(token: string) {
+        localStorage.setItem(this.storageKey, token);
+    }
+    /**
+     * this function removes the token from the localstorage 
+     */
+    removeToken() {
+        localStorage.removeItem(this.storageKey);
     }
     /**
      *
@@ -65,8 +73,8 @@ export class AuthService {
      * forgotpassword component and in that component the email is written and then we click on the reset button and
      * user gets an email to reset his/her password and that email comes backend api.
      */
-    forgotPassword(data) {
-        return this.http.post(ConstantService.apiRoutes.passwordReset, data);
+    forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
+        return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
     /**
      * this fucntion only tells that if the user has been assigned any token then return true other wise return false

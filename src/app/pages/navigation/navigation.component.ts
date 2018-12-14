@@ -12,7 +12,7 @@ export class NavigationComponent implements OnInit {
 
   public navLinks = [
     { path: '/home', icon: 'dashboard', label: 'Dashboard' },
-    { path: '/home', icon: 'person_pin', label: 'Profile' }
+    { path: '/home', icon: 'supervised_user_circle', label: 'Profile' }
   ];
   constructor() { }
 
