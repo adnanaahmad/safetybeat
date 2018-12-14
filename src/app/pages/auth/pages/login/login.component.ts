@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.data = data;
-          data ? localStorage.setItem('token', this.data.token) : localStorage.setItem('token', '');
+          data ? this.auth.setToken(this.data.token) : this.auth.setToken('');
           this.router.navigate(['/home']);
         },
         error => {
