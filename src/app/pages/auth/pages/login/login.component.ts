@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
 import { AuthService } from '../../../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrManager, Toastr } from 'ng6-toastr-notifications';
+// import { ToastService } from '../../../alerts/services/toast.service';
+// import { IToast } from '../../../../core/models/toast.interface';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -21,7 +24,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public auth: AuthService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public toastProvider: ToastrManager
   )
   /**
    *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
@@ -61,11 +65,13 @@ export class LoginComponent implements OnInit {
         data => {
           this.data = data;
           data ? localStorage.setItem('token', this.data.token) : localStorage.setItem('token', '');
+          // tslint:disable-next-line:max-line-length
+          this.toastProvider.successToastr('You have been logged in successfully', 'Login Successful!', [{ toastLife: 1000 }, { animate: 'slideFromRight' }]);
           this.router.navigate(['/home']);
         },
         error => {
           this.loading = false;
-          this.error = error;
+          this.toastProvider.errorToastr('Your login attempt has been unsuccessful', 'Login Unsuccessful!', { animate: 'slideFromLeft' });
         }
       );
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -6,24 +6,28 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'anonymous-FrontEnd';
-  constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang('en');
-    const browserLang = this.translate.getBrowserLang();
+  constructor(protected injector: Injector) {
+
+  }
+  ngOnInit() {
+    const translate = this.injector.get(TranslateService);
+    translate.setDefaultLang('en');
+    const browserLang = translate.getBrowserLang();
     if (browserLang) {
       if (browserLang === 'zh') {
-        const browserCultureLang = this.translate.getBrowserCultureLang();
+        const browserCultureLang = translate.getBrowserCultureLang();
         if (browserCultureLang.match(/-CN|CHS|Hans/i)) {
-          this.translate.use('zh-cmn-Hans');
+          translate.use('zh-cmn-Hans');
         } else if (browserCultureLang.match(/-TW|CHT|Hant/i)) {
-          this.translate.use('zh-cmn-Hant');
+          translate.use('zh-cmn-Hant');
         }
       } else {
-        this.translate.use(this.translate.getBrowserLang());
+        translate.use(translate.getBrowserLang());
       }
     } else {
-      this.translate.use('en'); // Set your language here
+      translate.use('en'); // Set your language here
     }
   }
 }

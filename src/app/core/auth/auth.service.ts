@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { ConstantService } from '../../shared/constant/constant.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     Headers = {
@@ -15,6 +16,7 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         private router: Router,
+        public toastProvider: ToastrManager
     ) { }
     /**
      * login user api is called here and api url comes from constant service and login data that comes from
@@ -50,6 +52,8 @@ export class AuthService {
      */
     logoutUser() {
         localStorage.removeItem('token');
+        this.toastProvider.warningToastr('You have been logged out successfully', 'Logout Successful!',
+            [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
         this.router.navigate(['/login']);
     }
     /**
@@ -66,6 +70,8 @@ export class AuthService {
      * user gets an email to reset his/her password and that email comes backend api.
      */
     forgotPassword(data) {
+        this.toastProvider.warningToastr('Email has been sent to you', 'Email has been sent!',
+            [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
         return this.http.post(ConstantService.apiRoutes.passwordReset, data);
     }
     /**
