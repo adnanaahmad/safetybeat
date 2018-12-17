@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 // services
 import { AuthService } from '../../../../core/auth/auth.service';
+import { ForgotPassword } from 'src/app/features/user/user.model';
 
 @Component({
   selector: 'app-forgot-password',
@@ -49,11 +50,11 @@ export class ForgotPasswordComponent implements OnInit {
    * in this function when the user clicks on the reset button on the forgot password page then the reset password email is
    * sent to the user.and then navigates to the login page
    */
-  onSubmit() {
-    if (this.forgotPassForm.invalid) {
+  onSubmit({ value, valid }: { value: ForgotPassword; valid: boolean }): void {
+    if (!valid) {
       return;
     }
-    this.auth.forgotPassword(this.forgotPassForm.value).subscribe(
+    this.auth.forgotPassword(value).subscribe(
       data => {
         this.router.navigate(['/login']);
       },

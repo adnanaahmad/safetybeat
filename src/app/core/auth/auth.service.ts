@@ -4,28 +4,37 @@ import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { ConstantService } from '../../shared/constant/constant.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { loginCredentials, LoginResponse, registerData, ForgotPassword, ForgotPasswordResponse } from '../../features/user/user.model';
+import { TranslateService } from '@ngx-translate/core';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    Headers = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'noToken': 'noToken'
-        })
-    };
+    storageKey = 'token';
     selected = true;
+    logout_success: string;
+    logout_msg: string;
+    reset_success: string;
+    reset_msg: string;
     constructor(
         private http: HttpClient,
         private router: Router,
-        public toastProvider: ToastrManager
-    ) { }
+        public toastProvider: ToastrManager,
+        private translate: TranslateService
+    ) {
+        translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+            this.logout_success = values.MESSAGES.LOGOUT_SUCCESS;
+            this.logout_msg = values.MESSAGES.LOGOUT_MSG;
+            this.reset_success = values.MESSAGES.RESET_SUCCESS;
+            this.reset_msg = values.MESSAGES.RESETMSG;
+        });
+    }
     /**
      * login user api is called here and api url comes from constant service and login data that comes from
      * login.component.html file is passed here with the apiUrl
      * @param data \
      */
 
-    loginUser(data) {
-        return this.http.post(ConstantService.apiRoutes.login, data);
+    loginUser(data: loginCredentials): Observable<LoginResponse> {
+        return this.http.post<LoginResponse>(ConstantService.apiRoutes.login, data);
     }
     /**
      * in this function all the api calls related to organization registration data are called over here
@@ -43,16 +52,15 @@ export class AuthService {
      * in this function all the data that comes in the organization registration form is passed to this function
      * and then it is sent to the related api to register the user with the organization,module and packages data.
      */
-    registerUser(data) {
-        return this.http.post(ConstantService.apiRoutes.registration, data, this.Headers);
+    registerUser(data: object) {
+        return this.http.post(ConstantService.apiRoutes.registration, data);
     }
     /**
-     * in this function when the user clicks on the logout button it removes the token from the localstorage and makes
-     * the user logged out and returns to the login page.
+     * this function logs out the user and returns to login page
      */
     logoutUser() {
-        localStorage.removeItem('token');
-        this.toastProvider.warningToastr('You have been logged out successfully', 'Logout Successful!',
+        this.removeToken();
+        this.toastProvider.warningToastr(this.logout_success, this.logout_msg,
             [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
         this.router.navigate(['/login']);
     }
@@ -60,7 +68,20 @@ export class AuthService {
      * this function is used to get the token key that the user gets when he logs in.
      */
     getToken() {
-        return localStorage.getItem('token');
+        return localStorage.getItem(this.storageKey);
+    }
+    /**
+     * this function is used to set the Token key when the user logs in,
+     * @param token #string
+     */
+    setToken(token: string) {
+        localStorage.setItem(this.storageKey, token);
+    }
+    /**
+     * this function removes the token from the localstorage
+     */
+    removeToken() {
+        localStorage.removeItem(this.storageKey);
     }
     /**
      *
@@ -69,10 +90,10 @@ export class AuthService {
      * forgotpassword component and in that component the email is written and then we click on the reset button and
      * user gets an email to reset his/her password and that email comes backend api.
      */
-    forgotPassword(data) {
-        this.toastProvider.warningToastr('Email has been sent to you', 'Email has been sent!',
+    forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
+        this.toastProvider.warningToastr(this.reset_success, this.reset_msg,
             [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
-        return this.http.post(ConstantService.apiRoutes.passwordReset, data);
+        return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
     /**
      * this fucntion only tells that if the user has been assigned any token then return true other wise return false

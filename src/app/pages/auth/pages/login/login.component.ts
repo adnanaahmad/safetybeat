@@ -4,9 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
 import { AuthService } from '../../../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastrManager, Toastr } from 'ng6-toastr-notifications';
-// import { ToastService } from '../../../alerts/services/toast.service';
-// import { IToast } from '../../../../core/models/toast.interface';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import {
+  loginCredentials,
+  LoginResponse
+} from '../../../../features/user/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -19,6 +22,10 @@ export class LoginComponent implements OnInit {
   error: string;
   data: any;
   translated: object;
+  login_success: string;
+  login_fail: string;
+  login_msg: string;
+  loginfail_msg: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +42,11 @@ export class LoginComponent implements OnInit {
   {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
+      this.login_success = values.MESSAGES.LOGIN_SUCCESS;
+      this.login_fail = values.MESSAGES.LOGIN_FAIL;
+      this.login_msg = values.MESSAGES.LOGIN_MSG;
+      this.loginfail_msg = values.MESSAGES.LOGINFAIL_MSG;
+
     });
 
   }
@@ -55,23 +67,24 @@ export class LoginComponent implements OnInit {
    * the data we get then a token is assigned and we save it in the localstorage and then navigate to the dashboard page
    * and loading is used to disable the sign up button when the loader is in progress
    */
-  onSubmit() {
-    if (this.loginForm.invalid) {
+  onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
+    if (!valid) {
       return;
     }
     this.loading = true;
-    this.auth.loginUser(this.loginForm.value)
+    this.auth.loginUser(value)
       .subscribe(
         data => {
           this.data = data;
-          data ? localStorage.setItem('token', this.data.token) : localStorage.setItem('token', '');
-          // tslint:disable-next-line:max-line-length
-          this.toastProvider.successToastr('You have been logged in successfully', 'Login Successful!', [{ toastLife: 1000 }, { animate: 'slideFromRight' }]);
+          data ? this.auth.setToken(this.data.token) : this.auth.setToken('');
+          this.toastProvider.successToastr(this.login_success, this.login_msg,
+            [{ toastLife: 1000 }, { animate: 'slideFromRight' }]);
           this.router.navigate(['/home']);
         },
         error => {
           this.loading = false;
-          this.toastProvider.errorToastr('Your login attempt has been unsuccessful', 'Login Unsuccessful!', { animate: 'slideFromLeft' });
+          this.toastProvider.errorToastr(this.login_fail, this.loginfail_msg,
+            { animate: 'slideFromLeft' });
         }
       );
   }

@@ -9,7 +9,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthGuard } from '../../core/guards/auth.guard';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TokenInterceptorService } from '../../core/interceptors/token-interceptor';
 @NgModule({
 
