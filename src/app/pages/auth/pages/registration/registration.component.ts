@@ -5,6 +5,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
 import { AuthService } from '../../../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  loginCredentials,
+  LoginResponse,
+  registerData,
+  ForgotPassword,
+  ForgotPasswordResponse,
+  RegisterUser,
+  RegisterOrganization,
+  packges
+} from '../../../../features/user/user.model';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -17,7 +28,6 @@ export class RegistrationComponent implements OnInit {
   loading: boolean;
   selectedPackage: any = {};
   registerData: any = [];
-
   translated: object;
   types: any;
   modules: any;
@@ -98,7 +108,7 @@ export class RegistrationComponent implements OnInit {
    * @param name name of the module
    * @param data selected package against module
    */
-  selectPackage(name: string, data: object) {
+  selectPackage(name: string, data: packges) {
     this.selectedPackage[name] = data;
   }
 
@@ -107,8 +117,8 @@ export class RegistrationComponent implements OnInit {
    */
   registerOrginazation() {
     this.registerData = {
-      'user': this.userForm.value,
-      'organization': this.organizationForm.value,
+      'user': <RegisterUser>this.userForm.value,
+      'organization': <RegisterOrganization>this.organizationForm.value,
       'module_pkg': []
     };
 
