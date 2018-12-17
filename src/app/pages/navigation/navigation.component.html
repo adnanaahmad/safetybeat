@@ -1,3 +1,14 @@
+<mat-toolbar color="primary">
+  <div class="btn">
+    <button mat-button *ngIf="auth.isAuthenticated" (click)="auth.logoutUser()">Logout</button>
+    <button mat-button [matMenuTriggerFor]="modules">Module</button>
+
+    <mat-menu #modules="matMenu">
+      <button mat-menu-item>SafetyBeat</button>
+      <button mat-menu-item>Field Communication</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
 <div class="container">
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
