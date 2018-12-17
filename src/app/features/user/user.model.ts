@@ -53,5 +53,11 @@ export interface ForgotPassword {
     email: string;
 }
 export interface ForgotPasswordResponse {
-    detail: string
+    detail: string;
+}
+export interface packges {
+    cost: string;
+    id: number;
+    noOfUsers: string;
+    packageName: string;
 }

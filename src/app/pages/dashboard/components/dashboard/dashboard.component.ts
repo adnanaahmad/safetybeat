@@ -39,12 +39,4 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  userData() {
-    this.org.getUser().subscribe(data => {
-      console.log(data);
-    }, err => {
-      console.log(err);
-    });
-  }
 }

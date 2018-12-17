@@ -4,6 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
 import { AuthService } from '../../../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import {
+  loginCredentials,
+  LoginResponse
+} from '../../../../features/user/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -16,12 +22,17 @@ export class LoginComponent implements OnInit {
   error: string;
   data: any;
   translated: object;
+  login_success: string;
+  login_fail: string;
+  login_msg: string;
+  loginfail_msg: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     public auth: AuthService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public toastProvider: ToastrManager
   )
   /**
    *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
@@ -31,6 +42,11 @@ export class LoginComponent implements OnInit {
   {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
+      this.login_success = values.MESSAGES.LOGIN_SUCCESS;
+      this.login_fail = values.MESSAGES.LOGIN_FAIL;
+      this.login_msg = values.MESSAGES.LOGIN_MSG;
+      this.loginfail_msg = values.MESSAGES.LOGINFAIL_MSG;
+
     });
 
   }
@@ -51,21 +67,24 @@ export class LoginComponent implements OnInit {
    * the data we get then a token is assigned and we save it in the localstorage and then navigate to the dashboard page
    * and loading is used to disable the sign up button when the loader is in progress
    */
-  onSubmit() {
-    if (this.loginForm.invalid) {
+  onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
+    if (!valid) {
       return;
     }
     this.loading = true;
-    this.auth.loginUser(this.loginForm.value)
+    this.auth.loginUser(value)
       .subscribe(
         data => {
           this.data = data;
           data ? this.auth.setToken(this.data.token) : this.auth.setToken('');
+          this.toastProvider.successToastr(this.login_success, this.login_msg,
+            [{ toastLife: 1000 }, { animate: 'slideFromRight' }]);
           this.router.navigate(['/home']);
         },
         error => {
           this.loading = false;
-          this.error = error;
+          this.toastProvider.errorToastr(this.login_fail, this.loginfail_msg,
+            { animate: 'slideFromLeft' });
         }
       );
   }

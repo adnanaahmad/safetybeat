@@ -1,7 +1,7 @@
 <mat-card class="midbox loginbox">
   <mat-card-title>{{translated.BUTTONS.LOGIN}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNIN}}</p>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
     <div class="input">
       <mat-form-field>
         <input matInput type="text" [placeholder]=translated.AUTH.USER formControlName=username required />
@@ -19,7 +19,7 @@
       </mat-form-field>
     </div>
     <div class="button">
-      <button mat-raised-button [disabled]="loading" color="primary">{{translated.BUTTONS.LOGIN}}</button>
+      <button mat-raised-button [disabled]="loading" type="submit" color="primary">{{translated.BUTTONS.LOGIN}}</button>
       <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
 
       <span class="or">{{translated.MESSAGES.OR}}</span>
