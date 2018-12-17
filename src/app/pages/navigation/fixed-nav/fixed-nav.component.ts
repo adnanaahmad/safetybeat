@@ -12,6 +12,7 @@ export class FixedNavComponent implements OnInit {
   sidenavToggle = new EventEmitter<boolean>();
   public navLinks = [
     { path: '/home', icon: 'dashboard' },
+    { path: '/home/profile', icon: 'supervised_user_circle' }
   ];
   // Toggle the sidenav
   public toggleSideNav() {

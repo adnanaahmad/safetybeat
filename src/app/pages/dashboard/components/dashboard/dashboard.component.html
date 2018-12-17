@@ -1,7 +1,6 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <div class="btn">
     <button mat-button *ngIf="auth.isAuthenticated" (click)="auth.logoutUser()">Logout</button>
-    <!-- <button mat-button (click)="userData()">profile</button> -->
     <button mat-button [matMenuTriggerFor]="modules">Module</button>
 
     <mat-menu #modules="matMenu">
@@ -9,7 +8,7 @@
       <button mat-menu-item>Field Communication</button>
     </mat-menu>
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">

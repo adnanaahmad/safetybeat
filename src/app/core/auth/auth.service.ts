@@ -3,15 +3,30 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { ConstantService } from '../../shared/constant/constant.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { loginCredentials, LoginResponse, registerData, ForgotPassword, ForgotPasswordResponse } from '../../features/user/user.model';
+import { TranslateService } from '@ngx-translate/core';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    storageKey = 'token'
+    storageKey = 'token';
     selected = true;
+    logout_success: string;
+    logout_msg: string;
+    reset_success: string;
+    reset_msg: string;
     constructor(
         private http: HttpClient,
         private router: Router,
-    ) { }
+        public toastProvider: ToastrManager,
+        private translate: TranslateService
+    ) {
+        translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+            this.logout_success = values.MESSAGES.LOGOUT_SUCCESS;
+            this.logout_msg = values.MESSAGES.LOGOUT_MSG;
+            this.reset_success = values.MESSAGES.RESET_SUCCESS;
+            this.reset_msg = values.MESSAGES.RESETMSG;
+        });
+    }
     /**
      * login user api is called here and api url comes from constant service and login data that comes from
      * login.component.html file is passed here with the apiUrl
@@ -44,7 +59,9 @@ export class AuthService {
      * this function logs out the user and returns to login page
      */
     logoutUser() {
-        this.removeToken()
+        this.removeToken();
+        this.toastProvider.warningToastr(this.logout_success, this.logout_msg,
+            [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
         this.router.navigate(['/login']);
     }
     /**
@@ -54,14 +71,14 @@ export class AuthService {
         return localStorage.getItem(this.storageKey);
     }
     /**
-     * this function is used to set the Token key when the user logs in, 
+     * this function is used to set the Token key when the user logs in,
      * @param token #string
      */
     setToken(token: string) {
         localStorage.setItem(this.storageKey, token);
     }
     /**
-     * this function removes the token from the localstorage 
+     * this function removes the token from the localstorage
      */
     removeToken() {
         localStorage.removeItem(this.storageKey);
@@ -74,6 +91,8 @@ export class AuthService {
      * user gets an email to reset his/her password and that email comes backend api.
      */
     forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
+        this.toastProvider.warningToastr(this.reset_success, this.reset_msg,
+            [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
         return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
     /**

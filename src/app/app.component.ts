@@ -6,12 +6,12 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'anonymous-FrontEnd';
-  constructor(public injector: Injector) {
-    
+  constructor(protected injector: Injector) {
+
   }
-  ngOnInit(){
+  ngOnInit() {
     const translate = this.injector.get(TranslateService);
     translate.setDefaultLang('en');
     const browserLang = translate.getBrowserLang();
