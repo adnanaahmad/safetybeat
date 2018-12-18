@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthGuard } from './core/guards/auth.guard';
 import { TokenInterceptorService } from './core/interceptors/token-interceptor';
-import { ToastrModule } from 'ng6-toastr-notifications';
+import { ToastrModule, ToastrManager } from 'ng6-toastr-notifications';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

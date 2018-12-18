@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
@@ -7,7 +7,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { loginCredentials, LoginResponse, registerData, ForgotPassword, ForgotPasswordResponse } from '../../features/user/user.model';
 import { TranslateService } from '@ngx-translate/core';
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthService implements OnInit {
     storageKey = 'token';
     selected = true;
     logout_success: string;
@@ -20,7 +20,11 @@ export class AuthService {
         public toastProvider: ToastrManager,
         private translate: TranslateService
     ) {
-        translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+
+    }
+
+    ngOnInit() {
+        this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
             this.logout_success = values.MESSAGES.LOGOUT_SUCCESS;
             this.logout_msg = values.MESSAGES.LOGOUT_MSG;
             this.reset_success = values.MESSAGES.RESET_SUCCESS;
