@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import 'src/theme/variables.scss';
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; }
 *{
@@ -52,6 +52,9 @@ body { margin: 0; font-family: 'Montserrat', sans-serif; }
     div.link{
         a{
             text-decoration: none;
+            text-transform: capitalize;
+            font-weight: 500;
+            font-size: 14px;
         }
     }
 }
@@ -112,9 +115,22 @@ body { margin: 0; font-family: 'Montserrat', sans-serif; }
         width: 65px;
     }
 }
+#particle-container{
+    width: 50%;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+}
 .particle {
     position: absolute;
     border-radius: 50%;
+    color:#fff;
+    mat-icon{
+        font-size: 40px;
+        transition: all cubic-bezier(.45,.01,0,3) 0.3s;
+        transform: scale(1);
+    }
 }
 
 @for $i from 1 through 30 {
@@ -125,14 +141,23 @@ body { margin: 0; font-family: 'Montserrat', sans-serif; }
     }
     
     .particle:nth-child(#{$i}){
-        animation: particle-animation-#{$i} 60s infinite;
+        animation: particle-animation-#{$i} 50s infinite;
         $size: random(5) + 5 + px;
-        opacity: random(100)/100;
+        // opacity: random(100)/100;
+        opacity: 0.1;
         height: $size;
         width: $size;
+        transition: all ease 0.3s;
         animation-delay: -$i * .2s;
         transform: translate3d((random(90) * 1vw), (random(90) * 1vh), (random(100) * 1px));
-        background: hsl(random(360), 70%, 50%);
+        // background: hsl(random(360), 70%, 50%);
+        &:hover{
+            opacity: 1;
+            cursor: pointer;
+            mat-icon{
+                transform: scale(1.2);
+            }
+        }
     }
 }
 @media screen and (max-width:991px){

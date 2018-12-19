@@ -1,0 +1,9 @@
+.light-theme{
+    $colors: (
+        primary: red,
+        secondary: green
+  );
+  .sideLegend{
+    background-color: color($colors, primary);
+  }
+}
