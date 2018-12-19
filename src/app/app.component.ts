@@ -1,5 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { SettingService } from 'src/app/shared/settings/setting.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   title = 'anonymous-FrontEnd';
-  constructor(protected injector: Injector) {
+  selectedTheme: String;
+  constructor(protected injector: Injector,
+    public settings: SettingService) {
+    this.settings.getActiveTheme().subscribe(val => {
+      this.selectedTheme = val;
+    });
 
   }
   ngOnInit() {
