@@ -11,6 +11,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { TokenInterceptorService } from '../../core/interceptors/token-interceptor';
+import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 @NgModule({
 
   imports: [
@@ -18,6 +19,7 @@ import { TokenInterceptorService } from '../../core/interceptors/token-intercept
     AuthRoutingModule,
     MaterialModule,
     FormsModule,
+    ToastrModule.forRoot(),
     ReactiveFormsModule
   ],
   declarations: [

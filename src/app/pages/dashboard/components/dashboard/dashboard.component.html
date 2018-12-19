@@ -1,14 +1,3 @@
-<!-- <mat-toolbar color="primary">
-  <div class="btn">
-    <button mat-button *ngIf="auth.isAuthenticated" (click)="auth.logoutUser()">Logout</button>
-    <button mat-button [matMenuTriggerFor]="modules">Module</button>
-
-    <mat-menu #modules="matMenu">
-      <button mat-menu-item>SafetyBeat</button>
-      <button mat-menu-item>Field Communication</button>
-    </mat-menu>
-  </div>
-</mat-toolbar> -->
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
@@ -26,7 +15,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div><img src="../../../../../assets/images/line_graph.png"></div>
+          <div id="img"><img src="../../../../../assets/images/line_graph.png"></div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

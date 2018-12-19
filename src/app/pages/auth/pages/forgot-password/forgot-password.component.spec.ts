@@ -9,6 +9,7 @@ import { TranslateService, TranslateStore, TranslateModule, TranslateLoader, Tra
 import { createTranslateLoader } from 'src/app/app.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
@@ -25,6 +26,7 @@ describe('ForgotPasswordComponent', () => {
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
+        ToastrModule.forRoot(),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
