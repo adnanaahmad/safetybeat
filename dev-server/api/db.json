@@ -1,0 +1,52 @@
+{
+    "user": [
+        {
+            "email": "taqi.muttaqeen@gmail.com",
+            "first_name": "Taqi",
+            "last_name": "Rizvi",
+            "mobile_no": "03320745617",
+            "username": "muttaqeen",
+            "id": 1
+        }
+    ],
+    "companyTypes": [
+        {
+            "name": "business",
+            "id": 1
+        },
+        {
+            "name": "Information Technology",
+            "id": 2
+        }
+    ],
+    "modules": [
+        {
+            "id": 1,
+            "name": "Safety Beat"
+        },
+        {
+            "id": 2,
+            "name": "Field Communication"
+        }
+    ],
+    "packages": [
+        {
+            "packageName": "Gold",
+            "cost": "$1000",
+            "noOfUsers": "500",
+            "id": 1
+        },
+        {
+            "packageName": "Silver",
+            "cost": "$500",
+            "noOfUsers": "250",
+            "id": 2
+        },
+        {
+            "packageName": "Browns",
+            "cost": "$250",
+            "noOfUsers": "100",
+            "id": 3
+        }
+    ]
+}

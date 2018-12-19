@@ -1,4 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output } from '@angular/core';
+import { ProfileService } from '../../services/profile.service';
+import { UserProfile } from 'src/app/features/profile/profile.model';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-profile',
@@ -8,10 +11,17 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+  @Output() loaded: boolean = false
+  userData: any;
+  constructor(private profile: ProfileService,
+    private compiler: CompilerProvider) {
+  }
 
   ngOnInit() {
+    this.profile.getUser(1).subscribe((data) => {
+      this.userData = this.compiler.constructUserData(data)
+      this.loaded = true
+    });
   }
 
 }
