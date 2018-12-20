@@ -1,3 +1,82 @@
-<p>
-  profile works!
-</p>
+<div>
+  <h2>User Name</h2>
+  <span>
+    <h4>Product Manager</h4> - <h3>SafetyBeat</h3>
+  </span>
+</div>
+
+<button mat-raised-button routerLink="/home/profile/user">
+  <mat-icon>edit</mat-icon>Edit User Account
+</button>
+<button mat-raised-button routerLink='/home/profile/organization'>
+  <mat-icon>edit_location</mat-icon>Edit Organization
+</button>
+
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile colspan="1" rowspan="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            -Bio
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus dicta quae distinctio doloremque libero
+          a totam inventore eaque magni odio labore eveniet eligendi minus aut vero voluptas, perspiciatis, suscipit
+          placeat!
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1" rowspan="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            -Profile Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list role="list">
+            <mat-list-item role="listitem">
+              <span matLine>
+                <span>First Name: </span>
+                <span *ngIf="userData.first_name" [innerHTML]="userData.first_name"></span>
+              </span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <span matLine>
+                <span>Last Name: </span>
+                <span> {{userData.last_name}} </span>
+              </span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <span matLine>
+                <span>Email: </span>
+                <span> {{userData.email}} </span>
+              </span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <span matLine>
+                <span>Mobile: </span>
+                <span> {{userData.mobile_no}} </span>
+              </span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <span matLine>
+                <span>Medical Condition: </span>
+                <span> -- Disabled </span>
+              </span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <span matLine>
+                <span>Emergency Contact: </span>
+                <span> -- N/A </span>
+              </span>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
