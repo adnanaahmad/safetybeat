@@ -1,6 +1,6 @@
 import { AuthGuard } from './auth.guard';
 import { TestBed, async, inject } from '@angular/core/testing';
-import { AuthService } from '../auth/auth.service';
+import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -21,7 +21,7 @@ describe('AuthGuard', () => {
         localStorage.removeItem(storageKey);
     });
     it('shoud be created', () => {
-        async(inject([AuthGuard, Router, AuthService], (authGuard, router, authServiceSpy) => {
+        async(inject([AuthGuard, Router, CoreService], (authGuard, router, authServiceSpy) => {
             spyOn(router, 'navigate');
             spyOn(authGuard, 'canActivate');
             spyOn(authServiceSpy, 'getToken');
@@ -30,7 +30,7 @@ describe('AuthGuard', () => {
     });
     describe('canActivate', () => {
         it('should return true from isAuthenticated when there is a token', () => {
-            async(inject([AuthGuard, Router, AuthService], (authGuard, router, authServiceSpy) => {
+            async(inject([AuthGuard, Router, CoreService], (authGuard, router, authServiceSpy) => {
                 spyOn(router, 'navigate');
                 spyOn(authGuard, 'canActivate');
                 spyOn(authServiceSpy, 'getToken');
@@ -44,7 +44,7 @@ describe('AuthGuard', () => {
 
         });
         it('should return false from isAuthenticated when there is no token', () => {
-            async(inject([AuthGuard, Router, AuthService], (authGuard, router, authServiceSpy) => {
+            async(inject([AuthGuard, Router, CoreService], (authGuard, router, authServiceSpy) => {
                 spyOn(router, 'navigate');
                 spyOn(authGuard, 'canActivate');
                 spyOn(authServiceSpy, 'getToken');

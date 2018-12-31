@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CoreService } from './core.service';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastService } from 'src/app/shared/toast/toast.service';
+import { fakeAsync } from '@angular/core/testing';
+import { tick } from '@angular/core/src/render3';
 describe('CoreService', () => {
     let service: CoreService;
     let http: HttpClient;
     let router: Router;
-    let toastProvider: ToastrManager;
-    let translate: TranslateService
-    const storageKey = 'token'
-    const tokenSecret = 'this-is-a-test-secret'
+    let toastProvider: ToastService;
+    let translate: TranslateService;
+    const storageKey = 'token';
+    const tokenSecret = 'this-is-a-test-secret';
     beforeEach(() => {
         service = new CoreService(router, toastProvider, translate);
     });
@@ -64,38 +66,6 @@ describe('CoreService', () => {
             expect(isAuthenticated).toBeFalsy();
         });
     });
-    // add unit test for loginUser(), registrationData(), registerUser() and logoutUser()
-
-    describe('Login', () => {
-        it('should make a http request with the login credentials', () => {
-            const loginCredentials: loginCredentials = {
-                username: 'admin',
-                password: 'admin123'
-            };
-
-            const expectedResponse: LoginResponse = {
-                user: {
-                    username: 'admin',
-                    email: 'email@test.com',
-                    first_name: 'admin',
-                    last_name: 'admin',
-                    mobile_no: '12345678',
-                    password: 'admin123',
-                },
-                token: 'this is my dummy token'
-            };
-
-            service.loginUser(loginCredentials).subscribe((data) => {
-                expect(data).toEqual(expectedResponse);
-            });
-
-            const req = httpTestingController.expectOne(`${environment.serverUrl}/anonymous/login`);
-            expect(req.request.method).toEqual('POST');
-            req.flush(expectedResponse);
-            httpTestingController.verify();
-        });
-    });
-
     describe('Logout', () => {
         it('should remove the access token', () => {
             localStorage.setItem(storageKey, tokenSecret);
@@ -107,7 +77,7 @@ describe('CoreService', () => {
         });
         it('navigate to "login" takes you to /login', fakeAsync(() => {
             router.navigate(['/login']);
-            tick();
+            // tick();
             expect(location.pathname).toBe('/login');
             // expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
         }));

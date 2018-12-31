@@ -9,13 +9,13 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { LoginRegistrationService } from 'src/app/pages/login-Registration/services/LoginRegistrationService';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let authService: AuthService;
+  let authService: LoginRegistrationService;
   let debugEl: DebugElement;
   let nativeEl: HTMLElement;
   let fixture: ComponentFixture<LoginComponent>;
@@ -39,18 +39,18 @@ describe('LoginComponent', () => {
       ]
     })
       .compileComponents();
-    authService = TestBed.get(AuthService);
+    authService = TestBed.get(LoginRegistrationService);
   }));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule],
       declarations: [LoginComponent],
       providers: [
-        { provide: AuthService, },
+        { provide: LoginRegistrationService },
       ]
     }).compileComponents();
 
-    authService = TestBed.get(AuthService);
+    authService = TestBed.get(LoginRegistrationService);
   }));
 
   beforeEach(() => {

@@ -24,7 +24,6 @@ describe('NavigationComponent', () => {
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
-        ToastrManager,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
