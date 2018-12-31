@@ -10,7 +10,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 })
 
 export class ProfileComponent implements OnInit {
-  @Output() loaded: boolean = false
+  @Output() loaded: boolean = false;
   userData: any;
   constructor(private profile: ProfileService,
     private compiler: CompilerProvider) {
@@ -18,8 +18,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.profile.getUser(1).subscribe((data) => {
-      this.userData = this.compiler.constructUserData(data)
-      this.loaded = true
+      this.userData = this.compiler.constructUserData(data);
+      this.loaded = true;
     });
   }
 

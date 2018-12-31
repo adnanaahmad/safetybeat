@@ -6,11 +6,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  loginCredentials,
-  LoginResponse,
-  registerData,
-  ForgotPassword,
-  ForgotPasswordResponse,
   RegisterUser,
   RegisterOrganization,
   packges

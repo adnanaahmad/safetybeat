@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { ConstantService } from '../../shared/constant/constant.service';
-import { ToastrManager } from 'ng6-toastr-notifications';
-import { loginCredentials, LoginResponse, registerData, ForgotPassword, ForgotPasswordResponse } from '../../features/user/user.model';
+import { ToastService } from '../../shared/toast/toast.service';
+import { loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse } from '../../features/user/user.model';
 import { TranslateService } from '@ngx-translate/core';
 @Injectable({ providedIn: 'root' })
 export class AuthService implements OnInit {
@@ -17,7 +17,7 @@ export class AuthService implements OnInit {
     constructor(
         private http: HttpClient,
         private router: Router,
-        public toastProvider: ToastrManager,
+        public toastProvider: ToastService,
         private translate: TranslateService
     ) {
 
@@ -64,8 +64,7 @@ export class AuthService implements OnInit {
      */
     logoutUser() {
         this.removeToken();
-        this.toastProvider.warningToastr(this.logout_success, this.logout_msg,
-            [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
+        this.toastProvider.createCustomToaster(this.logout_success, this.logout_msg);
         this.router.navigate(['/login']);
     }
     /**
@@ -95,8 +94,7 @@ export class AuthService implements OnInit {
      * user gets an email to reset his/her password and that email comes backend api.
      */
     forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
-        this.toastProvider.warningToastr(this.reset_success, this.reset_msg,
-            [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
+        this.toastProvider.createCustomToaster(this.reset_success, this.reset_msg);
         return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
     /**
