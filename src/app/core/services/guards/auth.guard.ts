@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 // services
-import { AuthService } from '../auth/auth.service';
+import { CoreService } from '../authorization/core.service';
 
 @Injectable()
 /**
- * injectable is used to get the services og thr authservice because without this we can not get the functionalities of any
+ * injectable is used to get the services og thr coreService because without this we can not get the functionalities of any
  * other service
  */
 export class AuthGuard implements CanActivate {
     constructor(
-        private authService: AuthService,
+        private coreService: CoreService,
         private router: Router
     ) { }
     /**
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
      * shown when this function return true for example the dashboard page will be shown when the user is logged in.
      */
     canActivate(): boolean {
-        if (this.authService.getToken()) {
+        if (this.coreService.getToken()) {
             return true;
         } else {
             this.router.navigate(['/login']);

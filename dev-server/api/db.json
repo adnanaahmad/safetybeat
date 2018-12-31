@@ -1,52 +1,142 @@
 {
-    "user": [
+  "registration": [
+    {
+      "user": {
+        "username": "asad",
+        "email": "taqi.muttaqeen@gmail.com",
+        "first_name": "ali",
+        "last_name": "raza",
+        "mobile_no": "094753452",
+        "password": "Lahore123",
+        "password2": "Lahore123"
+      },
+      "organization": {
+        "name": "pakwheels",
+        "type": "type.id",
+        "address": "126 karachi",
+        "zipCode": "54000",
+        "city": "karachi",
+        "country": "pakistan",
+        "fax": "043 7441571",
+        "billingEmail": "taqi.muttaqeen@gmail.com",
+        "accountNo": "965265823",
+        "phoneNo": "03320745617"
+      },
+      "module_pkg": [
         {
-            "email": "taqi.muttaqeen@gmail.com",
-            "first_name": "Taqi",
-            "last_name": "Rizvi",
-            "mobile_no": "03320745617",
-            "username": "muttaqeen",
-            "id": 1
-        }
-    ],
-    "companyTypes": [
-        {
-            "name": "business",
-            "id": 1
-        },
-        {
-            "name": "Information Technology",
-            "id": 2
-        }
-    ],
-    "modules": [
-        {
-            "id": 1,
-            "name": "Safety Beat"
-        },
-        {
-            "id": 2,
-            "name": "Field Communication"
-        }
-    ],
-    "packages": [
-        {
-            "packageName": "Gold",
-            "cost": "$1000",
-            "noOfUsers": "500",
-            "id": 1
-        },
-        {
+          "name": "Safety Beat",
+          "package": {
             "packageName": "Silver",
             "cost": "$500",
             "noOfUsers": "250",
             "id": 2
+          }
         },
         {
+          "name": "Field Communication",
+          "package": {
+            "packageName": "Gold",
+            "cost": "$1000",
+            "noOfUsers": "500",
+            "id": 1
+          }
+        }
+      ],
+      "id": 1
+    },
+    {
+      "user": {
+        "username": "dsfsf",
+        "email": "sdfasd@gmail.com",
+        "first_name": "safsdf",
+        "last_name": "safdafsd",
+        "mobile_no": "5738524",
+        "password": "pakistan12",
+        "password2": "pakistan12"
+      },
+      "organization": {
+        "name": "sfdsf",
+        "type": "type.id",
+        "address": "sfsdfsd",
+        "zipCode": "5400",
+        "city": "lahore",
+        "country": "Pakistan",
+        "fax": "978645823",
+        "billingEmail": "anskdjfas@gmail.com",
+        "accountNo": "536487548",
+        "phoneNo": "96834563"
+      },
+      "module_pkg": [
+        {
+          "name": "Safety Beat",
+          "package": {
             "packageName": "Browns",
             "cost": "$250",
             "noOfUsers": "100",
             "id": 3
+          }
+        },
+        {
+          "name": "Field Communication",
+          "package": {
+            "packageName": "Silver",
+            "cost": "$500",
+            "noOfUsers": "250",
+            "id": 2
+          }
         }
-    ]
+      ],
+      "id": 2
+    }
+  ],
+  "user": [
+    {
+      "email": "taqi.muttaqeen@gmail.com",
+      "first_name": "Taqi",
+      "last_name": "Rizvi",
+      "mobile_no": "03320745617",
+      "username": "muttaqeen",
+      "id": 1
+    }
+  ],
+  "companyTypes": [
+    {
+      "name": "business",
+      "id": 1
+    },
+    {
+      "name": "Information Technology",
+      "id": 2
+    }
+  ],
+  "modules": [
+    {
+      "id": 1,
+      "name": "Safety Beat"
+    },
+    {
+      "id": 2,
+      "name": "Field Communication"
+    }
+  ],
+  "packages": [
+    {
+      "packageName": "Gold",
+      "cost": "$1000",
+      "noOfUsers": "500",
+      "id": 1
+    },
+    {
+      "packageName": "Silver",
+      "cost": "$500",
+      "noOfUsers": "250",
+      "id": 2
+    },
+    {
+      "packageName": "Browns",
+      "cost": "$250",
+      "noOfUsers": "100",
+      "id": 3
+    }
+  ]
 }
