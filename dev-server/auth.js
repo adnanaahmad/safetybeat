@@ -14,10 +14,20 @@ module.exports = (req, res, next) => {
 
             // Create a JWT token
             var token = "this is my dummy token";
+            var User = {
+                username: 'admin',
+                email: 'email@test.com',
+                first_name: 'admin',
+                last_name: 'admin',
+                mobile_no: '12345678',
+                password: 'admin123',
+            };
 
             // send the JWT back
             res.json({
-                token: token
+                token: token,
+                user: User
+
             });
         } else {
             res.status(401).send('None shall pass !!!!!');

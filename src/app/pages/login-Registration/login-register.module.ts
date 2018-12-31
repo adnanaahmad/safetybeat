@@ -8,7 +8,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginRegistrationService } from "./services/LoginRegistrationService";
+import { LoginRegistrationService } from './services/LoginRegistrationService';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
 @NgModule({

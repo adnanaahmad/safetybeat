@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { ConstantService } from '../../../shared/constant/constant.service';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import { TranslateService } from '@ngx-translate/core';
 import { loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse } from 'src/app/models/user.model';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -13,7 +13,7 @@ export class LoginRegistrationService {
     selected = true;
     reset_success: string;
     reset_msg: string;
-    constructor(private http: HttpClient, public toastProvider: ToastrManager, private translate: TranslateService) {
+    constructor(private http: HttpClient, public toastProvider: ToastService, private translate: TranslateService) {
         this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
             this.reset_success = values.MESSAGES.RESET_SUCCESS;
             this.reset_msg = values.MESSAGES.RESETMSG;
@@ -54,7 +54,7 @@ export class LoginRegistrationService {
      * user gets an email to reset his/her password and that email comes backend api.
      */
     forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
-        this.toastProvider.warningToastr(this.reset_success, this.reset_msg, [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
+        this.toastProvider.createCustomToaster(this.reset_success, this.reset_msg);
         return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
     /**

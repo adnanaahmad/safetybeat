@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPassForm: FormGroup;
   error = '';
   translated: object;
+  selectedTheme: String;
   constructor(
     public forgotService: LoginRegistrationService,
     private router: Router,

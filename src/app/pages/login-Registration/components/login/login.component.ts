@@ -3,9 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
 import { TranslateService } from '@ngx-translate/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
-import { LoginRegistrationService } from "../../services/LoginRegistrationService";
+import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { loginCredentials } from 'src/app/models/user.model';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 
 @Component({
@@ -29,8 +29,14 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public loginService: LoginRegistrationService,
     public translate: TranslateService,
-    public toastProvider: ToastrManager
-  ) {
+    public toastProvider: ToastService
+  )
+  /**
+   *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
+   *file
+   */
+  // tslint:disable-next-line:one-line
+  {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
       this.login_success = values.MESSAGES.LOGIN_SUCCESS;
@@ -65,17 +71,15 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.loginService.loginUser(value)
       .subscribe(
-        data => {
+        (data) => {
           this.data = data;
           data ? this.loginService.setToken(this.data.token) : this.loginService.setToken('');
-          this.toastProvider.successToastr(this.login_success, this.login_msg,
-            [{ toastLife: 1000 }, { animate: 'slideFromRight' }]);
+          this.toastProvider.createSuccessToaster(this.login_success, this.login_msg);
           this.router.navigate(['/home']);
         },
-        error => {
+        (error) => {
           this.loading = false;
-          this.toastProvider.errorToastr(this.login_fail, this.loginfail_msg,
-            { animate: 'slideFromLeft' });
+          this.toastProvider.createErrorToaster(this.login_fail, this.loginfail_msg);
         }
       );
   }

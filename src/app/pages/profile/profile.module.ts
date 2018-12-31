@@ -8,17 +8,25 @@ import { OrganizationComponent } from './components/organization/organization.co
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ProfileService } from './services/profile.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+// import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @NgModule({
   declarations: [ProfileComponent, UserComponent, OrganizationComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    MaterialModule
-  ], providers: [
+    MaterialModule,
+    MaterialModule,
+    FormsModule,
+    ToastrModule.forRoot(),
+    ReactiveFormsModule
+  ],
+  providers: [
     ProfileService,
     CompilerProvider,
     AuthGuard,

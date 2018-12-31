@@ -20,18 +20,18 @@ export class DashboardComponent implements OnInit {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Graph 1', cols: 1, rows: 1 },
-          { title: 'Graph 2', cols: 1, rows: 1 },
-          { title: 'Graph 3', cols: 1, rows: 1 },
-          { title: 'Graph 4', cols: 1, rows: 1 }
+          { title: 'Graph 1', cols: 2, rows: 1 },
+          { title: 'Graph 2', cols: 2, rows: 1 },
+          { title: 'Graph 3', cols: 2, rows: 1 },
+          { title: 'Graph 4', cols: 2, rows: 1 }
         ];
       }
 
       return [
-        { title: 'Graph 1', cols: 1, rows: 2 },
-        { title: 'Graph 2', cols: 1, rows: 2 },
-        { title: 'Graph 3', cols: 1, rows: 2 },
-        { title: 'Graph 4', cols: 1, rows: 2 }
+        { title: 'Graph 1', cols: 1, rows: 1 },
+        { title: 'Graph 2', cols: 1, rows: 1 },
+        { title: 'Graph 3', cols: 1, rows: 1 },
+        { title: 'Graph 4', cols: 1, rows: 1 }
       ];
     })
   );

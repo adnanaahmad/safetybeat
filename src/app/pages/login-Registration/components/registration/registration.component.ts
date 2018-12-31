@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { LoginRegistrationService } from "../../services/LoginRegistrationService";
+import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { TranslateService } from '@ngx-translate/core';
 import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
 

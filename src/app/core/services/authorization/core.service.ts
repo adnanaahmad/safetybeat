@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 @Injectable({ providedIn: 'root' })
 export class CoreService {
     storageKey = 'token';
@@ -9,7 +9,7 @@ export class CoreService {
     logout_msg: string;
     constructor(
         private router: Router,
-        public toastProvider: ToastrManager,
+        public toastProvider: ToastService,
         private translate: TranslateService
     ) {
         this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
@@ -22,8 +22,7 @@ export class CoreService {
      */
     logoutUser() {
         this.removeToken();
-        this.toastProvider.warningToastr(this.logout_success, this.logout_msg,
-            [{ position: 'toast-top-left' }, { toastLife: 1000 }]);
+        this.toastProvider.createWarningToaster(this.logout_success, this.logout_msg);
         this.router.navigate(['/login']);
     }
     /**

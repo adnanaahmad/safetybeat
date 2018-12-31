@@ -7,6 +7,7 @@ import { NavListComponent } from './components/nav-list/nav-list.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
+
 @NgModule({
   declarations: [FixedNavComponent, NavListComponent, NavigationComponent],
   imports: [

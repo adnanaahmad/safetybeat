@@ -14,7 +14,7 @@ export class CompilerProvider {
             last_name: profileApiResponse.last_name,
             email: profileApiResponse.email,
             mobile_no: profileApiResponse.mobile_no
-        }
+        };
         return user;
     }
 

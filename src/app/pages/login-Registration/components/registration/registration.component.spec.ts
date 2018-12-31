@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -22,6 +23,7 @@ describe('RegistrationComponent', () => {
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
+        ToastrModule.forRoot(),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -35,8 +37,8 @@ describe('RegistrationComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegistrationComponent);
-    component = fixture.componentInstance;
+    const fixture = TestBed.createComponent(RegistrationComponent);
+    const component = fixture.componentInstance;
     fixture.detectChanges();
   });
 

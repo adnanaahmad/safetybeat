@@ -17,7 +17,7 @@ describe('NavigationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NavigationComponent,NavListComponent,FixedNavComponent],
+      declarations: [NavigationComponent, NavListComponent, FixedNavComponent],
       imports: [
         BrowserAnimationsModule,
         RouterTestingModule,
