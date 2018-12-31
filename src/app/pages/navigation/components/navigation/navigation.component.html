@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <div class="btn">
-    <button mat-button *ngIf="auth.isAuthenticated" (click)="auth.logoutUser()">Logout</button>
+    <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">Logout</button>
     <button mat-button [matMenuTriggerFor]="modules">Module</button>
 
     <mat-menu #modules="matMenu">

@@ -1,14 +1,18 @@
-import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-describe('AuthService', () => {
-    let service: AuthService;
+import { CoreService } from './core.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { TranslateService } from '@ngx-translate/core';
+describe('CoreService', () => {
+    let service: CoreService;
     let http: HttpClient;
     let router: Router;
+    let toastProvider: ToastrManager;
+    let translate: TranslateService
     const storageKey = 'token'
     const tokenSecret = 'this-is-a-test-secret'
     beforeEach(() => {
-        service = new AuthService(http, router);
+        service = new CoreService(router, toastProvider, translate);
     });
 
     afterEach(() => {

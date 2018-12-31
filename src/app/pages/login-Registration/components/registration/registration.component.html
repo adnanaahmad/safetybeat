@@ -1,7 +1,7 @@
 <mat-card class="midbox loginbox">
   <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p>
-  <mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
+  <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
         <ng-template matStepLabel>{{translated.MESSAGES.USERDETAILS_MSG}}</ng-template>
