@@ -1,11 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-// services
-import { AuthService } from '../../../../core/auth/auth.service';
-import { ForgotPassword } from 'src/app/features/user/user.model';
+import { ForgotPassword } from 'src/app/models/user.model';
+import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,15 +17,15 @@ export class ForgotPasswordComponent implements OnInit {
   translated: object;
   selectedTheme: String;
   constructor(
-    public auth: AuthService,
+    public forgotService: LoginRegistrationService,
     private router: Router,
     public formBuilder: FormBuilder,
     public translate: TranslateService
   )
   /**
- *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
- *file
- */
+   *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
+   *file
+   */
   // tslint:disable-next-line:one-line
   {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
@@ -44,8 +43,8 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
   /**
- * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
- */
+   * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
+   */
   get formValidation() { return this.forgotPassForm.controls; }
   /**
    * in this function when the user clicks on the reset button on the forgot password page then the reset password email is
@@ -55,7 +54,7 @@ export class ForgotPasswordComponent implements OnInit {
     if (!valid) {
       return;
     }
-    this.auth.forgotPassword(value).subscribe(
+    this.forgotService.forgotPassword(value).subscribe(
       data => {
         this.router.navigate(['/login']);
       },

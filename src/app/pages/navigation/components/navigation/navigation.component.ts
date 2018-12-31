@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { CoreService } from 'src/app/core/services/authorization/core.service';
 
 @Component({
   selector: 'app-navigation',
@@ -15,7 +15,9 @@ export class NavigationComponent implements OnInit {
     { path: '/home', icon: 'dashboard', label: 'Dashboard' },
     { path: '/home/profile', icon: 'supervised_user_circle', label: 'Profile' }
   ];
-  constructor(public auth: AuthService) { }
+  constructor(public core: CoreService) {
+
+  }
 
   ngOnInit() {
   }

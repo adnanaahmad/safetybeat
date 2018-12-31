@@ -1,31 +1,18 @@
-import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CoreService } from './core.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
 import { TranslateService } from '@ngx-translate/core';
-import { loginCredentials, LoginResponse, User } from '../../features/user/user.model';
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { environment } from '../../../environments/environment';
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ToastService } from 'src/app/shared/toast/toast.service';
-describe('AuthService', () => {
-    let service: AuthService;
+describe('CoreService', () => {
+    let service: CoreService;
     let http: HttpClient;
     let router: Router;
-    let translate: TranslateService;
-    let toastProvider: ToastService;
-    let httpTestingController: HttpTestingController;
-    let mockRouter;
-    const storageKey = 'token';
-    const tokenSecret = 'this-is-a-test-secret';
+    let toastProvider: ToastrManager;
+    let translate: TranslateService
+    const storageKey = 'token'
+    const tokenSecret = 'this-is-a-test-secret'
     beforeEach(() => {
-        mockRouter = { navigate: jasmine.createSpy('navigate') };
-        TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])]
-        });
-        service = new AuthService(http, router, toastProvider, translate);
-        httpTestingController = TestBed.get(HttpTestingController);
-
+        service = new CoreService(router, toastProvider, translate);
     });
 
     afterEach(() => {

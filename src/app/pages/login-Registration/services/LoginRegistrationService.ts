@@ -1,32 +1,20 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
-import { ConstantService } from '../../shared/constant/constant.service';
-import { ToastService } from '../../shared/toast/toast.service';
-import { loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse } from '../../features/user/user.model';
+import { ConstantService } from '../../../shared/constant/constant.service';
 import { TranslateService } from '@ngx-translate/core';
+import { loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse } from 'src/app/models/user.model';
+import { ToastService } from 'src/app/shared/toast/toast.service';
+
+
 @Injectable({ providedIn: 'root' })
-export class AuthService implements OnInit {
+export class LoginRegistrationService {
     storageKey = 'token';
     selected = true;
-    logout_success: string;
-    logout_msg: string;
     reset_success: string;
     reset_msg: string;
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        public toastProvider: ToastService,
-        private translate: TranslateService
-    ) {
-
-    }
-
-    ngOnInit() {
+    constructor(private http: HttpClient, public toastProvider: ToastService, private translate: TranslateService) {
         this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
-            this.logout_success = values.MESSAGES.LOGOUT_SUCCESS;
-            this.logout_msg = values.MESSAGES.LOGOUT_MSG;
             this.reset_success = values.MESSAGES.RESET_SUCCESS;
             this.reset_msg = values.MESSAGES.RESETMSG;
         });
@@ -36,7 +24,6 @@ export class AuthService implements OnInit {
      * login.component.html file is passed here with the apiUrl
      * @param data \
      */
-
     loginUser(data: loginCredentials): Observable<LoginResponse> {
         return this.http.post<LoginResponse>(ConstantService.apiRoutes.login, data);
     }
@@ -60,33 +47,6 @@ export class AuthService implements OnInit {
         return this.http.post(ConstantService.apiRoutes.registration, data);
     }
     /**
-     * this function logs out the user and returns to login page
-     */
-    logoutUser() {
-        this.removeToken();
-        this.toastProvider.createCustomToaster(this.logout_success, this.logout_msg);
-        this.router.navigate(['/login']);
-    }
-    /**
-     * this function is used to get the token key that the user gets when he logs in.
-     */
-    getToken() {
-        return localStorage.getItem(this.storageKey);
-    }
-    /**
-     * this function is used to set the Token key when the user logs in,
-     * @param token #string
-     */
-    setToken(token: string) {
-        localStorage.setItem(this.storageKey, token);
-    }
-    /**
-     * this function removes the token from the localstorage
-     */
-    removeToken() {
-        localStorage.removeItem(this.storageKey);
-    }
-    /**
      *
      * @param data
      * in this function forgot passsowrd api is called in the parameter we have passed the data that comes from the
@@ -98,15 +58,10 @@ export class AuthService implements OnInit {
         return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
     /**
-     * this fucntion only tells that if the user has been assigned any token then return true other wise return false
-     * this function was using for header to change the login button to logout because we applied *ngIf there that checks
-     * that if this function return true thrn logout will be shown on the header otherwise login and register buttons will
-     * be shown.
+     * this function is used to set the Token key when the user logs in,
+     * @param token #string
      */
-    isAuthenticated(): boolean {
-        if (this.getToken()) {
-            return true;
-        }
-        return false;
+    setToken(token: string) {
+        localStorage.setItem(this.storageKey, token);
     }
 }

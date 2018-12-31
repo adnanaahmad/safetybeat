@@ -1,4 +1,3 @@
-import { UserProfile } from 'src/app/features/profile/profile.model';
 import { Injectable } from '@angular/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 

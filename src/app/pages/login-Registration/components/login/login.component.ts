@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // services
-import { AuthService } from '../../../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastService } from '../../../../shared/toast/toast.service';
-import {
-  loginCredentials,
-  LoginResponse
-} from '../../../../features/user/user.model';
-import { Observable } from 'rxjs';
+import { LoginRegistrationService } from '../../services/LoginRegistrationService';
+import { loginCredentials } from 'src/app/models/user.model';
+import { ToastService } from 'src/app/shared/toast/toast.service';
+
 
 @Component({
   templateUrl: 'login.component.html',
@@ -30,7 +27,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    public auth: AuthService,
+    public loginService: LoginRegistrationService,
     public translate: TranslateService,
     public toastProvider: ToastService
   )
@@ -72,11 +69,11 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.auth.loginUser(value)
+    this.loginService.loginUser(value)
       .subscribe(
         (data) => {
           this.data = data;
-          data ? this.auth.setToken(this.data.token) : this.auth.setToken('');
+          data ? this.loginService.setToken(this.data.token) : this.loginService.setToken('');
           this.toastProvider.createSuccessToaster(this.login_success, this.login_msg);
           this.router.navigate(['/home']);
         },

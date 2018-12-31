@@ -1,6 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
-import { UserProfile } from 'src/app/features/profile/profile.model';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @Component({

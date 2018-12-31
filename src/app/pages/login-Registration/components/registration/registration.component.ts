@@ -2,15 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-// services
-import { AuthService } from '../../../../core/auth/auth.service';
+import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  RegisterUser,
-  RegisterOrganization,
-  packges
-} from '../../../../features/user/user.model';
-import { Observable } from 'rxjs';
+import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -31,7 +26,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private auth: AuthService,
+    private register: LoginRegistrationService,
     public translate: TranslateService
   )
   /**
@@ -46,7 +41,7 @@ export class RegistrationComponent implements OnInit {
     /**
      * to get companyTypes, modules & packages from db
      */
-    this.auth.registrationData()
+    this.register.registrationData()
       .subscribe(data => {
         this.types = data[0];
         this.modules = data[1];
@@ -127,7 +122,7 @@ export class RegistrationComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.auth.registerUser(this.registerData)
+    this.register.registerUser(this.registerData)
       .subscribe(
         data => {
           this.router.navigate(['']);

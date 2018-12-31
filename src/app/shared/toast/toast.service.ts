@@ -19,4 +19,8 @@ export class ToastService {
     this.toast.customToastr(message, title, [{ toastLife: time }, { animate: position }]);
   }
 
+  createWarningToaster(message: string, title?: string, time?: number, position?: string) {
+    this.toast.warningToastr(message, title, [{ toastLife: time }, { animate: position }]);
+  }
+
 }

@@ -8,9 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
-import { NavListComponent } from './nav-list/nav-list.component';
-import { FixedNavComponent } from './fixed-nav/fixed-nav.component';
-import { ToastrManager } from 'ng6-toastr-notifications';
+import { NavListComponent } from '../nav-list/nav-list.component';
+import { FixedNavComponent } from '../fixed-nav/fixed-nav.component';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;

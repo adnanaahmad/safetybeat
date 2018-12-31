@@ -6,13 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/material/material.module';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AuthGuard } from './core/guards/auth.guard';
-import { TokenInterceptorService } from './core/interceptors/token-interceptor';
-import { ToastrModule, ToastrManager } from 'ng6-toastr-notifications';
+import { AuthGuard } from './core/services/guards/auth.guard';
+import { TokenInterceptorService } from './core/services/interceptors/token-interceptor';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

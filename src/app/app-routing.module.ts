@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './core/services/guards/auth.guard';
+import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './pages/auth/auth.module#AuthModule',
+    loadChildren: './pages/login-Registration/login-register.module#LoginRegisterModule',
   },
   {
     path: 'home',
