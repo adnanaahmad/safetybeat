@@ -16,14 +16,14 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPassForm: FormGroup;
   translated: object;
   selectedTheme: String;
-  status:string;
-  warning:string;
-  info:string;
-  error:string;
-  success:string;
-  forgot_req:string;
-  default:string;
-  forgotsuccess:string;
+  status: string;
+  warning: string;
+  info: string;
+  error: string;
+  success: string;
+  forgot_req: string;
+  default: string;
+  forgotsuccess: string;
   constructor(
     public forgotService: LoginRegistrationService,
     private router: Router,
@@ -37,7 +37,7 @@ export class ForgotPasswordComponent implements OnInit {
    */
   // tslint:disable-next-line:one-line
   {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.default = values.LOGGER.STATUS.DEFAULT;
       this.info = values.LOGGER.STATUS.INFO;
@@ -80,7 +80,7 @@ export class ForgotPasswordComponent implements OnInit {
         this.logging.appLogger(this.success, this.forgotsuccess);
         this.router.navigate(['/login']);
       },
-      error => {          
+      error => {
         this.logging.appLogger(this.error, `${this.status + error.status}`);
       }
     );

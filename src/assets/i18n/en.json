@@ -72,28 +72,27 @@
         "RESET_SUCCESS": "Email has been sent to you",
         "RESETMSG": "Email has been sent!"
     },
-    "LOGGER":{
-        "STATUS":{
-            "DEFAULT":"default",
+    "LOGGER": {
+        "STATUS": {
+            "DEFAULT": "default",
             "INFO": "info",
             "SUCCESS": "success",
             "WARNING": "warning",
             "ERROR": "error"
         },
-        "MESSAGES":{
+        "MESSAGES": {
             "LOGGEDIN": "User has Successfully logged in",
-            "CREDENTIAL_REQ":"Login credentials are missing",
-            "TRUE":"True",
-            "FALSE":"False",
+            "CREDENTIAL_REQ": "Login credentials are missing",
+            "TRUE": "True",
+            "FALSE": "False",
             "STATUS": "==Status==",
             "FORGOT_REQ": "Email is required to reset the password",
             "FORGOTSUCCESS": "Reset Email has been sent successfully",
             "REGISTRATIONDATA_SUCCESS": "Registration data has been received successfully",
             "REGISTRATION_REQ": "Registration Credentials are required",
-            "REGISTRATION_SUCCESS":"User has successfully been registered"
-            
-
-
+            "REGISTRATION_SUCCESS": "User has successfully been registered",
+            "PROFILE_SUCCESS": "Profile data has been received successfully",
+            "PROFILE_ERROR": "Profile data has not been received"
         }
     }
 }
