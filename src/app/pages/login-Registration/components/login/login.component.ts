@@ -24,15 +24,15 @@ export class LoginComponent implements OnInit {
   login_fail: string;
   login_msg: string;
   loginfail_msg: string;
-  default:string;
-  info:string;
-  success:string;
-  warning:string;
-  loggedin:string;
-  credential_req:string;
-  true:string;
-  false:string;
-  status:string;
+  default: string;
+  info: string;
+  success: string;
+  warning: string;
+  loggedin: string;
+  credential_req: string;
+  true: string;
+  false: string;
+  status: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
    */
   // tslint:disable-next-line:one-line
   {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.login_success = values.MESSAGES.LOGIN_SUCCESS;
       this.login_fail = values.MESSAGES.LOGIN_FAIL;
