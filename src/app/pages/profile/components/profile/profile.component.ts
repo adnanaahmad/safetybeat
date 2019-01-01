@@ -1,6 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -9,17 +10,23 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 })
 
 export class ProfileComponent implements OnInit {
-  @Output() loaded: boolean = false;
+  // userData: Observable<{}>;
   userData: any;
-  constructor(private profile: ProfileService,
-    private compiler: CompilerProvider) {
+  constructor(private profile: ProfileService) {
+  }
+  @Input()
+  ngOnInit() {
+    this.userData = this.getUserData();
   }
 
-  ngOnInit() {
-    this.profile.getUser(1).subscribe((data) => {
-      this.userData = this.compiler.constructUserData(data);
-      this.loaded = true;
+  getUserData() {
+    const dataRecieved = this.profile.getUser(1).pipe(share());
+    dataRecieved.subscribe(data => {
+      debugger;
+    }, err => {
+      debugger;
     });
+    return dataRecieved;
   }
 
 }
