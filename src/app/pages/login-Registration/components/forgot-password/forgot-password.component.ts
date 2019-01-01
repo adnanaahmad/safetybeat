@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ForgotPassword } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,14 +14,22 @@ import { LoginRegistrationService } from '../../services/LoginRegistrationServic
 })
 export class ForgotPasswordComponent implements OnInit {
   forgotPassForm: FormGroup;
-  error = '';
   translated: object;
   selectedTheme: String;
+  status:string;
+  warning:string;
+  info:string;
+  error:string;
+  success:string;
+  forgot_req:string;
+  default:string;
+  forgotsuccess:string;
   constructor(
     public forgotService: LoginRegistrationService,
     private router: Router,
     public formBuilder: FormBuilder,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private logging: LoggingService
   )
   /**
    *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
@@ -28,8 +37,16 @@ export class ForgotPasswordComponent implements OnInit {
    */
   // tslint:disable-next-line:one-line
   {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
       this.translated = values;
+      this.default = values.LOGGER.STATUS.DEFAULT;
+      this.info = values.LOGGER.STATUS.INFO;
+      this.success = values.LOGGER.STATUS.SUCCESS;
+      this.warning = values.LOGGER.STATUS.WARNING;
+      this.error = values.LOGGER.STATUS.ERROR;
+      this.forgot_req = values.LOGGER.MESSAGES.FORGOT_REQ;
+      this.forgotsuccess = values.LOGGER.MESSAGES.FORGOTSUCCESS;
+      this.status = values.LOGGER.MESSAGES.STATUS;
     });
   }
   ngOnInit()
@@ -52,14 +69,19 @@ export class ForgotPasswordComponent implements OnInit {
    */
   onSubmit({ value, valid }: { value: ForgotPassword; valid: boolean }): void {
     if (!valid) {
+      this.logging.appLogger(this.warning, valid);
+      this.logging.appLogger(this.error, this.forgot_req);
       return;
     }
+    this.logging.appLogger(this.info, valid);
+    this.logging.appLogger(this.info, JSON.stringify(value));
     this.forgotService.forgotPassword(value).subscribe(
       data => {
+        this.logging.appLogger(this.success, this.forgotsuccess);
         this.router.navigate(['/login']);
       },
-      error => {
-        this.error = error;
+      error => {          
+        this.logging.appLogger(this.error, `${this.status + error.status}`);
       }
     );
 
