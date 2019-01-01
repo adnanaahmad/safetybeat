@@ -13,6 +13,7 @@ import { AuthGuard } from './core/services/guards/auth.guard';
 import { TokenInterceptorService } from './core/services/interceptors/token-interceptor';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { NotifierModule } from 'angular-notifier';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,6 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AppRoutingModule,
+    NotifierModule
   ],
   providers: [
     TranslateService,

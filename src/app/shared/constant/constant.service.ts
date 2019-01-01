@@ -23,4 +23,7 @@ export class ConstantService {
     time: 1500,
     time1: 3000,
   };
+  static config = {
+    devMode: true
+  }
 }

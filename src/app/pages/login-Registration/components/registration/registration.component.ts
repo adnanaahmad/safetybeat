@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { TranslateService } from '@ngx-translate/core';
 import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
 
 @Component({
   selector: 'app-registration',
@@ -22,12 +23,22 @@ export class RegistrationComponent implements OnInit {
   types: any;
   modules: any;
   packages: any;
+  status:string;
+  warning:string;
+  info:string;
+  error:string;
+  success:string;
+  default:string;
+  registrationdata_success:string;
+  registration_req:string;
+  registration_success:string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private register: LoginRegistrationService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private logging: LoggingService
   )
   /**
    *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
@@ -35,20 +46,30 @@ export class RegistrationComponent implements OnInit {
    */
   // tslint:disable-next-line:one-line
   {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
       this.translated = values;
+      this.default = values.LOGGER.STATUS.DEFAULT;
+      this.info = values.LOGGER.STATUS.INFO;
+      this.success = values.LOGGER.STATUS.SUCCESS;
+      this.warning = values.LOGGER.STATUS.WARNING;
+      this.error = values.LOGGER.STATUS.ERROR;
+      this.status = values.LOGGER.MESSAGES.STATUS;
+      this.registrationdata_success = values.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS;
+      this.registration_req = values.LOGGER.MESSAGES.REGISTRATION_REQ;
+      this.registration_success = values.LOGGER.MESSAGES.REGISTRATION_SUCCESS;
     });
     /**
      * to get companyTypes, modules & packages from db
      */
     this.register.registrationData()
       .subscribe(data => {
+        this.logging.appLogger(this.success, this.registrationdata_success);
         this.types = data[0];
         this.modules = data[1];
         this.packages = data[2];
       },
         error => {
-          console.log(error);
+          this.logging.appLogger(this.error, `${error.error + this.status + error.status}`);
         });
   }
   ngOnInit() {
@@ -119,15 +140,19 @@ export class RegistrationComponent implements OnInit {
     }
     // tslint:disable-next-line:max-line-length
     if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length !== this.registerData.module_pkg.length)) {
+      this.logging.appLogger(this.error, this.registration_req);
       return;
     }
     this.loading = true;
+    this.logging.appLogger(this.info, JSON.stringify(this.userForm.value,this.organizationForm.value,this.moduleForm.value));
     this.register.registerUser(this.registerData)
       .subscribe(
-        data => {
+        (data) => {
+          this.logging.appLogger(this.success, this.registration_success);
           this.router.navigate(['']);
         },
-        error => {
+        (error) => {
+          this.logging.appLogger(this.error, `${error.error + this.status + error.status}`);
           this.loading = false;
         });
   }
