@@ -1,32 +1,37 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CoreService } from './core.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastService } from 'src/app/shared/toast/toast.service';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/src/render3';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { fakeAsync, TestBed } from '@angular/core/testing';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { createTranslateLoader } from 'src/app/app.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 describe('CoreService', () => {
-    let service: CoreService;
-    let http: HttpClient;
     let router: Router;
-    let toastProvider: ToastService;
-    let translate: TranslateService;
     const storageKey = 'token';
     const tokenSecret = 'this-is-a-test-secret';
-    beforeEach(() => {
-        service = new CoreService(router, toastProvider, translate);
-    });
+    beforeEach(() => TestBed.configureTestingModule({
+        imports: [
+            HttpClientModule,
+            AppRoutingModule,
+            ToastrModule.forRoot(),
+            TranslateModule.forRoot({
+                loader: {
+                    provide: TranslateLoader,
+                    useFactory: (createTranslateLoader),
+                    deps: [HttpClient]
+                }
+            })
+        ]
+    }));
 
-    afterEach(() => {
-        service = null;
-        localStorage.removeItem(storageKey);
-    });
-
-    it('shoud be created', () => {
+    it('should be created', () => {
+        const service = TestBed.get(CoreService);
         expect(service).toBeTruthy();
     });
 
     describe('Authorization Token', () => {
+        const service = TestBed.get(CoreService);
         it('should set the access token', () => {
             localStorage.removeItem(storageKey);
             const beforeSettingToken = localStorage.getItem(storageKey);
@@ -53,6 +58,7 @@ describe('CoreService', () => {
     });
 
     describe('isAuthenticated', () => {
+        const service = TestBed.get(CoreService);
         it('should return true from isAuthenticated when there is a token', () => {
             localStorage.setItem(storageKey, tokenSecret);
             const isAuthenticated = service.isAuthenticated();
@@ -67,6 +73,7 @@ describe('CoreService', () => {
         });
     });
     describe('Logout', () => {
+        const service = TestBed.get(CoreService);
         it('should remove the access token', () => {
             localStorage.setItem(storageKey, tokenSecret);
             const token = localStorage.getItem(storageKey);

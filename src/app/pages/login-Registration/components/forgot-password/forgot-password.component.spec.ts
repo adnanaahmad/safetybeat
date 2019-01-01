@@ -10,6 +10,7 @@ import { createTranslateLoader } from 'src/app/app.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
+import { NotifierModule } from 'angular-notifier';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
@@ -21,6 +22,7 @@ describe('ForgotPasswordComponent', () => {
         ForgotPasswordComponent
       ],
       imports: [
+        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,

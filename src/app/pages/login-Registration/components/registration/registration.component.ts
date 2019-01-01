@@ -23,15 +23,15 @@ export class RegistrationComponent implements OnInit {
   types: any;
   modules: any;
   packages: any;
-  status:string;
-  warning:string;
-  info:string;
-  error:string;
-  success:string;
-  default:string;
-  registrationdata_success:string;
-  registration_req:string;
-  registration_success:string;
+  status: string;
+  warning: string;
+  info: string;
+  error: string;
+  success: string;
+  default: string;
+  registrationdata_success: string;
+  registration_req: string;
+  registration_success: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,7 +46,7 @@ export class RegistrationComponent implements OnInit {
    */
   // tslint:disable-next-line:one-line
   {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.default = values.LOGGER.STATUS.DEFAULT;
       this.info = values.LOGGER.STATUS.INFO;
@@ -144,7 +144,7 @@ export class RegistrationComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.logging.appLogger(this.info, JSON.stringify(this.userForm.value,this.organizationForm.value,this.moduleForm.value));
+    this.logging.appLogger(this.info, JSON.stringify(this.userForm.value, this.organizationForm.value, this.moduleForm.value));
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {

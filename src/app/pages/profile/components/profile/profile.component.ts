@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, Input } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
-import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,7 +11,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 
 export class ProfileComponent implements OnInit {
-  // userData: Observable<{}>;
   userData: any;
   success: string;
   warning: string;
