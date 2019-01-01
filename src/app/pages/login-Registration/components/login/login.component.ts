@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { loginCredentials } from 'src/app/models/user.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
 
 
 @Component({
@@ -23,13 +24,23 @@ export class LoginComponent implements OnInit {
   login_fail: string;
   login_msg: string;
   loginfail_msg: string;
+  default:string;
+  info:string;
+  success:string;
+  warning:string;
+  loggedin:string;
+  credential_req:string;
+  true:string;
+  false:string;
+  status:string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     public loginService: LoginRegistrationService,
     public translate: TranslateService,
-    public toastProvider: ToastService
+    public toastProvider: ToastService,
+    private logging: LoggingService
   )
   /**
    *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
@@ -37,15 +48,23 @@ export class LoginComponent implements OnInit {
    */
   // tslint:disable-next-line:one-line
   {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
       this.translated = values;
       this.login_success = values.MESSAGES.LOGIN_SUCCESS;
       this.login_fail = values.MESSAGES.LOGIN_FAIL;
       this.login_msg = values.MESSAGES.LOGIN_MSG;
       this.loginfail_msg = values.MESSAGES.LOGINFAIL_MSG;
-
+      this.default = values.LOGGER.STATUS.DEFAULT;
+      this.info = values.LOGGER.STATUS.INFO;
+      this.success = values.LOGGER.STATUS.SUCCESS;
+      this.warning = values.LOGGER.STATUS.WARNING;
+      this.error = values.LOGGER.STATUS.ERROR;
+      this.loggedin = values.LOGGER.MESSAGES.LOGGEDIN;
+      this.true = values.LOGGER.MESSAGES.TRUE;
+      this.false = values.LOGGER.MESSAGES.FALSE;
+      this.credential_req = values.LOGGER.MESSAGES.CREDENTIAL_REQ;
+      this.status = values.LOGGER.MESSAGES.STATUS;
     });
-
   }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -65,19 +84,26 @@ export class LoginComponent implements OnInit {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
+
     if (!valid) {
+      this.logging.appLogger(this.warning, valid);
+      this.logging.appLogger(this.error, this.credential_req);
       return;
     }
     this.loading = true;
+    this.logging.appLogger(this.info, valid);
+    this.logging.appLogger(this.info, JSON.stringify(value));
     this.loginService.loginUser(value)
       .subscribe(
         (data) => {
           this.data = data;
+          this.logging.appLogger(this.success, this.loggedin);
           data ? this.loginService.setToken(this.data.token) : this.loginService.setToken('');
           this.toastProvider.createSuccessToaster(this.login_success, this.login_msg);
           this.router.navigate(['/home']);
         },
         (error) => {
+          this.logging.appLogger(this.error, `${error.error + this.status + error.status}`);
           this.loading = false;
           this.toastProvider.createErrorToaster(this.login_fail, this.loginfail_msg);
         }

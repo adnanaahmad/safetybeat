@@ -6,14 +6,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse } from 'src/app/models/user.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
-
 @Injectable({ providedIn: 'root' })
 export class LoginRegistrationService {
     storageKey = 'token';
     selected = true;
     reset_success: string;
     reset_msg: string;
-    constructor(private http: HttpClient, public toastProvider: ToastService, private translate: TranslateService) {
+    constructor(private http: HttpClient,
+        public toastProvider: ToastService,
+        private translate: TranslateService) {
         this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
             this.reset_success = values.MESSAGES.RESET_SUCCESS;
             this.reset_msg = values.MESSAGES.RESETMSG;
