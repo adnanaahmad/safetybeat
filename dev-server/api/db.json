@@ -263,6 +263,50 @@
         }
       ],
       "id": 6
+    },
+    {
+      "user": {
+        "username": "asad",
+        "email": "a.fiaz@optergy.com",
+        "first_name": "asad",
+        "last_name": "asad",
+        "mobile_no": "123456",
+        "password": "admin123",
+        "password2": "admin123"
+      },
+      "organization": {
+        "name": "optergy",
+        "type": "type.id",
+        "address": "Chak#59/E.B ARIFWALA",
+        "zipCode": "57450",
+        "city": "Arifwala",
+        "country": "Pakistan",
+        "fax": "2345",
+        "billingEmail": "a.fiaz@optergy.com",
+        "accountNo": "1234356",
+        "phoneNo": "03024997369"
+      },
+      "module_pkg": [
+        {
+          "name": "Safety Beat",
+          "package": {
+            "packageName": "Silver",
+            "cost": "$500",
+            "noOfUsers": "250",
+            "id": 2
+          }
+        },
+        {
+          "name": "Field Communication",
+          "package": {
+            "packageName": "Browns",
+            "cost": "$250",
+            "noOfUsers": "100",
+            "id": 3
+          }
+        }
+      ],
+      "id": 7
     }
   ],
   "user": [

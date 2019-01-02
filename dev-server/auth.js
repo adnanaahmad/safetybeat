@@ -27,7 +27,6 @@ module.exports = (req, res, next) => {
             res.json({
                 token: token,
                 user: User
-
             });
         } else {
             res.status(401).send('None shall pass !!!!!');

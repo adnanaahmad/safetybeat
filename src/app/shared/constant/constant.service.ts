@@ -25,5 +25,5 @@ export class ConstantService {
   };
   static config = {
     devMode: true
-  }
+  };
 }

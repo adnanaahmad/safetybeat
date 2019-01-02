@@ -23,15 +23,15 @@ export class RegistrationComponent implements OnInit,OnDestroy {
   types: any;
   modules: any;
   packages: any;
-  status:string;
-  warning:string;
-  info:string;
-  error:string;
-  success:string;
-  default:string;
-  registrationdata_success:string;
-  registration_req:string;
-  registration_success:string;
+  status: string;
+  warning: string;
+  info: string;
+  error: string;
+  success: string;
+  default: string;
+  registrationdata_success: string;
+  registration_req: string;
+  registration_success: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -149,7 +149,7 @@ ngOnDestroy(){
       return;
     }
     this.loading = true;
-    this.logging.appLogger(this.info, JSON.stringify(this.userForm.value,this.organizationForm.value,this.moduleForm.value));
+    this.logging.appLogger(this.info, JSON.stringify(this.userForm.value, this.organizationForm.value, this.moduleForm.value));
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {

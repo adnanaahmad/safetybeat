@@ -6,6 +6,8 @@ import { FixedNavComponent } from './components/fixed-nav/fixed-nav.component';
 import { NavListComponent } from './components/nav-list/nav-list.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ToastrModule } from 'ng6-toastr-notifications';
+
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   imports: [
     CommonModule,
     NavigationRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ToastrModule.forRoot(),
   ]
 })
 export class NavigationModule { }

@@ -12,6 +12,7 @@ import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 import { LoginRegistrationService } from 'src/app/pages/login-Registration/services/LoginRegistrationService';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
+import { NotifierModule } from 'angular-notifier';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,6 +24,7 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [
+        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,
@@ -39,17 +41,6 @@ describe('LoginComponent', () => {
       ]
     })
       .compileComponents();
-    authService = TestBed.get(LoginRegistrationService);
-  }));
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule, FormsModule],
-      declarations: [LoginComponent],
-      providers: [
-        { provide: LoginRegistrationService },
-      ]
-    }).compileComponents();
-
     authService = TestBed.get(LoginRegistrationService);
   }));
 
