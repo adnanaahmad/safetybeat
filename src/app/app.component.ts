@@ -7,7 +7,7 @@ import { SettingService } from "src/app/shared/settings/setting.service";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  host: { class: "light-theme" }
+  host: { '[class]': 'selectedTheme' }
 })
 export class AppComponent implements OnInit {
   title = "anonymous-FrontEnd";

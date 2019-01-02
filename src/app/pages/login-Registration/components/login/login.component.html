@@ -7,7 +7,6 @@
         <p>The only safety app that allows you to easily manage the safety of your mobile, remote and lone workers, anytime, anywhere</p>
         <span>Don't have an account?</span>
         <button mat-raised-button custom-btn btn-white routerLink="/signup" [disabled]="loading">{{translated.BUTTONS.REGISTER}}</button>
-        
       </div>
     </mat-card>
   </mat-grid-tile>
@@ -18,7 +17,7 @@
     <mat-card class="midbox loginbox">
       <mat-card-title>{{translated.BUTTONS.LOGIN}}</mat-card-title>
       <p class="subheading">{{translated.MESSAGES.SIGNINMESSAGE}}</p>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
         <div class="input">
           <mat-form-field>
             <input matInput type="text" [placeholder]=translated.AUTH.USER formControlName=username required />
@@ -36,7 +35,7 @@
           </mat-form-field>
         </div>
         <div class="button">
-          <button mat-raised-button [disabled]="loading" custom-btn white-primary color="prlimary">{{translated.BUTTONS.LOGIN}}</button>
+          <button mat-raised-button [disabled]="loading" custom-btn btn-primary>{{translated.BUTTONS.LOGIN}}</button>
           <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />    
         </div>
         <div class="link">

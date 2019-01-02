@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit,OnDestroy {
   userForm: FormGroup;
   organizationForm: FormGroup;
   moduleForm: FormGroup;
@@ -38,7 +38,8 @@ export class RegistrationComponent implements OnInit {
     private router: Router,
     private register: LoginRegistrationService,
     public translate: TranslateService,
-    private logging: LoggingService
+    private logging: LoggingService,
+    private render:Renderer2
   )
   /**
    *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
@@ -46,6 +47,7 @@ export class RegistrationComponent implements OnInit {
    */
   // tslint:disable-next-line:one-line
   {
+    this.render.addClass(document.body,'body-bg')
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
       this.translated = values;
       this.default = values.LOGGER.STATUS.DEFAULT;
@@ -98,6 +100,9 @@ export class RegistrationComponent implements OnInit {
       name: [[], Validators.required]
     });
   }
+ngOnDestroy(){
+  this.render.removeClass(document.body, 'body-bg');
+}
   /**
    * to check if password and confirm password is same
    * @param group formGroup for user form
