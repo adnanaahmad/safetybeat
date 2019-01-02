@@ -1,9 +1,11 @@
-.light-theme{
-    $colors: (
-        primary: red,
-        secondary: green
-  );
-  .sideLegend{
-    background-color: color($colors, primary);
+.light-theme {
+  --cardColor: #ccc;
+
+  // $colors: (
+  //   --cardColor: color(--cardColor),
+  //   // secondary: #fff
+  // );
+  .sideLegend {
+    background-color: --cardColor;
   }
 }

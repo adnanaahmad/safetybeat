@@ -16,6 +16,6 @@ export class ConstantService {
     registration: `${environment.apiUrl}/anonymous/registration/`,
     passwordReset: `${environment.apiUrl}/anonymous/password/reset/`,
     organization: `${environment.apiUrl}/anonymous/organization/`,
-    user: `${environment.apiUrl}/anonymous/user/`
+    user: `${environment.apiUrl}/anonymous/user`
   };
 }

@@ -41,25 +41,25 @@
             <mat-list-item role="listitem">
               <span matLine>
                 <span>First Name: </span>
-                <span> -- Michael </span>
+                <span *ngIf="userData.first_name" [innerHTML]="userData.first_name"></span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
                 <span>Last Name: </span>
-                <span> -- Cheema </span>
+                <span> {{userData.last_name}} </span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
                 <span>Email: </span>
-                <span> -- michael_cheema@gmail.com </span>
+                <span> {{userData.email}} </span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
                 <span>Mobile: </span>
-                <span> -- +923157118511 </span>
+                <span> {{userData.mobile_no}} </span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">

@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'src/theme/variables.scss';
+// @import 'src/theme/variables.scss';
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; }
 *{
@@ -61,7 +61,7 @@ body { margin: 0; font-family: 'Montserrat', sans-serif; }
 .sideLegend{
     height: 100%;
     width:100%;
-    background-color: #05647c;
+    // background-color: #05647c;
     .legendContent{
         position: absolute;
         top:50%;
