@@ -9,6 +9,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
+import { NotifierModule } from 'angular-notifier';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -18,6 +20,7 @@ describe('RegistrationComponent', () => {
     TestBed.configureTestingModule({
       declarations: [RegistrationComponent],
       imports: [
+        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,
@@ -31,6 +34,9 @@ describe('RegistrationComponent', () => {
             deps: [HttpClient]
           }
         })
+      ],
+      providers: [
+        LoggingService
       ]
     })
       .compileComponents();

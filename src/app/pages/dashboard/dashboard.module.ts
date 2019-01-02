@@ -11,7 +11,7 @@ import { TokenInterceptorService } from 'src/app/core/services/interceptors/toke
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     CommonModule,
