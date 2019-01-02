@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
 import { OrganizationService } from '../../services/organization.service';
 import { map } from 'rxjs/operators';
@@ -11,7 +10,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public auth: AuthService,
+  constructor(
     private org: OrganizationService,
     private route: Router,
     private breakpointObserver: BreakpointObserver) {

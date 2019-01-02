@@ -2,6 +2,7 @@ import { Component, Injector, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingService } from "src/app/shared/settings/setting.service";
 
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -34,5 +35,7 @@ export class AppComponent implements OnInit {
     } else {
       translate.use("en"); // Set your language here
     }
+
   }
+  
 }

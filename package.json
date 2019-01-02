@@ -24,6 +24,7 @@
     "@angular/router": "~7.1.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "angular-notifier": "^4.1.1",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "json-server": "^0.14.0",
@@ -34,7 +35,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.11.0",
+    "@angular-devkit/build-angular": "^0.11.4",
     "@angular/cli": "~7.1.0",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",

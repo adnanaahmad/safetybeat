@@ -18,4 +18,12 @@ export class ConstantService {
     organization: `${environment.apiUrl}/anonymous/organization/`,
     user: `${environment.apiUrl}/anonymous/user`
   };
+  static toast = {
+    location: 'toast-top-left',
+    time: 1500,
+    time1: 3000,
+  };
+  static config = {
+    devMode: true
+  }
 }
