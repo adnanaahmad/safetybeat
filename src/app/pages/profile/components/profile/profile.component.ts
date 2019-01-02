@@ -3,6 +3,7 @@ import { ProfileService } from '../../services/profile.service';
 import { share } from 'rxjs/operators';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SettingService } from 'src/app/shared/settings/setting.service';
 
 @Component({
   selector: 'app-profile',
@@ -15,13 +16,15 @@ export class ProfileComponent implements OnInit {
   success: string;
   warning: string;
   error: string;
+  selectedTheme: String = 'light-theme';
   profile_success: string;
   profile_error: string;
   status: string;
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private settingsProvider: SettingService
   ) {
     this.translate.get(['LOGGER']).subscribe((values) => {
       this.error = values.LOGGER.STATUS.ERROR;
@@ -30,6 +33,9 @@ export class ProfileComponent implements OnInit {
       this.profile_success = values.LOGGER.MESSAGES.PROFILE_SUCCESS;
       this.profile_error = values.LOGGER.MESSAGES.PROFILE_ERROR;
       this.status = values.LOGGER.MESSAGES.STATUS;
+    });
+    this.settingsProvider.getActiveTheme().subscribe((val) => {
+      this.selectedTheme = val;
     });
 
   }

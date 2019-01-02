@@ -8,14 +8,11 @@ import { OrganizationComponent } from './components/organization/organization.co
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ProfileService } from './services/profile.service';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
-// import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { createTranslateLoader } from 'src/app/app.module';
 
 @NgModule({
   declarations: [ProfileComponent, UserComponent, OrganizationComponent],
@@ -28,13 +25,6 @@ import { createTranslateLoader } from 'src/app/app.module';
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    }),
   ],
   providers: [
     ProfileService,
