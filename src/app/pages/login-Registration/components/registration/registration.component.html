@@ -1,35 +1,4 @@
-<div id="particle-container">
-    <div class="particle"><mat-icon>change_history</mat-icon></div>
-    <div class="particle"><mat-icon>data_usage</mat-icon></div>
-    <div class="particle"><mat-icon>crop_din</mat-icon></div>
-    <div class="particle"><mat-icon>panorama_horizontal</mat-icon></div>
-    <div class="particle"><mat-icon>all_inclusive</mat-icon></div>
-    <div class="particle"><mat-icon>change_history</mat-icon></div>
-    <div class="particle"><mat-icon>radio_button_unchecked</mat-icon></div>
-    <div class="particle"><mat-icon>panorama_wide_angle</mat-icon></div>
-    <div class="particle"><mat-icon>my_location</mat-icon></div>
-    <div class="particle"><mat-icon>share</mat-icon></div>
-    <div class="particle"><mat-icon>waves</mat-icon></div>
-    <div class="particle"><mat-icon>gps_not_fixed</mat-icon></div>
-    <div class="particle"><mat-icon>scatter_plot</mat-icon></div>
-    <div class="particle"><mat-icon>details</mat-icon></div>
-    <div class="particle"><mat-icon>texture</mat-icon></div>
-    <div class="particle"><mat-icon>change_history</mat-icon></div>
-    <div class="particle"><mat-icon>data_usage</mat-icon></div>
-    <div class="particle"><mat-icon>crop_din</mat-icon></div>
-    <div class="particle"><mat-icon>panorama_horizontal</mat-icon></div>
-    <div class="particle"><mat-icon>all_inclusive</mat-icon></div>
-    <div class="particle"><mat-icon>change_history</mat-icon></div>
-    <div class="particle"><mat-icon>radio_button_unchecked</mat-icon></div>
-    <div class="particle"><mat-icon>panorama_wide_angle</mat-icon></div>
-    <div class="particle"><mat-icon>my_location</mat-icon></div>
-    <div class="particle"><mat-icon>share</mat-icon></div>
-    <div class="particle"><mat-icon>waves</mat-icon></div>
-    <div class="particle"><mat-icon>gps_not_fixed</mat-icon></div>
-    <div class="particle"><mat-icon>scatter_plot</mat-icon></div>
-    <div class="particle"><mat-icon>details</mat-icon></div>
-    <div class="particle"><mat-icon>texture</mat-icon></div>
-</div>  
+<app-particle-container></app-particle-container>
 <mat-card class="midbox loginbox">
     <span class="monogram">
       <img src="/assets/images/monogram.png" />
@@ -120,7 +89,7 @@
             </mat-grid-tile>
           </mat-grid-list>
         <div>
-          <button mat-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
           <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>
@@ -239,8 +208,8 @@
               </mat-grid-list>
               <div class="clearsep"></div>
         <div>
-          <button mat-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-          <button mat-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
@@ -264,8 +233,8 @@
         </div>
         <div class="clearsep"></div>
         <div>
-          <button mat-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-          <button mat-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
