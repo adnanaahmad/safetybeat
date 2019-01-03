@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 // services
 import { TranslateService } from '@ngx-translate/core';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
@@ -15,7 +15,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  @Input() loginForm: FormGroup;
   loading: boolean;
   error: string;
   data: any;
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   loginfail_msg: string;
   default: string;
   info: string;
+  control: FormControl;
   success: string;
   warning: string;
   loggedin: string;

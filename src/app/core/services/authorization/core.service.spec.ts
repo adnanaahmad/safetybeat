@@ -1,29 +1,44 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CoreService } from './core.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, getTestBed } from '@angular/core/testing';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { createTranslateLoader } from 'src/app/app.module';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { async } from 'q';
+import { inject } from '@angular/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 describe('CoreService', () => {
     let router: Router;
+    let injector;
+    let service: CoreService;
+    let httpTestingController: HttpTestingController;
+    let http: HttpClient;
     const storageKey = 'token';
     const tokenSecret = 'this-is-a-test-secret';
-    beforeEach(() => TestBed.configureTestingModule({
-        imports: [
-            HttpClientModule,
-            AppRoutingModule,
-            ToastrModule.forRoot(),
-            TranslateModule.forRoot({
-                loader: {
-                    provide: TranslateLoader,
-                    useFactory: (createTranslateLoader),
-                    deps: [HttpClient]
-                }
-            })
-        ]
-    }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientTestingModule,
+                HttpClientModule,
+                RouterModule.forRoot([{ path: '', component: CoreService }]),
+                ToastrModule.forRoot(),
+                TranslateModule.forRoot({
+                    loader: {
+                        provide: TranslateLoader,
+                        useFactory: (createTranslateLoader),
+                        deps: [HttpClient]
+                    }
+                })
+            ],
+            providers: [CoreService],
+        });
+        injector = getTestBed();
+        service = injector.get(CoreService);
+        httpTestingController = injector.get(HttpTestingController);
+        http = injector.get(HttpClient);
+    });
 
     it('should be created', () => {
         const service = TestBed.get(CoreService);
@@ -72,21 +87,5 @@ describe('CoreService', () => {
             expect(isAuthenticated).toBeFalsy();
         });
     });
-    // describe('Logout', () => {
-    //     const service = TestBed.get(CoreService);
-    //     it('should remove the access token', () => {
-    //         localStorage.setItem(storageKey, tokenSecret);
-    //         const token = localStorage.getItem(storageKey);
-    //         expect(token).toBeTruthy();
-    //         service.removeToken();
-    //         const afterRemoveToken = localStorage.getItem(storageKey);
-    //         expect(afterRemoveToken).toEqual(null);
-    //     });
-    //     it('navigate to "login" takes you to /login', fakeAsync(() => {
-    //         router.navigate(['/login']);
-    //         // tick();
-    //         expect(location.pathname).toBe('/login');
-    //         // expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
-    //     }));
-    // });
+
 });

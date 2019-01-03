@@ -53,4 +53,7 @@ describe('RegistrationComponent', () => {
     const component = fixture.debugElement.componentInstance;
     expect(component).toBeTruthy();
   });
+
+  it('should register user with his organization', () => {
+  });
 });
