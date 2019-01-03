@@ -1,172 +1,224 @@
+<app-particle-container></app-particle-container>
 <mat-card class="midbox loginbox">
+    <span class="monogram">
+      <img src="/assets/images/monogram.png" />
+    </span>
   <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p>
   <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
-        <ng-template matStepLabel>{{translated.MESSAGES.USERDETAILS_MSG}}</ng-template>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required />
-            <mat-error *ngIf="userDetailForm.username.errors && userDetailForm.username.errors.required">
-              {{translated.AUTH.USERNAME_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.FIRSTNAME formControlName="first_name" required />
-            <mat-error *ngIf="userDetailForm.first_name.errors ">
-              {{translated.AUTH.FIRSTNAME_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.LASTNAME formControlName="last_name" required />
-            <mat-error *ngIf="userDetailForm.last_name.errors ">
-              {{translated.AUTH.LASTNAME_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName="email" required />
-            <mat-error *ngIf="userDetailForm.email.errors ">
-              {{translated.AUTH.EMAIL_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="mobile_no" required />
-            <mat-error *ngIf="userDetailForm.mobile_no.errors ">
-              {{translated.AUTH.MOBILE_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password" required />
-            <mat-error *ngIf="userDetailForm.password.errors ">
-              <span *ngIf="userDetailForm.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-              <span *ngIf="userDetailForm.password.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName="password2"
-              required />
-            <mat-error *ngIf="userDetailForm.password2.errors ">
-              <span *ngIf="userDetailForm.password2.errors?.required">{{translated.AUTH.CONFIRMPASSWORD_REQ}}</span>
-              <span *ngIf="userDetailForm.password2.errors?.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-              <span *ngIf="userDetailForm.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
-            </mat-error>
-          </mat-form-field>
-        </div>
+        <ng-template matStepLabel>
+          <mat-icon>person</mat-icon>
+          {{translated.MESSAGES.USERDETAILS_MSG}}
+        </ng-template>
+        <mat-grid-list cols="2" rowHeight="70px">
+            <mat-grid-tile>
+                <div class="form-group">
+                    <mat-form-field>
+                      <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required />
+                      <mat-error *ngIf="userDetailForm.username.errors && userDetailForm.username.errors.required">
+                        {{translated.AUTH.USERNAME_REQ}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="form-group">
+                    <mat-form-field>
+                      <input matInput type="text" [placeholder]=translated.AUTH.FIRSTNAME formControlName="first_name" required />
+                      <mat-error *ngIf="userDetailForm.first_name.errors ">
+                        {{translated.AUTH.FIRSTNAME_REQ}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="form-group">
+                    <mat-form-field>
+                      <input matInput type="text" [placeholder]=translated.AUTH.LASTNAME formControlName="last_name" required />
+                      <mat-error *ngIf="userDetailForm.last_name.errors ">
+                        {{translated.AUTH.LASTNAME_REQ}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="form-group">
+                    <mat-form-field>
+                      <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName="email" required />
+                      <mat-error *ngIf="userDetailForm.email.errors ">
+                        {{translated.AUTH.EMAIL_REQ}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="form-group">
+                    <mat-form-field>
+                      <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="mobile_no" required />
+                      <mat-error *ngIf="userDetailForm.mobile_no.errors ">
+                        {{translated.AUTH.MOBILE_REQ}}
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="form-group">
+                    <mat-form-field>
+                      <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password" required />
+                      <mat-error *ngIf="userDetailForm.password.errors ">
+                        <span *ngIf="userDetailForm.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+                        <span *ngIf="userDetailForm.password.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="form-group">
+                    <mat-form-field>
+                      <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName="password2"
+                        required />
+                      <mat-error *ngIf="userDetailForm.password2.errors ">
+                        <span *ngIf="userDetailForm.password2.errors?.required">{{translated.AUTH.CONFIRMPASSWORD_REQ}}</span>
+                        <span *ngIf="userDetailForm.password2.errors?.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+                        <span *ngIf="userDetailForm.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+            </mat-grid-tile>
+          </mat-grid-list>
         <div>
-          <button mat-button matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>
     </mat-step>
     <mat-step [stepControl]="organizationForm">
       <form [formGroup]="organizationForm">
-        <ng-template matStepLabel>{{translated.MESSAGES.ORGANIZATION_MSG}}</ng-template>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.ORGANIZATION_NAME formControlName="name" required />
-            <mat-error *ngIf="orgForm.name.errors && orgForm.name.errors.required">
-              {{translated.AUTH.ORGANIZATIONNAME_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <mat-select [placeholder]=translated.MESSAGES.TYPE_MSG formControlName="type" required>
-              <mat-option *ngFor="let type of types" value="type.id">
-                {{type.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="orgForm.type.errors && orgForm.type.errors.required">
-              {{translated.MESSAGES.TYPE_MSG}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.ADDRESS formControlName="address" required />
-            <mat-error *ngIf="orgForm.address.errors && orgForm.address.errors.required">
-              {{translated.AUTH.ADDRESS_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.CITY formControlName="city" required />
-            <mat-error *ngIf="orgForm.city.errors && orgForm.city.errors.required">
-              {{translated.AUTH.CITY_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.COUNTRY formControlName="country" required />
-            <mat-error *ngIf="orgForm.country.errors && orgForm.country.errors.required">
-              {{translated.AUTH.COUNTRY_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.ZIPCODE formControlName="zipCode" required />
-            <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
-              {{translated.AUTH.ZIPCODE_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="email" [placeholder]=translated.AUTH.BILLING_EMAIL formControlName="billingEmail"
-              required />
-            <mat-error *ngIf="orgForm.billingEmail.errors && orgForm.billingEmail.errors.required">
-              {{translated.AUTH.BILLINGEMAIL_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.ACCOUNTNO formControlName="accountNo" required />
-            <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
-              {{translated.AUTH.ACCOUNTNO_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="phoneNo" required />
-            <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
-              {{translated.AUTH.MOBILE_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="form-group">
-          <mat-form-field>
-            <input matInput type="text" [placeholder]=translated.AUTH.FAX formControlName="fax" required />
-            <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
-              {{translated.AUTH.FAXNO_REQ}}
-            </mat-error>
-          </mat-form-field>
-        </div>
+        <ng-template matStepLabel>
+            <mat-icon>domain</mat-icon>
+          {{translated.MESSAGES.ORGANIZATION_MSG}}</ng-template>
+          <mat-grid-list cols="2" rowHeight="70px">
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.ORGANIZATION_NAME formControlName="name" required />
+                        <mat-error *ngIf="orgForm.name.errors && orgForm.name.errors.required">
+                          {{translated.AUTH.ORGANIZATIONNAME_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <mat-select [placeholder]=translated.MESSAGES.TYPE_MSG formControlName="type" required>
+                          <mat-option *ngFor="let type of types" value="type.id">
+                            {{type.name}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="orgForm.type.errors && orgForm.type.errors.required">
+                          {{translated.MESSAGES.TYPE_MSG}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.ADDRESS formControlName="address" required />
+                        <mat-error *ngIf="orgForm.address.errors && orgForm.address.errors.required">
+                          {{translated.AUTH.ADDRESS_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.CITY formControlName="city" required />
+                        <mat-error *ngIf="orgForm.city.errors && orgForm.city.errors.required">
+                          {{translated.AUTH.CITY_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.COUNTRY formControlName="country" required />
+                        <mat-error *ngIf="orgForm.country.errors && orgForm.country.errors.required">
+                          {{translated.AUTH.COUNTRY_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.ZIPCODE formControlName="zipCode" required />
+                        <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
+                          {{translated.AUTH.ZIPCODE_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="email" [placeholder]=translated.AUTH.BILLING_EMAIL formControlName="billingEmail"
+                          required />
+                        <mat-error *ngIf="orgForm.billingEmail.errors && orgForm.billingEmail.errors.required">
+                          {{translated.AUTH.BILLINGEMAIL_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.ACCOUNTNO formControlName="accountNo" required />
+                        <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
+                          {{translated.AUTH.ACCOUNTNO_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="phoneNo" required />
+                        <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
+                          {{translated.AUTH.MOBILE_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                  <div class="form-group">
+                      <mat-form-field>
+                        <input matInput type="text" [placeholder]=translated.AUTH.FAX formControlName="fax" required />
+                        <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
+                          {{translated.AUTH.FAXNO_REQ}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+              </mat-grid-tile>
+              </mat-grid-list>
+              <div class="clearsep"></div>
         <div>
-          <button mat-button matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
 
     <mat-step [stepControl]="moduleForm">
       <form [formGroup]="moduleForm">
-        <ng-template matStepLabel>{{translated.MESSAGES.MODULE_MSG}}</ng-template>
+        <ng-template matStepLabel>
+            <mat-icon>line_style</mat-icon>
+          {{translated.MESSAGES.MODULE_MSG}}</ng-template>
         <div class="form-group">
           <mat-form-field>
             <mat-select [placeholder]=translated.MESSAGES.MODULE_MSG formControlName="name" multiple required>
@@ -179,15 +231,18 @@
             </mat-error>
           </mat-form-field>
         </div>
+        <div class="clearsep"></div>
         <div>
-          <button mat-button matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-          <button mat-button matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
 
     <mat-step>
-      <ng-template matStepLabel>{{translated.MESSAGES.PACKAGESELECT_MSG}}</ng-template>
+      <ng-template matStepLabel>
+          <mat-icon>beenhere</mat-icon>
+        {{translated.MESSAGES.PACKAGESELECT_MSG}}</ng-template>
       <mat-card *ngFor="let module of moduleForm.value.name">
         <mat-card-title>{{module}}</mat-card-title>
         <mat-card-content>
@@ -201,9 +256,10 @@
           </mat-radio-group>
         </mat-card-content>
       </mat-card>
+      <div class="clearsep"></div>
       <div>
-        <button mat-button matStepperPrevious [disabled]="loading">{{translated.BUTTONS.BACK}}</button>
-        <button mat-button (click)="registerOrginazation()" [disabled]="loading">{{translated.BUTTONS.SUBMIT}}</button>
+        <button mat-button custom-btn btn-danger matStepperPrevious [disabled]="loading">{{translated.BUTTONS.BACK}}</button>
+        <button mat-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading">{{translated.BUTTONS.SUBMIT}}</button>
         <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
       </div>
     </mat-step>
