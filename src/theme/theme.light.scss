@@ -1,5 +1,48 @@
 .light-theme {
-    .h4{
-        background-color: black;
+  $primary: #05647c; // Primary
+  $secondary: #003a50; // Secondary
+  $textWhite: #fff; // Text color for dark backgrounds
+  $danger: #d32f2f; // Color for Errors, Delete buttons etc
+
+  // Styling starts here
+  @at-root{
+    .body-bg{
+      background-color: $primary;
     }
+  }
+  a:not(.mat-raised-button){
+    color: $primary;
+  }
+  .sideLegend {
+    background-color: $primary;
+  }
+  [btn-primary]{
+    background-color: $primary;
+    color: $textWhite;
+  }
+  [btn-danger]{
+    background-color: $danger;
+    color: $textWhite;
+  }
+  .midbox:before{
+    background-color: $danger;
+  }
+  app-registration{
+    .loginbox{
+        mat-step-header{
+            mat-icon{
+                border: 2px dashed $primary;
+                color: $primary;
+            }
+            .mat-step-label-active{
+              mat-icon{
+                border: 2px solid $primary;
+                background-color: $primary;
+                color: $textWhite;
+              }
+              color: $primary;
+            }
+        }
+    }
+}
 }

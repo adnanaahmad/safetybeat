@@ -12,6 +12,7 @@ import { LoginRegistrationService } from './services/LoginRegistrationService';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { ParticleContainerComponent } from './components/particle-container/particle-container.component';
 @NgModule({
 
   imports: [
@@ -25,7 +26,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
   declarations: [
     LoginComponent,
     RegistrationComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ParticleContainerComponent
   ],
   providers: [
     LoginRegistrationService,
