@@ -3,6 +3,7 @@
   $secondary: #003a50; // Secondary
   $textWhite: #fff; // Text color for dark backgrounds
   $danger: #d32f2f; // Color for Errors, Delete buttons etc
+  $primaryOpacity: rgb(242,247,248);
 
   // Styling starts here
   @at-root{
@@ -43,6 +44,29 @@
               color: $primary;
             }
         }
+        .mat-card-title{
+          border-color: $primary;
+          color: $primary;
+        }
     }
 }
+.legend-title{
+  &:before,
+  &:after{
+      background: $primary;
+  }
+}
+  .package-selectors{
+    .mat-radio-button{
+      background-color: $primaryOpacity;
+      &.mat-radio-checked{
+        &:before{
+          background: $primary;
+        }
+        *{
+          color:$textWhite;
+        }
+      }
+    }
+  }
 }
