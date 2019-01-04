@@ -15,7 +15,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @Input() loginForm: FormGroup;
+  loginForm: FormGroup;
   loading: boolean;
   error: string;
   data: any;
@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   loginfail_msg: string;
   default: string;
   info: string;
-  control: FormControl;
   success: string;
   warning: string;
   loggedin: string;
@@ -85,7 +84,7 @@ export class LoginComponent implements OnInit {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
-
+    debugger
     if (!valid) {
       this.logging.appLogger(this.warning, valid);
       this.logging.appLogger(this.error, this.credential_req);

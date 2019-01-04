@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Injectable } from '@angular/core';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Injectable, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, EmailValidator } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
@@ -15,6 +15,12 @@ import { DebugElement } from '@angular/core';
 import { NotifierModule } from 'angular-notifier';
 import { LoginResponse, loginCredentials } from 'src/app/models/user.model';
 import { getTypeNameForDebugging } from '@angular/common/src/directives/ng_for_of';
+import { ParticleContainerComponent } from '../particle-container/particle-container.component';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { routes } from 'src/app/app-routing.module';
+import { Location } from '@angular/common';
+import { PageNotFoundComponent } from 'src/app/core/components/page-not-found/page-not-found.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -22,13 +28,16 @@ describe('LoginComponent', () => {
   let debugEl: DebugElement;
   let nativeEl: HTMLElement;
   let fixture: ComponentFixture<LoginComponent>;
+  let errors = {};
+  let location: Location;
+  let router: Router;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginComponent],
+      declarations: [LoginComponent, ParticleContainerComponent, PageNotFoundComponent],
       imports: [
         NotifierModule,
         BrowserAnimationsModule,
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
@@ -40,10 +49,14 @@ describe('LoginComponent', () => {
             deps: [HttpClient]
           }
         })
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
     authService = TestBed.get(LoginRegistrationService);
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
+    router.initialNavigation();
   }));
 
   beforeEach(() => {
@@ -51,6 +64,7 @@ describe('LoginComponent', () => {
     component = fixture.componentInstance;
     debugEl = fixture.debugElement;
     nativeEl = fixture.nativeElement;
+    component.ngOnInit();
   });
 
   it('should create', () => {
@@ -58,39 +72,66 @@ describe('LoginComponent', () => {
     const component = fixture.debugElement.componentInstance;
     expect(component).toBeTruthy();
   });
+  describe('check form validation', () => {
+    it('form invalid when its empty', () => {
+      expect(component.loginForm.valid).toBeFalsy();
+    });
+    it('email field validity false', () => {
+      let email = component.loginForm.controls['email'];
+      expect(email.valid).toBeTruthy();
+
+      email.setValue('test');
+      errors = email.errors || {};
+      expect(errors['email']).toBeTruthy();
+    });
+    it('email field validity true', () => {
+      let email = component.loginForm.controls['email'];
+      errors = email.errors || {};
+      expect(email.valid).toBeTruthy();
+
+      email.setValue('test@test.com');
+      errors = email.errors || {};
+      expect(errors['email']).toBeFalsy();
+    });
+    it('check password validity false or undefined', () => {
+      let password = component.loginForm.controls['password'];
+      errors = password.errors || {};
+      expect(errors['password']).toBeFalsy();
+
+      password.setValue('');
+      errors = password.errors || {};
+      expect(errors['password']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+
+      password.setValue('admin123');
+      errors = password.errors || {};
+      expect(errors['password']).toBeFalsy();
+
+    });
+  });
   describe('user should login', () => {
-    let user: LoginResponse = {
-      'token': 'this is my dummy token',
-      'user': {
-        'username': 'admin',
-        'email': 'email@test.com',
-        'first_name': 'admin',
-        'last_name': 'admin',
-        'mobile_no': '12345678',
-        'password': 'admin123'
-      }
-    };
-    let valid: boolean;
-    const loginCredentials = {
-      username: 'admin',
-      password: 'admin123'
-    };
-    it('login form must be intialized', () => {
-      // let form = {
-      //   value: {
-      //     username: 'admin',
-      //     password: 'admin123'
-      //   },
-      //   valid: true
-      // };
-      component.ngOnInit();
-      // component.onSubmit(form);
-      expect(component.loginForm instanceof FormGroup).toBe(true);
-    });
-    it('should return true if the form control is valid', () => {
-      const formControl = new FormControl('test');
-      component.control = formControl;
-      expect(component.formValidation).toBe(true);
-    });
+    it('login form must be intialized', async(() => {
+      let loginElement: DebugElement;
+      authService = debugEl.injector.get(LoginRegistrationService);
+      let form = {
+        value: {
+          username: 'admin',
+          password: 'admin123'
+        },
+        valid: true
+      };
+      expect(component.loginForm.valid).toBeFalsy();
+      component.loginForm.controls['username'].setValue('test');
+      component.loginForm.controls['password'].setValue('test1234');
+      expect(component.loginForm.valid).toBeTruthy();
+      const spy = spyOn(authService, 'loginUser').and.callThrough();
+      loginElement = fixture.debugElement.query(By.css('form'));
+      loginElement.triggerEventHandler('ngSubmit', null);
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      router.navigate(['home']).then(() => {
+        expect(location.path()).toBe('/home');
+      });
+    }));
   });
 });

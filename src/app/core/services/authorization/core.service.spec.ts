@@ -46,7 +46,6 @@ describe('CoreService', () => {
     });
 
     describe('Authorization Token', () => {
-        const service = TestBed.get(CoreService);
         it('should set the access token', () => {
             localStorage.removeItem(storageKey);
             const beforeSettingToken = localStorage.getItem(storageKey);
@@ -73,7 +72,6 @@ describe('CoreService', () => {
     });
 
     describe('isAuthenticated', () => {
-        const service = TestBed.get(CoreService);
         it('should return true from isAuthenticated when there is a token', () => {
             localStorage.setItem(storageKey, tokenSecret);
             const isAuthenticated = service.isAuthenticated();

@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { ParticleContainerComponent } from '../particle-container/particle-container.component';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
@@ -18,7 +19,7 @@ describe('RegistrationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RegistrationComponent],
+      declarations: [RegistrationComponent, ParticleContainerComponent],
       imports: [
         NotifierModule,
         BrowserAnimationsModule,
@@ -54,6 +55,6 @@ describe('RegistrationComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should register user with his organization', () => {
-  });
+  // it('should register user with his organization', () => {
+  // });
 });
