@@ -91,7 +91,7 @@
           </mat-grid-tile>
         </mat-grid-list>
         <div>
-          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
           <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>
@@ -213,8 +213,8 @@
         </mat-grid-list>
         <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary" >{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
@@ -239,23 +239,31 @@
         </div>
         <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
 
     <mat-step>
       <ng-template matStepLabel>
-        <mat-icon>beenhere</mat-icon>
-        {{translated.MESSAGES.PACKAGESELECT_MSG}}
-      </ng-template>
+          <mat-icon>bookmark_border</mat-icon>
+        {{translated.MESSAGES.PACKAGESELECT_MSG}}</ng-template>
       <mat-card *ngFor="let module of moduleForm.value.name">
-        <mat-card-title>{{module}}</mat-card-title>
+        <mat-card-title class="legend-title">{{module}}</mat-card-title>
         <mat-card-content>
-          <mat-radio-group>
+          <mat-radio-group class="package-selectors">
             <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage(module,package)">
-              <div>
+                <div class="trigger"></div>
+                <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                   viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
+                <path class="circ path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" d="
+                  M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z"
+                  />
+                <polyline class="tick path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" points="
+                  11.6,20 15.9,24.2 26.4,13.8 "/>
+                </svg>                
+              <div class="radio-data">
                 <h3>{{package.cost}}</h3>
                 <p>{{package.noOfUsers}}</p>
               </div>
@@ -265,8 +273,8 @@
       </mat-card>
       <div class="clearsep"></div>
       <div>
-        <button mat-button custom-btn btn-danger matStepperPrevious [disabled]="loading">{{translated.BUTTONS.BACK}}</button>
-        <button mat-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading">{{translated.BUTTONS.SUBMIT}}</button>
+        <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn">{{translated.BUTTONS.BACK}}</button>
+        <button mat-raised-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}}</button>
         <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
       </div>
     </mat-step>
