@@ -2,10 +2,10 @@
   <mat-grid-tile>
     <mat-card class="sideLegend">
       <div class="legendContent">
-        <h3>Welcome to</h3>
+        <h3>{{translated.MESSAGES.WELCOME}}</h3>
         <h1>Anonymous !</h1>
-        <p>The only safety app that allows you to easily manage the safety of your mobile, remote and lone workers, anytime, anywhere</p>
-        <span>Don't have an account?</span>
+        <p>{{translated.MESSAGES.WELCOME_MSG}}</p>
+        <span>{{translated.MESSAGES.NOACCOUNT}}</span>
         <button mat-raised-button custom-btn btn-white routerLink="/signup" [disabled]="loading">{{translated.BUTTONS.REGISTER}}</button>
       </div>
     </mat-card>
