@@ -89,7 +89,7 @@
             </mat-grid-tile>
           </mat-grid-list>
         <div>
-          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
           <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>
@@ -208,8 +208,8 @@
               </mat-grid-list>
               <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary" >{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
@@ -233,8 +233,8 @@
         </div>
         <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious>{{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext>{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">{{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
@@ -267,8 +267,8 @@
       </mat-card>
       <div class="clearsep"></div>
       <div>
-        <button mat-button custom-btn btn-danger matStepperPrevious [disabled]="loading">{{translated.BUTTONS.BACK}}</button>
-        <button mat-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading">{{translated.BUTTONS.SUBMIT}}</button>
+        <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn">{{translated.BUTTONS.BACK}}</button>
+        <button mat-raised-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}}</button>
         <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
       </div>
     </mat-step>
