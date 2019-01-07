@@ -37,7 +37,7 @@ describe('LoginComponent', () => {
       imports: [
         NotifierModule,
         BrowserAnimationsModule,
-        RouterTestingModule.withRoutes(routes),
+        RouterTestingModule,
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
