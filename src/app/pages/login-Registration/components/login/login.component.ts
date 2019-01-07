@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 // services
 import { TranslateService } from '@ngx-translate/core';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
@@ -15,15 +15,15 @@ import { Translation } from 'src/app/models/translate.model';
   selector: 'app-login',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   loading: boolean;
   data: any;
   translated: Translation;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
+    public formBuilder: FormBuilder,
+    public router: Router,
     public loginService: LoginRegistrationService,
     public translate: TranslateService,
     public toastProvider: ToastService,
@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
       this.translated = values;
     });
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
-   
-    if(this.loginService.getToken()){
-      this.router.navigate(['/home'])
+
+    if (this.loginService.getToken()) {
+      this.router.navigate(['/home']);
     }
   }
   ngOnInit() {
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers()
+    this.logging.hideAllAppLoggers();
   }
 
   /**
@@ -61,7 +61,6 @@ export class LoginComponent implements OnInit {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
-
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ);
@@ -80,7 +79,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         },
         (error) => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.non_field_errors[0] + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.non_field_errors[0] +
+            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
           this.toastProvider.createErrorToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG);
         }

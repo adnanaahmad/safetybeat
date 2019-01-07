@@ -98,6 +98,7 @@
             "LOGIN_COMPONENT": "Login load Success",
             "REGISTRATION_COMPONENT": "SignUp load Success",
             "FORGOT_COMPONENT": "Forgot passward load Success",
+            "PARTICLE_COMPONENT": "Particles loaded",
             "DASHBOARD_COMPONENT": "Dashboard load Success",
             "NAVIGATION_COMPONENT": "Navigation load Success",
             "SIDE_NAV": "Side nav: ",

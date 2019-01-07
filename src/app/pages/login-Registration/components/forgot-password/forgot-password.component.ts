@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,7 +13,7 @@ import { Translation } from 'src/app/models/translate.model';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPassForm: FormGroup;
   translated: Translation;
   selectedTheme: String;
@@ -26,17 +26,16 @@ export class ForgotPasswordComponent implements OnInit {
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
     });
-    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
   }
-  ngOnInit()
-  {
+  ngOnInit() {
     this.forgotPassForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
-  ngOnDestroy(){
-    this.logging.hideAllAppLoggers()
+  ngOnDestroy() {
+    this.logging.hideAllAppLoggers();
   }
   /**
    * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality

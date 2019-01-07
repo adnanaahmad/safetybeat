@@ -106,6 +106,7 @@ export interface LoggerMessage {
     LOGIN_COMPONENT: string,
     REGISTRATION_COMPONENT: string,
     FORGOT_COMPONENT: string,
+    PARTICLE_COMPONENT: string,
     DASHBOARD_COMPONENT: string,
     NAVIGATION_COMPONENT: string,
     SIDE_NAV: string,

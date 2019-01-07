@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, OnDestroy } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { share } from 'rxjs/operators';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
@@ -12,7 +12,7 @@ import { Translation } from 'src/app/models/translate.model';
   styleUrls: ['./profile.component.scss'],
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   userData: any;
   translated: Translation;
   constructor(
@@ -23,8 +23,8 @@ export class ProfileComponent implements OnInit {
   ) {
     this.translate.get(['LOGGER']).subscribe((values) => {
       this.translated = values;
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
-    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
   }
   @Input()
   ngOnInit() {
@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers()
+    this.logging.hideAllAppLoggers();
   }
   getUserData() {
     const dataRecieved = this.profile.getUser(1).pipe(share());
@@ -40,7 +40,8 @@ export class ProfileComponent implements OnInit {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 
     }, (error) => {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.PROFILE_ERROR + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.PROFILE_ERROR +
+        this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
     });
     return dataRecieved;
   }
