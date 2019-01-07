@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
       this.translated = values;
     });
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
+   
+    if(this.loginService.getToken()){
+      this.router.navigate(['/home'])
+    }
   }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
