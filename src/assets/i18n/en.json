@@ -95,7 +95,13 @@
             "REGISTRATION_SUCCESS": "User has successfully been registered",
             "PROFILE_SUCCESS": "Profile data has been received successfully",
             "PROFILE_ERROR": "Profile data has not been received",
-            "FORGOT_COMPONENT": "Forgot passward component loaded Successfully"
+            "LOGIN_COMPONENT": "Login load Success",
+            "REGISTRATION_COMPONENT": "SignUp load Success",
+            "FORGOT_COMPONENT": "Forgot passward load Success",
+            "DASHBOARD_COMPONENT": "Dashboard load Success",
+            "NAVIGATION_COMPONENT": "Navigation load Success",
+            "SIDE_NAV": "Side nav: ",
+            "PROFILE_COMPONENT": "Profile load Success"
         }
     }
 }

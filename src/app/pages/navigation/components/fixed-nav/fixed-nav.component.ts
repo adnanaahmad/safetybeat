@@ -1,4 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Translation } from 'src/app/models/translate.model';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -10,17 +13,24 @@ export class FixedNavComponent implements OnInit {
   navOpened: boolean;
   @Output()
   sidenavToggle = new EventEmitter<boolean>();
+  translated: Translation;
   public navLinks = [
     { path: '/home', icon: 'dashboard' },
     { path: '/home/profile', icon: 'supervised_user_circle' }
   ];
+
+  constructor(public translate: TranslateService,
+    private logging: LoggingService) {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
+      this.translated = values;
+    });
+  }
   // Toggle the sidenav
   public toggleSideNav() {
     this.navOpened = !this.navOpened;
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, `${this.translated.LOGGER.MESSAGES.SIDE_NAV + this.navOpened}`);
     this.sidenavToggle.emit(this.navOpened);
   }
-  constructor() { }
-
   ngOnInit() {
   }
 
