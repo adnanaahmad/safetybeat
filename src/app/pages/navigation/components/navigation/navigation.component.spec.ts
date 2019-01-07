@@ -11,6 +11,7 @@ import { createTranslateLoader } from 'src/app/app.module';
 import { NavListComponent } from '../nav-list/nav-list.component';
 import { FixedNavComponent } from '../fixed-nav/fixed-nav.component';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { NotifierModule } from 'angular-notifier';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -20,6 +21,7 @@ describe('NavigationComponent', () => {
     TestBed.configureTestingModule({
       declarations: [NavigationComponent, NavListComponent, FixedNavComponent],
       imports: [
+        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,

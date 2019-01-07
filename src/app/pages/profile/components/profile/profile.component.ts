@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, OnDestroy } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { share } from 'rxjs/operators';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
+import { Translation } from 'src/app/models/translate.model';
 
 @Component({
   selector: 'app-profile',
@@ -11,15 +12,9 @@ import { SettingService } from 'src/app/shared/settings/setting.service';
   styleUrls: ['./profile.component.scss'],
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   userData: any;
-  success: string;
-  warning: string;
-  error: string;
-  selectedTheme: String = 'light-theme';
-  profile_success: string;
-  profile_error: string;
-  status: string;
+  translated: Translation;
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
@@ -27,30 +22,26 @@ export class ProfileComponent implements OnInit {
     private settingsProvider: SettingService
   ) {
     this.translate.get(['LOGGER']).subscribe((values) => {
-      this.error = values.LOGGER.STATUS.ERROR;
-      this.success = values.LOGGER.STATUS.SUCCESS;
-      this.warning = values.LOGGER.STATUS.WARNING;
-      this.profile_success = values.LOGGER.MESSAGES.PROFILE_SUCCESS;
-      this.profile_error = values.LOGGER.MESSAGES.PROFILE_ERROR;
-      this.status = values.LOGGER.MESSAGES.STATUS;
+      this.translated = values;
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
-    this.settingsProvider.getActiveTheme().subscribe((val) => {
-      this.selectedTheme = val;
-    });
-
   }
   @Input()
   ngOnInit() {
     this.userData = this.getUserData();
   }
 
+  ngOnDestroy() {
+    this.logging.hideAllAppLoggers();
+  }
   getUserData() {
     const dataRecieved = this.profile.getUser(1).pipe(share());
     dataRecieved.subscribe((data) => {
-      this.logging.appLogger(this.success, this.profile_success);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 
     }, (error) => {
-      this.logging.appLogger(this.error, `${this.profile_error + this.status + error.status}`);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.PROFILE_ERROR +
+        this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
     });
     return dataRecieved;
   }

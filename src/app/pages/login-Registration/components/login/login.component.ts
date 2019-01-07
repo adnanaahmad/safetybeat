@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 // services
 import { TranslateService } from '@ngx-translate/core';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { loginCredentials } from 'src/app/models/user.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { Translation } from 'src/app/models/translate.model';
 
 
 @Component({
@@ -14,57 +15,28 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
   selector: 'app-login',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   loading: boolean;
-  error: string;
   data: any;
-  translated: object;
-  login_success: string;
-  login_fail: string;
-  login_msg: string;
-  loginfail_msg: string;
-  default: string;
-  info: string;
-  success: string;
-  warning: string;
-  loggedin: string;
-  credential_req: string;
-  true: string;
-  false: string;
-  status: string;
+  translated: Translation;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
+    public formBuilder: FormBuilder,
+    public router: Router,
     public loginService: LoginRegistrationService,
     public translate: TranslateService,
     public toastProvider: ToastService,
     private logging: LoggingService
-  )
-  /**
-   *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
-   *file
-   */
-  // tslint:disable-next-line:one-line
-  {
+  ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
-      this.login_success = values.MESSAGES.LOGIN_SUCCESS;
-      this.login_fail = values.MESSAGES.LOGIN_FAIL;
-      this.login_msg = values.MESSAGES.LOGIN_MSG;
-      this.loginfail_msg = values.MESSAGES.LOGINFAIL_MSG;
-      this.default = values.LOGGER.STATUS.DEFAULT;
-      this.info = values.LOGGER.STATUS.INFO;
-      this.success = values.LOGGER.STATUS.SUCCESS;
-      this.warning = values.LOGGER.STATUS.WARNING;
-      this.error = values.LOGGER.STATUS.ERROR;
-      this.loggedin = values.LOGGER.MESSAGES.LOGGEDIN;
-      this.true = values.LOGGER.MESSAGES.TRUE;
-      this.false = values.LOGGER.MESSAGES.FALSE;
-      this.credential_req = values.LOGGER.MESSAGES.CREDENTIAL_REQ;
-      this.status = values.LOGGER.MESSAGES.STATUS;
     });
+    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
+
+    if (this.loginService.getToken()) {
+      this.router.navigate(['/home']);
+    }
   }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -73,6 +45,11 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.email]
     });
   }
+
+  ngOnDestroy() {
+    this.logging.hideAllAppLoggers();
+  }
+
   /**
    * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
    */
@@ -84,28 +61,28 @@ export class LoginComponent implements OnInit {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
-
     if (!valid) {
-      this.logging.appLogger(this.warning, valid);
-      this.logging.appLogger(this.error, this.credential_req);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ);
       return;
     }
     this.loading = true;
-    this.logging.appLogger(this.info, valid);
-    this.logging.appLogger(this.info, JSON.stringify(value));
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
+    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.loginService.loginUser(value)
       .subscribe(
         (data) => {
           this.data = data;
-          this.logging.appLogger(this.success, this.loggedin);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
           data ? this.loginService.setToken(this.data.token) : this.loginService.setToken('');
-          this.toastProvider.createSuccessToaster(this.login_success, this.login_msg);
+          this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
           this.router.navigate(['/home']);
         },
         (error) => {
-          this.logging.appLogger(this.error, `${error.error + this.status + error.status}`);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.non_field_errors[0] +
+            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
-          this.toastProvider.createErrorToaster(this.login_fail, this.loginfail_msg);
+          this.toastProvider.createErrorToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG);
         }
       );
   }

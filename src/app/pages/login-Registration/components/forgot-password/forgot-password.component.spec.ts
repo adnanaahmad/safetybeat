@@ -11,6 +11,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
+import { ParticleContainerComponent } from '../particle-container/particle-container.component';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
@@ -19,7 +20,8 @@ describe('ForgotPasswordComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ForgotPasswordComponent
+        ForgotPasswordComponent,
+        ParticleContainerComponent
       ],
       imports: [
         NotifierModule,
