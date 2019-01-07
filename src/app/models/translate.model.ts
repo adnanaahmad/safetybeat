@@ -103,5 +103,11 @@ export interface LoggerMessage {
     REGISTRATION_SUCCESS: string,
     PROFILE_SUCCESS: string,
     PROFILE_ERROR: string,
+    LOGIN_COMPONENT: string,
+    REGISTRATION_COMPONENT: string,
     FORGOT_COMPONENT: string,
+    DASHBOARD_COMPONENT: string,
+    NAVIGATION_COMPONENT: string,
+    SIDE_NAV: string,
+    PROFILE_COMPONENT: string
 }

@@ -6,32 +6,24 @@ import { LoginRegistrationService } from '../../services/LoginRegistrationServic
 import { TranslateService } from '@ngx-translate/core';
 import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { Translation } from 'src/app/models/translate.model';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit,OnDestroy {
+export class RegistrationComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   organizationForm: FormGroup;
   moduleForm: FormGroup;
   loading: boolean;
   selectedPackage: any = {};
   registerData: any = [];
-  translated: object;
+  translated: Translation;
   types: any;
   modules: any;
   packages: any;
-  status: string;
-  warning: string;
-  info: string;
-  error: string;
-  success: string;
-  default: string;
-  registrationdata_success: string;
-  registration_req: string;
-  registration_success: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,39 +31,25 @@ export class RegistrationComponent implements OnInit,OnDestroy {
     private register: LoginRegistrationService,
     public translate: TranslateService,
     private logging: LoggingService,
-    private render:Renderer2
-  )
-  /**
-   *in this translate.get function i have subscribed the en.json AUTH,BUTTONS and MESSAGES strings and have used in the html
-   *file
-   */
-  // tslint:disable-next-line:one-line
-  {
-    this.render.addClass(document.body,'body-bg')
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES','LOGGER']).subscribe((values) => {
+    private render: Renderer2
+  ) {
+    this.render.addClass(document.body, 'body-bg')
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
-      this.default = values.LOGGER.STATUS.DEFAULT;
-      this.info = values.LOGGER.STATUS.INFO;
-      this.success = values.LOGGER.STATUS.SUCCESS;
-      this.warning = values.LOGGER.STATUS.WARNING;
-      this.error = values.LOGGER.STATUS.ERROR;
-      this.status = values.LOGGER.MESSAGES.STATUS;
-      this.registrationdata_success = values.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS;
-      this.registration_req = values.LOGGER.MESSAGES.REGISTRATION_REQ;
-      this.registration_success = values.LOGGER.MESSAGES.REGISTRATION_SUCCESS;
     });
+    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     /**
      * to get companyTypes, modules & packages from db
      */
     this.register.registrationData()
       .subscribe(data => {
-        this.logging.appLogger(this.success, this.registrationdata_success);
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.types = data[0];
         this.modules = data[1];
         this.packages = data[2];
       },
         error => {
-          this.logging.appLogger(this.error, `${error.error + this.status + error.status}`);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
         });
   }
   ngOnInit() {
@@ -100,9 +78,11 @@ export class RegistrationComponent implements OnInit,OnDestroy {
       name: [[], Validators.required]
     });
   }
-ngOnDestroy(){
-  this.render.removeClass(document.body, 'body-bg');
-}
+  ngOnDestroy() {
+    this.render.removeClass(document.body, 'body-bg');
+    this.logging.hideAllAppLoggers()
+  }
+
   /**
    * to check if password and confirm password is same
    * @param group formGroup for user form
@@ -145,19 +125,22 @@ ngOnDestroy(){
     }
     // tslint:disable-next-line:max-line-length
     if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length !== this.registerData.module_pkg.length)) {
-      this.logging.appLogger(this.error, this.registration_req);
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
     this.loading = true;
-    this.logging.appLogger(this.info, JSON.stringify(this.userForm.value, this.organizationForm.value, this.moduleForm.value));
+    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value, this.organizationForm.value, this.moduleForm.value));
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {
-          this.logging.appLogger(this.success, this.registration_success);
+          this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.router.navigate(['']);
         },
         (error) => {
-          this.logging.appLogger(this.error, `${error.error + this.status + error.status}`);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
         });
   }

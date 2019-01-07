@@ -48,19 +48,19 @@ export class ForgotPasswordComponent implements OnInit {
    */
   onSubmit({ value, valid }: { value: ForgotPassword; valid: boolean }): void {
     if (!valid) {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.WARNING, valid);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
       return;
     }
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, valid);
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.forgotService.forgotPassword(value).subscribe(
       data => {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
         this.router.navigate(['/login']);
       },
       error => {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       }
     );
 
