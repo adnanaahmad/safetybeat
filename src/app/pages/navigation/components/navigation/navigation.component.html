@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <div class="btn">
     <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">Logout</button>
     <button mat-button [matMenuTriggerFor]="modules">Module</button>
@@ -13,7 +13,7 @@
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="push" class="mat-sidenav mat-elevation-z6">
-      <app-nav-list [navLinks]="navLinks"></app-nav-list>
+      <app-nav-list [navLinks]="navLinks" [navLinksBottom]="navLinksBottom"></app-nav-list>
     </mat-sidenav>
     <!-- Content of rest of section -->
     <mat-sidenav-content class="app-content">

@@ -13,7 +13,13 @@ export class NavigationComponent implements OnInit {
 
   public navLinks = [
     { path: '/home', icon: 'dashboard', label: 'Dashboard' },
-    { path: '/home/profile', icon: 'supervised_user_circle', label: 'Profile' }
+    { path: '/home/profile', icon: 'person', label: 'Profile' },
+    { path: '/home', icon: 'supervised_user_circle', label: 'My Team' }
+  ];
+  public navLinksBottom = [
+    { path: '/home', icon: 'dashboard', label: 'Dashboard2' },
+    { path: '/home/profile', icon: 'person', label: 'Profile2' },
+    { path: '/home', icon: 'supervised_user_circle', label: 'My Team2' }
   ];
   constructor(public core: CoreService) {
 
