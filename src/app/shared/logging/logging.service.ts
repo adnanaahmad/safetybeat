@@ -10,11 +10,16 @@ export class LoggingService {
     ) {
         this.notifier = notifier;
     }
+    hideAllAppLoggers(): void {
+        this.notifier.hideAll();
+    }
     appLogger(type: string, message: any): void {
+        this.notifier.notify(type, message);
+    }
+
+    appLoggerForDev(type: string, message: any): void {
         if (ConstantService.config.devMode) {
             this.notifier.notify(type, message);
-            console.log(message)
-        } else {
             console.log(message)
         }
     }

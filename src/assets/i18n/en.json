@@ -97,7 +97,8 @@
             "REGISTRATION_REQ": "Registration Credentials are required",
             "REGISTRATION_SUCCESS": "User has successfully been registered",
             "PROFILE_SUCCESS": "Profile data has been received successfully",
-            "PROFILE_ERROR": "Profile data has not been received"
+            "PROFILE_ERROR": "Profile data has not been received",
+            "FORGOT_COMPONENT": "Forgot passward component loaded Successfully"
         }
     }
 }
