@@ -65,4 +65,10 @@ export class LoginRegistrationService {
     setToken(token: string) {
         localStorage.setItem(this.storageKey, token);
     }
+     /**
+     * this function is used to get the token key that the user gets when he logs in.
+     */
+    getToken() {
+        return localStorage.getItem(this.storageKey);
+    }
 }
