@@ -111,16 +111,15 @@ describe('RegistrationComponent', () => {
 
 
     it('check lastname validation when its empty', () => {
-      debugger;
       let lastname = component.userForm.controls['last_name'];
       expect(lastname.valid).toBeFalsy();
-
+    });
+    it('check last name validation when its false', () => {
+      let lastname = component.userForm.controls['last_name'];
       lastname.setValue('');
       errors = lastname.errors || {};
-      debugger;
       expect(errors['required']).toBeTruthy();
     });
-    debugger;
     it('check lastname when its valid and will be true and no erros', () => {
       let lastname = component.userForm.controls['last_name'];
       lastname.setValue('taqi');
@@ -128,23 +127,24 @@ describe('RegistrationComponent', () => {
       expect(lastname.valid).toBeTruthy();
       expect(errors['required']).toBeFalsy();
     });
-    // it('email field validity false', () => {
-    //   let email = component.userForm.controls['email'];
-    //   expect(email.valid).toBeTruthy();
 
-    //   email.setValue('test');
-    //   errors = email.errors || {};
-    //   expect(errors['email']).toBeTruthy();
-    // });
-    // it('email field validity true', () => {
-    //   let email = component.userForm.controls['email'];
-    //   errors = email.errors || {};
-    //   expect(email.valid).toBeTruthy();
+    it('email field validity false', () => {
+      let email = component.userForm.controls['email'];
+      expect(email.valid).toBeFalsy();
 
-    //   email.setValue('test@test.com');
-    //   errors = email.errors || {};
-    //   expect(errors['email']).toBeFalsy();
-    // });
+      email.setValue('test');
+      errors = email.errors || {};
+      expect(errors['email']).toBeTruthy();
+    });
+    it('email field validity true', () => {
+      let email = component.userForm.controls['email'];
+      errors = email.errors || {};
+      expect(email.valid).toBeFalsy();
+
+      email.setValue('test@test.com');
+      errors = email.errors || {};
+      expect(errors['email']).toBeFalsy();
+    });
     // it('check password validity false or undefined', () => {
     //   let password = component.userForm.controls['password'];
     //   errors = password.errors || {};

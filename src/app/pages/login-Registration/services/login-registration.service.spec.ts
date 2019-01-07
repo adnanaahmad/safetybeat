@@ -31,7 +31,7 @@ describe('LoginRegistrationService', () => {
       providers: [LoginRegistrationService],
     });
     injector = getTestBed();
-    loginRegService = injector.get(LoginRegistrationService);
+    loginRegService = TestBed.get(LoginRegistrationService);
     httpTestingController = injector.get(HttpTestingController);
     http = injector.get(HttpClient);
   });
@@ -41,8 +41,7 @@ describe('LoginRegistrationService', () => {
   });
 
   it('should be created', () => {
-    const service = TestBed.get(LoginRegistrationService);
-    expect(service).toBeTruthy();
+    expect(loginRegService).toBeTruthy();
   });
 
   describe('User Regisration', () => {

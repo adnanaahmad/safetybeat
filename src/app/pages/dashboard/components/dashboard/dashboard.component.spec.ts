@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { NotifierModule } from 'angular-notifier';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -18,6 +19,7 @@ describe('DashboardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [DashboardComponent],
       imports: [
+        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,

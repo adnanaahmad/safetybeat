@@ -31,7 +31,7 @@ describe('LoginComponent', () => {
   let errors = {};
   let location: Location;
   let router: Router;
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent, ParticleContainerComponent, PageNotFoundComponent],
       imports: [
@@ -57,15 +57,15 @@ describe('LoginComponent', () => {
     router = TestBed.get(Router);
     location = TestBed.get(Location);
     router.initialNavigation();
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     debugEl = fixture.debugElement;
     nativeEl = fixture.nativeElement;
     component.ngOnInit();
   });
+
+  // beforeEach(() => {
+  // });
 
   it('should create', () => {
     const fixture = TestBed.createComponent(LoginComponent);
@@ -95,7 +95,8 @@ describe('LoginComponent', () => {
     });
     it('check password validity false or undefined', () => {
       let password = component.loginForm.controls['password'];
-      errors = password.errors || {};
+      let errors = {};
+      // errors = password.errors || {};
       expect(errors['password']).toBeFalsy();
 
       password.setValue('');
@@ -124,14 +125,17 @@ describe('LoginComponent', () => {
       component.loginForm.controls['username'].setValue('test');
       component.loginForm.controls['password'].setValue('test1234');
       expect(component.loginForm.valid).toBeTruthy();
-      const spy = spyOn(authService, 'loginUser').and.callThrough();
+      spyOn(authService, 'loginUser').and.callThrough();
       loginElement = fixture.debugElement.query(By.css('form'));
       loginElement.triggerEventHandler('ngSubmit', null);
-      expect(spy).toHaveBeenCalledTimes(1);
-
-      router.navigate(['home']).then(() => {
-        expect(location.path()).toBe('/home');
-      });
+      authService.loginUser(form.value);
+      expect(authService.loginUser).toHaveBeenCalledWith(form.value);
+      spyOn(component, 'onSubmit').and.returnValue(form);
+      component.onSubmit(form);
+      expect(component.onSubmit).toHaveBeenCalled();
+      spyOn(component.router, 'navigate').and.returnValue(true);
+      router.navigate(['/home']);
+      expect(component.router.navigate).toHaveBeenCalledWith(['/home']);
     }));
   });
 });
