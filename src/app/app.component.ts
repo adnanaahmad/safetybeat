@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingService } from "src/app/shared/settings/setting.service";
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 
 @Component({
@@ -11,10 +12,15 @@ import { SettingService } from "src/app/shared/settings/setting.service";
 })
 export class AppComponent implements OnInit {
   title = "anonymous-FrontEnd";
-  selectedTheme: String;
-  constructor(protected injector: Injector, public settings: SettingService) {
+  selectedTheme: any;
+  constructor(
+    protected injector: Injector,
+    public settings: SettingService,
+    private overlay:OverlayContainer
+    ) {
     this.settings.getActiveTheme().subscribe(val => {
       this.selectedTheme = val;
+      this.overlay.getContainerElement().classList.add(this.selectedTheme)
     });
   }
   ngOnInit() {

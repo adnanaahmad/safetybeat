@@ -1,8 +1,6 @@
 :host {
-    // background-color: mat-color($app-background, 800);
     display: flex;
     flex-direction: column;
-    // align-items: flex-start;
   }
   
   .menu-button {
@@ -13,6 +11,8 @@
     justify-content: center;
   }
   mat-nav-list.bottom{
-    margin-top: 10em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
   

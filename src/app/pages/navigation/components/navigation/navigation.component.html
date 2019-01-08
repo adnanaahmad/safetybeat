@@ -1,27 +1,39 @@
-<mat-toolbar>
-  <div class="btn">
-    <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">Logout</button>
-    <button mat-button [matMenuTriggerFor]="modules">Module</button>
-
-    <mat-menu #modules="matMenu">
-      <button mat-menu-item>SafetyBeat</button>
-      <button mat-menu-item>Field Communication</button>
-    </mat-menu>
-  </div>
-</mat-toolbar>
 <div class="container">
-  <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()"></app-fixed-nav>
+  <app-fixed-nav
+    class="mini-sidenav"
+    (sidenavToggle)="sideNav.toggle()"
+  ></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
-    <mat-sidenav #sideNav mode="push" class="mat-sidenav mat-elevation-z6">
-      <app-nav-list [navLinks]="navLinks" [navLinksBottom]="navLinksBottom"></app-nav-list>
+    <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
+      <img src='src/assets/images/logo.png'>
+      <app-nav-list
+        [navLinks]="navLinks"
+        [navLinksBottom]="navLinksBottom"
+      ></app-nav-list>
     </mat-sidenav>
     <!-- Content of rest of section -->
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
       <!-- <optergy-header class="header"></optergy-header> -->
-      <div class="page-content">
-        <router-outlet></router-outlet>
-      </div>
+      <mat-toolbar class="topbar">
+        <div class="btn">
+          <button
+            mat-button
+            *ngIf="core.isAuthenticated"
+            (click)="core.logoutUser()"
+          >
+            Logout
+          </button>
+          <button mat-button [matMenuTriggerFor]="modules">
+            Module <i class="material-icons">arrow_drop_down</i>
+          </button>
+          <mat-menu #modules="matMenu">
+            <button mat-menu-item>SafetyBeat</button>
+            <button mat-menu-item>Field Communication</button>
+          </mat-menu>
+        </div>
+      </mat-toolbar>
+      <div class="page-content"><router-outlet></router-outlet></div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

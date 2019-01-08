@@ -137,9 +137,12 @@ $my-theme: mat-light-theme(
     $warn
 );
 .light-theme{
-  mat-toolbar,
-  app-fixed-nav{
+  .topbar,
+  .mini-sidenav{
     background-color: mat-color($primary, 900) !important;
+  }
+  .pagehead{
+    background-color: mat-color($primary, 50) !important;
   }
   mat-sidenav{
     background-color: mat-color($primary, 500) !important;
@@ -155,9 +158,6 @@ $my-theme: mat-light-theme(
             color: mat-color($primary, 500);
           }
         }
-      }
-      a:not(.mat-raised-button){
-        color: mat-color($primary,darker);
       }
       .sideLegend {
         background-color: mat-color($primary) !important;
