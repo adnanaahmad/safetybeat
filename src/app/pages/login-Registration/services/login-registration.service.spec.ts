@@ -31,7 +31,7 @@ describe('LoginRegistrationService', () => {
       providers: [LoginRegistrationService],
     });
     injector = getTestBed();
-    loginRegService = injector.get(LoginRegistrationService);
+    loginRegService = TestBed.get(LoginRegistrationService);
     httpTestingController = injector.get(HttpTestingController);
     http = injector.get(HttpClient);
   });
@@ -41,34 +41,7 @@ describe('LoginRegistrationService', () => {
   });
 
   it('should be created', () => {
-    const service = TestBed.get(LoginRegistrationService);
-    expect(service).toBeTruthy();
-  });
-
-  describe('get Users data', () => {
-    let user: LoginResponse = {
-      'token': 'this is my dummy token',
-      'user': {
-        'username': 'admin',
-        'email': 'email@test.com',
-        'first_name': 'admin',
-        'last_name': 'admin',
-        'mobile_no': '12345678',
-        'password': 'admin123'
-      }
-    };
-    const loginCredentials: loginCredentials = {
-      username: 'admin',
-      password: 'admin123'
-    };
-    it('should return an observable <LoginResponse[]>', () => {
-      loginRegService.loginUser(loginCredentials).subscribe((data) => {
-        expect(data).toEqual(user);
-      });
-      const req = httpTestingController.expectOne(`${environment.apiUrl}/anonymous/login/`);
-      expect(req.request.method).toBe('POST');
-      req.flush(user);
-    });
+    expect(loginRegService).toBeTruthy();
   });
 
   describe('User Regisration', () => {
@@ -181,4 +154,32 @@ describe('LoginRegistrationService', () => {
       req.flush(registrationData);
     });
   });
+
+  describe('get Users data', () => {
+    let user: LoginResponse = {
+      'token': 'this is my dummy token',
+      'user': {
+        'username': 'admin',
+        'email': 'email@test.com',
+        'first_name': 'admin',
+        'last_name': 'admin',
+        'mobile_no': '12345678',
+        'password': 'admin123'
+      }
+    };
+    const loginCredentials: loginCredentials = {
+      username: 'admin',
+      password: 'admin123'
+    };
+    it('should return an observable <LoginResponse[]>', () => {
+      loginRegService.loginUser(loginCredentials).subscribe((data) => {
+        expect(data).toEqual(user);
+      });
+      const req = httpTestingController.expectOne(`${environment.apiUrl}/anonymous/login/`);
+      expect(req.request.method).toBe('POST');
+      req.flush(user);
+    });
+  });
+
+
 });

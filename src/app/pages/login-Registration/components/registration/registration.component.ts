@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -38,8 +38,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.render.addClass(document.body, ConstantService.config.theme.background)
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     });
-    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     /**
      * to get companyTypes, modules & packages from db
      */
@@ -51,7 +51,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.packages = data[2];
       },
         error => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
+            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
         });
   }
   ngOnInit() {
@@ -84,7 +85,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.render.removeClass(document.body, ConstantService.config.theme.background);
     this.logging.hideAllAppLoggers()
   }
-
   /**
    * to check if password and confirm password is same
    * @param group formGroup for user form
@@ -133,8 +133,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
     this.loading = true;
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value, this.organizationForm.value, this.moduleForm.value));
-    debugger
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value,
+      this.organizationForm.value, this.moduleForm.value));
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {
@@ -143,7 +143,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.router.navigate(['']);
         },
         (error) => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
+            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
         });
   }

@@ -13,6 +13,7 @@ import { TokenInterceptorService } from 'src/app/core/services/interceptors/toke
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ProfileComponent, UserComponent, OrganizationComponent],
@@ -21,6 +22,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
     ProfileRoutingModule,
     MaterialModule,
     FormsModule,
+    RouterModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,

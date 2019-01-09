@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { Translation } from 'src/app/models/translate.model';
   styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
 
   translated: Translation;
   public navLinks = [
@@ -24,14 +24,14 @@ export class NavigationComponent implements OnInit {
     private logging: LoggingService) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT);
     });
-    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT);
   }
 
   ngOnInit() {
   }
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers()
+    this.logging.hideAllAppLoggers();
   }
 
 }

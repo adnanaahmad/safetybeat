@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
+import { NotifierModule } from 'angular-notifier';
 
 describe('FixedNavComponent', () => {
   let component: FixedNavComponent;
@@ -17,6 +18,7 @@ describe('FixedNavComponent', () => {
     TestBed.configureTestingModule({
       declarations: [FixedNavComponent],
       imports: [
+        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,

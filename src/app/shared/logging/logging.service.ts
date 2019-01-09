@@ -6,7 +6,7 @@ import { ConstantService } from '../constant/constant.service';
 })
 export class LoggingService {
     constructor(private notifier: NotifierService,
-        // public constants : 
+        // public constants :
     ) {
         this.notifier = notifier;
     }
@@ -20,7 +20,7 @@ export class LoggingService {
     appLoggerForDev(type: string, message: any): void {
         if (ConstantService.config.devMode) {
             this.notifier.notify(type, message);
-            console.log(message)
+            console.log(message);
         }
     }
 }
