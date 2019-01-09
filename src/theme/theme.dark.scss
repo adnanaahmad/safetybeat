@@ -101,34 +101,15 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $background: mat-palette($gray-pallete);
 
-$my-theme: mat-light-theme(
+$dark-theme: mat-dark-theme(
     $primary,
     $secondary,
     $warn
 );
-.light-theme{
-  .topbar,
-  .mini-sidenav{
-    background-color: mat-color($primary, 900) !important;
-  }
-  .pagehead{
-    background-color: mat-color($primary, 50) !important;
-  }
-  mat-sidenav{
-    background-color: mat-color($primary, 500) !important;
-  }
-    @at-root{
-        .body-bg{
+.dark-theme{
+        &.body-bg{
           background-color: mat-color($primary);
         }
-      }
-      app-fixed-nav{
-        mat-nav-list{
-          .nav-link{
-            color: mat-color($primary, 500);
-          }
-        }
-      }
       a:not(.mat-raised-button){
         color: mat-color($primary,darker);
       }
@@ -156,5 +137,5 @@ $my-theme: mat-light-theme(
             }
         }
     }
-@include angular-material-theme($my-theme)
+@include angular-material-theme($dark-theme)
 }

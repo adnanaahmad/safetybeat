@@ -22,7 +22,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public navLinksBottom = [
     { path: '/home', icon: 'dashboard', label: 'Dashboard2' },
     { path: '/home/profile', icon: 'person', label: 'Profile2' },
-    { path: '/home', icon: 'supervised_user_circle', label: 'My Team2' }
+    { path: '/home', icon: 'supervised_user_circle', label: 'My Team2' },
+    { path: '/home/profile', icon: 'supervised_user_circle', label: 'Profile' },
+    { path: '/home/settings', icon: 'settings', label: 'Settings' }
   ];
   constructor(public core: CoreService,
     public translate: TranslateService,

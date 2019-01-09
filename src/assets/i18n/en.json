@@ -20,7 +20,9 @@
         "PASSWORD_REQ": "Please enter valid password.",
         "FIRSTNAME_REQ": "Please enter first name.",
         "LASTNAME_REQ": "Please enter last name.",
-        "EMAIL_REQ": "Please enter a valid email address.",
+        "EMAIL_VALID": "Please enter a valid email address.",
+        "EMAIL_REQ": "Please enter email address.",
+        "EMAIL_EXISTS": "Email address already exists",
         "CONFIRMPASSWORD_REQ": "Please enter valid confirm password.",
         "MOBILE_REQ": "Please enter valid mobile no.",
         "ADDRESS_REQ": "Please enter Address.",
@@ -28,6 +30,8 @@
         "COUNTRY_REQ": "Please enter Country.",
         "ZIPCODE_REQ": "Please enter Zip Code.",
         "BILLINGEMAIL_REQ": "Please enter Billing Email.",
+        "BILLING_EMAIL_VALID":"Please enter valid Billing Email.",
+        "BILLING_EMAIL_EXISTS":"Billing Email already exists.",
         "ACCOUNTNO_REQ": "Please enter Account No.",
         "FAXNO_REQ": "Please enter Fax no.",
         "USER": "Username/Email",
@@ -36,7 +40,8 @@
         "LAST_NAME": "last_name",
         "MOBILE_NO": "mobile_no",
         "ORGANIZATION_NAME": "Name",
-        "ORGANIZATIONNAME_REQ": "Please enter valid organization name"
+        "ORGANIZATIONNAME_REQ": "Please enter valid organization name",
+        "ORG_NAME_EXISTS": "Organization name already exists"
     },
     "BUTTONS": {
         "LOGIN": "LOGIN",
@@ -75,7 +80,8 @@
         "RESETMSG": "Email has been sent!",
         "WELCOME": "Welcome to",
         "WELCOME_MSG": "The only safety app that allows you to easily manage the safety of your mobile, remote and lone workers, anytime, anywhere",
-        "NOACCOUNT": "Don't have an account?"
+        "NOACCOUNT": "Don't have an account?",
+        "USERNAME_EXISTS": "Username already exixts."
     },
     "LOGGER": {
         "STATUS": {

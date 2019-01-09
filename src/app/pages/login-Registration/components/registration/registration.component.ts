@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy, Renderer2, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { TranslateService } from '@ngx-translate/core';
 import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from '../../../../shared/constant/constant.service';
 
 @Component({
   selector: 'app-registration',
@@ -17,6 +18,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   organizationForm: FormGroup;
   moduleForm: FormGroup;
+  email: FormGroup;
   loading: boolean;
   selectedPackage: any = {};
   registerData: any = [];
@@ -33,7 +35,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private logging: LoggingService,
     private render: Renderer2
   ) {
-    this.render.addClass(document.body, 'body-bg');
+
+    this.render.addClass(document.body, ConstantService.config.theme.background)
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
@@ -60,7 +63,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       mobile_no: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
     this.organizationForm = this.formBuilder.group({
@@ -71,7 +74,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       city: ['', Validators.required],
       country: ['', Validators.required],
       fax: ['', Validators.required],
-      billingEmail: ['', Validators.required],
+      billingEmail: ['', [Validators.required, Validators.email]],
       accountNo: ['', Validators.required],
       phoneNo: ['', Validators.required]
     });
@@ -80,17 +83,51 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.render.removeClass(document.body, 'body-bg');
-    this.logging.hideAllAppLoggers();
+    this.render.removeClass(document.body, ConstantService.config.theme.background);
+    this.logging.hideAllAppLoggers()
   }
   /**
    * to check if password and confirm password is same
    * @param group formGroup for user form
    */
   checkPasswords(group: FormGroup) {
-    const pass = group.controls.password.value;
+    const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
+  }
+  checkUserName(group) {
+    const username = { username: group.value.username }
+    this.register.checkUserName(username).subscribe((res) => {
+      group.controls.username.setErrors({ exists: true })
+    });
+  }
+  checkEmail(group) {
+    this.email = this.formBuilder.group({
+      'email': [group.value.email, Validators.email]
+    })
+    if (this.email.status == 'VALID') {
+      const email = { email: group.value.email }
+      this.register.checkEmail(email).subscribe((res) => {
+        group.controls.email.setErrors({ exists: true })
+      });
+    }
+  }
+  checkOrgName(group) {
+    const name = { name: group.value.name }
+    this.register.checkOrgName(name).subscribe((res) => {
+      group.controls.name.setErrors({ exists: true })
+    });
+  }
+  checkOrgBillingEmail(group) {
+    this.email = this.formBuilder.group({
+      'email': [group.value.billingEmail, Validators.email]
+    })
+    if (this.email.status == 'VALID') {
+      const billingEmail = { billingEmail: group.value.billingEmail }
+      this.register.checkOrgBillingEmail(billingEmail).subscribe((res) => {
+        group.controls.billingEmail.setErrors({ exists: true })
+      });
+    }
   }
   /**
    * handling forms validations

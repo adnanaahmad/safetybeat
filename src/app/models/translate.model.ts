@@ -25,7 +25,9 @@ export interface Auth {
     PASSWORD_REQ: string,
     FIRSTNAME_REQ: string,
     LASTNAME_REQ: string,
+    EMAIL_VALID: string,
     EMAIL_REQ: string,
+    EMAIL_EXISTS: string,
     CONFIRMPASSWORD_REQ: string,
     MOBILE_REQ: string,
     ADDRESS_REQ: string,
@@ -33,6 +35,8 @@ export interface Auth {
     COUNTRY_REQ: string,
     ZIPCODE_REQ: string,
     BILLINGEMAIL_REQ: string,
+    BILLING_EMAIL_VALID: string,
+    BILLING_EMAIL_EXISTS: string,
     ACCOUNTNO_REQ: string,
     FAXNO_REQ: string,
     USER: string,
@@ -41,7 +45,8 @@ export interface Auth {
     LAST_NAME: string,
     MOBILE_NO: string,
     ORGANIZATION_NAME: string,
-    ORGANIZATIONNAME_REQ: string
+    ORGANIZATIONNAME_REQ: string,
+    ORG_NAME_EXISTS: string
 }
 export interface Buttons {
     LOGIN: string,
@@ -77,7 +82,8 @@ export interface Messages {
     LOGOUT_SUCCESS: string,
     LOGOUT_MSG: string,
     RESET_SUCCESS: string,
-    RESETMSG: string
+    RESETMSG: string,
+    USERNAME_EXISTS: string
 }
 export interface Logger {
     STATUS: LoggerStatus,
