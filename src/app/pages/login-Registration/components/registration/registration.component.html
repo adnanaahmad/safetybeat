@@ -17,7 +17,7 @@
             <div class="form-group">
               <mat-form-field>
                 <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required
-                  (ngModelChange)="checkUserName(userForm)" />
+                  (blur)="checkUserName(userForm)" />
                 <mat-error *ngIf="userDetailForm.username.errors">
                   <span *ngIf="userDetailForm.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
                   <span *ngIf="userDetailForm.username.errors?.exists">{{translated.MESSAGES.USERNAME_EXISTS}}</span>
@@ -50,7 +50,7 @@
             <div class="form-group">
               <mat-form-field>
                 <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName="email" required
-                  (ngModelChange)="checkEmail(userForm)" />
+                  (blur)="checkEmail(userForm)" />
                 <mat-error *ngIf="userDetailForm.email.errors">
                   <span *ngIf="userDetailForm.email.errors.email">{{translated.AUTH.EMAIL_VALID}}</span>
                   <span *ngIf="userDetailForm.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
@@ -112,7 +112,7 @@
             <div class="form-group">
               <mat-form-field>
                 <input matInput type="text" [placeholder]=translated.AUTH.ORGANIZATION_NAME formControlName="name"
-                  required (ngModelChange)="checkOrgName(organizationForm)" />
+                  required (blur)="checkOrgName(organizationForm)" />
                 <mat-error *ngIf="orgForm.name.errors">
                   <span *ngIf="orgForm.name.errors.required">{{translated.AUTH.ORGANIZATIONNAME_REQ}}</span>
                   <span *ngIf="orgForm.name.errors?.exists">{{translated.AUTH.ORG_NAME_EXISTS}}</span>
