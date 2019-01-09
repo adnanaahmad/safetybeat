@@ -45,7 +45,7 @@ export class LoginRegistrationService {
      * and then it is sent to the related api to register the user with the organization,module and packages data.
      */
     registerUser(data: object) {
-        return this.http.post(ConstantService.apiRoutes.registration, data);
+        return this.http.post(ConstantService.apiRoutes.signup, data);
     }
     /**
      *

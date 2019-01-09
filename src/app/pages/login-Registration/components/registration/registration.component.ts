@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from '../../../../shared/constant/constant.service';
 
 @Component({
   selector: 'app-registration',
@@ -33,7 +34,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private logging: LoggingService,
     private render: Renderer2
   ) {
-    this.render.addClass(document.body, 'body-bg');
+
+    this.render.addClass(document.body, ConstantService.config.theme.background)
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
@@ -60,7 +62,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       mobile_no: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
     this.organizationForm = this.formBuilder.group({
@@ -80,15 +82,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.render.removeClass(document.body, 'body-bg');
-    this.logging.hideAllAppLoggers();
+    this.render.removeClass(document.body, ConstantService.config.theme.background);
+    this.logging.hideAllAppLoggers()
   }
   /**
    * to check if password and confirm password is same
    * @param group formGroup for user form
    */
   checkPasswords(group: FormGroup) {
-    const pass = group.controls.password.value;
+    const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }

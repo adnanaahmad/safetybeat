@@ -16,7 +16,8 @@ export class FixedNavComponent implements OnInit {
   translated: Translation;
   public navLinks = [
     { path: '/home', icon: 'dashboard' },
-    { path: '/home/profile', icon: 'supervised_user_circle' }
+    { path: '/home/profile', icon: 'supervised_user_circle' },
+    { path: '/home/settings', icon: 'settings' }
   ];
 
   constructor(public translate: TranslateService,

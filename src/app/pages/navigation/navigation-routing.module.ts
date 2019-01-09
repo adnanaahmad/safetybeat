@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: '../profile/profile.module#ProfileModule'
+      },
+      {
+        path: 'settings',
+        loadChildren: '../settings/settings.module#SettingsModule'
       }
     ]
   }

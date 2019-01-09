@@ -131,17 +131,16 @@ $accent: mat-palette($accent-pallet);
 $warn: mat-palette($mat-red);
 $background: mat-palette($gray-pallete);
 
-$my-theme: mat-light-theme(
+$light-theme: mat-light-theme(
     $primary,
     $accent,
     $warn
 );
+
 .light-theme{
-    @at-root{
-        .body-bg{
+        &.body-bg{
           background-color: mat-color($primary);
         }
-      }
       a:not(.mat-raised-button){
         color: mat-color($primary,darker);
       }
@@ -169,5 +168,5 @@ $my-theme: mat-light-theme(
             }
         }
     }
-@include angular-material-theme($my-theme)
+@include angular-material-theme($light-theme)
 }
