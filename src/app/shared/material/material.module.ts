@@ -20,6 +20,7 @@ import {
   MatCheckboxModule,
   MatStepperModule,
   MatSliderModule,
+  MatSlideToggleModule,
   MatMenuModule,
   MatTooltipModule,
   MatRadioModule
@@ -48,6 +49,7 @@ import {
     MatDatepickerModule,
     MatSnackBarModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatStepperModule,
     MatRadioModule
   ],
@@ -74,6 +76,7 @@ import {
     MatDatepickerModule,
     MatSnackBarModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatStepperModule,
     MatRadioModule
   ]

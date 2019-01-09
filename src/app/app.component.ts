@@ -1,20 +1,28 @@
-import { Component, Injector, OnInit } from "@angular/core";
+import { Component, Injector, OnInit, Renderer2 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingService } from "src/app/shared/settings/setting.service";
+import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
 
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  host: { '[class]': 'selectedTheme' }
+  // host: { '[class]': 'selectedTheme' }
 })
 export class AppComponent implements OnInit {
   title = "anonymous-FrontEnd";
-  selectedTheme: String;
-  constructor(protected injector: Injector, public settings: SettingService) {
+  selectedTheme: any;
+  constructor(protected injector: Injector,
+    public settings: SettingService,
+    public overlay: OverlayContainer,
+    private render: Renderer2) {
     this.settings.getActiveTheme().subscribe(val => {
       this.selectedTheme = val;
+      this.render.removeClass(document.body, 'light-theme')
+      this.render.removeClass(document.body, 'dark-theme')
+      this.render.addClass(document.body, this.selectedTheme)
+      this.overlay.getContainerElement().classList.add(this.selectedTheme)
     });
   }
   ngOnInit() {

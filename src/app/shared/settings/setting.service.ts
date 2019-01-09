@@ -8,9 +8,15 @@ import { BehaviorSubject } from 'rxjs';
 export class SettingService {
   private theme: BehaviorSubject<String>;
   constructor() {
-    this.theme = new BehaviorSubject<String>('light-theme');
+    if (localStorage.getItem('theme')) {
+      this.theme = new BehaviorSubject<String>(localStorage.getItem('theme'))
+    } else {
+      this.theme = new BehaviorSubject<String>('light-theme');
+      localStorage.setItem('theme', 'light-theme')
+    }
   }
   setActiveTheme(val) {
+    localStorage.setItem('theme', val)
     this.theme.next(val);
   }
 

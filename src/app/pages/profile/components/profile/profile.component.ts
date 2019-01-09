@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     this.logging.hideAllAppLoggers()
   }
   getUserData() {
-    const dataRecieved = this.profile.getUser(1).pipe(share());
+    const dataRecieved = this.profile.getUser(2).pipe(share());
     dataRecieved.subscribe((data) => {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 

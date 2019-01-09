@@ -20,7 +20,6 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
     CommonModule,
     ProfileRoutingModule,
     MaterialModule,
-    MaterialModule,
     FormsModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,

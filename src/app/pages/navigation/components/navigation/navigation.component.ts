@@ -16,7 +16,8 @@ export class NavigationComponent implements OnInit {
   translated: Translation;
   public navLinks = [
     { path: '/home', icon: 'dashboard', label: 'Dashboard' },
-    { path: '/home/profile', icon: 'supervised_user_circle', label: 'Profile' }
+    { path: '/home/profile', icon: 'supervised_user_circle', label: 'Profile' },
+    { path: '/home/settings', icon: 'settings', label: 'Settings' }
   ];
   constructor(public core: CoreService,
     public translate: TranslateService,

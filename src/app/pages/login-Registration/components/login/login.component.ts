@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         },
         (error) => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.non_field_errors[0] + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail + this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
           this.toastProvider.createErrorToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG);
         }

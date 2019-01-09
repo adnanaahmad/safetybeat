@@ -100,17 +100,15 @@ $accent: mat-palette($accent-pallet);
 $danger: mat-palette($mat-red);
 $background: mat-palette($gray-pallete);
 
-$my-theme: mat-dark-theme(
+$dark-theme: mat-dark-theme(
     $primary,
     $accent,
     $danger
 );
 .dark-theme{
-    @at-root{
-        .body-bg{
+        &.body-bg{
           background-color: mat-color($primary);
         }
-      }
       a:not(.mat-raised-button){
         color: mat-color($primary,lighter);
       }
@@ -144,5 +142,5 @@ $my-theme: mat-dark-theme(
             }
         }
     }
-@include angular-material-theme($my-theme)
+@include angular-material-theme($dark-theme)
 }

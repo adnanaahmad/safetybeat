@@ -59,7 +59,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       mobile_no: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
     this.organizationForm = this.formBuilder.group({
@@ -88,7 +88,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param group formGroup for user form
    */
   checkPasswords(group: FormGroup) {
-    const pass = group.controls.password.value;
+    const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
@@ -132,6 +132,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value, this.organizationForm.value, this.moduleForm.value));
+    debugger
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {
