@@ -2,7 +2,7 @@ import { Component, Injector, OnInit, Renderer2 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingService } from "src/app/shared/settings/setting.service";
 import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
-
+import { ConstantService } from './shared/constant/constant.service';
 
 @Component({
   selector: "app-root",
@@ -19,8 +19,7 @@ export class AppComponent implements OnInit {
     private render: Renderer2) {
     this.settings.getActiveTheme().subscribe(val => {
       this.selectedTheme = val;
-      this.render.removeClass(document.body, 'light-theme')
-      this.render.removeClass(document.body, 'dark-theme')
+      this.render.removeAttribute(document.body, 'class')
       this.render.addClass(document.body, this.selectedTheme)
       this.overlay.getContainerElement().classList.add(this.selectedTheme)
     });

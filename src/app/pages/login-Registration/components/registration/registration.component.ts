@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from '../../../../shared/constant/constant.service';
 
 @Component({
   selector: 'app-registration',
@@ -33,7 +34,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private logging: LoggingService,
     private render: Renderer2
   ) {
-    this.render.addClass(document.body, 'body-bg')
+
+    this.render.addClass(document.body, ConstantService.config.theme.background)
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
     });
@@ -79,7 +81,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.render.removeClass(document.body, 'body-bg');
+    this.render.removeClass(document.body, ConstantService.config.theme.background);
     this.logging.hideAllAppLoggers()
   }
 

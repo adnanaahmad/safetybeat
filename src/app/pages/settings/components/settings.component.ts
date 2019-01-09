@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
-
+import { ConstantService } from '../../../shared/constant/constant.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -8,7 +8,7 @@ import { SettingService } from 'src/app/shared/settings/setting.service';
 })
 export class SettingsComponent implements OnInit {
   theme: String;
-  constructor(public settings: SettingService, ) { }
+  constructor(public settings: SettingService) { }
 
   ngOnInit() {
     this.settings.getActiveTheme().subscribe(val => {
@@ -18,10 +18,10 @@ export class SettingsComponent implements OnInit {
 
 
   changed() {
-    if (this.theme == 'dark-theme') {
-      this.settings.setActiveTheme('light-theme')
+    if (this.theme == ConstantService.config.theme.dark) {
+      this.settings.setActiveTheme(ConstantService.config.theme.light)
     } else {
-      this.settings.setActiveTheme('dark-theme')
+      this.settings.setActiveTheme(ConstantService.config.theme.dark)
     }
   }
 }
