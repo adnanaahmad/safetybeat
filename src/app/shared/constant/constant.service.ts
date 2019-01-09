@@ -16,7 +16,11 @@ export class ConstantService {
     packages: `${environment.apiUrl}/anonymous/packages/`,
     passwordReset: `${environment.apiUrl}/anonymous/password/reset/`,
     organization: `${environment.apiUrl}/anonymous/organization/`,
-    user: `${environment.apiUrl}/anonymous/userDetails`
+    user: `${environment.apiUrl}/anonymous/userDetails`,
+    checkUsername: `${environment.apiUrl}/anonymous/username/`,
+    checkEmail: `${environment.apiUrl}/anonymous/email/`,
+    checkOrgName: `${environment.apiUrl}/anonymous/orgName/`,
+    checkBilling: `${environment.apiUrl}/anonymous/billingEmail/`,
   };
   static toast = {
     location: 'toast-top-left',
