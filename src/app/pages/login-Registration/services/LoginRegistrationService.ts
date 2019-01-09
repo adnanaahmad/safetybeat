@@ -38,6 +38,19 @@ export class LoginRegistrationService {
         const packages = this.http.get(ConstantService.apiRoutes.packages);
         return forkJoin([companyTypes, modules, packages]);
     }
+
+    checkUserName(username: object) {
+        return this.http.post(ConstantService.apiRoutes.checkUsername, username);
+    }
+    checkEmail(email: object) {
+        return this.http.post(ConstantService.apiRoutes.checkEmail, email)
+    }
+    checkOrgName(OrgName: object) {
+        return this.http.post(ConstantService.apiRoutes.checkOrgName, OrgName);
+    }
+    checkOrgBillingEmail(OrgBillingEmail: object) {
+        return this.http.post(ConstantService.apiRoutes.checkBilling, OrgBillingEmail);
+    }
     /**
      * in this function all the data that comes in the organization registration form is passed to this function
      * @param data
@@ -65,9 +78,9 @@ export class LoginRegistrationService {
     setToken(token: string) {
         localStorage.setItem(this.storageKey, token);
     }
-     /**
-     * this function is used to get the token key that the user gets when he logs in.
-     */
+    /**
+    * this function is used to get the token key that the user gets when he logs in.
+    */
     getToken() {
         return localStorage.getItem(this.storageKey);
     }
