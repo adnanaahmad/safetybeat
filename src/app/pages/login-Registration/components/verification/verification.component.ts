@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, AfterViewInit, ViewChild } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,13 +6,16 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { RegistrationComponent } from '../registration/registration.component';
+import { Verification } from 'src/app/models/user.model';
+import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 
 @Component({
   selector: 'app-verification',
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.scss']
 })
-export class VerificationComponent implements OnInit, OnDestroy {
+export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild(RegistrationComponent) reg;
   translated: Translation;
   verifyForm: FormGroup;
   emaill: string;
@@ -22,7 +25,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private router: Router,
     public formBuilder: FormBuilder,
-    private render: Renderer2
+    private render: Renderer2,
+    private loginRegService: LoginRegistrationService
 
 
   ) {
@@ -44,7 +48,25 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.logging.hideAllAppLoggers();
   }
 
+  ngAfterViewInit() {
+
+  }
+
   get formValidation() { return this.verifyForm.controls; }
+
+  changeEmail({ value, valid }: { value: Verification, valid: boolean }): void {
+    if (!valid) {
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
+      return;
+    }
+
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
+    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.loginRegService.resendemail(value).subscribe((data) => {
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+    })
+  }
 
 
 }
