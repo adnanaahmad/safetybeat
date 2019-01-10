@@ -97,9 +97,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
   checkUserName(group) {
     if (group.value.username !== '') {
-      const username = { username: group.value.username };
+      const username = { username: group.value.username }
       this.register.checkUserName(username).subscribe((res) => {
-        group.controls.username.setErrors({ exists: true });
+        if (!res.status) {
+          group.controls.username.setErrors({ exists: true })
+        }
       });
     }
   }
@@ -110,15 +112,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.email.status === 'VALID') {
       const email = { email: group.value.email };
       this.register.checkEmail(email).subscribe((res) => {
-        group.controls.email.setErrors({ exists: true });
+        if (!res.status) {
+          group.controls.email.setErrors({ exists: true })
+        }
       });
     }
   }
   checkOrgName(group) {
     if (group.value.name !== '') {
-      const name = { name: group.value.name };
+      const name = { name: group.value.name }
       this.register.checkOrgName(name).subscribe((res) => {
-        group.controls.name.setErrors({ exists: true });
+        if (!res.status) {
+          group.controls.name.setErrors({ exists: true })
+        }
       });
     }
   }
@@ -129,7 +135,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.email.status === 'VALID') {
       const billingEmail = { billingEmail: group.value.billingEmail };
       this.register.checkOrgBillingEmail(billingEmail).subscribe((res) => {
-        group.controls.billingEmail.setErrors({ exists: true });
+        if (!res.status) {
+          group.controls.billingEmail.setErrors({ exists: true })
+        }
       });
     }
   }
