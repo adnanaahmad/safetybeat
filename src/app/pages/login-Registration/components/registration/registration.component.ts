@@ -99,7 +99,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (group.value.username !== '') {
       const username = { username: group.value.username }
       this.register.checkUserName(username).subscribe((res) => {
-        group.controls.username.setErrors({ exists: true })
+        debugger
+        if (!res.status) {
+          group.controls.username.setErrors({ exists: true })
+        }
       });
     }
   }
@@ -110,7 +113,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.email.status == 'VALID') {
       const email = { email: group.value.email }
       this.register.checkEmail(email).subscribe((res) => {
+        if(!res.status){
         group.controls.email.setErrors({ exists: true })
+        }
       });
     }
   }
@@ -118,7 +123,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (group.value.name !== '') {
       const name = { name: group.value.name }
       this.register.checkOrgName(name).subscribe((res) => {
+        if (!res.status) {
         group.controls.name.setErrors({ exists: true })
+        }
       });
     }
   }
@@ -129,7 +136,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.email.status == 'VALID') {
       const billingEmail = { billingEmail: group.value.billingEmail }
       this.register.checkOrgBillingEmail(billingEmail).subscribe((res) => {
+        if (!res.status) {
         group.controls.billingEmail.setErrors({ exists: true })
+        }
       });
     }
   }
