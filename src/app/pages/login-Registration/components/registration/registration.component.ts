@@ -96,10 +96,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
   checkUserName(group) {
-    const username = { username: group.value.username }
-    this.register.checkUserName(username).subscribe((res) => {
-      group.controls.username.setErrors({ exists: true })
-    });
+    if (group.value.username !== '') {
+      const username = { username: group.value.username }
+      this.register.checkUserName(username).subscribe((res) => {
+        group.controls.username.setErrors({ exists: true })
+      });
+    }
   }
   checkEmail(group) {
     this.email = this.formBuilder.group({
@@ -113,10 +115,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
   checkOrgName(group) {
-    const name = { name: group.value.name }
-    this.register.checkOrgName(name).subscribe((res) => {
-      group.controls.name.setErrors({ exists: true })
-    });
+    if (group.value.name !== '') {
+      const name = { name: group.value.name }
+      this.register.checkOrgName(name).subscribe((res) => {
+        group.controls.name.setErrors({ exists: true })
+      });
+    }
   }
   checkOrgBillingEmail(group) {
     this.email = this.formBuilder.group({
