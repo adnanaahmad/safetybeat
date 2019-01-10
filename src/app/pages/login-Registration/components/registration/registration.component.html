@@ -5,7 +5,7 @@
   </span>
   <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p>
-  <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
+  <mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
         <ng-template matStepLabel>
@@ -15,7 +15,7 @@
         <mat-grid-list cols="2" rowHeight="70px">
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required
                   (blur)="checkUserName(userForm)" />
                 <mat-error *ngIf="userDetailForm.username.errors">
@@ -27,7 +27,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.FIRSTNAME formControlName="first_name"
                   required />
                 <mat-error *ngIf="userDetailForm.first_name.errors ">
@@ -38,7 +38,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.LASTNAME formControlName="last_name" required />
                 <mat-error *ngIf="userDetailForm.last_name.errors ">
                   {{translated.AUTH.LASTNAME_REQ}}
@@ -48,7 +48,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName="email" required
                   (blur)="checkEmail(userForm)" />
                 <mat-error *ngIf="userDetailForm.email.errors">
@@ -61,7 +61,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="mobile_no" required />
                 <mat-error *ngIf="userDetailForm.mobile_no.errors ">
                   {{translated.AUTH.MOBILE_REQ}}
@@ -71,7 +71,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password1"
                   required />
                 <mat-error *ngIf="userDetailForm.password1.errors ">
@@ -83,7 +83,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName="password2"
                   required />
                 <mat-error *ngIf="userDetailForm.password2.errors ">
@@ -110,7 +110,7 @@
         <mat-grid-list cols="2" rowHeight="70px">
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.ORGANIZATION_NAME formControlName="name"
                   required (blur)="checkOrgName(organizationForm)" />
                 <mat-error *ngIf="orgForm.name.errors">
@@ -122,7 +122,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <mat-select [placeholder]=translated.MESSAGES.TYPE_MSG formControlName="type" required>
                   <mat-option *ngFor="let type of types" [value]="type.id">
                     {{type.name}}
@@ -136,7 +136,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.ADDRESS formControlName="address" required />
                 <mat-error *ngIf="orgForm.address.errors && orgForm.address.errors.required">
                   {{translated.AUTH.ADDRESS_REQ}}
@@ -146,7 +146,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.CITY formControlName="city" required />
                 <mat-error *ngIf="orgForm.city.errors && orgForm.city.errors.required">
                   {{translated.AUTH.CITY_REQ}}
@@ -156,7 +156,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.COUNTRY formControlName="country" required />
                 <mat-error *ngIf="orgForm.country.errors && orgForm.country.errors.required">
                   {{translated.AUTH.COUNTRY_REQ}}
@@ -166,7 +166,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.ZIPCODE formControlName="zipCode" required />
                 <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
                   {{translated.AUTH.ZIPCODE_REQ}}
@@ -176,7 +176,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="email" [placeholder]=translated.AUTH.BILLING_EMAIL formControlName="billingEmail"
                   required (blur)="checkOrgBillingEmail(organizationForm)" />
                 <mat-error *ngIf="orgForm.billingEmail.errors">
@@ -189,7 +189,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.ACCOUNTNO formControlName="accountNo"
                   required />
                 <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
@@ -200,7 +200,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="phoneNo" required />
                 <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
                   {{translated.AUTH.MOBILE_REQ}}
@@ -210,7 +210,7 @@
           </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field full-width>
                 <input matInput type="text" [placeholder]=translated.AUTH.FAX formControlName="fax" required />
                 <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
                   {{translated.AUTH.FAXNO_REQ}}
@@ -234,7 +234,7 @@
           {{translated.MESSAGES.MODULE_MSG}}
         </ng-template>
         <div class="form-group">
-          <mat-form-field>
+          <mat-form-field full-width>
             <mat-select [placeholder]=translated.MESSAGES.MODULE_MSG formControlName="name" multiple required>
               <mat-option *ngFor="let module of modules" [value]="module.name">
                 {{module.name}}
@@ -258,7 +258,7 @@
         <mat-icon>bookmark_border</mat-icon>
         {{translated.MESSAGES.PACKAGESELECT_MSG}}
       </ng-template>
-      <mat-card *ngFor="let module of moduleForm.value.name">
+      <mat-card no-box-shadow *ngFor="let module of moduleForm.value.name">
         <mat-card-title class="legend-title">{{module}}</mat-card-title>
         <mat-card-content>
           <mat-radio-group class="package-selectors">

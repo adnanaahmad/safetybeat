@@ -19,7 +19,7 @@
       <p class="subheading">{{translated.MESSAGES.SIGNINMESSAGE}}</p>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
         <div class="input">
-          <mat-form-field>
+          <mat-form-field full-width>
             <input matInput type="text" [placeholder]=translated.AUTH.USER formControlName=username required />
             <mat-error *ngIf="formValidation.username.errors">
               {{translated.AUTH.USERNAME_REQ}}
@@ -27,7 +27,7 @@
           </mat-form-field>
         </div>
         <div class="password">
-          <mat-form-field>
+          <mat-form-field full-width>
             <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName=password required />
             <mat-error *ngIf="formValidation.password.errors">
               {{translated.AUTH.PASSWORD_REQ}}

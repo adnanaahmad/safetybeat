@@ -1,7 +1,7 @@
 <div class="menu-button">
   <button (click)="toggleSideNav()" mat-mini-fab color="primary">
-    <mat-icon *ngIf="!navOpened">chevron_right</mat-icon>
-    <mat-icon *ngIf="navOpened">chevron_left</mat-icon>
+    <mat-icon class="opened" *ngIf="!navOpened">menu</mat-icon>
+    <mat-icon class="closed" *ngIf="navOpened">close</mat-icon>
   </button>
 </div>
 <mat-nav-list class="nav-list">
