@@ -1,35 +1,62 @@
+@import 'src/theme/theme.light.scss';
+@import '~@angular/material/theming';
 #particle-container{
-    width:100%;
-    top:0;
-    position:fixed;
+width:100%;
+top:0;
+position:fixed;
 }
 .loginbox{
-    text-align: center;
-    width:50%;
-    mat-card-title{
-        margin-top:60px;
+text-align: center;
+width:50%;
+mat-card-title{
+    margin-top:60px;
+}
+    .form-group{
+        width:100%;
     }
-        .form-group{
-            width:100%;
-        }
-        [btn-danger]{
-            margin-right:10px;
-        }
+    [btn-danger]{
+        margin-right:10px;
+    }
 }
 .mat-step-icon-content{
-    display: none !important;
+display: none !important;
 }
 .mat-card{
-    box-shadow:none;
+box-shadow:none;
 }
 [backtologin]{
-    display: block;
-    text-decoration: none;
-    padding:20px 0 0;
+display: block;
+text-decoration: none;
+padding:20px 0 0;
 }
 .monogram{
-    top: -60px;
-    transform: none;
-    border: 5px solid #fff;
-    box-shadow: 0px 6px 10px 2px #00000017;
+top: -60px;
+transform: none;
+border: 5px solid #fff;
+box-shadow: 0px 6px 10px 2px #00000017;
+}
+.package-selectors{
+.mat-radio-button{
+    background-color: mat-color($primary, 500);
+}
+}
+
+.legend-title{
+&:before,
+&:after{
+    background-color: mat-color($primary, 100);
+}
+}
+.package-selectors{
+    .mat-radio-button{
+    background-color: mat-color($primary, 50);
+    &.mat-radio-checked{
+        &:before{
+        background-color: mat-color($primary, 500);
+        }
+        *{
+        color:#fff;
+        }
+    }
+    }
 }

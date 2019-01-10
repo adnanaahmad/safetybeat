@@ -31,7 +31,7 @@ $primary-pallet: (
     A700: white
   )
 );
-$accent-pallet: (
+$secondary-pallet: (
   50: #ffe8f0,
   100: #ffc6d9,
   200: #ffa0c0,
@@ -95,34 +95,29 @@ $gray-pallete: (
     A700: white
   )
 );
+
 $primary: mat-palette($primary-pallet);
-$accent: mat-palette($accent-pallet);
-$danger: mat-palette($mat-red);
+$secondary: mat-palette($secondary-pallet);
+$warn: mat-palette($mat-red);
 $background: mat-palette($gray-pallete);
 
 $dark-theme: mat-dark-theme(
     $primary,
-    $accent,
-    $danger
+    $secondary,
+    $warn
 );
 .dark-theme{
         &.body-bg{
           background-color: mat-color($primary);
         }
       a:not(.mat-raised-button){
-        color: mat-color($primary,lighter);
+        color: mat-color($primary,darker);
       }
       .sideLegend {
-        background-color: mat-color($primary);
-      }
-      [btn-primary]{
-        background-color: mat-color($primary);
-      }
-      [btn-danger]{
-        background-color: mat-color($danger);
+        background-color: mat-color($primary) !important;
       }
       .midbox:before{
-        background-color: mat-color($danger);
+        background-color: mat-color($warn);
       }
       app-registration{
         .loginbox{
@@ -133,9 +128,9 @@ $dark-theme: mat-dark-theme(
                 }
                 .mat-step-label-active{
                   mat-icon{
-                    border: 2px solid mat-color($primary,lighter);
+                    border: 2px solid mat-color($primary);
                     background-color: mat-color($primary);
-                    color: mat-color($primary,lighter);
+                    color: mat-color($primary,50);
                   }
                   color: mat-color($primary);
                 }
