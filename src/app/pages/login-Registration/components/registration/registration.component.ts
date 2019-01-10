@@ -179,7 +179,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         (data) => {
           this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.router.navigate(['']);
+          this.router.navigate(['/verification']);
         },
         (error) => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +

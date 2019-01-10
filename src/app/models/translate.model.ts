@@ -2,7 +2,7 @@ export interface Translation {
     AUTH: Auth,
     BUTTONS: Buttons,
     MESSAGES: Messages,
-    LOGGER: Logger
+    LOGGER: Logger,
 }
 export interface Auth {
     USERNAME: string,
@@ -46,7 +46,7 @@ export interface Auth {
     MOBILE_NO: string,
     ORGANIZATION_NAME: string,
     ORGANIZATIONNAME_REQ: string,
-    ORG_NAME_EXISTS: string
+    ORG_NAME_EXISTS: string,
 }
 export interface Buttons {
     LOGIN: string,
@@ -57,7 +57,7 @@ export interface Buttons {
     NEXT: string,
     BACK: string,
     SUBMIT: string,
-    LOGINTEXT: string
+    LOGINTEXT: string,
 }
 export interface Messages {
     SIGNINMESSAGE: string,
@@ -83,7 +83,7 @@ export interface Messages {
     LOGOUT_MSG: string,
     RESET_SUCCESS: string,
     RESETMSG: string,
-    USERNAME_EXISTS: string
+    USERNAME_EXISTS: string,
 }
 export interface Logger {
     STATUS: LoggerStatus,
@@ -94,7 +94,7 @@ export interface LoggerStatus {
     INFO: string,
     SUCCESS: string,
     WARNING: string,
-    ERROR: string
+    ERROR: string,
 }
 export interface LoggerMessage {
     LOGGEDIN: string,
@@ -116,5 +116,6 @@ export interface LoggerMessage {
     DASHBOARD_COMPONENT: string,
     NAVIGATION_COMPONENT: string,
     SIDE_NAV: string,
-    PROFILE_COMPONENT: string
+    PROFILE_COMPONENT: string,
+    VERIFICATION_COMPONENT: String,
 }

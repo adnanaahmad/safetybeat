@@ -1,0 +1,11 @@
+<form [formGroup]='verifyForm'>
+    <div [formGroup]='verifyForm'>
+        <mat-form-field>
+            <input matInput [placeholder]=translated.AUTH.EMAIL formControlName=email required>
+            <mat-error *ngIf="formValidation.email.errors "> {{translated.AUTH.EMAIL_REQ}}</mat-error>
+        </mat-form-field>
+    </div>
+    <button mat-raised-button custom-btn btn-primary color="primary">{{translated.BUTTONS.RESEND_EMAIL}}</button>
+    <button mat-raised-button custom-btn btn-primary color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
+</form>
+<app-particle-container></app-particle-container>
