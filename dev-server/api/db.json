@@ -351,6 +351,50 @@
         }
       ],
       "id": 8
+    },
+    {
+      "user": {
+        "username": "gfdsf",
+        "email": "taqi.muttaqeen@gmail.com",
+        "first_name": "sddfa",
+        "last_name": "adfasdf",
+        "mobile_no": "3243124",
+        "password1": "admin123",
+        "password2": "admin123"
+      },
+      "organization": {
+        "name": "bano",
+        "type": 2,
+        "address": "SDAFASD",
+        "zipCode": "fdfd",
+        "city": "mehar",
+        "country": "dfa",
+        "fax": "567899876",
+        "billingEmail": "dds@gmail.com",
+        "accountNo": "4567898765",
+        "phoneNo": "67898765"
+      },
+      "module_pkg": [
+        {
+          "name": "Safety Beat",
+          "package": {
+            "packageName": "Gold",
+            "cost": "$1000",
+            "noOfUsers": "500",
+            "id": 1
+          }
+        },
+        {
+          "name": "Field Communication",
+          "package": {
+            "packageName": "Silver",
+            "cost": "$500",
+            "noOfUsers": "250",
+            "id": 2
+          }
+        }
+      ],
+      "id": 9
     }
   ],
   "user": [

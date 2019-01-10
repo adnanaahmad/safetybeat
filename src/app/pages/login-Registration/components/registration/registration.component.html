@@ -16,9 +16,11 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field>
-                <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required />
-                <mat-error *ngIf="userDetailForm.username.errors && userDetailForm.username.errors.required">
-                  {{translated.AUTH.USERNAME_REQ}}
+                <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required
+                  (blur)="checkUserName(userForm)" />
+                <mat-error *ngIf="userDetailForm.username.errors">
+                  <span *ngIf="userDetailForm.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
+                  <span *ngIf="userDetailForm.username.errors?.exists">{{translated.MESSAGES.USERNAME_EXISTS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -47,9 +49,12 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field>
-                <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName="email" required />
-                <mat-error *ngIf="userDetailForm.email.errors ">
-                  {{translated.AUTH.EMAIL_REQ}}
+                <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName="email" required
+                  (blur)="checkEmail(userForm)" />
+                <mat-error *ngIf="userDetailForm.email.errors">
+                  <span *ngIf="userDetailForm.email.errors.email">{{translated.AUTH.EMAIL_VALID}}</span>
+                  <span *ngIf="userDetailForm.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
+                  <span *ngIf="userDetailForm.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -67,11 +72,11 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field>
-                <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password"
+                <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password1"
                   required />
-                <mat-error *ngIf="userDetailForm.password.errors ">
-                  <span *ngIf="userDetailForm.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-                  <span *ngIf="userDetailForm.password.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+                <mat-error *ngIf="userDetailForm.password1.errors ">
+                  <span *ngIf="userDetailForm.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+                  <span *ngIf="userDetailForm.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -107,9 +112,10 @@
             <div class="form-group">
               <mat-form-field>
                 <input matInput type="text" [placeholder]=translated.AUTH.ORGANIZATION_NAME formControlName="name"
-                  required />
-                <mat-error *ngIf="orgForm.name.errors && orgForm.name.errors.required">
-                  {{translated.AUTH.ORGANIZATIONNAME_REQ}}
+                  required (blur)="checkOrgName(organizationForm)" />
+                <mat-error *ngIf="orgForm.name.errors">
+                  <span *ngIf="orgForm.name.errors.required">{{translated.AUTH.ORGANIZATIONNAME_REQ}}</span>
+                  <span *ngIf="orgForm.name.errors?.exists">{{translated.AUTH.ORG_NAME_EXISTS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -118,7 +124,7 @@
             <div class="form-group">
               <mat-form-field>
                 <mat-select [placeholder]=translated.MESSAGES.TYPE_MSG formControlName="type" required>
-                  <mat-option *ngFor="let type of types" value="type.id">
+                  <mat-option *ngFor="let type of types" [value]="type.id">
                     {{type.name}}
                   </mat-option>
                 </mat-select>
@@ -172,9 +178,11 @@
             <div class="form-group">
               <mat-form-field>
                 <input matInput type="email" [placeholder]=translated.AUTH.BILLING_EMAIL formControlName="billingEmail"
-                  required />
-                <mat-error *ngIf="orgForm.billingEmail.errors && orgForm.billingEmail.errors.required">
-                  {{translated.AUTH.BILLINGEMAIL_REQ}}
+                  required (blur)="checkOrgBillingEmail(organizationForm)" />
+                <mat-error *ngIf="orgForm.billingEmail.errors">
+                  <span *ngIf="orgForm.billingEmail.errors.required">{{translated.AUTH.BILLINGEMAIL_REQ}}</span>
+                  <span *ngIf="orgForm.billingEmail.errors.email">{{translated.AUTH.BILLING_EMAIL_VALID}}</span>
+                  <span *ngIf="orgForm.billingEmail.errors?.exists">{{translated.AUTH.BILLING_EMAIL_EXISTS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>

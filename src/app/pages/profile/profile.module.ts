@@ -21,7 +21,6 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ProfileRoutingModule,
     MaterialModule,
-    MaterialModule,
     FormsModule,
     RouterModule,
     ToastrModule.forRoot(),
