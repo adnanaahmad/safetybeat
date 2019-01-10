@@ -15,7 +15,6 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { CoreService } from './core/services/authorization/core.service';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
-import { LoginComponent } from './pages/login-Registration/components/login/login.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

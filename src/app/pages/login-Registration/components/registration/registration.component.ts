@@ -33,7 +33,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private logging: LoggingService,
     private render: Renderer2
   ) {
-    this.render.addClass(document.body, 'body-bg');
+    // this.render.addClass(document.body, 'body-bg');
+    document.body.style.backgroundColor = '#05647c';
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
@@ -71,7 +72,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       city: ['', Validators.required],
       country: ['', Validators.required],
       fax: ['', Validators.required],
-      billingEmail: ['', Validators.required],
+      billingEmail: ['', [Validators.required, Validators.email]],
       accountNo: ['', Validators.required],
       phoneNo: ['', Validators.required]
     });
@@ -80,7 +81,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.render.removeClass(document.body, 'body-bg');
+    // this.render.removeClass(document.body, 'body-bg');
+    document.body.style.backgroundColor = 'none';
     this.logging.hideAllAppLoggers();
   }
   /**

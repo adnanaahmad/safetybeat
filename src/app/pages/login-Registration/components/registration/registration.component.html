@@ -5,7 +5,7 @@
   </span>
   <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p>
-  <mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
+  <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
         <ng-template matStepLabel>
@@ -214,7 +214,7 @@
         <div class="clearsep"></div>
         <div>
           <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">{{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary" >{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
         </div>
       </form>
     </mat-step>
@@ -247,22 +247,24 @@
 
     <mat-step>
       <ng-template matStepLabel>
-          <mat-icon>bookmark_border</mat-icon>
-        {{translated.MESSAGES.PACKAGESELECT_MSG}}</ng-template>
+        <mat-icon>bookmark_border</mat-icon>
+        {{translated.MESSAGES.PACKAGESELECT_MSG}}
+      </ng-template>
       <mat-card *ngFor="let module of moduleForm.value.name">
         <mat-card-title class="legend-title">{{module}}</mat-card-title>
         <mat-card-content>
           <mat-radio-group class="package-selectors">
             <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage(module,package)">
-                <div class="trigger"></div>
-                <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
-                <path class="circ path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" d="
-                  M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z"
-                  />
-                <polyline class="tick path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;" points="
-                  11.6,20 15.9,24.2 26.4,13.8 "/>
-                </svg>                
+              <div class="trigger"></div>
+              <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px" y="0px" viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
+                <path class="circ path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                  d="
+                  M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z" />
+                <polyline class="tick path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                  points="
+                  11.6,20 15.9,24.2 26.4,13.8 " />
+              </svg>
               <div class="radio-data">
                 <h3>{{package.cost}}</h3>
                 <p>{{package.noOfUsers}}</p>

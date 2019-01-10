@@ -1,24 +1,20 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Injectable, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, EmailValidator } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
+import { ToastrModule } from 'ng6-toastr-notifications';
 import { LoginRegistrationService } from 'src/app/pages/login-Registration/services/LoginRegistrationService';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { NotifierModule } from 'angular-notifier';
-import { LoginResponse, loginCredentials } from 'src/app/models/user.model';
-import { getTypeNameForDebugging } from '@angular/common/src/directives/ng_for_of';
 import { ParticleContainerComponent } from '../particle-container/particle-container.component';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { routes } from 'src/app/app-routing.module';
 import { Location } from '@angular/common';
 import { PageNotFoundComponent } from 'src/app/core/components/page-not-found/page-not-found.component';
 
@@ -95,9 +91,8 @@ describe('LoginComponent', () => {
     });
     it('check password validity false or undefined', () => {
       let password = component.loginForm.controls['password'];
-      let errors = {};
-      // errors = password.errors || {};
-      expect(errors['password']).toBeFalsy();
+      errors = password.errors || {};
+      expect(errors['required']).toBeTruthy();
 
       password.setValue('');
       errors = password.errors || {};
@@ -106,12 +101,12 @@ describe('LoginComponent', () => {
 
       password.setValue('admin123');
       errors = password.errors || {};
-      expect(errors['password']).toBeFalsy();
+      expect(errors['password']).toBeUndefined();
 
     });
   });
   describe('user should login', () => {
-    it('login form must be intialized', async(() => {
+    it('login form must be intialized', () => {
       let loginElement: DebugElement;
       authService = debugEl.injector.get(LoginRegistrationService);
       let form = {
@@ -125,17 +120,22 @@ describe('LoginComponent', () => {
       component.loginForm.controls['username'].setValue('test');
       component.loginForm.controls['password'].setValue('test1234');
       expect(component.loginForm.valid).toBeTruthy();
-      spyOn(authService, 'loginUser').and.callThrough();
-      loginElement = fixture.debugElement.query(By.css('form'));
-      loginElement.triggerEventHandler('ngSubmit', null);
-      authService.loginUser(form.value);
-      expect(authService.loginUser).toHaveBeenCalledWith(form.value);
       spyOn(component, 'onSubmit').and.returnValue(form);
       component.onSubmit(form);
+
+      loginElement = fixture.debugElement.query(By.css('form'));
+      loginElement.triggerEventHandler('ngSubmit', null);
+
+      spyOn(authService, 'loginUser').and.callThrough();
+      authService.loginUser(form.value);
+      expect(authService.loginUser).toHaveBeenCalledWith(form.value);
       expect(component.onSubmit).toHaveBeenCalled();
-      spyOn(component.router, 'navigate').and.returnValue(true);
-      router.navigate(['/home']);
-      expect(component.router.navigate).toHaveBeenCalledWith(['/home']);
-    }));
+
+      spyOn(component.router, 'navigate').and.callFake(() => {
+        router.navigate(['/home']);
+        expect(component.router.navigate).toHaveBeenCalledWith(['/home']);
+      });
+
+    });
   });
 });

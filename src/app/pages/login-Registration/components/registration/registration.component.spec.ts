@@ -31,7 +31,7 @@ describe('RegistrationComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RegistrationComponent, ParticleContainerComponent, PageNotFoundComponent],
+      declarations: [RegistrationComponent, PageNotFoundComponent],
       imports: [
         NotifierModule,
         BrowserAnimationsModule,
@@ -72,7 +72,7 @@ describe('RegistrationComponent', () => {
     component = fixture.debugElement.componentInstance;
     expect(component).toBeTruthy();
   });
-  describe('check form validation', () => {
+  describe('check user form validation', () => {
     it('form invalid when its empty', () => {
       expect(component.userForm.valid).toBeFalsy();
     });
@@ -145,22 +145,161 @@ describe('RegistrationComponent', () => {
       errors = email.errors || {};
       expect(errors['email']).toBeFalsy();
     });
-    // it('check password validity false or undefined', () => {
-    //   let password = component.userForm.controls['password'];
-    //   errors = password.errors || {};
-    //   expect(errors['password']).toBeFalsy();
+    it('check password validity false or undefined', () => {
+      let password = component.userForm.controls['password'];
+      errors = password.errors || {};
+      expect(errors['required']).toBeTruthy();
 
-    //   password.setValue('');
-    //   errors = password.errors || {};
-    //   expect(errors['password']).toBeUndefined();
-    //   expect(errors['required']).toBeTruthy();
+      password.setValue('');
+      errors = password.errors || {};
+      expect(errors['password']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
 
-    //   password.setValue('admin123');
-    //   errors = password.errors || {};
-    //   expect(errors['password']).toBeFalsy();
-    // });
-    // it('check first_name validity', () => {
-    //   expect(component.userForm.valid).toBeFalsy();
-    // });
+      password.setValue('admin123');
+      errors = password.errors || {};
+      expect(errors['required']).toBeFalsy();
+      expect(errors['minlength']).toBeFalsy();
+    });
+    it('check confirm password validity false or undefined or true', () => {
+      let password2 = component.userForm.controls['password2'];
+
+      password2.setValue('');
+      errors = password2.errors || {};
+      expect(errors['password']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+
+      password2.setValue('admin123');
+      errors = password2.errors || {};
+      expect(errors['required']).toBeFalsy();
+      expect(errors['minlength']).toBeFalsy();
+    });
+  });
+  describe('check organization form validation', () => {
+    it('form invalid when its empty', () => {
+      expect(component.organizationForm.valid).toBeFalsy();
+    });
+
+    it('check name validity', () => {
+      let name = component.organizationForm.controls['name'];
+      name.setValue('');
+      errors = name.errors || {};
+      expect(errors['name']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      name.setValue('admin123');
+      errors = name.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+    it('check type validity', () => {
+      let type = component.organizationForm.controls['type'];
+      type.setValue('');
+      errors = type.errors || {};
+      expect(errors['type']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      type.setValue('business');
+      errors = type.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+    it('check address validity', () => {
+      let address = component.organizationForm.controls['address'];
+      address.setValue('');
+      errors = address.errors || {};
+      expect(errors['address']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      address.setValue('admin123');
+      errors = address.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+    it('check zipCode validity', () => {
+      let zipCode = component.organizationForm.controls['zipCode'];
+      zipCode.setValue('');
+      errors = zipCode.errors || {};
+      expect(errors['zipCode']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      zipCode.setValue('54000');
+      errors = zipCode.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+    it('check city validity', () => {
+      let city = component.organizationForm.controls['city'];
+      city.setValue('');
+      errors = city.errors || {};
+      expect(errors['city']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      city.setValue('admin123');
+      errors = city.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+    it('check country validity', () => {
+      let country = component.organizationForm.controls['country'];
+      country.setValue('');
+      errors = country.errors || {};
+      expect(errors['country']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      country.setValue('admin123');
+      errors = country.errors || {};
+      expect(errors['required']).toBeFalsy();
+      expect(errors['minlength']).toBeFalsy();
+    });
+    it('check fax validity', () => {
+      let fax = component.organizationForm.controls['fax'];
+      fax.setValue('');
+      errors = fax.errors || {};
+      expect(errors['fax']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      fax.setValue('123445');
+      errors = fax.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+    it('check billingEmail validity', () => {
+      let billingEmail = component.organizationForm.controls['billingEmail'];
+      billingEmail.setValue('');
+      errors = billingEmail.errors || {};
+      expect(errors['billingEmail']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+
+      billingEmail.setValue('admin123');
+      errors = billingEmail.errors || {};
+      expect(errors['email']).toBeTruthy();
+
+      billingEmail.setValue('test@test.com');
+      errors = billingEmail.errors || {};
+      expect(errors['required']).toBeFalsy();
+      expect(errors['email']).toBeFalsy();
+    });
+    it('check accountNo validity', () => {
+      let accountNo = component.organizationForm.controls['accountNo'];
+      accountNo.setValue('');
+      errors = accountNo.errors || {};
+      expect(errors['accountNo']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      accountNo.setValue('987654321');
+      errors = accountNo.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+    it('check phoneNo validity', () => {
+      let phoneNo = component.organizationForm.controls['phoneNo'];
+      phoneNo.setValue('');
+      errors = phoneNo.errors || {};
+      expect(errors['phoneNo']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      phoneNo.setValue('65748390');
+      errors = phoneNo.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
+  });
+  describe('check module form validation', () => {
+    it('moduleform invalid when its empty', () => {
+      expect(component.moduleForm.valid).toBeFalsy();
+    });
+    it('check phoneNo validity', () => {
+      let name = component.organizationForm.controls['name'];
+      name.setValue('');
+      errors = name.errors || {};
+      expect(errors['name']).toBeUndefined();
+      expect(errors['required']).toBeTruthy();
+      name.setValue('Field Communication');
+      errors = name.errors || {};
+      expect(errors['required']).toBeFalsy();
+    });
   });
 });
