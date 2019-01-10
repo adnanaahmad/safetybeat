@@ -16,6 +16,14 @@ export class FixedNavComponent implements OnInit {
   translated: Translation;
   public navLinks = [
     { path: '/home', icon: 'dashboard' },
+    { path: '/home/profile', icon: 'person' },
+    { path: '/home', icon: 'supervised_user_circle' }
+  ];
+  public navLinksBottom = [
+    { path: '/home', icon: 'search' },
+    { path: '/home', icon: 'add' },
+    { path: '/home', icon: 'notification_important' },
+    { path: '/home', icon: 'help' },
     { path: '/home/profile', icon: 'supervised_user_circle' },
     { path: '/home/settings', icon: 'settings' }
   ];

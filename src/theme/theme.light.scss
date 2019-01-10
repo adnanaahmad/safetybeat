@@ -31,7 +31,7 @@ $primary-pallet: (
         A700 : #ffffff,
   )
 );
-$accent-pallet: (
+$secondary-pallet: (
   50 : #e0e7ea,
     100 : #b3c4cb,
     200 : #809da8,
@@ -127,13 +127,13 @@ $gray-pallete: (
   )
 );
 $primary: mat-palette($primary-pallet);
-$accent: mat-palette($accent-pallet);
+$secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $background: mat-palette($gray-pallete);
 
 $light-theme: mat-light-theme(
     $primary,
-    $accent,
+    $secondary,
     $warn
 );
 
@@ -148,7 +148,7 @@ $light-theme: mat-light-theme(
         background-color: mat-color($primary) !important;
       }
       .midbox:before{
-        background-color: mat-color($warn) ;
+        background-color: mat-color($warn);
       }
       app-registration{
         .loginbox{

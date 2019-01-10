@@ -78,6 +78,9 @@
         "LOGOUT_MSG": "Logout Successful!",
         "RESET_SUCCESS": "Email has been sent to you",
         "RESETMSG": "Email has been sent!",
+        "WELCOME": "Welcome to",
+        "WELCOME_MSG": "The only safety app that allows you to easily manage the safety of your mobile, remote and lone workers, anytime, anywhere",
+        "NOACCOUNT": "Don't have an account?",
         "USERNAME_EXISTS": "Username already exixts."
     },
     "LOGGER": {
