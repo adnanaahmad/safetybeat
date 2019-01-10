@@ -1,11 +1,29 @@
-<form [formGroup]='verifyForm'>
-    <div [formGroup]='verifyForm'>
-        <mat-form-field>
-            <input matInput [placeholder]=translated.AUTH.EMAIL formControlName=email required>
-            <mat-error *ngIf="formValidation.email.errors "> {{translated.AUTH.EMAIL_REQ}}</mat-error>
-        </mat-form-field>
-    </div>
-    <button mat-raised-button custom-btn btn-primary color="primary">{{translated.BUTTONS.RESEND_EMAIL}}</button>
-    <button mat-raised-button custom-btn btn-primary color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
-</form>
 <app-particle-container></app-particle-container>
+<mat-card class="midbox loginbox">
+    <span class="monogram">
+        <img src="/assets/images/monogram.png" />
+    </span>
+    <mat-card-title>{{translated.MESSAGES.VERIFY_ACCOUNT}}</mat-card-title>
+    <p class="subheading">{{translated.MESSAGES.VERIFY_MSG}}</p>
+    <hr>
+    <p class="subheading">{{translated.MESSAGES.SIGNEDUP_EMAIL_MSG}} <a href="mailto:example@test.com">example@test.com</a></p>
+    <p class="subheading">{{translated.MESSAGES.VERIFY_REQ}}</p>
+
+
+    <form [formGroup]='verifyForm'>
+        <button mat-raised-button custom-btn btn-primary color="primary">{{translated.BUTTONS.RESEND_EMAIL}}</button>
+        <p class="subheading"><strong>{{translated.MESSAGES.OR}}</strong></p>
+        <p class="subheading">{{translated.MESSAGES.CHANGE_EMAIL}}</p>
+
+        <div [formGroup]='verifyForm'>
+            <mat-form-field>
+                <input matInput type="email" [placeholder]=translated.MESSAGES.EMAIL_RESET_PLACEHOLDER formControlName=email
+                    required>
+                <mat-error *ngIf="formValidation.email.errors "> {{translated.AUTH.EMAIL_REQ}}</mat-error>
+            </mat-form-field>
+            <button mat-raised-button custom-btn btn-primary color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
+        </div>
+    </form>
+    <p class="subheading">{{translated.MESSAGES.QUESTION_QUERY}}</p>
+    <p class="subheading">{{translated.MESSAGES.REACH_MSG}} <a href="mailto:help@safetybeat.com">help@safetybeat.com</a></p>
+</mat-card>

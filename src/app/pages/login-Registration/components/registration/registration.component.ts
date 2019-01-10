@@ -8,6 +8,7 @@ import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registration',
@@ -97,8 +98,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
   checkUserName(group) {
     if (group.value.username !== '') {
-      const username = { username: group.value.username }
-      this.register.checkUserName(username).subscribe((res) => {
+      const username = { username: group.value.username };
+      const username_check = this.register.checkUserName(username).pipe();
+      username_check.subscribe((res) => {
         if (!res.status) {
           group.controls.username.setErrors({ exists: true })
         }
@@ -111,7 +113,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
     if (this.email.status === 'VALID') {
       const email = { email: group.value.email };
-      this.register.checkEmail(email).subscribe((res) => {
+      const email_check = this.register.checkEmail(email).pipe();
+      email_check.subscribe((res) => {
         if (!res.status) {
           group.controls.email.setErrors({ exists: true })
         }
@@ -121,7 +124,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   checkOrgName(group) {
     if (group.value.name !== '') {
       const name = { name: group.value.name }
-      this.register.checkOrgName(name).subscribe((res) => {
+      const name_check = this.register.checkEmail(name).pipe();
+      name_check.subscribe((res) => {
         if (!res.status) {
           group.controls.name.setErrors({ exists: true })
         }
@@ -134,7 +138,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
     if (this.email.status === 'VALID') {
       const billingEmail = { billingEmail: group.value.billingEmail };
-      this.register.checkOrgBillingEmail(billingEmail).subscribe((res) => {
+      const billingemail_check = this.register.checkEmail(billingEmail).pipe();
+      billingemail_check.subscribe((res) => {
         if (!res.status) {
           group.controls.billingEmail.setErrors({ exists: true })
         }

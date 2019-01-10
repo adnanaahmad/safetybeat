@@ -21,6 +21,8 @@ export class ConstantService {
     checkEmail: `${environment.apiUrl}/anonymous/email/`,
     checkOrgName: `${environment.apiUrl}/anonymous/orgName/`,
     checkBilling: `${environment.apiUrl}/anonymous/billingEmail/`,
+    resendverification: `${environment.apiUrl}/anonymous/account/resend-verification/`,
+    changeemail: `${environment.apiUrl}/anonymous/billingEmail/`
   };
   static toast = {
     location: 'toast-top-left',

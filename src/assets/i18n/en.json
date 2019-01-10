@@ -53,7 +53,7 @@
         "BACK": "BACK",
         "SUBMIT": "SUBMIT",
         "LOGINTEXT": "I already have an account",
-        "RESEND_EMAIL": "Resend Email",
+        "RESEND_EMAIL": "Resend Verification Link",
         "CHANGE_EMAIL": "Change Email"
     },
     "MESSAGES": {
@@ -83,11 +83,15 @@
         "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
         "VERIFY_MSG": "In order to complete registration, please verify your account.",
         "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",
-        "VERIFY_REQ": "Please verify your account to continue using the SafetyBeats app services",
+        "VERIFY_REQ": "Please verify your account to continue using this service",
         "WELCOME": "Welcome to",
         "WELCOME_MSG": "The only safety app that allows you to easily manage the safety of your mobile, remote and lone workers, anytime, anywhere",
         "NOACCOUNT": "Don't have an account?",
-        "USERNAME_EXISTS": "Username already exixts."
+        "USERNAME_EXISTS": "Username already exixts.",
+        "CHANGE_EMAIL": "Change your email address.",
+        "EMAIL_RESET_PLACEHOLDER": "Enter new email address",
+        "QUESTION_QUERY": "Do you have any questions or queries?",
+        "REACH_MSG": "Reach us at"
     },
     "LOGGER": {
         "STATUS": {
