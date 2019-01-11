@@ -56,11 +56,16 @@
   .dashboard-card-content {
     text-align: center;
   }
-  .btn{
-    position: inherit;
-    padding-left: 87%;
+  .top-btns{
+    width: 100%;
+    text-align: right;
   }
- 
+ .sidenav-logo{
+    max-width: 84%;
+    margin: 20px auto;
+    display: block;
+    width: 100%;
+ }
   // .app-content {
   //   height: 100vh;
   //   max-height: 100vh;

@@ -20,10 +20,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     { path: '/home', icon: 'supervised_user_circle', label: 'My Team' }
   ];
   public navLinksBottom = [
-    { path: '/home', icon: 'dashboard', label: 'Dashboard2' },
-    { path: '/home/profile', icon: 'person', label: 'Profile2' },
-    { path: '/home', icon: 'supervised_user_circle', label: 'My Team2' },
-    { path: '/home/profile', icon: 'supervised_user_circle', label: 'Profile' },
+    { path: '/home', icon: 'dashboard', label: 'Search' },
+    { path: '/home/profile', icon: 'person', label: 'Add' },
+    { path: '/home', icon: 'supervised_user_circle', label: 'Notifications' },
+    { path: '/home', icon: 'supervised_user_circle', label: 'Help' },
     { path: '/home/settings', icon: 'settings', label: 'Settings' }
   ];
   constructor(public core: CoreService,
