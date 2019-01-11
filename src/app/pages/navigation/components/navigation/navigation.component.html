@@ -5,7 +5,7 @@
   ></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
-      <img src='src/assets/images/logo.png'>
+      <img src='../../../../../assets/images/logo.png' class="sidenav-logo">
       <app-nav-list
         [navLinks]="navLinks"
         [navLinksBottom]="navLinksBottom"
@@ -16,7 +16,7 @@
       <!-- Router outlet for the rest of the app -->
       <!-- <optergy-header class="header"></optergy-header> -->
       <mat-toolbar class="topbar">
-        <div class="btn">
+        <div class="top-btns">
           <button
             mat-button
             *ngIf="core.isAuthenticated"

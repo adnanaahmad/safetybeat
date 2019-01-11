@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2, AfterViewInit, ViewChild } fro
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { RegistrationComponent } from '../registration/registration.component';
@@ -19,6 +19,7 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
   translated: Translation;
   verifyForm: FormGroup;
   emaill: string;
+  data: any;
 
   constructor(
     private logging: LoggingService,
@@ -26,7 +27,8 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     public formBuilder: FormBuilder,
     private render: Renderer2,
-    private loginRegService: LoginRegistrationService
+    private loginRegService: LoginRegistrationService,
+    private route: ActivatedRoute
 
 
   ) {
@@ -41,6 +43,11 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.verifyForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
+    this.route.queryParams.subscribe(params => {
+      this.data = JSON.stringify(params['data']);
+      console.log(this.data);
+    })
+
   }
 
   ngOnDestroy() {

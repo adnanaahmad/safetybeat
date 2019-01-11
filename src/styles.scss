@@ -11,9 +11,6 @@ body { margin: 0; font-family: 'Montserrat', sans-serif; }
 *{
 font-family: 'Montserrat', sans-serif;
 }
-mat-toolbar{
-color:#fff !important;
-}
 app-nav-list{
 mat-nav-list:last-child{
     margin-top: 10em !important;
@@ -25,7 +22,7 @@ mat-nav-list{
         .mat-icon{
         // text-shadow: -75px 0px 0px rgba(255, 255, 255, 1);
         transform: scale(1);
-        transition: all ease 0.3s;
+        transition: all cubic-bezier(.65,.2,0,2) 0.3s;
         }
         &:hover{
         .mat-icon{
@@ -36,6 +33,9 @@ mat-nav-list{
         }
     }
 }
+}
+[full-width]{
+    width:100% !important;
 }
 .midbox{
 .mat-form-field-underline{
@@ -64,11 +64,11 @@ border-radius: 10px !important;
     top:-4px;
 }
 }
+[no-box-shadow]{
+    box-shadow: none !important;
+}
 .loginbox{
 padding: 40px !important;
-mat-form-field{
-    width:100%;
-}
 mat-card-title{
     text-transform: uppercase;
     font-weight: 700;
@@ -308,7 +308,10 @@ width:40px;
     opacity: 1;
 }
 }
-
+hr.forheading{
+    width: 30%;
+    opacity: 0.4;
+}
 @for $i from 1 through 30 {
 @keyframes particle-animation-#{$i} {
     100% {
