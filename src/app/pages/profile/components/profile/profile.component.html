@@ -1,33 +1,38 @@
 <mat-toolbar class="pagehead">
-  <mat-toolbar-row>
-    <span>First Row</span>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row>
-    <span>Second Row</span>
-  </mat-toolbar-row>
+  <div class="user-avatar">
+    <img src="../../../../../assets/images/useravatar.jpg" />
+  </div>
+  <div class="user-info">
+    <h3><strong>Michael Cheema</strong></h3>
+    <p>Production Manager - <strong>TheCompany</strong></p>
+  </div>
 </mat-toolbar>
 
-<button mat-raised-button routerLink="/home/profile/user">
-  <mat-icon>edit</mat-icon>Edit User Account
-</button>
-<button mat-raised-button routerLink='/home/profile/organization'>
-  <mat-icon>edit_location</mat-icon>Edit Organization
-</button>
+<div class="text-right">
+  <button mat-raised-button color="primary" routerLink="/home/profile/user">
+    <mat-icon>edit</mat-icon>Edit User Account
+  </button>
+  <button style="margin-left: 10px;"
+    mat-raised-button
+    color="primary"
+    routerLink="/home/profile/organization"
+  >
+    <mat-icon>edit_location</mat-icon>Edit Organization
+  </button>
+</div>
 
-<div class="grid-container" >
-  <mat-grid-list cols="2" rowHeight="350px">
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="200px">
     <mat-grid-tile colspan="1" rowspan="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title>
-            -Bio
-          </mat-card-title>
+          <mat-card-title class="infoTitle">Bio</mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus dicta quae distinctio doloremque libero
-          a totam inventore eaque magni odio labore eveniet eligendi minus aut vero voluptas, perspiciatis, suscipit
-          placeat!
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus
+          dicta quae distinctio doloremque libero a totam inventore eaque magni
+          odio labore eveniet eligendi minus aut vero voluptas, perspiciatis,
+          suscipit placeat!</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -35,46 +40,38 @@
     <mat-grid-tile colspan="1" rowspan="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title>
-            -Profile Information
-          </mat-card-title>
+          <mat-card-title class="infoTitle">Profile Information</mat-card-title>
         </mat-card-header>
-        <mat-card-content *ngIf="userData | async; let userData">
+        <mat-card-content>
           <mat-list role="list">
             <mat-list-item role="listitem">
               <span matLine>
-                <span>First Name: </span>
-                <span>{{userData.first_name }}</span>
+                <strong>First Name: </strong> <span>Michael {{ userData.first_name }}</span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
-                <span>Last Name: </span>
-                <span> {{userData.last_name}} </span>
+                <strong>Last Name: </strong> <span>Cheema {{ userData.last_name }} </span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
-                <span>Email: </span>
-                <span> {{userData.email}} </span>
+                <strong>Email: </strong> <span>michael_cheema@gmail.com {{ userData.email }} </span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
-                <span>Mobile: </span>
-                <span> {{userData.mobile_no}} </span>
+                <strong>Mobile: </strong> <span>+923157118511 {{ userData.mobile_no }} </span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
-                <span>Medical Condition: </span>
-                <span> -- Disabled </span>
+                <strong>Medical Condition: </strong> <span>Disabled</span>
               </span>
             </mat-list-item>
             <mat-list-item role="listitem">
               <span matLine>
-                <span>Emergency Contact: </span>
-                <span> -- N/A </span>
+                <strong>Emergency Contact: </strong> <span>N/A</span>
               </span>
             </mat-list-item>
           </mat-list>

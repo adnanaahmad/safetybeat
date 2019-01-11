@@ -32,8 +32,60 @@ mat-nav-list{
     }
 }
 }
+mat-sidenav{
+    .nav-link{
+        font-size:14px;
+    }
+}
+.noflex{
+    display:block !important;
+    height:auto !important;
+}
 [full-width]{
     width:100% !important;
+}
+.text-right{
+    text-align: right;
+}
+.infoTitle{
+    font-size: 18px !important;
+    font-weight: 600;
+    position: relative;
+    margin:10px 0 0px !important;
+    &:before{
+        content: "";
+        display: block;
+        width: 30px;
+        height: 2px;
+        border-radius: 100px;
+        float: left;
+        margin-top: 8px;
+        margin-right: 10px;
+    }
+}
+.pagehead{
+    height: auto !important;
+    margin-bottom: 70px;
+    .user-avatar{
+        width: 150px;
+        display:inline-block;
+        margin-bottom: -80px;
+        img{
+            max-width: 100%;
+            border-radius: 100px;
+            overflow: hidden;
+            box-shadow: 0 0 10px 0px #00000075;
+            border: 2px solid #fff;
+        }
+    }
+    .user-info{
+        display:inline-block;
+        padding: 30px;
+        p{
+            margin:0;
+            font-size: 14px;
+        }
+    }
 }
 .midbox{
 .mat-form-field-underline{
@@ -71,6 +123,9 @@ mat-card-title{
     text-transform: uppercase;
     font-weight: 700;
     font-size:20px;
+}
+p.subheading{
+    font-size: 14px;
 }
 div.button{
     margin: 20px 0;

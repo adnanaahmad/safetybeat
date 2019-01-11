@@ -108,6 +108,9 @@ $light-theme: mat-light-theme(
         &.body-bg{
           background-color: mat-color($primary);
         }
+        .pagehead{
+          background-color: mat-color($primary, 50) !important;
+        }
         .topbar,
         .mini-sidenav{
           background-color: mat-color($primary, 900) !important;
@@ -116,11 +119,17 @@ $light-theme: mat-light-theme(
         .mini-sidenav,
         mat-nav-list{
           .nav-link{
-            color:mat-color($primary, 50) !important;
+            color:#fff !important;
           }
         }
         mat-sidenav{
           background-color: mat-color($primary) !important;
+        }
+        .infoTitle{
+          color: mat-color($primary);
+          &:before{
+            background: mat-color($primary);
+        }
         }
       .sideLegend {
         background-color: mat-color($primary) !important;
