@@ -61,3 +61,11 @@ export interface packges {
     noOfUsers: string;
     packageName: string;
 }
+
+export interface Verification {
+    email: string
+}
+
+export interface VerificationResponse {
+    detail: string;
+}

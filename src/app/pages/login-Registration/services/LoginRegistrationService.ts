@@ -71,6 +71,10 @@ export class LoginRegistrationService {
         this.toastProvider.createCustomToaster(this.reset_success, this.reset_msg);
         return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
+
+    resendemail(data) {
+        return this.http.post(ConstantService.apiRoutes.resendverification, data);
+    }
     /**
      * this function is used to set the Token key when the user logs in,
      * @param token #string

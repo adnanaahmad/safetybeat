@@ -30,8 +30,8 @@
         "COUNTRY_REQ": "Please enter Country.",
         "ZIPCODE_REQ": "Please enter Zip Code.",
         "BILLINGEMAIL_REQ": "Please enter Billing Email.",
-        "BILLING_EMAIL_VALID":"Please enter valid Billing Email.",
-        "BILLING_EMAIL_EXISTS":"Billing Email already exists.",
+        "BILLING_EMAIL_VALID": "Please enter valid Billing Email.",
+        "BILLING_EMAIL_EXISTS": "Billing Email already exists.",
         "ACCOUNTNO_REQ": "Please enter Account No.",
         "FAXNO_REQ": "Please enter Fax no.",
         "USER": "Username/Email",
@@ -52,7 +52,9 @@
         "NEXT": "NEXT",
         "BACK": "BACK",
         "SUBMIT": "SUBMIT",
-        "LOGINTEXT": "I already have an account"
+        "LOGINTEXT": "I already have an account",
+        "RESEND_EMAIL": "Resend Verification Link",
+        "CHANGE_EMAIL": "Change Email"
     },
     "MESSAGES": {
         "SIGNINMESSAGE": "You need to sign in to get access",
@@ -78,10 +80,18 @@
         "LOGOUT_MSG": "Logout Successful!",
         "RESET_SUCCESS": "Email has been sent to you",
         "RESETMSG": "Email has been sent!",
+        "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
+        "VERIFY_MSG": "In order to complete registration, please verify your account.",
+        "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",
+        "VERIFY_REQ": "Please verify your account to continue using this service",
         "WELCOME": "Welcome to",
         "WELCOME_MSG": "The only safety app that allows you to easily manage the safety of your mobile, remote and lone workers, anytime, anywhere",
         "NOACCOUNT": "Don't have an account?",
-        "USERNAME_EXISTS": "Username already exixts."
+        "USERNAME_EXISTS": "Username already exixts.",
+        "CHANGE_EMAIL": "Change your email address.",
+        "EMAIL_RESET_PLACEHOLDER": "Enter new email address",
+        "QUESTION_QUERY": "Do you have any questions or queries?",
+        "REACH_MSG": "Reach us at"
     },
     "LOGGER": {
         "STATUS": {
@@ -111,7 +121,8 @@
             "DASHBOARD_COMPONENT": "Dashboard load Success",
             "NAVIGATION_COMPONENT": "Navigation load Success",
             "SIDE_NAV": "Side nav: ",
-            "PROFILE_COMPONENT": "Profile load Success"
+            "PROFILE_COMPONENT": "Profile load Success",
+            "VERIFICATION_COMPONENT": "Verification load Success"
         }
     }
 }

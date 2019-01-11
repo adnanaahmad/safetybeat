@@ -8,6 +8,7 @@ import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +16,7 @@ import { ConstantService } from '../../../../shared/constant/constant.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-  userForm: FormGroup;
+  @Input() userForm: FormGroup;
   organizationForm: FormGroup;
   moduleForm: FormGroup;
   email: FormGroup;
@@ -26,7 +27,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   types: any;
   modules: any;
   packages: any;
-
+  success: any;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -36,7 +37,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private render: Renderer2
   ) {
 
-    this.render.addClass(document.body, ConstantService.config.theme.background)
+    this.render.addClass(document.body, ConstantService.config.theme.background);
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
@@ -84,7 +85,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.render.removeClass(document.body, ConstantService.config.theme.background);
-    this.logging.hideAllAppLoggers()
+    this.logging.hideAllAppLoggers();
   }
   /**
    * to check if password and confirm password is same
@@ -96,36 +97,53 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
   checkUserName(group) {
-    const username = { username: group.value.username }
-    this.register.checkUserName(username).subscribe((res) => {
-      group.controls.username.setErrors({ exists: true })
-    });
+    if (group.value.username !== '') {
+      const username = { username: group.value.username };
+      this.register.checkUserName(username).pipe().subscribe((res) => {
+        this.success = res;
+        if (!this.success.status) {
+          group.controls.username.setErrors({ exists: true })
+        }
+      });
+    }
   }
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
-    })
-    if (this.email.status == 'VALID') {
-      const email = { email: group.value.email }
-      this.register.checkEmail(email).subscribe((res) => {
-        group.controls.email.setErrors({ exists: true })
+    });
+    if (this.email.status === 'VALID') {
+      const email = { email: group.value.email };
+      this.register.checkEmail(email).pipe().subscribe((res) => {
+        this.success = res;
+        if (!this.success.status) {
+          group.controls.email.setErrors({ exists: true })
+        }
       });
     }
   }
   checkOrgName(group) {
-    const name = { name: group.value.name }
-    this.register.checkOrgName(name).subscribe((res) => {
-      group.controls.name.setErrors({ exists: true })
-    });
+    if (group.value.name !== '') {
+      const name = { name: group.value.name }
+      this.register.checkEmail(name).pipe().subscribe((res) => {
+        this.success = res;
+        if (!this.success.status) {
+          group.controls.name.setErrors({ exists: true })
+        }
+      });
+    }
   }
   checkOrgBillingEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.billingEmail, Validators.email]
-    })
-    if (this.email.status == 'VALID') {
-      const billingEmail = { billingEmail: group.value.billingEmail }
-      this.register.checkOrgBillingEmail(billingEmail).subscribe((res) => {
-        group.controls.billingEmail.setErrors({ exists: true })
+    });
+    if (this.email.status === 'VALID') {
+      const billingEmail = { billingEmail: group.value.billingEmail };
+      const billingemail_check = this.register.checkEmail(billingEmail).pipe();
+      billingemail_check.subscribe((res) => {
+        this.success = res;
+        if (!this.success.status) {
+          group.controls.billingEmail.setErrors({ exists: true })
+        }
       });
     }
   }
@@ -175,7 +193,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         (data) => {
           this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.router.navigate(['']);
+          this.router.navigate(['/verification']);
         },
         (error) => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +

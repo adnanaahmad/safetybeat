@@ -14,6 +14,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { ParticleContainerComponent } from './components/particle-container/particle-container.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
+import { VerificationComponent } from './components/verification/verification.component';
 @NgModule({
 
   imports: [
@@ -29,6 +30,7 @@ import { createTranslateLoader } from 'src/app/app.module';
     RegistrationComponent,
     ForgotPasswordComponent,
     ParticleContainerComponent,
+    VerificationComponent,
   ],
   providers: [
     LoginRegistrationService,
