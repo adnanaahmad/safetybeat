@@ -24,7 +24,6 @@ export class FixedNavComponent implements OnInit {
     { path: '/home', icon: 'add' },
     { path: '/home', icon: 'notification_important' },
     { path: '/home', icon: 'help' },
-    { path: '/home/profile', icon: 'supervised_user_circle' },
     { path: '/home/settings', icon: 'settings' }
   ];
 
