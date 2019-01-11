@@ -7,21 +7,17 @@ import { ConstantService } from '../../../shared/constant/constant.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  theme: String;
+  themeSelected: String;
   constructor(public settings: SettingService) { }
 
   ngOnInit() {
     this.settings.getActiveTheme().subscribe(val => {
-      this.theme = val;
+      this.themeSelected = val
     });
   }
 
 
   changed() {
-    if (this.theme == ConstantService.config.theme.dark) {
-      this.settings.setActiveTheme(ConstantService.config.theme.light)
-    } else {
-      this.settings.setActiveTheme(ConstantService.config.theme.dark)
-    }
+    this.settings.setActiveTheme(this.themeSelected)
   }
 }
