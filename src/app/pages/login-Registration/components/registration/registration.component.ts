@@ -8,7 +8,7 @@ import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
-import { share } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-registration',
@@ -193,7 +193,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         (data) => {
           this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.router.navigate(['/verification'], data);
+          this.router.navigate(['/verification'], { queryParams: { data: data } });
         },
         (error) => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
