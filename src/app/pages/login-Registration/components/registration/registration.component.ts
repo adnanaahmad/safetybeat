@@ -193,7 +193,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         (data) => {
           this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.router.navigate(['/verification'], { queryParams: { data: data } });
+          this.router.navigate(['/verification'], { queryParams: { data: JSON.stringify(data) } });
         },
         (error) => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +

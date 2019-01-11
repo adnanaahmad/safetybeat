@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [SettingsComponent],
@@ -16,6 +17,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     CommonModule,
     SettingsRoutingModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
   ],
   providers: [

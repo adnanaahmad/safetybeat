@@ -1,36 +1,37 @@
 @import '~@angular/material/theming';
 $primary-pallet: (
-  50: #dff2f0,
-  100: #b0e0d9,
-  200: #7bccc0,
-  300: #43b8a7,
-  400: #00a894,
-  500: #009882,
-  600: #008b75,
-  700: #007b66,
-  800: #006b57,
-  900: #004f3b,
-  A100: #a7ffeb,
-  A200: #64ffda,
-  A400: #1de9b6,
-  A700: #00bfa5,
+  50 : #f3fdf3,
+  100 : #e2fbe0,
+  200 : #cff9cc,
+  300 : #bbf6b8,
+  400 : #adf4a8,
+  500 : #9ef299,
+  600 : #96f091,
+  700 : #8cee86,
+  800 : #82ec7c,
+  900 : #70e86b,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #f7fff6,
+  A700 : #deffdd,
   contrast: (
-    50: $black-87-opacity,
-    100: $black-87-opacity,
-    200: $black-87-opacity,
-    300: $black-87-opacity,
-    400: $black-87-opacity,
-    500: white,
-    600: white,
-    700: white,
-    800: $white-87-opacity,
-    900: $white-87-opacity,
-    A100: $black-87-opacity,
-    A200: white,
-    A400: white,
-    A700: white
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #000000,
+      800 : #000000,
+      900 : #000000,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
   )
 );
+
 $secondary-pallet: (
   50: #ffe8f0,
   100: #ffc6d9,
@@ -101,12 +102,13 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $background: mat-palette($gray-pallete);
 
-$dark-theme: mat-dark-theme(
+$green-light: mat-light-theme(
     $primary,
     $secondary,
     $warn
 );
-.dark-theme{
+
+.green-light{
   &.body-bg{
     background-color: mat-color($primary);
   }
@@ -130,7 +132,6 @@ $dark-theme: mat-dark-theme(
 .midbox:before{
   background-color: mat-color($warn);
 }
-
 app-registration{
   .loginbox{
       mat-step-header{
@@ -149,5 +150,5 @@ app-registration{
       }
   }
 }
-@include angular-material-theme($dark-theme)
+@include angular-material-theme($green-light)
 }

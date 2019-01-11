@@ -75,6 +75,10 @@ export class LoginRegistrationService {
     resendemail(data) {
         return this.http.post(ConstantService.apiRoutes.resendverification, data);
     }
+
+    changeEmail(id, data) {
+        return this.http.put(`${ConstantService.apiRoutes.changeEmail}/${id}`, data)
+    }
     /**
      * this function is used to set the Token key when the user logs in,
      * @param token #string

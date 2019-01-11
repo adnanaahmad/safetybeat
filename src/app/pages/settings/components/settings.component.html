@@ -1,6 +1,6 @@
-<mat-slide-toggle
-   color="primary"
-   [checked]="theme == 'dark-theme'?true : false"
-   (change)="changed()">
-     Slide me! {{checked}}
-</mat-slide-toggle>
+<mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
+  <mat-radio-button value="light-theme">light-theme</mat-radio-button>
+  <mat-radio-button value="dark-theme">dark-theme</mat-radio-button>
+  <mat-radio-button value="green-light">green-light</mat-radio-button>
+  <mat-radio-button value="orange-dark">orange-dark</mat-radio-button>
+</mat-radio-group>
