@@ -27,7 +27,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   types: any;
   modules: any;
   packages: any;
-
+  success: any;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -100,7 +100,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (group.value.username !== '') {
       const username = { username: group.value.username };
       this.register.checkUserName(username).pipe().subscribe((res) => {
-        if (!res.status) {
+        this.success = res;
+        if (!this.success.status) {
           group.controls.username.setErrors({ exists: true })
         }
       });
@@ -113,7 +114,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (this.email.status === 'VALID') {
       const email = { email: group.value.email };
       this.register.checkEmail(email).pipe().subscribe((res) => {
-        if (!res.status) {
+        this.success = res;
+        if (!this.success.status) {
           group.controls.email.setErrors({ exists: true })
         }
       });
@@ -123,7 +125,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     if (group.value.name !== '') {
       const name = { name: group.value.name }
       this.register.checkEmail(name).pipe().subscribe((res) => {
-        if (!res.status) {
+        this.success = res;
+        if (!this.success.status) {
           group.controls.name.setErrors({ exists: true })
         }
       });
@@ -137,7 +140,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       const billingEmail = { billingEmail: group.value.billingEmail };
       const billingemail_check = this.register.checkEmail(billingEmail).pipe();
       billingemail_check.subscribe((res) => {
-        if (!res.status) {
+        this.success = res;
+        if (!this.success.status) {
           group.controls.billingEmail.setErrors({ exists: true })
         }
       });
