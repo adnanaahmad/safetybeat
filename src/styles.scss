@@ -4,6 +4,8 @@
 @include mat-core();
 @import './theme/theme.light.scss';
 @import './theme/theme.dark.scss';
+@import './theme/green-light.scss';
+@import './theme/orange-dark.scss';
 html, body { height: 100%; display: block; }
 body { margin: 0; font-family: 'Montserrat', sans-serif; }
 *{
