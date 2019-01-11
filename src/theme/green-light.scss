@@ -109,35 +109,46 @@ $green-light: mat-light-theme(
 );
 
 .green-light{
-        &.body-bg{
-          background-color: mat-color($primary);
-        }
-      a:not(.mat-raised-button){
-        color: mat-color($primary,darker);
-      }
-      .sideLegend {
-        background-color: mat-color($primary) !important;
-      }
-      .midbox:before{
-        background-color: mat-color($warn);
-      }
-      app-registration{
-        .loginbox{
-            mat-step-header{
-                mat-icon{
-                    border: 2px dashed mat-color($primary);
-                    color: mat-color($primary);
-                }
-                .mat-step-label-active{
-                  mat-icon{
-                    border: 2px solid mat-color($primary);
-                    background-color: mat-color($primary);
-                    color: mat-color($primary,50);
-                  }
-                  color: mat-color($primary);
-                }
-            }
-        }
+  &.body-bg{
+    background-color: mat-color($primary);
+  }
+  .topbar,
+  .mini-sidenav{
+    background-color: mat-color($primary, 900) !important;
+    color:#fff !important;
+  }
+  .mini-sidenav,
+  mat-nav-list{
+    .nav-link{
+      color:mat-color($primary, 50) !important;
     }
+  }
+  mat-sidenav{
+    background-color: mat-color($primary) !important;
+  }
+.sideLegend {
+  background-color: mat-color($primary) !important;
+}
+.midbox:before{
+  background-color: mat-color($warn);
+}
+app-registration{
+  .loginbox{
+      mat-step-header{
+          mat-icon{
+              border: 2px dashed mat-color($primary);
+              color: mat-color($primary);
+          }
+          .mat-step-label-active{
+            mat-icon{
+              border: 2px solid mat-color($primary);
+              background-color: mat-color($primary);
+              color: mat-color($primary,50);
+            }
+            color: mat-color($primary);
+          }
+      }
+  }
+}
 @include angular-material-theme($green-light)
 }

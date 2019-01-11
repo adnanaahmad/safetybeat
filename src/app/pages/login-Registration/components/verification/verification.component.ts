@@ -44,8 +44,10 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
       email: ['', [Validators.required, Validators.email]]
     });
     this.route.queryParams.subscribe(params => {
-      this.data = JSON.stringify(params['data']);
-      console.log(this.data);
+      debugger
+      this.data = JSON.parse(params.data);
+
+      console.log('data recieved', this.data);
     })
 
   }
@@ -60,7 +62,14 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   get formValidation() { return this.verifyForm.controls; }
-
+  resendVerification() {
+    this.loginRegService.resendemail(this.data.email).subscribe((res) => {
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+    }, (err) => {
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, err);
+    });
+  }
   changeEmail({ value, valid }: { value: Verification, valid: boolean }): void {
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
@@ -70,7 +79,7 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.loginRegService.resendemail(value).subscribe((data) => {
+    this.loginRegService.changeEmail(5, value).subscribe((data) => {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
     })
   }
