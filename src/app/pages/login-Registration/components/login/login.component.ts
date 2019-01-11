@@ -8,6 +8,7 @@ import { loginCredentials } from 'src/app/models/user.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     public loginService: LoginRegistrationService,
     public translate: TranslateService,
     public toastProvider: ToastService,
-    private logging: LoggingService
+    private logging: LoggingService,
+    private compiler: CompilerProvider
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
@@ -77,11 +79,13 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.data = data;
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
           data ? this.loginService.setToken(this.data.token) : this.loginService.setToken('');
+          let userData = this.compiler.constructProfileData(this.data);
+          localStorage.setItem('userdata', JSON.stringify(userData));
           this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
           this.router.navigate(['/home']);
         },
         (error) => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.non_field_errors[0] +
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
             this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
           this.toastProvider.createErrorToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG);

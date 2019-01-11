@@ -153,6 +153,9 @@ $light-theme: mat-light-theme(
                   color: mat-color($primary);
                 }
             }
+            a{
+              color: mat-color($primary) !important;
+            }
         }
     }
 @include angular-material-theme($light-theme)

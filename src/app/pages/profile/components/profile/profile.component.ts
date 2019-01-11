@@ -15,6 +15,10 @@ import { Translation } from 'src/app/models/translate.model';
 export class ProfileComponent implements OnInit, OnDestroy {
   userData: any;
   translated: Translation;
+  profileData: any;
+  user_id: number;
+  org_id: number;
+  role: string;
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
@@ -25,6 +29,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
+    this.profileData = JSON.parse(localStorage.getItem('userdata'));
+    console.log(this.profileData.userid);
+    this.user_id = this.profileData.userid;
+    this.org_id = this.profileData.orgid;
+    this.role = this.profileData.role;
   }
   @Input()
   ngOnInit() {
@@ -35,7 +44,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.logging.hideAllAppLoggers();
   }
   getUserData() {
-    const dataRecieved = this.profile.getUser(2).pipe(share());
+    const dataRecieved = this.profile.getUser(this.user_id).pipe(share());
     dataRecieved.subscribe((data) => {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 

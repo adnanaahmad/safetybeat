@@ -15,6 +15,7 @@ import { ParticleContainerComponent } from './components/particle-container/part
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { VerificationComponent } from './components/verification/verification.component';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 @NgModule({
 
   imports: [
@@ -34,6 +35,7 @@ import { VerificationComponent } from './components/verification/verification.co
   ],
   providers: [
     LoginRegistrationService,
+    CompilerProvider,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
