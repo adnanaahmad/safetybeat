@@ -10,7 +10,7 @@
     <p class="subheading">{{translated.MESSAGES.VERIFY_REQ}}</p>
 
 
-    <form [formGroup]='verifyForm'>
+    <form [formGroup]='verifyForm' (ngSubmit)="changeEmail(verifyForm)">
         <button mat-raised-button custom-btn btn-primary color="primary">{{translated.BUTTONS.RESEND_EMAIL}}</button>
         <p class="subheading"><strong>{{translated.MESSAGES.OR}}</strong></p>
         <p class="subheading">{{translated.MESSAGES.CHANGE_EMAIL}}</p>
@@ -21,7 +21,7 @@
                     required>
                 <mat-error *ngIf="formValidation.email.errors "> {{translated.AUTH.EMAIL_REQ}}</mat-error>
             </mat-form-field>
-            <button mat-raised-button custom-btn btn-primary color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
+            <button mat-raised-button custom-btn btn-primary onclick="changeEmail" color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
         </div>
     </form>
     <p class="subheading">{{translated.MESSAGES.QUESTION_QUERY}}</p>
