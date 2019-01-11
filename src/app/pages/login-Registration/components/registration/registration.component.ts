@@ -8,8 +8,7 @@ import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
-import { share } from 'rxjs/operators';
-import { query } from '@angular/animations';
+
 
 @Component({
   selector: 'app-registration',
