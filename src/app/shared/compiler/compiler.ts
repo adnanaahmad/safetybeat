@@ -18,6 +18,17 @@ export class CompilerProvider {
         return user;
     }
 
+    constructProfileData(loginApiResponse: any) {
+        let profileData = {
+            userid: loginApiResponse.userId,
+            orgid: loginApiResponse.orgId,
+            role: loginApiResponse.role
+        };
+
+        return profileData;
+
+    }
+
 
 
 }

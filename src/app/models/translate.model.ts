@@ -73,6 +73,7 @@ export interface Messages {
     EMAIL_RESET_PLACEHOLDER: string,
     QUESTION_QUERY: string,
     REACH_MSG: string,
+    HELP_EMAIL: string,
     SIGNINMESSAGE: string,
     OR: string,
     SIGNUPMESSAGE: string,

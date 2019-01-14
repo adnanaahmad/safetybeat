@@ -78,7 +78,7 @@
         "LOGINFAIL_MSG": "Login Unsuccessful!",
         "LOGOUT_SUCCESS": "You have been logged out successfully",
         "LOGOUT_MSG": "Logout Successful!",
-        "RESET_SUCCESS": "Email has been sent to you",
+        "RESET_SUCCESS": "Email has been sent to you successfully",
         "RESETMSG": "Email has been sent!",
         "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
         "VERIFY_MSG": "In order to complete registration, please verify your account.",
@@ -91,7 +91,8 @@
         "CHANGE_EMAIL": "Change your email address.",
         "EMAIL_RESET_PLACEHOLDER": "Enter new email address",
         "QUESTION_QUERY": "Do you have any questions or queries?",
-        "REACH_MSG": "Reach us at"
+        "REACH_MSG": "Reach us at",
+        "HELP_EMAIL": "help@safetybeat.com"
     },
     "LOGGER": {
         "STATUS": {

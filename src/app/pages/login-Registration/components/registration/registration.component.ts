@@ -8,8 +8,7 @@ import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
-import { share } from 'rxjs/operators';
-import { query } from '@angular/animations';
+
 
 @Component({
   selector: 'app-registration',
@@ -29,6 +28,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   modules: any;
   packages: any;
   success: any;
+  data: any;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -192,9 +192,18 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {
-          this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.router.navigate(['/verification'], { queryParams: { data: JSON.stringify(data) } });
+          this.data = data;
+          this.register.resendemail({ 'email': this.data.userData.email }).subscribe((res) => {
+            this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+            this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
+            this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+            this.router.navigate(['/verification', { data: JSON.stringify(data) }], { skipLocationChange: true });
+          }, (error) => {
+            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
+              this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+          });
         },
         (error) => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
@@ -202,5 +211,4 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.loading = false;
         });
   }
-
 }
