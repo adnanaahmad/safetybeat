@@ -54,7 +54,8 @@
         "SUBMIT": "SUBMIT",
         "LOGINTEXT": "I already have an account",
         "RESEND_EMAIL": "Resend Verification Link",
-        "CHANGE_EMAIL": "Change Email"
+        "CHANGE_EMAIL": "Change Email",
+        "EDIT_ACCOUNT": "Edit Account"
     },
     "MESSAGES": {
         "SIGNINMESSAGE": "You need to sign in to get access",

@@ -29,9 +29,12 @@
   .dashboard-card{
     mat-card-content{
       text-align: left;
-      margin:20px 0;
+      margin:10px 0;
     }
     mat-list{
       padding-top: 0;
+    }
+    .mat-list-item{
+      font-size:14px;
     }
   }

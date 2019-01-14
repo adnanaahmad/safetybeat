@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import 'src/app/pages/login-Registration/components/registration/registration.component.scss';
 $primary-pallet: (
   50: #e1ecef,
   100: #b4d1d8,
@@ -105,6 +106,18 @@ $light-theme: mat-light-theme(
 );
 
 .light-theme{
+  .package-selectors{
+    .mat-radio-button{
+    &.mat-radio-checked{
+        &:before{
+        background-color: mat-color($primary, 500);
+        }
+    }
+    }
+}
+  a{
+    color: mat-color($primary);
+  }
         &.body-bg{
           background-color: mat-color($primary);
         }
@@ -158,5 +171,10 @@ $light-theme: mat-light-theme(
             }
         }
     }
-@include angular-material-theme($light-theme)
+    .mat-horizontal-content-container {
+      padding: 0 !important;
+    }
+
+@include angular-material-theme($light-theme);
+@include amte-registration($light-theme);
 }

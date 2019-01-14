@@ -45,8 +45,8 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.route.queryParams.subscribe(params => {
       debugger
-      this.data = JSON.parse(params.data);
-
+      // this.data = JSON.parse(params.data);
+      this.data= {email:'asdf@gmail.com'}
       console.log('data recieved', this.data);
     })
 

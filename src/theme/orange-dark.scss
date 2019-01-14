@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
 
 // Example of definining your own custom pallet
+@import 'src/app/pages/login-Registration/components/registration/registration.component.scss';
 $primary-pallet: (
     50 : #fef6e9,
     100 : #fce8c8,
@@ -109,12 +110,44 @@ $orange-dark: mat-dark-theme(
 );
 
 .orange-dark{
+  .package-selectors{
+    .mat-radio-button{
+    &.mat-radio-checked{
+        &:before{
+        background-color: mat-color($primary, 500);
+        }
+    }
+    }
+}
+  a{
+    color: mat-color($primary);
+  }
         &.body-bg{
           background-color: mat-color($primary);
         }
-      a:not(.mat-raised-button){
-        color: mat-color($primary,darker);
-      }
+        .pagehead{
+          background-color: mat-color($primary, 50) !important;
+        }
+        .topbar,
+        .mini-sidenav{
+          background-color: mat-color($primary, 900) !important;
+          color:#fff !important;
+        }
+        .mini-sidenav,
+        mat-nav-list{
+          .nav-link{
+            color:#fff !important;
+          }
+        }
+        mat-sidenav{
+          background-color: mat-color($primary) !important;
+        }
+        .infoTitle{
+          color: mat-color($primary);
+          &:before{
+            background: mat-color($primary);
+        }
+        }
       .sideLegend {
         background-color: mat-color($primary) !important;
       }
@@ -137,7 +170,11 @@ $orange-dark: mat-dark-theme(
                   color: mat-color($primary);
                 }
             }
+            a{
+              color: mat-color($primary) !important;
+            }
         }
     }
-@include angular-material-theme($orange-dark)
+@include angular-material-theme($orange-dark);
+@include amte-registration($orange-dark);
 }
