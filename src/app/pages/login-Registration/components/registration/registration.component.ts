@@ -192,7 +192,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {
-          debugger;
           this.data = data;
           this.register.resendemail({ 'email': this.data.userData.email }).subscribe((res) => {
             this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);

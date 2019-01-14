@@ -88,7 +88,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    debugger;
     this.loginRegService.changeEmail(this.data.userId, value).subscribe((data) => {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
     })
