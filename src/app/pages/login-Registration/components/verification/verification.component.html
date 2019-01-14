@@ -6,7 +6,7 @@
     <mat-card-title>{{translated.MESSAGES.VERIFY_ACCOUNT}}</mat-card-title>
     <p class="subheading">{{translated.MESSAGES.VERIFY_MSG}}</p>
     <hr class="forheading">
-    <p class="subheading">{{translated.MESSAGES.SIGNEDUP_EMAIL_MSG}} <a href="mailto:{{data.email}">{{data.email}}</a></p>
+    <p class="subheading">{{translated.MESSAGES.SIGNEDUP_EMAIL_MSG}} <a href="mailto:{{data.userData.email}">{{data.userData.email}}</a></p>
     <p class="
             subheading">{{translated.MESSAGES.VERIFY_REQ}}</p>
 
@@ -20,12 +20,17 @@
         <div [formGroup]='verifyForm'>
             <mat-form-field>
                 <input matInput type="email" [placeholder]=translated.MESSAGES.EMAIL_RESET_PLACEHOLDER formControlName=email
-                    required>
-                <mat-error *ngIf="formValidation.email.errors "> {{translated.AUTH.EMAIL_REQ}}</mat-error>
+                    required (blur)="checkEmail(verifyForm)">
+                <mat-error *ngIf="formValidation.email.errors ">
+
+                    <span *ngIf="formValidation.email.errors.email">{{translated.AUTH.EMAIL_REQ}}</span>
+                    <span *ngIf="formValidation.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
+                </mat-error>
             </mat-form-field>
-            <button mat-raised-button custom-btn btn-primary onclick="changeEmail" color="primary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
+            <button mat-raised-button custom-btn btn-primary [disabled]="formValidation.email.errors?.exists" onclick="changeEmail"
+                color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
         </div>
     </form>
     <p class="subheading">{{translated.MESSAGES.QUESTION_QUERY}}</p>
-    <p class="subheading">{{translated.MESSAGES.REACH_MSG}} <a href="mailto:help@safetybeat.com">help@safetybeat.com</a></p>
+    <p class="subheading">{{translated.MESSAGES.REACH_MSG}} <a href="mailto:help@safetybeat.com">{{translated.MESSAGES.HELP_EMAIL}}</a></p>
 </mat-card>

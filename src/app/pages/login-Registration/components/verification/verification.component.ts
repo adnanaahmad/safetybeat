@@ -14,12 +14,14 @@ import { LoginRegistrationService } from '../../services/LoginRegistrationServic
   templateUrl: './verification.component.html',
   styleUrls: ['./verification.component.scss']
 })
-export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
+export class VerificationComponent implements OnInit, OnDestroy {
   @ViewChild(RegistrationComponent) reg;
   translated: Translation;
   verifyForm: FormGroup;
   emaill: string;
   data: any;
+  email: FormGroup;
+  success: any;
 
   constructor(
     private logging: LoggingService,
@@ -43,11 +45,8 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.verifyForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
-    this.route.queryParams.subscribe(params => {
-      debugger
-      // this.data = JSON.parse(params.data);
-      this.data= {email:'asdf@gmail.com'}
-      console.log('data recieved', this.data);
+    this.route.params.subscribe(params => {
+      this.data = JSON.parse(params.data);
     })
 
   }
@@ -56,14 +55,24 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.render.removeClass(document.body, ConstantService.config.theme.background);
     this.logging.hideAllAppLoggers();
   }
-
-  ngAfterViewInit() {
-
+  checkEmail(group) {
+    this.email = this.formBuilder.group({
+      'email': [group.value.email, Validators.email]
+    });
+    if (this.email.status === 'VALID') {
+      const email = { email: group.value.email };
+      this.loginRegService.checkEmail(email).pipe().subscribe((res) => {
+        this.success = res;
+        if (!this.success.status) {
+          group.controls.email.setErrors({ exists: true })
+        }
+      });
+    }
   }
 
   get formValidation() { return this.verifyForm.controls; }
   resendVerification() {
-    this.loginRegService.resendemail(this.data.email).subscribe((res) => {
+    this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((res) => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
     }, (err) => {
@@ -79,7 +88,7 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.loginRegService.changeEmail(5, value).subscribe((data) => {
+    this.loginRegService.changeEmail(this.data.userId, value).subscribe((data) => {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
     })
   }

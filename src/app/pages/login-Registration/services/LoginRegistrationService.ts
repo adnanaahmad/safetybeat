@@ -77,7 +77,7 @@ export class LoginRegistrationService {
     }
 
     changeEmail(id, data) {
-        return this.http.put(`${ConstantService.apiRoutes.changeEmail}/${id}`, data)
+        return this.http.put(`${ConstantService.apiRoutes.changeEmail}/${id}/`, data)
     }
     /**
      * this function is used to set the Token key when the user logs in,
