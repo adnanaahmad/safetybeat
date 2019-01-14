@@ -43,11 +43,8 @@ export class VerificationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.verifyForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
-    this.route.queryParams.subscribe(params => {
-      debugger
+    this.route.params.subscribe(params => {
       this.data = JSON.parse(params.data);
-
-      console.log('data recieved', this.data);
     })
 
   }

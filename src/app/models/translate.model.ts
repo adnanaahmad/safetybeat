@@ -58,8 +58,21 @@ export interface Buttons {
     BACK: string,
     SUBMIT: string,
     LOGINTEXT: string,
+    RESEND_EMAIL: string,
+    CHANGE_EMAIL: string
 }
 export interface Messages {
+    WELCOME: string,
+    WELCOME_MSG: string,
+    NOACCOUNT: string,
+    VERIFY_ACCOUNT: string,
+    VERIFY_MSG: string,
+    SIGNEDUP_EMAIL_MSG: string,
+    VERIFY_REQ: string,
+    CHANGE_EMAIL: string,
+    EMAIL_RESET_PLACEHOLDER: string,
+    QUESTION_QUERY: string,
+    REACH_MSG: string,
     SIGNINMESSAGE: string,
     OR: string,
     SIGNUPMESSAGE: string,
