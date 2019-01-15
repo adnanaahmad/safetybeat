@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -28,7 +28,7 @@ const authRoutes: Routes = [
     path: 'verification',
     component: VerificationComponent,
     canActivate: [AuthGuard],
-    canDeactivate: [true]
+    canDeactivate: ['canDeactivateVerification']
   }
 ];
 
@@ -38,6 +38,15 @@ const authRoutes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    {
+      provide: 'canDeactivateVerification',
+      useValue: (component: VerificationComponent, currentRoute: ActivatedRouteSnapshot, currentState:
+        RouterStateSnapshot, nextState: RouterStateSnapshot) => {
+        return false;
+      }
+    }
   ]
 })
 export class LoginRegisterRoutingModule { }

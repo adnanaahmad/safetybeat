@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy, Renderer2, AfterViewInit, ViewChild } fro
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { RegistrationComponent } from '../registration/registration.component';
 import { Verification } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
+import { PlatformLocation, Location } from '@angular/common';
 
 @Component({
   selector: 'app-verification',
@@ -15,7 +16,7 @@ import { LoginRegistrationService } from '../../services/LoginRegistrationServic
   styleUrls: ['./verification.component.scss']
 })
 export class VerificationComponent implements OnInit, OnDestroy {
-  @ViewChild(RegistrationComponent) reg;
+  // @ViewChild(RegistrationComponent) reg;
   translated: Translation;
   verifyForm: FormGroup;
   emaill: string;
@@ -30,8 +31,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
-    private route: ActivatedRoute
-
+    private route: ActivatedRoute,
+    private location: Location,
 
   ) {
     this.render.addClass(document.body, ConstantService.config.theme.background);
@@ -42,6 +43,13 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.router.events.pipe().subscribe(
+      (event: NavigationCancel) => {
+        // this.location.replaceState(event.url);
+        this.location.replaceState('/verification');
+      }
+
+    );
     this.verifyForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -55,6 +63,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.render.removeClass(document.body, ConstantService.config.theme.background);
     this.logging.hideAllAppLoggers();
   }
+
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
