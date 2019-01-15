@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy, Renderer2, AfterViewInit, ViewChild } fro
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { RegistrationComponent } from '../registration/registration.component';
 import { Verification } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
+import { PlatformLocation, Location } from '@angular/common';
 
 @Component({
   selector: 'app-verification',
@@ -15,13 +16,15 @@ import { LoginRegistrationService } from '../../services/LoginRegistrationServic
   styleUrls: ['./verification.component.scss']
 })
 export class VerificationComponent implements OnInit, OnDestroy {
-  @ViewChild(RegistrationComponent) reg;
+  // @ViewChild(RegistrationComponent) reg;
   translated: Translation;
   verifyForm: FormGroup;
   emaill: string;
   data: any;
   email: FormGroup;
   success: any;
+  res: any;
+
 
   constructor(
     private logging: LoggingService,
@@ -30,8 +33,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
-    private route: ActivatedRoute
-
+    private route: ActivatedRoute,
+    private location: Location,
 
   ) {
     this.render.addClass(document.body, ConstantService.config.theme.background);
@@ -42,6 +45,13 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.router.events.pipe().subscribe(
+      (event: NavigationCancel) => {
+        // this.location.replaceState(event.url);
+        this.location.replaceState('/signup');
+      }
+
+    );
     this.verifyForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -55,6 +65,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.render.removeClass(document.body, ConstantService.config.theme.background);
     this.logging.hideAllAppLoggers();
   }
+
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -85,13 +96,20 @@ export class VerificationComponent implements OnInit, OnDestroy {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
       return;
     }
-
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.loginRegService.changeEmail(this.data.userId, value).subscribe((data) => {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+      this.res = data;
+      console.log(this.res);
+      this.data.userData.email = value.email;
+      console.log(this.data.userData.email);
+      this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((result) => {
+        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+      }, (err) => {
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, err);
+      });
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.EMAIL_CHANGED);
     })
   }
-
-
 }
