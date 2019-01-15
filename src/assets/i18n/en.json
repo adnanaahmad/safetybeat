@@ -92,7 +92,8 @@
         "EMAIL_RESET_PLACEHOLDER": "Enter new email address",
         "QUESTION_QUERY": "Do you have any questions or queries?",
         "REACH_MSG": "Reach us at",
-        "HELP_EMAIL": "help@safetybeat.com"
+        "HELP_EMAIL": "help@safetybeat.com",
+        "EMAIL_CHANGED": "Your email has been changed successfully"
     },
     "LOGGER": {
         "STATUS": {

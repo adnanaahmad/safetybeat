@@ -10,7 +10,7 @@ export class ConstantService {
 
   static apiRoutes = {
     login: `${environment.apiUrl}/anonymous/login/`,
-    signup: `${environment.apiUrl}/anonymous/signup/`,
+    signup: `${environment.apiUrl}/anonymous/registration/`,
     companyTypes: `${environment.apiUrl}/anonymous/companyTypes/`,
     modules: `${environment.apiUrl}/anonymous/modules/`,
     packages: `${environment.apiUrl}/anonymous/packages/`,
