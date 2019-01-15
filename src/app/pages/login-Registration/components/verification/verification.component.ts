@@ -46,7 +46,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.router.events.pipe().subscribe(
       (event: NavigationCancel) => {
         // this.location.replaceState(event.url);
-        this.location.replaceState('/verification');
+        this.location.replaceState('/signup');
       }
 
     );
