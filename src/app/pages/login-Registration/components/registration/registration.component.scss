@@ -1,72 +1,88 @@
-// @import 'src/theme/theme.light.scss';
-@import '~@angular/material/theming';
-@mixin amte-registration($theme) {
-    $primary: map-get($theme, primary);
-    $accent: map-get($theme, accent);
-    $warn: map-get($theme, warn);
-    $foreground: map-get($theme, foreground);
-    $background: map-get($theme, background);
-#particle-container{
-width:100%;
-top:0;
-position:fixed;
-}
-.loginbox{
-text-align: center;
-width:50%;
-mat-card-title{
-    margin-top:60px;
-}
-    .form-group{
-        width:100%;
+@mixin amte-registration($primary, $accent, $warn) {
+  :host,
+  app-registration {
+    .mat-step-icon {
+      display: none;
     }
-    [btn-danger]{
-        margin-right:10px;
+    .loginbox {
+      mat-step-header {
+        mat-icon {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          margin: 14px auto 0;
+          padding: 7px;
+          border-radius: 100px;
+        }
+        .mat-step-label {
+          margin: 30px 0 0;
+        }
+        &:hover {
+          background-color: inherit !important;
+        }
+      }
     }
-    .mat-horizontal-content-container{
+    #particle-container {
+      width: 100%;
+    }
+    .loginbox {
+      text-align: center;
+      width: 50%;
+      mat-card-title {
+        margin-top: 60px;
+      }
+      .form-group {
+        width: 100%;
+      }
+      [btn-danger] {
+        margin-right: 10px;
+      }
+      .mat-horizontal-content-container {
         padding: 0;
+      }
     }
-}
-.mat-step-icon-content{
-display: none !important;
-}
-.mat-card{
-box-shadow:none;
-}
-[backtologin]{
-display: block;
-text-decoration: none;
-padding:20px 0 0;
-}
-.monogram{
-top: -60px;
-transform: none;
-border: 5px solid #fff;
-box-shadow: 0px 6px 10px 2px #00000017;
-}
-.package-selectors{
-.mat-radio-button{
-    background-color: mat-color($primary, 500);
-}
-}
-
-.legend-title{
-&:before,
-&:after{
-    background-color: mat-color($primary, 100);
-}
-}
-.package-selectors{
-    .mat-radio-button{
-    background-color: mat-color($primary, 50);
-    &.mat-radio-checked{
-        &:before{
-        background-color: mat-color($primary, 900);
+    .mat-step-icon-content {
+      display: none !important;
+    }
+    .mat-card {
+      box-shadow: none;
+    }
+    [backtologin] {
+      display: block;
+      text-decoration: none;
+      padding: 20px 0 0;
+    }
+    .monogram {
+      top: -60px;
+      transform: none;
+      border: 5px solid #fff;
+      box-shadow: 0px 6px 10px 2px #00000017;
+      background-color: mat-color($primary, 500);
+    }
+    .package-selectors {
+      .mat-radio-button {
+        background-color: mat-color($primary, 500);
+      }
+    }
+    .legend-title {
+      &:before,
+      &:after {
+        background-color: mat-color($primary, 100);
+      }
+    }
+    .package-selectors {
+      .mat-radio-button {
+        background-color: mat-color($primary, 50);
+        &.mat-radio-checked {
+          &:before {
+            background-color: mat-color($primary);
+          }
+          * {
+            color: #fff;
+          }
         }
-        *{
-        color:#fff;
-        }
+      }
     }
-    }
-}
+  }
 }

@@ -1,7 +1,4 @@
-@import '~@angular/material/theming';
-
-// Example of definining your own custom pallet
-@import 'src/app/pages/login-Registration/components/registration/registration.component.scss';
+@import './imports.scss';
 $primary-pallet: (
     50 : #fef6e9,
     100 : #fce8c8,
@@ -110,6 +107,7 @@ $orange-dark: mat-dark-theme(
 );
 
 .orange-dark{
+  
   .package-selectors{
     .mat-radio-button{
     &.mat-radio-checked{
@@ -175,6 +173,5 @@ $orange-dark: mat-dark-theme(
             }
         }
     }
-@include angular-material-theme($orange-dark);
-@include amte-registration($orange-dark);
+    @include amte-setTheme($orange-dark);
 }

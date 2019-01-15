@@ -1,19 +1,24 @@
-.loginbox{
-    text-align: center;
-    width:50%;
-    mat-card-title{
-        margin-top:60px;
+@mixin amte-verification($primary, $accent, $warn) {
+  :host,
+  app-verification {
+    .loginbox {
+      text-align: center;
+      width: 50%;
+      mat-card-title {
+        margin-top: 60px;
+      }
+      .form-group {
+        width: 100%;
+      }
+      [btn-danger] {
+        margin-right: 10px;
+      }
     }
-        .form-group{
-            width:100%;
-        }
-        [btn-danger]{
-            margin-right:10px;
-        }
+    .monogram {
+      top: -60px;
+      transform: none;
+      border: 5px solid #fff;
+      box-shadow: 0px 6px 10px 2px #00000017;
     }
-    .monogram{
-    top: -60px;
-    transform: none;
-    border: 5px solid #fff;
-    box-shadow: 0px 6px 10px 2px #00000017;
-    }
+  }
+}

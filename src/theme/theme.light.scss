@@ -1,5 +1,4 @@
-@import '~@angular/material/theming';
-@import 'src/app/pages/login-Registration/components/registration/registration.component.scss';
+@import "./imports.scss";
 $primary-pallet: (
   50: #e1ecef,
   100: #b4d1d8,
@@ -16,165 +15,159 @@ $primary-pallet: (
   A400: #1aafff,
   A700: #00a6ff,
   contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #ffffff,
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff
   )
 );
 $secondary-pallet: (
-  50 : #e0e7ea,
-    100 : #b3c4cb,
-    200 : #809da8,
-    300 : #4d7585,
-    400 : #26586a,
-    500 : #003a50,
-    600 : #003449,
-    700 : #002c40,
-    800 : #002537,
-    900 : #001827,
-    A100 : #62b4ff,
-    A200 : #2f9bff,
-    A400 : #0082fb,
-    A700 : #0075e1,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #ffffff,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #ffffff,
-        A700 : #ffffff,
-    )
-);
-$warn-pallete:(
-  50 : #fae6e6,
-  100 : #f2c1c1,
-  200 : #e99797,
-  300 : #e06d6d,
-  400 : #da4e4e,
-  500 : #d32f2f,
-  600 : #ce2a2a,
-  700 : #c82323,
-  800 : #c21d1d,
-  900 : #b71212,
-  A100 : #ffe7e7,
-  A200 : #ffb4b4,
-  A400 : #ff8181,
-  A700 : #ff6868,
+  50: #e0e7ea,
+  100: #b3c4cb,
+  200: #809da8,
+  300: #4d7585,
+  400: #26586a,
+  500: #003a50,
+  600: #003449,
+  700: #002c40,
+  800: #002537,
+  900: #001827,
+  A100: #62b4ff,
+  A200: #2f9bff,
+  A400: #0082fb,
+  A700: #0075e1,
   contrast: (
-      50 : #000000,
-      100 : #000000,
-      200 : #000000,
-      300 : #000000,
-      400 : #ffffff,
-      500 : #ffffff,
-      600 : #ffffff,
-      700 : #ffffff,
-      800 : #ffffff,
-      900 : #ffffff,
-      A100 : #000000,
-      A200 : #000000,
-      A400 : #000000,
-      A700 : #000000,
-));
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
+$warn-pallete: (
+  50: #fae6e6,
+  100: #f2c1c1,
+  200: #e99797,
+  300: #e06d6d,
+  400: #da4e4e,
+  500: #d32f2f,
+  600: #ce2a2a,
+  700: #c82323,
+  800: #c21d1d,
+  900: #b71212,
+  A100: #ffe7e7,
+  A200: #ffb4b4,
+  A400: #ff8181,
+  A700: #ff6868,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
-
-$light-theme: mat-light-theme(
-    $primary,
-    $secondary,
-    $warn
-);
-
-.light-theme{
-  .package-selectors{
-    .mat-radio-button{
-    &.mat-radio-checked{
-        &:before{
-        background-color: mat-color($primary, 500);
+$light-theme: mat-light-theme($primary, $secondary, $warn);
+.light-theme {
+  
+  .package-selectors {
+    .mat-radio-button {
+      &.mat-radio-checked {
+        &:before {
+          background-color: mat-color($primary, 500);
         }
+      }
     }
-    }
-}
-  a{
+  }
+  a {
     color: mat-color($primary);
   }
-        &.body-bg{
-          background-color: mat-color($primary);
-        }
-        .pagehead{
-          background-color: mat-color($primary, 50) !important;
-        }
-        .topbar,
-        .mini-sidenav{
-          background-color: mat-color($primary, 900) !important;
-          color:#fff !important;
-        }
-        .mini-sidenav,
-        mat-nav-list{
-          .nav-link{
-            color:#fff !important;
-          }
-        }
-        mat-sidenav{
-          background-color: mat-color($primary) !important;
-        }
-        .infoTitle{
+  &.body-bg {
+    background-color: mat-color($primary);
+  }
+  .pagehead {
+    background-color: mat-color($primary, 50) !important;
+  }
+  .topbar,
+  .mini-sidenav {
+    background-color: mat-color($primary, 900) !important;
+    color: #fff !important;
+  }
+  .mini-sidenav,
+  mat-nav-list {
+    .nav-link {
+      color: #fff !important;
+    }
+  }
+  mat-sidenav {
+    background-color: mat-color($primary) !important;
+  }
+  .infoTitle {
+    color: mat-color($primary);
+    &:before {
+      background: mat-color($primary);
+    }
+  }
+  .sideLegend {
+    background-color: mat-color($primary) !important;
+  }
+  .midbox:before {
+    background-color: mat-color($warn);
+  }
+  app-registration {
+    .loginbox {
+      mat-step-header {
+        mat-icon {
+          border: 2px dashed mat-color($primary);
           color: mat-color($primary);
-          &:before{
-            background: mat-color($primary);
         }
+        .mat-step-label-active {
+          mat-icon {
+            border: 2px solid mat-color($primary);
+            background-color: mat-color($primary);
+            color: mat-color($primary, 50);
+          }
+          color: mat-color($primary);
         }
-      .sideLegend {
-        background-color: mat-color($primary) !important;
       }
-      .midbox:before{
-        background-color: mat-color($warn);
+      a {
+        color: mat-color($primary) !important;
       }
-      app-registration{
-        .loginbox{
-            mat-step-header{
-                mat-icon{
-                    border: 2px dashed mat-color($primary);
-                    color: mat-color($primary);
-                }
-                .mat-step-label-active{
-                  mat-icon{
-                    border: 2px solid mat-color($primary);
-                    background-color: mat-color($primary);
-                    color: mat-color($primary,50);
-                  }
-                  color: mat-color($primary);
-                }
-            }
-            a{
-              color: mat-color($primary) !important;
-            }
-        }
     }
-    .mat-horizontal-content-container {
-      padding: 0 !important;
-    }
-
-@include angular-material-theme($light-theme);
-@include amte-registration($light-theme);
+  }
+  .mat-horizontal-content-container {
+    padding: 0 !important;
+  }
+  @include amte-setTheme($light-theme);
 }

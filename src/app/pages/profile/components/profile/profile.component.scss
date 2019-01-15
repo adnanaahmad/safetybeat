@@ -1,40 +1,40 @@
-
-  .grid-container {
-    // margin: 20px;
-    overflow-y: auto;
-    height: 100%;
-  }
-  
-  .dashboard-card {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-  }
-  
-  .more-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-  }
-  
-  .dashboard-card-content {
-    text-align: center;
-  }
-  .btn{
-    position: inherit;
-    padding-left: 87%;
-  }
-  .dashboard-card{
-    mat-card-content{
-      text-align: left;
-      margin:10px 0;
+@mixin amte-profile($primary, $accent, $warn) {
+  :host,
+  app-profile {
+    .grid-container {
+      overflow-y: auto;
+      height: 100%;
     }
-    mat-list{
-      padding-top: 0;
+    .dashboard-card {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
     }
-    .mat-list-item{
-      font-size:14px;
+    .more-button {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+    }
+    .dashboard-card-content {
+      text-align: center;
+    }
+    .btn {
+      position: inherit;
+      padding-left: 87%;
+    }
+    .dashboard-card {
+      mat-card-content {
+        text-align: left;
+        margin: 10px 0;
+      }
+      mat-list {
+        padding-top: 0;
+      }
+      .mat-list-item {
+        font-size: 14px;
+      }
     }
   }
+}
