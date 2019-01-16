@@ -13,12 +13,7 @@ export class LoginRegistrationService {
     reset_success: string;
     reset_msg: string;
     constructor(private http: HttpClient,
-        public toastProvider: ToastService,
         private translate: TranslateService) {
-        this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
-            this.reset_success = values.MESSAGES.RESET_SUCCESS;
-            this.reset_msg = values.MESSAGES.RESETMSG;
-        });
     }
     /**
      * login user api is called here and api url comes from constant service and login data that comes from
@@ -68,7 +63,6 @@ export class LoginRegistrationService {
      * user gets an email to reset his/her password and that email comes backend api.
      */
     forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
-        this.toastProvider.createCustomToaster(this.reset_success, this.reset_msg);
         return this.http.post<ForgotPasswordResponse>(ConstantService.apiRoutes.passwordReset, data);
     }
 

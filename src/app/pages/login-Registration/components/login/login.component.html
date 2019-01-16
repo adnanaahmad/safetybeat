@@ -22,7 +22,8 @@
           <mat-form-field full-width>
             <input matInput type="text" [placeholder]=translated.AUTH.USER formControlName=username required />
             <mat-error *ngIf="formValidation.username.errors">
-              {{translated.AUTH.USERNAME_REQ}}
+              <span *ngIf="formValidation.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
+              <span *ngIf="formValidation.username.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>
             </mat-error>
           </mat-form-field>
         </div>
@@ -30,7 +31,8 @@
           <mat-form-field full-width>
             <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName=password required />
             <mat-error *ngIf="formValidation.password.errors">
-              {{translated.AUTH.PASSWORD_REQ}}
+              <span *ngIf="formValidation.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+              <span *ngIf="formValidation.password.errors?.exists">{{translated.MESSAGES.INVALID_PASSWORD}}</span>
             </mat-error>
           </mat-form-field>
         </div>

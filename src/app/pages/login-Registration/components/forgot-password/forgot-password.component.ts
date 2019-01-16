@@ -7,6 +7,7 @@ import { ForgotPassword } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,12 +18,16 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPassForm: FormGroup;
   translated: Translation;
   selectedTheme: String;
+  showError: string;
+  email: FormGroup;
+  success: any;
   constructor(
     public forgotService: LoginRegistrationService,
     private router: Router,
     public formBuilder: FormBuilder,
     public translate: TranslateService,
-    private logging: LoggingService
+    private logging: LoggingService,
+    public toastProvider: ToastService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
@@ -36,6 +41,20 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
+  }
+  checkEmail(group) {
+    this.email = this.formBuilder.group({
+      'email': [group.value.email, Validators.email]
+    });
+    if (this.email.status === 'VALID') {
+      const email = { email: group.value.email };
+      this.forgotService.checkEmail(email).pipe().subscribe((res) => {
+        this.success = res;
+        if (this.success.status) {
+          group.controls.email.setErrors({ exists: true })
+        }
+      });
+    }
   }
   /**
    * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
@@ -53,13 +72,16 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    // this.checkEmail(value);
     this.forgotService.forgotPassword(value).subscribe(
       data => {
+        this.toastProvider.createSuccessToaster(this.translated.MESSAGES.RESET_SUCCESS, this.translated.MESSAGES.RESETMSG);
         this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
         this.router.navigate(['/login']);
       },
       error => {
         this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.toastProvider.createErrorToaster(this.translated.MESSAGES.RESETFAIL, this.translated.MESSAGES.RESETFAIL_MSG);
       }
     );
 
