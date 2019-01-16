@@ -98,7 +98,11 @@ export interface Messages {
     RESET_SUCCESS: string,
     RESETMSG: string,
     USERNAME_EXISTS: string,
-    EMAIL_CHANGED: string
+    EMAIL_CHANGED: string,
+    NOT_REGISTETRED: string,
+    INVALID_PASSWORD: string,
+    RESETFAIL: string,
+    RESETFAIL_MSG: string
 }
 export interface Logger {
     STATUS: LoggerStatus,

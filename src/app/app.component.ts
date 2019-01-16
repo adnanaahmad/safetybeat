@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, Renderer2 } from '@angular/core';
+import { Component, Injector, OnInit, Renderer2, HostBinding } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
 import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
@@ -13,6 +13,7 @@ import { ConstantService } from './shared/constant/constant.service';
 export class AppComponent implements OnInit {
   title = 'anonymous-FrontEnd';
   selectedTheme: any;
+  @HostBinding('class') componentScssClass;
   constructor(protected injector: Injector,
     public settings: SettingService,
     public overlay: OverlayContainer,
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
       this.render.removeAttribute(document.body, 'class');
       this.render.addClass(document.body, this.selectedTheme);
       this.overlay.getContainerElement().classList.add(this.selectedTheme);
+      this.componentScssClass = this.selectedTheme;
     });
   }
   ngOnInit() {

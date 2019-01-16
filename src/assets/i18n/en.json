@@ -80,6 +80,8 @@
         "LOGOUT_MSG": "Logout Successful!",
         "RESET_SUCCESS": "Email has been sent to you successfully",
         "RESETMSG": "Email has been sent!",
+        "RESETFAIL": "Reset Password Unsuccessful!",
+        "RESETFAIL_MSG": "Reset Email can not be sent",
         "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
         "VERIFY_MSG": "In order to complete registration, please verify your account.",
         "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",
@@ -93,7 +95,10 @@
         "QUESTION_QUERY": "Do you have any questions or queries?",
         "REACH_MSG": "Reach us at",
         "HELP_EMAIL": "help@safetybeat.com",
-        "EMAIL_CHANGED": "Your email has been changed successfully"
+        "EMAIL_CHANGED": "Your email has been changed successfully",
+        "NOT_REGISTETRED": "Email/Username is not registered",
+        "INVALID_PASSWORD": "Invalid Password",
+        "EMAIL_NOT_REGISTERED": "This email is not registered,insert valid email"
     },
     "LOGGER": {
         "STATUS": {

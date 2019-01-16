@@ -100,7 +100,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.loginRegService.changeEmail(this.data.userId, value).subscribe((data) => {
       this.res = data;
-      console.log(this.res);
       this.data.userData.email = value.email;
       console.log(this.data.userData.email);
       this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((result) => {
