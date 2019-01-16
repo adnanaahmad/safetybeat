@@ -9,23 +9,23 @@
 </mat-toolbar>
 
 <div class="text-right paddingbox">
-  <button mat-raised-button color="primary" routerLink="/home/profile/user">
+  <button mat-raised-button color="primary">
     <mat-icon>edit</mat-icon>{{translated.BUTTONS.EDIT_ACCOUNT}}
   </button>
 </div>
 
 <div class="grid-container">
-  <mat-grid-list cols="2" rowHeight="200px">
+  <mat-grid-list cols="2" rowHeight="250px">
     <mat-grid-tile colspan="1" rowspan="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title class="infoTitle">Bio</mat-card-title>
+          <mat-card-title class="infoTitle">About you</mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <p class="paragraph">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus
-          dicta quae distinctio doloremque libero a totam inventore eaque magni
-          odio labore eveniet eligendi minus aut vero voluptas, perspiciatis,
-          suscipit placeat!</p>
+        <mat-card-content class="dashboard-card-content btn-grids">
+          <a mat-button mat-raised-button routerLink="."><mat-icon>work_off</mat-icon> Your leave</a>
+          <a mat-button mat-raised-button routerLink="."><mat-icon>style</mat-icon> your entities</a>
+          <a mat-button mat-raised-button routerLink="."><mat-icon>local_activity</mat-icon> your activity</a>
+          <a mat-button mat-raised-button routerLink="."><mat-icon>question_answer</mat-icon> your answers</a>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -35,6 +35,7 @@
         <mat-card-header>
           <mat-card-title class="infoTitle">Profile Information</mat-card-title>
         </mat-card-header>
+        <form>
         <mat-card-content *ngIf="userData | async; let userData">
           <mat-list role="list">
             <mat-list-item role="listitem">
@@ -69,6 +70,7 @@
             </mat-list-item>
           </mat-list>
         </mat-card-content>
+      </form>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
