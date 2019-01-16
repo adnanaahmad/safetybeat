@@ -1,0 +1,33 @@
+@import "~@angular/material/theming";
+@import "./common.scss";
+@import "src/app/pages/login-Registration/components/registration/registration.component.scss";
+@import "src/app/pages/login-Registration/components/login/login.component.scss";
+@import "src/app/pages/login-Registration/components/forgot-password/forgot-password.component.scss";
+@import "src/app/pages/login-Registration/components/verification/verification.component.scss";
+@import "src/app/pages/navigation/components/fixed-nav/fixed-nav.component.scss";
+@import "src/app/pages/navigation/components/nav-list/nav-list.component.scss";
+@import "src/app/pages/navigation/components/navigation/navigation.component.scss";
+@import "src/app/pages/profile/components/profile/profile.component.scss";
+@import "src/app/pages/profile/components/user/user.component.scss";
+@import "src/app/pages/settings/components/settings.component.scss";
+
+@mixin amte-setTheme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  @include angular-material-theme($theme);
+  @include amte-common($primary, $accent, $warn);
+  @include amte-registration($primary, $accent, $warn);
+  @include amte-login($primary, $accent, $warn);
+  @include amte-forgot-password($primary, $accent, $warn);
+  @include amte-verification($primary, $accent, $warn);
+  @include amte-fixed-nav($primary, $accent, $warn);
+  @include amte-nav-list($primary, $accent, $warn);
+  @include amte-navigation($primary, $accent, $warn);
+  @include amte-profile($primary, $accent, $warn);
+  @include amte-user($primary, $accent, $warn);
+  @include amte-settings($primary, $accent, $warn);
+}

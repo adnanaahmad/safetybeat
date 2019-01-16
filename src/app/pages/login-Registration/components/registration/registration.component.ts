@@ -20,6 +20,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   organizationForm: FormGroup;
   moduleForm: FormGroup;
   email: FormGroup;
+
   loading: boolean;
   selectedPackage: any = {};
   registerData: any = [];
@@ -125,7 +126,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   checkOrgName(group) {
     if (group.value.name !== '') {
       const name = { name: group.value.name }
-      this.register.checkEmail(name).pipe().subscribe((res) => {
+      this.register.checkOrgName(name).pipe().subscribe((res) => {
         this.success = res;
         if (!this.success.status) {
           group.controls.name.setErrors({ exists: true })
@@ -179,8 +180,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.registerData.module_pkg.push({ name: key, package: this.selectedPackage[key] });
       }
     }
-    // tslint:disable-next-line:max-line-length
-    if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length !== this.registerData.module_pkg.length)) {
+
+    if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length
+      !== this.registerData.module_pkg.length)) {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
@@ -193,17 +195,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .subscribe(
         (data) => {
           this.data = data;
-          // this.register.resendemail({ 'email': this.data.userData.email }).subscribe((res) => {
           this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-          this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
           this.router.navigate(['/verification', { data: JSON.stringify(data) }], { skipLocationChange: true });
-          // }, (error) => {
-          //   this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
-          //     this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-          // });
         },
         (error) => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +

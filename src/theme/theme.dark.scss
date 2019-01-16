@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import './imports.scss';
 $primary-pallet: (
   50: #dff2f0,
   100: #b0e0d9,
@@ -149,5 +149,5 @@ app-registration{
       }
   }
 }
-@include angular-material-theme($dark-theme)
+@include amte-setTheme($dark-theme);
 }

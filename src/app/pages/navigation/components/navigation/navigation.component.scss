@@ -1,80 +1,68 @@
-
-  
-  .container {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
+@mixin amte-navigation($primary, $accent, $warn) {
+  :host,
+  app-navigation {
+    .container {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+    }
+    mat-sidenav {
+      width: 160px;
+      .nav-link {
+        font-size: 14px;
+      }
+    }
+    mat-sidenav-container {
+      flex: 1;
+    }
+    .app-content {
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+    }
+    .header {
+      flex: 0 1 auto;
+    }
+    .page-content {
+      display: flex;
+      flex-flow: column;
+      flex: 1 1 0;
+      overflow-y: auto;
+    }
+    .grid-container {
+      // margin: 20px;
+      overflow-y: auto;
+      height: 100%;
+    }
+    .dashboard-card {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+    }
+    .more-button {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+    }
+    .dashboard-card-content {
+      text-align: center;
+    }
+    .top-btns {
+      width: 100%;
+      text-align: right;
+    }
+    .sidenav-logo {
+      max-width: 84%;
+      margin: 20px auto;
+      display: block;
+      width: 100%;
+    }
+    .menu-button {
+      button {
+        margin: 0 auto;
+      }
+    }
   }
-  
-  mat-sidenav {
-    width: 160px;
-  }
-  
-  mat-sidenav-container {
-    flex: 1;
-  }
-  
-  .app-content {
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-  }
-  
-  .header {
-    flex: 0 1 auto;
-  }
-  
-  .page-content {
-    display: flex;
-    flex-flow: column;
-    flex: 1 1 0;
-    overflow-y: auto;
-  }
-
-
-
-  .grid-container {
-    // margin: 20px;
-    overflow-y: auto;
-    height: 100%;
-  }
-  
-  .dashboard-card {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-  }
-  
-  .more-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-  }
-  
-  .dashboard-card-content {
-    text-align: center;
-  }
-  .top-btns{
-    width: 100%;
-    text-align: right;
-  }
- .sidenav-logo{
-    max-width: 84%;
-    margin: 20px auto;
-    display: block;
-    width: 100%;
- }
-  // .app-content {
-  //   height: 100vh;
-  //   max-height: 100vh;
-  //   overflow-y: hidden;
-  //   flex: 0 1 auto;
-  //   flex-direction: column;
-  //   .page-content {
-  //     // flex: 1;
-  //     // overflow-y: auto;
-  //   }
-  // }
-  
+}

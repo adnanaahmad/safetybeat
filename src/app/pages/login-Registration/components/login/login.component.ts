@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   loading: boolean;
   data: any;
   translated: Translation;
-
+  success: any;
+  showError: string;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -89,6 +90,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
           this.toastProvider.createErrorToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG);
+          if (error.error.detail === this.translated.MESSAGES.NOT_REGISTETRED) {
+            this.loginForm.controls.username.setErrors({ exists: true });
+          }
+          if (error.error.detail === this.translated.MESSAGES.INVALID_PASSWORD) {
+            this.loginForm.controls.password.setErrors({ exists: true });
+          }
         }
       );
   }
