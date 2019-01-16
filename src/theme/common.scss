@@ -1,0 +1,5 @@
+@mixin amte-common($primary, $accent, $warn) {
+  .midbox {
+    border-color: mat-color($primary);
+  }
+}

@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private settingsProvider: SettingService
   ) {
-    this.translate.get(['LOGGER']).subscribe((values) => {
+    this.translate.get(['LOGGER','BUTTONS']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
