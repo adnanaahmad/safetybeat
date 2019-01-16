@@ -9,20 +9,20 @@ export class ConstantService {
   ) { }
 
   static apiRoutes = {
-    login: `${environment.apiUrl}/anonymous/login/`,
-    signup: `${environment.apiUrl}/anonymous/registration/`,
-    companyTypes: `${environment.apiUrl}/anonymous/companyTypes/`,
-    modules: `${environment.apiUrl}/anonymous/modules/`,
-    packages: `${environment.apiUrl}/anonymous/packages/`,
-    passwordReset: `${environment.apiUrl}/anonymous/password/reset/`,
-    organization: `${environment.apiUrl}/anonymous/organization/`,
-    user: `${environment.apiUrl}/anonymous/userDetails`,
-    checkUsername: `${environment.apiUrl}/anonymous/username/`,
-    checkEmail: `${environment.apiUrl}/anonymous/email/`,
-    checkOrgName: `${environment.apiUrl}/anonymous/orgName/`,
-    checkBilling: `${environment.apiUrl}/anonymous/billingEmail/`,
-    resendverification: `${environment.apiUrl}/anonymous/account/resend-verification/`,
-    changeEmail: `${environment.apiUrl}/anonymous/editEmail`
+    login: `${environment.apiUrl}/login/`,
+    signup: `${environment.apiUrl}/registration/`,
+    companyTypes: `${environment.apiUrl}/companyTypes/`,
+    modules: `${environment.apiUrl}/modules/`,
+    packages: `${environment.apiUrl}/packages/`,
+    passwordReset: `${environment.apiUrl}/password/reset/`,
+    organization: `${environment.apiUrl}/organization/`,
+    user: `${environment.apiUrl}/userDetails`,
+    checkUsername: `${environment.apiUrl}/username/`,
+    checkEmail: `${environment.apiUrl}/email/`,
+    checkOrgName: `${environment.apiUrl}/orgName/`,
+    checkBilling: `${environment.apiUrl}/billingEmail/`,
+    resendverification: `${environment.apiUrl}/account/resend-verification/`,
+    changeEmail: `${environment.apiUrl}/editEmail`
   };
   static toast = {
     location: 'toast-top-left',

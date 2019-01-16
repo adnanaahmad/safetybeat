@@ -30,7 +30,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
     this.profileData = JSON.parse(localStorage.getItem('userdata'));
-    console.log(this.profileData.userid);
     this.user_id = this.profileData.userid;
     this.org_id = this.profileData.orgid;
     this.role = this.profileData.role;
