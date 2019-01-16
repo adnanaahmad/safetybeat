@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserComponent } from './components/user/user.component';
-import { OrganizationComponent } from './components/organization/organization.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ProfileService } from './services/profile.service';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
@@ -16,7 +15,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [ProfileComponent, UserComponent, OrganizationComponent],
+  declarations: [ProfileComponent, UserComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,
