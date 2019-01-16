@@ -35,8 +35,8 @@ body {
   border-radius: 100px;
   text-align: center;
   transform: translateY(-50%);
-  box-shadow:0px 5px 10px 0px #00000026;
-  border:2px solid #fff;
+  box-shadow: 0px 5px 10px 0px #00000026;
+  border: 2px solid #fff;
   img {
     margin: 24px;
     width: 65px;
@@ -102,11 +102,12 @@ button {
   }
 }
 .midbox {
+  border-top: 4px solid;
   .mat-form-field-underline {
     background-color: rgba(0, 0, 0, 0.1);
   }
   width: 60%;
-  margin: 10% auto;
+  margin: 100px auto;
   box-shadow: 0 0px 60px -20px #0000007a !important;
   border-radius: 10px !important;
   &:before {
@@ -200,6 +201,41 @@ button {
   width: 100%;
   height: 20px;
 }
+@for $i from 1 through 30 {
+  @keyframes particle-animation-#{$i} {
+    100% {
+      transform: translate3d(
+        (random(90) * 1vw),
+        (random(90) * 1vh),
+        (random(100) * 1px)
+      );
+    }
+  }
+
+  .particle:nth-child(#{$i}) {
+    animation: particle-animation-#{$i} 50s infinite;
+    $size: random(5) + 5 + px;
+    // opacity: random(100)/100;
+    opacity: 0.1;
+    height: $size;
+    width: $size;
+    transition: all ease 0.3s;
+    animation-delay: -$i * 0.2s;
+    transform: translate3d(
+      (random(90) * 1vw),
+      (random(90) * 1vh),
+      (random(100) * 1px)
+    );
+    // background: hsl(random(360), 70%, 50%);
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+      mat-icon {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
 #particle-container {
   position: fixed;
   left: 0;
@@ -215,10 +251,10 @@ button {
       transition: all cubic-bezier(0.45, 0.01, 0, 3) 0.3s;
       transform: scale(1);
     }
-    &:hover{
-        mat-icon{
-            transform: scale(1.3);
-        }
+    &:hover {
+      mat-icon {
+        transform: scale(1.3);
+      }
     }
   }
 }
@@ -281,7 +317,7 @@ button {
     width: 70px;
     position: absolute;
     top: 20px;
-    height: 1px;
+    height: .9px;
   }
   &:before {
     left: -70px;
@@ -329,41 +365,6 @@ svg {
 hr.forheading {
   width: 30%;
   opacity: 0.4;
-}
-@for $i from 1 through 30 {
-  @keyframes particle-animation-#{$i} {
-    100% {
-      transform: translate3d(
-        (random(90) * 1vw),
-        (random(90) * 1vh),
-        (random(100) * 1px)
-      );
-    }
-  }
-
-  .particle:nth-child(#{$i}) {
-    animation: particle-animation-#{$i} 50s infinite;
-    $size: random(5) + 5 + px;
-    // opacity: random(100)/100;
-    opacity: 0.1;
-    height: $size;
-    width: $size;
-    transition: all ease 0.3s;
-    animation-delay: -$i * 0.2s;
-    transform: translate3d(
-      (random(90) * 1vw),
-      (random(90) * 1vh),
-      (random(100) * 1px)
-    );
-    // background: hsl(random(360), 70%, 50%);
-    &:hover {
-      opacity: 1;
-      cursor: pointer;
-      mat-icon {
-        transform: scale(1.2);
-      }
-    }
-  }
 }
 @media screen and (max-width: 991px) {
   .midbox {

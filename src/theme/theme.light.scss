@@ -100,7 +100,6 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $light-theme: mat-light-theme($primary, $secondary, $warn);
 .light-theme {
-  
   .package-selectors {
     .mat-radio-button {
       &.mat-radio-checked {
@@ -144,27 +143,6 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   }
   .midbox:before {
     background-color: mat-color($warn);
-  }
-  app-registration {
-    .loginbox {
-      mat-step-header {
-        mat-icon {
-          border: 2px dashed mat-color($primary);
-          color: mat-color($primary);
-        }
-        .mat-step-label-active {
-          mat-icon {
-            border: 2px solid mat-color($primary);
-            background-color: mat-color($primary);
-            color: mat-color($primary, 50);
-          }
-          color: mat-color($primary);
-        }
-      }
-      a {
-        color: mat-color($primary) !important;
-      }
-    }
   }
   .mat-horizontal-content-container {
     padding: 0 !important;

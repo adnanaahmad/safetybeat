@@ -395,6 +395,50 @@
         }
       ],
       "id": 9
+    },
+    {
+      "user": {
+        "username": "asd",
+        "email": "test@f",
+        "first_name": "asd",
+        "last_name": "asd",
+        "mobile_no": "123",
+        "password1": "11111111",
+        "password2": "11111111"
+      },
+      "organization": {
+        "name": "asd",
+        "type": 2,
+        "address": "asd",
+        "zipCode": "123",
+        "city": "asd",
+        "country": "asd",
+        "fax": "123",
+        "billingEmail": "123@g",
+        "accountNo": "123",
+        "phoneNo": "123"
+      },
+      "module_pkg": [
+        {
+          "name": "Field Communication",
+          "package": {
+            "packageName": "Browns",
+            "cost": "$250",
+            "noOfUsers": "100",
+            "id": 3
+          }
+        },
+        {
+          "name": "Safety Beat",
+          "package": {
+            "packageName": "Silver",
+            "cost": "$500",
+            "noOfUsers": "250",
+            "id": 2
+          }
+        }
+      ],
+      "id": 10
     }
   ],
   "user": [

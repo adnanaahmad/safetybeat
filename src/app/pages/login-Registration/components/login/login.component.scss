@@ -1,8 +1,11 @@
 @mixin amte-login($primary, $accent, $warn) {
-:host,
+  :host,
   app-login {
     #particle-container {
       width: 50% !important;
+      .particle:nth-child(even) {
+        display: none;
+      }
     }
   }
 }

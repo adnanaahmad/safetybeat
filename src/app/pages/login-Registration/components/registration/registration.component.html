@@ -12,19 +12,17 @@
           <mat-icon>person</mat-icon>
           {{translated.MESSAGES.USERDETAILS_MSG}}
         </ng-template>
+        <div class="form-group">
+          <mat-form-field style="width:95%;">
+            <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required
+              (blur)="checkUserName(userForm)" />
+            <mat-error *ngIf="userDetailForm.username.errors">
+              <span *ngIf="userDetailForm.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
+              <span *ngIf="userDetailForm.username.errors?.exists">{{translated.MESSAGES.USERNAME_EXISTS}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
         <mat-grid-list cols="2" rowHeight="70px">
-          <mat-grid-tile>
-            <div class="form-group">
-              <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required
-                  (blur)="checkUserName(userForm)" />
-                <mat-error *ngIf="userDetailForm.username.errors">
-                  <span *ngIf="userDetailForm.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
-                  <span *ngIf="userDetailForm.username.errors?.exists">{{translated.MESSAGES.USERNAME_EXISTS}}</span>
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </mat-grid-tile>
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
@@ -96,7 +94,7 @@
           </mat-grid-tile>
         </mat-grid-list>
         <div>
-          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}} <mat-icon>arrow_forward</mat-icon></button>
           <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>
@@ -221,8 +219,8 @@
         </mat-grid-list>
         <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">{{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn"><mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}} <mat-icon>arrow_forward</mat-icon></button>
         </div>
       </form>
     </mat-step>
@@ -247,8 +245,8 @@
         </div>
         <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">{{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}</button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn"><mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}</button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}} <mat-icon>arrow_forward</mat-icon></button>
         </div>
       </form>
     </mat-step>
@@ -283,8 +281,8 @@
       </mat-card>
       <div class="clearsep"></div>
       <div>
-        <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn">{{translated.BUTTONS.BACK}}</button>
-        <button mat-raised-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}}</button>
+        <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn"><mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}</button>
+        <button mat-raised-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}} <mat-icon>check</mat-icon></button>
         <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
       </div>
     </mat-step>

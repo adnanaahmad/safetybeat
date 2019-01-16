@@ -5,8 +5,25 @@
       display: none;
     }
     .loginbox {
+      a {
+        color: mat-color($primary) !important;
+      }
+      [full-width] {
+        width: 90% !important;
+      }
       mat-step-header {
+        .mat-step-label-active {
+          color: mat-color($primary);
+          mat-icon {
+            border: 2px solid mat-color($primary);
+            background-color: mat-color($primary);
+            color: #fff;
+          }
+        }
+        padding: 20px 10px;
         mat-icon {
+          border: 2px dashed mat-color($primary);
+          color: mat-color($primary);
           position: absolute;
           top: 0;
           left: 0;
@@ -66,6 +83,7 @@
       }
     }
     .legend-title {
+      border-color: mat-color($primary, 100);
       &:before,
       &:after {
         background-color: mat-color($primary, 100);
