@@ -1,30 +1,27 @@
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParticleContainerComponent } from './particle-container.component';
-import { NotifierModule } from 'angular-notifier';
+import { NavListComponent } from './navList.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
-import { ToastrModule } from 'ng6-toastr-notifications';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 
-describe('ParticleContainerComponent', () => {
-  let component: ParticleContainerComponent;
-  let fixture: ComponentFixture<ParticleContainerComponent>;
+describe('NavListComponent', () => {
+  let component: NavListComponent;
+  let fixture: ComponentFixture<NavListComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ParticleContainerComponent],
+      declarations: [NavListComponent],
       imports: [
-        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
-        ToastrModule.forRoot(),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -38,7 +35,7 @@ describe('ParticleContainerComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ParticleContainerComponent);
+    fixture = TestBed.createComponent(NavListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

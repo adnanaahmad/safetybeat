@@ -1,22 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavListComponent } from './nav-list.component';
+import { FixedNavComponent } from './fixedNav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule ,HttpClient} from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
+import { NotifierModule } from 'angular-notifier';
 
-describe('NavListComponent', () => {
-  let component: NavListComponent;
-  let fixture: ComponentFixture<NavListComponent>;
+describe('FixedNavComponent', () => {
+  let component: FixedNavComponent;
+  let fixture: ComponentFixture<FixedNavComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NavListComponent],
+      declarations: [FixedNavComponent],
       imports: [
+        NotifierModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         HttpClientModule,
@@ -35,7 +37,7 @@ describe('NavListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavListComponent);
+    fixture = TestBed.createComponent(FixedNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

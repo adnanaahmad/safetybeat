@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
+import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassword.component';
 
 
 

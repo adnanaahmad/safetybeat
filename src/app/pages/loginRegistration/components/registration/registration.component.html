@@ -5,7 +5,7 @@
   </span>
   <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p>
-  <mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
+  <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
         <ng-template matStepLabel>
@@ -94,7 +94,8 @@
           </mat-grid-tile>
         </mat-grid-list>
         <div>
-          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}} <mat-icon>arrow_forward</mat-icon></button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
+            <mat-icon>arrow_forward</mat-icon></button>
           <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>
@@ -219,8 +220,11 @@
         </mat-grid-list>
         <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn"><mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}} <mat-icon>arrow_forward</mat-icon></button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">
+            <mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}
+          </button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
+            <mat-icon>arrow_forward</mat-icon></button>
         </div>
       </form>
     </mat-step>
@@ -245,8 +249,11 @@
         </div>
         <div class="clearsep"></div>
         <div>
-          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn"><mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}</button>
-          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}} <mat-icon>arrow_forward</mat-icon></button>
+          <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">
+            <mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}
+          </button>
+          <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
+            <mat-icon>arrow_forward</mat-icon></button>
         </div>
       </form>
     </mat-step>
@@ -281,8 +288,11 @@
       </mat-card>
       <div class="clearsep"></div>
       <div>
-        <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn"><mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}</button>
-        <button mat-raised-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}} <mat-icon>check</mat-icon></button>
+        <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn">
+          <mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}
+        </button>
+        <button mat-raised-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}}
+          <mat-icon>check</mat-icon></button>
         <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
       </div>
     </mat-step>

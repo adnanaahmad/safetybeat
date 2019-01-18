@@ -9,7 +9,7 @@
 </mat-toolbar>
 
 <div class="text-right paddingbox">
-  <button mat-raised-button color="primary" routerLink="/home/profile/user">
+  <button mat-raised-button color="primary" (click)="editAccount()">
     <mat-icon>edit</mat-icon>{{translated.BUTTONS.EDIT_ACCOUNT}}
   </button>
 </div>
@@ -23,52 +23,74 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <p class="paragraph">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellendus
-          dicta quae distinctio doloremque libero a totam inventore eaque magni
-          odio labore eveniet eligendi minus aut vero voluptas, perspiciatis,
-          suscipit placeat!</p>
+            dicta quae distinctio doloremque libero a totam inventore eaque magni
+            odio labore eveniet eligendi minus aut vero voluptas, perspiciatis,
+            suscipit placeat!</p>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-
     <mat-grid-tile colspan="1" rowspan="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title class="infoTitle">Profile Information</mat-card-title>
         </mat-card-header>
-        <mat-card-content *ngIf="userData | async; let userData">
-          <mat-list role="list">
-            <mat-list-item role="listitem">
-              <span matLine>
-                <strong>First Name: </strong> <span>{{ userData.first_name }}</span>
-              </span>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <span matLine>
-                <strong>Last Name: </strong> <span>{{ userData.last_name }} </span>
-              </span>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <span matLine>
-                <strong>Email: </strong> <span>{{ userData.email }} </span>
-              </span>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <span matLine>
-                <strong>Mobile: </strong> <span>{{ userData.mobile_no }} </span>
-              </span>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <span matLine>
-                <strong>Medical Condition: </strong> <span>Disabled</span>
-              </span>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <span matLine>
-                <strong>Emergency Contact: </strong> <span>N/A</span>
-              </span>
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
+        <form [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
+          <mat-card-content *ngIf="userData | async; let userData">
+            <mat-list role="list">
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>User Name: </strong>
+                    <input matInput type="text" [(ngModel)]=userData.username formControlName="username" [ngClass]="disabled ? 'active' : 'inactive'"
+                      formControlName="username" required />
+                  </span>
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>First Name: </strong>
+                    <input matInput type="text" [(ngModel)]=userData.first_name formControlName="first_name" [ngClass]="disabled ? 'active' : 'inactive'"
+                      formControlName="first_name" required />
+                  </span>
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>Last Name: </strong>
+                    <input matInput type="text" [(ngModel)]=userData.last_name formControlName="last_name" [ngClass]="disabled ? 'active' : 'inactive'"
+                      formControlName="last_name" required />
+                  </span>
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>Email: </strong>
+                    <input matInput type="text" [(ngModel)]=userData.email formControlName="email" formControlName="email"
+                      [ngClass]="disabled ? 'active' : 'inactive'" required />
+                  </span>
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>Mobile: </strong>
+                    <input matInput type="text" [(ngModel)]=userData.mobile_no formControlName="mobile_no" [ngClass]="disabled ? 'active' : 'inactive'"
+                      formControlName="mobile_no" required />
+                  </span>
+                </mat-list-item>
+              </div>
+            </mat-list>
+          </mat-card-content>
+          <div *ngIf="disabled">
+            <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="profileForm.pristine">
+              <mat-icon>save</mat-icon> {{translated.BUTTONS.SAVE}}
+            </button>
+            <button mat-raised-button custom-btn btn-primary color="warn" (click)="cancelEditAccount()">{{translated.BUTTONS.CANCEL}}</button>
+          </div>
+        </form>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

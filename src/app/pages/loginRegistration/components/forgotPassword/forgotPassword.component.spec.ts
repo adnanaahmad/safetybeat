@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForgotPasswordComponent } from './forgot-password.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -11,7 +10,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
-import { ParticleContainerComponent } from '../particle-container/particle-container.component';
+import { ForgotPasswordComponent } from './forgotPassword.component';
+import { ParticleContainerComponent } from '../particleContainer/particleContainer.component';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
