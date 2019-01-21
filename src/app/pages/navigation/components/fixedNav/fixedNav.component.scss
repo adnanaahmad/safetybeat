@@ -23,6 +23,9 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      .mat-button-wrapper{
+        padding: 0;
+      }
     }
     mat-nav-list.bottom {
       position: absolute;

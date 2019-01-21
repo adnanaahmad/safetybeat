@@ -1,4 +1,8 @@
 @mixin amte-common($primary, $accent, $warn) {
+  [btn-primary]{
+    background-color: mat-color($primary);
+    color:#fff;
+  }
   .midbox {
     border-color: mat-color($primary);
   }

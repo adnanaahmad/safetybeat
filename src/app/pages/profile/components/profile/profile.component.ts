@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
-    this.disabled = true;
+    this.disabled = false;
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.PROFILE_CREDENTIAL_REQ);

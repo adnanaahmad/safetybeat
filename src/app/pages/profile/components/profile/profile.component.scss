@@ -36,5 +36,25 @@
         font-size: 14px;
       }
     }
+    .btn-grids {
+      a {
+        margin: 5px;
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+        text-transform: capitalize;
+        border: 1px solid mat-color($primary, 50);
+        mat-icon {
+          margin: 0 auto;
+          border-radius: 100px;
+          background: mat-color($primary);
+          padding: 5px;
+          color:#fff;
+          font-size: 14px;
+          height: auto;
+          width: auto;
+        }
+      }
+    }
   }
 }
