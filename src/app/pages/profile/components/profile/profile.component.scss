@@ -36,6 +36,18 @@
         font-size: 14px;
       }
     }
+    .profile-form{
+     .mat-input-element{
+       background-color: transparent;
+       border:0;
+       color:rgba(0, 0, 0, 0.58);
+       &.active{
+         border-bottom:1px solid #ddd;
+         outline:0 none;
+         color:inherit;
+       }
+     }
+    }
     .btn-grids {
       a {
         margin: 5px;
