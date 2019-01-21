@@ -92,7 +92,7 @@
               </div>
             </mat-list>
           </mat-card-content>
-          <div *ngIf="disabled">
+          <div *ngIf="disabled" class="btn-grp">
             <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="profileForm.pristine">
               <mat-icon>save</mat-icon> {{translated.BUTTONS.SAVE}}
             </button>
