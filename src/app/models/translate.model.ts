@@ -59,7 +59,8 @@ export interface Buttons {
     SUBMIT: string,
     LOGINTEXT: string,
     RESEND_EMAIL: string,
-    CHANGE_EMAIL: string
+    CHANGE_EMAIL: string,
+    EDIT_ACCOUNT: string
 }
 export interface Messages {
     WELCOME: string,
