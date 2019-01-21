@@ -335,27 +335,129 @@ hr.forheading {
   width: 30%;
   opacity: 0.4;
 }
-@media screen and (max-width: 991px) {
+@media (max-width: 992px) {
+  .monogram {
+    width: 100px;
+    height: 100px;
+    border: 3px solid #fff;
+    img {
+      width: 46px;
+    }
+  }
   .midbox {
-    width: 35%;
+    width: 60% !important;
+  }
+  .sideLegend {
+    .legendContent {
+      h1 {
+        font-size: 2.5em !important;
+      }
+      p {
+        font-size: 14px;
+        padding: 0 40px 0 0;
+      }
+    }
   }
 }
-@media screen and (max-width: 767px) {
+@media (max-width: 768px) {
   .midbox {
-    width: 45%;
+    width: 70% !important;
+  }
+  .monogram {
+    width: 80px;
+    height: 80px;
+    img {
+      margin: 15px;
+    }
+  }
+  .loginbox {
+    .subheading {
+      font-size: 14px;
+    }
+  }
+  .sideLegend {
+    .legendContent {
+      padding: 20px !important;
+      h1 {
+        font-size: 1.8em !important;
+      }
+    }
+  }
+  .loginbox {
+    mat-card-title {
+      font-size: 16px;
+    }
   }
 }
-@media screen and (max-width: 574px) {
+@media (max-width: 575px) {
+  app-login,
+  app-forgot-password {
+    app-particle-container{
+      display: none;
+    }
+    .monogram {
+      display: none;
+    }
+    mat-grid-tile{
+      left: auto !important;
+      width: 100% !important;
+      top: 0px !important;
+      height: auto !important;
+      position: relative !important;
+    }
+    .mat-figure{
+      position: relative !important;
+      display: block !important;
+    }
+    .legendContent{
+      position: relative !important;
+      transform: none !important;
+      top: auto !important;
+    }
+    .mat-card{
+      border-radius: 0;
+      padding: 0;
+    }
+  }
   .midbox {
-    width: 70%;
+    width: 80% !important;
     padding: 20px !important;
   }
   .loginbox {
+    margin:20px auto;
     div.button {
       span.or {
         padding: 0;
         opacity: 0;
       }
     }
+    mat-card-title {
+      font-size: 16px;
+    }
+    .subheading {
+      font-size: 14px;
+    }
+    mat-step-header {
+      padding: 20px 5px;
+    }
+    mat-step-header {
+      .mat-step-label {
+        font-size: 12px;
+      }
+      .material-icons {
+        font-size: 20px;
+      }
+    }
+    .mat-form-field-label {
+      font-size: 12px;
+    }
+  }
+  app-registration {
+    [backtologin] {
+      font-size: 14px;
+    }
+  }
+  .sideLegend .legendContent {
+    padding: 20px !important;
   }
 }
