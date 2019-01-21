@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Change Password</h2>
+<div mat-dialog-content>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword(changePasswordForm)">
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input matInput type="password" [placeholder]=translated.AUTH.CURRENT_PASSWORD formControlName="currentPassword"
+          required />
+        <mat-error *ngIf="formValidation.currentPassword.errors ">
+          <span *ngIf="formValidation.currentPassword.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+          <span *ngIf="formValidation.currentPassword.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password1" required />
+        <mat-error *ngIf="formValidation.password1.errors ">
+          <span *ngIf="formValidation.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+          <span *ngIf="formValidation.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName="password2"
+          required />
+        <mat-error *ngIf="formValidation.password2.errors ">
+          <span *ngIf="formValidation.password2.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+          <span *ngIf="formValidation.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial custom-btn btn-primary color="primary">{{translated.BUTTONS.CHANGE_PASSWORD}}</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
