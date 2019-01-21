@@ -49,11 +49,16 @@
           border-radius: 100px;
           background: mat-color($primary);
           padding: 5px;
-          color:#fff;
+          color: #fff;
           font-size: 14px;
           height: auto;
           width: auto;
         }
+      }
+    }
+    .btn-grp {
+      button[btn-primary] {
+        margin-left: 10px;
       }
     }
   }
