@@ -1,4 +1,3 @@
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,8 +10,8 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  templateUrl: './forgotPassword.component.html',
+  styleUrls: ['./forgotPassword.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPassForm: FormGroup;

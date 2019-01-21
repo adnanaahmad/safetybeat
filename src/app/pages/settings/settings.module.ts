@@ -6,7 +6,7 @@ import { SettingsComponent } from './components/settings.component';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
+import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

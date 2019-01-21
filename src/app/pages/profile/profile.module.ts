@@ -8,7 +8,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ProfileService } from './services/profile.service';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
-import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
+import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';

@@ -5,8 +5,8 @@ import { Translation } from 'src/app/models/translate.model';
 
 @Component({
   selector: 'app-fixed-nav',
-  templateUrl: './fixed-nav.component.html',
-  styleUrls: ['./fixed-nav.component.scss']
+  templateUrl: './fixedNav.component.html',
+  styleUrls: ['./fixedNav.component.scss']
 })
 export class FixedNavComponent implements OnInit {
   @Input()

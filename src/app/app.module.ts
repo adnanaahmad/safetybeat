@@ -10,11 +10,11 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthGuard } from './core/services/guards/auth.guard';
-import { TokenInterceptorService } from './core/services/interceptors/token-interceptor';
+import { TokenInterceptorService } from './core/services/interceptors/tokenInterceptor';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { CoreService } from './core/services/authorization/core.service';
-import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './core/components/pageNotFound/pageNotFound.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

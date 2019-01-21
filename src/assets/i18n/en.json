@@ -55,7 +55,8 @@
         "LOGINTEXT": "I already have an account",
         "RESEND_EMAIL": "Resend Verification Link",
         "CHANGE_EMAIL": "Change Email",
-        "EDIT_ACCOUNT": "Edit Account"
+        "EDIT_ACCOUNT": "Edit Account",
+        "SAVE": "Save"
     },
     "MESSAGES": {
         "SIGNINMESSAGE": "You need to sign in to get access",
@@ -130,7 +131,10 @@
             "NAVIGATION_COMPONENT": "Navigation load Success",
             "SIDE_NAV": "Side nav: ",
             "PROFILE_COMPONENT": "Profile load Success",
-            "VERIFICATION_COMPONENT": "Verification load Success"
+            "VERIFICATION_COMPONENT": "Verification load Success",
+            "PROFILE_UPDATED": "Your profile has been successfully updated.",
+            "PROFILE_NOTUPDATED": "Your profile has not been updated.",
+            "PROFILE_CREDENTIAL_REQ": "Profile credentials are missing"
         }
     }
 }

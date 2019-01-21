@@ -12,4 +12,8 @@ export class ProfileService {
   getUser(id) {
     return this.http.get<UserProfile>(`${ConstantService.apiRoutes.user}/${id}`);
   }
+
+  editUser(id, data) {
+    return this.http.put<UserProfile>(`${ConstantService.apiRoutes.editProfile}/${id}/`, data);
+  }
 }
