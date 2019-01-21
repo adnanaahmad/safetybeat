@@ -1,5 +1,5 @@
 // const serverUrl = 'http://192.168.50.45:8000';
-const serverUrl = 'http://192.168.50.49:8000';
+const serverUrl = 'http://192.168.50.62:8000';
 // const serverUrl = 'http://localhost:3000';
 export const environment = {
   production: true,

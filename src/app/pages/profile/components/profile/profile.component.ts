@@ -8,6 +8,7 @@ import { Translation } from 'src/app/models/translate.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditUser } from 'src/app/models/profile.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private settingsProvider: SettingService,
     private formBuilder: FormBuilder,
     public toastProvider: ToastService,
+    public dialog: MatDialog
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
@@ -44,6 +46,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.org_id = this.profileData.orgid;
     this.role = this.profileData.role;
     this.userData = this.getUserData();
+  }
+  changePassword() {
+    const dialogRef = this.dialog.open(ProfileComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog Result: $(result)');
+    });
   }
   @Input()
   ngOnInit() {
@@ -107,4 +115,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     )
   };
+
 }
