@@ -138,4 +138,7 @@ export interface LoggerMessage {
     SIDE_NAV: string,
     PROFILE_COMPONENT: string,
     VERIFICATION_COMPONENT: String,
+    PROFILE_CREDENTIAL_REQ: string,
+    PROFILE_UPDATED: string,
+    PROFILE_NOTUPDATED: string
 }

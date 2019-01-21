@@ -7,7 +7,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { OrganizationService } from './services/organization.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
-import { TokenInterceptorService } from 'src/app/core/services/interceptors/token-interceptor';
+import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
 
 @NgModule({
   declarations: [

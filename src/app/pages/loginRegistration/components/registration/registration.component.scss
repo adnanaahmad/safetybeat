@@ -77,11 +77,6 @@
       box-shadow: 0px 6px 10px 2px #00000017;
       background-color: mat-color($primary, 500);
     }
-    .package-selectors {
-      .mat-radio-button {
-        background-color: mat-color($primary, 500);
-      }
-    }
     .legend-title {
       border-color: mat-color($primary, 100);
       &:before,
@@ -98,6 +93,15 @@
           }
           * {
             color: #fff;
+          }
+        }
+        .radio-data {
+          h3 {
+            background: #fff;
+            padding: 3px 10px;
+            border-radius: 100px;
+            color: mat-color($primary);
+            font-size: 14px;
           }
         }
       }

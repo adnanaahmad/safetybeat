@@ -9,14 +9,14 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ng6-toastr-notifications';
-import { LoginRegistrationService } from 'src/app/pages/login-Registration/services/LoginRegistrationService';
+import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import { DebugElement } from '@angular/core';
 import { NotifierModule } from 'angular-notifier';
-import { ParticleContainerComponent } from '../particle-container/particle-container.component';
+import { ParticleContainerComponent } from '../particleContainer/particleContainer.component';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { PageNotFoundComponent } from 'src/app/core/components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from 'src/app/core/components/pageNotFound/pageNotFound.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

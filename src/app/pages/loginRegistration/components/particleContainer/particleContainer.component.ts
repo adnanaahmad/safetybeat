@@ -5,8 +5,8 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 
 @Component({
   selector: 'app-particle-container',
-  templateUrl: './particle-container.component.html',
-  styleUrls: ['./particle-container.component.scss']
+  templateUrl: './particleContainer.component.html',
+  styleUrls: ['./particleContainer.component.scss']
 })
 export class ParticleContainerComponent implements OnInit {
   translated: Translation;

@@ -11,12 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { ParticleContainerComponent } from '../particle-container/particle-container.component';
+import { ParticleContainerComponent } from '../particleContainer/particleContainer.component';
 import { Router } from '@angular/router';
-import { LoginRegistrationService } from 'src/app/pages/login-registration/services/LoginRegistrationService';
+import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
-import { PageNotFoundComponent } from 'src/app/core/components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from 'src/app/core/components/pageNotFound/pageNotFound.component';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;

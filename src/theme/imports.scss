@@ -1,11 +1,11 @@
 @import "~@angular/material/theming";
 @import "./common.scss";
-@import "src/app/pages/login-Registration/components/registration/registration.component.scss";
-@import "src/app/pages/login-Registration/components/login/login.component.scss";
-@import "src/app/pages/login-Registration/components/forgot-password/forgot-password.component.scss";
-@import "src/app/pages/login-Registration/components/verification/verification.component.scss";
-@import "src/app/pages/navigation/components/fixed-nav/fixed-nav.component.scss";
-@import "src/app/pages/navigation/components/nav-list/nav-list.component.scss";
+@import "src/app/pages/loginRegistration/components/registration/registration.component.scss";
+@import "src/app/pages/loginRegistration/components/login/login.component.scss";
+@import "src/app/pages/loginRegistration/components/forgotPassword/forgotPassword.component.scss";
+@import "src/app/pages/loginRegistration/components/verification/verification.component.scss";
+@import "src/app/pages/navigation/components/fixedNav/fixedNav.component.scss";
+@import "src/app/pages/navigation/components/navList/navList.component.scss";
 @import "src/app/pages/navigation/components/navigation/navigation.component.scss";
 @import "src/app/pages/profile/components/profile/profile.component.scss";
 @import "src/app/pages/profile/components/user/user.component.scss";

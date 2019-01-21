@@ -2,7 +2,7 @@ import { TestBed, async, inject, getTestBed } from '@angular/core/testing';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { TokenInterceptorService } from './token-interceptor';
+import { TokenInterceptorService } from './tokenInterceptor';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppRoutingModule } from 'src/app/app-routing.module';
