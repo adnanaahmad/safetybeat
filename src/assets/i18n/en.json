@@ -58,7 +58,8 @@
         "CHANGE_EMAIL": "Change Email",
         "EDIT_ACCOUNT": "Edit Account",
         "SAVE": "Save",
-        "CHANGE_PASSWORD": "Change Password"
+        "CHANGE_PASSWORD": "Change Password",
+        "NO_THANKS": "No Thanks"
     },
     "MESSAGES": {
         "SIGNINMESSAGE": "You need to sign in to get access",

@@ -27,12 +27,13 @@
         <mat-error *ngIf="formValidation.password2.errors ">
           <span *ngIf="formValidation.password2.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
           <span *ngIf="formValidation.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+          <span *ngIf="formValidation.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
         </mat-error>
       </mat-form-field>
     </div>
+    <mat-dialog-actions>
+      <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">{{translated.BUTTONS.CHANGE_PASSWORD}}</button>
+      <button mat-button mat-dialog-close>{{translated.BUTTONS.NO_THANKS}}</button>
+    </mat-dialog-actions>
   </form>
 </div>
-<mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial custom-btn btn-primary color="primary">{{translated.BUTTONS.CHANGE_PASSWORD}}</button>
-  <button mat-button mat-dialog-close>Cancel</button>
-</mat-dialog-actions>

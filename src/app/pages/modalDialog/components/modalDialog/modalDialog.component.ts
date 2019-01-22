@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ModalConfigService } from '../../services/modalConfig.service';
+import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -22,7 +23,8 @@ export class ModalDialogComponent implements OnInit {
     public formBuilder: FormBuilder,
     private translate: TranslateService,
     private logging: LoggingService,
-    private modalService: ModalConfigService
+    private modalService: ModalConfigService,
+    private loginService: LoginRegistrationService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
@@ -49,6 +51,7 @@ export class ModalDialogComponent implements OnInit {
   }
 
   changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
+    debugger;
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
@@ -56,7 +59,11 @@ export class ModalDialogComponent implements OnInit {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.modalService.changePassword(value).subscribe((result) => {
+    this.modalService.changePassword({
+      csrfmiddlewaretoken: this.loginService.getToken(),
+      old_password: value.currentPassword, new_password1: value.password1,
+      new_password2: value.password2
+    }).subscribe((result) => {
       console.log('this is the result that we have gotten', result);
     });
 

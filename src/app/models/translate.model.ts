@@ -61,7 +61,8 @@ export interface Buttons {
     LOGINTEXT: string,
     RESEND_EMAIL: string,
     CHANGE_EMAIL: string,
-    CHANGE_PASSWORD: string
+    CHANGE_PASSWORD: string,
+    NO_THANKS: string
 }
 export interface Messages {
     WELCOME: string,

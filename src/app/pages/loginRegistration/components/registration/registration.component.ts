@@ -29,6 +29,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   modules: any;
   packages: any;
   success: any;
+  abc: boolean = false;
   data: any;
   constructor(
     private formBuilder: FormBuilder,

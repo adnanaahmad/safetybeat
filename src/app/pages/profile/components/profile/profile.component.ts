@@ -105,18 +105,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.disabled = true;
     this.profileForm.enable();
   }
-  changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
-    if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
-      return;
-    }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.modalService.changePassword(value).subscribe((result) => {
-      console.log('this is the result that we have gotten', result);
-    });
-  }
+  // changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
+  //   if (!valid) {
+  //     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
+  //     this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
+  //     return;
+  //   }
+  //   this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
+  //   this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+  //   this.modalService.changePassword(value).subscribe((result) => {
+  //     console.log('this is the result that we have gotten', result);
+  //   });
+  // }
   cancelEditAccount() {
     this.disabled = false;
     this.profileForm.disable();
