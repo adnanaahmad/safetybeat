@@ -15,3 +15,9 @@ export interface EditUser {
     last_name: string;
     mobile_no: string;
 }
+
+export interface changePassword {
+    currentPassword: string;
+    password1: string;
+    password2: string;
+}

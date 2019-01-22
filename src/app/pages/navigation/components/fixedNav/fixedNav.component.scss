@@ -25,6 +25,9 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      mat-icon {
+        color: #fff;
+      }
       .mat-button-wrapper {
         padding: 0;
       }
