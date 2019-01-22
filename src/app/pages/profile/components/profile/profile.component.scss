@@ -1,16 +1,17 @@
 @mixin amte-profile($primary, $accent, $warn) {
   :host,
   app-profile {
-    .grid-container {
-      overflow-y: auto;
-      height: 100%;
-    }
-    .dashboard-card {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
+    .grid-container{
+      .mat-figure{
+        position: relative;
+        display: block;
+        height: auto;
+        margin:16px;
+      }
+      .mat-grid-tile{
+        padding: 0 !important;
+        width:50% !important;
+      }
     }
     .more-button {
       position: absolute;
@@ -36,17 +37,17 @@
         font-size: 14px;
       }
     }
-    .profile-form{
-     .mat-input-element{
-       background-color: transparent;
-       border:0;
-       color:rgba(0, 0, 0, 0.58);
-       &.active{
-         border-bottom:1px solid #ddd;
-         outline:0 none;
-         color:inherit;
-       }
-     }
+    .profile-form {
+      .mat-input-element {
+        background-color: transparent;
+        border: 0;
+        color: rgba(0, 0, 0, 0.58);
+        &.active {
+          border-bottom: 1px solid #ddd;
+          outline: 0 none;
+          color: inherit;
+        }
+      }
     }
     .btn-grids {
       a {
