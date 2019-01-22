@@ -47,6 +47,7 @@ export interface Auth {
     ORGANIZATION_NAME: string,
     ORGANIZATIONNAME_REQ: string,
     ORG_NAME_EXISTS: string,
+    CURRENT_PASSWORD: string
 }
 export interface Buttons {
     LOGIN: string,
@@ -61,6 +62,8 @@ export interface Buttons {
     RESEND_EMAIL: string,
     CHANGE_EMAIL: string,
     EDIT_ACCOUNT: string
+    CHANGE_PASSWORD: string,
+    NO_THANKS: string
 }
 export interface Messages {
     WELCOME: string,

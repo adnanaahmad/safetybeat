@@ -15,6 +15,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { CoreService } from './core/services/authorization/core.service';
 import { PageNotFoundComponent } from './core/components/pageNotFound/pageNotFound.component';
+import { ProfileComponent } from './pages/profile/components/profile/profile.component';
+import { ModalDialogComponent } from './pages/modalDialog/components/modalDialog/modalDialog.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -23,7 +25,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ModalDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -53,6 +56,7 @@ export function createTranslateLoader(http: HttpClient) {
       multi: true,
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalDialogComponent]
 })
 export class AppModule { }
