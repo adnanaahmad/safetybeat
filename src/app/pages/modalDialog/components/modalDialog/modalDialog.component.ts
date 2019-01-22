@@ -51,7 +51,6 @@ export class ModalDialogComponent implements OnInit {
   }
 
   changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
-    debugger;
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
