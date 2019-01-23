@@ -49,8 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
     this.profileData = JSON.parse(localStorage.getItem('userdata'));
-    // this.user_id = this.profileData.userid;
-    this.user_id = 1;
+    this.user_id = this.profileData.userid;
     this.org_id = this.profileData.orgid;
     this.role = this.profileData.role;
     this.userData = this.getUserData();
@@ -106,18 +105,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.disabled = true;
     this.profileForm.enable();
   }
-  // changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
-  //   if (!valid) {
-  //     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-  //     this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
-  //     return;
-  //   }
-  //   this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-  //   this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-  //   this.modalService.changePassword(value).subscribe((result) => {
-  //     console.log('this is the result that we have gotten', result);
-  //   });
-  // }
   cancelEditAccount() {
     this.disabled = false;
     this.profileForm.disable();
