@@ -15,8 +15,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { CoreService } from './core/services/authorization/core.service';
 import { PageNotFoundComponent } from './core/components/pageNotFound/pageNotFound.component';
-import { ProfileComponent } from './pages/profile/components/profile/profile.component';
 import { ModalDialogComponent } from './pages/modalDialog/components/modalDialog/modalDialog.component';
+import { CookieService } from 'ngx-cookie-service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -50,6 +50,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateService,
     CoreService,
     AuthGuard,
+    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

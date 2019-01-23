@@ -1,6 +1,6 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { LoginRegistrationService } from './LoginRegistrationService';
-import { loginCredentials, LoginResponse, User } from 'src/app/models/user.model';
+import { loginCredentials, LoginResponse } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
