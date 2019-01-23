@@ -23,8 +23,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
   email: FormGroup;
   success: any;
   res: any;
-
-
+  appConstants: any;
   constructor(
     private logging: LoggingService,
     public translate: TranslateService,
@@ -41,6 +40,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
     });
+    this.appConstants = ConstantService.appConstant;
   }
 
   ngOnInit() {

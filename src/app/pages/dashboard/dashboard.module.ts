@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { OrganizationService } from './services/organization.service';
+import { DashboardService } from './services/dashboard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
@@ -18,7 +18,7 @@ import { TokenInterceptorService } from 'src/app/core/services/interceptors/toke
     MaterialModule
   ],
   providers: [
-    OrganizationService,
+    DashboardService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

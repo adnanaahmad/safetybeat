@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -14,17 +15,18 @@ export class FixedNavComponent implements OnInit {
   @Output()
   sidenavToggle = new EventEmitter<boolean>();
   translated: Translation;
+  appIcons: any;
   public navLinks = [
-    { path: '/home', icon: 'dashboard' },
-    { path: '/home/profile', icon: 'person' },
-    { path: '/home', icon: 'supervised_user_circle' }
+    { path: '/home', icon: ConstantService.appIcons.dashboard },
+    { path: '/home/profile', icon: ConstantService.appIcons.person },
+    { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle }
   ];
   public navLinksBottom = [
-    { path: '/home', icon: 'search' },
-    { path: '/home', icon: 'add' },
-    { path: '/home', icon: 'notification_important' },
-    { path: '/home', icon: 'help' },
-    { path: '/home/settings', icon: 'settings' }
+    { path: '/home', icon: ConstantService.appIcons.search },
+    { path: '/home', icon: ConstantService.appIcons.add },
+    { path: '/home', icon: ConstantService.appIcons.notificationImportant },
+    { path: '/home', icon: ConstantService.appIcons.help },
+    { path: '/home/settings', icon: ConstantService.appIcons.settings }
   ];
 
   constructor(public translate: TranslateService,
@@ -32,6 +34,7 @@ export class FixedNavComponent implements OnInit {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
     });
+    this.appIcons = ConstantService.appIcons;
   }
   // Toggle the sidenav
   public toggleSideNav() {
