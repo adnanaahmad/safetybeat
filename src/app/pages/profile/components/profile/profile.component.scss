@@ -2,15 +2,16 @@
   :host,
   app-profile {
     .grid-container {
-      overflow-y: auto;
-      height: 100%;
-    }
-    .dashboard-card {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
+      .mat-figure {
+        position: relative;
+        display: block;
+        height: auto;
+        margin: 16px;
+      }
+      .mat-grid-tile {
+        padding: 0 !important;
+        width: 50% !important;
+      }
     }
     .more-button {
       position: absolute;
@@ -36,6 +37,17 @@
         font-size: 14px;
       }
     }
+    .profile-form {
+      .mat-input-element {
+        background-color: transparent;
+        border: 0;
+        &.active {
+          border-bottom: 1px solid #ddd;
+          outline: 0 none;
+          color: inherit;
+        }
+      }
+    }
     .btn-grids {
       a {
         margin: 5px;
@@ -59,6 +71,17 @@
     .btn-grp {
       button[btn-primary] {
         margin-left: 10px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    app-profile {
+      .grid-container {
+        .mat-grid-tile {
+          width: 100% !important;
+          left: 0 !important;
+          position: relative;
+        }
       }
     }
   }

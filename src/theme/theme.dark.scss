@@ -1,34 +1,34 @@
-@import './imports.scss';
+@import "./imports.scss";
 $primary-pallet: (
-  50: #dff2f0,
-  100: #b0e0d9,
-  200: #7bccc0,
-  300: #43b8a7,
-  400: #00a894,
-  500: #009882,
-  600: #008b75,
-  700: #007b66,
-  800: #006b57,
-  900: #004f3b,
-  A100: #a7ffeb,
-  A200: #64ffda,
-  A400: #1de9b6,
-  A700: #00bfa5,
+  50: #e5e6e7,
+  100: #bec2c3,
+  200: #93999c,
+  300: #677074,
+  400: #475156,
+  500: #263238,
+  600: #222d32,
+  700: #1c262b,
+  800: #171f24,
+  900: #0d1317,
+  A100: #5bb9ff,
+  A200: #28a3ff,
+  A400: #008bf4,
+  A700: #007dda,
   contrast: (
-    50: $black-87-opacity,
-    100: $black-87-opacity,
-    200: $black-87-opacity,
-    300: $black-87-opacity,
-    400: $black-87-opacity,
-    500: white,
-    600: white,
-    700: white,
-    800: $white-87-opacity,
-    900: $white-87-opacity,
-    A100: $black-87-opacity,
-    A200: white,
-    A400: white,
-    A700: white
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff
   )
 );
 $secondary-pallet: (
@@ -95,59 +95,72 @@ $gray-pallete: (
     A700: white
   )
 );
-
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
-$background: mat-palette($gray-pallete);
-
-$dark-theme: mat-dark-theme(
-    $primary,
-    $secondary,
-    $warn
-);
-.dark-theme{
-  &.body-bg{
+$dark-theme: mat-dark-theme($primary, $secondary, $warn);
+.dark-theme {
+  .mat-drawer-container {
+    background-color: mat-color($primary, 600) !important;
+  }
+  .mat-card {
+    background-color: mat-color($primary, 400) !important;
+  }
+  .pagehead {
+    background-color: mat-color($primary, 800) !important;
+  }
+  .mat-menu-panel,
+  .mat-dialog-container,
+  .mat-drawer {
+    background-color: mat-color($primary, 700) !important;
+  }
+  .package-selectors {
+    .mat-radio-button {
+      &.mat-radio-checked {
+        &:before {
+          background-color: mat-color($primary, 500);
+        }
+      }
+    }
+  }
+  &.body-bg {
     background-color: mat-color($primary);
   }
   .topbar,
-  .mini-sidenav{
+  .mini-sidenav {
     background-color: mat-color($primary, 900) !important;
-    color:#fff !important;
+    color: #fff !important;
   }
   .mini-sidenav,
-  mat-nav-list{
-    .nav-link{
-      color:mat-color($primary, 50) !important;
+  mat-nav-list {
+    .nav-link {
+      color: #fff !important;
     }
   }
-  mat-sidenav{
+  .infoTitle {
+    color: #fff;
+    &:before {
+      background: #fff;
+    }
+  }
+  .sideLegend {
     background-color: mat-color($primary) !important;
   }
-.sideLegend {
-  background-color: mat-color($primary) !important;
-}
-.midbox:before{
-  background-color: mat-color($warn);
-}
-
-app-registration{
-  .loginbox{
-      mat-step-header{
-          mat-icon{
-              border: 2px dashed mat-color($primary);
-              color: mat-color($primary);
-          }
-          .mat-step-label-active{
-            mat-icon{
-              border: 2px solid mat-color($primary);
-              background-color: mat-color($primary);
-              color: mat-color($primary,50);
-            }
-            color: mat-color($primary);
-          }
-      }
+  .midbox:before {
+    background-color: mat-color($warn);
   }
-}
-@include amte-setTheme($dark-theme);
+  .mat-horizontal-content-container {
+    padding: 0 !important;
+  }
+  .btn-grids {
+    a {
+      background-color: mat-color($primary, 600);
+      border-color: mat-color($primary, 600) !important;
+      mat-icon {
+        background: mat-color($primary, 400) !important;
+        color: #fff !important;
+      }
+    }
+  }
+  @include amte-setTheme($dark-theme);
 }

@@ -1,35 +1,35 @@
-@import './imports.scss';
+@import "./imports.scss";
 $primary-pallet: (
-    50 : #fef6e9,
-    100 : #fce8c8,
-    200 : #fad8a3,
-    300 : #f7c87e,
-    400 : #f6bd62,
-    500 : #f4b146,
-    600 : #f3aa3f,
-    700 : #f1a137,
-    800 : #ef982f,
-    900 : #ec8820,
-    A100 : #ffffff,
-    A200 : #fff7f0,
-    A400 : #ffddbd,
-    A700 : #ffcfa3,
-    contrast: (
-        50 : #000000,
-        100 : #000000,
-        200 : #000000,
-        300 : #000000,
-        400 : #000000,
-        500 : #000000,
-        600 : #000000,
-        700 : #000000,
-        800 : #000000,
-        900 : #000000,
-        A100 : #000000,
-        A200 : #000000,
-        A400 : #000000,
-        A700 : #000000,
-    )
+  50 : #ece8e7,
+  100 : #cec6c3,
+  200 : #aea09b,
+  300 : #8e7973,
+  400 : #755d55,
+  500 : #5d4037,
+  600 : #553a31,
+  700 : #4b322a,
+  800 : #412a23,
+  900 : #301c16,
+  A100 : #ff9272,
+  A200 : #ff6b3f,
+  A400 : #ff430c,
+  A700 : #f13700,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #ffffff,
+      A700 : #ffffff,
+  )
 );
 $secondary-pallet: (
   50: #ffe8f0,
@@ -95,83 +95,127 @@ $gray-pallete: (
     A700: white
   )
 );
+$theme-background: (
+  status-bar: white,
+  app-bar:    mat-color($primary-pallet,600),
+  background: mat-color($primary-pallet,600),
+  hover:      rgba(white, 0.4), 
+  card:       mat-color($primary-pallet,800),
+  dialog:     mat-color($primary-pallet,600),
+  disabled-button: $white-12-opacity,
+  raised-button: mat-color($primary-pallet,600),
+  focused-button: $white-6-opacity,
+  selected-button: mat-color($primary-pallet,900),
+  selected-disabled-button: mat-color($primary-pallet,800),
+  disabled-button-toggle: black,
+  unselected-chip: mat-color($primary-pallet,700),
+  disabled-list-option: black,
+);
+
+$theme-foreground: (
+  base:              white,
+  divider:           white,
+  dividers:          white,
+  disabled:          white,
+  disabled-button:   white,
+  disabled-text:     white,
+  hint-text:         white,
+  secondary-text:    white,
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        white,
+  slider-off-active: white,
+);
+
+
+@function createOrangeTheme($primary,$secondary,$warn){
+  @return(
+    primary: $primary,
+    accent: $secondary,
+    warn: $warn,
+    is-dark: false,
+    foreground: $theme-foreground,
+    background: $theme-background,
+  )
+};
+
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
-$background: mat-palette($gray-pallete);
+// $background: mat-palette($gray-pallete);
 
-$orange-dark: mat-dark-theme(
+$orange-dark: createOrangeTheme(
     $primary,
     $secondary,
     $warn
 );
-
-.orange-dark{
-  
-  .package-selectors{
-    .mat-radio-button{
-    &.mat-radio-checked{
-        &:before{
-        background-color: mat-color($primary, 500);
+.orange-dark {
+  .package-selectors {
+    .mat-radio-button {
+      &.mat-radio-checked {
+        &:before {
+          background-color: mat-color($primary, 500);
         }
+      }
     }
-    }
-}
-  a{
+  }
+  a {
     color: mat-color($primary);
   }
-        &.body-bg{
-          background-color: mat-color($primary);
-        }
-        .pagehead{
-          background-color: mat-color($primary, 50) !important;
-        }
-        .topbar,
-        .mini-sidenav{
-          background-color: mat-color($primary, 900) !important;
-          color:#fff !important;
-        }
-        .mini-sidenav,
-        mat-nav-list{
-          .nav-link{
-            color:#fff !important;
-          }
-        }
-        mat-sidenav{
-          background-color: mat-color($primary) !important;
-        }
-        .infoTitle{
-          color: mat-color($primary);
-          &:before{
-            background: mat-color($primary);
-        }
-        }
-      .sideLegend {
-        background-color: mat-color($primary) !important;
-      }
-      .midbox:before{
-        background-color: mat-color($warn);
-      }
-      app-registration{
-        .loginbox{
-            mat-step-header{
-                mat-icon{
-                    border: 2px dashed mat-color($primary);
-                    color: mat-color($primary);
-                }
-                .mat-step-label-active{
-                  mat-icon{
-                    border: 2px solid mat-color($primary);
-                    background-color: mat-color($primary);
-                    color: mat-color($primary,50);
-                  }
-                  color: mat-color($primary);
-                }
-            }
-            a{
-              color: mat-color($primary) !important;
-            }
-        }
+  &.body-bg {
+    background-color: mat-color($primary);
+  }
+  .pagehead {
+    background-color: mat-color($primary, 50) !important;
+  }
+  .topbar,
+  .mini-sidenav {
+    background-color: mat-color($primary, 900) !important;
+    color: #fff !important;
+  }
+  .mini-sidenav,
+  mat-nav-list {
+    .nav-link {
+      color: #fff !important;
     }
-    @include amte-setTheme($orange-dark);
+  }
+  mat-sidenav {
+    background-color: mat-color($primary) !important;
+  }
+  .infoTitle {
+    color: mat-color($primary);
+    &:before {
+      background: mat-color($primary);
+    }
+  }
+  .sideLegend {
+    background-color: mat-color($primary) !important;
+  }
+  .midbox:before {
+    background-color: mat-color($warn);
+  }
+  app-registration {
+    .loginbox {
+      mat-step-header {
+        mat-icon {
+          border: 2px dashed mat-color($primary);
+          color: mat-color($primary);
+        }
+        .mat-step-label-active {
+          mat-icon {
+            border: 2px solid mat-color($primary);
+            background-color: mat-color($primary);
+            color: mat-color($primary, 50);
+          }
+          color: mat-color($primary);
+        }
+      }
+      a {
+        color: mat-color($primary) !important;
+      }
+    }
+  }
+  @include amte-setTheme($orange-dark);
 }

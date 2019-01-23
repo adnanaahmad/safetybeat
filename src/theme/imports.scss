@@ -10,6 +10,7 @@
 @import "src/app/pages/profile/components/profile/profile.component.scss";
 @import "src/app/pages/profile/components/user/user.component.scss";
 @import "src/app/pages/settings/components/settings.component.scss";
+@import "src/app/pages/dashboard/components/dashboard/dashboard.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -30,4 +31,5 @@
   @include amte-profile($primary, $accent, $warn);
   @include amte-user($primary, $accent, $warn);
   @include amte-settings($primary, $accent, $warn);
+  @include amte-dashboard($primary, $accent, $warn);
 }

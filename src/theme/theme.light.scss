@@ -129,17 +129,11 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       color: #fff !important;
     }
   }
-  mat-sidenav {
-    background-color: mat-color($primary) !important;
-  }
   .infoTitle {
     color: mat-color($primary);
     &:before {
       background: mat-color($primary);
     }
-  }
-  .sideLegend {
-    background-color: mat-color($primary) !important;
   }
   .midbox:before {
     background-color: mat-color($warn);
