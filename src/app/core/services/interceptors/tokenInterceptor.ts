@@ -1,9 +1,7 @@
-import { Injectable, Injector } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-// service
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { CoreService } from '../authorization/core.service';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
     constructor(private auth: CoreService,

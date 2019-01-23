@@ -1,16 +1,14 @@
-import { Component, OnInit, Output, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { share } from 'rxjs/operators';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
-import { SettingService } from 'src/app/shared/settings/setting.service';
 import { Translation } from 'src/app/models/translate.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EditUser, changePassword } from 'src/app/models/profile.model';
+import { EditUser } from 'src/app/models/profile.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ModalDialogComponent } from 'src/app/pages/modalDialog/components/modalDialog/modalDialog.component';
-import { ModalConfigService } from 'src/app/pages/modalDialog/services/modalConfig.service';
 
 @Component({
   selector: 'app-profile',
@@ -38,11 +36,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private profile: ProfileService,
     private logging: LoggingService,
     private translate: TranslateService,
-    private settingsProvider: SettingService,
     private formBuilder: FormBuilder,
     public toastProvider: ToastService,
     public dialog: MatDialog,
-    private modalService: ModalConfigService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
@@ -97,7 +93,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       data: { currentPassword: this.currentPassword, password1: this.password1, password2: this.password2 }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('this dialog has been closed');
     });
   }
 

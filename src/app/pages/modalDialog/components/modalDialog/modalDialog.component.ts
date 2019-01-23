@@ -1,13 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { changePassword } from 'src/app/models/profile.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ModalConfigService } from '../../services/modalConfig.service';
-import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
@@ -28,7 +26,6 @@ export class ModalDialogComponent implements OnInit {
     private translate: TranslateService,
     private logging: LoggingService,
     private modalService: ModalConfigService,
-    private cookie: CookieService,
     private toastProvider: ToastService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
@@ -37,7 +34,6 @@ export class ModalDialogComponent implements OnInit {
     });
     this.profileData = JSON.parse(localStorage.getItem('userdata'));
     this.user_id = this.profileData.userid;
-    console.log(this.user_id)
   }
 
   ngOnInit() {
@@ -59,8 +55,6 @@ export class ModalDialogComponent implements OnInit {
   }
 
   changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
-    const abc = this.cookie.check('csrftoken');
-    console.log(abc);
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);

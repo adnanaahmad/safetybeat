@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// tslint:disable-next-line:import-blacklist
 import { BehaviorSubject } from 'rxjs';
 import { ConstantService } from '../../shared/constant/constant.service';
 
