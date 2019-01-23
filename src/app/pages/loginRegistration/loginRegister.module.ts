@@ -10,8 +10,6 @@ import { LoginRegistrationService } from './services/LoginRegistrationService';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
 import { ToastrModule } from 'ng6-toastr-notifications';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { createTranslateLoader } from 'src/app/app.module';
 import { VerificationComponent } from './components/verification/verification.component';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassword.component';

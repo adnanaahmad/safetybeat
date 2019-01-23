@@ -1,3 +1,14 @@
 @mixin amte-settings($primary, $accent, $warn) {
-
+  :host,
+  app-settings {
+    .theme-selector {
+      .mat-radio-button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .mat-list-item {
+        height: auto !important;
+      }
+    }
+  }
 }

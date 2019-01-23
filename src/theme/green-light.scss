@@ -1,37 +1,36 @@
-@import './imports.scss';
+@import "./imports.scss";
 $primary-pallet: (
-  50 : #f3fdf3,
-  100 : #e2fbe0,
-  200 : #cff9cc,
-  300 : #bbf6b8,
-  400 : #adf4a8,
-  500 : #9ef299,
-  600 : #96f091,
-  700 : #8cee86,
-  800 : #82ec7c,
-  900 : #70e86b,
-  A100 : #ffffff,
-  A200 : #ffffff,
-  A400 : #f7fff6,
-  A700 : #deffdd,
+  50: #ecefe7,
+  100: #cfd7c2,
+  200: #afbc9a,
+  300: #8fa171,
+  400: #778c52,
+  500: #5f7834,
+  600: #57702f,
+  700: #4d6527,
+  800: #435b21,
+  900: #324815,
+  A100: #c7ff85,
+  A200: #b0ff52,
+  A400: #99ff1f,
+  A700: #8dff05,
   contrast: (
-      50 : #000000,
-      100 : #000000,
-      200 : #000000,
-      300 : #000000,
-      400 : #000000,
-      500 : #000000,
-      600 : #000000,
-      700 : #000000,
-      800 : #000000,
-      900 : #000000,
-      A100 : #000000,
-      A200 : #000000,
-      A400 : #000000,
-      A700 : #000000,
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
   )
 );
-
 $secondary-pallet: (
   50: #ffe8f0,
   100: #ffc6d9,
@@ -96,59 +95,69 @@ $gray-pallete: (
     A700: white
   )
 );
-
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $background: mat-palette($gray-pallete);
-
-$green-light: mat-light-theme(
-    $primary,
-    $secondary,
-    $warn
-);
-
-.green-light{
-  &.body-bg{
+$green-light: mat-light-theme($primary, $secondary, $warn);
+.green-light {
+  &.body-bg {
     background-color: mat-color($primary);
   }
+  // Radio Button Coloring Start
+  // .mat-radio-button.mat-accent.mat-radio-checked {
+  //   .mat-radio-outer-circle {
+  //     border-color: mat-color($primary) !important;
+  //   }
+  // }
+  // .mat-radio-checked {
+  //   .mat-radio-inner-circle {
+  //     background-color: mat-color($primary) !important;
+  //   }
+  // }
+  // .mat-radio-button{
+  //   .mat-ripple-element{
+  //     background-color: mat-color($primary) !important;
+  //   }
+  // }
+  // Radio Button Coloring End
   .topbar,
-  .mini-sidenav{
+  .mini-sidenav {
     background-color: mat-color($primary, 900) !important;
-    color:#fff !important;
+    color: #fff !important;
   }
   .mini-sidenav,
-  mat-nav-list{
-    .nav-link{
-      color:mat-color($primary, 50) !important;
+  mat-nav-list {
+    .nav-link {
+      color: mat-color($primary, 50) !important;
     }
   }
-  mat-sidenav{
+  .pagehead{
+    background-color: mat-color($primary, 50) !important;
+  }
+  .sideLegend {
     background-color: mat-color($primary) !important;
   }
-.sideLegend {
-  background-color: mat-color($primary) !important;
-}
-.midbox:before{
-  background-color: mat-color($warn);
-}
-app-registration{
-  .loginbox{
-      mat-step-header{
-          mat-icon{
-              border: 2px dashed mat-color($primary);
-              color: mat-color($primary);
-          }
-          .mat-step-label-active{
-            mat-icon{
-              border: 2px solid mat-color($primary);
-              background-color: mat-color($primary);
-              color: mat-color($primary,50);
-            }
-            color: mat-color($primary);
-          }
-      }
+  .midbox:before {
+    background-color: mat-color($warn);
   }
-}
-@include amte-setTheme($green-light);
+  app-registration {
+    .loginbox {
+      mat-step-header {
+        mat-icon {
+          border: 2px dashed mat-color($primary);
+          color: mat-color($primary);
+        }
+        .mat-step-label-active {
+          mat-icon {
+            border: 2px solid mat-color($primary);
+            background-color: mat-color($primary);
+            color: mat-color($primary, 50);
+          }
+          color: mat-color($primary);
+        }
+      }
+    }
+  }
+  @include amte-setTheme($green-light);
 }

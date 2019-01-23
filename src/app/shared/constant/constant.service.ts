@@ -24,7 +24,7 @@ export class ConstantService {
     resendverification: `${environment.apiUrl}/account/resend-verification/`,
     changeEmail: `${environment.apiUrl}/editEmail`,
     editProfile: `${environment.apiUrl}/editProfile`,
-    changePassword: `${environment.apiUrl}/password/change/`
+    changePassword: `${environment.apiUrl}/changePassword`
   };
   static toast = {
     location: 'toast-top-left',

@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { changePassword } from 'src/app/models/profile.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ModalConfigService } from '../../services/modalConfig.service';
-import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -16,6 +16,8 @@ import { LoginRegistrationService } from 'src/app/pages/loginRegistration/servic
 export class ModalDialogComponent implements OnInit {
   changePasswordForm: FormGroup;
   translated: Translation;
+  profileData: any;
+  user_id: any;
 
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
@@ -24,12 +26,14 @@ export class ModalDialogComponent implements OnInit {
     private translate: TranslateService,
     private logging: LoggingService,
     private modalService: ModalConfigService,
-    private loginService: LoginRegistrationService
+    private toastProvider: ToastService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
+    this.profileData = JSON.parse(localStorage.getItem('userdata'));
+    this.user_id = this.profileData.userid;
   }
 
   ngOnInit() {
@@ -51,7 +55,6 @@ export class ModalDialogComponent implements OnInit {
   }
 
   changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
-    debugger;
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
@@ -59,13 +62,24 @@ export class ModalDialogComponent implements OnInit {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.modalService.changePassword({
-      csrfmiddlewaretoken: this.loginService.getToken(),
-      old_password: value.currentPassword, new_password1: value.password1,
-      new_password2: value.password2
-    }).subscribe((result) => {
-      console.log('this is the result that we have gotten', result);
-    });
+    this.modalService.changePassword(this.user_id, {
+      oldPassword: value.currentPassword,
+      newPassword: value.password1
+    }).subscribe((res) => {
+      this.dialogRef.close();
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.toastProvider.createSuccessToaster(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
+        this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+    },
+      (error) => {
+        this.toastProvider.createErrorToaster(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+          this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
+          this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.logging.appLoggerForDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+          this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+      });
 
   }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
-import { ConstantService } from '../../../shared/constant/constant.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 @Component({
   selector: 'app-settings',

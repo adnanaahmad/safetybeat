@@ -1,14 +1,13 @@
-import { Component, OnInit, OnDestroy, Renderer2, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { RegistrationComponent } from '../registration/registration.component';
 import { Verification } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { PlatformLocation, Location } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-verification',
@@ -101,7 +100,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.loginRegService.changeEmail(this.data.userId, value).subscribe((data) => {
       this.res = data;
       this.data.userData.email = value.email;
-      console.log(this.data.userData.email);
       this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((result) => {
         this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
         this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);

@@ -10,12 +10,10 @@ export interface loginCredentials {
     username: string;
     password: string;
 }
-
 export interface LoginResponse {
     user: User;
     token: string;
 }
-
 export interface RegisterUser {
     username: string;
     email: string;
@@ -25,7 +23,6 @@ export interface RegisterUser {
     password: string;
     password2: string;
 }
-
 export interface RegisterOrganization {
     name: string;
     type: string;
@@ -38,12 +35,10 @@ export interface RegisterOrganization {
     accountNo: string;
     phoneNo: string;
 }
-
 export interface ModulePackage {
     name: string;
     package: object;
 }
-
 export interface registerData {
     user: RegisterUser;
     organization: RegisterOrganization;
@@ -61,11 +56,9 @@ export interface packges {
     noOfUsers: string;
     packageName: string;
 }
-
 export interface Verification {
     email: string
 }
-
 export interface VerificationResponse {
     detail: string;
 }
