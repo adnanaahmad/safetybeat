@@ -22,6 +22,9 @@ body {
 .paragraph {
   line-height: 1.7;
 }
+[btn-primary]{
+  color:#fff !important;
+}
 .monogram {
   position: absolute;
   top: 50%;
@@ -42,6 +45,9 @@ body {
     width: 65px;
   }
 }
+.topbar{
+  box-shadow: 0px 4px 7px 1px #00000036;
+}
 .noflex {
   display: block !important;
   height: auto !important;
@@ -59,7 +65,7 @@ body {
   font-size: 18px !important;
   font-weight: 600;
   position: relative;
-  margin: 10px 0 0px !important;
+  margin: 10px 0 !important;
   &:before {
     content: "";
     display: block;
@@ -69,12 +75,6 @@ body {
     float: left;
     margin-top: 10px;
     margin-right: 8px;
-  }
-}
-button {
-  .material-icons {
-    font-size: 16px;
-    line-height: 1.3;
   }
 }
 .pagehead {
@@ -130,8 +130,23 @@ button {
     top: -4px;
   }
 }
+.mat-dialog-content{
+  overflow:unset !important;
+}
+.notifier__notification-button{
+  opacity: 1 !important;
+  svg{
+    width:20px;
+    height:20px;
+    background:transparent;
+    opacity:1 !important;
+  }
+}
 [no-box-shadow] {
   box-shadow: none !important;
+}
+.mat-dialog-actions{
+  margin-bottom:0 !important;
 }
 .loginbox {
   padding: 40px !important;
@@ -360,6 +375,28 @@ hr.forheading {
   }
 }
 @media (max-width: 768px) {
+  app-profile{
+    .grid-container{
+      .mat-grid-tile{
+        width: 100% !important;
+      }
+    }
+    .pagehead{
+      display: block;
+      text-align: center;
+      margin-bottom: 10px;
+      .user-avatar{
+        display:block;
+        margin:0 auto;
+      }
+      .user-info{
+        padding:0;
+        p{
+          white-space: normal;
+        }
+      }
+    }
+  }
   .midbox {
     width: 70% !important;
   }
@@ -459,5 +496,14 @@ hr.forheading {
   }
   .sideLegend .legendContent {
     padding: 20px !important;
+  }
+  .mat-card-header{
+    .mat-card-title{
+      font-size:16px !important;
+    }
+  }
+  .infoTitle:before{
+    width: 15px;
+    margin-top: 8px;
   }
 }

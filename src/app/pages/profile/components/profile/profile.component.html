@@ -9,14 +9,14 @@
 </mat-toolbar>
 
 <div class="text-right paddingbox">
-  <button mat-raised-button color="primary" (click)="editAccount()">
+  <button btn-primary mat-raised-button color="primary" (click)="editAccount()">
     <mat-icon>edit</mat-icon>{{translated.BUTTONS.EDIT_ACCOUNT}}
   </button>
 </div>
 
 <div class="grid-container">
-  <mat-grid-list cols="2" rowHeight="250px">
-    <mat-grid-tile colspan="1" rowspan="1">
+  <mat-grid-list cols="2">
+    <mat-grid-tile>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title class="infoTitle">About you</mat-card-title>
@@ -37,12 +37,12 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile colspan="1" rowspan="2">
+    <mat-grid-tile>
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title class="infoTitle">Profile Information</mat-card-title>
+          <mat-card-title class="infoTitle">Profile Info</mat-card-title>
         </mat-card-header>
-        <form [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
+        <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
           <mat-card-content *ngIf="userData | async; let userData">
             <mat-list role="list">
               <div class="form-group">
