@@ -4,7 +4,6 @@ import { Observable, forkJoin } from 'rxjs';
 import { ConstantService } from '../../../shared/constant/constant.service';
 import { TranslateService } from '@ngx-translate/core';
 import { loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse } from 'src/app/models/user.model';
-import { ToastService } from 'src/app/shared/toast/toast.service';
 
 @Injectable({ providedIn: 'root' })
 export class LoginRegistrationService {

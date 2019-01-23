@@ -20,7 +20,6 @@ export class LoggingService {
     appLoggerForDev(type: string, message: any): void {
         if (ConstantService.config.devMode) {
             this.notifier.notify(type, message);
-            console.log(message);
         }
     }
 }

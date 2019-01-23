@@ -2,7 +2,6 @@ import { Component, Injector, OnInit, Renderer2, HostBinding } from '@angular/co
 import { TranslateService } from '@ngx-translate/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
 import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
-import { ConstantService } from './shared/constant/constant.service';
 
 @Component({
   selector: 'app-root',

@@ -105,7 +105,9 @@ export interface Messages {
     NOT_REGISTETRED: string,
     INVALID_PASSWORD: string,
     RESETFAIL: string,
-    RESETFAIL_MSG: string
+    RESETFAIL_MSG: string,
+    CHANGEPASSWORD_FAIL: string,
+    CHANGEPASSWORD_SUCCESS: string
 }
 export interface Logger {
     STATUS: LoggerStatus,
@@ -142,5 +144,8 @@ export interface LoggerMessage {
     VERIFICATION_COMPONENT: String,
     PROFILE_CREDENTIAL_REQ: string,
     PROFILE_UPDATED: string,
-    PROFILE_NOTUPDATED: string
+    PROFILE_NOTUPDATED: string,
+    PASSWORD_CHANGE: string,
+    PASSWORDCHANGE_UNSUCCESS: string,
+    CHANGEPASSWORDFOR_DEV: string
 }

@@ -6,8 +6,6 @@ import { VerificationComponent } from './components/verification/verification.co
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassword.component';
 
-
-
 const authRoutes: Routes = [
   {
     path: '',
