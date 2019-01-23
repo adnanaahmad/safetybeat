@@ -130,7 +130,6 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     }
   }
   .infoTitle {
-    color: mat-color($primary);
     &:before {
       background: mat-color($primary);
     }

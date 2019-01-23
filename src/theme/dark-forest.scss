@@ -97,31 +97,31 @@ $gray-pallete: (
 );
 $theme-background: (
   status-bar: white,
-  app-bar:    mat-color($primary-pallet,600),
-  background: mat-color($primary-pallet,600),
-  hover:      rgba(white, 0.4), 
-  card:       mat-color($primary-pallet,800),
-  dialog:     mat-color($primary-pallet,600),
+  app-bar:    mat-color($primary-pallet, 600),
+  background: mat-color($primary-pallet, 600),
+  hover:      mat-color($primary-pallet, 600),
+  card:       mat-color($primary-pallet, 800),
+  dialog:     mat-color($primary-pallet, 600),
   disabled-button: $white-12-opacity,
-  raised-button: mat-color($primary-pallet,600),
+  raised-button: mat-color($primary-pallet, 600),
   focused-button: $white-6-opacity,
-  selected-button: mat-color($primary-pallet,900),
-  selected-disabled-button: mat-color($primary-pallet,800),
+  selected-button: mat-color($primary-pallet, 900),
+  selected-disabled-button: mat-color($primary-pallet, 800),
   disabled-button-toggle: black,
-  unselected-chip: mat-color($primary-pallet,700),
+  unselected-chip: mat-color($primary-pallet, 700),
   disabled-list-option: black,
 );
 
 $theme-foreground: (
   base:              white,
-  divider:           white,
-  dividers:          white,
+  divider:            mat-color($primary-pallet,300),
+  dividers:           mat-color($primary-pallet,800),
   disabled:          white,
   disabled-button:   white,
   disabled-text:     white,
   hint-text:         white,
   secondary-text:    white,
-  icon:              white,
+  icon:               mat-color($primary-pallet,800),
   icons:             white,
   text:              white,
   slider-min:        white,
@@ -130,7 +130,7 @@ $theme-foreground: (
 );
 
 
-@function createOrangeTheme($primary,$secondary,$warn){
+@function createTheme($primary,$secondary,$warn){
   @return(
     primary: $primary,
     accent: $secondary,
@@ -146,12 +146,12 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 // $background: mat-palette($gray-pallete);
 
-$orange-dark: createOrangeTheme(
+$theme: createTheme(
     $primary,
     $secondary,
     $warn
 );
-.orange-dark {
+.dark-forest {
   .package-selectors {
     .mat-radio-button {
       &.mat-radio-checked {
@@ -168,7 +168,7 @@ $orange-dark: createOrangeTheme(
     background-color: mat-color($primary);
   }
   .pagehead {
-    background-color: mat-color($primary, 50) !important;
+    background-color: mat-color($primary, 400) !important;
   }
   .topbar,
   .mini-sidenav {
@@ -185,9 +185,8 @@ $orange-dark: createOrangeTheme(
     background-color: mat-color($primary) !important;
   }
   .infoTitle {
-    color: mat-color($primary);
     &:before {
-      background: mat-color($primary);
+      background: mat-color($primary, 400);
     }
   }
   .sideLegend {
@@ -198,6 +197,11 @@ $orange-dark: createOrangeTheme(
   }
   app-registration {
     .loginbox {
+      .mat-focused{
+        .mat-form-field-label{
+          color: #fff !important;
+        }
+      }
       mat-step-header {
         mat-icon {
           border: 2px dashed mat-color($primary);
@@ -217,5 +221,5 @@ $orange-dark: createOrangeTheme(
       }
     }
   }
-  @include amte-setTheme($orange-dark);
+  @include amte-setTheme($theme);
 }

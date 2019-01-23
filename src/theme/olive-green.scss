@@ -95,12 +95,63 @@ $gray-pallete: (
     A700: white
   )
 );
+
+$theme-background: (
+  status-bar: white,
+  app-bar:    mat-color($primary-pallet,600),
+  background: mat-color($primary-pallet,600),
+  hover:      rgba(white, 0.4), 
+  card:       mat-color($primary-pallet,800),
+  dialog:     mat-color($primary-pallet,600),
+  disabled-button: $white-12-opacity,
+  raised-button: mat-color($primary-pallet,600),
+  focused-button: $white-6-opacity,
+  selected-button: mat-color($primary-pallet,900),
+  selected-disabled-button: mat-color($primary-pallet,800),
+  disabled-button-toggle: black,
+  unselected-chip: mat-color($primary-pallet,700),
+  disabled-list-option: black,
+);
+
+$theme-foreground: (
+  base:              white,
+  divider:            mat-color($primary-pallet,800),
+  dividers:           mat-color($primary-pallet,800),
+  disabled:          white,
+  disabled-button:   white,
+  disabled-text:     white,
+  hint-text:         white,
+  secondary-text:    white,
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        white,
+  slider-off-active: white,
+);
+
+
+@function createTheme($primary,$secondary,$warn){
+  @return(
+    primary: $primary,
+    accent: $secondary,
+    warn: $warn,
+    is-dark: false,
+    foreground: $theme-foreground,
+    background: $theme-background,
+  )
+};
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
-$background: mat-palette($gray-pallete);
-$green-light: mat-light-theme($primary, $secondary, $warn);
-.green-light {
+// $background: mat-palette($gray-pallete);
+
+$theme: createTheme(
+    $primary,
+    $secondary,
+    $warn
+);
+.olive-green {
   &.body-bg {
     background-color: mat-color($primary);
   }
@@ -159,5 +210,5 @@ $green-light: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
-  @include amte-setTheme($green-light);
+  @include amte-setTheme($theme);
 }
