@@ -1,34 +1,34 @@
 @import "./imports.scss";
 $primary-pallet: (
-  50 : #ece8e7,
-  100 : #cec6c3,
-  200 : #aea09b,
-  300 : #8e7973,
-  400 : #755d55,
-  500 : #5d4037,
-  600 : #553a31,
-  700 : #4b322a,
-  800 : #412a23,
-  900 : #301c16,
-  A100 : #ff9272,
-  A200 : #ff6b3f,
-  A400 : #ff430c,
-  A700 : #f13700,
+  50: #ece8e7,
+  100: #cec6c3,
+  200: #aea09b,
+  300: #8e7973,
+  400: #755d55,
+  500: #5d4037,
+  600: #553a31,
+  700: #4b322a,
+  800: #412a23,
+  900: #301c16,
+  A100: #ff9272,
+  A200: #ff6b3f,
+  A400: #ff430c,
+  A700: #f13700,
   contrast: (
-      50 : #000000,
-      100 : #000000,
-      200 : #000000,
-      300 : #ffffff,
-      400 : #ffffff,
-      500 : #ffffff,
-      600 : #ffffff,
-      700 : #ffffff,
-      800 : #ffffff,
-      900 : #ffffff,
-      A100 : #000000,
-      A200 : #000000,
-      A400 : #ffffff,
-      A700 : #ffffff,
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff
   )
 );
 $secondary-pallet: (
@@ -97,75 +97,94 @@ $gray-pallete: (
 );
 $theme-background: (
   status-bar: white,
-  app-bar:    mat-color($primary-pallet, 600),
+  app-bar: mat-color($primary-pallet, 600),
   background: mat-color($primary-pallet, 600),
-  hover:      mat-color($primary-pallet, 600),
-  card:       mat-color($primary-pallet, 800),
-  dialog:     mat-color($primary-pallet, 600),
+  hover: rgba(white, 0.05),
+  card: mat-color($primary-pallet, 800),
+  dialog: mat-color($primary-pallet, 600),
   disabled-button: $white-12-opacity,
   raised-button: mat-color($primary-pallet, 600),
   focused-button: $white-6-opacity,
-  selected-button: mat-color($primary-pallet, 900),
-  selected-disabled-button: mat-color($primary-pallet, 800),
+  selected-button: mat-color($primary-pallet, 50),
+  selected-disabled-button: mat-color($primary-pallet, 50),
   disabled-button-toggle: black,
-  unselected-chip: mat-color($primary-pallet, 700),
-  disabled-list-option: black,
+  unselected-chip: mat-color($primary-pallet, 50),
+  disabled-list-option: black
 );
-
 $theme-foreground: (
-  base:              white,
-  divider:            mat-color($primary-pallet,300),
-  dividers:           mat-color($primary-pallet,800),
-  disabled:          white,
-  disabled-button:   white,
-  disabled-text:     white,
-  hint-text:         white,
-  secondary-text:    white,
-  icon:               mat-color($primary-pallet,800),
-  icons:             white,
-  text:              white,
-  slider-min:        white,
-  slider-off:        white,
-  slider-off-active: white,
+  base: white,
+  divider: mat-color($primary-pallet, 50),
+  dividers: mat-color($primary-pallet, 50),
+  disabled: white,
+  disabled-button: white,
+  disabled-text: white,
+  hint-text: white,
+  secondary-text: white,
+  icon: white,
+  icons: white,
+  text: white,
+  slider-min: white,
+  slider-off: white,
+  slider-off-active: white
 );
-
-
-@function createTheme($primary,$secondary,$warn){
-  @return(
+@function createTheme($primary, $secondary, $warn) {
+  @return (
     primary: $primary,
     accent: $secondary,
     warn: $warn,
     is-dark: false,
     foreground: $theme-foreground,
-    background: $theme-background,
-  )
-};
-
+    background: $theme-background
+  );
+}
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
-// $background: mat-palette($gray-pallete);
-
-$theme: createTheme(
-    $primary,
-    $secondary,
-    $warn
-);
+$theme: createTheme($primary, $secondary, $warn);
 .dark-forest {
+  app-login,
+  app-forgot-password {
+    .mat-figure {
+      background-color: mat-color($primary, 500) !important;
+    }
+  }
+  .monogram {
+    border-color: mat-color($primary, 400) !important;
+  }
   .package-selectors {
+    svg {
+      background-color: mat-color($primary, 200) !important;
+    }
     .mat-radio-button {
+      background-color: mat-color($primary, 500);
       &.mat-radio-checked {
+        .trigger + svg {
+          background-color: mat-color($primary, 900) !important;
+        }
         &:before {
-          background-color: mat-color($primary, 500);
+          background-color: mat-color($primary, 900);
         }
       }
     }
   }
+  .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #fff !important;
+  }
+  .mat-pseudo-checkbox-checked {
+    background: #fff !important;
+  }
+  .loginbox {
+    .mat-form-field.mat-focused {
+      .mat-form-field-label {
+        color: #fff !important;
+      }
+    }
+  }
   a {
-    color: mat-color($primary);
+    color: mat-color($primary, 50);
   }
   &.body-bg {
-    background-color: mat-color($primary);
+    background-color: mat-color($primary, 700);
   }
   .pagehead {
     background-color: mat-color($primary, 400) !important;
@@ -181,9 +200,6 @@ $theme: createTheme(
       color: #fff !important;
     }
   }
-  mat-sidenav {
-    background-color: mat-color($primary) !important;
-  }
   .infoTitle {
     &:before {
       background: mat-color($primary, 400);
@@ -197,27 +213,20 @@ $theme: createTheme(
   }
   app-registration {
     .loginbox {
-      .mat-focused{
-        .mat-form-field-label{
-          color: #fff !important;
-        }
-      }
       mat-step-header {
-        mat-icon {
-          border: 2px dashed mat-color($primary);
-          color: mat-color($primary);
+        .mat-step-label {
+          mat-icon {
+            border-color: mat-color($primary, 50);
+            color: mat-color($primary, 50);
+          }
         }
         .mat-step-label-active {
           mat-icon {
-            border: 2px solid mat-color($primary);
+            border-color: mat-color($primary);
             background-color: mat-color($primary);
-            color: mat-color($primary, 50);
+            color: #fff !important;
           }
-          color: mat-color($primary);
         }
-      }
-      a {
-        color: mat-color($primary) !important;
       }
     }
   }

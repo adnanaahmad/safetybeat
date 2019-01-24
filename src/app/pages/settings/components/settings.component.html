@@ -4,21 +4,22 @@
     <mat-card>
       <mat-list-item>
         <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
-          <mat-radio-button value="light-theme">Light (Default)</mat-radio-button>
+          <mat-radio-button value="light-theme"
+            >Light (Default)</mat-radio-button
+          >
           <mat-radio-button value="dark-theme">Evil Dark</mat-radio-button>
           <mat-radio-button value="olive-green">Olive Green</mat-radio-button>
           <mat-radio-button value="dark-forest">Dark Forest</mat-radio-button>
         </mat-radio-group>
       </mat-list-item>
     </mat-card>
-    <mat-divider></mat-divider>
-    <br>
+    <br />
     <h3 mat-subheader>Other Settings</h3>
     <mat-card>
       <mat-list-item *ngFor="let note of notes">
         <mat-icon mat-list-icon>note</mat-icon>
-        <h4 mat-line>{{note.name}}</h4>
-        <p mat-line> {{note.updated | date}} </p>
+        <h4 mat-line>{{ note.name }}</h4>
+        <p mat-line>{{ note.updated | date }}</p>
       </mat-list-item>
     </mat-card>
   </mat-list>

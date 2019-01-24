@@ -95,83 +95,71 @@ $gray-pallete: (
     A700: white
   )
 );
-
-$theme-background: (
-  status-bar: white,
-  app-bar:    mat-color($primary-pallet,600),
-  background: mat-color($primary-pallet,600),
-  hover:      rgba(white, 0.4), 
-  card:       mat-color($primary-pallet,800),
-  dialog:     mat-color($primary-pallet,600),
-  disabled-button: $white-12-opacity,
-  raised-button: mat-color($primary-pallet,600),
-  focused-button: $white-6-opacity,
-  selected-button: mat-color($primary-pallet,900),
-  selected-disabled-button: mat-color($primary-pallet,800),
-  disabled-button-toggle: black,
-  unselected-chip: mat-color($primary-pallet,700),
-  disabled-list-option: black,
-);
-
-$theme-foreground: (
-  base:              white,
-  divider:            mat-color($primary-pallet,800),
-  dividers:           mat-color($primary-pallet,800),
-  disabled:          white,
-  disabled-button:   white,
-  disabled-text:     white,
-  hint-text:         white,
-  secondary-text:    white,
-  icon:              white,
-  icons:             white,
-  text:              white,
-  slider-min:        white,
-  slider-off:        white,
-  slider-off-active: white,
-);
-
-
-@function createTheme($primary,$secondary,$warn){
-  @return(
-    primary: $primary,
-    accent: $secondary,
-    warn: $warn,
-    is-dark: false,
-    foreground: $theme-foreground,
-    background: $theme-background,
-  )
-};
+// $theme-background: (
+// status-bar: map_get($mat-grey, 300),
+// app-bar:    map_get($mat-grey, 100),
+// background: map_get($mat-grey, 50),
+// hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+// card:       white,
+// dialog:     white,
+// disabled-button: rgba(black, 0.12),
+// raised-button: white,
+// focused-button: $dark-focused,
+// selected-button: map_get($mat-grey, 300),
+// selected-disabled-button: map_get($mat-grey, 400),
+// disabled-button-toggle: map_get($mat-grey, 200),
+// unselected-chip: map_get($mat-grey, 300),
+// disabled-list-option: map_get($mat-grey, 200),
+// );
+// $theme-foreground: (
+// base:              black,
+// divider:           $dark-dividers,
+// dividers:          $dark-dividers,
+// disabled:          $dark-disabled-text,
+// disabled-button:   rgba(black, 0.26),
+// disabled-text:     $dark-disabled-text,
+// elevation:         black,
+// hint-text:         $dark-disabled-text,
+// secondary-text:    $dark-secondary-text,
+// icon:              rgba(black, 0.54),
+// icons:             rgba(black, 0.54),
+// text:              rgba(black, 0.87),
+// slider-min:        rgba(black, 0.87),
+// slider-off:        rgba(black, 0.26),
+// slider-off-active: rgba(black, 0.38),
+// );
+// @function createTheme($primary,$secondary,$warn){
+// @return(
+// primary: $primary,
+// accent: $secondary,
+// warn: $warn,
+// is-dark: false,
+// foreground: $theme-foreground,
+// background: $theme-background,
+// )
+// };
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
-// $background: mat-palette($gray-pallete);
-
-$theme: createTheme(
-    $primary,
-    $secondary,
-    $warn
-);
+$theme: mat-light-theme($primary, $secondary, $warn);
+// createTheme(
+// $primary,
+// $secondary,
+// $warn
+// );
 .olive-green {
   &.body-bg {
-    background-color: mat-color($primary);
+    background-color: mat-color($primary, 700);
   }
-  // Radio Button Coloring Start
-  // .mat-radio-button.mat-accent.mat-radio-checked {
-  //   .mat-radio-outer-circle {
-  //     border-color: mat-color($primary) !important;
-  //   }
-  // }
-  // .mat-radio-checked {
-  //   .mat-radio-inner-circle {
-  //     background-color: mat-color($primary) !important;
-  //   }
-  // }
-  // .mat-radio-button{
-  //   .mat-ripple-element{
-  //     background-color: mat-color($primary) !important;
-  //   }
-  // }
-  // Radio Button Coloring End
+  a {
+    color: mat-color($primary);
+  }
+  .pagehead {
+    background-color: mat-color($primary, 50) !important;
+  }
+  .sideLegend {
+    background-color: mat-color($primary, 700) !important;
+  }
   .topbar,
   .mini-sidenav {
     background-color: mat-color($primary, 900) !important;
@@ -183,11 +171,15 @@ $theme: createTheme(
       color: mat-color($primary, 50) !important;
     }
   }
-  .pagehead{
-    background-color: mat-color($primary, 50) !important;
-  }
-  .sideLegend {
-    background-color: mat-color($primary) !important;
+  .package-selectors {
+    .mat-radio-button {
+      background-color: mat-color($primary, 50);
+      &.mat-radio-checked {
+        &:before {
+          background-color: mat-color($primary);
+        }
+      }
+    }
   }
   .midbox:before {
     background-color: mat-color($warn);
