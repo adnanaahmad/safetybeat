@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { TranslateService } from '@ngx-translate/core';
+import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -8,8 +11,18 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 export class SettingsComponent implements OnInit {
   themeSelected: any;
+  translated: Translation;
+  appIcons: any;
+  appConstants: any;
   constructor(public settings: SettingService,
-    public overlay: OverlayContainer) { }
+    public overlay: OverlayContainer,
+    private translate: TranslateService) {
+    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES', 'STRINGS']).subscribe((values) => {
+      this.translated = values;
+    });
+    this.appConstants = ConstantService.appConstant;
+    this.appIcons = ConstantService.appIcons;
+  }
 
   ngOnInit() {
     this.settings.getActiveTheme().subscribe(val => {
