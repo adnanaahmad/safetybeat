@@ -9,6 +9,7 @@ import { EditUser } from 'src/app/models/profile.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ModalDialogComponent } from 'src/app/pages/modalDialog/components/modalDialog/modalDialog.component';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 @Component({
   selector: 'app-profile',
@@ -32,6 +33,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   currentPassword: string;
   password1: string;
   password2: string;
+  appIcons: any;
+  appConstants: any;
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
@@ -40,10 +43,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public toastProvider: ToastService,
     public dialog: MatDialog,
   ) {
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
+    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES', 'STRINGS']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
+    this.appIcons = ConstantService.appIcons;
+    this.appConstants = ConstantService.appConstant;
     this.profileData = JSON.parse(localStorage.getItem('userdata'));
     this.user_id = this.profileData.userid;
     this.org_id = this.profileData.orgid;

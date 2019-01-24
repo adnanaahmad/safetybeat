@@ -8,6 +8,7 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   translated: Translation;
   success: any;
   showError: string;
+  appConstants: any;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -31,13 +33,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     private logging: LoggingService,
     private compiler: CompilerProvider
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
     });
-
-
-
+    this.appConstants = ConstantService.appConstant;
   }
   ngOnInit() {
     if (this.loginService.getToken()) {

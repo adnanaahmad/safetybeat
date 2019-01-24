@@ -44,6 +44,40 @@
         "ORG_NAME_EXISTS": "Organization name already exists",
         "CURRENT_PASSWORD": "Current Password"
     },
+    "STRINGS": {
+        "USERNAME": "User Name:",
+        "FIRSTNAME": "First Name:",
+        "LASTNAME": "Last Name:",
+        "EMAIL": "Email:",
+        "MOBILE": "Mobile:",
+        "LIGHTTHEME": "light-theme",
+        "DARKTHEME": "dark-theme",
+        "GREENLIGHT": "green-light",
+        "ORANGEDARK": "orange-dark",
+        "LIGHTDEFAULT": "Light (Default)",
+        "EVILDARK": "Evil Dark",
+        "OLIVEGREEN": "Olive Green",
+        "DARKFOREST": "Dark Forest",
+        "OTHERSETTINGS": "Other Settings",
+        "CHANGETHEME": "Change Theme"
+    },
+    "ICONS": {
+        "MOVE_VERT": "more_vert",
+        "CHANGE_HISTORY": "change_history",
+        "DATA_USAGE": "data_usage",
+        "CROP_DIN": "crop_din",
+        "PANORAMA_HORIZONTAL": "panorama_horizontal",
+        "ALL_INCLUSIVE": "all_inclusive",
+        "RADIO_BUTTON_UNCHECKED": "radio_button_unchecked",
+        "PANORAMA_WIDE_ANGLE": "panorama_wide_angle",
+        "MY_LOCATION": "my_location",
+        "SHARE": "share",
+        "WAVES": "waves",
+        "GPS_NOT_FIXED": "gps_not_fixed",
+        "SCATTER_PLOT": "scatter_plot",
+        "DETAILS": "details",
+        "TEXTURE": "texture"
+    },
     "BUTTONS": {
         "LOGIN": "LOGIN",
         "REGISTER": "SIGN UP",
@@ -59,7 +93,14 @@
         "EDIT_ACCOUNT": "Edit Account",
         "SAVE": "Save",
         "CHANGE_PASSWORD": "Change Password",
-        "NO_THANKS": "No Thanks"
+        "NO_THANKS": "No Thanks",
+        "LEAVE": "Your Leave",
+        "ENTRIES": "Your Entries",
+        "ACTIVITIES": "Your Activities",
+        "CHANGEPASSWORD": "Change Password",
+        "ABOUT": "About You",
+        "SAFETYBEAT": "SafetyBeat",
+        "FIELDCOMMUNICATION": "Field Communication"
     },
     "MESSAGES": {
         "SIGNINMESSAGE": "You need to sign in to get access",
@@ -105,7 +146,10 @@
         "INVALID_PASSWORD": "Invalid Password",
         "EMAIL_NOT_REGISTERED": "This email is not registered,insert valid email",
         "CHANGEPASSWORD_FAIL": "Change Password Unsuccessful!",
-        "CHANGEPASSWORD_SUCCESS": "Change password successful!"
+        "CHANGEPASSWORD_SUCCESS": "Change password successful!",
+        "PROFIILE_INFO": "Profile Info",
+        "ANONYMOUS": "Anonymous !",
+        "CHANGEPASSWORD": "Change Password"
     },
     "LOGGER": {
         "STATUS": {

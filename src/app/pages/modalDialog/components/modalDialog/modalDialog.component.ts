@@ -7,6 +7,7 @@ import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ModalConfigService } from '../../services/modalConfig.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -18,6 +19,7 @@ export class ModalDialogComponent implements OnInit {
   translated: Translation;
   profileData: any;
   user_id: any;
+  appConstants: any;
 
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
@@ -32,6 +34,7 @@ export class ModalDialogComponent implements OnInit {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
+    this.appConstants = ConstantService.appConstant;
     this.profileData = JSON.parse(localStorage.getItem('userdata'));
     this.user_id = this.profileData.userid;
   }

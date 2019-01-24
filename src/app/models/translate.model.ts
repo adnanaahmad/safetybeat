@@ -49,6 +49,45 @@ export interface Auth {
     ORG_NAME_EXISTS: string,
     CURRENT_PASSWORD: string
 }
+export interface Icons {
+    MOVE_VERT: string,
+    CHANGE_HISTORY: string,
+    DATA_USAGE: string,
+    CROP_DIN: string,
+    PANORAMA_HORIZONTAL: string,
+    ALL_INCLUSIVE: string,
+    RADIO_BUTTON_UNCHECKED: string,
+    PANORAMA_WIDE_ANGLE: string,
+    MY_LOCATION: string,
+    SHARE: string,
+    WAVES: string,
+    GPS_NOT_FIXED: string,
+    SCATTER_PLOT: string,
+    DETAILS: string,
+    TEXTURE: string
+}
+export interface Strings {
+    EXPAND: string,
+    REMOVE: string,
+    EMAIL: string,
+    USERNAME: string,
+    PASSWORD: string,
+    FIRSTNAME: string,
+    LASTNAME: string,
+    MOBILENO: string,
+    PASSWORD1: string,
+    PASSWORD2: string,
+    NAME: string,
+    TYPE: string,
+    ADDRESS: string,
+    CITY: string,
+    COUNTRY: string,
+    ZIPCODE: string,
+    BILLINGEMAIL: string,
+    ACCOUNTNO: string,
+    PHONENO: string,
+    FAX: string
+}
 export interface Buttons {
     LOGIN: string,
     REGISTER: string,
@@ -62,7 +101,9 @@ export interface Buttons {
     RESEND_EMAIL: string,
     CHANGE_EMAIL: string,
     CHANGE_PASSWORD: string,
-    NO_THANKS: string
+    NO_THANKS: string,
+    FIELDCOMMUNICATION: string,
+    CHANGEPASSWORD: string
 }
 export interface Messages {
     WELCOME: string,
@@ -107,7 +148,9 @@ export interface Messages {
     RESETFAIL: string,
     RESETFAIL_MSG: string,
     CHANGEPASSWORD_FAIL: string,
-    CHANGEPASSWORD_SUCCESS: string
+    CHANGEPASSWORD_SUCCESS: string,
+    ANONYMOUS: string,
+    SAFETYBEAT: string,
 }
 export interface Logger {
     STATUS: LoggerStatus,

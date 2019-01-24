@@ -28,8 +28,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   modules: any;
   packages: any;
   success: any;
-  abc: boolean = false;
   data: any;
+  appConstants: any;
+  appIcons: any;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -40,10 +41,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ) {
 
     this.render.addClass(document.body, ConstantService.config.theme.background);
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'ICONS', 'STRINGS']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     });
+    this.appConstants = ConstantService.appConstant;
+    this.appIcons = ConstantService.appIcons;
     /**
      * to get companyTypes, modules & packages from db
      */

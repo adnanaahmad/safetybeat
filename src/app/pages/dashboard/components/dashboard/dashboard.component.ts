@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private logging: LoggingService
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe(values => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe(values => {
       this.translated = values;
       this.logging.appLogger(
         this.translated.LOGGER.STATUS.SUCCESS,
