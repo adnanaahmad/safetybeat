@@ -160,6 +160,11 @@ $theme: mat-light-theme($primary, $secondary, $warn);
   .sideLegend {
     background-color: mat-color($primary, 700) !important;
   }
+  .infoTitle {
+    &:before {
+      background: mat-color($primary, 400);
+    }
+  }
   .topbar,
   .mini-sidenav {
     background-color: mat-color($primary, 900) !important;

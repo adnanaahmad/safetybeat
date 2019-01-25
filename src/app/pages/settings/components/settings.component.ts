@@ -1,27 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { SettingService } from 'src/app/shared/settings/setting.service';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { TranslateService } from '@ngx-translate/core';
-import { Translation } from 'src/app/models/translate.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { Component, OnInit } from "@angular/core";
+import { SettingService } from "src/app/shared/settings/setting.service";
+import { OverlayContainer } from "@angular/cdk/overlay";
+import { TranslateService } from "@ngx-translate/core";
+import { Translation } from "src/app/models/translate.model";
+import { ConstantService } from "src/app/shared/constant/constant.service";
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  selector: "app-settings",
+  templateUrl: "./settings.component.html",
+  styleUrls: ["./settings.component.scss"]
 })
 export class SettingsComponent implements OnInit {
   themeSelected: any;
   translated: Translation;
   appIcons: any;
   appConstants: any;
-  constructor(public settings: SettingService,
+  appTheme: any;
+  constructor(
+    public settings: SettingService,
     public overlay: OverlayContainer,
-    private translate: TranslateService) {
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES', 'STRINGS']).subscribe((values) => {
-      this.translated = values;
-    });
+    private translate: TranslateService
+  ) {
+    this.translate
+      .get(["LOGGER", "BUTTONS", "AUTH", "MESSAGES", "STRINGS"])
+      .subscribe(values => {
+        this.translated = values;
+      });
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
+    this.appTheme = ConstantService.appTheme;
   }
 
   ngOnInit() {
@@ -29,7 +35,6 @@ export class SettingsComponent implements OnInit {
       this.themeSelected = val;
     });
   }
-
 
   changed() {
     this.settings.setActiveTheme(this.themeSelected);

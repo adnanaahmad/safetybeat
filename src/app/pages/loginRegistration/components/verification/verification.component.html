@@ -22,7 +22,7 @@
                     <span *ngIf="formValidation.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
                 </mat-error>
             </mat-form-field>
-            <button mat-raised-button custom-btn btn-primary [disabled]="formValidation.email.errors?.exists" onclick="changeEmail"
+            <button style="margin-left:10px;" mat-raised-button custom-btn btn-primary [disabled]="formValidation.email.errors?.exists" onclick="changeEmail"
                 color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
         </div>
     </form>

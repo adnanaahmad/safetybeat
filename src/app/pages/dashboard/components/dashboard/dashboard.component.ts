@@ -4,6 +4,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Translation } from 'src/app/models/translate.model';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -11,6 +12,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   translated: Translation;
+  appIcons: any;
   constructor(
     private breakpointObserver: BreakpointObserver,
     public translate: TranslateService,
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.translated.LOGGER.STATUS.SUCCESS,
         this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
       );
+      this.appIcons = ConstantService.appIcons;
     });
   }
 

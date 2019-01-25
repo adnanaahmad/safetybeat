@@ -4,14 +4,13 @@
     <mat-card>
       <mat-list-item>
         <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
-          <mat-radio-button value={{translated.STRINGS.LIGHTTHEME}}>{{translated.STRINGS.LIGHTDEFAULT}}</mat-radio-button>
-          <mat-radio-button value={{translated.STRINGS.DARKTHEME}}>{{translated.STRINGS.EVILDARK}}</mat-radio-button>
-          <mat-radio-button value={{translated.STRINGS.GREENLIGHT}}>{{translated.STRINGS.OLIVEGREEN}}</mat-radio-button>
-          <mat-radio-button value={{translated.STRINGS.ORANGEDARK}}>{{translated.STRINGS.DARKFOREST}}</mat-radio-button>
+          <mat-radio-button value={{appTheme.lightTheme}}>{{translated.STRINGS.LIGHTDEFAULT}}</mat-radio-button>
+          <mat-radio-button value={{appTheme.darkTheme}}>{{translated.STRINGS.EVILDARK}}</mat-radio-button>
+          <mat-radio-button value={{appTheme.oliveLight}}>{{translated.STRINGS.OLIVEGREEN}}</mat-radio-button>
+          <mat-radio-button value={{appTheme.darkForest}}>{{translated.STRINGS.DARKFOREST}}</mat-radio-button>
         </mat-radio-group>
       </mat-list-item>
     </mat-card>
-    <mat-divider></mat-divider>
     <br>
     <h3 mat-subheader>{{translated.STRINGS.OTHERSETTINGS}}</h3>
     <mat-card>

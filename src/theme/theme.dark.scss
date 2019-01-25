@@ -208,6 +208,11 @@ $theme: createTheme($primary, $secondary, $warn);
   &.body-bg {
     background-color: mat-color($primary, 700);
   }
+  .sideLegend {
+    &:after{
+      background: mat-color($primary, 300);
+    }
+  }
   .topbar,
   .mini-sidenav {
     background-color: mat-color($primary, 900) !important;

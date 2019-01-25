@@ -206,7 +206,10 @@ $theme: createTheme($primary, $secondary, $warn);
     }
   }
   .sideLegend {
-    background-color: mat-color($primary) !important;
+    background-color: mat-color($primary, 800) !important;
+    &:after{
+      background: mat-color($primary, 400);
+    }
   }
   .midbox:before {
     background-color: mat-color($warn);
