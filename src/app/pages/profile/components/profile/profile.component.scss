@@ -42,7 +42,6 @@
         background-color: transparent;
         border: 0;
         &.active {
-          border-bottom: 1px solid #ddd;
           outline: 0 none;
           color: inherit;
         }
@@ -55,7 +54,6 @@
         padding: 10px;
         font-size: 12px;
         text-transform: capitalize;
-        border: 1px solid mat-color($primary, 50);
         mat-icon {
           margin: 0 auto;
           border-radius: 100px;

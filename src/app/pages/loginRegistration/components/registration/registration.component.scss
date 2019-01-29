@@ -5,25 +5,14 @@
       display: none;
     }
     .loginbox {
-      a {
-        color: mat-color($primary) !important;
-      }
       [full-width] {
         width: 90% !important;
       }
       mat-step-header {
-        .mat-step-label-active {
-          color: mat-color($primary);
-          mat-icon {
-            border: 2px solid mat-color($primary);
-            background-color: mat-color($primary);
-            color: #fff;
-          }
-        }
         padding: 20px 10px;
         mat-icon {
-          border: 2px dashed mat-color($primary);
           color: mat-color($primary);
+          border: 1px dashed;
           position: absolute;
           top: 0;
           left: 0;
@@ -31,6 +20,11 @@
           margin: 14px auto 0;
           padding: 7px;
           border-radius: 100px;
+        }
+        .mat-step-label-active {
+          mat-icon {
+            border-style: solid;
+          }
         }
         .mat-step-label {
           margin: 30px 0 0;
@@ -45,7 +39,7 @@
     }
     .loginbox {
       text-align: center;
-      width: 50%;
+      width: 55%;
       mat-card-title {
         margin-top: 60px;
       }
@@ -73,7 +67,7 @@
     .monogram {
       top: -60px;
       transform: none;
-      border: 5px solid #fff;
+      border: 3px solid #fff;
       box-shadow: 0px 6px 10px 2px #00000017;
     }
     .legend-title {
@@ -84,12 +78,11 @@
       }
     }
     .package-selectors {
+      svg {
+        background-color: mat-color($primary);
+      }
       .mat-radio-button {
-        background-color: mat-color($primary, 50);
         &.mat-radio-checked {
-          &:before {
-            background-color: mat-color($primary);
-          }
           * {
             color: #fff;
           }
