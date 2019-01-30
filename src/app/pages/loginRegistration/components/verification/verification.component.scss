@@ -1,6 +1,9 @@
 @mixin amte-verification($primary, $accent, $warn) {
   :host,
   app-verification {
+    #particle-container{
+      width:100%;
+    }
     .loginbox {
       text-align: center;
       width: 50%;

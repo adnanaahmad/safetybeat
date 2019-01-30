@@ -85,8 +85,8 @@ body {
   }
 }
 .sideLegend {
-  &:after{
-    content: '';
+  &:after {
+    content: "";
     display: block;
     height: 100%;
     width: 3px;
@@ -387,8 +387,8 @@ hr.forheading {
     width: 60% !important;
   }
   .sideLegend {
-    &:after{
-      content: '';
+    &:after {
+      content: "";
       display: block;
       height: 100%;
       width: 3px;
@@ -493,8 +493,12 @@ hr.forheading {
     width: 80% !important;
     padding: 20px !important;
   }
+  app-login {
+    .loginbox {
+      margin: 20px auto;
+    }
+  }
   .loginbox {
-    margin: 20px auto;
     div.button {
       span.or {
         padding: 0;
@@ -538,5 +542,18 @@ hr.forheading {
   .infoTitle:before {
     width: 15px;
     margin-top: 8px;
+  }
+  .notfound-data {
+    h1 {
+      font-size: 7rem !important;
+    }
+    h5 {
+      font-size: 1rem !important;
+      margin:20px 0 !important;
+    }
+    p {
+      padding: 0 20px;
+      font-size: 14px;
+    }
   }
 }
