@@ -101,17 +101,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
-  checkUserName(group) {
-    if (group.value.username !== '') {
-      const username = { username: group.value.username };
-      this.register.checkUserName(username).pipe().subscribe((res) => {
-        this.success = res;
-        if (!this.success.status) {
-          group.controls.username.setErrors({ exists: true })
-        }
-      });
-    }
-  }
+  // checkUserName(group) {
+  //   if (group.value.username !== '') {
+  //     const username = { username: group.value.username };
+  //     this.register.checkUserName(username).pipe().subscribe((res) => {
+  //       this.success = res;
+  //       if (!this.success.status) {
+  //         group.controls.username.setErrors({ exists: true })
+  //       }
+  //     });
+  //   }
+  // }
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]

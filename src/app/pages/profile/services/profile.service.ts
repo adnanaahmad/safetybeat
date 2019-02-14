@@ -16,4 +16,8 @@ export class ProfileService {
   editUser(id, data) {
     return this.http.put<UserProfile>(`${ConstantService.apiRoutes.editProfile}/${id}/`, data);
   }
+  getResponse(data) {
+    console.log('get response logger for mehar RP', data)
+    return this.http.post(ConstantService.apiRoutes.getInvite, data);
+  }
 }

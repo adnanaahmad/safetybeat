@@ -20,11 +20,11 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
         <div class="input">
           <mat-form-field full-width>
-            <input matInput type="text" [placeholder]=translated.AUTH.USER formControlName={{appConstants.userName}}
+            <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}}
               required />
-            <mat-error *ngIf="formValidation.username.errors">
-              <span *ngIf="formValidation.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
-              <span *ngIf="formValidation.username.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>
+            <mat-error *ngIf="formValidation.email.errors">
+              <span *ngIf="formValidation.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
+              <span *ngIf="formValidation.email.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>
             </mat-error>
           </mat-form-field>
         </div>
