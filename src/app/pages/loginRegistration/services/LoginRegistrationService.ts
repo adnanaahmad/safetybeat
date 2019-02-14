@@ -28,7 +28,7 @@ export class LoginRegistrationService {
      */
     registrationData(): Observable<any> {
         const companyTypes = this.http.get(ConstantService.apiRoutes.companyTypes);
-        const modules = this.http.get(ConstantService.apiRoutes.modules);
+        const modules = 'Safetybeat';
         const packages = this.http.get(ConstantService.apiRoutes.packages);
         return forkJoin([companyTypes, modules, packages]);
     }

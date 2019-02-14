@@ -5,7 +5,7 @@
   </span>
   <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p>
-  <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
+  <mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
         <ng-template matStepLabel>
@@ -15,10 +15,9 @@
         <div class="form-group">
           <mat-form-field style="width:95%;">
             <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName={{appConstants.userName}}
-              required (blur)="checkUserName(userForm)" />
+              required />
             <mat-error *ngIf="userDetailForm.username.errors">
               <span *ngIf="userDetailForm.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
-              <span *ngIf="userDetailForm.username.errors?.exists">{{translated.MESSAGES.USERNAME_EXISTS}}</span>
             </mat-error>
           </mat-form-field>
         </div>
@@ -215,17 +214,6 @@
               </mat-form-field>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile>
-            <div class="form-group">
-              <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.FAX formControlName={{appConstants.fax}}
-                  required />
-                <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
-                  {{translated.AUTH.FAXNO_REQ}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </mat-grid-tile>
         </mat-grid-list>
         <div class="clearsep"></div>
         <div>
@@ -238,7 +226,7 @@
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="moduleForm">
+    <!-- <mat-step [stepControl]="moduleForm">
       <form [formGroup]="moduleForm">
         <ng-template matStepLabel>
           <mat-icon>{{appIcons.lineStyle}}</mat-icon>
@@ -266,18 +254,18 @@
             <mat-icon>{{appIcons.arrowForward}}</mat-icon></button>
         </div>
       </form>
-    </mat-step>
+    </mat-step> -->
 
     <mat-step>
       <ng-template matStepLabel>
         <mat-icon>{{appIcons.bookmarkBorder}}</mat-icon>
         {{translated.MESSAGES.PACKAGESELECT_MSG}}
       </ng-template>
-      <mat-card no-box-shadow *ngFor="let module of moduleForm.value.name">
-        <mat-card-title class="legend-title">{{module}}</mat-card-title>
+      <mat-card no-box-shadow>
+        <mat-card-title class="legend-title">Safetybeat</mat-card-title>
         <mat-card-content>
           <mat-radio-group class="package-selectors">
-            <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage(module,package)">
+            <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage(Safetybeat,package)">
               <div class="trigger"></div>
               <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 x="0px" y="0px" viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">

@@ -7,6 +7,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Chart } from 'angular-highcharts'
 import * as Highcharts from 'highcharts';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,13 +18,27 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   option2: object;
   option3: object;
   option4: object;
-  constructor() {
+  translated: Translation
+  constructor(
+    private route: Router,
+    private breakpointObserver: BreakpointObserver,
+    public translate: TranslateService,
+    private logging: LoggingService
+  ) {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
+      .subscribe(values => {
+        this.translated = values;
+        this.logging.appLogger(
+          this.translated.LOGGER.STATUS.SUCCESS,
+          this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
+        );
+      });
     this.option1 = {
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
-        type: 'pie'
+        type: 'pie',
       },
       title: {
         text: 'Browser market shares in January, 2018'
@@ -94,7 +109,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       plotOptions: {
         pie: {
           innerSize: 100,
-          depth: 45
+          depth: 45,
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          }
         }
       },
       series: [{
@@ -152,6 +173,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }, {
         type: 'pie',
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+              enabled: true,
+              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            }
+          }
+        },
         name: 'Total consumption',
         data: [{
           name: 'Jane',
@@ -170,7 +201,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         size: 100,
         showInLegend: false,
         dataLabels: {
-          enabled: false
+          enabled: true
         }
       }]
     };
@@ -199,8 +230,29 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       }]
     };
   }
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'Graph 1', cols: 2, rows: 1 },
+          { title: 'Graph 2', cols: 2, rows: 1 },
+          { title: 'Graph 3', cols: 2, rows: 1 },
+          { title: 'Graph 4', cols: 2, rows: 1 }
+        ];
+      }
+
+      return [
+        { title: 'Graph 1', cols: 1, rows: 1 },
+        { title: 'Graph 2', cols: 1, rows: 1 },
+        { title: 'Graph 3', cols: 1, rows: 1 },
+        { title: 'Graph 4', cols: 1, rows: 1 }
+      ];
+    })
+  );
   ngOnInit() { }
   ngAfterViewInit() { }
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    this.logging.hideAllAppLoggers();
+  }
 
 }
