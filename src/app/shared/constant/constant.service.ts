@@ -16,7 +16,7 @@ export class ConstantService {
     passwordReset: `${environment.apiUrl}/password/reset/`,
     organization: `${environment.apiUrl}/organization/`,
     user: `${environment.apiUrl}/user/userDetails`,
-    checkUsername: `${environment.apiUrl}/username/`,
+    checkUsername: `${environment.apiUrl}users/checkUserName/`,
     checkEmail: `${environment.apiUrl}/users/checkEmail/`,
     checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
     checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,

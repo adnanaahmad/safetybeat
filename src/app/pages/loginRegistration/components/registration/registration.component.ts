@@ -111,17 +111,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
-  // checkUserName(group) {
-  //   if (group.value.username !== '') {
-  //     const username = { username: group.value.username };
-  //     this.register.checkUserName(username).pipe().subscribe((res) => {
-  //       this.success = res;
-  //       if (!this.success.status) {
-  //         group.controls.username.setErrors({ exists: true })
-  //       }
-  //     });
-  //   }
-  // }
+  checkUserName(group) {
+    if (group.value.username !== '') {
+      const username = { username: group.value.username };
+      this.register.checkUserName(username).pipe().subscribe((res) => {
+        this.success = res;
+        if (!this.success.isSuccess) {
+          group.controls.username.setErrors({ exists: true })
+        }
+      });
+    }
+  }
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -172,7 +172,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.selectedPackage[name] = data;
   }
   registerOrginazation() {
-    debugger;
     this.userData = <RegisterUser>this.userForm.value
     this.registerData = {
       'username': this.userData.username,
@@ -201,8 +200,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value,
       this.organizationForm.value, this.moduleForm.value));
-    console.log(this.registerData);
-    debugger;
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {

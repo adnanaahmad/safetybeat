@@ -28,8 +28,8 @@ import { ParticleContainerComponent } from './components/particleContainer/parti
     LoginComponent,
     RegistrationComponent,
     ForgotPasswordComponent,
-    ParticleContainerComponent,
     VerificationComponent,
+    ParticleContainerComponent
   ],
   providers: [
     LoginRegistrationService,
@@ -44,8 +44,7 @@ import { ParticleContainerComponent } from './components/particleContainer/parti
   exports: [
     LoginComponent,
     RegistrationComponent,
-    ForgotPasswordComponent,
-    ParticleContainerComponent,
+    ForgotPasswordComponent
   ]
 })
 export class LoginRegisterModule { }

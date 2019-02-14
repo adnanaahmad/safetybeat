@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'pie',
       },
       title: {
-        text: 'Browser market shares in January, 2018'
+        text: 'People working on the bluesky site for installation'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -65,29 +65,26 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           sliced: true,
           selected: true
         }, {
-          name: 'Internet Explorer',
+          name: 'Michael',
           y: 11.84
         }, {
-          name: 'Firefox',
+          name: 'John',
           y: 10.85
         }, {
-          name: 'Edge',
+          name: 'Ibrahim',
           y: 4.67
         }, {
-          name: 'Safari',
+          name: 'David',
           y: 4.18
         }, {
-          name: 'Sogou Explorer',
+          name: 'Sogou Jain',
           y: 1.64
         }, {
-          name: 'Opera',
+          name: 'Colling',
           y: 1.6
         }, {
-          name: 'QQ',
+          name: 'Jame',
           y: 1.2
-        }, {
-          name: 'Other',
-          y: 2.61
         }]
       }]
     };
@@ -97,14 +94,20 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'pie',
         options3d: {
           enabled: true,
-          alpha: 45
+          alpha: 45,
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+          }
         }
       },
       title: {
-        text: 'Contents of Highsoft\'s weekly fruit delivery'
+        text: 'Contents of Highsoft\'s weekly Services delivery'
       },
       subtitle: {
-        text: '3D donut in Highcharts'
+        text: 'Work Report 2017'
       },
       plotOptions: {
         pie: {
@@ -121,15 +124,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       series: [{
         name: 'Delivered amount',
         data: [
-          ['Bananas', 8],
-          ['Kiwi', 3],
-          ['Mixed nuts', 1],
-          ['Oranges', 6],
-          ['Apples', 8],
-          ['Pears', 4],
-          ['Clementines', 4],
-          ['Reddish (bag)', 1],
-          ['Grapes (bunch)', 1]
+          ['software installation', 8],
+          ['hardware installation', 3],
+          ['software issues resolving', 1],
+          ['hardware services', 6],
+          ['proton settings', 8],
+          ['safetybeat installation', 4],
+          ['optergy app installation', 4],
         ]
       }]
     };
@@ -139,11 +140,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         text: 'Combination chart'
       },
       xAxis: {
-        categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+        categories: ['Installation', 'Reparing', 'Hardware Fixing', 'Software Fixing']
       },
       labels: {
         items: [{
-          html: 'Total fruit consumption',
+          html: 'Total Working hours consumption',
           style: {
             left: '50px',
             top: '18px'
@@ -162,15 +163,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'column',
         name: 'Joe',
         data: [4, 3, 3, 9, 0]
-      }, {
-        type: 'spline',
-        name: 'Average',
-        data: [3, 2.67, 3, 6.33, 3.33],
-        marker: {
-          lineWidth: 2,
-          lineColor: Highcharts.getOptions().colors[3],
-          fillColor: 'white'
-        }
       }, {
         type: 'pie',
         plotOptions: {
@@ -210,10 +202,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'area'
       },
       title: {
-        text: 'Area chart with negative values'
+        text: 'Area chart with employess availability values'
       },
       xAxis: {
-        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+        categories: ['For Software Installation', 'For Hardware Installation',
+          'For Fixing Softwares', 'For Fixing Hardware', 'For Meeting with clients']
       },
       credits: {
         enabled: false
@@ -230,25 +223,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       }]
     };
   }
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Graph 1', cols: 2, rows: 1 },
-          { title: 'Graph 2', cols: 2, rows: 1 },
-          { title: 'Graph 3', cols: 2, rows: 1 },
-          { title: 'Graph 4', cols: 2, rows: 1 }
-        ];
-      }
-
-      return [
-        { title: 'Graph 1', cols: 1, rows: 1 },
-        { title: 'Graph 2', cols: 1, rows: 1 },
-        { title: 'Graph 3', cols: 1, rows: 1 },
-        { title: 'Graph 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
   ngOnInit() { }
   ngAfterViewInit() { }
   ngOnDestroy() {

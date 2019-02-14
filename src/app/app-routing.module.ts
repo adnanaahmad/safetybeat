@@ -9,13 +9,14 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: 'src/app/pages/navigation/navigation.module#NavigationModule'
   },
   {
     path: '**',
-    component: PageNotFoundComponent
-  }
+    loadChildren: 'src/app/core/core.module#CoreModule'
+  },
+
 ];
 
 @NgModule({
