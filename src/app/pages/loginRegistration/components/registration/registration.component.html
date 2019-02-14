@@ -5,7 +5,7 @@
   </span>
   <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title>
   <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p>
-  <mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
+  <mat-horizontal-stepper linear="true" #stepper labelPosition="bottom">
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
         <ng-template matStepLabel>
@@ -98,7 +98,7 @@
         <div>
           <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
             <mat-icon>{{appIcons.arrowForward}}</mat-icon></button>
-            <br>
+          <br>
           <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>

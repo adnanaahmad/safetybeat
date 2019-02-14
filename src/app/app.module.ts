@@ -17,6 +17,9 @@ import { CoreService } from './core/services/authorization/core.service';
 import { PageNotFoundComponent } from './core/components/pageNotFound/pageNotFound.component';
 import { ModalDialogComponent } from './pages/modalDialog/components/modalDialog/modalDialog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ChartModule } from 'angular-highcharts';
+import { Chart } from 'highcharts';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

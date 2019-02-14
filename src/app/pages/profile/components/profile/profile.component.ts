@@ -135,5 +135,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     )
   };
+  getResponse() {
+    let data = {
+      userId: '17',
+      username: 'njkjbyguty',
+      password1: '',
+      password2: '',
+      first_name: ' hhc',
+      last_name: 'amjad',
+      mobile_no: '9876543',
+      email: 'abcdfgh@gmail.com',
+      invitation: true,
+      moduleName: 'Safetybeat'
+    }
+
+    this.profile.getResponse(data).subscribe((res) => {
+      console.log('This is the result that we got from use me', res)
+    }, (err) => {
+
+    })
+
+  }
 
 }
