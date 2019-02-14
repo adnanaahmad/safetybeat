@@ -1,18 +1,31 @@
 export interface User {
+    id: number;
     username: string;
     email: string;
     first_name: string;
     last_name: string;
     mobile_no: string;
-    password: string;
+}
+export interface responseDetails {
+    code: string;
+    message: string;
 }
 export interface loginCredentials {
     username: string;
     password: string;
 }
+
+export interface moduleRole {
+    Safetybeat: string;
+}
 export interface LoginResponse {
-    user: User;
     token: string;
+    user: User;
+    userId: number;
+    orgId: number;
+    moduleRole: moduleRole;
+    responseDetails: responseDetails;
+
 }
 export interface RegisterUser {
     username: string;

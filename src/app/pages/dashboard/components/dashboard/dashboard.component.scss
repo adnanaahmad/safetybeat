@@ -14,5 +14,15 @@
       position: inherit;
       padding-left: 87%;
     }
+    chart,
+    .highcharts-container,
+    .highcharts-root{
+      width:100% !important;
+    }
+    .dashboard-widgets{
+      .mat-card{
+        width: 100%;
+      }
+    }
   }
 }

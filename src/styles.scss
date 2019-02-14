@@ -408,6 +408,19 @@ hr.forheading {
   }
 }
 @media (max-width: 768px) {
+  .dashboard-widgets{
+    height:auto !important;
+    .mat-grid-tile{
+      width:100% !important;
+      position: relative;
+      left:0 !important;
+      top:0 !important;
+      .highcharts-container,
+      .highcharts-root {
+        height:auto !important;
+      }
+    }
+  }
   app-profile {
     .grid-container {
       .mat-grid-tile {

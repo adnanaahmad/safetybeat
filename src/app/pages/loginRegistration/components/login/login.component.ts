@@ -44,9 +44,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigate(['/home']);
     }
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.email],
       password: ['', Validators.required],
-      email: ['', Validators.email]
     });
   }
 
@@ -78,8 +77,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         (data) => {
           this.data = data;
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
-          data ? this.loginService.setToken(this.data.token) : this.loginService.setToken('');
-          let userData = this.compiler.constructProfileData(this.data);
+          data ? this.loginService.setToken(this.data.data.token) : this.loginService.setToken('');
+          let userData = this.compiler.constructProfileData(this.data.data);
           localStorage.setItem('userdata', JSON.stringify(userData));
           this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
           this.router.navigate(['/home']);
