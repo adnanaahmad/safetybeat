@@ -22,14 +22,13 @@ import { Chart } from 'highcharts';
 
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
-    ModalDialogComponent
+    ModalDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -42,7 +41,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
+        useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
     }),
@@ -57,10 +56,11 @@ export function createTranslateLoader(http: HttpClient) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true,
+      multi: true
     }
   ],
+
   bootstrap: [AppComponent],
   entryComponents: [ModalDialogComponent]
 })
-export class AppModule { }
+export class AppModule {}

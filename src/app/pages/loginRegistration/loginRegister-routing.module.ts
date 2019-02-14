@@ -28,6 +28,7 @@ const authRoutes: Routes = [
     // canActivate: [AuthGuard],
     // canDeactivate: ['canDeactivateVerification']
   }
+
 ];
 
 @NgModule({

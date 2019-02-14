@@ -151,6 +151,8 @@ export interface Messages {
     CHANGEPASSWORD_SUCCESS: string,
     ANONYMOUS: string,
     SAFETYBEAT: string,
+    NOTFOUND_HEADING: string,
+    NOTFOUND_DESCRIPTION: string
 }
 export interface Logger {
     STATUS: LoggerStatus,

@@ -1,17 +1,33 @@
-<mat-grid-list cols="2" rowHeight="420px">
+<mat-grid-list cols="2" rowHeight="460px" gutterSize="30px" class="dashboard-widgets">
   <mat-grid-tile>
-    <chart [options]="option1"></chart>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option1"></chart>
+      </mat-card-content>
+    </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile>
-    <chart [options]="option2"></chart>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option2"></chart>
+      </mat-card-content>
+    </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile>
-    <chart [options]="option3"></chart>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option3"></chart>
+      </mat-card-content>
+    </mat-card>
   </mat-grid-tile>
 
   <mat-grid-tile>
-    <chart [options]="option4"></chart>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option4"></chart>
+      </mat-card-content>
+    </mat-card>
   </mat-grid-tile>
 </mat-grid-list>

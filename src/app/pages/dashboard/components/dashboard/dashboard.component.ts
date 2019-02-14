@@ -82,8 +82,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'pie',
         options3d: {
           enabled: true,
-          alpha: 45
+          alpha: 45,
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
         }
+      }
       },
       title: {
         text: 'Contents of Highsoft\'s weekly fruit delivery'

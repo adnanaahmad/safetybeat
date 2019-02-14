@@ -1,0 +1,37 @@
+@mixin amte-notfound($primary, $accent, $warn) {
+    :host,
+    app-page-not-found {
+        #particle-container{
+            width:100%;
+            .particle:nth-child(even){
+                display:none;
+            }
+        }
+        .notfound-data{
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: auto;
+            width: 100%;
+            color: #fff;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            h1{
+                font-size:14rem;
+                color: mat-color($primary, 600);
+                margin:0;
+                line-height: 1;
+                text-shadow: 0px 7px 0 #00000014;
+            }
+            h5{
+                font-size:2rem;
+                margin:0;
+                font-weight: normal;
+            }
+            p{
+                line-height: 2;
+            }
+        }
+    }
+  }
