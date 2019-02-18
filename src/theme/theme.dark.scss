@@ -142,7 +142,8 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $theme: createTheme($primary, $secondary, $warn);
 .dark-theme {
-  .loginbox {
+  .loginbox,
+  app-modal-dialog {
     .mat-form-field.mat-focused {
       .mat-form-field-label {
         color: #fff !important;
