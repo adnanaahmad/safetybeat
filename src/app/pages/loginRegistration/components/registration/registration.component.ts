@@ -112,6 +112,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
   checkUserName(group) {
+    debugger;
     if (group.value.username !== '') {
       const username = { username: group.value.username };
       this.register.checkUserName(username).pipe().subscribe((res) => {
