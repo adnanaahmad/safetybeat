@@ -53,10 +53,11 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.verifyForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
-    // this.route.params.subscribe(params => {
-    //   this.data = JSON.parse(params.data);
-    // })
-this.data={userData:{email:"taqi@gmail.com"}}
+    this.route.params.subscribe(params => {
+      debugger;
+      this.data = JSON.parse(params.data);
+    })
+    // this.data = { userData: { email: 'taqi@gmail.com' } }
   }
 
   ngOnDestroy() {
