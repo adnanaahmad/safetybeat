@@ -45,6 +45,7 @@ export class CoreService {
      * this function removes the token from the localstorage
      */
     removeToken() {
+        localStorage.removeItem('userdata');
         localStorage.removeItem(this.storageKey);
     }
     /**

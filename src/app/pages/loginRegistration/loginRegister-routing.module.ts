@@ -25,7 +25,7 @@ const authRoutes: Routes = [
   {
     path: 'verification',
     component: VerificationComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     // canDeactivate: ['canDeactivateVerification']
   }
 

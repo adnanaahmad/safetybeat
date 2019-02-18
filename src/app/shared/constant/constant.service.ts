@@ -15,15 +15,15 @@ export class ConstantService {
     packages: `${environment.apiUrl}/packages/`,
     passwordReset: `${environment.apiUrl}/password/reset/`,
     organization: `${environment.apiUrl}/organization/`,
-    user: `${environment.apiUrl}/userDetails`,
-    checkUsername: `${environment.apiUrl}/username/`,
-    checkEmail: `${environment.apiUrl}/anonymous/users/check_email/`,
-    checkOrgName: `${environment.apiUrl}/orgName/`,
-    checkBilling: `${environment.apiUrl}/billingEmail/`,
+    user: `${environment.apiUrl}/users`,
+    checkUsername: `${environment.apiUrl}/users/checkUsername/`,
+    checkEmail: `${environment.apiUrl}/users/checkEmail/`,
+    checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
+    checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,
     resendverification: `${environment.apiUrl}/account/resend-verification/`,
     changeEmail: `${environment.apiUrl}/editEmail`,
-    editProfile: `${environment.apiUrl}/editProfile`,
-    changePassword: `${environment.apiUrl}/changePassword`,
+    editProfile: `${environment.apiUrl}/users/editProfile`,
+    changePassword: `${environment.apiUrl}/users/changePassword/`,
     getInvite: `${environment.apiUrl}/register/`
   };
   static toast = {

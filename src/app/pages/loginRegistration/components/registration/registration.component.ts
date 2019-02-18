@@ -15,22 +15,6 @@ import { ConstantService } from '../../../../shared/constant/constant.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-  @Input() userForm: FormGroup;
-  organizationForm: FormGroup;
-  moduleForm: FormGroup;
-  email: FormGroup;
-
-  loading: boolean;
-  selectedPackage: any = {};
-  registerData: any = [];
-  translated: Translation;
-  types: any;
-  modules: any;
-  packages: any;
-  success: any;
-  data: any;
-  appConstants: any;
-  appIcons: any;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -62,6 +46,33 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
         });
   }
+  /**
+   * handling forms validations
+   */
+  get userDetailForm() { return this.userForm.controls; }
+  get orgForm() { return this.organizationForm.controls; }
+  get modForm() { return this.moduleForm.controls; }
+  @Input() userForm: FormGroup;
+  organizationForm: FormGroup;
+  moduleForm: FormGroup;
+  email: FormGroup;
+
+  loading: boolean;
+  selectedPackage: any = {};
+  registerData: any = [];
+  translated: Translation;
+  types: any;
+  modules: any;
+  packages: any;
+  success: any;
+  data: any;
+  appConstants: any;
+  appIcons: any;
+  userData: any;
+
+  /**
+   * registerOrgnaization function to register new user with organization info
+   */
   ngOnInit() {
     this.userForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -79,7 +90,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       zipCode: ['', Validators.required],
       city: ['', Validators.required],
       country: ['', Validators.required],
-      fax: ['', Validators.required],
       billingEmail: ['', [Validators.required, Validators.email]],
       accountNo: ['', Validators.required],
       phoneNo: ['', Validators.required]
@@ -101,17 +111,18 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
-  // checkUserName(group) {
-  //   if (group.value.username !== '') {
-  //     const username = { username: group.value.username };
-  //     this.register.checkUserName(username).pipe().subscribe((res) => {
-  //       this.success = res;
-  //       if (!this.success.status) {
-  //         group.controls.username.setErrors({ exists: true })
-  //       }
-  //     });
-  //   }
-  // }
+  checkUserName(group) {
+    debugger;
+    if (group.value.username !== '') {
+      const username = { username: group.value.username };
+      this.register.checkUserName(username).pipe().subscribe((res) => {
+        this.success = res;
+        if (!this.success.isSuccess) {
+          group.controls.username.setErrors({ exists: true })
+        }
+      });
+    }
+  }
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -120,7 +131,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (!this.success.status) {
+        if (!this.success.isSuccess) {
           group.controls.email.setErrors({ exists: true })
         }
       });
@@ -131,7 +142,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       const name = { name: group.value.name }
       this.register.checkOrgName(name).pipe().subscribe((res) => {
         this.success = res;
-        if (!this.success.status) {
+        if (!this.success.isSuccess) {
           group.controls.name.setErrors({ exists: true })
         }
       });
@@ -143,21 +154,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
     if (this.email.status === 'VALID') {
       const billingEmail = { billingEmail: group.value.billingEmail };
-      const billingemail_check = this.register.checkEmail(billingEmail).pipe();
+      const billingemail_check = this.register.checkOrgBillingEmail(billingEmail).pipe();
       billingemail_check.subscribe((res) => {
         this.success = res;
-        if (!this.success.status) {
+        if (!this.success.isSuccess) {
           group.controls.billingEmail.setErrors({ exists: true })
         }
       });
     }
   }
-  /**
-   * handling forms validations
-   */
-  get userDetailForm() { return this.userForm.controls; }
-  get orgForm() { return this.organizationForm.controls; }
-  get modForm() { return this.moduleForm.controls; }
 
   /**
    * saves package against module
@@ -167,25 +172,27 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   selectPackage(name: string, data: packges) {
     this.selectedPackage[name] = data;
   }
-
-  /**
-   * registerOrgnaization function to register new user with organization info
-   */
   registerOrginazation() {
+    this.userData = <RegisterUser>this.userForm.value
     this.registerData = {
-      'user': <RegisterUser>this.userForm.value,
+      'username': this.userData.username,
+      'first_name': this.userData.first_name,
+      'last_name': this.userData.last_name,
+      'email': this.userData.email,
+      'mobile_no': this.userData.mobile_no,
+      'password1': this.userData.password1,
+      'password2': this.userData.password2,
       'organization': <RegisterOrganization>this.organizationForm.value,
-      'module_pkg': []
+      'modulePkg': [],
+      'invitation': false
     };
-
     for (const key in this.selectedPackage) {
       if (this.selectedPackage.hasOwnProperty(key)) {
-        this.registerData.module_pkg.push({ name: key, package: this.selectedPackage[key] });
+        this.registerData.modulePkg.push({ name: 'Safetybeat', package: this.selectedPackage[key] });
       }
     }
 
-    if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length
-      !== this.registerData.module_pkg.length)) {
+    if (this.userForm.invalid || this.organizationForm.invalid) {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
