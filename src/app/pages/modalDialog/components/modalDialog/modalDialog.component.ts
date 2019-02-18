@@ -65,10 +65,12 @@ export class ModalDialogComponent implements OnInit {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.modalService.changePassword(this.user_id, {
+    let result = {
       oldPassword: value.currentPassword,
-      newPassword: value.password1
-    }).subscribe((res) => {
+      newPassword: value.password1,
+      pk: this.user_id
+    }
+    this.modalService.changePassword(result).subscribe((res) => {
       this.dialogRef.close();
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
