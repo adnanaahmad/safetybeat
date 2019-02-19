@@ -3,6 +3,22 @@ export interface Translation {
     BUTTONS: Buttons,
     MESSAGES: Messages,
     LOGGER: Logger,
+    STRINGS: Strings
+}
+export interface Strings {
+    USERNAME: string,
+    FIRSTNAME: string,
+    LASTNAME: string,
+    EMAIL: string,
+    MOBILE: string,
+    LIGHTDEFAULT: string,
+    EVILDARK: string,
+    OLIVEGREEN: string,
+    DARKFOREST: string,
+    OTHERSETTINGS: string,
+    CHANGETHEME: string,
+    EXPAND: string,
+    REMOVE: string
 }
 export interface Auth {
     USERNAME: string,
@@ -100,12 +116,19 @@ export interface Buttons {
     LOGINTEXT: string,
     RESEND_EMAIL: string,
     CHANGE_EMAIL: string,
+    EDIT_ACCOUNT: string
     CHANGE_PASSWORD: string,
     NO_THANKS: string,
     FIELDCOMMUNICATION: string,
-    CHANGEPASSWORD: string
+    CHANGEPASSWORD: string,
+    LEAVE: string,
+    SAFETYBEAT: string,
+    ENTRIES: string,
+    ACTIVITIES: string,
+    PROFIILE_INFO: string
 }
 export interface Messages {
+    CHANGEPASSWORD: string,
     WELCOME: string,
     WELCOME_MSG: string,
     NOACCOUNT: string,
@@ -152,7 +175,8 @@ export interface Messages {
     ANONYMOUS: string,
     SAFETYBEAT: string,
     NOTFOUND_HEADING: string,
-    NOTFOUND_DESCRIPTION: string
+    NOTFOUND_DESCRIPTION: string,
+    PROFIILE_INFO: string
 }
 export interface Logger {
     STATUS: LoggerStatus,
