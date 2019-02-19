@@ -1,31 +1,33 @@
-<div class="grid-container">
-  <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile
-      *ngFor="let card of (cards | async)"
-      [colspan]="card.cols"
-      [rowspan]="card.rows"
-    >
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{ card.title }}
-            <button
-              mat-icon-button
-              class="more-button"
-              [matMenuTriggerFor]="menu"
-              aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <img style="max-width: 100%;" src="../../../../../assets/images/line_graph.png"/>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+<mat-grid-list cols="2" rowHeight="460px" gutterSize="30px" class="dashboard-widgets">
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option1"></chart>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option2"></chart>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option3"></chart>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card>
+      <mat-card-content>
+        <chart [options]="option4"></chart>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

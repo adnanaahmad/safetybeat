@@ -102,9 +102,10 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
 .light-theme {
   .package-selectors {
     .mat-radio-button {
+      background-color: mat-color($primary, 50);
       &.mat-radio-checked {
         &:before {
-          background-color: mat-color($primary, 500);
+          background-color: mat-color($primary);
         }
       }
     }
@@ -113,10 +114,13 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     color: mat-color($primary);
   }
   &.body-bg {
-    background-color: mat-color($primary);
+    background-color: mat-color($primary, 700);
   }
   .pagehead {
     background-color: mat-color($primary, 50) !important;
+  }
+  .sideLegend {
+    background-color: mat-color($primary, 700) !important;
   }
   .topbar,
   .mini-sidenav {
@@ -130,7 +134,6 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     }
   }
   .infoTitle {
-    color: mat-color($primary);
     &:before {
       background: mat-color($primary);
     }
@@ -140,6 +143,15 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   }
   .mat-horizontal-content-container {
     padding: 0 !important;
+  }
+  mat-step-header {
+    .mat-step-label-active {
+      mat-icon {
+        border-color: mat-color($primary);
+        background-color: mat-color($primary);
+        color: #fff !important;
+      }
+    }
   }
   @include amte-setTheme($light-theme);
 }

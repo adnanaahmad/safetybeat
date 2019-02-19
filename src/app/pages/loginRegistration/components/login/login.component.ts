@@ -8,6 +8,7 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   translated: Translation;
   success: any;
   showError: string;
+  appConstants: any;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -31,22 +33,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     private logging: LoggingService,
     private compiler: CompilerProvider
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
+    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
     });
-
-
-
+    this.appConstants = ConstantService.appConstant;
   }
   ngOnInit() {
     if (this.loginService.getToken()) {
       this.router.navigate(['/home']);
     }
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.email],
       password: ['', Validators.required],
-      email: ['', Validators.email]
     });
   }
 
@@ -65,6 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
+    debugger;
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ);
@@ -76,13 +76,25 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginService.loginUser(value)
       .subscribe(
         (data) => {
-          this.data = data;
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
-          data ? this.loginService.setToken(this.data.token) : this.loginService.setToken('');
-          let userData = this.compiler.constructProfileData(this.data);
-          localStorage.setItem('userdata', JSON.stringify(userData));
-          this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
-          this.router.navigate(['/home']);
+          if (data.responseDetails.code === '0000') {
+            this.data = data;
+            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
+            data ? this.loginService.setToken(this.data.data.token) : this.loginService.setToken('');
+            let userData = this.compiler.constructProfileData(this.data.data);
+            localStorage.setItem('userdata', JSON.stringify(userData));
+            this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
+            this.router.navigate(['/home']);
+          } else if (data.responseDetails.code === '0001') {
+            console.log('this is the data we get it from login Api', data);
+            this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+            this.loading = false;
+          } else if (data.responseDetails.code === '0002') {
+            console.log('this is the data we get it from login Api', data);
+            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+            this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+            this.loading = false;
+          }
         },
         (error) => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +

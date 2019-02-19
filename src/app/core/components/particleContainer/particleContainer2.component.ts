@@ -5,11 +5,11 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 @Component({
-  selector: 'app-particle-container',
-  templateUrl: './particleContainer.component.html',
-  styleUrls: ['./particleContainer.component.scss']
+  selector: 'app-particle2-container',
+  templateUrl: './particleContainer2.component.html',
+  styleUrls: ['./particleContainer2.component.scss']
 })
-export class ParticleContainerComponent implements OnInit {
+export class ParticleContainerComponent2 implements OnInit {
   translated: Translation;
   appConstants: any;
   constructor(

@@ -1,19 +1,19 @@
 @import "./imports.scss";
 $primary-pallet: (
-  50: #e5e6e7,
-  100: #bec2c3,
-  200: #93999c,
-  300: #677074,
-  400: #475156,
-  500: #263238,
-  600: #222d32,
-  700: #1c262b,
-  800: #171f24,
-  900: #0d1317,
-  A100: #5bb9ff,
-  A200: #28a3ff,
-  A400: #008bf4,
-  A700: #007dda,
+  50: #ece8e7,
+  100: #cec6c3,
+  200: #aea09b,
+  300: #8e7973,
+  400: #755d55,
+  500: #5d4037,
+  600: #553a31,
+  700: #4b322a,
+  800: #412a23,
+  900: #301c16,
+  A100: #ff9272,
+  A200: #ff6b3f,
+  A400: #ff430c,
+  A700: #f13700,
   contrast: (
     50: #000000,
     100: #000000,
@@ -100,15 +100,15 @@ $theme-background: (
   app-bar: mat-color($primary-pallet, 600),
   background: mat-color($primary-pallet, 600),
   hover: rgba(white, 0.05),
-  card: mat-color($primary-pallet, 500),
+  card: mat-color($primary-pallet, 800),
   dialog: mat-color($primary-pallet, 600),
   disabled-button: $white-12-opacity,
   raised-button: mat-color($primary-pallet, 600),
   focused-button: $white-6-opacity,
-  selected-button: mat-color($primary-pallet, 900),
-  selected-disabled-button: mat-color($primary-pallet, 800),
+  selected-button: mat-color($primary-pallet, 50),
+  selected-disabled-button: mat-color($primary-pallet, 50),
   disabled-button-toggle: black,
-  unselected-chip: mat-color($primary-pallet, 700),
+  unselected-chip: mat-color($primary-pallet, 50),
   disabled-list-option: black
 );
 $theme-foreground: (
@@ -141,60 +141,22 @@ $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $theme: createTheme($primary, $secondary, $warn);
-.dark-theme {
-  .loginbox {
-    .mat-form-field.mat-focused {
-      .mat-form-field-label {
-        color: #fff !important;
-      }
-    }
-  }
+.dark-forest {
   app-login,
   app-forgot-password {
     .mat-figure {
-      background-color: mat-color($primary, 400) !important;
+      background-color: mat-color($primary, 500) !important;
     }
   }
   .monogram {
     border-color: mat-color($primary, 400) !important;
-  }
-  a {
-    color: mat-color($primary, 50);
-  }
-  .mat-drawer-container {
-    background-color: mat-color($primary, 600) !important;
-  }
-  .mat-horizontal-stepper {
-    background-color: mat-color($primary, 800) !important;
-  }
-  .pagehead {
-    background-color: mat-color($primary, 700) !important;
-  }
-  .mat-option.mat-selected:not(.mat-option-disabled) {
-    color: #fff !important;
-  }
-  .mat-pseudo-checkbox-checked {
-    background: #fff !important;
-  }
-
-  .mat-menu-panel,
-  .mat-dialog-container,
-  .mat-drawer {
-    background-color: mat-color($primary, 500) !important;
   }
   .package-selectors {
     svg {
       background-color: mat-color($primary, 200) !important;
     }
     .mat-radio-button {
-      background-color: mat-color($primary, 400);
-      .mat-radio-button {
-        &.mat-radio-checked {
-          &:before {
-            background-color: mat-color($primary, 400);
-          }
-        }
-      }
+      background-color: mat-color($primary, 500);
       &.mat-radio-checked {
         .trigger + svg {
           background-color: mat-color($primary, 900) !important;
@@ -205,13 +167,27 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
+  .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #fff !important;
+  }
+  .mat-pseudo-checkbox-checked {
+    background: #fff !important;
+  }
+  .loginbox {
+    .mat-form-field.mat-focused {
+      .mat-form-field-label {
+        color: #fff !important;
+      }
+    }
+  }
+  a {
+    color: mat-color($primary, 50);
+  }
   &.body-bg {
     background-color: mat-color($primary, 700);
   }
-  .sideLegend {
-    &:after{
-      background: mat-color($primary, 300);
-    }
+  .pagehead {
+    background-color: mat-color($primary, 400) !important;
   }
   .topbar,
   .mini-sidenav {
@@ -226,32 +202,19 @@ $theme: createTheme($primary, $secondary, $warn);
   }
   .infoTitle {
     &:before {
-      background: #fff;
+      background: mat-color($primary, 400);
+    }
+  }
+  .sideLegend {
+    background-color: mat-color($primary, 800) !important;
+    &:after{
+      background: mat-color($primary, 400);
     }
   }
   .midbox:before {
     background-color: mat-color($warn);
   }
-  .mat-horizontal-content-container {
-    padding: 0 !important;
-  }
-  .btn-grids {
-    a {
-      background-color: mat-color($primary, 600);
-      border-color: mat-color($primary, 600) !important;
-      mat-icon {
-        background: mat-color($primary, 400) !important;
-        color: #fff !important;
-      }
-    }
-  }
   app-registration {
-    mat-horizontal-stepper {
-      [btn-primary] {
-        background: #fff !important;
-        color: mat-color($primary) !important;
-      }
-    }
     .loginbox {
       mat-step-header {
         .mat-step-label {
@@ -262,8 +225,8 @@ $theme: createTheme($primary, $secondary, $warn);
         }
         .mat-step-label-active {
           mat-icon {
-            border-color: mat-color($primary, 400);
-            background-color: mat-color($primary, 400);
+            border-color: mat-color($primary);
+            background-color: mat-color($primary);
             color: #fff !important;
           }
         }

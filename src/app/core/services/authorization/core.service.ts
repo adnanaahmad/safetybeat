@@ -2,17 +2,20 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { Translation } from 'src/app/models/translate.model';
 @Injectable({ providedIn: 'root' })
 export class CoreService {
     storageKey = 'token';
     logout_success: string;
     logout_msg: string;
+    translated: Translation;
     constructor(
         private router: Router,
         public toastProvider: ToastService,
         private translate: TranslateService
     ) {
         this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+            this.translated = values;
             this.logout_success = values.MESSAGES.LOGOUT_SUCCESS;
             this.logout_msg = values.MESSAGES.LOGOUT_MSG;
         });
@@ -22,7 +25,7 @@ export class CoreService {
      */
     logoutUser() {
         this.removeToken();
-        this.toastProvider.createWarningToaster(this.logout_success, this.logout_msg);
+        this.toastProvider.createWarningToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG);
         this.router.navigate(['/login']);
     }
     /**
@@ -42,6 +45,7 @@ export class CoreService {
      * this function removes the token from the localstorage
      */
     removeToken() {
+        localStorage.removeItem('userdata');
         localStorage.removeItem(this.storageKey);
     }
     /**

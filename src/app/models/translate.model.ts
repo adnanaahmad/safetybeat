@@ -3,6 +3,22 @@ export interface Translation {
     BUTTONS: Buttons,
     MESSAGES: Messages,
     LOGGER: Logger,
+    STRINGS: Strings
+}
+export interface Strings {
+    USERNAME: string,
+    FIRSTNAME: string,
+    LASTNAME: string,
+    EMAIL: string,
+    MOBILE: string,
+    LIGHTDEFAULT: string,
+    EVILDARK: string,
+    OLIVEGREEN: string,
+    DARKFOREST: string,
+    OTHERSETTINGS: string,
+    CHANGETHEME: string,
+    EXPAND: string,
+    REMOVE: string
 }
 export interface Auth {
     USERNAME: string,
@@ -49,6 +65,45 @@ export interface Auth {
     ORG_NAME_EXISTS: string,
     CURRENT_PASSWORD: string
 }
+export interface Icons {
+    MOVE_VERT: string,
+    CHANGE_HISTORY: string,
+    DATA_USAGE: string,
+    CROP_DIN: string,
+    PANORAMA_HORIZONTAL: string,
+    ALL_INCLUSIVE: string,
+    RADIO_BUTTON_UNCHECKED: string,
+    PANORAMA_WIDE_ANGLE: string,
+    MY_LOCATION: string,
+    SHARE: string,
+    WAVES: string,
+    GPS_NOT_FIXED: string,
+    SCATTER_PLOT: string,
+    DETAILS: string,
+    TEXTURE: string
+}
+export interface Strings {
+    EXPAND: string,
+    REMOVE: string,
+    EMAIL: string,
+    USERNAME: string,
+    PASSWORD: string,
+    FIRSTNAME: string,
+    LASTNAME: string,
+    MOBILENO: string,
+    PASSWORD1: string,
+    PASSWORD2: string,
+    NAME: string,
+    TYPE: string,
+    ADDRESS: string,
+    CITY: string,
+    COUNTRY: string,
+    ZIPCODE: string,
+    BILLINGEMAIL: string,
+    ACCOUNTNO: string,
+    PHONENO: string,
+    FAX: string
+}
 export interface Buttons {
     LOGIN: string,
     REGISTER: string,
@@ -63,9 +118,17 @@ export interface Buttons {
     CHANGE_EMAIL: string,
     EDIT_ACCOUNT: string
     CHANGE_PASSWORD: string,
-    NO_THANKS: string
+    NO_THANKS: string,
+    FIELDCOMMUNICATION: string,
+    CHANGEPASSWORD: string,
+    LEAVE: string,
+    SAFETYBEAT: string,
+    ENTRIES: string,
+    ACTIVITIES: string,
+    PROFIILE_INFO: string
 }
 export interface Messages {
+    CHANGEPASSWORD: string,
     WELCOME: string,
     WELCOME_MSG: string,
     NOACCOUNT: string,
@@ -108,7 +171,12 @@ export interface Messages {
     RESETFAIL: string,
     RESETFAIL_MSG: string,
     CHANGEPASSWORD_FAIL: string,
-    CHANGEPASSWORD_SUCCESS: string
+    CHANGEPASSWORD_SUCCESS: string,
+    ANONYMOUS: string,
+    SAFETYBEAT: string,
+    NOTFOUND_HEADING: string,
+    NOTFOUND_DESCRIPTION: string,
+    PROFIILE_INFO: string
 }
 export interface Logger {
     STATUS: LoggerStatus,

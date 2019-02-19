@@ -14,8 +14,9 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: PageNotFoundComponent
-  }
+    loadChildren: 'src/app/core/core.module#CoreModule'
+  },
+
 ];
 
 @NgModule({

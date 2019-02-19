@@ -1,6 +1,9 @@
 @mixin amte-login($primary, $accent, $warn) {
   :host,
   app-login {
+    .mat-grid-tile{
+      overflow: unset;
+    }
     #particle-container {
       width: 50% !important;
       .particle:nth-child(even) {

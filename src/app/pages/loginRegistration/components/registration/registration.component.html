@@ -9,16 +9,16 @@
     <mat-step [stepControl]="userForm">
       <form [formGroup]="userForm">
         <ng-template matStepLabel>
-          <mat-icon>person</mat-icon>
+          <mat-icon>{{appIcons.person}}</mat-icon>
           {{translated.MESSAGES.USERDETAILS_MSG}}
         </ng-template>
         <div class="form-group">
           <mat-form-field style="width:95%;">
-            <input matInput type="text" [placeholder]=translated.AUTH.USERNAME formControlName="username" required
-              (blur)="checkUserName(userForm)" />
+            <input matInput type="text" placeholder={{translated.AUTH.USERNAME}} formControlName={{appConstants.userName}}
+              required (blur)="checkUserName(userForm)" />
             <mat-error *ngIf="userDetailForm.username.errors">
               <span *ngIf="userDetailForm.username.errors.required">{{translated.AUTH.USERNAME_REQ}}</span>
-              <span *ngIf="userDetailForm.username.errors?.exists">{{translated.MESSAGES.USERNAME_EXISTS}}</span>
+              <span *ngIf="userDetailForm.username.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
             </mat-error>
           </mat-form-field>
         </div>
@@ -26,7 +26,7 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.FIRSTNAME formControlName="first_name"
+                <input matInput type="text" placeholder={{translated.AUTH.FIRSTNAME}} formControlName={{appConstants.firstName}}
                   required />
                 <mat-error *ngIf="userDetailForm.first_name.errors ">
                   {{translated.AUTH.FIRSTNAME_REQ}}
@@ -37,7 +37,8 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.LASTNAME formControlName="last_name" required />
+                <input matInput type="text" placeholder={{translated.AUTH.LASTNAME}} formControlName={{appConstants.lastName}}
+                  required />
                 <mat-error *ngIf="userDetailForm.last_name.errors ">
                   {{translated.AUTH.LASTNAME_REQ}}
                 </mat-error>
@@ -47,8 +48,8 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName="email" required
-                  (blur)="checkEmail(userForm)" />
+                <input matInput type="email" placeholder={{translated.AUTH.EMAIL}} formControlName={{appConstants.email}}
+                  required (blur)="checkEmail(userForm)" />
                 <mat-error *ngIf="userDetailForm.email.errors">
                   <span *ngIf="userDetailForm.email.errors.email">{{translated.AUTH.EMAIL_VALID}}</span>
                   <span *ngIf="userDetailForm.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
@@ -60,7 +61,8 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="mobile_no" required />
+                <input matInput type="text" placeholder={{translated.AUTH.MOBILENO}} formControlName={{appConstants.mobileNo}}
+                  required />
                 <mat-error *ngIf="userDetailForm.mobile_no.errors ">
                   {{translated.AUTH.MOBILE_REQ}}
                 </mat-error>
@@ -70,7 +72,7 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password1"
+                <input matInput type="password" placeholder={{translated.AUTH.PASSWORD}} formControlName={{appConstants.password1}}
                   required />
                 <mat-error *ngIf="userDetailForm.password1.errors ">
                   <span *ngIf="userDetailForm.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
@@ -82,7 +84,7 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName="password2"
+                <input matInput type="password" placeholder={{translated.AUTH.CONFIRM_PASSWORD}} formControlName={{appConstants.password2}}
                   required />
                 <mat-error *ngIf="userDetailForm.password2.errors ">
                   <span *ngIf="userDetailForm.password2.errors?.required">{{translated.AUTH.CONFIRMPASSWORD_REQ}}</span>
@@ -95,7 +97,8 @@
         </mat-grid-list>
         <div>
           <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
-            <mat-icon>arrow_forward</mat-icon></button>
+            <mat-icon>{{appIcons.arrowForward}}</mat-icon></button>
+          <br>
           <a routerLink="/login" backtologin>{{translated.BUTTONS.LOGINTEXT}}</a>
         </div>
       </form>
@@ -103,14 +106,14 @@
     <mat-step [stepControl]="organizationForm">
       <form [formGroup]="organizationForm">
         <ng-template matStepLabel>
-          <mat-icon>domain</mat-icon>
+          <mat-icon>{{appIcons.domain}}</mat-icon>
           {{translated.MESSAGES.ORGANIZATION_MSG}}
         </ng-template>
         <mat-grid-list cols="2" rowHeight="70px">
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.ORGANIZATION_NAME formControlName="name"
+                <input matInput type="text" placeholder={{translated.AUTH.ORGANIZATION_NAME}} formControlName={{appConstants.name}}
                   required (blur)="checkOrgName(organizationForm)" />
                 <mat-error *ngIf="orgForm.name.errors">
                   <span *ngIf="orgForm.name.errors.required">{{translated.AUTH.ORGANIZATIONNAME_REQ}}</span>
@@ -122,7 +125,7 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <mat-select [placeholder]=translated.MESSAGES.TYPE_MSG formControlName="type" required>
+                <mat-select placeholder={{translated.MESSAGES.TYPE_MSG}} formControlName={{appConstants.type}} required>
                   <mat-option *ngFor="let type of types" [value]="type.id">
                     {{type.name}}
                   </mat-option>
@@ -136,7 +139,8 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.ADDRESS formControlName="address" required />
+                <input matInput type="text" placeholder={{translated.AUTH.ADDRESS}} formControlName={{appConstants.address}}
+                  required />
                 <mat-error *ngIf="orgForm.address.errors && orgForm.address.errors.required">
                   {{translated.AUTH.ADDRESS_REQ}}
                 </mat-error>
@@ -146,7 +150,8 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.CITY formControlName="city" required />
+                <input matInput type="text" placeholder={{translated.AUTH.CITY}} formControlName={{appConstants.city}}
+                  required />
                 <mat-error *ngIf="orgForm.city.errors && orgForm.city.errors.required">
                   {{translated.AUTH.CITY_REQ}}
                 </mat-error>
@@ -156,7 +161,8 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.COUNTRY formControlName="country" required />
+                <input matInput type="text" placeholder={{translated.AUTH.COUNTRY}} formControlName={{appConstants.country}}
+                  required />
                 <mat-error *ngIf="orgForm.country.errors && orgForm.country.errors.required">
                   {{translated.AUTH.COUNTRY_REQ}}
                 </mat-error>
@@ -166,7 +172,8 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.ZIPCODE formControlName="zipCode" required />
+                <input matInput type="text" placeholder={{translated.AUTH.ZIPCODE}} formControlName={{appConstants.zipCode}}
+                  required />
                 <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
                   {{translated.AUTH.ZIPCODE_REQ}}
                 </mat-error>
@@ -176,7 +183,7 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="email" [placeholder]=translated.AUTH.BILLING_EMAIL formControlName="billingEmail"
+                <input matInput type="email" placeholder={{translated.AUTH.BILLING_EMAIL}} formControlName={{appConstants.billingEmail}}
                   required (blur)="checkOrgBillingEmail(organizationForm)" />
                 <mat-error *ngIf="orgForm.billingEmail.errors">
                   <span *ngIf="orgForm.billingEmail.errors.required">{{translated.AUTH.BILLINGEMAIL_REQ}}</span>
@@ -189,7 +196,7 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.ACCOUNTNO formControlName="accountNo"
+                <input matInput type="text" placeholder={{translated.AUTH.ACCOUNTNO}} formControlName={{appConstants.accountNo}}
                   required />
                 <mat-error *ngIf="orgForm.accountNo.errors && orgForm.accountNo.errors.required">
                   {{translated.AUTH.ACCOUNTNO_REQ}}
@@ -200,19 +207,10 @@
           <mat-grid-tile>
             <div class="form-group">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="phoneNo" required />
+                <input matInput type="text" placeholder={{translated.AUTH.MOBILENO}} formControlName={{appConstants.phoneNo}}
+                  required />
                 <mat-error *ngIf="orgForm.phoneNo.errors && orgForm.phoneNo.errors.required">
                   {{translated.AUTH.MOBILE_REQ}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <div class="form-group">
-              <mat-form-field full-width>
-                <input matInput type="text" [placeholder]=translated.AUTH.FAX formControlName="fax" required />
-                <mat-error *ngIf="orgForm.fax.errors && orgForm.fax.errors.required">
-                  {{translated.AUTH.FAXNO_REQ}}
                 </mat-error>
               </mat-form-field>
             </div>
@@ -221,23 +219,24 @@
         <div class="clearsep"></div>
         <div>
           <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">
-            <mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}
+            <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
           </button>
           <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
-            <mat-icon>arrow_forward</mat-icon></button>
+            <mat-icon>{{appIcons.arrowForward}}</mat-icon></button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="moduleForm">
+    <!-- <mat-step [stepControl]="moduleForm">
       <form [formGroup]="moduleForm">
         <ng-template matStepLabel>
-          <mat-icon>line_style</mat-icon>
+          <mat-icon>{{appIcons.lineStyle}}</mat-icon>
           {{translated.MESSAGES.MODULE_MSG}}
         </ng-template>
         <div class="form-group">
           <mat-form-field full-width>
-            <mat-select [placeholder]=translated.MESSAGES.MODULE_MSG formControlName="name" multiple required>
+            <mat-select [placeholder]=translated.MESSAGES.MODULE_MSG formControlName={{appConstants.name}} multiple
+              required>
               <mat-option *ngFor="let module of modules" [value]="module.name">
                 {{module.name}}
               </mat-option>
@@ -250,24 +249,24 @@
         <div class="clearsep"></div>
         <div>
           <button mat-raised-button custom-btn btn-danger matStepperPrevious color="warn">
-            <mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}
+            <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
           </button>
           <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
-            <mat-icon>arrow_forward</mat-icon></button>
+            <mat-icon>{{appIcons.arrowForward}}</mat-icon></button>
         </div>
       </form>
-    </mat-step>
+    </mat-step> -->
 
     <mat-step>
       <ng-template matStepLabel>
-        <mat-icon>bookmark_border</mat-icon>
+        <mat-icon>{{appIcons.bookmarkBorder}}</mat-icon>
         {{translated.MESSAGES.PACKAGESELECT_MSG}}
       </ng-template>
-      <mat-card no-box-shadow *ngFor="let module of moduleForm.value.name">
-        <mat-card-title class="legend-title">{{module}}</mat-card-title>
+      <mat-card no-box-shadow>
+        <mat-card-title class="legend-title">Safetybeat</mat-card-title>
         <mat-card-content>
           <mat-radio-group class="package-selectors">
-            <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage(module,package)">
+            <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage(Safetybeat,package)">
               <div class="trigger"></div>
               <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 x="0px" y="0px" viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
@@ -289,10 +288,10 @@
       <div class="clearsep"></div>
       <div>
         <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn">
-          <mat-icon>arrow_back</mat-icon> {{translated.BUTTONS.BACK}}
+          <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
         </button>
         <button mat-raised-button custom-btn btn-primary (click)="registerOrginazation()" [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}}
-          <mat-icon>check</mat-icon></button>
+          <mat-icon>{{appIcons.check}}</mat-icon></button>
         <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
       </div>
     </mat-step>

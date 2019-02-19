@@ -23,8 +23,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
   email: FormGroup;
   success: any;
   res: any;
-
-
+  appConstants: any;
   constructor(
     private logging: LoggingService,
     public translate: TranslateService,
@@ -41,12 +40,12 @@ export class VerificationComponent implements OnInit, OnDestroy {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
     });
+    this.appConstants = ConstantService.appConstant;
   }
 
   ngOnInit() {
     this.router.events.pipe().subscribe(
       (event: NavigationCancel) => {
-        // this.location.replaceState(event.url);
         this.location.replaceState('/signup');
       }
 
@@ -55,9 +54,10 @@ export class VerificationComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]]
     });
     this.route.params.subscribe(params => {
+      debugger;
       this.data = JSON.parse(params.data);
     })
-
+    // this.data = { userData: { email: 'taqi@gmail.com' } }
   }
 
   ngOnDestroy() {

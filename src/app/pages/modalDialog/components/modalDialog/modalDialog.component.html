@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Change Password</h2>
+<h2 mat-dialog-title>{{translated.MESSAGES.CHANGEPASSWORD}}</h2>
 <div mat-dialog-content>
   <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword(changePasswordForm)">
     <div class="form-group">
@@ -13,7 +13,8 @@
     </div>
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName="password1" required />
+        <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName={{appConstants.password1}}
+          required />
         <mat-error *ngIf="formValidation.password1.errors ">
           <span *ngIf="formValidation.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
           <span *ngIf="formValidation.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
@@ -22,7 +23,7 @@
     </div>
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName="password2"
+        <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName={{appConstants.password2}}
           required />
         <mat-error *ngIf="formValidation.password2.errors ">
           <span *ngIf="formValidation.password2.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>

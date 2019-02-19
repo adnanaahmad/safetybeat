@@ -7,6 +7,7 @@ import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ModalConfigService } from '../../services/modalConfig.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -18,6 +19,7 @@ export class ModalDialogComponent implements OnInit {
   translated: Translation;
   profileData: any;
   user_id: any;
+  appConstants: any;
 
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
@@ -32,6 +34,7 @@ export class ModalDialogComponent implements OnInit {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     });
+    this.appConstants = ConstantService.appConstant;
     this.profileData = JSON.parse(localStorage.getItem('userdata'));
     this.user_id = this.profileData.userid;
   }
@@ -62,10 +65,12 @@ export class ModalDialogComponent implements OnInit {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.modalService.changePassword(this.user_id, {
+    let result = {
       oldPassword: value.currentPassword,
-      newPassword: value.password1
-    }).subscribe((res) => {
+      newPassword: value.password1,
+      pk: this.user_id
+    }
+    this.modalService.changePassword(result).subscribe((res) => {
       this.dialogRef.close();
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);

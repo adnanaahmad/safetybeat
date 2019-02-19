@@ -1,37 +1,34 @@
 @mixin amte-common($primary, $accent, $warn) {
-  [btn-primary]{
+  [btn-primary] {
     background-color: mat-color($primary);
-    color:#fff;
+    color: #fff;
   }
   .midbox {
-    border-color: mat-color($primary);
+    border-color: mat-color($primary, 300);
   }
-  .monogram{
+  .monogram {
     background-color: mat-color($primary) !important;
   }
   mat-sidenav {
-    background-color: mat-color($primary) !important;
+    background-color: mat-color($primary, 600) !important;
   }
-  .infoTitle:before{
-    background: mat-color($primary);
-  }
-  .sideLegend {
-    background-color: mat-color($primary) !important;
+  [btn-white] {
+    color: mat-color($primary) !important;
   }
   // Radio Button Coloring Start
   .mat-radio-button.mat-accent.mat-radio-checked {
     .mat-radio-outer-circle {
-      border-color: mat-color($primary) !important;
+      border-color: mat-color($primary, 400) !important;
     }
   }
   .mat-radio-checked {
     .mat-radio-inner-circle {
-      background-color: mat-color($primary) !important;
+      background-color: mat-color($primary, 400) !important;
     }
   }
-  .mat-radio-button{
-    .mat-ripple-element{
-      background-color: mat-color($primary) !important;
+  .mat-radio-button {
+    .mat-ripple-element {
+      background-color: mat-color($primary, 400) !important;
     }
   }
   // Radio Button Coloring End

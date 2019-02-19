@@ -1,7 +1,7 @@
 <div class="menu-button">
   <button (click)="toggleSideNav()" mat-mini-fab color="primary">
-    <mat-icon class="opened" *ngIf="!navOpened">menu</mat-icon>
-    <mat-icon class="closed" *ngIf="navOpened">close</mat-icon>
+    <mat-icon class="opened" *ngIf="!navOpened">{{appIcons.menu}}</mat-icon>
+    <mat-icon class="closed" *ngIf="navOpened">{{appIcons.close}}</mat-icon>
   </button>
 </div>
 <mat-nav-list class="nav-list">

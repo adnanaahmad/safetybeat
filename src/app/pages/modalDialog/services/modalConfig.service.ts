@@ -10,7 +10,7 @@ export class ModalConfigService {
   constructor(
     private http: HttpClient) { }
 
-  changePassword(id, data) {
-    return this.http.put(`${ConstantService.apiRoutes.changePassword}/${id}/`, data);
+  changePassword(data) {
+    return this.http.put(`${ConstantService.apiRoutes.changePassword}`, data);
   }
 }
