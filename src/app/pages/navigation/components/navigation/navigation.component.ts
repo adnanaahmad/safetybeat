@@ -32,6 +32,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle, label: 'Support' },
     { path: '/home/settings', icon: ConstantService.appIcons.settings, label: 'Settings' }
   ];
+
+  public analyticsReport = [
+    { path: '/home/profile', icon: ConstantService.appIcons.dashboard, label: 'Profile' },
+    { path: '/home', icon: ConstantService.appIcons.person, label: 'Add' },
+    { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle, label: 'Notifications' },
+    { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle, label: 'Support' },
+    { path: '/home/settings', icon: ConstantService.appIcons.settings, label: 'Settings' }
+  ]
   constructor(public core: CoreService,
     public translate: TranslateService,
     private logging: LoggingService) {
