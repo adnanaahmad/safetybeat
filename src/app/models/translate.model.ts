@@ -152,7 +152,8 @@ export interface Messages {
     ANONYMOUS: string,
     SAFETYBEAT: string,
     NOTFOUND_HEADING: string,
-    NOTFOUND_DESCRIPTION: string
+    NOTFOUND_DESCRIPTION: string,
+    ALREADY_ACCOUNT:string
 }
 export interface Logger {
     STATUS: LoggerStatus,
