@@ -33,7 +33,7 @@ const routes: Routes = [
     component: CheckInActivityReportComponent,
   },
   {
-    path: 'compilantCheckoutReport',
+    path: 'compliantCheckoutReport',
     component: CompilantCheckoutReportComponent,
   },
   {
