@@ -176,6 +176,7 @@ export interface Messages {
     SAFETYBEAT: string,
     NOTFOUND_HEADING: string,
     NOTFOUND_DESCRIPTION: string,
+    ALREADY_ACCOUNT:string
     PROFIILE_INFO: string
 }
 export interface Logger {

@@ -19,6 +19,18 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: '../settings/settings.module#SettingsModule'
+      },
+      {
+        path: 'adminControl',
+        loadChildren: '../adminControl/adminControl.module#AdminControlModule'
+      },
+      {
+        path: 'analyticsReport',
+        loadChildren: '../analyticsReport/analyticsReport.module#AnalyticsReportModule'
+      },
+      {
+        path: 'documents',
+        loadChildren: '../documents/documents.module#DocumentsModule'
       }
     ]
   }

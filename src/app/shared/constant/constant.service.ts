@@ -68,7 +68,11 @@ export class ConstantService {
     fax: 'fax'
   };
   static appIcons = {
+    group: 'group',
     moveVert: 'more_vert',
+    contacts:'contacts',
+    showChart:'show_chart',
+    insertDriveFile:'insert_drive_file',
     changeHistory: 'change_history',
     dataUsage: 'data_usage',
     cropDin: 'crop_din',

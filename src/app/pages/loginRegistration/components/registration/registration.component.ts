@@ -23,8 +23,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private logging: LoggingService,
     private render: Renderer2
   ) {
-
-    this.render.addClass(document.body, ConstantService.config.theme.background);
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'ICONS', 'STRINGS']).subscribe((values) => {
       this.translated = values;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
@@ -75,7 +73,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -99,7 +96,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.render.removeClass(document.body, ConstantService.config.theme.background);
     this.logging.hideAllAppLoggers();
   }
   /**
