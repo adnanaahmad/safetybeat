@@ -49,15 +49,6 @@
               <div class="form-group">
                 <mat-list-item role="listitem">
                   <span matLine>
-                    <strong>{{translated.STRINGS.USERNAME}}</strong>
-                    <input matInput type="text" [(ngModel)]=userData.username formControlName={{appConstants.userName}}
-                      [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.userName}} required />
-                  </span>
-                </mat-list-item>
-              </div>
-              <div class="form-group">
-                <mat-list-item role="listitem">
-                  <span matLine>
                     <strong>{{translated.STRINGS.FIRSTNAME}} </strong>
                     <input matInput type="text" [(ngModel)]=userData.first_name formControlName={{appConstants.firstName}}
                       [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.firstName}} required />

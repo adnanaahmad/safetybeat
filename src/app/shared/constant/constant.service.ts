@@ -21,7 +21,7 @@ export class ConstantService {
     checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
     checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,
     resendverification: `${environment.apiUrl}/account/resend-verification/`,
-    changeEmail: `${environment.apiUrl}/editEmail`,
+    changeEmail: `${environment.apiUrl}/users/editEmail`,
     editProfile: `${environment.apiUrl}/users/editProfile`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
     getInvite: `${environment.apiUrl}/register/`,
