@@ -25,4 +25,5 @@ export class NavigationService {
   public openNav() {
     this.sideNav.open();
   }
+  
 }
