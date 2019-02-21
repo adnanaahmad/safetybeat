@@ -153,5 +153,10 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
+  .customTable{
+    .mat-header-row{
+      background-color: mat-color($primary);
+    }
+  }
   @include amte-setTheme($light-theme);
 }

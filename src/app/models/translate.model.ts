@@ -125,7 +125,9 @@ export interface Buttons {
     SAFETYBEAT: string,
     ENTRIES: string,
     ACTIVITIES: string,
-    PROFIILE_INFO: string
+    PROFIILE_INFO: string,
+    JOIN_ENTITY: string,
+    CREATE_ENTITY: string
 }
 export interface Messages {
     CHANGEPASSWORD: string,

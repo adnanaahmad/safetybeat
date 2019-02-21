@@ -27,7 +27,6 @@ export class FixedNavComponent implements OnInit {
   ];
   public navLinksBottom = [
     { path: '/home/profile', icon: ConstantService.appIcons.person },
-    { path: '/home', icon: ConstantService.appIcons.add },
     { path: '/home', icon: ConstantService.appIcons.notificationImportant },
     { path: '/home', icon: ConstantService.appIcons.help },
     { path: '/home/settings', icon: ConstantService.appIcons.settings }

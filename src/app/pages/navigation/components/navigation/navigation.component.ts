@@ -102,7 +102,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ];
   public navLinksBottom = [
     { path: '/home/profile', icon: ConstantService.appIcons.dashboard, label: 'Profile' },
-    { path: '/home', icon: ConstantService.appIcons.person, label: 'Add' },
     { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle, label: 'Notifications' },
     { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle, label: 'Support' },
     { path: '/home/settings', icon: ConstantService.appIcons.settings, label: 'Settings' }

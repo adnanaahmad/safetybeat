@@ -271,5 +271,14 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
+  .customTable{
+    .mat-header-row{
+      background-color: mat-color($primary, 800);
+    }
+    .mat-header-cell,
+    .mat-cell{
+      border-bottom-color: mat-color($primary, 400);
+    }
+  }
   @include amte-setTheme($theme);
 }
