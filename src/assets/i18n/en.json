@@ -6,7 +6,7 @@
         "FIRSTNAME": "First Name",
         "LASTNAME": "Last Name",
         "CONFIRM_PASSWORD": "Confirm Password",
-        "MOBILENO": "Mobile No.",
+        "MOBILENO": "Contact No.",
         "PASSWORD1": "password1",
         "PASSWORD2": "password2",
         "ADDRESS": "Address",
@@ -24,7 +24,7 @@
         "EMAIL_REQ": "Please enter email address.",
         "EMAIL_EXISTS": "Email address already exists",
         "CONFIRMPASSWORD_REQ": "Please enter valid confirm password.",
-        "MOBILE_REQ": "Please enter valid mobile no.",
+        "MOBILE_REQ": "Please enter valid contact number.",
         "ADDRESS_REQ": "Please enter Address.",
         "CITY_REQ": "Please enter City.",
         "COUNTRY_REQ": "Please enter Country.",
@@ -132,7 +132,8 @@
         "ANONYMOUS": "Anonymous !",
         "CHANGEPASSWORD": "Change Password",
         "NOTFOUND_HEADING": "Nothing found",
-        "NOTFOUND_DESCRIPTION": "The page you are looking for is not here, or maybe broken"
+        "NOTFOUND_DESCRIPTION": "The page you are looking for is not here, or maybe broken",
+        "ALREADY_ACCOUNT":"Already Have an Account?"
     },
     "LOGGER": {
         "STATUS": {

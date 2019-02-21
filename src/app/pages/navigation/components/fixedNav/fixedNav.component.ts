@@ -18,11 +18,15 @@ export class FixedNavComponent implements OnInit {
   appIcons: any;
   public navLinks = [
     { path: '/home', icon: ConstantService.appIcons.dashboard },
-    { path: '/home/profile', icon: ConstantService.appIcons.person },
-    { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle }
+    { path: '/home/profile/user', icon: ConstantService.appIcons.group },
+    { icon: ConstantService.appIcons.supervisedUserCircle },
+    { icon: ConstantService.appIcons.contacts },
+    { icon: ConstantService.appIcons.showChart },
+    { icon: ConstantService.appIcons.insertDriveFile },
+
   ];
   public navLinksBottom = [
-    { path: '/home', icon: ConstantService.appIcons.search },
+    { path: '/home/profile', icon: ConstantService.appIcons.person },
     { path: '/home', icon: ConstantService.appIcons.add },
     { path: '/home', icon: ConstantService.appIcons.notificationImportant },
     { path: '/home', icon: ConstantService.appIcons.help },

@@ -24,7 +24,9 @@ export class ConstantService {
     changeEmail: `${environment.apiUrl}/editEmail`,
     editProfile: `${environment.apiUrl}/users/editProfile`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
-    getInvite: `${environment.apiUrl}/register/`
+    getInvite: `${environment.apiUrl}/register/`,
+
+    createEntity: `${environment.apiUrl}/entity/createEntity/`
   };
   static toast = {
     location: 'toast-top-left',
@@ -66,7 +68,11 @@ export class ConstantService {
     fax: 'fax'
   };
   static appIcons = {
+    group: 'group',
     moveVert: 'more_vert',
+    contacts:'contacts',
+    showChart:'show_chart',
+    insertDriveFile:'insert_drive_file',
     changeHistory: 'change_history',
     dataUsage: 'data_usage',
     cropDin: 'crop_din',

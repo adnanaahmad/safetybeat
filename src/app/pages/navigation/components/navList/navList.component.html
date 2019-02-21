@@ -2,8 +2,13 @@
   nav-list works!
 </p> -->
 <mat-nav-list>
-  <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.path" routerLinkActive="active">
-    <a class="nav-link">{{ link.label }}</a>
+  <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.route" routerLinkActive="active">
+
+    <a *ngIf="!link.children" class="nav-link">{{ link.displayName }}</a>
+    <a *ngIf="link.children" class="nav-link" [matMenuTriggerFor]="admin">{{link.displayName}}<mat-icon>keyboard_arrow_right</mat-icon></a>
+        <mat-menu #admin="matMenu">
+            <button mat-menu-item *ngFor="let child of link.children" (click)="onItemSelected(child)" routerLinkActive="active"> {{child.displayName}}</button>
+        </mat-menu>
   </mat-list-item>
 </mat-nav-list>
 <mat-nav-list class="bottom">

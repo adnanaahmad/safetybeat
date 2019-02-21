@@ -3,7 +3,9 @@
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
       <img src='../../../../../assets/images/logo.png' class="sidenav-logo">
-      <app-nav-list [navLinks]="navLinks" [navLinksBottom]="navLinksBottom"></app-nav-list>
+      <mat-nav-list>
+        <app-nav-list [navLinks]="navLinks" [navLinksBottom]="navLinksBottom"></app-nav-list>
+      </mat-nav-list>
     </mat-sidenav>
     <!-- Content of rest of section -->
     <mat-sidenav-content class="app-content">
