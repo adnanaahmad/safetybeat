@@ -39,7 +39,7 @@
         <div class="input">
           <mat-form-field full-width>
             <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}}
-              required />
+              required (blur)="checkEmail(userForm)"/>
             <mat-error *ngIf="userDetailForm.email.errors">
               <span *ngIf="userDetailForm.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
               <span *ngIf="userDetailForm.email.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>

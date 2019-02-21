@@ -20,7 +20,7 @@ export class ConstantService {
     checkEmail: `${environment.apiUrl}/users/checkEmail/`,
     checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
     checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,
-    resendverification: `${environment.apiUrl}/account/resend-verification/`,
+    resendverification: `http://192.168.50.33:8000/account/resend-verification/`,
     changeEmail: `${environment.apiUrl}/users/editEmail`,
     editProfile: `${environment.apiUrl}/users/editProfile`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,

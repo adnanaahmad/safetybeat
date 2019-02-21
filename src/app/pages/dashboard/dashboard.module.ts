@@ -8,6 +8,7 @@ import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
+import { OrganizationPackageComponent } from './components/organizationPackage/organizationPackage.component';
 
 declare var require: any;
 export function HighchartsFactory() {
@@ -22,6 +23,7 @@ export function HighchartsFactory() {
 @NgModule({
   declarations: [
     DashboardComponent,
+    OrganizationPackageComponent,
   ],
   imports: [
     CommonModule,
