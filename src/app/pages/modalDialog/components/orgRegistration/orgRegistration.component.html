@@ -1,0 +1,152 @@
+<mat-card-title>{{translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
+<p class="subheading">{{translated.MESSAGES.ORGSIGNUPMESSAGE}}</p>
+<mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
+  <mat-step [stepControl]="organizationForm">
+    <form [formGroup]="organizationForm">
+      <ng-template matStepLabel>
+        <mat-icon>{{appIcons.domain}}</mat-icon>
+        {{translated.MESSAGES.ORGANIZATION_MSG}}
+      </ng-template>
+      <mat-grid-list cols="2" rowHeight="70px">
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <input matInput type="text" [placeholder]=translated.AUTH.ORGANIZATION_NAME formControlName={{appConstants.name}}
+                required (blur)="checkOrgName(organizationForm)" />
+              <mat-error *ngIf="orgForm.name.errors">
+                <span *ngIf="orgForm.name.errors.required">{{translated.AUTH.ORGANIZATIONNAME_REQ}}</span>
+                <span *ngIf="orgForm.name.errors?.exists">{{translated.AUTH.ORG_NAME_EXISTS}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <mat-select [placeholder]=translated.MESSAGES.TYPE_MSG formControlName={{appConstants.type}} required>
+                <mat-option *ngFor="let type of types" [value]="type.id">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="orgForm.type.errors && orgForm.type.errors.required">
+                {{translated.MESSAGES.TYPE_MSG}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <input matInput type="text" [placeholder]=translated.AUTH.ADDRESS appGooglePlaces (onSelect)="setAddress($event)"
+                formControlName={{appConstants.address}} required />
+              <mat-error *ngIf="orgForm.address.errors && orgForm.address.errors.required">
+                {{translated.AUTH.ADDRESS_REQ}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <input matInput type="text" ngModel={{city}} [placeholder]=translated.AUTH.CITY formControlName={{appConstants.city}}
+                required />
+              <mat-error *ngIf="orgForm.city.errors && orgForm.city.errors.required">
+                {{translated.AUTH.CITY_REQ}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <input matInput type="text" ngModel={{country}} [placeholder]=translated.AUTH.COUNTRY formControlName={{appConstants.country}}
+                required />
+              <mat-error *ngIf="orgForm.country.errors && orgForm.country.errors.required">
+                {{translated.AUTH.COUNTRY_REQ}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <input matInput type="text" ngModel={{zipCode}} [placeholder]=translated.AUTH.ZIPCODE formControlName={{appConstants.zipCode}}
+                required />
+              <mat-error *ngIf="orgForm.zipCode.errors && orgForm.zipCode.errors.required">
+                {{translated.AUTH.ZIPCODE_REQ}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <input matInput type="email" [placeholder]=translated.AUTH.BILLING_EMAIL formControlName={{appConstants.billingEmail}}
+                required (blur)="checkOrgBillingEmail(organizationForm)" />
+              <mat-error *ngIf="orgForm.billingEmail.errors">
+                <span *ngIf="orgForm.billingEmail.errors.required">{{translated.AUTH.BILLINGEMAIL_REQ}}</span>
+                <span *ngIf="orgForm.billingEmail.errors.email">{{translated.AUTH.BILLING_EMAIL_VALID}}</span>
+                <span *ngIf="orgForm.billingEmail.errors?.exists">{{translated.AUTH.BILLING_EMAIL_EXISTS}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="form-group">
+            <mat-form-field full-width>
+              <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName={{appConstants.contactNo}}
+                required />
+              <mat-error *ngIf="orgForm.contactNo.errors && orgForm.contactNo.errors.required">
+                {{translated.AUTH.MOBILE_REQ}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div class="clearsep"></div>
+      <div>
+          <a (click)="onNoClick()">{{translated.BUTTONS.SKIP}}</a> <br> <br>
+        <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
+          <mat-icon>{{appIcons.arrowForward}}</mat-icon></button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>
+      <mat-icon>{{appIcons.bookmarkBorder}}</mat-icon>
+      {{translated.MESSAGES.PACKAGESELECT_MSG}}
+    </ng-template>
+    <mat-card no-box-shadow>
+      <mat-card-title class="legend-title">Safetybeat</mat-card-title>
+      <mat-card-content>
+        <mat-radio-group class="package-selectors">
+          <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage('Safetybeat',package)">
+            <div class="trigger"></div>
+            <svg version="1.1" id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px" y="0px" viewBox="0 0 37 37" style="enable-background:new 0 0 37 37;" xml:space="preserve">
+              <path class="circ path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                d="
+                  M30.5,6.5L30.5,6.5c6.6,6.6,6.6,17.4,0,24l0,0c-6.6,6.6-17.4,6.6-24,0l0,0c-6.6-6.6-6.6-17.4,0-24l0,0C13.1-0.2,23.9-0.2,30.5,6.5z" />
+              <polyline class="tick path" style="fill:none;stroke:#000;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;"
+                points="
+                  11.6,20 15.9,24.2 26.4,13.8 " />
+            </svg>
+            <div class="radio-data">
+              <h3>{{package.cost}}</h3>
+              <p>{{package.noOfUsers}}</p>
+            </div>
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-card-content>
+    </mat-card>
+    <div class="clearsep"></div>
+    <div>
+      <button mat-raised-button custom-btn btn-danger matStepperPrevious [disabled]="loading" color="warn">
+        <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
+      </button>
+      <button mat-raised-button custom-btn btn-primary [disabled]="loading" color="primary">{{translated.BUTTONS.SUBMIT}}
+        <mat-icon>{{appIcons.check}}</mat-icon></button>
+      <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
