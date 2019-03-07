@@ -1,0 +1,15 @@
+@mixin amte-entityControl($primary, $accent, $warn) {
+    :host,
+    app-entitycontrol{
+        table{
+            width: 100%;
+        }
+        .buttonRow{
+            margin:0 0 10px;
+            text-align: right;
+            button:last-child{
+                margin-left:10px;
+            }
+        }
+    }
+}

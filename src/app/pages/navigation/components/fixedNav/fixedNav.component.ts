@@ -100,6 +100,7 @@ export class FixedNavComponent implements OnInit {
     { route:'/home/documents',iconName: ConstantService.appIcons.insertDriveFile },
 
   ];
+
   public navLinksBottom:NavItem[] = [
     { route: '/home/profile', iconName: ConstantService.appIcons.person },
     { route: '/home', iconName: ConstantService.appIcons.add },

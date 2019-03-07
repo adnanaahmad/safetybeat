@@ -142,7 +142,8 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $theme: createTheme($primary, $secondary, $warn);
 .dark-theme {
-  .loginbox {
+  .loginbox,
+  app-modal-dialog {
     .mat-form-field.mat-focused {
       .mat-form-field-label {
         color: #fff !important;
@@ -268,6 +269,15 @@ $theme: createTheme($primary, $secondary, $warn);
           }
         }
       }
+    }
+  }
+  .customTable{
+    .mat-header-row{
+      background-color: mat-color($primary, 800);
+    }
+    .mat-header-cell,
+    .mat-cell{
+      border-bottom-color: mat-color($primary, 400);
     }
   }
   @include amte-setTheme($theme);
