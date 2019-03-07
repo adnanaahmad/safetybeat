@@ -9,7 +9,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: 'src/app/pages/navigation/navigation.module#NavigationModule'
   },
   {
@@ -24,7 +24,7 @@ export const routes: Routes = [
     RouterModule.forRoot(
       routes,
       {
-        enableTracing: false, // <-- debugging purposes only
+        enableTracing: false,
       }
     )
   ],

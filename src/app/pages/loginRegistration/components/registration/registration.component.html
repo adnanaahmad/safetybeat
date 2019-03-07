@@ -42,7 +42,6 @@
               required (blur)="checkEmail(userForm)"/>
             <mat-error *ngIf="userDetailForm.email.errors">
               <span *ngIf="userDetailForm.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
-              <span *ngIf="userDetailForm.email.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>
               <span *ngIf="userDetailForm.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
             </mat-error>
           </mat-form-field>

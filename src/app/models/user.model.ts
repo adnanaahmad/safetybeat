@@ -42,10 +42,9 @@ export interface RegisterOrganization {
     zipCode: string;
     city: string;
     country: string;
-    fax: string;
     billingEmail: string;
     accountNo: string;
-    phoneNo: string;
+    contactNo: string;
 }
 export interface ModulePackage {
     name: string;

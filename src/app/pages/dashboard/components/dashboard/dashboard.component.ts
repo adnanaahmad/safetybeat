@@ -8,6 +8,8 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Chart } from 'angular-highcharts'
 import * as Highcharts from 'highcharts';
 import { Router } from '@angular/router';
+import { OrgRegistrationComponent } from 'src/app/pages/modalDialog/components/orgRegistration/orgRegistration.component';
+import { MatDialogConfig, MatDialog } from '@angular/material';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,9 +23,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   translated: Translation
   constructor(
     private route: Router,
-    private breakpointObserver: BreakpointObserver,
     public translate: TranslateService,
-    private logging: LoggingService
+    private logging: LoggingService,
+    public dialog: MatDialog,
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
       .subscribe(values => {
@@ -33,6 +35,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
           this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
         );
       });
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.closeOnNavigation = false;
+        this.dialog.open(OrgRegistrationComponent);
     this.option1 = {
       chart: {
         plotBackgroundColor: null,

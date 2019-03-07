@@ -20,7 +20,7 @@ export class ConstantService {
     checkEmail: `${environment.apiUrl}/users/checkEmail/`,
     checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
     checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,
-    resendverification: `http://192.168.50.33:8000/account/resend-verification/`,
+    resendverification: `${environment.serverUrl}/account/resend-verification/`,
     changeEmail: `${environment.apiUrl}/users/editEmail`,
     editProfile: `${environment.apiUrl}/users/editProfile`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
@@ -64,10 +64,11 @@ export class ConstantService {
     zipCode: 'zipCode',
     billingEmail: 'billingEmail',
     accountNo: 'accountNo',
-    phoneNo: 'phoneNo',
+    contactNo: 'contactNo',
     fax: 'fax'
   };
   static appIcons = {
+    skipNext:'skip_next',
     group: 'group',
     moveVert: 'more_vert',
     contacts:'contacts',

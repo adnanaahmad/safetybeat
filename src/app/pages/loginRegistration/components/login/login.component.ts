@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit, OnDestroy {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
-    debugger;
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ);
@@ -83,7 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             let userData = this.compiler.constructProfileData(this.data.data);
             localStorage.setItem('userdata', JSON.stringify(userData));
             this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
-            this.router.navigate(['/home']);
+              this.router.navigate(['/home']);
           } else if (data.responseDetails.code === '0001') {
             console.log('this is the data we get it from login Api', data);
             this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
