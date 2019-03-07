@@ -54,10 +54,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]]
     });
     this.route.params.subscribe(params => {
-      debugger;
       this.data = JSON.parse(params.data);
     })
-    // this.data = { userData: { email: 'taqi@gmail.com' } }
   }
 
   ngOnDestroy() {
@@ -73,7 +71,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.loginRegService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (!this.success.status) {
+        if (!this.success.isSuccess) {
           group.controls.email.setErrors({ exists: true })
         }
       });
@@ -82,7 +80,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
   get formValidation() { return this.verifyForm.controls; }
   resendVerification() {
-    this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((res) => {
+    this.loginRegService.resendemail({ 'email': this.data.data.userData.email }).subscribe((res) => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
     }, (err) => {

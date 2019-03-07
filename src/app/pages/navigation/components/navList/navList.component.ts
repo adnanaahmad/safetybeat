@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavItem } from 'src/app/models/navItems.model';
 import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-nav-list',
@@ -13,14 +14,14 @@ export class NavListComponent implements OnInit {
   @Input() public navLinks:NavItem;
   @Input() public navLinksBottom;
   constructor(
-    public router:Router
+    public router:Router,
+    public navService:NavigationService
   ) {
   }
 
   ngOnInit() {
     if(this.navLinks.children){
       this.item=this.navLinks;
-      console.log('These are the menus',this.item);
     }
   }
   onItemSelected(navLinks: NavItem) {

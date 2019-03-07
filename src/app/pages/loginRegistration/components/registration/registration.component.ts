@@ -80,20 +80,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
-    this.organizationForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      type: ['', Validators.required],
-      address: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
-      billingEmail: ['', [Validators.required, Validators.email]],
-      accountNo: ['', Validators.required],
-      phoneNo: ['', Validators.required]
-    });
-    this.moduleForm = this.formBuilder.group({
-      name: [[], Validators.required]
-    });
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
@@ -106,18 +92,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
-  }
-  checkUserName(group) {
-    debugger;
-    if (group.value.username !== '') {
-      const username = { username: group.value.username };
-      this.register.checkUserName(username).pipe().subscribe((res) => {
-        this.success = res;
-        if (!this.success.isSuccess) {
-          group.controls.username.setErrors({ exists: true })
-        }
-      });
-    }
   }
   checkEmail(group) {
     this.email = this.formBuilder.group({
@@ -133,70 +107,34 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       });
     }
   }
-  checkOrgName(group) {
-    if (group.value.name !== '') {
-      const name = { name: group.value.name }
-      this.register.checkOrgName(name).pipe().subscribe((res) => {
-        this.success = res;
-        if (!this.success.isSuccess) {
-          group.controls.name.setErrors({ exists: true })
-        }
-      });
-    }
-  }
-  checkOrgBillingEmail(group) {
-    this.email = this.formBuilder.group({
-      'email': [group.value.billingEmail, Validators.email]
-    });
-    if (this.email.status === 'VALID') {
-      const billingEmail = { billingEmail: group.value.billingEmail };
-      const billingemail_check = this.register.checkOrgBillingEmail(billingEmail).pipe();
-      billingemail_check.subscribe((res) => {
-        this.success = res;
-        if (!this.success.isSuccess) {
-          group.controls.billingEmail.setErrors({ exists: true })
-        }
-      });
-    }
-  }
 
   /**
    * saves package against module
    * @param name name of the module
    * @param data selected package against module
    */
-  selectPackage(name: string, data: packges) {
-    this.selectedPackage[name] = data;
-  }
-  registerOrginazation() {
+  registerOrginazation({ value, valid }: { value: RegisterUser; valid: boolean }) {
     this.userData = <RegisterUser>this.userForm.value
     this.registerData = {
-      'username': this.userData.username,
-      'first_name': this.userData.first_name,
-      'last_name': this.userData.last_name,
-      'email': this.userData.email,
-      'mobile_no': this.userData.mobile_no,
-      'password1': this.userData.password1,
-      'password2': this.userData.password2,
-      'organization': <RegisterOrganization>this.organizationForm.value,
-      'modulePkg': [],
-      'invitation': false
+      'first_name': value.first_name,
+      'last_name': value.last_name,
+      'email': value.email,
+      'mobile_no': value.mobile_no,
+      'password1': value.password1,
+      'password2': value.password2,
+      'invitation': false,
+      'module':'Safetybeat',
+      'package':'Trial',
+      'role':'Owner'
     };
-    for (const key in this.selectedPackage) {
-      if (this.selectedPackage.hasOwnProperty(key)) {
-        this.registerData.modulePkg.push({ name: 'Safetybeat', package: this.selectedPackage[key] });
-      }
-    }
-
-    if (this.userForm.invalid || this.organizationForm.invalid) {
+    if (!valid) {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
     this.loading = true;
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value,
-      this.organizationForm.value, this.moduleForm.value));
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value));
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {

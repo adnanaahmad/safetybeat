@@ -21,7 +21,7 @@ export function HighchartsFactory() {
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,

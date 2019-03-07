@@ -100,11 +100,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
 
   ];
-  public navLinksBottom = [
-    { path: '/home/profile', icon: ConstantService.appIcons.dashboard, label: 'Profile' },
-    { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle, label: 'Notifications' },
-    { path: '/home', icon: ConstantService.appIcons.supervisedUserCircle, label: 'Support' },
-    { path: '/home/settings', icon: ConstantService.appIcons.settings, label: 'Settings' }
+  public navLinksBottom:NavItem[] = [
+    { route: '/home/profile', iconName: ConstantService.appIcons.dashboard, displayName: 'Profile' },
+    { route: '/home', iconName: ConstantService.appIcons.person, displayName: 'Add' },
+    { route: '/home', iconName: ConstantService.appIcons.supervisedUserCircle, displayName: 'Notifications' },
+    { route: '/home', iconName: ConstantService.appIcons.supervisedUserCircle, displayName: 'Support' },
+    { route: '/home/settings', iconName: ConstantService.appIcons.settings, displayName: 'Settings' }
   ];
   constructor(public core: CoreService,
     public translate: TranslateService,

@@ -83,12 +83,15 @@
         "SAFETYBEAT": "SafetyBeat",
         "FIELDCOMMUNICATION": "Field Communication",
         "JOIN_ENTITY": "Join Entity",
-        "CREATE_ENTITY": "Create Entity"
+        "CREATE_ENTITY": "Create Entity",
+        "SKIP": "SKIP"
     },
     "MESSAGES": {
         "SIGNINMESSAGE": "You need to sign in to get access",
         "OR": "OR",
+        "ORGSIGNUP":"ORGANIZATION SIGN UP",
         "SIGNUPMESSAGE": "If you are not already registered, create an account",
+        "ORGSIGNUPMESSAGE": "Please enter your organization details and select package",
         "RESETMESSAGE": "Lost your password? Don't worry, reset it here",
         "PASSWORD_ERROR": "Password must be at least 8 characters.",
         "MATCH_ERROR": "Password not match.",

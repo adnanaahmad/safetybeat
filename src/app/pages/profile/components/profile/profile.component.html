@@ -34,7 +34,6 @@
           <a mat-button mat-raised-button (click)="onCreate()">
             <mat-icon>{{appIcons.questionAnswer}}</mat-icon> {{translated.BUTTONS.CHANGEPASSWORD}}
           </a>
-          <!-- <button mat-raised-button (click)="getResponse()">Use me</button> -->
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -46,15 +45,6 @@
         <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
           <mat-card-content *ngIf="userData | async; let userData">
             <mat-list role="list">
-              <div class="form-group">
-                <mat-list-item role="listitem">
-                  <span matLine>
-                    <strong>{{translated.STRINGS.USERNAME}}</strong>
-                    <input matInput type="text" [(ngModel)]=userData.username formControlName={{appConstants.userName}}
-                      [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.userName}} required />
-                  </span>
-                </mat-list-item>
-              </div>
               <div class="form-group">
                 <mat-list-item role="listitem">
                   <span matLine>

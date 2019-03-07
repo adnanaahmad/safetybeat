@@ -3,7 +3,6 @@
 // The list of file replacements can be found in `angular.json`.
 
 const serverUrl = 'http://192.168.69.67';
-// const serverUrl = 'http://localhost:3000';
 export const environment = {
   production: false,
   apiUrl: `${serverUrl}/safetybeat`,

@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.5",
     "@angular/animations": "^7.1.0",
     "@angular/cdk": "^7.1.0",
     "@angular/common": "~7.1.0",
@@ -24,6 +25,7 @@
     "@angular/router": "~7.1.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "@types/googlemaps": "^3.30.18",
     "@types/lodash": "^4.14.120",
     "angular-highcharts": "^7.1.0",
     "angular-notifier": "^4.1.1",
@@ -44,6 +46,7 @@
     "@angular/cli": "^7.1.4",
     "@angular/compiler-cli": "^7.2.5",
     "@angular/language-service": "~7.1.0",
+    "@types/google-maps": "^3.2.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.10.40",

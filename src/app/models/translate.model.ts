@@ -127,7 +127,8 @@ export interface Buttons {
     ACTIVITIES: string,
     PROFIILE_INFO: string,
     JOIN_ENTITY: string,
-    CREATE_ENTITY: string
+    CREATE_ENTITY: string,
+    SKIP:string
 }
 export interface Messages {
     CHANGEPASSWORD: string,
@@ -179,7 +180,9 @@ export interface Messages {
     NOTFOUND_HEADING: string,
     NOTFOUND_DESCRIPTION: string,
     ALREADY_ACCOUNT:string
-    PROFIILE_INFO: string
+    PROFIILE_INFO: string,
+    ORGSIGNUP:string,
+    ORGSIGNUPMESSAGE:string
 }
 export interface Logger {
     STATUS: LoggerStatus,
