@@ -4,6 +4,7 @@
 @import "src/app/pages/loginRegistration/components/login/login.component.scss";
 @import "src/app/pages/loginRegistration/components/forgotPassword/forgotPassword.component.scss";
 @import "src/app/pages/loginRegistration/components/verification/verification.component.scss";
+@import "src/app/pages/modalDialog/components/orgRegistration/orgRegistration.component.scss";
 @import "src/app/pages/navigation/components/fixedNav/fixedNav.component.scss";
 @import "src/app/pages/navigation/components/navList/navList.component.scss";
 @import "src/app/pages/navigation/components/navigation/navigation.component.scss";
@@ -23,6 +24,7 @@
   @include angular-material-theme($theme);
   @include amte-common($primary, $accent, $warn);
   @include amte-registration($primary, $accent, $warn);
+  @include amte-orgRegistration($primary, $accent, $warn);
   @include amte-login($primary, $accent, $warn);
   @include amte-forgot-password($primary, $accent, $warn);
   @include amte-verification($primary, $accent, $warn);

@@ -27,6 +27,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   org_id: number;
   role: string;
   username: string;
+  firstname:string;
+  lastname:string;
   dataRecieved: any;
   disabled: boolean = false;
   isEdited: boolean = false;
@@ -80,7 +82,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   getUserData() {
     this.dataRecieved = this.profile.getUser(this.user_id).pipe(share());
     this.dataRecieved.subscribe((data) => {
-      this.username = data.username;
+      this.firstname = data.first_name;
+      this.lastname = data.last_name;
+      this.username = this.firstname+this.lastname;
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 
     }, (error) => {
@@ -135,25 +139,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     )
   };
-  getResponse() {
-    let data = {
-      userId: '17',
-      username: 'njkjbyguty',
-      password1: '',
-      password2: '',
-      first_name: ' hhc',
-      last_name: 'amjad',
-      mobile_no: '9876543',
-      email: 'abcdfgh@gmail.com',
-      invitation: true,
-      moduleName: 'Safetybeat'
-    }
+  // getResponse() {
+  //   let data = {
+  //     userId: '17',
+  //     username: 'njkjbyguty',
+  //     password1: '',
+  //     password2: '',
+  //     first_name: ' hhc',
+  //     last_name: 'amjad',
+  //     mobile_no: '9876543',
+  //     email: 'abcdfgh@gmail.com',
+  //     invitation: true,
+  //     moduleName: 'Safetybeat'
+  //   }
 
-    this.profile.getResponse(data).subscribe((res) => {
-      console.log('This is the result that we got from use me', res)
-    }, (err) => {
+  //   this.profile.getResponse(data).subscribe((res) => {
+  //   }, (err) => {
 
-    })
+  //   })
 
-  }
+  // }
 }

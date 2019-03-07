@@ -12,7 +12,7 @@
   </mat-list-item>
 </mat-nav-list>
 <mat-nav-list class="bottom">
-  <mat-list-item *ngFor="let link of navLinksBottom" mat-button [routerLink]="link.path" routerLinkActive="active">
-    <a class="nav-link">{{ link.label }}</a>
+  <mat-list-item *ngFor="let link of navLinksBottom" mat-button [routerLink]="link.route" routerLinkActive="active">
+    <a class="nav-link">{{ link.displayName }}</a>
   </mat-list-item>
 </mat-nav-list>

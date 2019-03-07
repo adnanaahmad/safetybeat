@@ -19,7 +19,8 @@ import { ModalDialogComponent } from './pages/modalDialog/components/modalDialog
 import { CookieService } from 'ngx-cookie-service';
 import { ChartModule } from 'angular-highcharts';
 import { Chart } from 'highcharts';
-
+import { OrgRegistrationComponent } from './pages/modalDialog/components/orgRegistration/orgRegistration.component';
+import { GooglePlacesDirective } from './directives/googlePlaces/googlePlaces.directive';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,6 +30,8 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [
     AppComponent,
     ModalDialogComponent,
+    OrgRegistrationComponent,
+    GooglePlacesDirective
   ],
   imports: [
     BrowserAnimationsModule,
@@ -46,7 +49,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AppRoutingModule,
-    NotifierModule
+    NotifierModule,
   ],
   providers: [
     TranslateService,
@@ -61,6 +64,6 @@ export function createTranslateLoader(http: HttpClient) {
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent]
+  entryComponents: [ModalDialogComponent,OrgRegistrationComponent]
 })
 export class AppModule { }

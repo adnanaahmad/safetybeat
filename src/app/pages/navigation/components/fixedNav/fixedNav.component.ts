@@ -3,6 +3,8 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { NavItem } from 'src/app/models/navItems.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -15,26 +17,101 @@ export class FixedNavComponent implements OnInit {
   @Output()
   sidenavToggle = new EventEmitter<boolean>();
   translated: Translation;
+  expanded:boolean;
   appIcons: any;
-  public navLinks = [
-    { path: '/home', icon: ConstantService.appIcons.dashboard },
-    { path: '/home/profile/user', icon: ConstantService.appIcons.group },
-    { icon: ConstantService.appIcons.supervisedUserCircle },
-    { icon: ConstantService.appIcons.contacts },
-    { icon: ConstantService.appIcons.showChart },
-    { icon: ConstantService.appIcons.insertDriveFile },
+  public navLinks:NavItem[] = [
+    { route: '/home', iconName: ConstantService.appIcons.dashboard },
+    { route: '/home/profile/user', iconName: ConstantService.appIcons.group },
+    { route:'/home/profile/user',iconName: ConstantService.appIcons.supervisedUserCircle },
+    {
+      iconName: ConstantService.appIcons.contacts,
+      children:[
+        {
+          displayName: 'Entity Control',
+          route:'/home/adminControl/entityControl'
+        },
+        {
+          displayName: 'Member Center',
+          route: '/home/adminControl/memberCenter'
+        },
+        {
+          displayName: 'Site Center',
+          route: '/home/adminControl/siteCenter'
+        },
+        {
+          displayName: 'Question Center',
+          route: '/home/adminControl/questionCenter'
+        },
+        {
+          displayName: 'Permission Center',
+          route: '/home/adminControl/permissionCenter'
+        },
+        {
+          displayName: 'Hazard Center',
+          route: '/home/adminControl/hazardCenter'
+        }
+      ]
+    },
+    {
+      iconName: ConstantService.appIcons.showChart,
+      children:[
+        {
+          displayName: 'Action Report',
+          route:'/home/analyticsReport/actionReport'
+        },
+        {
+          displayName: 'Average Daily Actions',
+          route: '/home/analyticsReport/averageDailyActionsReport'
+        },
+        {
+          displayName: 'Checkin by Activity',
+          route: '/home/analyticsReport/checkInActivityReport'
+        },
+        {
+          displayName: 'Checkin and Alert by Person',
+          route: '/home/analyticsReport/alertsPersonReport'
+        },
+        {
+          displayName: 'Actions vs Alerts',
+          route: '/home/analyticsReport/actionAlertsReport'
+        },
+        {
+          displayName: 'Pulse Report by Entity',
+          route: '/home/analyticsReport/entityPulseReport'
+        },
+        {
+          displayName: 'Pulse Report by Person',
+          route: '/home/analyticsReport/personPulseReport'
+        },
+        {
+          displayName: 'Compliant Checkout',
+          route: '/home/analyticsReport/compliantCheckoutReport'
+        },
+        {
+          displayName: 'Site Activity Report',
+          route: '/home/analyticsReport/siteActivityReport'
+        },
+        {
+          displayName: 'Hazard Reports',
+          route: '/home/analyticsReport/hazardReport'
+        }
+      ]
+    },
+    { route:'/home/documents',iconName: ConstantService.appIcons.insertDriveFile },
 
   ];
-  public navLinksBottom = [
-    { path: '/home/profile', icon: ConstantService.appIcons.person },
-    { path: '/home', icon: ConstantService.appIcons.add },
-    { path: '/home', icon: ConstantService.appIcons.notificationImportant },
-    { path: '/home', icon: ConstantService.appIcons.help },
-    { path: '/home/settings', icon: ConstantService.appIcons.settings }
+  public navLinksBottom:NavItem[] = [
+    { route: '/home/profile', iconName: ConstantService.appIcons.person },
+    { route: '/home', iconName: ConstantService.appIcons.add },
+    { route: '/home', iconName: ConstantService.appIcons.notificationImportant },
+    { route: '/home', iconName: ConstantService.appIcons.help },
+    { route: '/home/settings', iconName: ConstantService.appIcons.settings }
   ];
 
-  constructor(public translate: TranslateService,
-    private logging: LoggingService) {
+  constructor(
+    public translate: TranslateService,
+    private logging: LoggingService,
+    private router:Router) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
     });
@@ -47,6 +124,14 @@ export class FixedNavComponent implements OnInit {
     this.sidenavToggle.emit(this.navOpened);
   }
   ngOnInit() {
+  }
+  onItemSelected(navLinks: NavItem) {
+    if (!navLinks.children || !navLinks.children.length) {
+      this.router.navigate([navLinks.route]);
+    }
+    if (navLinks.children && navLinks.children.length) {
+      this.expanded = !this.expanded;
+    }
   }
 
 }
