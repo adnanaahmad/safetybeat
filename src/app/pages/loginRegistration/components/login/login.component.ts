@@ -84,12 +84,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
               this.router.navigate(['/home']);
           } else if (data.responseDetails.code === '0001') {
-            console.log('this is the data we get it from login Api', data);
             this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
             this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
             this.loading = false;
           } else if (data.responseDetails.code === '0002') {
-            console.log('this is the data we get it from login Api', data);
             this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
             this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
             this.loading = false;

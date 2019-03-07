@@ -82,7 +82,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   getUserData() {
     this.dataRecieved = this.profile.getUser(this.user_id).pipe(share());
     this.dataRecieved.subscribe((data) => {
-      debugger;
       this.firstname = data.first_name;
       this.lastname = data.last_name;
       this.username = this.firstname+this.lastname;
@@ -140,25 +139,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     )
   };
-  getResponse() {
-    let data = {
-      userId: '17',
-      username: 'njkjbyguty',
-      password1: '',
-      password2: '',
-      first_name: ' hhc',
-      last_name: 'amjad',
-      mobile_no: '9876543',
-      email: 'abcdfgh@gmail.com',
-      invitation: true,
-      moduleName: 'Safetybeat'
-    }
+  // getResponse() {
+  //   let data = {
+  //     userId: '17',
+  //     username: 'njkjbyguty',
+  //     password1: '',
+  //     password2: '',
+  //     first_name: ' hhc',
+  //     last_name: 'amjad',
+  //     mobile_no: '9876543',
+  //     email: 'abcdfgh@gmail.com',
+  //     invitation: true,
+  //     moduleName: 'Safetybeat'
+  //   }
 
-    this.profile.getResponse(data).subscribe((res) => {
-      console.log('This is the result that we got from use me', res)
-    }, (err) => {
+  //   this.profile.getResponse(data).subscribe((res) => {
+  //   }, (err) => {
 
-    })
+  //   })
 
-  }
+  // }
 }

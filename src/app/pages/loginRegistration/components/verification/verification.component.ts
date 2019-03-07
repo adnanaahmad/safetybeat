@@ -54,7 +54,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]]
     });
     this.route.params.subscribe(params => {
-      debugger;
       this.data = JSON.parse(params.data);
     })
   }
