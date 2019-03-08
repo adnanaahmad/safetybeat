@@ -27,6 +27,7 @@ export class CoreService {
      */
     logoutUser() {
         this.removeToken();
+        this.cookies.delete('sessionid');
         this.cookies.deleteAll();
         this.toastProvider.createWarningToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG);
         this.router.navigate(['/login']);
