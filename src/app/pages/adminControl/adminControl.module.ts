@@ -8,6 +8,7 @@ import { MemberCenterComponent } from './components/memberCenter/memberCenter.co
 import { PermissionCenterComponent } from './components/permissionCenter/permissionCenter.component';
 import { QuestionCenterComponent } from './components/questionCenter/questionCenter.component';
 import { SiteCenterComponent } from './components/siteCenter/siteCenter.component';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SiteCenterComponent } from './components/siteCenter/siteCenter.componen
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     AdminControlRoutingModule
   ]
 })

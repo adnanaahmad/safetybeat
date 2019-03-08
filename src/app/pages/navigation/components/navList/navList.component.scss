@@ -14,5 +14,13 @@
     mat-nav-list:last-child {
       margin-top: 10em !important;
     }
+    mat-list-item{
+      .nav-link{
+        .mat-icon{
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
   }
 }

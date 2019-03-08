@@ -82,6 +82,8 @@
         "ABOUT": "About You",
         "SAFETYBEAT": "SafetyBeat",
         "FIELDCOMMUNICATION": "Field Communication",
+        "JOIN_ENTITY": "Join Entity",
+        "CREATE_ENTITY": "Create Entity",
         "SKIP": "SKIP"
     },
     "MESSAGES": {
