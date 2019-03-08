@@ -149,7 +149,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       const billingemail_check = this.register.checkOrgBillingEmail(billingEmail).pipe();
       billingemail_check.subscribe((res) => {
         this.success = res;
-        if (!this.success.isSuccess) {
+        if (this.success.responseDetails.code=='0018') {
           group.controls.billingEmail.setErrors({ exists: true })
         }
       });

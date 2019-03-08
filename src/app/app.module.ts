@@ -26,6 +26,7 @@ import { Chart } from "highcharts";
 import { OrgRegistrationComponent } from "./pages/modalDialog/components/orgRegistration/orgRegistration.component";
 import { GooglePlacesDirective } from "./directives/googlePlaces/googlePlaces.directive";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { CreateEntityComponent } from './pages/modalDialog/components/create-entity/create-entity.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -36,7 +37,8 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     ModalDialogComponent,
     OrgRegistrationComponent,
-    GooglePlacesDirective
+    GooglePlacesDirective,
+    CreateEntityComponent
   ],
   imports: [
     BrowserAnimationsModule,
