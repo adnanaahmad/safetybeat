@@ -1,6 +1,6 @@
-<mat-card-title>{{translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
+<mat-card-title class="mat-dialog-title">{{translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
 <p class="subheading">{{translated.MESSAGES.ORGSIGNUPMESSAGE}}</p>
-<mat-horizontal-stepper linear="false" #stepper labelPosition="bottom">
+<mat-horizontal-stepper class="loginbox" linear="true" #stepper labelPosition="bottom">
   <mat-step [stepControl]="organizationForm">
     <form [formGroup]="organizationForm">
       <ng-template matStepLabel>
@@ -105,7 +105,7 @@
       </mat-grid-list>
       <div class="clearsep"></div>
       <div>
-          <a (click)="onNoClick()">{{translated.BUTTONS.SKIP}}</a> <br> <br>
+          <a style="cursor:pointer;" (click)="onNoClick()">{{translated.BUTTONS.SKIP}} &nbsp;&nbsp;</a>
         <button mat-raised-button custom-btn btn-primary matStepperNext color="primary">{{translated.BUTTONS.NEXT}}
           <mat-icon>{{appIcons.arrowForward}}</mat-icon></button>
       </div>
