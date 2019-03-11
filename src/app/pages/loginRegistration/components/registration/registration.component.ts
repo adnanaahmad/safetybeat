@@ -101,7 +101,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (!this.success.isSuccess) {
+        if (this.success.responseDetails.code=='0020') {
           group.controls.email.setErrors({ exists: true })
         }
       });

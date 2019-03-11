@@ -8,8 +8,8 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Chart } from 'angular-highcharts'
 import * as Highcharts from 'highcharts';
 import { Router } from '@angular/router';
-import { OrgRegistrationComponent } from 'src/app/pages/modalDialog/components/orgRegistration/orgRegistration.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
+import { OrgRegistrationComponent } from 'src/app/pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

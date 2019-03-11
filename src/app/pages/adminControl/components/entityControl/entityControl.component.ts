@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
 
 export interface PeriodicElement {
   name: string;
@@ -32,12 +34,25 @@ export class EntityControlComponent{
   translated: Translation;
   appIcons:any;
   constructor(
-
+    public dialog: MatDialog,
     public translate: TranslateService,
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
       this.translated = values;
     this.appIcons = ConstantService.appIcons;
     });
+  }
+
+
+  createEntity(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = false;
+    this.dialog.open(CreateEntityComponent);
+  }
+
+  joinEntity(){
+
   }
 }

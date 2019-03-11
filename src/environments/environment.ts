@@ -5,7 +5,7 @@
 const serverUrl = 'http://192.168.69.67';
 export const environment = {
   production: false,
-  apiUrl: `${serverUrl}/safetybeat`,
+  apiUrl: `${serverUrl}/api/safetybeat`,
   serverUrl: `${serverUrl}`
 };
 

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ModalDialogComponent } from './modalDialog.component';
+import { ModalDialogComponent } from './changePasswordModal.component';
 
 describe('ModalDialogComponent', () => {
   let component: ModalDialogComponent;

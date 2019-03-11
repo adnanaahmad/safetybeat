@@ -1,9 +1,9 @@
 <div class="paddingbox">
   <div class="buttonRow">
-    <button btn-primary mat-raised-button color="primary">
+    <button btn-primary mat-raised-button color="primary" (click) = "joinEntity()">
       {{translated.BUTTONS.JOIN_ENTITY}}
     </button>
-    <button btn-primary mat-raised-button color="primary">
+    <button btn-primary mat-raised-button color="primary" (click) = "createEntity()">
       <mat-icon>{{appIcons.add}}</mat-icon>
       {{translated.BUTTONS.CREATE_ENTITY}}
     </button>

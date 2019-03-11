@@ -8,8 +8,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditUser } from 'src/app/models/profile.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { ModalDialogComponent } from 'src/app/pages/modalDialog/components/modalDialog/modalDialog.component';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { ModalDialogComponent } from '../changePasswordModal/changePasswordModal.component';
 
 @Component({
   selector: 'app-profile',
@@ -60,7 +60,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @Input()
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
-      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -123,7 +122,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.PROFILE_CREDENTIAL_REQ);
       return;
     }
-    this.username = value.username;
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.profile.editUser(this.user_id, value).subscribe((data) => {

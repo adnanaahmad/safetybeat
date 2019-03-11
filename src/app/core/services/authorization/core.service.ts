@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { Translation } from 'src/app/models/translate.model';
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({ providedIn: 'root' })
 export class CoreService {
     storageKey = 'token';
@@ -12,7 +13,8 @@ export class CoreService {
     constructor(
         private router: Router,
         public toastProvider: ToastService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private cookies: CookieService
     ) {
         this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
             this.translated = values;
@@ -25,6 +27,9 @@ export class CoreService {
      */
     logoutUser() {
         this.removeToken();
+        sessionStorage.clear();
+        this.cookies.delete('sessionid');
+        this.cookies.deleteAll();
         this.toastProvider.createWarningToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG);
         this.router.navigate(['/login']);
     }
