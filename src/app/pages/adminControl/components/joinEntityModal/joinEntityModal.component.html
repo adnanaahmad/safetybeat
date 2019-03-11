@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Enter Details to create Entity</h2>
+<div mat-dialog-content>
+  <form [formGroup]="joinEntityForm">
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input matInput type="text" placeholder="Insert Entity code to join entity" formControlName="joinCode"
+          required />
+        <mat-error *ngIf="formValidation.joinCode.errors ">
+          <span *ngIf="formValidation.joinCode.errors.required">Entity Code is Required.</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <mat-dialog-actions>
+      <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">Join Entity</button>
+      <button mat-button mat-dialog-close>{{translated.BUTTONS.CANCEL}}</button>
+    </mat-dialog-actions>
+  </form>
+</div>

@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      mobile_no: ['', Validators.required]
+      contactNo: ['', Validators.required]
     });
     this.profileForm.disable();
   }
@@ -115,6 +115,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
+    debugger;
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {
@@ -124,11 +125,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    value[this.appConstants.userName] = this.username;
     this.profile.editUser(this.user_id, value).subscribe((data) => {
+      debugger;
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
       this.toastProvider.createSuccessToaster(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
-
     },
       (error) => {
         this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
@@ -137,24 +139,4 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     )
   };
-  // getResponse() {
-  //   let data = {
-  //     userId: '17',
-  //     username: 'njkjbyguty',
-  //     password1: '',
-  //     password2: '',
-  //     first_name: ' hhc',
-  //     last_name: 'amjad',
-  //     mobile_no: '9876543',
-  //     email: 'abcdfgh@gmail.com',
-  //     invitation: true,
-  //     moduleName: 'Safetybeat'
-  //   }
-
-  //   this.profile.getResponse(data).subscribe((res) => {
-  //   }, (err) => {
-
-  //   })
-
-  // }
 }

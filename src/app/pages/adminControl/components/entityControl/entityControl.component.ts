@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
+import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
 
 export interface PeriodicElement {
   name: string;
@@ -29,6 +30,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./entityControl.component.scss']
 })
 export class EntityControlComponent{
+  dialogConfig = new MatDialogConfig();
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
   translated: Translation;
@@ -42,17 +44,16 @@ export class EntityControlComponent{
     this.appIcons = ConstantService.appIcons;
     });
   }
-
-
   createEntity(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.closeOnNavigation = false;
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.closeOnNavigation = false;
     this.dialog.open(CreateEntityComponent);
   }
-
   joinEntity(){
-
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.closeOnNavigation = false;
+    this.dialog.open(JoinEntityModalComponent);
   }
 }

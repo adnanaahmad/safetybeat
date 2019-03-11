@@ -38,6 +38,7 @@ export class CreateEntityComponent implements OnInit {
     this.verificationDataForm = this.formBuilder.group({
       name: ['', Validators.required],
       headOffice: ['', Validators.required],
+      status: ['']
     });
   }
 

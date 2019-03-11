@@ -3,8 +3,7 @@
   <form [formGroup]="verificationDataForm">
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" placeholder="Entity Name" formControlName={{appConstants.name}}
-          required />
+        <input matInput type="text" placeholder="Entity Name" formControlName={{appConstants.name}} required />
         <mat-error *ngIf="formValidation.name.errors ">
           <span *ngIf="formValidation.name.errors.required">Entity Name is Required.</span>
         </mat-error>
@@ -12,13 +11,14 @@
     </div>
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" placeholder="Head Office Location" appGooglePlaces (onSelect)="setAddress($event)" formControlName="headOffice"
-          required />
+        <input matInput type="text" placeholder="Head Office Location" appGooglePlaces (onSelect)="setAddress($event)"
+          formControlName="headOffice" required />
         <mat-error *ngIf="formValidation.headOffice.errors ">
           <span *ngIf="formValidation.headOffice.errors.required">Head Office Location is Required.</span>
         </mat-error>
       </mat-form-field>
     </div>
+      <mat-checkbox formControlName="status">Status</mat-checkbox>
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">Create Entity</button>
       <button mat-button mat-dialog-close>{{translated.BUTTONS.CANCEL}}</button>

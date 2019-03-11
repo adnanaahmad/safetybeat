@@ -17,7 +17,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
     MemberCenterComponent,
     PermissionCenterComponent,
     QuestionCenterComponent,
-    SiteCenterComponent
+    SiteCenterComponent,
   ],
   imports: [
     CommonModule,
