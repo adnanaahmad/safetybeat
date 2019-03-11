@@ -5,14 +5,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { ModalConfigService } from '../../services/modalConfig.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-modal-dialog',
-  templateUrl: './modalDialog.component.html',
-  styleUrls: ['./modalDialog.component.scss']
+  templateUrl: './changePasswordModal.component.html',
+  styleUrls: ['./changePasswordModal.component.scss']
 })
 export class ModalDialogComponent implements OnInit {
   changePasswordForm: FormGroup;
@@ -27,7 +27,7 @@ export class ModalDialogComponent implements OnInit {
     public formBuilder: FormBuilder,
     private translate: TranslateService,
     private logging: LoggingService,
-    private modalService: ModalConfigService,
+    private modalService: ProfileService,
     private toastProvider: ToastService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {

@@ -19,15 +19,7 @@ export class ProfileService {
   getResponse(data) {
     return this.http.post(ConstantService.apiRoutes.getInvite, data);
   }
-  // createEntity() {
-  //   var data = {
-  //     moduleName: "Safetybeat",
-  //     entityData: {
-  //       name: "mixin",
-  //       headOffice: "356 umer block A.I.T Lahore",
-  //       status: true
-  //     }
-  //   }
-  //   return this.http.post(ConstantService.apiRoutes.createEntity, data);
-  // }
+  changePassword(data) {
+    return this.http.put(`${ConstantService.apiRoutes.changePassword}`, data);
+  }
 }

@@ -18,15 +18,12 @@ import { TokenInterceptorService } from "./core/services/interceptors/tokenInter
 import { ToastrModule } from "ng6-toastr-notifications";
 import { NotifierModule } from "angular-notifier";
 import { CoreService } from "./core/services/authorization/core.service";
-import { PageNotFoundComponent } from "./core/components/pageNotFound/pageNotFound.component";
-import { ModalDialogComponent } from "./pages/modalDialog/components/modalDialog/modalDialog.component";
 import { CookieService } from "ngx-cookie-service";
-import { ChartModule } from "angular-highcharts";
-import { Chart } from "highcharts";
-import { OrgRegistrationComponent } from "./pages/modalDialog/components/orgRegistration/orgRegistration.component";
 import { GooglePlacesDirective } from "./directives/googlePlaces/googlePlaces.directive";
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { CreateEntityComponent } from './pages/modalDialog/components/createEntity/createEntity.component';
+import { CreateEntityComponent } from './pages/adminControl/components/createEntityModal/createEntity.component';
+import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
+import { OrgRegistrationComponent } from './pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");

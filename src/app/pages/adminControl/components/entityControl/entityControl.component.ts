@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { CreateEntityComponent } from 'src/app/pages/modalDialog/components/createEntity/createEntity.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
+import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
 
 export interface PeriodicElement {
   name: string;
@@ -50,5 +50,9 @@ export class EntityControlComponent{
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = false;
     this.dialog.open(CreateEntityComponent);
+  }
+
+  joinEntity(){
+
   }
 }
