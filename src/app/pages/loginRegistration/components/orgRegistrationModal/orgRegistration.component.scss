@@ -5,6 +5,7 @@
       display: none;
     }
     .loginbox {
+      padding:0 !important;
       [full-width] {
         width: 90% !important;
       }
@@ -39,7 +40,6 @@
     }
     .loginbox {
       text-align: center;
-      width: 55%;
       mat-card-title {
         margin-top: 60px;
       }
@@ -89,10 +89,8 @@
         }
         .radio-data {
           h3 {
-            background: #fff;
             padding: 3px 10px;
             border-radius: 100px;
-            color: mat-color($primary);
             font-size: 14px;
           }
         }

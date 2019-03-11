@@ -84,12 +84,12 @@
         "FIELDCOMMUNICATION": "Field Communication",
         "JOIN_ENTITY": "Join Entity",
         "CREATE_ENTITY": "Create Entity",
-        "SKIP": "SKIP"
+        "SKIP": "Skip"
     },
     "MESSAGES": {
         "SIGNINMESSAGE": "You need to sign in to get access",
         "OR": "OR",
-        "ORGSIGNUP":"ORGANIZATION SIGN UP",
+        "ORGSIGNUP":"Organization Info",
         "SIGNUPMESSAGE": "If you are not already registered, create an account",
         "ORGSIGNUPMESSAGE": "Please enter your organization details and select package",
         "RESETMESSAGE": "Lost your password? Don't worry, reset it here",
