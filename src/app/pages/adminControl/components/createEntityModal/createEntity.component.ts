@@ -25,6 +25,7 @@ export class CreateEntityComponent implements OnInit {
   appIcons:any;
   createEntityForm:FormGroup;
   entityDetails:any;
+  entityResponse:any;
   constructor(
     public dialogRef: MatDialogRef<CreateEntityComponent>,
     private translate: TranslateService,
@@ -77,11 +78,21 @@ export class CreateEntityComponent implements OnInit {
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.adminServices.createEntity(this.entityDetails).subscribe((result)=>{
-      debugger;
-      console.log(result);
-      console.log(this.entityDetails);
+      this.entityResponse = result;
       this.onNoClick();
+      if(this.entityResponse.responseDetails.code=='0012'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
+      }
+      else if(this.entityResponse.responseDetails.code=='0013'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+      }
+      else if(this.entityResponse.responseDetails.code=='0017'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+      }
+    },(error=>{
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR,this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
     })
+    );
   }
 
 

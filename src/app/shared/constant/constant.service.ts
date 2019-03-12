@@ -25,7 +25,9 @@ export class ConstantService {
     editProfile: `${environment.apiUrl}/users`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
     getInvite: `${environment.apiUrl}/register/`,
-    createEntity: `${environment.apiUrl}/entity/createEntity/`
+    createEntity: `${environment.apiUrl}/entity/createEntity/`,
+    viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
+    joinEntity: `${environment.apiUrl}/entity/joinEntity/`
   };
   static toast = {
     location: "toast-top-left",

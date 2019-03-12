@@ -239,5 +239,6 @@ export interface LoggerMessage {
     JOINENTITY: string,
     PASSWORDCHANGE:string,
     SETTING_COMPONENT:string,
-    CREATEENTITY_ERROR:string
+    CREATEENTITY_ERROR:string,
+    ENTITYNOTCREATED:string
 }
