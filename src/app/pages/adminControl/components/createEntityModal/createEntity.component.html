@@ -1,11 +1,11 @@
 <h2 mat-dialog-title>{{translated.MESSAGES.CREATEENTITY_MSG}}</h2>
 <div mat-dialog-content>
-  <form [formGroup]="createEntityForm" (ngSubmit)="createEntity(createEntityForm)">
+  <form [formGroup]="createEntityForm" (ngSubmit)="entityCreation(createEntityForm)">
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" placeholder={{translated.MESSAGES.ENTITYNAME}} formControlName={{appConstants.entityName}} required />
-        <mat-error *ngIf="formValidation.entityName.errors ">
-          <span *ngIf="formValidation.entityName.errors.required">{{translated.MESSAGES.ENTITYNAME_REQ}}</span>
+        <input matInput type="text" placeholder={{translated.MESSAGES.ENTITYNAME}} formControlName={{appConstants.name}} required />
+        <mat-error *ngIf="formValidation.name.errors ">
+          <span *ngIf="formValidation.name.errors.required">{{translated.MESSAGES.ENTITYNAME_REQ}}</span>
         </mat-error>
       </mat-form-field>
     </div>

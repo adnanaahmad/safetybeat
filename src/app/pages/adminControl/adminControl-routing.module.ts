@@ -6,6 +6,7 @@ import { MemberCenterComponent } from './components/memberCenter/memberCenter.co
 import { PermissionCenterComponent } from './components/permissionCenter/permissionCenter.component';
 import { QuestionCenterComponent } from './components/questionCenter/questionCenter.component';
 import { SiteCenterComponent } from './components/siteCenter/siteCenter.component';
+import { InviteUsersModalComponent } from './components/inviteUsersModal/inviteUsersModal.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
     path: 'siteCenter',
     component: SiteCenterComponent,
   },
+  {
+    path: 'inviteUsers',
+    component: InviteUsersModalComponent
+  }
 ];
 
 @NgModule({
