@@ -38,7 +38,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.render.addClass(document.body, ConstantService.config.theme.background);
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
     });
     this.appConstants = ConstantService.appConstant;
   }

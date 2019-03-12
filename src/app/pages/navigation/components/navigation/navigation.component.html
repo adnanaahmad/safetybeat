@@ -16,13 +16,6 @@
           <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">
             Logout
           </button>
-          <button mat-button [matMenuTriggerFor]="modules">
-            Module <i class="material-icons">{{appIcons.arrowDropDown}}</i>
-          </button>
-          <mat-menu #modules="matMenu">
-            <button mat-menu-item>{{translated.BUTTONS.SAFETYBEAT}}</button>
-            <button mat-menu-item>{{translated.BUTTONS.FIELDCOMMUNICATION}}</button>
-          </mat-menu>
         </div>
       </mat-toolbar>
       <div class="page-content">

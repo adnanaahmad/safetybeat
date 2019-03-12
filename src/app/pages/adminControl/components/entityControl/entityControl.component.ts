@@ -5,6 +5,7 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
 import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
 
 export interface PeriodicElement {
   name: string;
@@ -38,11 +39,13 @@ export class EntityControlComponent{
   constructor(
     public dialog: MatDialog,
     public translate: TranslateService,
+    private logging: LoggingService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
       this.translated = values;
     this.appIcons = ConstantService.appIcons;
     });
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ENTITYCONTROL);
   }
   createEntity(){
     this.dialogConfig.disableClose = true;

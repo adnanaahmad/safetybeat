@@ -54,7 +54,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     this.render.addClass(document.body, ConstantService.config.theme.background);
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ORGANIZATIONDETAILS);
     });
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
@@ -79,8 +79,6 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       zipCode: ['', Validators.required],
       city: ['', Validators.required],
       country: ['', Validators.required],
-      billingEmail: ['', [Validators.required, Validators.email]],
-      contactNo: ['', Validators.required]
     });
     this.moduleForm = this.formBuilder.group({
       name: [[], Validators.required]
