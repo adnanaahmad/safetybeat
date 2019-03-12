@@ -24,6 +24,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CreateEntityComponent } from './pages/adminControl/components/createEntityModal/createEntity.component';
 import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
 import { OrgRegistrationComponent } from './pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
+import { JoinEntityModalComponent } from './pages/adminControl/components/joinEntityModal/joinEntityModal.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -35,7 +36,8 @@ export function createTranslateLoader(http: HttpClient) {
     ModalDialogComponent,
     OrgRegistrationComponent,
     GooglePlacesDirective,
-    CreateEntityComponent
+    CreateEntityComponent,
+    JoinEntityModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -69,6 +71,11 @@ export function createTranslateLoader(http: HttpClient) {
   ],
 
   bootstrap: [AppComponent],
-  entryComponents: [ModalDialogComponent, OrgRegistrationComponent, CreateEntityComponent]
+  entryComponents: [
+    ModalDialogComponent, 
+    OrgRegistrationComponent, 
+    CreateEntityComponent,
+    JoinEntityModalComponent
+  ]
 })
 export class AppModule {}

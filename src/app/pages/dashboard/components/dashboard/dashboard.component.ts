@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
       .subscribe(values => {
         this.translated = values;
-        this.logging.appLogger(
+        this.logging.appLoggerForDev(
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
         );

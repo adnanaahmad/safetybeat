@@ -78,30 +78,6 @@
             </mat-form-field>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="form-group">
-            <mat-form-field full-width>
-              <input matInput type="email" [placeholder]=translated.AUTH.BILLING_EMAIL formControlName={{appConstants.billingEmail}}
-                required (blur)="checkOrgBillingEmail(organizationForm)" />
-              <mat-error *ngIf="orgForm.billingEmail.errors">
-                <span *ngIf="orgForm.billingEmail.errors.required">{{translated.AUTH.BILLINGEMAIL_REQ}}</span>
-                <span *ngIf="orgForm.billingEmail.errors.email">{{translated.AUTH.BILLING_EMAIL_VALID}}</span>
-                <span *ngIf="orgForm.billingEmail.errors?.exists">{{translated.AUTH.BILLING_EMAIL_EXISTS}}</span>
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="form-group">
-            <mat-form-field full-width>
-              <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName={{appConstants.contactNo}}
-                required />
-              <mat-error *ngIf="orgForm.contactNo.errors && orgForm.contactNo.errors.required">
-                {{translated.AUTH.MOBILE_REQ}}
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </mat-grid-tile>
       </mat-grid-list>
       <div class="clearsep"></div>
       <div>
@@ -117,7 +93,7 @@
       {{translated.MESSAGES.PACKAGESELECT_MSG}}
     </ng-template>
     <mat-card no-box-shadow>
-      <mat-card-title class="legend-title">Safetybeat</mat-card-title>
+      <mat-card-title class="legend-title">{{translated.BUTTONS.SAFETYBEAT}}</mat-card-title>
       <mat-card-content>
         <mat-radio-group class="package-selectors">
           <mat-radio-button *ngFor="let package of packages" [value]="package.packageName" (click)="selectPackage('Safetybeat',package)">

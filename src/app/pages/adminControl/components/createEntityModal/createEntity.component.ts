@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { entity } from 'src/app/models/entity.model';
 
 @Component({
   selector: 'app-createEntity',
@@ -20,7 +21,7 @@ export class CreateEntityComponent implements OnInit {
   country:string;
   zipCode:string;
   appIcons:any;
-  verificationDataForm:FormGroup;
+  createEntityForm:FormGroup;
   constructor(
     private translate: TranslateService,
     public formBuilder: FormBuilder,
@@ -29,15 +30,16 @@ export class CreateEntityComponent implements OnInit {
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
     });
     this.appConstants = ConstantService.appConstant;
    }
 
   ngOnInit() {
-    this.verificationDataForm = this.formBuilder.group({
-      name: ['', Validators.required],
+    this.createEntityForm = this.formBuilder.group({
+      entityName: ['', Validators.required],
       headOffice: ['', Validators.required],
+      status: ['']
     });
   }
 
@@ -51,7 +53,13 @@ export class CreateEntityComponent implements OnInit {
     });
   }
 
-  get formValidation() { return this.verificationDataForm.controls; }
+  get formValidation() { return this.createEntityForm.controls; }
+
+  createEntity({ value, valid }: { value: entity; valid: boolean }): void {
+    if(!valid){
+
+    }
+  }
 
 
 }

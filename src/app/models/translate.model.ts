@@ -182,7 +182,17 @@ export interface Messages {
     ALREADY_ACCOUNT:string
     PROFIILE_INFO: string,
     ORGSIGNUP:string,
-    ORGSIGNUPMESSAGE:string
+    ORGSIGNUPMESSAGE:string,
+    ENTITYNAME_REQ: string,
+    OFFICELOCATION_REQ: string,
+    CREATEENTITY_MSG: string,
+    ENTITYNAME: string,
+    HEADOFFICE_LOCATION: string,
+    STATUS:string,
+    JOINENTITY_MSG:string,
+    ENTITYCODE:string,
+    ENTITYCODE_REQ:string,
+
 }
 export interface Logger {
     STATUS: LoggerStatus,
@@ -216,11 +226,17 @@ export interface LoggerMessage {
     NAVIGATION_COMPONENT: string,
     SIDE_NAV: string,
     PROFILE_COMPONENT: string,
-    VERIFICATION_COMPONENT: String,
+    VERIFICATION_COMPONENT: string,
     PROFILE_CREDENTIAL_REQ: string,
     PROFILE_UPDATED: string,
     PROFILE_NOTUPDATED: string,
     PASSWORD_CHANGE: string,
     PASSWORDCHANGE_UNSUCCESS: string,
-    CHANGEPASSWORDFOR_DEV: string
+    CHANGEPASSWORDFOR_DEV: string,
+    ENTITYCONTROL: string,
+    ORGANIZATIONDETAILS:string,
+    CREATEENTITY: string,
+    JOINENTITY: string,
+    PASSWORDCHANGE:string,
+    SETTING_COMPONENT:string
 }

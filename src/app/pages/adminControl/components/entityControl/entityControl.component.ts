@@ -4,6 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
+import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
 
 export interface PeriodicElement {
   name: string;
@@ -29,6 +31,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./entityControl.component.scss']
 })
 export class EntityControlComponent{
+  dialogConfig = new MatDialogConfig();
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
   translated: Translation;
@@ -36,23 +39,24 @@ export class EntityControlComponent{
   constructor(
     public dialog: MatDialog,
     public translate: TranslateService,
+    private logging: LoggingService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
       this.translated = values;
     this.appIcons = ConstantService.appIcons;
     });
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ENTITYCONTROL);
   }
-
-
   createEntity(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.closeOnNavigation = false;
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.closeOnNavigation = false;
     this.dialog.open(CreateEntityComponent);
   }
-
   joinEntity(){
-
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.closeOnNavigation = false;
+    this.dialog.open(JoinEntityModalComponent);
   }
 }

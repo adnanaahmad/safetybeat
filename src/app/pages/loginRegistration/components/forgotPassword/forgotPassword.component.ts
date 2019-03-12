@@ -33,7 +33,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'ICONS', 'STRINGS']).subscribe((values) => {
       this.translated = values;
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
     });
     this.appConstants = ConstantService.appConstant;
   }
