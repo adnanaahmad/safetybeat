@@ -10,17 +10,31 @@
     <!-- Content of rest of section -->
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
-      <!-- <optergy-header class="header"></optergy-header> -->
       <mat-toolbar class="topbar">
         <div class="top-btns">
+          <mat-icon (click)="drawer.toggle()">notification_important</mat-icon>
           <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">
             Logout
           </button>
         </div>
       </mat-toolbar>
+
       <div class="page-content">
+        <!-- <mat-drawer-container class="example-container" hasBackdrop="true"> -->
+          <mat-drawer  #drawer mode="over" position="end">
+            <mat-icon (click)="drawer.toggle()">notification_important</mat-icon>
+            <app-notificationNav></app-notificationNav>
+          </mat-drawer>
+        <!-- </mat-drawer-container> -->
         <router-outlet></router-outlet>
       </div>
+
     </mat-sidenav-content>
   </mat-sidenav-container>
+
+  <!-- <mat-drawer-container class="example-container">
+    <mat-drawer #drawer mode="side" position="end">
+      Drawer content
+    </mat-drawer>
+  </mat-drawer-container> -->
 </div>
