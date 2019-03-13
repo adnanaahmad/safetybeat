@@ -6,12 +6,15 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { FixedNavComponent } from './components/fixedNav/fixedNav.component';
 import { NavListComponent } from './components/navList/navList.component';
+import { NotificationNavComponent } from './components/notificationNav/notificationNav.component';
 
 @NgModule({
   declarations: [
     FixedNavComponent,
     NavListComponent,
-    NavigationComponent],
+    NavigationComponent,
+    NotificationNavComponent
+  ],
   imports: [
     CommonModule,
     NavigationRoutingModule,
