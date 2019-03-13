@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{translated.MESSAGES.JOINENTITY_MSG}}</h2>
 <div mat-dialog-content>
-  <form [formGroup]="joinEntityForm">
+  <form [formGroup]="joinEntityForm" (ngSubmit)="entityJoin(joinEntityForm)">
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" placeholder={{translated.MESSAGES.ENTITYCODE}} formControlName={{appConstants.joinCode}}

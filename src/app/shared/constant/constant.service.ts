@@ -117,6 +117,11 @@ export class ConstantService {
     save: "save",
     note: "note",
     createEntity: "playlist_add",
-    joinEntity: "playlist_add_check"
+    joinEntity: "playlist_add_check",
+    fingerPrint: "fingerprint",
+    folderShared:"folder_shared",
+    groupAdd:"group_add",
+    payment:"payment",
+    exit_to_app:"exitToApp"
   };
 }

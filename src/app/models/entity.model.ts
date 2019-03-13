@@ -13,3 +13,7 @@ export interface joinEntity {
   moduleName: string;
   entityCode: string;
 }
+
+export interface entityCode{
+  entityCode: string;
+}
