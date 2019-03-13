@@ -12,17 +12,15 @@
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
         <div class="top-btns">
-          <mat-icon (click)="drawer.toggle()">notification_important</mat-icon>
-          <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">
-            Logout
-          </button>
+          <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">Logout</button>
+          <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important <span class="notifcount">90+</span></mat-icon>
         </div>
       </mat-toolbar>
 
       <div class="page-content">
         <!-- <mat-drawer-container class="example-container" hasBackdrop="true"> -->
           <mat-drawer  #drawer mode="over" position="end">
-            <mat-icon (click)="drawer.toggle()">notification_important</mat-icon>
+            <mat-icon class="close-notif" (click)="drawer.toggle()">arrow_forward</mat-icon>
             <app-notificationNav></app-notificationNav>
           </mat-drawer>
         <!-- </mat-drawer-container> -->
