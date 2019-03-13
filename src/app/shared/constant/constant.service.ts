@@ -25,7 +25,9 @@ export class ConstantService {
     editProfile: `${environment.apiUrl}/users`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
     getInvite: `${environment.apiUrl}/register/`,
-    createEntity: `${environment.apiUrl}/entity/createEntity/`
+    createEntity: `${environment.apiUrl}/entity/createEntity/`,
+    viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
+    joinEntity: `${environment.apiUrl}/entity/joinEntity/`
   };
   static toast = {
     location: "toast-top-left",
@@ -115,6 +117,11 @@ export class ConstantService {
     save: "save",
     note: "note",
     createEntity: "playlist_add",
-    joinEntity: "playlist_add_check"
+    joinEntity: "playlist_add_check",
+    fingerPrint: "fingerprint",
+    folderShared:"folder_shared",
+    groupAdd:"group_add",
+    payment:"payment",
+    exit_to_app:"exitToApp"
   };
 }

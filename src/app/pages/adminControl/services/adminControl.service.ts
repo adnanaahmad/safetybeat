@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { entity } from 'src/app/models/entity.model';
+import { entity, joinEntity } from 'src/app/models/entity.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 @Injectable({
@@ -14,5 +14,13 @@ export class AdminControlService {
   
   createEntity(data:entity){
     return this.http.post(ConstantService.apiRoutes.createEntity,data);
+  }
+
+  viewEntities(data:object){
+    return this.http.post(ConstantService.apiRoutes.viewAllEntities,data);
+  }
+
+  joinEntity(data:joinEntity){
+    return this.http.post(ConstantService.apiRoutes.joinEntity,data);
   }
 }
