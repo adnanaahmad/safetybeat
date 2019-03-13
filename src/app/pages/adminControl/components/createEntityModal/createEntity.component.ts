@@ -4,7 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { entity } from 'src/app/models/entity.model';
+import { entity, entityData } from 'src/app/models/entity.model';
+import { AdminControlService } from '../../services/adminControl.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-createEntity',
@@ -22,11 +24,15 @@ export class CreateEntityComponent implements OnInit {
   zipCode:string;
   appIcons:any;
   createEntityForm:FormGroup;
+  entityDetails:any;
+  entityResponse:any;
   constructor(
+    public dialogRef: MatDialogRef<CreateEntityComponent>,
     private translate: TranslateService,
     public formBuilder: FormBuilder,
     private logging: LoggingService,
-    private zone: NgZone
+    private zone: NgZone,
+    private adminServices:AdminControlService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
@@ -37,9 +43,9 @@ export class CreateEntityComponent implements OnInit {
 
   ngOnInit() {
     this.createEntityForm = this.formBuilder.group({
-      entityName: ['', Validators.required],
+      name: ['', Validators.required],
       headOffice: ['', Validators.required],
-      status: ['']
+      status: false
     });
   }
 
@@ -54,11 +60,39 @@ export class CreateEntityComponent implements OnInit {
   }
 
   get formValidation() { return this.createEntityForm.controls; }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
-  createEntity({ value, valid }: { value: entity; valid: boolean }): void {
-    if(!valid){
-
+  entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
+    debugger;
+    this.entityDetails = {
+      moduleName: this.translated.BUTTONS.SAFETYBEAT,
+      entityData: value
     }
+    if(!valid){
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      return;
+    }
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
+    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.adminServices.createEntity(this.entityDetails).subscribe((result)=>{
+      this.entityResponse = result;
+      this.onNoClick();
+      if(this.entityResponse.responseDetails.code=='0012'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
+      }
+      else if(this.entityResponse.responseDetails.code=='0013'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+      }
+      else if(this.entityResponse.responseDetails.code=='0017'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+      }
+    },(error=>{
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR,this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+    })
+    );
   }
 
 

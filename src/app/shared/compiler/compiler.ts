@@ -26,11 +26,6 @@ export class CompilerProvider {
         };
 
         return profileData;
-
     }
 
-
-
 }
-
-

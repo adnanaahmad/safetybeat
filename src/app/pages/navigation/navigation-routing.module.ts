@@ -31,6 +31,10 @@ const routes: Routes = [
       {
         path: 'documents',
         loadChildren: '../documents/documents.module#DocumentsModule'
+      },
+      {
+        path: 'notifications',
+        loadChildren: '../notifications/notifications.module#NotifcationsModule'
       }
     ]
   }

@@ -9,6 +9,7 @@ import { PermissionCenterComponent } from './components/permissionCenter/permiss
 import { QuestionCenterComponent } from './components/questionCenter/questionCenter.component';
 import { SiteCenterComponent } from './components/siteCenter/siteCenter.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
+import { InviteUsersModalComponent } from './components/inviteUsersModal/inviteUsersModal.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
     PermissionCenterComponent,
     QuestionCenterComponent,
     SiteCenterComponent,
+    InviteUsersModalComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,19 @@
 export interface entity {
-    entityName: string;
-    entityLocation: string;
-    status: boolean
-  }
+  moduleName: string;
+  entityData: entityData;
+}
+
+export interface entityData {
+  name: string;
+  entityLocation: string;
+  status: boolean;
+}
+
+export interface joinEntity {
+  moduleName: string;
+  entityCode: string;
+}
+
+export interface entityCode{
+  entityCode: string;
+}

@@ -1,5 +1,11 @@
 @mixin amte-navigation($primary, $accent, $warn) {
   :host,
+  .example-container {
+    width: 400px;
+    height: 200px;
+    margin: 10px;
+    border: 1px solid #555;
+  }
   app-navigation {
     .container {
       display: flex;

@@ -49,6 +49,10 @@ export class FixedNavComponent implements OnInit {
         {
           displayName: 'Hazard Center',
           route: '/home/adminControl/hazardCenter'
+        },
+        {
+          displayName: 'Invite Users',
+          route: '/home/adminControl/inviteUsers'
         }
       ]
     },
