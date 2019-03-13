@@ -42,7 +42,7 @@
             Actions
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="entityCode(element.code,element.name)">
               <mat-icon>{{appIcons.fingerPrint}}</mat-icon>Entity Code
             </button>
             <button mat-menu-item>

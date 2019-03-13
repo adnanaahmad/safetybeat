@@ -25,6 +25,8 @@ import { CreateEntityComponent } from './pages/adminControl/components/createEnt
 import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
 import { OrgRegistrationComponent } from './pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 import { JoinEntityModalComponent } from './pages/adminControl/components/joinEntityModal/joinEntityModal.component';
+import { AlertModalComponent } from './pages/adminControl/components/alert-modal/alert-modal.component';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -37,7 +39,8 @@ export function createTranslateLoader(http: HttpClient) {
     OrgRegistrationComponent,
     GooglePlacesDirective,
     CreateEntityComponent,
-    JoinEntityModalComponent
+    JoinEntityModalComponent,
+    AlertModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -72,10 +75,11 @@ export function createTranslateLoader(http: HttpClient) {
 
   bootstrap: [AppComponent],
   entryComponents: [
-    ModalDialogComponent, 
-    OrgRegistrationComponent, 
+    ModalDialogComponent,
+    OrgRegistrationComponent,
     CreateEntityComponent,
-    JoinEntityModalComponent
+    JoinEntityModalComponent,
+    AlertModalComponent
   ]
 })
-export class AppModule {}
+export class AppModule { }

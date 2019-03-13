@@ -12,78 +12,10 @@ import { CreateEntityComponent } from "../createEntityModal/createEntity.compone
 import { JoinEntityModalComponent } from "../joinEntityModal/joinEntityModal.component";
 import { LoggingService } from "src/app/shared/logging/logging.service";
 import { AdminControlService } from "../../services/adminControl.service";
-import _ from "lodash";
+import * as _ from "lodash";
 import { share } from "rxjs/operators";
+import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 
-export interface PeriodicElement {
-  id: string;
-  name: string;
-  headOffice: string;
-  status: string;
-  symbol: string;
-}
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {
-//     position: "BlueSky",
-//     name: "Hydrogen",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "H"
-//   },
-//   {
-//     position: "RedSky",
-//     name: "Helium",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "He"
-//   },
-//   {
-//     position: "PinkSky",
-//     name: "Lithium",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "Li"
-//   },
-//   {
-//     position: "MaroonSky",
-//     name: "Beryllium",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "Be"
-//   },
-//   {
-//     position: "YellowSky",
-//     name: "Boron",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "B"
-//   },
-//   {
-//     position: "BlackSky",
-//     name: "Carbon",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "C"
-//   },
-//   {
-//     position: "GraySky",
-//     name: "Nitrogen",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "N"
-//   },
-//   {
-//     position: "ThisSky",
-//     name: "Oxygen",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "O"
-//   },
-//   {
-//     position: "ThatSky",
-//     name: "Fluorine",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "F"
-//   },
-//   {
-//     position: "NoSky",
-//     name: "Neon",
-//     weight: "Asad Fiaz a.fiaz@optergy.com",
-//     symbol: "Ne"
-//   }
-// ];
 @Component({
   selector: "app-entityControl",
   templateUrl: "./entityControl.component.html",
@@ -137,13 +69,16 @@ export class EntityControlComponent implements OnInit {
     this.dialogConfig.closeOnNavigation = false;
     this.dialog.open(JoinEntityModalComponent);
   }
-
+  entityCode(code,name) {
+    const dialogRef = this.dialog.open(AlertModalComponent, {
+      data: { name: name, code: code }
+    });
+  }
   viewAllEntities() {
     this.joinEntityData = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT
     };
-    this.allEntitiesData = this.adminServices
-      .viewEntities(this.joinEntityData)
+    this.allEntitiesData = this.adminServices.viewEntities(this.joinEntityData)
       .pipe(share());
     this.allEntitiesData.subscribe(result => {
       this.entitiesList = result.data;
