@@ -48,6 +48,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
           displayName: 'Hazard Center',
           route: '/home/adminControl/hazardCenter'
         },
+        {
+          displayName: 'Invite Users',
+          route: '/home/adminControl/inviteUsers'
+        }
       ]
     },
     { 

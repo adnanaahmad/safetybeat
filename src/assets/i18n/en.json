@@ -70,21 +70,21 @@
     "SUBMIT": "SUBMIT",
     "LOGINTEXT": "I already have an account",
     "RESEND_EMAIL": "Resend Verification Link",
-    "CHANGE_EMAIL": "Change Email",
-    "EDIT_ACCOUNT": "Edit Account",
-    "SAVE": "Save",
-    "CHANGE_PASSWORD": "Change Password",
-    "NO_THANKS": "No Thanks",
+    "CHANGE_EMAIL": "CHANGE EMAIL",
+    "EDIT_ACCOUNT": "EDIT ACCOUNT",
+    "SAVE": "SAVE",
+    "CHANGE_PASSWORD": "CHANGE PASSWORD",
+    "NO_THANKS": "NO THANKS",
     "LEAVE": "Your Leave",
     "ENTRIES": "Your Entries",
     "ACTIVITIES": "Your Activities",
-    "CHANGEPASSWORD": "Change Password",
+    "CHANGEPASSWORD": "CHANGE PASSWORD",
     "ABOUT": "About You",
-    "SAFETYBEAT": "SafetyBeat",
+    "SAFETYBEAT": "Safetybeat",
     "FIELDCOMMUNICATION": "Field Communication",
-    "JOIN_ENTITY": "Join Entity",
-    "CREATE_ENTITY": "Create Entity",
-    "SKIP": "Skip"
+    "JOIN_ENTITY": "JOIN ENTITY",
+    "CREATE_ENTITY": "CREATE ENTITY",
+    "SKIP": "SKIP"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -194,7 +194,8 @@
       "CREATEENTITY": "Create entity load success",
       "JOINENTITY": "Join entity load success",
       "PASSWORDCHANGE": "Change password load success",
-      "SETTING_COMPONENT": "Settings load success"
+      "SETTING_COMPONENT": "Settings load success",
+      "CREATEENTITY_ERROR": "Entity details are required to create an entity"
     }
   }
 }

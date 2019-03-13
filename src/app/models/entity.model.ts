@@ -1,5 +1,10 @@
 export interface entity {
-    entityName: string;
+    moduleName:string;
+    entityData:entityData
+  }
+
+  export interface entityData {
+    name: string;
     entityLocation: string;
     status: boolean
   }
