@@ -76,9 +76,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      mobile_no: ['', Validators.required],
+      contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
-      password2: ['', [Validators.required, Validators.minLength(8)]]
+      password2: ['', [Validators.required, Validators.minLength(8)]],
     }, { validator: this.checkPasswords });
   }
   ngOnDestroy() {
@@ -119,7 +119,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'first_name': value.first_name,
       'last_name': value.last_name,
       'email': value.email,
-      'mobile_no': value.mobile_no,
+      'contactNo': value.contactNo,
       'password1': value.password1,
       'password2': value.password2,
       'invitation': false,

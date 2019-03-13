@@ -31,7 +31,7 @@ export interface RegisterUser {
     first_name: string;
     last_name: string;
     email:string;
-    mobile_no: string;
+    contactNo: string;
     password1: string;
     password2: string;
 }
