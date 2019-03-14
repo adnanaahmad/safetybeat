@@ -165,8 +165,11 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   }
   app-notificationnav {
     mat-list-item[role="listitem"] {
-      .read-notif {
+      .unread-notif {
         background: mat-color($primary-pallet, 500);
+      }
+      .read-notif{
+        background: mat-color($primary-pallet, 100);
       }
     }
   }

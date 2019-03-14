@@ -2,42 +2,62 @@
   :host,
   app-notificationnav {
     padding: 0 20px;
+    width: 320px;
     display: block;
     mat-list-item[role="listitem"] {
+      height: auto;
+      border-bottom: 1px solid #ddd;
+      padding: 0px 0 10px;
       .mat-list-item-content {
         display: block;
-        padding:0;
+        padding: 0;
       }
       h5 {
         margin: 10px 0;
+        a {
+          text-decoration: none;
+        }
       }
       p {
         margin: 10px 0;
         font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .clear-notif {
         float: right;
-        font-size: 14px;
         text-align: right;
         cursor: pointer;
         height: auto;
         width: auto;
         font-weight: bold;
+        border-radius: 3px;
+        font-size: 12px;
+        padding: 2px;
         opacity: 0;
         transform: scale(0);
         transition: all ease 0.3s;
+        &:hover{
+          background: rgba(0, 0, 0, 0.1);
+        }
       }
-      .read-notif {
+      .read-notif,
+      .unread-notif {
         float: left;
         width: 10px;
         height: 10px;
         border-radius: 100px;
         margin: 2px 5px 0 0;
       }
-      &:hover{
-        .clear-notif{
-            transform: scale(1);
-            opacity: 1;
+      .timelog {
+        font-size: 12px;
+        opacity: 0.5;
+      }
+      &:hover {
+        .clear-notif {
+          transform: scale(1);
+          opacity: 1;
         }
       }
     }
