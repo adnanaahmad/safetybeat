@@ -1,6 +1,6 @@
-const serverUrl = 'http://192.168.69.5:8000';
+const serverUrl = 'http://192.168.69.80';
 export const environment = {
   production: true,
-  apiUrl: `${serverUrl}/safetybeat`,
+  apiUrl: `${serverUrl}/api/safetybeat`,
 };
 
