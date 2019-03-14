@@ -63,7 +63,9 @@ export interface Auth {
     ORGANIZATION_NAME: string,
     ORGANIZATIONNAME_REQ: string,
     ORG_NAME_EXISTS: string,
-    CURRENT_PASSWORD: string
+    CURRENT_PASSWORD: string,
+    TRIAL:string,
+    OWNER:string
 }
 export interface Icons {
     MOVE_VERT: string,
@@ -192,6 +194,7 @@ export interface Messages {
     JOINENTITY_MSG:string,
     ENTITYCODE:string,
     ENTITYCODE_REQ:string,
+    BACKEND_ERROR:string
 
 }
 export interface Logger {

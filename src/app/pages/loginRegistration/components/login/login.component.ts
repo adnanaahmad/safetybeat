@@ -94,8 +94,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
-            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+          debugger;
+          this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, error);
           this.loading = false;
           this.toastProvider.createErrorToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG);
         }

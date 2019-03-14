@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { TranslateService } from '@ngx-translate/core';
-import { packges, RegisterUser, RegisterOrganization } from 'src/app/models/user.model';
+import { RegisterUser } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
@@ -29,20 +29,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
-    /**
-     * to get companyTypes, modules & packages from db
-     */
-    this.register.registrationData()
-      .subscribe(data => {
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
-        this.types = data[0];
-        this.modules = data[1];
-        this.packages = data[2];
-      },
-        error => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
-            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        });
   }
   /**
    * handling forms validations
@@ -123,9 +109,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'password1': value.password1,
       'password2': value.password2,
       'invitation': false,
-      'module':'Safetybeat',
-      'package':'Trial',
-      'role':'Owner'
+      'module':this.translated.BUTTONS.SAFETYBEAT,
+      'package':this.translated.AUTH.TRIAL,
+      'role':this.translated.AUTH.OWNER
     };
     if (!valid) {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
