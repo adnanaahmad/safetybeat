@@ -50,6 +50,12 @@ body {
     margin: 0 auto;
   }
 }
+.page-title{
+  padding:20px 0;
+  h3{
+    margin-top:0;
+  }
+}
 .topbar {
   box-shadow: 0px 4px 7px 1px #00000036;
 }
@@ -380,6 +386,15 @@ hr.forheading {
   opacity: 0.4;
 }
 .customTable{
+  width:100%;
+  .table-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.4);
+    margin: 10px 0;
+    border: 1px solid #fff;
+  }
   .mat-header-row{
     .mat-header-cell{
       color:#fff;

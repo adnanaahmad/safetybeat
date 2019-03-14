@@ -12,10 +12,37 @@
       flex-direction: row;
       height: 100%;
     }
+    .notification-icon{
+      top: 5px;
+      position: relative;
+      font-size: 22px;
+      height: auto;
+      width: auto;
+      cursor: pointer;
+      padding: 0 20px;
+      .notifcount{
+        font-size: 11px;
+        border-radius: 100px;
+        padding: 4px;
+        position: absolute;
+        top: -20px;
+        right: 0;
+        width: 17px;
+        height: 17px;
+        text-align: center;
+        line-height: 1.7;
+        box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
+      }
+    }
+    .close-notif{
+      padding:20px 20px 0;
+      cursor:pointer;
+    }
     mat-sidenav {
       width: 200px;
       .nav-link {
         font-size: 14px;
+        width:100%;
       }
     }
     mat-sidenav-container {

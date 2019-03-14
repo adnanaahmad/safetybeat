@@ -153,9 +153,21 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
+  .notification-icon{
+    .notifcount{
+      background: mat-color($warn-pallete, 600);
+    }
+  }
   .customTable{
     .mat-header-row{
       background-color: mat-color($primary);
+    }
+  }
+  app-notificationnav {
+    mat-list-item[role="listitem"] {
+      .read-notif {
+        background: mat-color($primary-pallet, 500);
+      }
     }
   }
   @include amte-setTheme($light-theme);
