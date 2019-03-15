@@ -53,7 +53,6 @@ export class JoinEntityModalComponent implements OnInit {
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.adminServices.joinEntity(this.joinEntityData).subscribe((res)=>{
-      debugger;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS,"You have joined entity successfully.");
     },(error)=>{
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR,"You have not joined entity.");

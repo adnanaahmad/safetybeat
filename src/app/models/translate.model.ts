@@ -128,7 +128,8 @@ export interface Buttons {
     PROFIILE_INFO: string,
     JOIN_ENTITY: string,
     CREATE_ENTITY: string,
-    SKIP:string
+    INVITE_USER: string,
+    SKIP: string
 }
 export interface Messages {
     CHANGEPASSWORD: string,
@@ -179,19 +180,20 @@ export interface Messages {
     SAFETYBEAT: string,
     NOTFOUND_HEADING: string,
     NOTFOUND_DESCRIPTION: string,
-    ALREADY_ACCOUNT:string
+    ALREADY_ACCOUNT: string
     PROFIILE_INFO: string,
-    ORGSIGNUP:string,
-    ORGSIGNUPMESSAGE:string,
+    ORGSIGNUP: string,
+    ORGSIGNUPMESSAGE: string,
     ENTITYNAME_REQ: string,
     OFFICELOCATION_REQ: string,
     CREATEENTITY_MSG: string,
+    INVITE_USER: string,
     ENTITYNAME: string,
     HEADOFFICE_LOCATION: string,
-    STATUS:string,
-    JOINENTITY_MSG:string,
-    ENTITYCODE:string,
-    ENTITYCODE_REQ:string,
+    STATUS: string,
+    JOINENTITY_MSG: string,
+    ENTITYCODE: string,
+    ENTITYCODE_REQ: string,
 
 }
 export interface Logger {
@@ -234,11 +236,18 @@ export interface LoggerMessage {
     PASSWORDCHANGE_UNSUCCESS: string,
     CHANGEPASSWORDFOR_DEV: string,
     ENTITYCONTROL: string,
-    ORGANIZATIONDETAILS:string,
+    ORGANIZATIONDETAILS: string,
     CREATEENTITY: string,
     JOINENTITY: string,
-    PASSWORDCHANGE:string,
-    SETTING_COMPONENT:string,
-    CREATEENTITY_ERROR:string,
-    ENTITYNOTCREATED:string
+    PASSWORDCHANGE: string,
+    SETTING_COMPONENT: string,
+    CREATEENTITY_ERROR: string,
+    INVITEUSER_ERROR: string,
+    ENTITYNOTCREATED: string
+}
+export interface SiteTitle {
+    MEMBERCENTER_TITLE: string,
+    MEMBERCENTER_DESCRIPTION: string,
+    ENTITYCONTROL_TITLE: string,
+    ENTITYCONTROL_DESCRIPTION: string
 }

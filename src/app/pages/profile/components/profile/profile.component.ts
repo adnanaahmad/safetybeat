@@ -115,7 +115,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
-    debugger;
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {
@@ -127,7 +126,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     value[this.appConstants.userName] = this.username;
     this.profile.editUser(this.user_id, value).subscribe((data) => {
-      debugger;
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
       this.toastProvider.createSuccessToaster(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
