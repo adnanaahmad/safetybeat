@@ -129,6 +129,8 @@ export interface Buttons {
   JOIN_ENTITY: string;
   CREATE_ENTITY: string;
   SKIP: string;
+  MAP: string;
+  HOURS: string;
 }
 export interface Messages {
   CHANGEPASSWORD: string;
@@ -263,5 +265,5 @@ export interface TableHeadings {
   SITE: string;
   LAST_ACTION: string;
   DATE_TIME: string;
-  TIMEZONE: string
+  TIMEZONE: string;
 }

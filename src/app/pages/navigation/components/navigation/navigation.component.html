@@ -10,7 +10,11 @@
           <img src="../../../../../assets/images/safetybeat-icon.png" class="sidenav-logo" />
         </div>
         <div class="entity-switcher">
-          <button class="switch-icon" mat-icon-button [matMenuTriggerFor]="menu">
+          <button
+            class="switch-icon"
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+          >
             <mat-icon>swap_horiz</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
@@ -57,7 +61,7 @@
 
       <div class="page-content">
         <!-- <mat-drawer-container class="example-container" hasBackdrop="true"> -->
-        <mat-drawer #drawer mode="over" position="end">
+        <mat-drawer #drawer mode="push" position="start">
           <mat-icon class="close-notif" (click)="drawer.toggle()"
             >arrow_forward</mat-icon
           >
@@ -68,10 +72,4 @@
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
-
-  <!-- <mat-drawer-container class="example-container">
-    <mat-drawer #drawer mode="side" position="end">
-      Drawer content
-    </mat-drawer>
-  </mat-drawer-container> -->
 </div>
