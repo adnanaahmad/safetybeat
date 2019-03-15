@@ -64,6 +64,8 @@ export interface Auth {
   ORGANIZATIONNAME_REQ: string;
   ORG_NAME_EXISTS: string;
   CURRENT_PASSWORD: string;
+  TRIAL:string;
+  OWNER:string;
 }
 export interface Icons {
   MOVE_VERT: string;

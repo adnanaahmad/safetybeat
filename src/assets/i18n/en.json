@@ -42,7 +42,9 @@
     "ORGANIZATION_NAME": "Company Name",
     "ORGANIZATIONNAME_REQ": "Please enter valid organization name",
     "ORG_NAME_EXISTS": "Organization name already exists",
-    "CURRENT_PASSWORD": "Current Password"
+    "CURRENT_PASSWORD": "Current Password",
+    "TRIAL": "Trial",
+    "OWNER": "Owner"
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -149,7 +151,8 @@
     "STATUS": "Status",
     "JOINENTITY_MSG": "Enter Details to Join Entity",
     "ENTITYCODE": "Enter entity code to join entity",
-    "ENTITYCODE_REQ": "Entity Code is Required."
+    "ENTITYCODE_REQ": "Entity Code is Required.",
+    "BACKEND_ERROR": "Something bad happened; please try again later."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
