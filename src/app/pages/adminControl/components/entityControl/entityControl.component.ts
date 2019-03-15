@@ -43,7 +43,7 @@ export class EntityControlComponent implements OnInit {
     public adminServices: AdminControlService
   ) {
     translate
-      .get(["AUTH", "BUTTONS", "MESSAGES", "LOGGER", "STRINGS", "ICONS","SITETITLE"])
+      .get(["AUTH", "BUTTONS", "MESSAGES", "LOGGER", "STRINGS", "ICONS","SITETITLE", "TABLEHEADINGS"])
       .subscribe(values => {
         this.translated = values;
         this.appIcons = ConstantService.appIcons;
