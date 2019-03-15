@@ -72,6 +72,15 @@ body {
   display: block !important;
   height: auto !important;
 }
+.flexbox{
+  display:flex;
+  & > div{
+    width:100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}
 [full-width] {
   width: 100% !important;
 }
