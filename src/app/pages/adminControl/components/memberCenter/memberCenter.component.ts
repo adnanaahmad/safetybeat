@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Translation } from 'src/app/models/translate.model';
 export interface PeriodicElement {
   name: string;
   email: string;
@@ -20,8 +22,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./memberCenter.component.scss']
 })
 export class MemberCenterComponent implements OnInit {
-
-  constructor() { }
+  translated:Translation
+  constructor(
+    translate:TranslateService
+  ) { 
+    translate.get(["AUTH", "BUTTONS", "MESSAGES", "LOGGER", "STRINGS", "ICONS","SITETITLE"])
+    .subscribe(values => {
+      this.translated = values;
+    });
+  }
 
   ngOnInit() {
   }

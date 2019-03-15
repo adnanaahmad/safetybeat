@@ -149,6 +149,12 @@
     "ENTITYCODE": "Enter entity code to join entity",
     "ENTITYCODE_REQ": "Entity Code is Required."
   },
+  "SITETITLE":{
+    "MEMBERCENTER_TITLE": "Member Center",
+    "MEMBERCENTER_DESCRIPTION": "Add, remove or review members",
+    "ENTITYCONTROL_TITLE": "Entity Control Center",
+    "ENTITYCONTROL_DESCRIPTION": "Create, remove or edit entities"
+  },
   "LOGGER": {
     "STATUS": {
       "DEFAULT": "default",

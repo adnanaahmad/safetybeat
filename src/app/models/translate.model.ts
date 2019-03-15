@@ -242,3 +242,9 @@ export interface LoggerMessage {
     CREATEENTITY_ERROR:string,
     ENTITYNOTCREATED:string
 }
+export interface SiteTitle {
+    MEMBERCENTER_TITLE: string,
+    MEMBERCENTER_DESCRIPTION: string,
+    ENTITYCONTROL_TITLE: string,
+    ENTITYCONTROL_DESCRIPTION: string
+}

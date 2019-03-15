@@ -38,7 +38,7 @@ body {
   border-radius: 100px;
   text-align: center;
   transform: translateY(-50%);
-  box-shadow: -8px 0px 10px 0px #0000001f;
+  box-shadow: -8px 0px 10px 0px rgba(0, 0, 0, 0.2);
   border: 3px solid #fff;
   img {
     max-width: 100%;
@@ -51,13 +51,22 @@ body {
   }
 }
 .page-title{
-  padding:20px 0;
+  margin: 10px 0;
+  display: inline-block;
   h3{
     margin-top:0;
   }
 }
+.buttonRow{
+  margin:20px 0 10px;
+  text-align: right;
+  float: right;
+  button:last-child{
+      margin-left:10px;
+  }
+}
 .topbar {
-  box-shadow: 0px 4px 7px 1px #00000036;
+  box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.2);
 }
 .noflex {
   display: block !important;
