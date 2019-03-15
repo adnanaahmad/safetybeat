@@ -42,7 +42,9 @@
     "ORGANIZATION_NAME": "Company Name",
     "ORGANIZATIONNAME_REQ": "Please enter valid organization name",
     "ORG_NAME_EXISTS": "Organization name already exists",
-    "CURRENT_PASSWORD": "Current Password"
+    "CURRENT_PASSWORD": "Current Password",
+    "TRIAL": "Trial",
+    "OWNER": "Owner"
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -85,7 +87,9 @@
     "JOIN_ENTITY": "JOIN ENTITY",
     "CREATE_ENTITY": "CREATE ENTITY",
     "INVITE_USER": "INVITE",
-    "SKIP": "SKIP"
+    "SKIP": "SKIP",
+    "MAP": "Map",
+    "HOURS": "Hours"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -149,13 +153,31 @@
     "STATUS": "Status",
     "JOINENTITY_MSG": "Enter Details to Join Entity",
     "ENTITYCODE": "Enter entity code to join entity",
-    "ENTITYCODE_REQ": "Entity Code is Required."
+    "ENTITYCODE_REQ": "Entity Code is Required.",
+    "BACKEND_ERROR": "Something bad happened; please try again later."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
     "MEMBERCENTER_DESCRIPTION": "Add, remove or review members",
     "ENTITYCONTROL_TITLE": "Entity Control Center",
-    "ENTITYCONTROL_DESCRIPTION": "Create, remove or edit entities"
+    "ENTITYCONTROL_DESCRIPTION": "Create, remove or edit entities",
+    "USERS_TITLE": "All Users",
+    "USERS_DESCRIPTION": "Add, remove or review users"
+  },
+  "TABLEHEADINGS": {
+    "ENTITY_ID": "Entity Id",
+    "ENTITY_NAME": "Entity Name",
+    "ENTITY_HEADOFFICE": "Entity Head Office",
+    "ENTITY_STATUS": "Entity Status",
+    "ACTIONS": "Actions",
+    "NAME": "Name",
+    "EMAIL": "E-mail",
+    "CONTACT": "Contact",
+    "ACCESS_LEVEL": "Access Level",
+    "SITE": "Site",
+    "LAST_ACTION": "Last Action",
+    "DATE_TIME": "Date/Time",
+    "TIMEZONE": "Time Zone"
   },
   "LOGGER": {
     "STATUS": {

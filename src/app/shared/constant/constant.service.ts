@@ -20,7 +20,7 @@ export class ConstantService {
     checkEmail: `${environment.apiUrl}/users/checkEmail/`,
     checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
     checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,
-    resendverification: `${environment.apiUrl}/account/resend-verification/`,
+    resendverification: `${environment.apiUrl}/sendEmailVerification/`,
     changeEmail: `${environment.apiUrl}/users/editEmail/`,
     editProfile: `${environment.apiUrl}/users`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
@@ -28,6 +28,7 @@ export class ConstantService {
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
+    allUsersOfOrganization: `${environment.apiUrl}/organization/allUserOfOrganization`
   };
   static toast = {
     location: "toast-top-left",

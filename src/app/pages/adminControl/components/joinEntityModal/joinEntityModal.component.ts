@@ -6,6 +6,7 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Translation } from 'src/app/models/translate.model';
 import { joinEntity, entityCode } from 'src/app/models/entity.model';
 import { AdminControlService } from '../../services/adminControl.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-joinEntityModal',
@@ -17,10 +18,12 @@ export class JoinEntityModalComponent implements OnInit {
   translated: Translation;
   appConstants:any;
   joinEntityData:any;
+  entityResponse: any;
 
 
   constructor(
     private translate: TranslateService,
+    public dialogRef: MatDialogRef<JoinEntityModalComponent>,
     public formBuilder: FormBuilder,
     private logging: LoggingService,
     private adminServices:AdminControlService
@@ -37,6 +40,9 @@ export class JoinEntityModalComponent implements OnInit {
       joinCode: ['',Validators.required]
     });
   }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
   get formValidation() { return this.joinEntityForm.controls; }
 
@@ -48,14 +54,24 @@ export class JoinEntityModalComponent implements OnInit {
     }
     this.joinEntityData = {
       moduleName:this.translated.BUTTONS.SAFETYBEAT,
-      entityCode:value
+      entityCode:value.joinCode
     };
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.adminServices.joinEntity(this.joinEntityData).subscribe((res)=>{
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS,"You have joined entity successfully.");
+      this.entityResponse = res;
+      this.onNoClick();
+      if(this.entityResponse.responseDetails.code=='0025'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'Entity is Joined successfully');
+      }
+      else if(this.entityResponse.responseDetails.code=='0027'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, 'Already Joined this entity')
+      }
+      else if(this.entityResponse.responseDetails.code=='0026'){
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, 'Entity Not Found')
+      }
     },(error)=>{
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR,"You have not joined entity.");
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR,"You can not joined entity.");
 
     })
 

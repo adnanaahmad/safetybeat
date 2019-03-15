@@ -7,6 +7,11 @@
     border: 1px solid #555;
   }
   app-navigation {
+    app-fixed-nav{
+      mat-nav-list{
+        padding-top:18px;
+      }
+    }
     .container {
       display: flex;
       flex-direction: row;
@@ -53,6 +58,9 @@
         font-size: 14px;
         width:100%;
       }
+      .mat-list-base{
+        padding-top:0;
+      }
     }
     mat-sidenav-container {
       flex: 1;
@@ -84,10 +92,15 @@
       text-align: right;
     }
     .sidenav-logo {
-      max-width: 84%;
-      margin: 20px auto 0;
-      display: block;
-      width: 100%;
+      margin: 20px 0 0 15px;
+      width: 80px;
+    }
+    .entity-switcher{
+      width:100px;
+      .switch-icon{
+        margin:20px 0;
+        color:#fff;
+      }
     }
     .menu-button {
       button {

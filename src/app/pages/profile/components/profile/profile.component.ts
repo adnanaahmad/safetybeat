@@ -101,6 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       data: { currentPassword: this.currentPassword, password1: this.password1, password2: this.password2 }
     });
     dialogRef.afterClosed().subscribe((result) => {
+      this.getUserData();
     });
   }
 
@@ -129,6 +130,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
       this.toastProvider.createSuccessToaster(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
+      this.getUserData();
     },
       (error) => {
         this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +

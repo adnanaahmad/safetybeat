@@ -79,14 +79,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
 
   get formValidation() { return this.verifyForm.controls; }
-  resendVerification() {
-    this.loginRegService.resendemail({ 'email': this.data.data.userData.email }).subscribe((res) => {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-    }, (err) => {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, err);
-    });
-  }
+
   changeEmail({ value, valid }: { value: Verification, valid: boolean }): void {
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
@@ -95,6 +88,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.emaill = value.email;
     const verificationData = {
       email:value.email,
       userId:this.data.data.userId
@@ -110,5 +104,17 @@ export class VerificationComponent implements OnInit, OnDestroy {
       });
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.EMAIL_CHANGED);
     })
+  }
+  resendVerification() {
+    const resendData = {
+      userId:this.data.data.userId,
+      email:this.data.data.userData.email
+    }
+    this.loginRegService.resendemail(resendData).subscribe((res) => {
+      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+    }, (err) => {
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, err);
+    });
   }
 }

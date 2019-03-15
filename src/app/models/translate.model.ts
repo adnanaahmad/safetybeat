@@ -1,108 +1,110 @@
 export interface Translation {
-    AUTH: Auth,
-    BUTTONS: Buttons,
-    MESSAGES: Messages,
-    LOGGER: Logger,
-    STRINGS: Strings
+  AUTH: Auth;
+  BUTTONS: Buttons;
+  MESSAGES: Messages;
+  LOGGER: Logger;
+  STRINGS: Strings;
 }
 export interface Strings {
-    USERNAME: string,
-    FIRSTNAME: string,
-    LASTNAME: string,
-    EMAIL: string,
-    MOBILE: string,
-    LIGHTDEFAULT: string,
-    EVILDARK: string,
-    OLIVEGREEN: string,
-    DARKFOREST: string,
-    OTHERSETTINGS: string,
-    CHANGETHEME: string,
-    EXPAND: string,
-    REMOVE: string
+  USERNAME: string;
+  FIRSTNAME: string;
+  LASTNAME: string;
+  EMAIL: string;
+  MOBILE: string;
+  LIGHTDEFAULT: string;
+  EVILDARK: string;
+  OLIVEGREEN: string;
+  DARKFOREST: string;
+  OTHERSETTINGS: string;
+  CHANGETHEME: string;
+  EXPAND: string;
+  REMOVE: string;
 }
 export interface Auth {
-    USERNAME: string,
-    PASSWORD: string,
-    EMAIL: string,
-    FIRSTNAME: string,
-    LASTNAME: string,
-    CONFIRM_PASSWORD: string,
-    MOBILENO: string,
-    PASSWORD1: string,
-    PASSWORD2: string,
-    ADDRESS: string,
-    ZIPCODE: string,
-    CITY: string,
-    COUNTRY: string,
-    ACCOUNTNO: string,
-    BILLING_EMAIL: string,
-    FAX: string,
-    USERNAME_REQ: string,
-    PASSWORD_REQ: string,
-    FIRSTNAME_REQ: string,
-    LASTNAME_REQ: string,
-    EMAIL_VALID: string,
-    EMAIL_REQ: string,
-    EMAIL_EXISTS: string,
-    CONFIRMPASSWORD_REQ: string,
-    MOBILE_REQ: string,
-    ADDRESS_REQ: string,
-    CITY_REQ: string,
-    COUNTRY_REQ: string,
-    ZIPCODE_REQ: string,
-    BILLINGEMAIL_REQ: string,
-    BILLING_EMAIL_VALID: string,
-    BILLING_EMAIL_EXISTS: string,
-    ACCOUNTNO_REQ: string,
-    FAXNO_REQ: string,
-    USER: string,
-    TOKEN: string,
-    FIRST_NAME: string,
-    LAST_NAME: string,
-    MOBILE_NO: string,
-    ORGANIZATION_NAME: string,
-    ORGANIZATIONNAME_REQ: string,
-    ORG_NAME_EXISTS: string,
-    CURRENT_PASSWORD: string
+  USERNAME: string;
+  PASSWORD: string;
+  EMAIL: string;
+  FIRSTNAME: string;
+  LASTNAME: string;
+  CONFIRM_PASSWORD: string;
+  MOBILENO: string;
+  PASSWORD1: string;
+  PASSWORD2: string;
+  ADDRESS: string;
+  ZIPCODE: string;
+  CITY: string;
+  COUNTRY: string;
+  ACCOUNTNO: string;
+  BILLING_EMAIL: string;
+  FAX: string;
+  USERNAME_REQ: string;
+  PASSWORD_REQ: string;
+  FIRSTNAME_REQ: string;
+  LASTNAME_REQ: string;
+  EMAIL_VALID: string;
+  EMAIL_REQ: string;
+  EMAIL_EXISTS: string;
+  CONFIRMPASSWORD_REQ: string;
+  MOBILE_REQ: string;
+  ADDRESS_REQ: string;
+  CITY_REQ: string;
+  COUNTRY_REQ: string;
+  ZIPCODE_REQ: string;
+  BILLINGEMAIL_REQ: string;
+  BILLING_EMAIL_VALID: string;
+  BILLING_EMAIL_EXISTS: string;
+  ACCOUNTNO_REQ: string;
+  FAXNO_REQ: string;
+  USER: string;
+  TOKEN: string;
+  FIRST_NAME: string;
+  LAST_NAME: string;
+  MOBILE_NO: string;
+  ORGANIZATION_NAME: string;
+  ORGANIZATIONNAME_REQ: string;
+  ORG_NAME_EXISTS: string;
+  CURRENT_PASSWORD: string;
+  TRIAL:string;
+  OWNER:string;
 }
 export interface Icons {
-    MOVE_VERT: string,
-    CHANGE_HISTORY: string,
-    DATA_USAGE: string,
-    CROP_DIN: string,
-    PANORAMA_HORIZONTAL: string,
-    ALL_INCLUSIVE: string,
-    RADIO_BUTTON_UNCHECKED: string,
-    PANORAMA_WIDE_ANGLE: string,
-    MY_LOCATION: string,
-    SHARE: string,
-    WAVES: string,
-    GPS_NOT_FIXED: string,
-    SCATTER_PLOT: string,
-    DETAILS: string,
-    TEXTURE: string
+  MOVE_VERT: string;
+  CHANGE_HISTORY: string;
+  DATA_USAGE: string;
+  CROP_DIN: string;
+  PANORAMA_HORIZONTAL: string;
+  ALL_INCLUSIVE: string;
+  RADIO_BUTTON_UNCHECKED: string;
+  PANORAMA_WIDE_ANGLE: string;
+  MY_LOCATION: string;
+  SHARE: string;
+  WAVES: string;
+  GPS_NOT_FIXED: string;
+  SCATTER_PLOT: string;
+  DETAILS: string;
+  TEXTURE: string;
 }
 export interface Strings {
-    EXPAND: string,
-    REMOVE: string,
-    EMAIL: string,
-    USERNAME: string,
-    PASSWORD: string,
-    FIRSTNAME: string,
-    LASTNAME: string,
-    MOBILENO: string,
-    PASSWORD1: string,
-    PASSWORD2: string,
-    NAME: string,
-    TYPE: string,
-    ADDRESS: string,
-    CITY: string,
-    COUNTRY: string,
-    ZIPCODE: string,
-    BILLINGEMAIL: string,
-    ACCOUNTNO: string,
-    PHONENO: string,
-    FAX: string
+  EXPAND: string;
+  REMOVE: string;
+  EMAIL: string;
+  USERNAME: string;
+  PASSWORD: string;
+  FIRSTNAME: string;
+  LASTNAME: string;
+  MOBILENO: string;
+  PASSWORD1: string;
+  PASSWORD2: string;
+  NAME: string;
+  TYPE: string;
+  ADDRESS: string;
+  CITY: string;
+  COUNTRY: string;
+  ZIPCODE: string;
+  BILLINGEMAIL: string;
+  ACCOUNTNO: string;
+  PHONENO: string;
+  FAX: string;
 }
 export interface Buttons {
     LOGIN: string,
@@ -197,15 +199,15 @@ export interface Messages {
 
 }
 export interface Logger {
-    STATUS: LoggerStatus,
-    MESSAGES: LoggerMessage,
+  STATUS: LoggerStatus;
+  MESSAGES: LoggerMessage;
 }
 export interface LoggerStatus {
-    DEFAULT: string,
-    INFO: string,
-    SUCCESS: string,
-    WARNING: string,
-    ERROR: string,
+  DEFAULT: string;
+  INFO: string;
+  SUCCESS: string;
+  WARNING: string;
+  ERROR: string;
 }
 export interface LoggerMessage {
     LOGGEDIN: string,
@@ -246,8 +248,26 @@ export interface LoggerMessage {
     ENTITYNOTCREATED: string
 }
 export interface SiteTitle {
-    MEMBERCENTER_TITLE: string,
-    MEMBERCENTER_DESCRIPTION: string,
-    ENTITYCONTROL_TITLE: string,
-    ENTITYCONTROL_DESCRIPTION: string
+  MEMBERCENTER_TITLE: string;
+  MEMBERCENTER_DESCRIPTION: string;
+  ENTITYCONTROL_TITLE: string;
+  ENTITYCONTROL_DESCRIPTION: string;
+  USERS_TITLE: string;
+  USERS_DESCRIPTION: string;
+}
+
+export interface TableHeadings {
+  ENTITY_ID: string;
+  ENTITY_NAME: string;
+  ENTITY_HEADOFFICE: string;
+  ENTITY_STATUS: string;
+  ACTIONS: string;
+  NAME: string;
+  EMAIL: string;
+  CONTACT: string;
+  ACCESS_LEVEL: string;
+  SITE: string;
+  LAST_ACTION: string;
+  DATE_TIME: string;
+  TIMEZONE: string
 }

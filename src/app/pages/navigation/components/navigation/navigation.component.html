@@ -1,10 +1,30 @@
 <div class="container">
-  <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()"></app-fixed-nav>
+  <app-fixed-nav
+    class="mini-sidenav"
+    (sidenavToggle)="sideNav.toggle()"
+  ></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
-      <img src='../../../../../assets/images/logo.png' class="sidenav-logo">
+      <div class="flexbox">
+        <div>
+          <img src="../../../../../assets/images/safetybeat-icon.png" class="sidenav-logo" />
+        </div>
+        <div class="entity-switcher">
+          <button class="switch-icon" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>swap_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let entity of entitiesList">
+              <span>{{entity.name}}</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
       <mat-nav-list>
-        <app-nav-list [navLinks]="navLinks" [navLinksBottom]="navLinksBottom"></app-nav-list>
+        <app-nav-list
+          [navLinks]="navLinks"
+          [navLinksBottom]="navLinksBottom"
+        ></app-nav-list>
       </mat-nav-list>
     </mat-sidenav>
     <!-- Content of rest of section -->
@@ -12,21 +32,31 @@
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
         <div class="top-btns">
-          <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">Logout</button>
-          <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important <span class="notifcount">90+</span></mat-icon>
+          <button
+            mat-button
+            *ngIf="core.isAuthenticated"
+            (click)="core.logoutUser()"
+          >
+            Logout
+          </button>
+          <mat-icon class="notification-icon" (click)="drawer.toggle()"
+            >notification_important
+            <span class="notifcount">90+</span></mat-icon
+          >
         </div>
       </mat-toolbar>
 
       <div class="page-content">
         <!-- <mat-drawer-container class="example-container" hasBackdrop="true"> -->
-          <mat-drawer  #drawer mode="over" position="end">
-            <mat-icon class="close-notif" (click)="drawer.toggle()">arrow_forward</mat-icon>
-            <app-notificationNav></app-notificationNav>
-          </mat-drawer>
+        <mat-drawer #drawer mode="over" position="end">
+          <mat-icon class="close-notif" (click)="drawer.toggle()"
+            >arrow_forward</mat-icon
+          >
+          <app-notificationNav></app-notificationNav>
+        </mat-drawer>
         <!-- </mat-drawer-container> -->
         <router-outlet></router-outlet>
       </div>
-
     </mat-sidenav-content>
   </mat-sidenav-container>
 
@@ -35,4 +65,5 @@
       Drawer content
     </mat-drawer>
   </mat-drawer-container> -->
+  <mat-progress-bar mode="indeterminate" *ngIf="!empty"></mat-progress-bar>
 </div>
