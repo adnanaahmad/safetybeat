@@ -31,11 +31,7 @@ export class EntityControlComponent implements OnInit {
   joinEntityData: any;
   allEntitiesData: any = [];
   entitiesList: any = [];
-  entitiesId = [];
-  entitiesName: any;
-  entitiesStatus: any;
-  entitiesCode: any;
-  entitiesHeadOffice: any;
+  empty:boolean = false;
   constructor(
     public dialog: MatDialog,
     public translate: TranslateService,
@@ -81,9 +77,10 @@ export class EntityControlComponent implements OnInit {
     this.allEntitiesData = this.adminServices.viewEntities(this.joinEntityData)
       .pipe(share());
     this.allEntitiesData.subscribe(result => {
+      this.empty = true;
       this.entitiesList = result.data;
+      localStorage.setItem('entities',JSON.stringify(this.entitiesList));
       this.dataSource = new MatTableDataSource(this.entitiesList);
-      this.entitiesCode = this.entitiesList.code;
       this.dataSource.paginator = this.paginator;
     });
   }

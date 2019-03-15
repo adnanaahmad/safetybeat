@@ -18,17 +18,8 @@
             <mat-icon>swap_horiz</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>dialpad</mat-icon>
-              <span>Redial</span>
-            </button>
-            <button mat-menu-item disabled>
-              <mat-icon>voicemail</mat-icon>
-              <span>Check voicemail</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>notifications_off</mat-icon>
-              <span>Disable alerts</span>
+            <button mat-menu-item *ngFor="let entity of entitiesList">
+              <span>{{entity.name}}</span>
             </button>
           </mat-menu>
         </div>
@@ -72,4 +63,14 @@
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
+<<<<<<< HEAD
+=======
+
+  <!-- <mat-drawer-container class="example-container">
+    <mat-drawer #drawer mode="side" position="end">
+      Drawer content
+    </mat-drawer>
+  </mat-drawer-container> -->
+  <mat-progress-bar mode="indeterminate" *ngIf="!empty"></mat-progress-bar>
+>>>>>>> d02b33a046f86d0b733ba8b9b10e4a339b806d72
 </div>

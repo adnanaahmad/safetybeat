@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Renderer2, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Router } from '@angular/router';
@@ -48,10 +48,8 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     private register: LoginRegistrationService,
     public translate: TranslateService,
     private logging: LoggingService,
-    private render: Renderer2,
     private zone: NgZone
   ) {
-    this.render.addClass(document.body, ConstantService.config.theme.background);
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ORGANIZATIONDETAILS);
@@ -85,7 +83,6 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.render.removeClass(document.body, ConstantService.config.theme.background);
     this.logging.hideAllAppLoggers();
   }
   setAddress(addrObj) {
@@ -109,20 +106,6 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
         this.success = res;
         if (!this.success.isSuccess) {
           group.controls.username.setErrors({ exists: true })
-        }
-      });
-    }
-  }
-  checkEmail(group) {
-    this.email = this.formBuilder.group({
-      'email': [group.value.email, Validators.email]
-    });
-    if (this.email.status === 'VALID') {
-      const email = { email: group.value.email };
-      this.register.checkEmail(email).pipe().subscribe((res) => {
-        this.success = res;
-        if (!this.success.isSuccess) {
-          group.controls.email.setErrors({ exists: true })
         }
       });
     }
@@ -156,9 +139,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
   /**
    * handling forms validations
    */
-  get userDetailForm() { return this.userForm.controls; }
   get orgForm() { return this.organizationForm.controls; }
-  get modForm() { return this.moduleForm.controls; }
 
   /**
    * saves package against module
@@ -183,7 +164,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.userForm.invalid || this.organizationForm.invalid || (this.moduleForm.value.name.length
+    if (this.organizationForm.invalid || (this.moduleForm.value.name.length
       !== this.registerData.module_pkg.length)) {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
@@ -191,23 +172,22 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     }
     this.loading = true;
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.userForm.value,
-      this.organizationForm.value, this.moduleForm.value));
-    this.register.registerUser(this.registerData)
-      .subscribe(
-        (data) => {
-          this.data = data;
-          this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-          this.router.navigate(['/verification', { data: JSON.stringify(data) }], { skipLocationChange: true });
-        },
-        (error) => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
-            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-          this.loading = false;
-        });
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.organizationForm.value, this.moduleForm.value));
+    // this.register.registerUser(this.registerData)
+    //   .subscribe(
+    //     (data) => {
+    //       this.data = data;
+    //       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+    //       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+    //       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
+    //       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
+    //       this.router.navigate(['/verification', { data: JSON.stringify(data) }], { skipLocationChange: true });
+    //     },
+    //     (error) => {
+    //       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
+    //         this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+    //       this.loading = false;
+    //     });
   }
 }
 
