@@ -31,6 +31,7 @@ export class EntityControlComponent implements OnInit {
   joinEntityData: any;
   allEntitiesData: any = [];
   entitiesList: any = [];
+  empty:boolean = false;
   constructor(
     public dialog: MatDialog,
     public translate: TranslateService,
@@ -38,7 +39,7 @@ export class EntityControlComponent implements OnInit {
     public adminServices: AdminControlService
   ) {
     translate
-      .get(["AUTH", "BUTTONS", "MESSAGES", "LOGGER", "STRINGS", "ICONS"])
+      .get(["AUTH", "BUTTONS", "MESSAGES", "LOGGER", "STRINGS", "ICONS","SITETITLE", "TABLEHEADINGS"])
       .subscribe(values => {
         this.translated = values;
         this.appIcons = ConstantService.appIcons;
@@ -76,6 +77,7 @@ export class EntityControlComponent implements OnInit {
     this.allEntitiesData = this.adminServices.viewEntities(this.joinEntityData)
       .pipe(share());
     this.allEntitiesData.subscribe(result => {
+      this.empty = true;
       this.entitiesList = result.data;
       localStorage.setItem('entities',JSON.stringify(this.entitiesList));
       this.dataSource = new MatTableDataSource(this.entitiesList);

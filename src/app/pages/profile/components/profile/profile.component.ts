@@ -101,7 +101,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       data: { currentPassword: this.currentPassword, password1: this.password1, password2: this.password2 }
     });
     dialogRef.afterClosed().subscribe((result) => {
-      debugger;
       this.getUserData();
     });
   }
