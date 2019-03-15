@@ -77,6 +77,7 @@ export class EntityControlComponent implements OnInit {
       .pipe(share());
     this.allEntitiesData.subscribe(result => {
       this.entitiesList = result.data;
+      localStorage.setItem('entities',JSON.stringify(this.entitiesList));
       this.dataSource = new MatTableDataSource(this.entitiesList);
       this.dataSource.paginator = this.paginator;
     });

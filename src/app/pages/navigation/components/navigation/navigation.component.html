@@ -3,6 +3,15 @@
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
       <img src='../../../../../assets/images/logo.png' class="sidenav-logo">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>swap_horiz</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let entity of entitiesList">
+          <mat-icon>dialpad</mat-icon>
+          <span>{{entity.name}}</span>
+        </button>
+      </mat-menu>
       <mat-nav-list>
         <app-nav-list [navLinks]="navLinks" [navLinksBottom]="navLinksBottom"></app-nav-list>
       </mat-nav-list>

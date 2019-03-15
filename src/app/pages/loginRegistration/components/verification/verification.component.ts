@@ -81,7 +81,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
   get formValidation() { return this.verifyForm.controls; }
 
   changeEmail({ value, valid }: { value: Verification, valid: boolean }): void {
-    debugger;
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
@@ -95,7 +94,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
       userId:this.data.data.userId
     };
     this.loginRegService.changeEmail(verificationData).subscribe((res) => {
-      debugger;
       this.res = res;
       this.data.data.userData.email = value.email;
       this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((result) => {
@@ -113,7 +111,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
       email:this.data.data.userData.email
     }
     this.loginRegService.resendemail(resendData).subscribe((res) => {
-      debugger;
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
     }, (err) => {

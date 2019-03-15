@@ -6,6 +6,9 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { NavItem } from 'src/app/models/navItems.model';
+import * as _ from 'lodash';
+import { share } from 'rxjs/operators';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 
 @Component({
   selector: 'app-navigation',
@@ -111,8 +114,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     { route: '/home', iconName: ConstantService.appIcons.supervisedUserCircle, displayName: 'Support' },
     { route: '/home/settings', iconName: ConstantService.appIcons.settings, displayName: 'Settings' }
   ];
+  entitiesList: string;
+  entitesName: any = [];
+  abc: any;
+  allEntitiesData: any;
+  joinEntityData: { moduleName: string; };
   constructor(public core: CoreService,
     public translate: TranslateService,
+    public adminServices:AdminControlService,
     private logging: LoggingService) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
@@ -122,9 +131,24 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.viewAllEntities();
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
+  }
+
+  viewAllEntities() {
+    debugger;
+    this.joinEntityData = {
+      moduleName: this.translated.BUTTONS.SAFETYBEAT
+    };
+    this.allEntitiesData = this.adminServices.viewEntities(this.joinEntityData)
+      .pipe(share());
+    this.allEntitiesData.subscribe(result => {
+      debugger;
+      this.entitiesList = result.data;
+      console.log(this.entitiesList);
+    });
   }
 
 }

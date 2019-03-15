@@ -24,10 +24,11 @@ export class ConstantService {
     changeEmail: `${environment.apiUrl}/users/editEmail/`,
     editProfile: `${environment.apiUrl}/users`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
-    getInvite: `${environment.apiUrl}/register/`,
+    getInvite: `${environment.apiUrl}/registration/`,
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
-    joinEntity: `${environment.apiUrl}/entity/joinEntity/`
+    joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
+    allUsersOfOrganization: `${environment.apiUrl}/organization/allUserOfOrganization`
   };
   static toast = {
     location: "toast-top-left",
