@@ -1,6 +1,8 @@
 <h2 mat-dialog-title>Entity Code</h2>
-<div mat-dialog-content>
-  <p>The entity code for ' {{data.name}} ' is : <b>{{data.code}}</b></p>
+<div class="entitycode-box" mat-dialog-content>
+  <p>The entity code for ' {{data.name}} ' is :</p>
+  <span (click)="copyInputMessage(userinput)" class="entity-code">{{data.code}}</span>
+  <input class="hidden-entity" type="text" value="{{data.code}}" #userinput>
   <hr />
   <mat-dialog-actions>
     <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary" (click)="onNoClick()">OK</button>

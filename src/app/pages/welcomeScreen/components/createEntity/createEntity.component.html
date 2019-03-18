@@ -1,0 +1,36 @@
+<div class="loginbox">
+  <h2>{{ translated.MESSAGES.CREATEENTITY_MSG }}</h2>
+  <form>
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input
+          matInput
+          type="text"
+          placeholder="{{ translated.MESSAGES.ENTITYNAME }}"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input
+          matInput
+          type="text"
+          placeholder="{{ translated.MESSAGES.HEADOFFICE_LOCATION }}"
+          required
+        />
+      </mat-form-field>
+    </div>
+    <mat-checkbox>{{ translated.MESSAGES.STATUS }}</mat-checkbox>
+    <button
+      mat-raised-button
+      cdkFocusInitial
+      custom-btn
+      btn-primary
+      color="primary"
+    >
+      {{ translated.BUTTONS.CREATE_ENTITY }}
+    </button>
+    <button mat-button>{{ translated.BUTTONS.CANCEL }}</button>
+  </form>
+</div>

@@ -107,7 +107,6 @@ export interface Strings {
   FAX: string;
 }
 export interface Buttons {
-<<<<<<< HEAD
   LOGIN: string;
   REGISTER: string;
   FORGOTPASSWORD: string;
@@ -134,33 +133,6 @@ export interface Buttons {
   SKIP: string;
   MAP: string;
   HOURS: string;
-=======
-    LOGIN: string,
-    REGISTER: string,
-    FORGOTPASSWORD: string,
-    CANCEL: string,
-    RESET: string,
-    NEXT: string,
-    BACK: string,
-    SUBMIT: string,
-    LOGINTEXT: string,
-    RESEND_EMAIL: string,
-    CHANGE_EMAIL: string,
-    EDIT_ACCOUNT: string
-    CHANGE_PASSWORD: string,
-    NO_THANKS: string,
-    FIELDCOMMUNICATION: string,
-    CHANGEPASSWORD: string,
-    LEAVE: string,
-    SAFETYBEAT: string,
-    ENTRIES: string,
-    ACTIVITIES: string,
-    PROFIILE_INFO: string,
-    JOIN_ENTITY: string,
-    CREATE_ENTITY: string,
-    INVITE_USER: string,
-    SKIP: string
->>>>>>> d02b33a046f86d0b733ba8b9b10e4a339b806d72
 }
 export interface Messages {
     CHANGEPASSWORD: string,

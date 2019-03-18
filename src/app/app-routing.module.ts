@@ -13,9 +13,15 @@ export const routes: Routes = [
     loadChildren: 'src/app/pages/navigation/navigation.module#NavigationModule'
   },
   {
+    path: 'welcomeScreen',
+    canActivate: [AuthGuard],
+    loadChildren: 'src/app/pages/welcomeScreen/welcomeScreen.module#WelcomeScreenModule'
+  },
+  {
     path: '**',
     loadChildren: 'src/app/core/core.module#CoreModule'
   },
+
 
 ];
 
