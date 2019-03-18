@@ -153,6 +153,13 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
+  app-alert-modal {
+    .entity-code {
+      border: 1px solid #05647c1c;
+      background: #05647c14;
+      color: mat-color($warn-pallete, 500);
+    }
+  }
   .notification-icon{
     .notifcount{
       background: mat-color($warn-pallete, 600);
