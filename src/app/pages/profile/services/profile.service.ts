@@ -28,6 +28,6 @@ export class ProfileService {
   }
 
   getAllUsers(){
-    return this.http.get(`${ConstantService.apiRoutes.allUsersOfOrganization}`);
+    return this.http.get(`${ConstantService.apiRoutes.allUsersOfOrganization}`).pipe(catchError(this.coreServices.handleError));
   }
 }

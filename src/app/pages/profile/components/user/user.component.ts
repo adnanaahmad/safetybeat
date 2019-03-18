@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Translation } from "src/app/models/translate.model";
+import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { ProfileService } from '../../services/profile.service';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
 export interface PeriodicElement {
   name: string;
   email: string;
@@ -57,7 +60,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UserComponent implements OnInit {
   translated: Translation;
-  constructor(translate: TranslateService) {
+  appIcons: any;
+  allUsers: any = [];
+  constructor(
+    translate: TranslateService,
+    public userService: ProfileService,
+    public logging: LoggingService
+    ) {
     translate
       .get([
         "AUTH",
@@ -72,9 +81,12 @@ export class UserComponent implements OnInit {
       .subscribe(values => {
         this.translated = values;
       });
+      this.appIcons = ConstantService.appIcons;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getAllUsers();
+  }
   displayedColumns: string[] = [
     "photos",
     "name",
@@ -84,4 +96,15 @@ export class UserComponent implements OnInit {
     "symbol"
   ];
   dataSource = ELEMENT_DATA;
+
+
+  getAllUsers(){
+    this.userService.getAllUsers().subscribe((result)=>{
+      debugger;
+      this.allUsers = result
+      console.log(this.allUsers);
+    }),(error=>{
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR,"There's something bad happened, Please try again later");
+    })
+  }
 }
