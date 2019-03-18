@@ -28,7 +28,7 @@ export class ConstantService {
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
-    allUsersOfOrganization: `${environment.apiUrl}/organization/allUserOfOrganization`
+    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`
   };
   static toast = {
     location: "toast-top-left",

@@ -54,6 +54,7 @@ import {
     MatSlideToggleModule,
     MatStepperModule,
     MatRadioModule,
+    MatProgressSpinnerModule,
     MatProgressBarModule
   ],
   declarations: [],
