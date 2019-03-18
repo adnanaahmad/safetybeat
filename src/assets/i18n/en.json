@@ -86,6 +86,7 @@
     "FIELDCOMMUNICATION": "Field Communication",
     "JOIN_ENTITY": "JOIN ENTITY",
     "CREATE_ENTITY": "CREATE ENTITY",
+    "INVITE_USER": "INVITE",
     "SKIP": "SKIP",
     "MAP": "Map",
     "HOURS": "Hours"
@@ -146,6 +147,7 @@
     "ENTITYNAME_REQ": "Entity Name is Required.",
     "OFFICELOCATION_REQ": "Head Office Location is Required.",
     "CREATEENTITY_MSG": "Enter Details to create Entity",
+    "INVITE_USER": "Enter Details to Invite User",
     "ENTITYNAME": "Entity Name",
     "HEADOFFICE_LOCATION": "Head Office Location",
     "STATUS": "Status",
@@ -220,6 +222,7 @@
       "PASSWORDCHANGE": "Change password load success",
       "SETTING_COMPONENT": "Settings load success",
       "CREATEENTITY_ERROR": "Entity details are required to create an entity",
+      "INVITEUSER_ERROR":"User details are required to Invite a user",
       "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again."
     }
   }

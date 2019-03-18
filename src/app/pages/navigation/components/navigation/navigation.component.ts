@@ -64,8 +64,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.allEntitiesData.subscribe(result => {
       this.entitiesList = result.data;
       if (this.entitiesList.length == 0) {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.INFO,"You don't have any entity");
         this.empty = true;
+        this.logging.appLogger(this.translated.LOGGER.STATUS.INFO,"You don't have any entity");
         this.navLinks = [
           {
             route: "/home",
@@ -126,6 +126,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         ];
         this.router.navigate(['/home/adminControl/entityControl']);
       } else {
+        this.empty = true;
         this.navLinks = [
           {
             route: "/home",
@@ -255,7 +256,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
             displayName: "Settings"
           }
         ];
-        this.empty = true;
       }
     });
   }

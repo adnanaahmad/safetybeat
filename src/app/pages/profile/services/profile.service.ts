@@ -26,8 +26,7 @@ export class ProfileService {
   changePassword(data) {
     return this.http.put(`${ConstantService.apiRoutes.changePassword}`, data).pipe(catchError(this.coreServices.handleError));
   }
-
   getAllUsers(){
-    return this.http.get(`${ConstantService.apiRoutes.allUsersOfOrganization}`).pipe(catchError(this.coreServices.handleError));
+    return this.http.get(`${ConstantService.apiRoutes.allUsersOfOrganization}`);
   }
 }

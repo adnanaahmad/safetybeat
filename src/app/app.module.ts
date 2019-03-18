@@ -26,6 +26,7 @@ import { ModalDialogComponent } from './pages/profile/components/changePasswordM
 import { OrgRegistrationComponent } from './pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 import { JoinEntityModalComponent } from './pages/adminControl/components/joinEntityModal/joinEntityModal.component';
 import { AlertModalComponent } from './pages/adminControl/components/alert-modal/alert-modal.component';
+import { InviteUserModalComponent } from './pages/navigation/components/inviteUserModal/inviteUserModal.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -40,7 +41,8 @@ export function createTranslateLoader(http: HttpClient) {
     GooglePlacesDirective,
     CreateEntityComponent,
     JoinEntityModalComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    InviteUserModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -79,7 +81,8 @@ export function createTranslateLoader(http: HttpClient) {
     OrgRegistrationComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    InviteUserModalComponent
   ]
 })
 export class AppModule { }
