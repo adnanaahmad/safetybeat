@@ -107,31 +107,32 @@ export interface Strings {
   FAX: string;
 }
 export interface Buttons {
-    LOGIN: string,
-    REGISTER: string,
-    FORGOTPASSWORD: string,
-    CANCEL: string,
-    RESET: string,
-    NEXT: string,
-    BACK: string,
-    SUBMIT: string,
-    LOGINTEXT: string,
-    RESEND_EMAIL: string,
-    CHANGE_EMAIL: string,
-    EDIT_ACCOUNT: string
-    CHANGE_PASSWORD: string,
-    NO_THANKS: string,
-    FIELDCOMMUNICATION: string,
-    CHANGEPASSWORD: string,
-    LEAVE: string,
-    SAFETYBEAT: string,
-    ENTRIES: string,
-    ACTIVITIES: string,
-    PROFIILE_INFO: string,
-    JOIN_ENTITY: string,
-    CREATE_ENTITY: string,
-    INVITE_USER: string,
-    SKIP: string
+  LOGIN: string;
+  REGISTER: string;
+  FORGOTPASSWORD: string;
+  CANCEL: string;
+  RESET: string;
+  NEXT: string;
+  BACK: string;
+  SUBMIT: string;
+  LOGINTEXT: string;
+  RESEND_EMAIL: string;
+  CHANGE_EMAIL: string;
+  EDIT_ACCOUNT: string;
+  CHANGE_PASSWORD: string;
+  NO_THANKS: string;
+  FIELDCOMMUNICATION: string;
+  CHANGEPASSWORD: string;
+  LEAVE: string;
+  SAFETYBEAT: string;
+  ENTRIES: string;
+  ACTIVITIES: string;
+  PROFIILE_INFO: string;
+  JOIN_ENTITY: string;
+  CREATE_ENTITY: string;
+  SKIP: string;
+  MAP: string;
+  HOURS: string;
 }
 export interface Messages {
     CHANGEPASSWORD: string,
@@ -269,5 +270,5 @@ export interface TableHeadings {
   SITE: string;
   LAST_ACTION: string;
   DATE_TIME: string;
-  TIMEZONE: string
+  TIMEZONE: string;
 }
