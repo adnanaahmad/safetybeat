@@ -27,8 +27,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   org_id: number;
   role: string;
   username: string;
-  firstname:string;
-  lastname:string;
+  firstname: string;
+  lastname: string;
   dataRecieved: any;
   disabled: boolean = false;
   isEdited: boolean = false;
@@ -37,6 +37,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   password2: string;
   appIcons: any;
   appConstants: any;
+  profileFeatures = [
+    { "activities": false }, { "entities": false }, { "leaves": false }, { "profile": false }
+  ]
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
@@ -83,7 +86,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.dataRecieved.subscribe((data) => {
       this.firstname = data.first_name;
       this.lastname = data.last_name;
-      this.username = this.firstname+this.lastname;
+      this.username = this.firstname + this.lastname;
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 
     }, (error) => {

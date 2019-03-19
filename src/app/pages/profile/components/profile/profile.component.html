@@ -38,8 +38,8 @@
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
+      <mat-card *ngFor="let item of profileFeatures" id={{item}} class="dashboard-card">{{item.value}}
+        <mat-card-header *ngIf="item.profile">
           <mat-card-title class="infoTitle">{{translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
         </mat-card-header>
         <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
