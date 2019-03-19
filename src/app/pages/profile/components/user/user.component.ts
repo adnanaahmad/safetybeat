@@ -14,6 +14,13 @@ import { share } from "rxjs/operators";
 export class UserComponent implements OnInit {
   translated: Translation;
   appIcons: any;
+  displayedColumns: string[] = [
+    "Firstname",
+    "Lastname",
+    "Email",
+    "Contact No.",
+    "symbol"
+  ];
   allUsers: any = [];
   allUsersList: any = [];
   dataSource: any = [];
@@ -44,30 +51,14 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.getAllUsers();
   }
-  displayedColumns: string[] = [
-    "Firstname",
-    "Lastname",
-    "Email",
-    "Contact No.",
-    "symbol"
-  ];
-
   getAllUsers() {
     this.allUsers = this.userService.getAllUsers().pipe(share());
-    this.allUsers.subscribe(
-      result => {
-        this.empty = true;
-        this.allUsersList = result.data;
-        this.dataSource = new MatTableDataSource(this.allUsersList);
-        this.dataSource.paginator = this.paginator;
-      },
-      error => {
-        this.empty = true;
-        this.logging.appLogger(
-          this.translated.LOGGER.STATUS.ERROR,
-          "Something bad happened, try again later"
-        );
-      }
-    );
+    this.allUsers.subscribe(result => {
+      this.empty = true;
+      this.allUsersList = result.data;
+      localStorage.setItem("users", JSON.stringify(this.allUsersList));
+      this.dataSource = new MatTableDataSource(this.allUsersList);
+      this.dataSource.paginator = this.paginator;
+    });
   }
 }
