@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NavItem } from 'src/app/models/navItems.model';
-import { Router } from '@angular/router';
-import { NavigationService } from '../../services/navigation.service';
-import { MatDialogConfig, MatDialog } from '@angular/material';
-import { InviteUserModalComponent } from '../inviteUserModal/inviteUserModal.component';
+import { Component, OnInit, Input } from "@angular/core";
+import { NavItem } from "src/app/models/navItems.model";
+import { Router } from "@angular/router";
+import { NavigationService } from "../../services/navigation.service";
+import { MatDialogConfig, MatDialog } from "@angular/material";
+import { InviteUserModalComponent } from "../inviteUserModal/inviteUserModal.component";
 
 @Component({
-  selector: 'app-nav-list',
-  templateUrl: './navList.component.html',
-  styleUrls: ['./navList.component.scss']
+  selector: "app-nav-list",
+  templateUrl: "./navList.component.html",
+  styleUrls: ["./navList.component.scss"]
 })
 export class NavListComponent implements OnInit {
   item: any;
@@ -19,9 +19,8 @@ export class NavListComponent implements OnInit {
   constructor(
     public router: Router,
     public navService: NavigationService,
-    public dialog: MatDialog,
-  ) {
-  }
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     if (this.navLinks.children) {
@@ -30,22 +29,19 @@ export class NavListComponent implements OnInit {
   }
 
   onItemSelected(navLinks: NavItem) {
-    if (navLinks.displayName == "Invite Users") {
-      this.inviteUserModal();
-    } else {
-      if (!navLinks.children || !navLinks.children.length) {
-        this.router.navigate([navLinks.route]);
-      }
-      if (navLinks.children && navLinks.children.length) {
-        this.expanded = !this.expanded;
-      }
+    if (!navLinks.children || !navLinks.children.length) {
+      this.router.navigate([navLinks.route]);
+    }
+    if (navLinks.children && navLinks.children.length) {
+      this.expanded = !this.expanded;
     }
   }
-  
-  inviteUserModal(){
+
+  inviteUserModal() {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.closeOnNavigation = false;
     this.dialog.open(InviteUserModalComponent);
   }
+    
 }
