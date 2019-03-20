@@ -49,7 +49,7 @@
         </div>
         <div class="input">
           <mat-form-field full-width>
-            <input matInput type="number" [placeholder]=translated.AUTH.MOBILENO formControlName="contactNo" required />
+            <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName="contactNo" required />
             <mat-error *ngIf="userDetailForm.contactNo.errors">
               <span *ngIf="userDetailForm.contactNo.errors.required">{{translated.AUTH.MOBILE_REQ}}</span>
             </mat-error>
