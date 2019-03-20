@@ -7,6 +7,8 @@ import { RegisterUser } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
+import { CompilerProvider } from '../../../../shared/compiler/compiler';
+import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 
 
 @Component({
@@ -15,13 +17,15 @@ import { ConstantService } from '../../../../shared/constant/constant.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private register: LoginRegistrationService,
     public translate: TranslateService,
     private logging: LoggingService,
-    private render: Renderer2
+    private render: Renderer2,
+    private compiler: CompilerProvider
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'ICONS', 'STRINGS']).subscribe((values) => {
       this.translated = values;
@@ -30,12 +34,22 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
   }
+
   /**
    * handling forms validations
    */
-  get userDetailForm() { return this.userForm.controls; }
-  get orgForm() { return this.organizationForm.controls; }
-  get modForm() { return this.moduleForm.controls; }
+  get userDetailForm() {
+    return this.userForm.controls;
+  }
+
+  get orgForm() {
+    return this.organizationForm.controls;
+  }
+
+  get modForm() {
+    return this.moduleForm.controls;
+  }
+
   @Input() userForm: FormGroup;
   organizationForm: FormGroup;
   moduleForm: FormGroup;
@@ -53,6 +67,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   appConstants: any;
   appIcons: any;
   userData: any;
+  formErrorMatcher: any;
 
   /**
    * registerOrgnaization function to register new user with organization info
@@ -66,10 +81,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]],
     }, { validator: this.checkPasswords });
+    this.formErrorMatcher = new FormErrorHandler();
   }
+
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
   }
+
+  numberOnly(event): boolean {
+    return this.compiler.numberOnly(event);
+  }
+
   /**
    * to check if password and confirm password is same
    * @param group formGroup for user form
@@ -79,6 +101,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
+
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -87,8 +110,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code=='0020') {
-          group.controls.email.setErrors({ exists: true })
+        if (this.success.responseDetails.code == '0020') {
+          group.controls.email.setErrors({ exists: true });
         }
       });
     }
@@ -100,8 +123,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param data selected package against module
    */
   registerOrginazation({ value, valid }: { value: RegisterUser; valid: boolean }) {
-    debugger
-    this.userData = <RegisterUser>this.userForm.value
+    this.userData = <RegisterUser>this.userForm.value;
     this.registerData = {
       'first_name': value.first_name,
       'last_name': value.last_name,
@@ -110,9 +132,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'password1': value.password1,
       'password2': value.password2,
       'invitation': false,
-      'module':this.translated.BUTTONS.SAFETYBEAT,
-      'package':this.translated.AUTH.TRIAL,
-      'role':this.translated.AUTH.OWNER
+      'module': this.translated.BUTTONS.SAFETYBEAT,
+      'package': this.translated.AUTH.TRIAL,
+      'role': this.translated.AUTH.OWNER
     };
     if (!valid) {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);

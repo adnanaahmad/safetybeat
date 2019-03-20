@@ -9,6 +9,8 @@ import { packges, RegisterOrganization } from 'src/app/models/user.model';
 import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import { MapsAPILoader } from '@agm/core';
 import { MatDialogRef } from '@angular/material';
+import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-orgRegistration',
@@ -38,6 +40,8 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
   zipCode:string;
   appConstants:any;
   appIcons:any;
+  formErrorMatcher: any;
+
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
@@ -48,7 +52,8 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     private register: LoginRegistrationService,
     public translate: TranslateService,
     private logging: LoggingService,
-    private zone: NgZone
+    private zone: NgZone,
+    // private compiler: CompilerProvider
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
       this.translated = values;
@@ -74,17 +79,18 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       type: ['', Validators.required],
       address: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
     });
     this.moduleForm = this.formBuilder.group({
       name: [[], Validators.required]
     });
+    this.formErrorMatcher = new FormErrorHandler();
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
   }
+  // numberOnly(event): boolean {
+  //   return this.compiler.numberOnly(event);
+  // }
   setAddress(addrObj) {
     this.city = addrObj.locality;
     this.country = addrObj.country;
