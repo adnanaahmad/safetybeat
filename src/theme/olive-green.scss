@@ -165,6 +165,11 @@ $theme: mat-light-theme($primary, $secondary, $warn);
       background: mat-color($primary, 400);
     }
   }
+  mat-dialog-container{
+    mat-card-title{
+      background-color: mat-color($primary, 500);
+    }
+  }
   .topbar,
   .mini-sidenav {
     background-color: mat-color($primary, 900) !important;
