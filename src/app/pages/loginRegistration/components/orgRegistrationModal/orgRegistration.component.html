@@ -1,5 +1,6 @@
 <mat-card-title class="mat-dialog-title">{{translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
 <p class="subheading">{{translated.MESSAGES.ORGSIGNUPMESSAGE}}</p>
+<div class="mat-dialog-content">
 <mat-horizontal-stepper class="loginbox" linear="true" #stepper labelPosition="bottom">
   <mat-step [stepControl]="organizationForm">
     <form [formGroup]="organizationForm">
@@ -7,7 +8,7 @@
         <mat-icon>{{appIcons.domain}}</mat-icon>
         {{translated.MESSAGES.ORGANIZATION_MSG}}
       </ng-template>
-      <mat-grid-list cols="2" rowHeight="70px">
+      <mat-grid-list cols="1" rowHeight="70px">
         <mat-grid-tile>
           <div class="form-group">
             <mat-form-field full-width>
@@ -93,3 +94,4 @@
     </div>
   </mat-step>
 </mat-horizontal-stepper>
+</div>

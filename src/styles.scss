@@ -26,6 +26,22 @@ body {
 [btn-primary] {
   color: #fff !important;
 }
+mat-dialog-container{
+  width:600px !important;
+  padding:0 !important;
+  mat-card-title{
+    padding: 15px 20px;
+    color: #fff;
+    box-shadow:0 0 15px 1px rgba(0,0,0,0.5);
+  }
+  .mat-dialog-content{
+    padding:20px !important;
+    margin:0 !important;
+  }
+  .subheading{
+    padding: 0 20px;
+  }
+}
 .monogram {
   position: absolute;
   top: 50%;
@@ -465,6 +481,9 @@ hr.forheading {
   }
 }
 @media (max-width: 768px) {
+  mat-dialog-container{
+    width:500px !important;
+  }
   .dashboard-widgets {
     height: auto !important;
     .mat-grid-tile {

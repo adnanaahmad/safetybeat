@@ -150,6 +150,11 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
+  mat-dialog-container{
+    mat-card-title{
+      background-color: mat-color($primary, 400);
+    }
+  }
   app-login,
   app-forgot-password {
     .mat-figure {
