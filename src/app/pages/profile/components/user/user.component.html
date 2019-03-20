@@ -1,24 +1,10 @@
 <div class="paddingbox">
+  <mat-progress-bar mode="indeterminate" *ngIf="!empty"></mat-progress-bar>
   <div class="page-title">
     <h3>{{ translated.SITETITLE.USERS_TITLE }}</h3>
     <p>{{ translated.SITETITLE.USERS_DESCRIPTION }}</p>
   </div>
-  <div class="buttonRow">
-      <button btn-primary mat-raised-button color="primary">
-        <mat-icon>{{appIcons.joinEntity}}</mat-icon>
-        {{translated.BUTTONS.JOIN_ENTITY}}
-      </button>
-      <button btn-primary mat-raised-button color="primary">
-        <mat-icon>{{appIcons.createEntity}}</mat-icon>
-        {{translated.BUTTONS.CREATE_ENTITY}}
-      </button>
-    </div>
-  <mat-progress-bar mode="indeterminate" *ngIf="!empty"></mat-progress-bar>
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    class="customTable mat-elevation-z8"
-  >
+  <table mat-table [dataSource]="dataSource" class="customTable mat-elevation-z8">
     <ng-container matColumnDef="Firstname">
       <th mat-header-cell *matHeaderCellDef>
         First Name
@@ -49,21 +35,14 @@
 
     <ng-container matColumnDef="symbol">
       <th mat-header-cell *matHeaderCellDef>
-        Actions
+          {{translated.TABLEHEADINGS.ACTIONS}}
       </th>
       <td mat-cell *matCellDef="let element">
         <button class="btn-table" btn-primary mat-raised-button color="primary">
-          <mat-icon>settings</mat-icon>Settings
+          <mat-icon>{{appIcons.settings}}</mat-icon>Settings
         </button>
         &nbsp;
-        <button
-          class="btn-table"
-          btn-primary
-          mat-raised-button
-          color="primary"
-          mat-button
-          [matMenuTriggerFor]="menu"
-        >
+        <button class="btn-table" btn-primary mat-raised-button color="primary" mat-button [matMenuTriggerFor]="menu">
           <mat-icon style="padding-right:0;">keyboard_arrow_down</mat-icon>
           Actions
         </button>
@@ -71,9 +50,15 @@
           <button mat-menu-item>
             <mat-icon>linear_scale</mat-icon>Connections
           </button>
-          <button mat-menu-item><mat-icon>assignment</mat-icon>Log</button>
-          <button mat-menu-item><mat-icon>build</mat-icon>Edit</button>
-          <button mat-menu-item><mat-icon>lock</mat-icon>Reset Password</button>
+          <button mat-menu-item>
+            <mat-icon>assignment</mat-icon>Log
+          </button>
+          <button mat-menu-item>
+            <mat-icon>build</mat-icon>Edit
+          </button>
+          <button mat-menu-item>
+            <mat-icon>lock</mat-icon>Reset Password
+          </button>
           <button mat-menu-item>
             <mat-icon>input</mat-icon>Change Access Level
           </button>
@@ -84,4 +69,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>
