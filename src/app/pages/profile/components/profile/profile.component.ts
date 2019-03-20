@@ -10,6 +10,8 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { ModalDialogComponent } from '../changePasswordModal/changePasswordModal.component';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-profile',
@@ -37,9 +39,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   password2: string;
   appIcons: any;
   appConstants: any;
-  profileFeatures = [
-    { "activities": false }, { "entities": false }, { "leaves": false }, { "profile": false }
-  ]
+  profileFeatures = { "activities": false, "entities": false, "leaves": false, "profile": true, "changePassword": false };
+  joinEntityData: { moduleName: string; };
+  allEntries: Object;
+  entitiesList: any;
+
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
@@ -47,6 +51,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     public toastProvider: ToastService,
     public dialog: MatDialog,
+    public adminServices: AdminControlService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES', 'STRINGS']).subscribe((values) => {
       this.translated = values;
@@ -95,17 +100,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     return this.dataRecieved;
   }
-  onCreate() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.closeOnNavigation = false;
-    const dialogRef = this.dialog.open(ModalDialogComponent, {
-      data: { currentPassword: this.currentPassword, password1: this.password1, password2: this.password2 }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.getUserData();
-    });
+  onCreate(feature: any) {
+    var self = this
+    _.forEach(this.profileFeatures, function (value, key) {
+      if (key === feature) {
+        self.profileFeatures[key] = true;
+      } else {
+        self.profileFeatures[key] = false;
+      }
+    })
   }
 
   editAccount() {
@@ -116,6 +119,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.disabled = false;
     this.profileForm.disable();
     this.userData = this.getUserData();
+  }
+
+  onLeaves() {
+    this.profileFeatures.leaves = true;
+  }
+
+  onEntities() {
+
+  }
+
+  onActivities() {
+
   }
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
