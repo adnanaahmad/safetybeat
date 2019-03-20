@@ -6,7 +6,14 @@ export class CompilerProvider {
     constructor() {
 
     }
-
+    /**
+     * @param event 
+     * To check if the input is number or not
+     */
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.key;
+        return !((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 43);
+    }
     constructUserData(profileApiResponse: any) {
         let user = {
             username: profileApiResponse.username,

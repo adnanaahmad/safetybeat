@@ -21,7 +21,7 @@
         <div class="input">
           <mat-form-field full-width>
             <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}}
-              required />
+              [errorStateMatcher]="formErrorMatcher" required />
             <mat-error *ngIf="formValidation.email.errors">
               <span *ngIf="formValidation.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
               <span *ngIf="formValidation.email.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>
@@ -31,7 +31,7 @@
         <div class="password">
           <mat-form-field full-width>
             <input matInput type="password" [placeholder]=translated.AUTH.PASSWORD formControlName={{appConstants.password}}
-              required />
+              [errorStateMatcher]="formErrorMatcher" required />
             <mat-error *ngIf="formValidation.password.errors">
               <span *ngIf="formValidation.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
               <span *ngIf="formValidation.password.errors?.exists">{{translated.MESSAGES.INVALID_PASSWORD}}</span>
