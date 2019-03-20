@@ -2,6 +2,8 @@
   <app-fixed-nav
     class="mini-sidenav"
     (sidenavToggle)="sideNav.toggle()"
+    (switchNavList)="switchList()"
+    (switchNavListDefault)="switchListDefault()"
   ></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
@@ -27,7 +29,6 @@
       <mat-nav-list>
         <app-nav-list
           [navLinks]="navLinks"
-          [navLinksBottom]="navLinksBottom"
         ></app-nav-list>
       </mat-nav-list>
     </mat-sidenav>
