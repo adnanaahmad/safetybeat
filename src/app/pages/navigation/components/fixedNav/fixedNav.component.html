@@ -6,11 +6,12 @@
 </div>
 <mat-nav-list class="nav-list">
   <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.route" routerLinkActive="active">
-    <a *ngIf="!link.children" class="nav-link"><mat-icon>{{ link.iconName }}</mat-icon></a>
-    <a *ngIf="link.children" class="nav-link" [matMenuTriggerFor]="admin"><mat-icon>{{link.iconName}}</mat-icon></a>
-        <mat-menu #admin="matMenu">
-            <button mat-menu-item *ngFor="let child of link.children" (click)="onItemSelected(child)" routerLinkActive="active"> {{child.displayName}}</button>
-        </mat-menu>
+    <a *ngIf="!link.children" class="nav-link" (click)="switchNavListMenuDefault()">
+      <mat-icon>{{ link.iconName }}</mat-icon>
+    </a>
+    <a *ngIf="link.children" class="nav-link" (click)="switchNavListMenu()">
+      <mat-icon>{{link.iconName}}</mat-icon>
+    </a>
   </mat-list-item>
 </mat-nav-list>
 

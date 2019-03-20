@@ -14,7 +14,7 @@ import { LoggingService } from "src/app/shared/logging/logging.service";
 import { AdminControlService } from "../../services/adminControl.service";
 import * as _ from "lodash";
 import { share } from "rxjs/operators";
-import { AlertModalComponent } from '../alert-modal/alert-modal.component';
+import { AlertModalComponent } from "../alert-modal/alert-modal.component";
 
 @Component({
   selector: "app-entityControl",
@@ -31,7 +31,7 @@ export class EntityControlComponent implements OnInit {
   joinEntityData: any;
   allEntitiesData: any = [];
   entitiesList: any = [];
-  empty:boolean = false;
+  empty: boolean = false;
   constructor(
     public dialog: MatDialog,
     public translate: TranslateService,
@@ -39,7 +39,16 @@ export class EntityControlComponent implements OnInit {
     public adminServices: AdminControlService
   ) {
     translate
-      .get(["AUTH", "BUTTONS", "MESSAGES", "LOGGER", "STRINGS", "ICONS","SITETITLE", "TABLEHEADINGS"])
+      .get([
+        "AUTH",
+        "BUTTONS",
+        "MESSAGES",
+        "LOGGER",
+        "STRINGS",
+        "ICONS",
+        "SITETITLE",
+        "TABLEHEADINGS"
+      ])
       .subscribe(values => {
         this.translated = values;
         this.appIcons = ConstantService.appIcons;
@@ -65,7 +74,7 @@ export class EntityControlComponent implements OnInit {
     this.dialogConfig.closeOnNavigation = false;
     this.dialog.open(JoinEntityModalComponent);
   }
-  entityCode(code,name) {
+  entityCode(code, name) {
     const dialogRef = this.dialog.open(AlertModalComponent, {
       data: { name: name, code: code }
     });
@@ -74,12 +83,13 @@ export class EntityControlComponent implements OnInit {
     this.joinEntityData = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT
     };
-    this.allEntitiesData = this.adminServices.viewEntities(this.joinEntityData)
+    this.allEntitiesData = this.adminServices
+      .viewEntities(this.joinEntityData)
       .pipe(share());
     this.allEntitiesData.subscribe(result => {
       this.empty = true;
       this.entitiesList = result.data;
-      localStorage.setItem('entities',JSON.stringify(this.entitiesList));
+      localStorage.setItem("entities", JSON.stringify(this.entitiesList));
       this.dataSource = new MatTableDataSource(this.entitiesList);
       this.dataSource.paginator = this.paginator;
     });
