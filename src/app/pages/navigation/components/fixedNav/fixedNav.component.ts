@@ -24,10 +24,19 @@ export class FixedNavComponent implements OnInit {
   appIcons: any;
   public navLinks: NavItem[] = [];
   public defaultNavLinks: NavItem[] = [
-    { route: "/home", iconName: ConstantService.appIcons.dashboard },
-    { route: "/home/profile/user", iconName: ConstantService.appIcons.group },
+    {
+      route: "/home",
+      iconName: ConstantService.appIcons.dashboard,
+      toolTip: "Dashboard"
+    },
+    {
+      route: "/home/profile/user",
+      iconName: ConstantService.appIcons.group,
+      toolTip: "All Users"
+    },
     {
       iconName: ConstantService.appIcons.showChart,
+      toolTip: 'All Reports',
       children: [
         {
           displayName: "Action Report",
@@ -73,17 +82,31 @@ export class FixedNavComponent implements OnInit {
     },
     {
       route: "/home/adminControl/entityControl",
-      iconName: ConstantService.appIcons.contacts
+      iconName: ConstantService.appIcons.contacts,
+      toolTip: "Entity Control Center"
     },
     {
       route: "/home/documents",
-      iconName: ConstantService.appIcons.insertDriveFile
+      iconName: ConstantService.appIcons.insertDriveFile,
+      toolTip: "Documents"
     }
   ];
   public navLinksBottom: NavItem[] = [
-    { route: "/home/profile", iconName: ConstantService.appIcons.person },
-    { route: "/home", iconName: ConstantService.appIcons.help },
-    { route: "/home/settings", iconName: ConstantService.appIcons.settings }
+    {
+      route: "/home/profile",
+      iconName: ConstantService.appIcons.person,
+      toolTip: "Profile"
+    },
+    {
+      route: "/home",
+      iconName: ConstantService.appIcons.help,
+      toolTip: "Support Center"
+    },
+    {
+      route: "/home/settings",
+      iconName: ConstantService.appIcons.settings,
+      toolTip: "Settings"
+    }
   ];
   entitiesList: any;
   allEntitiesData: any;
@@ -114,9 +137,14 @@ export class FixedNavComponent implements OnInit {
   }
   public switchNavListMenu() {
     this.navLinks = [
-      { route: "/home", iconName: ConstantService.appIcons.dashboard },
+      {
+        route: "/home",
+        iconName: ConstantService.appIcons.dashboard,
+        toolTip: "Dashboard"
+      },
       {
         iconName: ConstantService.appIcons.showChart,
+        toolTip: "All Reports",
         children: [
           {
             displayName: "Action Report",
@@ -164,7 +192,7 @@ export class FixedNavComponent implements OnInit {
     this.switchNavList.emit();
   }
   public switchNavListMenuDefault() {
-    this.navLinks = this.defaultNavLinks
+    this.navLinks = this.defaultNavLinks;
     this.switchNavListDefault.emit();
   }
   ngOnInit() {}

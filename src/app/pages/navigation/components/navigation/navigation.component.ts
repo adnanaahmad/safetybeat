@@ -39,52 +39,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       displayName: "Users"
     },
     {
-      iconName: ConstantService.appIcons.showChart,
-      displayName: "Analytics Reports",
-      children: [
-        {
-          displayName: "Action Report",
-          route: "/home/analyticsReport/actionReport"
-        },
-        {
-          displayName: "Average Daily Actions",
-          route: "/home/analyticsReport/averageDailyActionsReport"
-        },
-        {
-          displayName: "Checkin by Activity",
-          route: "/home/analyticsReport/checkInActivityReport"
-        },
-        {
-          displayName: "Checkin and Alert by Person",
-          route: "/home/analyticsReport/alertsPersonReport"
-        },
-        {
-          displayName: "Actions vs Alerts",
-          route: "/home/analyticsReport/actionAlertsReport"
-        },
-        {
-          displayName: "Pulse Report by Entity",
-          route: "/home/analyticsReport/entityPulseReport"
-        },
-        {
-          displayName: "Pulse Report by Person",
-          route: "/home/analyticsReport/personPulseReport"
-        },
-        {
-          displayName: "Compliant Checkout",
-          route: "/home/analyticsReport/compliantCheckoutReport"
-        },
-        {
-          displayName: "Site Activity Report",
-          route: "/home/analyticsReport/siteActivityReport"
-        },
-        {
-          displayName: "Hazard Reports",
-          route: "/home/analyticsReport/hazardReport"
-        }
-      ]
-    },
-    {
       displayName: "Entity Control",
       route: "/home/adminControl/entityControl"
     },

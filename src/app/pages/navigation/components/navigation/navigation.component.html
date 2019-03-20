@@ -1,35 +1,20 @@
 <div class="container">
-  <app-fixed-nav
-    class="mini-sidenav"
-    (sidenavToggle)="sideNav.toggle()"
-    (switchNavList)="switchList()"
-    (switchNavListDefault)="switchListDefault()"
-  ></app-fixed-nav>
+  <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
+    (switchNavListDefault)="switchListDefault()"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
-      <div class="flexbox">
         <div>
-          <img src="../../../../../assets/images/safetybeat-icon.png" class="sidenav-logo" />
+          <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
         </div>
-        <div class="entity-switcher">
-          <button
-            class="switch-icon"
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-          >
-            <mat-icon>swap_horiz</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngFor="let entity of entitiesList">
-              <span>{{entity.name}}</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div>
+        <mat-form-field class="entity-switcher">
+          <mat-select [(value)]="selected">
+            <mat-option value="option1">Option 1</mat-option>
+            <mat-option value="option2">Option 2</mat-option>
+            <mat-option value="option3">Option 3</mat-option>
+          </mat-select>
+        </mat-form-field>
       <mat-nav-list>
-        <app-nav-list
-          [navLinks]="navLinks"
-        ></app-nav-list>
+        <app-nav-list [navLinks]="navLinks"></app-nav-list>
       </mat-nav-list>
     </mat-sidenav>
     <!-- Content of rest of section -->
@@ -37,26 +22,18 @@
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
         <div class="top-btns">
-          <button
-            mat-button
-            *ngIf="core.isAuthenticated"
-            (click)="core.logoutUser()"
-          >
+          <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">
             Logout
           </button>
-          <mat-icon class="notification-icon" (click)="drawer.toggle()"
-            >notification_important
-            <span class="notifcount">90+</span></mat-icon
-          >
+          <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important
+            <span class="notifcount">90+</span></mat-icon>
         </div>
       </mat-toolbar>
 
       <div class="page-content">
         <!-- <mat-drawer-container class="example-container" hasBackdrop="true"> -->
         <mat-drawer #drawer mode="push" position="start">
-          <mat-icon class="close-notif" (click)="drawer.toggle()"
-            >arrow_forward</mat-icon
-          >
+          <mat-icon class="close-notif" (click)="drawer.toggle()">arrow_forward</mat-icon>
           <app-notificationNav></app-notificationNav>
         </mat-drawer>
         <!-- </mat-drawer-container> -->
