@@ -4,6 +4,7 @@ export interface Translation {
   MESSAGES: Messages;
   LOGGER: Logger;
   STRINGS: Strings;
+  SITETITLE: SiteTitle;
 }
 export interface Strings {
   USERNAME: string;
@@ -64,8 +65,8 @@ export interface Auth {
   ORGANIZATIONNAME_REQ: string;
   ORG_NAME_EXISTS: string;
   CURRENT_PASSWORD: string;
-  TRIAL:string;
-  OWNER:string;
+  TRIAL: string;
+  OWNER: string;
 }
 export interface Icons {
   MOVE_VERT: string;
@@ -133,71 +134,71 @@ export interface Buttons {
   SKIP: string;
   MAP: string;
   HOURS: string;
+  INVITE_USER: string;
 }
 export interface Messages {
-    CHANGEPASSWORD: string,
-    WELCOME: string,
-    WELCOME_MSG: string,
-    NOACCOUNT: string,
-    VERIFY_ACCOUNT: string,
-    VERIFY_MSG: string,
-    SIGNEDUP_EMAIL_MSG: string,
-    VERIFY_REQ: string,
-    CHANGE_EMAIL: string,
-    EMAIL_RESET_PLACEHOLDER: string,
-    QUESTION_QUERY: string,
-    REACH_MSG: string,
-    HELP_EMAIL: string,
-    SIGNINMESSAGE: string,
-    OR: string,
-    SIGNUPMESSAGE: string,
-    RESETMESSAGE: string,
-    PASSWORD_ERROR: string,
-    MATCH_ERROR: string,
-    RESET_MSG: string,
-    EMAIL_MSG: string,
-    ORGANIZATION_MSG: string,
-    TYPE_MSG: string,
-    MODULE_MSG: string,
-    MODULESELECT_MSG: string,
-    PACKAGESELECT_MSG: string,
-    USERDETAILS_MSG: string,
-    LOADING_URL: string,
-    LOGIN_SUCCESS: string,
-    LOGIN_FAIL: string,
-    LOGIN_MSG: string,
-    LOGINFAIL_MSG: string,
-    LOGOUT_SUCCESS: string,
-    LOGOUT_MSG: string,
-    RESET_SUCCESS: string,
-    RESETMSG: string,
-    USERNAME_EXISTS: string,
-    EMAIL_CHANGED: string,
-    NOT_REGISTETRED: string,
-    INVALID_PASSWORD: string,
-    RESETFAIL: string,
-    RESETFAIL_MSG: string,
-    CHANGEPASSWORD_FAIL: string,
-    CHANGEPASSWORD_SUCCESS: string,
-    ANONYMOUS: string,
-    SAFETYBEAT: string,
-    NOTFOUND_HEADING: string,
-    NOTFOUND_DESCRIPTION: string,
-    ALREADY_ACCOUNT: string
-    PROFIILE_INFO: string,
-    ORGSIGNUP: string,
-    ORGSIGNUPMESSAGE: string,
-    ENTITYNAME_REQ: string,
-    OFFICELOCATION_REQ: string,
-    CREATEENTITY_MSG: string,
-    INVITE_USER: string,
-    ENTITYNAME: string,
-    HEADOFFICE_LOCATION: string,
-    STATUS: string,
-    JOINENTITY_MSG: string,
-    ENTITYCODE: string,
-    ENTITYCODE_REQ: string,
-
+  CHANGEPASSWORD: string;
+  WELCOME: string;
+  WELCOME_MSG: string;
+  NOACCOUNT: string;
+  VERIFY_ACCOUNT: string;
+  VERIFY_MSG: string;
+  SIGNEDUP_EMAIL_MSG: string;
+  VERIFY_REQ: string;
+  CHANGE_EMAIL: string;
+  EMAIL_RESET_PLACEHOLDER: string;
+  QUESTION_QUERY: string;
+  REACH_MSG: string;
+  HELP_EMAIL: string;
+  SIGNINMESSAGE: string;
+  OR: string;
+  SIGNUPMESSAGE: string;
+  RESETMESSAGE: string;
+  PASSWORD_ERROR: string;
+  MATCH_ERROR: string;
+  RESET_MSG: string;
+  EMAIL_MSG: string;
+  ORGANIZATION_MSG: string;
+  TYPE_MSG: string;
+  MODULE_MSG: string;
+  MODULESELECT_MSG: string;
+  PACKAGESELECT_MSG: string;
+  USERDETAILS_MSG: string;
+  LOADING_URL: string;
+  LOGIN_SUCCESS: string;
+  LOGIN_FAIL: string;
+  LOGIN_MSG: string;
+  LOGINFAIL_MSG: string;
+  LOGOUT_SUCCESS: string;
+  LOGOUT_MSG: string;
+  RESET_SUCCESS: string;
+  RESETMSG: string;
+  USERNAME_EXISTS: string;
+  EMAIL_CHANGED: string;
+  NOT_REGISTETRED: string;
+  INVALID_PASSWORD: string;
+  RESETFAIL: string;
+  RESETFAIL_MSG: string;
+  CHANGEPASSWORD_FAIL: string;
+  CHANGEPASSWORD_SUCCESS: string;
+  ANONYMOUS: string;
+  SAFETYBEAT: string;
+  NOTFOUND_HEADING: string;
+  NOTFOUND_DESCRIPTION: string;
+  ALREADY_ACCOUNT: string;
+  PROFIILE_INFO: string;
+  ORGSIGNUP: string;
+  ORGSIGNUPMESSAGE: string;
+  ENTITYNAME_REQ: string;
+  OFFICELOCATION_REQ: string;
+  CREATEENTITY_MSG: string;
+  INVITE_USER: string;
+  ENTITYNAME: string;
+  HEADOFFICE_LOCATION: string;
+  STATUS: string;
+  JOINENTITY_MSG: string;
+  ENTITYCODE: string;
+  ENTITYCODE_REQ: string;
 }
 export interface Logger {
   STATUS: LoggerStatus;
@@ -211,42 +212,42 @@ export interface LoggerStatus {
   ERROR: string;
 }
 export interface LoggerMessage {
-    LOGGEDIN: string,
-    CREDENTIAL_REQ: string,
-    TRUE: string,
-    FALSE: string,
-    STATUS: string,
-    FORGOT_REQ: string,
-    FORGOTSUCCESS: string,
-    REGISTRATIONDATA_SUCCESS: string,
-    REGISTRATION_REQ: string,
-    REGISTRATION_SUCCESS: string,
-    PROFILE_SUCCESS: string,
-    PROFILE_ERROR: string,
-    LOGIN_COMPONENT: string,
-    REGISTRATION_COMPONENT: string,
-    FORGOT_COMPONENT: string,
-    PARTICLE_COMPONENT: string,
-    DASHBOARD_COMPONENT: string,
-    NAVIGATION_COMPONENT: string,
-    SIDE_NAV: string,
-    PROFILE_COMPONENT: string,
-    VERIFICATION_COMPONENT: string,
-    PROFILE_CREDENTIAL_REQ: string,
-    PROFILE_UPDATED: string,
-    PROFILE_NOTUPDATED: string,
-    PASSWORD_CHANGE: string,
-    PASSWORDCHANGE_UNSUCCESS: string,
-    CHANGEPASSWORDFOR_DEV: string,
-    ENTITYCONTROL: string,
-    ORGANIZATIONDETAILS: string,
-    CREATEENTITY: string,
-    JOINENTITY: string,
-    PASSWORDCHANGE: string,
-    SETTING_COMPONENT: string,
-    CREATEENTITY_ERROR: string,
-    INVITEUSER_ERROR: string,
-    ENTITYNOTCREATED: string
+  LOGGEDIN: string;
+  CREDENTIAL_REQ: string;
+  TRUE: string;
+  FALSE: string;
+  STATUS: string;
+  FORGOT_REQ: string;
+  FORGOTSUCCESS: string;
+  REGISTRATIONDATA_SUCCESS: string;
+  REGISTRATION_REQ: string;
+  REGISTRATION_SUCCESS: string;
+  PROFILE_SUCCESS: string;
+  PROFILE_ERROR: string;
+  LOGIN_COMPONENT: string;
+  REGISTRATION_COMPONENT: string;
+  FORGOT_COMPONENT: string;
+  PARTICLE_COMPONENT: string;
+  DASHBOARD_COMPONENT: string;
+  NAVIGATION_COMPONENT: string;
+  SIDE_NAV: string;
+  PROFILE_COMPONENT: string;
+  VERIFICATION_COMPONENT: string;
+  PROFILE_CREDENTIAL_REQ: string;
+  PROFILE_UPDATED: string;
+  PROFILE_NOTUPDATED: string;
+  PASSWORD_CHANGE: string;
+  PASSWORDCHANGE_UNSUCCESS: string;
+  CHANGEPASSWORDFOR_DEV: string;
+  ENTITYCONTROL: string;
+  ORGANIZATIONDETAILS: string;
+  CREATEENTITY: string;
+  JOINENTITY: string;
+  PASSWORDCHANGE: string;
+  SETTING_COMPONENT: string;
+  CREATEENTITY_ERROR: string;
+  INVITEUSER_ERROR: string;
+  ENTITYNOTCREATED: string;
 }
 export interface SiteTitle {
   MEMBERCENTER_TITLE: string;
