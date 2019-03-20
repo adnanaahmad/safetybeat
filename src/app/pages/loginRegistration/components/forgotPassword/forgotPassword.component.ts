@@ -8,6 +8,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
   selector: 'app-forgot-password',
@@ -22,6 +23,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   email: FormGroup;
   success: any;
   appConstants: any;
+  formErrorMatcher: any;
   constructor(
     public forgotService: LoginRegistrationService,
     private router: Router,
@@ -36,6 +38,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
     });
     this.appConstants = ConstantService.appConstant;
+    this.formErrorMatcher = new FormErrorHandler();
   }
   ngOnInit() {
     this.forgotPassForm = this.formBuilder.group({
