@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { ConstantService } from "src/app/shared/constant/constant.service";
 import { EntityUserData, Entity } from "src/app/models/userEntityData.model";
-import forEach from "lodash/forEach";
+import { forEach } from 'lodash';
 
 @Injectable()
 export class CompilerProvider {
-  constructor() {}
+  constructor() { }
   /**
    * @param event
    * To check if the input is number or not
@@ -41,7 +41,7 @@ export class CompilerProvider {
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
     let allEntities: Entity[] = [];
-    forEach(loginApiResponse.result, function(entity) {
+    forEach(loginApiResponse.result, function (entity) {
       let data: Entity = {
         entityInfo: entity.entity,
         permissions: entity.permissions,
