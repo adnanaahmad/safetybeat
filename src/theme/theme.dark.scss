@@ -150,6 +150,22 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
+  .notification-icon{
+    .notifcount{
+      background: mat-color($warn-pallete, 600);
+    }
+  }
+  app-notificationnav {
+    mat-list-item[role="listitem"] {
+      border-bottom:1px solid rgba(221, 221, 221, 0.2) !important;
+      .unread-notif {
+        background: mat-color($primary-pallet, 400);
+      }
+      .read-notif{
+        background: mat-color($primary-pallet, 100);
+      }
+    }
+  }
   mat-dialog-container{
     mat-card-title{
       background-color: mat-color($primary, 400);
