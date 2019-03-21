@@ -59,6 +59,8 @@ export class UserComponent implements OnInit {
       localStorage.setItem("users", JSON.stringify(this.allUsersList));
       this.dataSource = new MatTableDataSource(this.allUsersList);
       this.dataSource.paginator = this.paginator;
+    },(error)=>{
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR,'Please try again later');
     });
   }
 }
