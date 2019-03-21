@@ -47,9 +47,7 @@ export class NavListComponent implements OnInit {
         this.inviteUserModal();
         break;
       case 'Analytics Reports':
-        console.log(this.selectedEntity)
        this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
-       debugger
         break;
       default:
         break;
