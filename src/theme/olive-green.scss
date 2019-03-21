@@ -165,6 +165,26 @@ $theme: mat-light-theme($primary, $secondary, $warn);
       background: mat-color($primary, 400);
     }
   }
+  .notification-icon{
+    .notifcount{
+      background: mat-color($warn-pallete, 600);
+    }
+  }
+  mat-dialog-container{
+    mat-card-title{
+      background-color: mat-color($primary, 500);
+    }
+  }
+  app-notificationnav {
+    mat-list-item[role="listitem"] {
+      .unread-notif {
+        background: mat-color($primary-pallet, 400);
+      }
+      .read-notif{
+        background: mat-color($primary-pallet, 100);
+      }
+    }
+  }
   .topbar,
   .mini-sidenav {
     background-color: mat-color($primary, 900) !important;

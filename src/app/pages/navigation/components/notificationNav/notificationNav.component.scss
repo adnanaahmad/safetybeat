@@ -38,17 +38,17 @@
         opacity: 0;
         transform: scale(0);
         transition: all ease 0.3s;
-        &:hover{
+        &:hover {
           background: rgba(0, 0, 0, 0.1);
         }
       }
       .read-notif,
       .unread-notif {
-        float: left;
-        width: 10px;
-        height: 10px;
+        float: right;
+        width: 8px;
+        height: 8px;
         border-radius: 100px;
-        margin: 2px 5px 0 0;
+        margin: 4px 5px 0 0;
       }
       .timelog {
         font-size: 12px;
