@@ -131,7 +131,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   switchSideMenu(data: any) {
-    console.log(data);
     this.Entity = data;
     this.navLinks = this.compiler.switchSideMenuDefault(data)
   }
