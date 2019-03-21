@@ -44,11 +44,12 @@ export class CompilerProvider {
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
     let allEntities: Entity[] = [];
-    forEach(loginApiResponse.result, function (entity) {
+    forEach(loginApiResponse.result, function(entity) {
       let data: Entity = {
         entityInfo: entity.entity,
         permissions: entity.permissions,
-        reportAccess: entity.reportAccess
+        reportAccess: entity.reportAccess,
+        active: entity.active
       };
       allEntities.push(data);
     });
