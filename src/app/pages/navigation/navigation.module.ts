@@ -7,6 +7,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { FixedNavComponent } from './components/fixedNav/fixedNav.component';
 import { NavListComponent } from './components/navList/navList.component';
 import { NotificationNavComponent } from './components/notificationNav/notificationNav.component';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,9 @@ import { NotificationNavComponent } from './components/notificationNav/notificat
     NavigationRoutingModule,
     MaterialModule,
     ToastrModule.forRoot(),
+  ],
+  providers:[
+    CompilerProvider
   ]
 })
 export class NavigationModule { }

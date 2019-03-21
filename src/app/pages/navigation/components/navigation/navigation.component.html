@@ -1,6 +1,6 @@
 <div class="container">
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
-    (switchNavListDefault)="switchListDefault()"></app-fixed-nav>
+    (switchNavListDefault)="switchListDefault(Entity)"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
       <div>
@@ -12,7 +12,7 @@
         </mat-select>
       </mat-form-field>
       <mat-nav-list>
-        <app-nav-list [navLinks]="navLinks"></app-nav-list>
+        <app-nav-list [navLinks]="navLinks" [selectedEntity]="Entity"></app-nav-list>
       </mat-nav-list>
     </mat-sidenav>
     <!-- Content of rest of section -->
