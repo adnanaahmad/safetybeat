@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public toastProvider: ToastService,
     public dialog: MatDialog,
   ) {
-    debugger;
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES', 'STRINGS']).subscribe((values) => {
       this.translated = values;
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
