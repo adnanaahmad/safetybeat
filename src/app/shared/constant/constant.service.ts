@@ -28,7 +28,8 @@ export class ConstantService {
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
-    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`
+    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
+    getRoles: `${environment.apiUrl}/role/`
   };
   static toast = {
     location: "toast-top-left",
@@ -71,7 +72,8 @@ export class ConstantService {
     entityName: "entityName",
     headOffice: "headOffice",
     status: "status",
-    joinCode: "joinCode"
+    joinCode: "joinCode",
+    role:"role"
   };
   static appIcons = {
     skipNext: "skip_next",

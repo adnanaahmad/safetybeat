@@ -1,26 +1,6 @@
 <h2 mat-dialog-title>{{translated.MESSAGES.INVITE_USER}}</h2>
 <div mat-dialog-content>
   <form [formGroup]="inviteUserForm" (ngSubmit)="inviteUser(inviteUserForm)">
-    <!-- <div class="form-group">
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder={{translated.MESSAGES.ENTITYNAME}} formControlName={{appConstants.name}} required />
-        <mat-error *ngIf="formValidation.name.errors ">
-          <span *ngIf="formValidation.name.errors.required">{{translated.MESSAGES.ENTITYNAME_REQ}}</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder={{translated.MESSAGES.HEADOFFICE_LOCATION}} appGooglePlaces (onSelect)="setAddress($event)"
-          formControlName={{appConstants.headOffice}} required />
-        <mat-error *ngIf="formValidation.headOffice.errors ">
-          <span *ngIf="formValidation.headOffice.errors.required">{{translated.MESSAGES.OFFICELOCATION_REQ}}</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
-     -->
-
-
     <div class="input">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]=translated.AUTH.FIRSTNAME formControlName={{appConstants.firstName}}
@@ -41,21 +21,27 @@
     </div>
     <div class="input">
       <mat-form-field full-width>
-        <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}}
-          required (blur)="checkEmail(inviteUserForm)"/>
+        <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}} required
+          (blur)="checkEmail(inviteUserForm)" />
         <mat-error *ngIf="formValidation.email.errors">
-            <span *ngIf="formValidation.email.errors.email">{{translated.AUTH.EMAIL_VALID}}</span>
+          <span *ngIf="formValidation.email.errors.email">{{translated.AUTH.EMAIL_VALID}}</span>
           <span *ngIf="formValidation.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
           <span *ngIf="formValidation.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <div class="input">
+
+
       <mat-form-field full-width>
-        <input matInput type="text" [placeholder]=translated.AUTH.MOBILENO formControlName={{appConstants.contactNo}}
-          required />
-        <mat-error *ngIf="formValidation.contactNo.errors">
-          <span *ngIf="formValidation.contactNo.errors.required">{{translated.AUTH.MOBILE_REQ}}</span>
+        <mat-label>{{translated.AUTH.ROLE}}</mat-label>
+        <mat-select formControlName={{appConstants.role}} required>
+          <mat-option *ngFor="let role of roleList" [value]="role.id">
+            {{role.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formValidation.role.errors">
+          <span *ngIf="formValidation.role.errors.required">{{translated.AUTH.ROLE_REQ}}</span>
         </mat-error>
       </mat-form-field>
     </div>

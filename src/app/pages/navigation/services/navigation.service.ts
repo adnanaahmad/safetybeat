@@ -32,6 +32,9 @@ export class NavigationService {
   checkEmail(email: object) {
     return this.http.post(ConstantService.apiRoutes.checkEmail, email)
   }
+  getRoles() {
+    return this.http.get(ConstantService.apiRoutes.getRoles)
+  }
   inviteUser(data) {
     return this.http.post(ConstantService.apiRoutes.getInvite, data)
   }

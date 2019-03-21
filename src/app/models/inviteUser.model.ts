@@ -3,6 +3,7 @@ export interface inviteUser {
     last_name: string;
     email: string;
     contactNo: string;
-    invitation: string;
+    role: string;
+    invitation: boolean;
     moduleName: string;
 }

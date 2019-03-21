@@ -6,7 +6,11 @@ export class CompilerProvider {
     constructor() {
 
     }
-
+    insertSpaces(string) {
+        string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
+        string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+        return string;
+    }
     constructUserData(profileApiResponse: any) {
         let user = {
             username: profileApiResponse.username,
