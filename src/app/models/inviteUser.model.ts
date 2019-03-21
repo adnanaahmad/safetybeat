@@ -3,7 +3,8 @@ export interface inviteUser {
     last_name: string;
     email: string;
     contactNo: string;
-    role: string;
+    role: number;
     invitation: boolean;
     moduleName: string;
+    entityId:number;
 }

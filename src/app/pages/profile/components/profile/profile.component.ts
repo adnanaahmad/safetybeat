@@ -10,6 +10,8 @@ import { ToastService } from 'src/app/shared/toast/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { ModalDialogComponent } from '../changePasswordModal/changePasswordModal.component';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-profile',
@@ -24,11 +26,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   translated: Translation;
   profileData: any;
   user_id: number;
-  org_id: number;
-  role: string;
   username: string;
-  firstname:string;
-  lastname:string;
+  firstname: string;
+  lastname: string;
   dataRecieved: any;
   disabled: boolean = false;
   isEdited: boolean = false;
@@ -37,6 +37,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   password2: string;
   appIcons: any;
   appConstants: any;
+  profileFeatures = { "activities": false, "entities": false, "leaves": false, "profile": true, "changePassword": false };
+  joinEntityData: { moduleName: string; };
+  allEntries: Object;
+  entitiesList: any;
+
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
@@ -44,6 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     public toastProvider: ToastService,
     public dialog: MatDialog,
+    public adminServices: AdminControlService
   ) {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES', 'STRINGS']).subscribe((values) => {
       this.translated = values;
@@ -51,10 +57,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     this.appIcons = ConstantService.appIcons;
     this.appConstants = ConstantService.appConstant;
-    this.profileData = JSON.parse(localStorage.getItem('userdata'));
-    this.user_id = this.profileData.userid;
-    this.org_id = this.profileData.orgid;
-    this.role = this.profileData.role;
+    this.profileData = JSON.parse(localStorage.getItem('entityUserData'));
+    this.user_id = this.profileData.user.id;
     this.userData = this.getUserData();
   }
   @Input()
@@ -83,7 +87,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.dataRecieved.subscribe((data) => {
       this.firstname = data.first_name;
       this.lastname = data.last_name;
-      this.username = this.firstname+this.lastname;
+      this.username = this.firstname + this.lastname;
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 
     }, (error) => {
@@ -92,17 +96,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     return this.dataRecieved;
   }
-  onCreate() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.closeOnNavigation = false;
-    const dialogRef = this.dialog.open(ModalDialogComponent, {
-      data: { currentPassword: this.currentPassword, password1: this.password1, password2: this.password2 }
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.getUserData();
-    });
+  onCreate(feature: any) {
+    var self = this
+    _.forEach(this.profileFeatures, function (value, key) {
+      if (key === feature) {
+        self.profileFeatures[key] = true;
+      } else {
+        self.profileFeatures[key] = false;
+      }
+    })
   }
 
   editAccount() {
@@ -113,6 +115,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.disabled = false;
     this.profileForm.disable();
     this.userData = this.getUserData();
+  }
+
+  onLeaves() {
+    this.profileFeatures.leaves = true;
+  }
+
+  onEntities() {
+
+  }
+
+  onActivities() {
+
   }
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {

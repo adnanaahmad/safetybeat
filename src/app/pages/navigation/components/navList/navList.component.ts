@@ -9,6 +9,7 @@ import * as _ from 'lodash'
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
+
 @Component({
   selector: "app-nav-list",
   templateUrl: "./navList.component.html",
@@ -22,11 +23,12 @@ export class NavListComponent implements OnInit {
   @Input() public navLinks: NavItem;
   @Input() public navLinksBottom;
   roles: any;
+  @Input() public selectedEntity;
   constructor(
     public router: Router,
     public navService: NavigationService,
     public dialog: MatDialog,
-    private compilerProvider: CompilerProvider,
+    private compiler: CompilerProvider,
     private logging: LoggingService,
     public translate: TranslateService,
   ) {
@@ -46,7 +48,7 @@ export class NavListComponent implements OnInit {
       this.roles = res;
       var self = this;
       _.forEach(this.roles, function (obj) {
-        obj.name = self.compilerProvider.insertSpaces(obj.name)
+        obj.name = self.compiler.insertSpaces(obj.name)
       })
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ROLES_RECIEVED);
     }, (err) => {
@@ -59,6 +61,18 @@ export class NavListComponent implements OnInit {
     }
     if (navLinks.children && navLinks.children.length) {
       this.expanded = !this.expanded;
+    }
+  }
+  customActions(displayName) {
+    switch (displayName) {
+      case 'Invite Users':
+        this.inviteUserModal();
+        break;
+      case 'Analytics Reports':
+       this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
+        break;
+      default:
+        break;
     }
   }
 

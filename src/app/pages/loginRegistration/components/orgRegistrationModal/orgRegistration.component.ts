@@ -9,6 +9,8 @@ import { packges, RegisterOrganization } from 'src/app/models/user.model';
 import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import { MapsAPILoader } from '@agm/core';
 import { MatDialogRef } from '@angular/material';
+import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-orgRegistration',
@@ -38,6 +40,8 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
   zipCode:string;
   appConstants:any;
   appIcons:any;
+  formErrorMatcher: any;
+
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
@@ -74,13 +78,11 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       type: ['', Validators.required],
       address: ['', Validators.required],
-      zipCode: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
     });
     this.moduleForm = this.formBuilder.group({
       name: [[], Validators.required]
     });
+    this.formErrorMatcher = new FormErrorHandler();
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
@@ -173,21 +175,6 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.organizationForm.value, this.moduleForm.value));
-    // this.register.registerUser(this.registerData)
-    //   .subscribe(
-    //     (data) => {
-    //       this.data = data;
-    //       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-    //       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-    //       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-    //       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-    //       this.router.navigate(['/verification', { data: JSON.stringify(data) }], { skipLocationChange: true });
-    //     },
-    //     (error) => {
-    //       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
-    //         this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-    //       this.loading = false;
-    //     });
   }
 }
 

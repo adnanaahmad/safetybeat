@@ -1,18 +1,37 @@
-<h2 mat-dialog-title>{{translated.MESSAGES.JOINENTITY_MSG}}</h2>
+<mat-card-title class="mat-dialog-title">{{
+  translated.MESSAGES.JOINENTITY_MSG
+}}</mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="joinEntityForm" (ngSubmit)="entityJoin(joinEntityForm)">
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" placeholder={{translated.MESSAGES.ENTITYCODE}} formControlName={{appConstants.joinCode}}
-          required />
-        <mat-error *ngIf="formValidation.joinCode.errors ">
-          <span *ngIf="formValidation.joinCode.errors.required">{{translated.MESSAGES.ENTITYCODE_REQ}}</span>
+        <input
+          matInput
+          type="text"
+          placeholder="{{ translated.MESSAGES.ENTITYCODE }}"
+          formControlName="{{ appConstants.joinCode }}"
+          required
+        />
+        <mat-error *ngIf="formValidation.joinCode.errors">
+          <span *ngIf="formValidation.joinCode.errors.required">{{
+            translated.MESSAGES.ENTITYCODE_REQ
+          }}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">{{translated.BUTTONS.JOIN_ENTITY}}</button>
-      <button mat-button mat-dialog-close>{{translated.BUTTONS.CANCEL}}</button>
+      <button
+        mat-raised-button
+        cdkFocusInitial
+        custom-btn
+        btn-primary
+        color="primary"
+      >
+        {{ translated.BUTTONS.JOIN_ENTITY }}
+      </button>
+      <button mat-button mat-dialog-close>
+        {{ translated.BUTTONS.CANCEL }}
+      </button>
     </mat-dialog-actions>
   </form>
 </div>

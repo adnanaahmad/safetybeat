@@ -8,6 +8,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ToastService } from 'src/app/shared/toast/toast.service';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { ProfileService } from '../../services/profile.service';
+import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -20,7 +21,7 @@ export class ModalDialogComponent implements OnInit {
   profileData: any;
   user_id: any;
   appConstants: any;
-
+  formErrorMatcher: any;
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: changePassword,
@@ -35,8 +36,8 @@ export class ModalDialogComponent implements OnInit {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE);
     });
     this.appConstants = ConstantService.appConstant;
-    this.profileData = JSON.parse(localStorage.getItem('userdata'));
-    this.user_id = this.profileData.userid;
+    this.profileData = JSON.parse(localStorage.getItem('entityUserData'));
+    this.user_id = this.profileData.user.id;
   }
 
   ngOnInit() {
@@ -45,6 +46,7 @@ export class ModalDialogComponent implements OnInit {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
+    this.formErrorMatcher = new FormErrorHandler();
   }
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;

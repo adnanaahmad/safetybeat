@@ -23,7 +23,7 @@ export class InviteUserModalComponent implements OnInit {
   roleList = [
     'user', 'owner', 'teamLead'
   ]
-  InviteUserData: { first_name: string; last_name: string; email: string; role: string; invitation: boolean; moduleName: string; };
+  InviteUserData: any;
   constructor(
     public dialogRef: MatDialogRef<InviteUserModalComponent>,
     private translate: TranslateService,
@@ -72,8 +72,9 @@ export class InviteUserModalComponent implements OnInit {
       first_name: value.first_name,
       last_name: value.last_name,
       email: value.email,
-      role: value.role,
       invitation: true,
+      roleId: value.role,
+      contactNo:'545535456',
       moduleName: "Safetybeat"
     }
     debugger

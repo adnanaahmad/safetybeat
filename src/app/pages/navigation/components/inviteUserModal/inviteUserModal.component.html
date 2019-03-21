@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>{{translated.MESSAGES.INVITE_USER}}</h2>
-<div mat-dialog-content>
+<mat-card-title class="mat-dialog-title">{{translated.MESSAGES.INVITE_USER}}</mat-card-title>
+<div class="mat-dialog-content">
   <form [formGroup]="inviteUserForm" (ngSubmit)="inviteUser(inviteUserForm)">
     <div class="input">
       <mat-form-field full-width>

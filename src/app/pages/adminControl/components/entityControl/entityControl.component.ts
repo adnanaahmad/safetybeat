@@ -23,7 +23,7 @@ import { AlertModalComponent } from "../alert-modal/alert-modal.component";
 })
 export class EntityControlComponent implements OnInit {
   dialogConfig = new MatDialogConfig();
-  displayedColumns: string[] = ["id", "name", "headOffice", "status", "symbol"];
+  displayedColumns: string[] = ["id", "name", "headOffice", "symbol"];
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   translated: Translation;
