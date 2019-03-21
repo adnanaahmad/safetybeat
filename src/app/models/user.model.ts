@@ -4,7 +4,7 @@ export interface User {
     email: string;
     first_name: string;
     last_name: string;
-    mobile_no: string;
+    contactNo: string;
 }
 export interface responseDetails {
     code: string;

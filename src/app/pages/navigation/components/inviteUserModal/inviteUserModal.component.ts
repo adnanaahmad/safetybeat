@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { inviteUser } from 'src/app/models/inviteUser';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
@@ -7,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { NavigationService } from '../../services/navigation.service';
 import { MatDialogRef } from '@angular/material';
+import { inviteUser } from 'src/app/models/inviteUser.model';
 
 @Component({
   selector: 'app-invite-user-modal',

@@ -10,6 +10,8 @@ import * as _ from "lodash";
 import { share } from "rxjs/operators";
 import { AdminControlService } from "src/app/pages/adminControl/services/adminControl.service";
 import { Router } from "@angular/router";
+import { EntityUserData } from "src/app/models/userEntityData.model";
+import { disableDebugTools } from "@angular/platform-browser";
 
 @Component({
   selector: "app-navigation",
@@ -27,97 +29,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   abc: any;
   allEntitiesData: any;
   joinEntityData: { moduleName: string };
-  defaultList: NavItem[] = [
-    {
-      route: "/home",
-      iconName: ConstantService.appIcons.dashboard,
-      displayName: "Dashboard"
-    },
-    {
-      route: "/home/profile/user",
-      iconName: ConstantService.appIcons.group,
-      displayName: "Users"
-    },
-    {
-      iconName: ConstantService.appIcons.showChart,
-      displayName: "Analytics Reports",
-      children: [
-        {
-          displayName: "Action Report",
-          route: "/home/analyticsReport/actionReport"
-        },
-        {
-          displayName: "Average Daily Actions",
-          route: "/home/analyticsReport/averageDailyActionsReport"
-        },
-        {
-          displayName: "Checkin by Activity",
-          route: "/home/analyticsReport/checkInActivityReport"
-        },
-        {
-          displayName: "Checkin and Alert by Person",
-          route: "/home/analyticsReport/alertsPersonReport"
-        },
-        {
-          displayName: "Actions vs Alerts",
-          route: "/home/analyticsReport/actionAlertsReport"
-        },
-        {
-          displayName: "Pulse Report by Entity",
-          route: "/home/analyticsReport/entityPulseReport"
-        },
-        {
-          displayName: "Pulse Report by Person",
-          route: "/home/analyticsReport/personPulseReport"
-        },
-        {
-          displayName: "Compliant Checkout",
-          route: "/home/analyticsReport/compliantCheckoutReport"
-        },
-        {
-          displayName: "Site Activity Report",
-          route: "/home/analyticsReport/siteActivityReport"
-        },
-        {
-          displayName: "Hazard Reports",
-          route: "/home/analyticsReport/hazardReport"
-        }
-      ]
-    },
-    {
-      displayName: "Entity Control",
-      route: "/home/adminControl/entityControl"
-    },
-    {
-      displayName: "Member Center",
-      route: "/home/adminControl/memberCenter"
-    },
-    {
-      displayName: "Site Center",
-      route: "/home/adminControl/siteCenter"
-    },
-    {
-      displayName: "Question Center",
-      route: "/home/adminControl/questionCenter"
-    },
-    {
-      displayName: "Permission Center",
-      route: "/home/adminControl/permissionCenter"
-    },
-    {
-      displayName: "Hazard Center",
-      route: "/home/adminControl/hazardCenter"
-    },
-    {
-      displayName: "Invite Users"
-    },
-
-    {
-      route: "/home/documents",
-      iconName: ConstantService.appIcons.insertDriveFile,
-      displayName: "Documents"
-    }
-  ];
+  defaultList: NavItem[] = [];
+  entityUserData: EntityUserData;
   constructor(
     public core: CoreService,
     public translate: TranslateService,
@@ -138,7 +51,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.navLinks = this.defaultList;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.entityUserData = JSON.parse(localStorage.getItem("entityUserData"));
+  }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
   }
@@ -147,51 +62,126 @@ export class NavigationComponent implements OnInit, OnDestroy {
       {
         route: "/home",
         iconName: ConstantService.appIcons.dashboard,
-        displayName: "Dashboard"
+        displayName: "Dashboard",
+        disabled: true
       },
       {
         displayName: "Action Report",
-        route: "/home/analyticsReport/actionReport"
+        route: "/home/analyticsReport/actionReport",
+        disabled: true
       },
       {
         displayName: "Average Daily Actions",
-        route: "/home/analyticsReport/averageDailyActionsReport"
+        route: "/home/analyticsReport/averageDailyActionsReport",
+        disabled: true
       },
       {
         displayName: "Checkin by Activity",
-        route: "/home/analyticsReport/checkInActivityReport"
+        route: "/home/analyticsReport/checkInActivityReport",
+        disabled: true
       },
       {
         displayName: "Checkin and Alert by Person",
-        route: "/home/analyticsReport/alertsPersonReport"
+        route: "/home/analyticsReport/alertsPersonReport",
+        disabled: true
       },
       {
         displayName: "Actions vs Alerts",
-        route: "/home/analyticsReport/actionAlertsReport"
+        route: "/home/analyticsReport/actionAlertsReport",
+        disabled: true
       },
       {
         displayName: "Pulse Report by Entity",
-        route: "/home/analyticsReport/entityPulseReport"
+        route: "/home/analyticsReport/entityPulseReport",
+        disabled: true
       },
       {
         displayName: "Pulse Report by Person",
-        route: "/home/analyticsReport/personPulseReport"
+        route: "/home/analyticsReport/personPulseReport",
+        disabled: true
       },
       {
         displayName: "Compliant Checkout",
-        route: "/home/analyticsReport/compliantCheckoutReport"
+        route: "/home/analyticsReport/compliantCheckoutReport",
+        disabled: true
       },
       {
         displayName: "Site Activity Report",
-        route: "/home/analyticsReport/siteActivityReport"
+        route: "/home/analyticsReport/siteActivityReport",
+        disabled: true
       },
       {
         displayName: "Hazard Reports",
-        route: "/home/analyticsReport/hazardReport"
+        route: "/home/analyticsReport/hazardReport",
+        disabled: true
       }
     ];
   }
   switchListDefault() {
     this.navLinks = this.defaultList;
+  }
+
+  switchSideMenu(data: any) {
+    console.log(data);
+    if (data) {
+      this.navLinks = [
+        {
+          route: "/home",
+          iconName: ConstantService.appIcons.dashboard,
+          displayName: "Dashboard",
+          disabled: data.permissions.dashboard
+        },
+        {
+          route: "/home/profile/user",
+          iconName: ConstantService.appIcons.group,
+          displayName: "Users",
+          disabled: data.permissions.allUsers
+        },
+        {
+          displayName: "Entity Control",
+          route: "/home/adminControl/entityControl",
+          disabled: data.permissions.entityControl
+        },
+        {
+          displayName: "Member Center",
+          route: "/home/adminControl/memberCenter",
+          disabled: data.permissions.myTeam
+        },
+        {
+          displayName: "Site Center",
+          route: "/home/adminControl/siteCenter",
+          disabled: data.permissions.siteCenter
+        },
+        {
+          displayName: "Question Center",
+          route: "/home/adminControl/questionCenter",
+          disabled: data.permissions.questionCenter
+        },
+        {
+          displayName: "Permission Center",
+          route: "/home/adminControl/permissionCenter",
+          disabled: data.permissions.permissionCenter
+        },
+        {
+          displayName: "Hazard Center",
+          route: "/home/adminControl/hazardCenter",
+          disabled: data.permissions.hazardCenter
+        },
+        {
+          displayName: "Invite Users",
+          disabled: data.permissions.inviteUsers
+        },
+
+        {
+          route: "/home/documents",
+          iconName: ConstantService.appIcons.insertDriveFile,
+          displayName: "Documents",
+          disabled: data.permissions.documents
+        }
+      ];
+    }
+    else{
+      
+    }
   }
 }
