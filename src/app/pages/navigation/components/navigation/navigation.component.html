@@ -6,11 +6,28 @@
       <div>
         <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
       </div>
-      <mat-form-field class="entity-switcher">
-        <mat-select [(value)]="selected" (selectionChange)="switchSideMenu(selected)">
-          <mat-option *ngFor="let entity of entityUserData.entities" [value]="entity">{{entity.entityInfo.name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="entity-switcher">
+        <!-- <mat-select [(value)]="selected" (selectionChange)="switchSideMenu(selected)">
+            <mat-option
+            *ngFor="let entity of entityUserData.entities"
+            [value]="entity">
+            <img src="https://pbs.twimg.com/profile_images/1105824643796090882/2Xp9Hlqz.jpg" class="entity-avatar" />
+            <span class="entity-name">{{entity.entityInfo.name}}</span>
+            <span class="user-role">Administrator</span></mat-option>
+        </mat-select> -->
+
+        <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu (selectionChange)="switchSideMenu(selected)" #menu="matMenu">
+          <button class="single-entity" *ngFor="let entity of entityUserData.entities" [value]="entity" mat-menu-item>
+              <img src="https://pbs.twimg.com/profile_images/1105824643796090882/2Xp9Hlqz.jpg" class="entity-avatar" />
+              <div class="entity-data">
+                <span class="entity-name">{{entity.entityInfo.name}}</span>
+                <span class="user-role">Administrator</span>
+              </div>
+          </button>
+        </mat-menu> -->
+
+      </div>
       <mat-nav-list>
         <app-nav-list [navLinks]="navLinks"></app-nav-list>
       </mat-nav-list>

@@ -119,4 +119,24 @@
       }
     }
   }
+  .entity-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    float: left;
+  }
+  .user-role{
+    display: block;
+    float: left;
+    width: 100%;
+    line-height: 3;
+  }
+  .entity-name{
+    float: left;
+    line-height: 3;
+    padding-left: 10px;
+  }
+  .single-entity{
+    height: auto;
+  }
 }
