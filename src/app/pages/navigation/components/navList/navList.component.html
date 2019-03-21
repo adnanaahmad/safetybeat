@@ -1,8 +1,8 @@
 <!-- <p>
   nav-list works!
 </p> -->
-<mat-nav-list>
-  <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.route" routerLinkActive="active">
+<mat-nav-list *ngFor="let link of navLinks" >
+  <mat-list-item mat-button *ngIf="link.disabled" [routerLink]="link.route" routerLinkActive="active">
 
     <a *ngIf="!link.children" class="nav-link" (click)="link.displayName == 'Invite Users' ? inviteUserModal() : ''">{{link.displayName
       }}</a>
