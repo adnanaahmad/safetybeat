@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { NavigationService } from "../../services/navigation.service";
 import { MatDialogConfig, MatDialog } from "@angular/material";
 import { InviteUserModalComponent } from "../inviteUserModal/inviteUserModal.component";
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: "app-nav-list",
@@ -16,11 +17,15 @@ export class NavListComponent implements OnInit {
   dialogConfig = new MatDialogConfig();
   @Input() public navLinks: NavItem;
   @Input() public navLinksBottom;
+  @Input() public selectedEntity;
   constructor(
     public router: Router,
     public navService: NavigationService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    public compiler: CompilerProvider
+  ) {
+
+  }
 
   ngOnInit() {
     if (this.navLinks.children) {
@@ -36,6 +41,20 @@ export class NavListComponent implements OnInit {
       this.expanded = !this.expanded;
     }
   }
+  customActions(displayName) {
+    switch (displayName) {
+      case 'Invite Users':
+        this.inviteUserModal();
+        break;
+      case 'Analytics Reports':
+        console.log(this.selectedEntity)
+       this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
+       debugger
+        break;
+      default:
+        break;
+    }
+  }
 
   inviteUserModal() {
     this.dialogConfig.disableClose = true;
@@ -43,5 +62,5 @@ export class NavListComponent implements OnInit {
     this.dialogConfig.closeOnNavigation = false;
     this.dialog.open(InviteUserModalComponent);
   }
-    
+
 }
