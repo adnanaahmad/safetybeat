@@ -7,7 +7,7 @@
         <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
       </div>
       <mat-form-field class="entity-switcher">
-        <mat-select [(value)]="selected" (selectionChange)="switchSideMenu(selected)">
+        <mat-select [(value)]="selectedEntity" (selectionChange)="switchSideMenu(selectedEntity)">
           <mat-option *ngFor="let entity of entityUserData.entities" [value]="entity">{{entity.entityInfo.name}}</mat-option>
         </mat-select>
       </mat-form-field>

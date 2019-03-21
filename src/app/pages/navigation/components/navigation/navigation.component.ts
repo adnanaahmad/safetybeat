@@ -31,6 +31,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   joinEntityData: { moduleName: string };
   defaultList: NavItem[] = [];
   entityUserData: EntityUserData;
+  selectedEntity;
   constructor(
     public core: CoreService,
     public translate: TranslateService,
@@ -53,6 +54,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.entityUserData = JSON.parse(localStorage.getItem("entityUserData"));
+    let index = _.findIndex(this.entityUserData.entities, function(entity){
+      return entity.active===true
+    });
+    this.selectedEntity = (index!=-1)?this.entityUserData.entities[index]:this.entityUserData.entities[0]
+    this.switchSideMenu(this.selectedEntity)
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();

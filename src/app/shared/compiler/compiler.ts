@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ConstantService } from "src/app/shared/constant/constant.service";
 import { EntityUserData, Entity } from "src/app/models/userEntityData.model";
-import forEach from "lodash/forEach";
+import * as _ from "lodash";
 
 @Injectable()
 export class CompilerProvider {
@@ -41,11 +41,12 @@ export class CompilerProvider {
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
     let allEntities: Entity[] = [];
-    forEach(loginApiResponse.result, function(entity) {
+    _.forEach(loginApiResponse.result, function(entity) {
       let data: Entity = {
         entityInfo: entity.entity,
         permissions: entity.permissions,
-        reportAccess: entity.reportAccess
+        reportAccess: entity.reportAccess,
+        active: entity.active
       };
       allEntities.push(data);
     });
