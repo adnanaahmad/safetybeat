@@ -31,6 +31,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   joinEntityData: { moduleName: string };
   defaultList: NavItem[] = [];
   entityUserData: EntityUserData;
+  selected:any;
   constructor(
     public core: CoreService,
     public translate: TranslateService,
