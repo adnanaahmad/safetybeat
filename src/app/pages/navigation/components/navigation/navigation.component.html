@@ -3,16 +3,14 @@
     (switchNavListDefault)="switchListDefault()"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
-        <div>
-          <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
-        </div>
-        <mat-form-field class="entity-switcher">
-          <mat-select [(value)]="selected">
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div>
+        <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
+      </div>
+      <mat-form-field class="entity-switcher">
+        <mat-select [(value)]="selected" (selectionChange)="switchSideMenu(selected)">
+          <mat-option *ngFor="let entity of entityUserData.entities" [value]="entity">{{entity.entityInfo.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-nav-list>
         <app-nav-list [navLinks]="navLinks"></app-nav-list>
       </mat-nav-list>

@@ -147,7 +147,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.register.registerUser(this.registerData)
       .subscribe(
         (data) => {
-          debugger;
           this.data = data;
           this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
@@ -156,7 +155,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           this.router.navigate(['/verification', { data: JSON.stringify(data) }], { skipLocationChange: true });
         },
         (error) => {
-          debugger
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
             this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
           this.loading = false;
