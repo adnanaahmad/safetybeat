@@ -6,7 +6,7 @@
 </div>
 <mat-nav-list class="nav-list">
   <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.route" routerLinkActive="active">
-    <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right" (click)="link.children ? switchNavListMenu():switchNavListMenuDefault()">
+    <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right" (click)="switchNavListMenuDefault()">
       <mat-icon>{{link.iconName}}</mat-icon>
     </a>
   </mat-list-item>

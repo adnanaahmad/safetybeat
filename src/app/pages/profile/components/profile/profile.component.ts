@@ -26,8 +26,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   translated: Translation;
   profileData: any;
   user_id: number;
-  org_id: number;
-  role: string;
   username: string;
   firstname: string;
   lastname: string;
@@ -61,8 +59,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.appConstants = ConstantService.appConstant;
     this.profileData = JSON.parse(localStorage.getItem('entityUserData'));
     this.user_id = this.profileData.user.id;
-    this.org_id = this.profileData.orgid;
-    this.role = this.profileData.role;
     this.userData = this.getUserData();
   }
   @Input()

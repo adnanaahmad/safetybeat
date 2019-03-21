@@ -38,8 +38,10 @@ export interface Auth {
   ACCOUNTNO: string;
   BILLING_EMAIL: string;
   FAX: string;
+  ROLE: string;
   USERNAME_REQ: string;
   PASSWORD_REQ: string;
+  ROLE_REQ: string;
   FIRSTNAME_REQ: string;
   LASTNAME_REQ: string;
   EMAIL_VALID: string;
@@ -248,6 +250,8 @@ export interface LoggerMessage {
   CREATEENTITY_ERROR: string;
   INVITEUSER_ERROR: string;
   ENTITYNOTCREATED: string;
+  ROLES_RECIEVED: string;
+  ROLES_RECIEVED_ERROR: string
 }
 export interface SiteTitle {
   MEMBERCENTER_TITLE: string;

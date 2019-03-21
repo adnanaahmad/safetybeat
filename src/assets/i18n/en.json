@@ -16,8 +16,10 @@
     "ACCOUNTNO": "Account No",
     "BILLING_EMAIL": "Billing Email",
     "FAX": "Fax",
+    "ROLE": "Role",
     "USERNAME_REQ": "Please enter username.",
     "PASSWORD_REQ": "Please enter valid password.",
+    "ROLE_REQ": "Please select user role.",
     "FIRSTNAME_REQ": "Please enter first name.",
     "LASTNAME_REQ": "Please enter last name.",
     "EMAIL_VALID": "Please enter a valid email address.",
@@ -223,7 +225,9 @@
       "SETTING_COMPONENT": "Settings load success",
       "CREATEENTITY_ERROR": "Entity details are required to create an entity",
       "INVITEUSER_ERROR":"User details are required to Invite a user",
-      "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again."
+      "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again.",
+      "ROLES_RECIEVED": "Roles recieved",
+      "ROLES_RECIEVED_ERROR": "Error recieving roles"
     }
   }
 }

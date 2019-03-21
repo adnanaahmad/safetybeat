@@ -9,6 +9,7 @@ export interface Entity {
   entityInfo: EntityInfo;
   permissions: EntityPermissions;
   reportAccess: ReportAccess;
+  active:boolean
 }
 
 export interface EntityInfo {
@@ -21,7 +22,6 @@ export interface EntityInfo {
   createdBy: number;
   managedBy: number;
   role: number;
-  active: boolean;
 }
 
 export interface EntityPermissions {
