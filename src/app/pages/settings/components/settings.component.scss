@@ -1,6 +1,65 @@
 @mixin amte-settings($primary, $accent, $warn) {
   :host,
   app-settings {
+    .flexbox > div{
+      text-align: left;
+    }
+    .btn-grp {
+      text-align: right;
+      button {
+        margin-left: 10px;
+      }
+    }
+    .navigator{
+      background:#edf0f1;
+      width:270px;
+      height: 100%;
+      float:left;
+      box-shadow:0 5px 8px 0px rgba(0, 0, 0, 0.15);
+      .mat-list{
+        padding-top:0;
+      }
+      .mat-icon{
+        float:left;
+        padding-right: 10px;
+      }
+      .mat-list-item-content{
+        padding:0;
+      }
+      a{
+        text-decoration: none;
+        display:block;
+        width:100%;
+        padding:10px;
+        line-height: 1.7;
+        color:rgba(0,0,0,0.7);
+      }
+    }
+    .settings-wrap{
+      float: left;
+      padding: 0 20px 20px 20px;
+      max-width: 600px;
+      .mat-list-item-content{
+        padding:0;
+      }
+      label, input{
+        width:100%;
+      }
+      input{
+        text-align: right;
+        background:transparent;
+        border:0;
+      }
+      .mat-list-item{
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+        margin-top: 10px;
+      }
+    }
+    .setting-title{
+      margin:0;
+    }
     .theme-selector {
       .mat-radio-button {
         width: 100%;

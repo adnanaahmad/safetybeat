@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
     private logging: LoggingService
   ) {
     this.translate
-      .get(["LOGGER", "BUTTONS", "AUTH", "MESSAGES", "STRINGS"])
+      .get(["LOGGER", "BUTTONS", "AUTH", "MESSAGES", "STRINGS", "SITETITLE"])
       .subscribe(values => {
         this.translated = values;
       });

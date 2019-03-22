@@ -66,21 +66,21 @@ export class NavListComponent implements OnInit {
   customActions(displayName) {
     switch (displayName) {
       case 'Invite Users':
-        this.inviteUserModal();
+        this.inviteUserModal(this.selectedEntity.entityInfo.id);
         break;
       case 'Analytics Reports':
-       this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
+        this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
         break;
       default:
         break;
     }
   }
 
-  inviteUserModal() {
+  inviteUserModal(entityId) {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.closeOnNavigation = false;
-    this.dialog.open(InviteUserModalComponent, { data: this.roles });
+    this.dialog.open(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
   }
 
 }

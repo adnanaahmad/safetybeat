@@ -260,6 +260,8 @@ export interface SiteTitle {
   ENTITYCONTROL_DESCRIPTION: string;
   USERS_TITLE: string;
   USERS_DESCRIPTION: string;
+  SETTINGS_TITLE: string;
+  SETTINGS_DESCRIPTION: string;
 }
 
 export interface TableHeadings {
