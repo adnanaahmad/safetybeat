@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { EntityUserData, Entity } from "src/app/models/userEntityData.model";
+import { Injectable } from '@angular/core';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
 import { forEach } from 'lodash';
 import { NavItem } from 'src/app/models/navItems.model';
 

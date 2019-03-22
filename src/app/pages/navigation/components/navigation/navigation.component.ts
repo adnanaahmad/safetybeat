@@ -56,7 +56,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.entityUserData = JSON.parse(localStorage.getItem("entityUserData"));
+    this.entityUserData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
     let index = _.findIndex(this.entityUserData.entities, function(entity){
       return entity.active===true
     });

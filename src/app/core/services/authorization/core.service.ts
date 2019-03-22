@@ -6,9 +6,11 @@ import { Translation } from 'src/app/models/translate.model';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { ConstantService } from 'src/app/shared/constant/constant.service'
+
 @Injectable({ providedIn: 'root' })
 export class CoreService {
-    storageKey = 'token';
+    storageKey = ConstantService.localStorageKeys.token;
     logout_success: string;
     logout_msg: string;
     translated: Translation;
@@ -52,7 +54,7 @@ export class CoreService {
      * this function removes the token from the localstorage
      */
     removeToken() {
-        localStorage.removeItem('entityUserData');
+        localStorage.removeItem(ConstantService.localStorageKeys.entityUserData);
         localStorage.removeItem(this.storageKey);
     }
     /**
@@ -70,18 +72,18 @@ export class CoreService {
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
-          // A client-side or network error occurred. Handle it accordingly.
-          console.error('An error occurred:', error.error.message);
+            // A client-side or network error occurred. Handle it accordingly.
+            console.error('An error occurred:', error.error.message);
         } else {
-          // The backend returned an unsuccessful response code.
-          // The response body may contain clues as to what went wrong,
-          console.error(
-            `Backend returned code ${error.status}, ` +
-            `body was: ${error.message}`);
-            
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            console.error(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.message}`);
+
         }
         // return an observable with a user-facing error message
         return throwError(
-          'Something bad happened; please try again later.');
-      };
+            'Something bad happened; please try again later.');
+    };
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { NavItem } from "src/app/models/navItems.model";
-import { Router } from "@angular/router";
-import { NavigationService } from "../../services/navigation.service";
-import { MatDialogConfig, MatDialog } from "@angular/material";
-import { InviteUserModalComponent } from "../inviteUserModal/inviteUserModal.component";
+import { Component, OnInit, Input } from '@angular/core';
+import { NavItem } from 'src/app/models/navItems.model';
+import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { InviteUserModalComponent } from '../inviteUserModal/inviteUserModal.component';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import * as _ from 'lodash'
 import { LoggingService } from 'src/app/shared/logging/logging.service';

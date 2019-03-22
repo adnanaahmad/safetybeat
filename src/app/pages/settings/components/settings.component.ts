@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { SettingService } from "src/app/shared/settings/setting.service";
-import { OverlayContainer } from "@angular/cdk/overlay";
-import { TranslateService } from "@ngx-translate/core";
-import { Translation } from "src/app/models/translate.model";
-import { ConstantService } from "src/app/shared/constant/constant.service";
+import { Component, OnInit } from '@angular/core';
+import { SettingService } from 'src/app/shared/settings/setting.service';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { TranslateService } from '@ngx-translate/core';
+import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 @Component({
   selector: "app-settings",

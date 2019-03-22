@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
+import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: "root"
 })
 export class ConstantService {
-  constructor() {}
+  constructor() { }
 
   static apiRoutes = {
     login: `${environment.apiUrl}/login/`,
@@ -30,6 +30,11 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
     getRoles: `${environment.apiUrl}/role/`
+  };
+  static localStorageKeys = {
+    token : 'sb_User_Token',
+    entityUserData: 'sb_Entity_User_Data',
+    theme: 'sb_Theme_Selected'  
   };
   static toast = {
     location: "toast-top-left",
@@ -73,7 +78,7 @@ export class ConstantService {
     headOffice: "headOffice",
     status: "status",
     joinCode: "joinCode",
-    role:"role"
+    role: "role"
   };
   static appIcons = {
     skipNext: "skip_next",
@@ -122,9 +127,9 @@ export class ConstantService {
     createEntity: "playlist_add",
     joinEntity: "playlist_add_check",
     fingerPrint: "fingerprint",
-    folderShared:"folder_shared",
-    groupAdd:"group_add",
-    payment:"payment",
-    exit_to_app:"exitToApp"
+    folderShared: "folder_shared",
+    groupAdd: "group_add",
+    payment: "payment",
+    exit_to_app: "exitToApp"
   };
 }

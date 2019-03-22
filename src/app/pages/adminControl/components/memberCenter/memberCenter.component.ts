@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { Translation } from "src/app/models/translate.model";
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Translation } from 'src/app/models/translate.model';
 export interface PeriodicElement {
   name: string;
   email: string;

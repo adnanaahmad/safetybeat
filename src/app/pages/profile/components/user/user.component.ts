@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { Translation } from "src/app/models/translate.model";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { ProfileService } from "../../services/profile.service";
-import { LoggingService } from "src/app/shared/logging/logging.service";
-import { MatTableDataSource, MatPaginator } from "@angular/material";
-import { share } from "rxjs/operators";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { ProfileService } from '../../services/profile.service';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { share } from 'rxjs/operators';
 @Component({
   selector: "app-user",
   templateUrl: "./user.component.html",
@@ -56,7 +56,6 @@ export class UserComponent implements OnInit {
     this.allUsers.subscribe(result => {
       this.empty = true;
       this.allUsersList = result.data;
-      localStorage.setItem("users", JSON.stringify(this.allUsersList));
       this.dataSource = new MatTableDataSource(this.allUsersList);
       this.dataSource.paginator = this.paginator;
     });

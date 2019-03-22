@@ -1,4 +1,4 @@
-/// <reference types="@types/googlemaps" />
+/// <reference types='@types/googlemaps' />
 import { Directive, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Directive({

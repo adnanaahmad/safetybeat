@@ -12,7 +12,6 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import { HttpClient } from '@angular/common/http';
 
-
 @Component({
   templateUrl: 'login.component.html',
   selector: 'app-login',
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public toastProvider: ToastService,
     private logging: LoggingService,
     private compiler: CompilerProvider,
-    private http:HttpClient
+    private http: HttpClient
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
       this.translated = values;
@@ -86,7 +85,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
             data ? this.loginService.setToken(this.data.data.token) : this.loginService.setToken('');
             let entityUserData = this.compiler.constructUserEntityData(this.data.data);
-            localStorage.setItem('entityUserData', JSON.stringify(entityUserData));
+            this.loginService.setEntityData(JSON.stringify(entityUserData))
             this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
             this.router.navigate(['/home']);
           } else if (data.responseDetails.code === '0001') {

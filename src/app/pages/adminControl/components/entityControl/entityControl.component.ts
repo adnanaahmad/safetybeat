@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Translation } from "src/app/models/translate.model";
-import { TranslateService } from "@ngx-translate/core";
-import { ConstantService } from "src/app/shared/constant/constant.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Translation } from 'src/app/models/translate.model';
+import { TranslateService } from '@ngx-translate/core';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 import {
   MatDialogConfig,
   MatDialog,
   MatTableDataSource,
   MatPaginator
-} from "@angular/material";
-import { CreateEntityComponent } from "../createEntityModal/createEntity.component";
-import { JoinEntityModalComponent } from "../joinEntityModal/joinEntityModal.component";
-import { LoggingService } from "src/app/shared/logging/logging.service";
-import { AdminControlService } from "../../services/adminControl.service";
-import * as _ from "lodash";
-import { share } from "rxjs/operators";
-import { AlertModalComponent } from "../alert-modal/alert-modal.component";
+} from '@angular/material';
+import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
+import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { AdminControlService } from '../../services/adminControl.service';
+import * as _ from 'lodash';
+import { share } from 'rxjs/operators';
+import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 
 @Component({
   selector: "app-entityControl",

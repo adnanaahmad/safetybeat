@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     this.appIcons = ConstantService.appIcons;
     this.appConstants = ConstantService.appConstant;
-    this.profileData = JSON.parse(localStorage.getItem('entityUserData'));
+    this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
     this.user_id = this.profileData.user.id;
     this.userData = this.getUserData();
   }

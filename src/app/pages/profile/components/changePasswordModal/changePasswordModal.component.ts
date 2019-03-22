@@ -36,7 +36,7 @@ export class ModalDialogComponent implements OnInit {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE);
     });
     this.appConstants = ConstantService.appConstant;
-    this.profileData = JSON.parse(localStorage.getItem('entityUserData'));
+    this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
     this.user_id = this.profileData.user.id;
   }
 
