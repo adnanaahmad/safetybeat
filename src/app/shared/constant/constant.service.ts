@@ -13,7 +13,7 @@ export class ConstantService {
     companyTypes: `${environment.apiUrl}/companyTypes/`,
     modules: `${environment.apiUrl}/modules/`,
     packages: `${environment.apiUrl}/packages/`,
-    passwordReset: `${environment.apiUrl}/password/reset/`,
+    passwordReset: `${environment.apiUrl}/users/resetPassword/`,
     organization: `${environment.apiUrl}/organization/`,
     user: `${environment.apiUrl}/users`,
     checkUsername: `${environment.apiUrl}/users/checkUsername/`,

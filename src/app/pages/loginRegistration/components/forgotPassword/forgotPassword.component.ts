@@ -71,6 +71,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
    * sent to the user.and then navigates to the login page
    */
   onSubmit({ value, valid }: { value: ForgotPassword; valid: boolean }): void {
+    debugger
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
@@ -78,7 +79,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     }
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    // this.checkEmail(value);
     this.forgotService.forgotPassword(value).subscribe(
       data => {
         this.toastProvider.createSuccessToaster(this.translated.MESSAGES.RESET_SUCCESS, this.translated.MESSAGES.RESETMSG);
