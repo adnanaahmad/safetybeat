@@ -12,6 +12,7 @@ export class GooglePlacesDirective implements OnInit {
 
   }
   getFormattedAddress(place) {
+    debugger
     let location_obj = {};
     for (let i in place.address_components) {
       let item = place.address_components[i];

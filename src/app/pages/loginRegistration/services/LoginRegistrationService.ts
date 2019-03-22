@@ -27,9 +27,7 @@ export class LoginRegistrationService {
    */
 
   loginUser(data: loginCredentials): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(ConstantService.apiRoutes.login, data)
-      .pipe(catchError(this.coreServices.handleError));
+    return this.http.post<LoginResponse>(ConstantService.apiRoutes.login, data).pipe(catchError(this.coreServices.handleError));
   }
   /**
    * in this function all the api calls related to organization registration data are called over here
