@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AdminControlRoutingModule } from './adminControl-routing.module';
 import { EntityControlComponent } from './components/entityControl/entityControl.component';
 import { HazardCenterComponent } from './components/hazardCenter/hazardCenter.component';

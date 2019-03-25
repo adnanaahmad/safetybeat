@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({ value, valid }: { value: loginCredentials; valid: boolean }): void {
+    debugger
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ);
@@ -77,17 +78,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.loginService.loginUser(value)
-      .subscribe(
-        (data) => {
+    this.loginService.loginUser(value).subscribe((data) => {
           if (data.responseDetails.code === '0000') {
             this.data = data;
-            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
             data ? this.loginService.setToken(this.data.data.token) : this.loginService.setToken('');
-            let entityUserData = this.compiler.constructUserEntityData(this.data.data);
-            this.loginService.setEntityData(JSON.stringify(entityUserData))
-            this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
-            this.router.navigate(['/home']);
+            if (this.data.data.result.length == 0) {
+              this.router.navigate(['/welcomeScreen']);
+            } else {
+              this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
+              let entityUserData = this.compiler.constructUserEntityData(this.data.data);
+              this.loginService.setEntityData(JSON.stringify(entityUserData))
+              this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
+              this.router.navigate(['/home']);
+            }
           } else if (data.responseDetails.code === '0001') {
             this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
             this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);

@@ -6,6 +6,7 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { ParticleContainerComponent2 } from 'src/app/core/components/particleContainer/particleContainer2.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { CreateEntityComponent } from './components/createEntity/createEntity.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { CreateEntityComponent } from './components/createEntity/createEntity.co
     CommonModule,
     WelcomeScreenRoutingModule,
     MaterialModule,
-    CoreModule
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class WelcomeScreenModule { }

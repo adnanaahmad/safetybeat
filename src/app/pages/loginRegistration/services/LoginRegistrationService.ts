@@ -12,7 +12,6 @@ import {
 import { map, catchError } from 'rxjs/operators';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
-import {Md5} from 'ts-md5/dist/md5';
 
 
 @Injectable({ providedIn: "root" })
@@ -23,8 +22,7 @@ export class LoginRegistrationService {
   reset_msg: string;
   constructor(
     private http: HttpClient, 
-    public coreServices: CoreService,
-    public md5 :Md5) { }
+    public coreServices: CoreService) { }
   /**
    * login user api is called here and api url comes from constant service and login data that comes from
    * login.component.html file is passed here with the apiUrl
@@ -32,9 +30,7 @@ export class LoginRegistrationService {
    */
 
   loginUser(data: loginCredentials): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(ConstantService.apiRoutes.login, data)
-      .pipe(catchError(this.coreServices.handleError));
+    return this.http.post<LoginResponse>(ConstantService.apiRoutes.login, data).pipe(catchError(this.coreServices.handleError));
   }
   /**
    * in this function all the api calls related to organization registration data are called over here
@@ -100,7 +96,7 @@ export class LoginRegistrationService {
     localStorage.setItem(this.storageKey, token);
   }
   setEntityData(data) {
-    localStorage.setItem(ConstantService.localStorageKeys.entityUserData, JSON.stringify(data));
+    localStorage.setItem(ConstantService.localStorageKeys.entityUserData, data);
   }
   /**
    * this function is used to get the token key that the user gets when he logs in.
