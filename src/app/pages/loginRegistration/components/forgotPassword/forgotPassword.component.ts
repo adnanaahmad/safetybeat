@@ -38,7 +38,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
     });
     this.appConstants = ConstantService.appConstant;
-    this.formErrorMatcher = new FormErrorHandler();
   }
   ngOnInit() {
     this.forgotPassForm = this.formBuilder.group({
@@ -56,8 +55,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.forgotService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code == '0020') {
-          group.controls.email.setErrors({ exists: false });
+        debugger;
+        if (this.success.responseDetails.code == '0021') {
+          group.controls.email.setErrors({ exists: true })
         }
       });
     }

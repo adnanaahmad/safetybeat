@@ -31,7 +31,6 @@ export class PasswordRecoveryComponent implements OnInit {
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
       this.translated = values;
     });
-    debugger
     this.route.params.subscribe(data => {
      this.data = data;
     })
@@ -64,8 +63,6 @@ export class PasswordRecoveryComponent implements OnInit {
       'uid': this.data.uid,
       'token':this.data.token
     };
-
-    console.log(data,"this is what i get from params");
 
     this.resetServices.resetPassword(data).subscribe((res)=>{
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
