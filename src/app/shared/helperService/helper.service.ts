@@ -3,21 +3,23 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { forEach } from 'lodash'
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
 
-  itrations: any;
+  iterations: any;
   translation: Translation;
   constructor(
     public toast: ToastrManager,
     public translate: TranslateService,
+    public dialog: MatDialog,
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
     });
-    this.itrations = forEach;
+    this.iterations = forEach;
   }
 
 
@@ -40,6 +42,18 @@ export class HelperService {
     }
   }
 
+
+  createModal(component, ...params: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = false;
+    if (params.length === 0) {
+      this.dialog.open(component);
+    } else {
+      this.dialog.open(component, params[0]);
+    }
+  }
 
 
 

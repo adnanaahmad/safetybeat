@@ -5,11 +5,9 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditUser } from 'src/app/models/profile.model';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { ModalDialogComponent } from '../changePasswordModal/changePasswordModal.component';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import * as _ from 'lodash';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
@@ -94,7 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
   onCreate(feature: any) {
     var self = this
-    _.forEach(this.profileFeatures, function (value, key) {
+    this.helperService.iterations(this.profileFeatures, function (value, key) {
       if (key === feature) {
         self.profileFeatures[key] = true;
       } else {
