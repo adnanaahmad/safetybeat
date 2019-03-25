@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy, Renderer2, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { TranslateService } from '@ngx-translate/core';
 import { RegisterUser } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from '../../../../shared/constant/constant.service';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 
 @Component({
@@ -22,15 +22,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private router: Router,
     private register: LoginRegistrationService,
-    public translate: TranslateService,
     private logging: LoggingService,
-    private render: Renderer2,
-    private compiler: CompilerProvider
+    private compiler: CompilerProvider,
+    public helperService: HelperService,
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'ICONS', 'STRINGS']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
-    });
+    this.translated = this.helperService.translation
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
   }

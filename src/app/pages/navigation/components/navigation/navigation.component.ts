@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
@@ -13,6 +12,7 @@ import { Router } from '@angular/router';
 import { EntityUserData } from 'src/app/models/userEntityData.model';
 import { disableDebugTools } from '@angular/platform-browser';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-navigation',
@@ -36,31 +36,27 @@ export class NavigationComponent implements OnInit, OnDestroy {
   Entity: any;
   constructor(
     public core: CoreService,
-    public translate: TranslateService,
     public adminServices: AdminControlService,
     private logging: LoggingService,
     private router: Router,
-    public compiler: CompilerProvider
+    public compiler: CompilerProvider,
+    public helperService: HelperService,
   ) {
-    translate
-      .get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
-      .subscribe(values => {
-        this.translated = values;
-        this.logging.appLoggerForDev(
-          this.translated.LOGGER.STATUS.SUCCESS,
-          this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
-        );
-      });
+    this.translated = this.helperService.translation;
+    this.logging.appLoggerForDev(
+      this.translated.LOGGER.STATUS.SUCCESS,
+      this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
+    );
     this.appIcons = ConstantService.appIcons;
     this.navLinks = this.defaultList;
   }
 
   ngOnInit() {
     this.entityUserData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
-    let index = _.findIndex(this.entityUserData.entities, function(entity){
-      return entity.active===true
+    let index = _.findIndex(this.entityUserData.entities, function (entity) {
+      return entity.active === true
     });
-    this.selectedEntity = (index!=-1)?this.entityUserData.entities[index]:this.entityUserData.entities[0]
+    this.selectedEntity = (index != -1) ? this.entityUserData.entities[index] : this.entityUserData.entities[0]
     this.switchSideMenu(this.selectedEntity)
   }
   ngOnDestroy() {

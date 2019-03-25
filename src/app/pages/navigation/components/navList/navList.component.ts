@@ -7,8 +7,8 @@ import { InviteUserModalComponent } from '../inviteUserModal/inviteUserModal.com
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import * as _ from 'lodash'
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: "app-nav-list",
@@ -30,11 +30,9 @@ export class NavListComponent implements OnInit {
     public dialog: MatDialog,
     private compiler: CompilerProvider,
     private logging: LoggingService,
-    public translate: TranslateService,
+    public helperService: HelperService,
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
-      this.translated = values;
-    });
+    this.translated = this.helperService.translation;
     this.getRoles()
   }
 

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { ToastService } from 'src/app/shared/toast/toast.service';
 import { Translation } from 'src/app/models/translate.model';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { ConstantService } from 'src/app/shared/constant/constant.service'
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Injectable({ providedIn: 'root' })
 export class CoreService {
@@ -16,11 +16,11 @@ export class CoreService {
     translated: Translation;
     constructor(
         private router: Router,
-        public toastProvider: ToastService,
+        public helperService: HelperService,
         private translate: TranslateService,
         private cookies: CookieService
     ) {
-        this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES']).subscribe((values) => {
+        this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES','STATUS']).subscribe((values) => {
             this.translated = values;
             this.logout_success = values.MESSAGES.LOGOUT_SUCCESS;
             this.logout_msg = values.MESSAGES.LOGOUT_MSG;
@@ -34,7 +34,7 @@ export class CoreService {
         sessionStorage.clear();
         this.cookies.delete('sessionid');
         this.cookies.deleteAll();
-        this.toastProvider.createWarningToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG);
+        this.helperService.createToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG,this.translated.STATUS.WARNING)
         this.router.navigate(['/login']);
     }
     /**

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.component.html",
@@ -19,14 +19,10 @@ export class SettingsComponent implements OnInit {
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
-    private translate: TranslateService,
-    private logging: LoggingService
+    private logging: LoggingService,
+    public helperService: HelperService
   ) {
-    this.translate
-      .get(["LOGGER", "BUTTONS", "AUTH", "MESSAGES", "STRINGS"])
-      .subscribe(values => {
-        this.translated = values;
-      });
+    this.translated = this.helperService.translation;
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;

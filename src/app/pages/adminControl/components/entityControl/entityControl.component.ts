@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { TranslateService } from '@ngx-translate/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import {
   MatDialogConfig,
@@ -15,6 +14,7 @@ import { AdminControlService } from '../../services/adminControl.service';
 import * as _ from 'lodash';
 import { share } from 'rxjs/operators';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: "app-entityControl",
@@ -34,25 +34,12 @@ export class EntityControlComponent implements OnInit {
   empty: boolean = false;
   constructor(
     public dialog: MatDialog,
-    public translate: TranslateService,
     private logging: LoggingService,
-    public adminServices: AdminControlService
+    public adminServices: AdminControlService,
+    public helperService: HelperService
   ) {
-    translate
-      .get([
-        "AUTH",
-        "BUTTONS",
-        "MESSAGES",
-        "LOGGER",
-        "STRINGS",
-        "ICONS",
-        "SITETITLE",
-        "TABLEHEADINGS"
-      ])
-      .subscribe(values => {
-        this.translated = values;
-        this.appIcons = ConstantService.appIcons;
-      });
+    this.translated = this.helperService.translation;
+    this.appIcons = ConstantService.appIcons;
     this.logging.appLoggerForDev(
       this.translated.LOGGER.STATUS.SUCCESS,
       this.translated.LOGGER.MESSAGES.ENTITYCONTROL

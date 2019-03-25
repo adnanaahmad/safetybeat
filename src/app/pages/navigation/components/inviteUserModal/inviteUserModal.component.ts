@@ -3,10 +3,10 @@ import { inviteUser } from '../../../../models/inviteUser.model';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { NavigationService } from '../../services/navigation.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-invite-user-modal',
@@ -27,16 +27,14 @@ export class InviteUserModalComponent implements OnInit {
   entityID: any;
   constructor(
     public dialogRef: MatDialogRef<InviteUserModalComponent>,
-    private translate: TranslateService,
     public formBuilder: FormBuilder,
     private logging: LoggingService,
     private navigationService: NavigationService,
+    public helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
-    });
+    this.translated = this.helperService.translation;
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
     this.appConstants = ConstantService.appConstant;
     this.roleList = this.data.role
     this.entityID = this.data.entityId
