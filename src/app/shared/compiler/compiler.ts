@@ -53,7 +53,9 @@ export class CompilerProvider {
         entityInfo: entity.entity,
         permissions: entity.permissions,
         reportAccess: entity.reportAccess,
-        active: entity.active
+        administrator: entity.administrator,
+        active: entity.active,
+        role: entity.role
       };
       allEntities.push(data);
     });

@@ -276,4 +276,5 @@ export interface TableHeadings {
   LAST_ACTION: string;
   DATE_TIME: string;
   TIMEZONE: string;
+  ADMINISTRATED_BY:string;
 }

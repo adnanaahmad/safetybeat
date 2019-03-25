@@ -56,7 +56,6 @@ export class UserComponent implements OnInit {
     this.allUsers.subscribe(result => {
       this.empty = true;
       this.allUsersList = result.data;
-      localStorage.setItem("users", JSON.stringify(this.allUsersList));
       this.dataSource = new MatTableDataSource(this.allUsersList);
       this.dataSource.paginator = this.paginator;
     },(error)=>{

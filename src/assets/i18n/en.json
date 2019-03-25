@@ -179,7 +179,8 @@
     "SITE": "Site",
     "LAST_ACTION": "Last Action",
     "DATE_TIME": "Date/Time",
-    "TIMEZONE": "Time Zone"
+    "TIMEZONE": "Time Zone",
+    "ADMINISTRATED_BY": "Administrated By"
   },
   "LOGGER": {
     "STATUS": {

@@ -77,7 +77,6 @@ export class InviteUserModalComponent implements OnInit {
       contactNo:'545535456',
       moduleName: "Safetybeat"
     }
-    debugger
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.INVITEUSER_ERROR);

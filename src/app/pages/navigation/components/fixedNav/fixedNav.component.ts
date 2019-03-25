@@ -30,19 +30,9 @@ export class FixedNavComponent implements OnInit {
       toolTip: 'Dashboard'
     },
     {
-      route: '/home/profile/user',
-      iconName: ConstantService.appIcons.group,
-      toolTip: 'All Users'
-    },
-    {
       route: '/home/adminControl/entityControl',
       iconName: ConstantService.appIcons.contacts,
       toolTip: 'Entity Control Center'
-    },
-    {
-      route: '/home/documents',
-      iconName: ConstantService.appIcons.insertDriveFile,
-      toolTip: 'Documents'
     }
   ];
   public navLinksBottom: NavItem[] = [

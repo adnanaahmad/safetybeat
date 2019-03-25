@@ -1,29 +1,29 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Translation } from "src/app/models/translate.model";
-import { TranslateService } from "@ngx-translate/core";
-import { ConstantService } from "src/app/shared/constant/constant.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Translation } from 'src/app/models/translate.model';
+import { TranslateService } from '@ngx-translate/core';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 import {
   MatDialogConfig,
   MatDialog,
   MatTableDataSource,
   MatPaginator
-} from "@angular/material";
-import { CreateEntityComponent } from "../createEntityModal/createEntity.component";
-import { JoinEntityModalComponent } from "../joinEntityModal/joinEntityModal.component";
-import { LoggingService } from "src/app/shared/logging/logging.service";
-import { AdminControlService } from "../../services/adminControl.service";
-import * as _ from "lodash";
-import { share } from "rxjs/operators";
-import { AlertModalComponent } from "../alert-modal/alert-modal.component";
+} from '@angular/material';
+import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
+import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { AdminControlService } from '../../services/adminControl.service';
+import * as _ from 'lodash';
+import { share } from 'rxjs/operators';
+import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 
 @Component({
-  selector: "app-entityControl",
-  templateUrl: "./entityControl.component.html",
-  styleUrls: ["./entityControl.component.scss"]
+  selector: 'app-entityControl',
+  templateUrl: './entityControl.component.html',
+  styleUrls: ['./entityControl.component.scss']
 })
 export class EntityControlComponent implements OnInit {
   dialogConfig = new MatDialogConfig();
-  displayedColumns: string[] = ["id", "name", "headOffice", "symbol"];
+  displayedColumns: string[] = ['name', 'headOffice','role','administrator', 'symbol'];
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   translated: Translation;
@@ -40,14 +40,14 @@ export class EntityControlComponent implements OnInit {
   ) {
     translate
       .get([
-        "AUTH",
-        "BUTTONS",
-        "MESSAGES",
-        "LOGGER",
-        "STRINGS",
-        "ICONS",
-        "SITETITLE",
-        "TABLEHEADINGS"
+        'AUTH',
+        'BUTTONS',
+        'MESSAGES',
+        'LOGGER',
+        'STRINGS',
+        'ICONS',
+        'SITETITLE',
+        'TABLEHEADINGS'
       ])
       .subscribe(values => {
         this.translated = values;
@@ -80,18 +80,9 @@ export class EntityControlComponent implements OnInit {
     });
   }
   viewAllEntities() {
-    this.joinEntityData = {
-      moduleName: this.translated.BUTTONS.SAFETYBEAT
-    };
-    this.allEntitiesData = this.adminServices
-      .viewEntities(this.joinEntityData)
-      .pipe(share());
-    this.allEntitiesData.subscribe(result => {
-      this.empty = true;
-      this.entitiesList = result.data;
-      localStorage.setItem("entities", JSON.stringify(this.entitiesList));
-      this.dataSource = new MatTableDataSource(this.entitiesList);
+    this.entitiesList = JSON.parse(localStorage.getItem('entityUserData'));
+    this.allEntitiesData = this.entitiesList.entities;
+      this.dataSource = new MatTableDataSource(this.allEntitiesData);
       this.dataSource.paginator = this.paginator;
-    });
   }
 }
