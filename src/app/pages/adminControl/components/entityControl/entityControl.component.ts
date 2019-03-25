@@ -95,7 +95,7 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
       debugger;
       console.log(res);
       this.entitiesList = res;
-      this.allEntitiesData = this.entitiesList;
+      this.allEntitiesData = this.entitiesList.entities;
       this.dataSource = new MatTableDataSource(this.allEntitiesData);
       this.dataSource.paginator = this.paginator;
     })

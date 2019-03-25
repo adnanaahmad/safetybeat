@@ -83,6 +83,12 @@ export class CreateEntityComponent implements OnInit {
       this.entityResponse = result;
       this.onNoClick();
       if(this.entityResponse.responseDetails.code=='0012'){
+        var data = {
+          'moduleName': 'Safetybeat'
+        }
+        this.adminServices.viewEntities(data).subscribe(res=>{
+          debugger;
+        })
         this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
       }
       else if(this.entityResponse.responseDetails.code=='0013'){
