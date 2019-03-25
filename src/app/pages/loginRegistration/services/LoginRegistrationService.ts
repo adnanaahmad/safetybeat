@@ -12,6 +12,7 @@ import {
 import { map, catchError } from "rxjs/operators";
 import { LoggingService } from "src/app/shared/logging/logging.service";
 import { CoreService } from "src/app/core/services/authorization/core.service";
+import { resetPassword } from 'src/app/models/profile.model';
 
 @Injectable({ providedIn: "root" })
 export class LoginRegistrationService {
@@ -80,6 +81,10 @@ export class LoginRegistrationService {
     ).pipe(catchError(this.coreServices.handleError));
   }
 
+  resetPassword(data:resetPassword){
+    return this.http.post(ConstantService.apiRoutes.forgotPassword,data).pipe(catchError(this.coreServices.handleError));
+  }
+
   resendemail(data) {
     return this.http.post(ConstantService.apiRoutes.resendverification, data).pipe(catchError(this.coreServices.handleError));
   }
@@ -100,4 +105,5 @@ export class LoginRegistrationService {
   getToken() {
     return localStorage.getItem(this.storageKey);
   }
+
 }

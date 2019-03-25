@@ -56,8 +56,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.forgotService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.status) {
-          group.controls.email.setErrors({ exists: true })
+        if (this.success.responseDetails.code == '0020') {
+          group.controls.email.setErrors({ exists: false });
         }
       });
     }

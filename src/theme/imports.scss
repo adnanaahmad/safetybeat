@@ -43,4 +43,5 @@
   @include amte-notfound($primary, $accent, $warn);
   @include amte-entityControl($primary, $accent, $warn);
   @include amte-alertModal($primary, &accent, &warn);
+  @include amte-passwordRecovery($primary, &accent, &warn);
 }
