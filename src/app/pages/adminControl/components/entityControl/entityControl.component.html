@@ -8,7 +8,7 @@
       <mat-icon>{{ appIcons.joinEntity }}</mat-icon>
       {{ translated.BUTTONS.JOIN_ENTITY }}
     </button>
-    <button btn-primary mat-raised-button color="primary" (click)="createEntity()">
+    <button btn-primary mat-raised-button color="primary" *ngIf="createEntityOption" (click)="createEntity()">
       <mat-icon>{{ appIcons.createEntity }}</mat-icon>
       {{ translated.BUTTONS.CREATE_ENTITY }}
     </button>
@@ -19,14 +19,14 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ translated.TABLEHEADINGS.ENTITY_NAME }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.entityInfo.name }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.entity.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="headOffice">
       <th mat-header-cell *matHeaderCellDef>
         {{ translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.entityInfo.headOffice }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.entity.headOffice }}</td>
     </ng-container>
 
     <ng-container matColumnDef="role">

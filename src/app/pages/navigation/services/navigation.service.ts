@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd, Event } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ConstantService } from '../../../shared/constant/constant.service';
+import { EntityUserData } from 'src/app/models/userEntityData.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,10 @@ export class NavigationService {
 
   public sideNav: any;
   public currentUrl = new BehaviorSubject<string>(undefined);
-
+  private entitySelectedRole = new BehaviorSubject<string>("default Role");
+  currentRole = this.entitySelectedRole.asObservable();
+  private dataSource = new BehaviorSubject<object>({});
+  data = this.dataSource.asObservable();
   constructor(
     private http: HttpClient,
     private router: Router) {
@@ -37,6 +41,15 @@ export class NavigationService {
   }
   inviteUser(data) {
     return this.http.post(ConstantService.apiRoutes.getInvite, data)
+  }
+  changeRole(role:string){
+    this.entitySelectedRole.next(role);
+  }
+
+  changeEntites(entitiesInfo:object){
+    debugger;
+    this.dataSource.next(entitiesInfo);
+    console.log(this.dataSource)
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Input } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -7,6 +7,7 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { entity, entityData } from 'src/app/models/entity.model';
 import { AdminControlService } from '../../services/adminControl.service';
 import { MatDialogRef } from '@angular/material';
+import { InvokeFunctionExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-createEntity',
@@ -16,6 +17,7 @@ import { MatDialogRef } from '@angular/material';
 export class CreateEntityComponent implements OnInit {
   translated: Translation;
   appConstants:any;
+  @Input() entitySelected;
   public title = 'Places';
   public addrKeys: string[];
   public addr: object;
@@ -47,6 +49,7 @@ export class CreateEntityComponent implements OnInit {
       headOffice: ['', Validators.required],
       status: false
     });
+    console.log(this.entitySelected);
   }
 
   setAddress(addrObj) {

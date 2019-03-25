@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,13 +6,12 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { NavItem } from 'src/app/models/navItems.model';
-import * as _ from 'lodash';
-import { share } from 'rxjs/operators';
+import { findIndex } from 'lodash';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { Router } from '@angular/router';
 import { EntityUserData } from 'src/app/models/userEntityData.model';
-import { disableDebugTools } from '@angular/platform-browser';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-navigation',
@@ -21,11 +20,12 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent implements OnInit, OnDestroy {
+  @Output() entitySelected =  new EventEmitter();;
   translated: Translation;
   appIcons: any;
   empty: boolean = false;
   navLinks: NavItem[] = [];
-  entitiesList: string;
+  entitiesList: any;
   entitesName: any = [];
   abc: any;
   allEntitiesData: any;
@@ -40,7 +40,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public adminServices: AdminControlService,
     private logging: LoggingService,
     private router: Router,
-    public compiler: CompilerProvider
+    public compiler: CompilerProvider,
+    private navService: NavigationService
   ) {
     translate
       .get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
@@ -57,11 +58,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.entityUserData = JSON.parse(localStorage.getItem("entityUserData"));
-    let index = _.findIndex(this.entityUserData.entities, function(entity){
+    let index = findIndex(this.entityUserData.entities, function(entity){
       return entity.active===true
     });
-    this.selectedEntity = (index!=-1)?this.entityUserData.entities[index]:this.entityUserData.entities[0]
-    this.switchSideMenu(this.selectedEntity)
+    this.selectedEntity = (index!=-1)?this.entityUserData.entities[index]:this.entityUserData.entities[0];
+    this.switchSideMenu(this.selectedEntity);
+    this.viewAllEntities();
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
@@ -132,6 +134,23 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   switchSideMenu(data: any) {
     this.Entity = data;
+    this.navService.changeRole(this.Entity.role);
     this.navLinks = this.compiler.switchSideMenuDefault(data)
+  }
+
+  viewAllEntities() {
+    // var data = {
+    //   'moduleName': 'Safetybeat'
+    // };
+    // this.adminServices.viewEntities(data).subscribe((res)=>{
+    //   this.entitiesList = res;
+    //   this.allEntitiesData = this.entitiesList.data.result;
+    // })
+    this.navService.data.subscribe((res)=>{
+      debugger;
+      this.allEntitiesData = res;
+    }),(error)=>{
+      debugger;
+    }
   }
 }

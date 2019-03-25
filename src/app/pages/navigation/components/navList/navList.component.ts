@@ -5,7 +5,7 @@ import { NavigationService } from "../../services/navigation.service";
 import { MatDialogConfig, MatDialog } from "@angular/material";
 import { InviteUserModalComponent } from "../inviteUserModal/inviteUserModal.component";
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import * as _ from 'lodash'
+import { forEach } from 'lodash';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
@@ -47,7 +47,7 @@ export class NavListComponent implements OnInit {
     this.navService.getRoles().subscribe((res) => {
       this.roles = res;
       var self = this;
-      _.forEach(this.roles, function (obj) {
+      forEach(this.roles, function (obj) {
         obj.name = self.compiler.insertSpaces(obj.name)
       })
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ROLES_RECIEVED);
@@ -56,6 +56,7 @@ export class NavListComponent implements OnInit {
     })
   }
   onItemSelected(navLinks: NavItem) {
+    debugger
     if (!navLinks.children || !navLinks.children.length) {
       this.router.navigate([navLinks.route]);
     }
@@ -66,21 +67,21 @@ export class NavListComponent implements OnInit {
   customActions(displayName) {
     switch (displayName) {
       case 'Invite Users':
-        this.inviteUserModal();
+        this.inviteUserModal(this.selectedEntity.entityInfo.id);
         break;
       case 'Analytics Reports':
-       this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
+        this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
         break;
       default:
         break;
     }
   }
 
-  inviteUserModal() {
+  inviteUserModal(entityId) {
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.closeOnNavigation = false;
-    this.dialog.open(InviteUserModalComponent, { data: this.roles });
+    this.dialog.open(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
   }
 
 }

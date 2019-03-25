@@ -19,11 +19,12 @@ export class InviteUserModalComponent implements OnInit {
   inviteUserForm: FormGroup;
   email: FormGroup;
   success: any;
- 
+
   roleList = [
     'user', 'owner', 'teamLead'
   ]
   InviteUserData: any;
+  entityID: any;
   constructor(
     public dialogRef: MatDialogRef<InviteUserModalComponent>,
     private translate: TranslateService,
@@ -37,7 +38,8 @@ export class InviteUserModalComponent implements OnInit {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
     });
     this.appConstants = ConstantService.appConstant;
-    this.roleList = this.data
+    this.roleList = this.data.role
+    this.entityID = this.data.entityId
   }
 
   ngOnInit() {
@@ -51,7 +53,7 @@ export class InviteUserModalComponent implements OnInit {
 
   get formValidation() { return this.inviteUserForm.controls; }
 
-  
+
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -74,8 +76,9 @@ export class InviteUserModalComponent implements OnInit {
       email: value.email,
       invitation: true,
       roleId: value.role,
-      contactNo:'545535456',
-      moduleName: "Safetybeat"
+      contactNo: '545535456',
+      moduleName: "Safetybeat",
+      entityId: this.entityID
     }
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);

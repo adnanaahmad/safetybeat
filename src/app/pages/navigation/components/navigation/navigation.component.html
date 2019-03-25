@@ -1,6 +1,6 @@
 <div class="container">
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
-    (switchNavListDefault)="switchListDefault(Entity)"></app-fixed-nav>
+    (switchNavListDefault)="switchListDefault(Entity)" [selectedEntity]="Entity"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
       <div>
@@ -8,7 +8,7 @@
       </div>
       <mat-form-field class="entity-switcher">
         <mat-select [(value)]="selectedEntity" (selectionChange)="switchSideMenu(selectedEntity)">
-          <mat-option *ngFor="let entity of entityUserData.entities" [value]="entity">{{entity.entityInfo.name}}</mat-option>
+          <mat-option *ngFor="let entity of entityUserData" [value]="entity">{{entity.entityInfo.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-nav-list>
