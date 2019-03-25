@@ -4,13 +4,21 @@
     <img src="assets/images/safetybeat-icon-primary.png" />
   </mat-grid-tile>
   <mat-grid-tile>
-    <div class="loginbox">
-      <h3>Welcome to SafetyBeat</h3>
-      <p>
-        All your safety measures now in one simple app – it now takes seconds to
-        reach out to your workers, know they are safe and know where they are.
-      </p>
-      <button mat-raised-button routerLink="/welcomeScreen/entityCreation">Next</button>
-    </div>
+    <mat-tab-group>
+      <mat-tab label="First">
+        <div class="loginbox">
+          <h3>Welcome to SafetyBeat</h3>
+          <p>
+            All your safety measures now in one simple app – it now takes
+            seconds to reach out to your workers, know they are safe and know
+            where they are.
+          </p>
+          <button mat-raised-button routerLink="/welcomeScreen/entityCreation">Next</button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Second">
+        heheh
+      </mat-tab>
+    </mat-tab-group>
   </mat-grid-tile>
 </mat-grid-list>

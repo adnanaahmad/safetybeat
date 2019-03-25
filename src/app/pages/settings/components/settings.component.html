@@ -1,83 +1,224 @@
 <div class="paddingbox theme-selector">
-  <!-- <mat-list class="theme-selector">
-    <h3 mat-subheader>{{translated.SITETITLE.SETTINGS_TITLE}}</h3>
-    <mat-card>
-      <mat-list-item>
-        <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
-          <mat-radio-button value={{appTheme.lightTheme}}>{{translated.STRINGS.LIGHTDEFAULT}}</mat-radio-button>
-          <mat-radio-button value={{appTheme.darkTheme}}>{{translated.STRINGS.EVILDARK}}</mat-radio-button>
-          <mat-radio-button value={{appTheme.oliveLight}}>{{translated.STRINGS.OLIVEGREEN}}</mat-radio-button>
-          <mat-radio-button value={{appTheme.darkForest}}>{{translated.STRINGS.DARKFOREST}}</mat-radio-button>
-        </mat-radio-group>
-      </mat-list-item>
-    </mat-card>
-    <br>
-  </mat-list> -->
   <div class="page-title">
     <h3>{{ translated.SITETITLE.SETTINGS_TITLE }}</h3>
     <p>{{ translated.SITETITLE.SETTINGS_DESCRIPTION }}</p>
   </div>
   <div class="clearfix"></div>
   <div class="flexbox">
-  <div class="navigator">
-    <mat-list role="list">
-      <mat-list-item role="listitem">
-        <a href=""><mat-icon>settings</mat-icon> General</a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-          <a href=""><mat-icon>security</mat-icon> Security</a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-          <a href=""><mat-icon>business</mat-icon>Organization info</a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-          <a href=""><mat-icon>group_add</mat-icon> Create Group</a>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-          <a href=""><mat-icon>network_locked</mat-icon> Group Permissions</a>
+    <div class="navigator">
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('general')" ngClass="settingFeatures.general"><mat-icon>settings</mat-icon> General</span>
         </mat-list-item>
-      <mat-list-item role="listitem">
-          <a href=""><mat-icon>screen_lock_portrait</mat-icon> Privacy settings</a>
-      </mat-list-item>
-    </mat-list>
-  </div>
-  <div class="settings-wrap">
-    <h3 class="setting-title">Organization info</h3>
-    <p>Change or view your organization information</p>
-    <mat-list role="list" class="settings-list">
-      <mat-list-item role="listitem">
-        <label>Organization detail</label>
-        <input type="text" class="showonly" placeholder="BlueSky Software" />
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <label>Name</label>
-        <input type="text" class="showonly" placeholder="BlueSky Software" />
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <label>City</label>
-        <input type="text" class="showonly" placeholder="Lahore" />
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <label>Country</label>
-        <input type="text" class="showonly" placeholder="Pakistan" />
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <label>Contact Number</label>
-        <input type="text" class="showonly" placeholder="+923157118511" />
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <label>Billing info</label>
-        <input
-          type="text"
-          class="showonly"
-          placeholder="201, 2nd floor, Siddiq Trade Centre, Lahore"
-        />
-      </mat-list-item>
-    </mat-list>
-    <div class="btn-grp">
-      <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
-      <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('security')"><mat-icon>security</mat-icon> Security</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('organization')"><mat-icon>business</mat-icon>Organization Info</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('group')"><mat-icon>group_add</mat-icon> Create Group</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('privacy')"><mat-icon>screen_lock_portrait</mat-icon> Privacy Settings</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('theme')"><mat-icon>brightness_medium</mat-icon> Theme Settings</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="settings-wrap">
+      <!--General Settings-->
+      <div *ngIf="settingFeatures.general">
+        <mat-card>
+          <h3 class="setting-title">Organization info</h3>
+          <p>Change or view your organization information</p>
+          <mat-list role="list" class="settings-list">
+            <mat-list-item role="listitem">
+              <label>Organization detail</label>
+              <input type="text" class="showonly" placeholder="BlueSky Software"/>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Name</label>
+              <input type="text" class="showonly" placeholder="BlueSky Software"/>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>City</label>
+              <input type="text" class="showonly" placeholder="Lahore" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Country</label>
+              <input type="text" class="showonly" placeholder="Pakistan" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Contact Number</label>
+              <input type="text" class="showonly" placeholder="+923157118511" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Billing info</label>
+              <input type="text" class="showonly" placeholder="201, 2nd floor, Siddiq Trade Centre, Lahore" />
+            </mat-list-item>
+          </mat-list>
+          <div class="btn-grp">
+            <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
+            <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+          </div>
+        </mat-card>
+      </div>
+
+      <!--Security Settings-->
+      <div *ngIf="settingFeatures.security">
+        <mat-card>
+          <h3 class="setting-title">Security Settings</h3>
+          <p>Change your account security settings</p>
+          <mat-list role="list" class="settings-list">
+            <mat-list-item role="listitem">
+              <label>Change Password</label>
+              <input type="text" class="showonly" placeholder="******" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Confirm Password</label>
+              <input type="text" class="showonly" placeholder="BlueSky Software"/>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 1</label>
+              <input type="text" class="showonly" placeholder="Where did you born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 2</label>
+              <input type="text" class="showonly" placeholder="Where did your father born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Contact Number</label>
+              <input type="text" class="showonly" placeholder="+923157118511" />
+            </mat-list-item>
+          </mat-list>
+          <div class="btn-grp">
+            <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
+            <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+          </div>
+        </mat-card>
+      </div>
+
+      <!--Organization Settings-->
+      <div *ngIf="settingFeatures.organization">
+        <mat-card>
+          <h3 class="setting-title">Organization Info</h3>
+          <p>Change your organization info settings</p>
+          <mat-list role="list" class="settings-list">
+            <mat-list-item role="listitem">
+              <label>Change Password</label>
+              <input type="text" class="showonly" placeholder="******" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Confirm Password</label>
+              <input type="text" class="showonly" placeholder="BlueSky Software" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 1</label>
+              <input type="text" class="showonly" placeholder="Where did you born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 2</label>
+              <input type="text" class="showonly" placeholder="Where did your father born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Contact Number</label>
+              <input type="text" class="showonly" placeholder="+923157118511" />
+            </mat-list-item>
+          </mat-list>
+          <div class="btn-grp">
+            <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
+            <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+          </div>
+        </mat-card>
+      </div>
+
+      <!--Group Settings-->
+      <div *ngIf="settingFeatures.group">
+        <mat-card>
+          <h3 class="setting-title">Group Settings</h3>
+          <p>Create groups or change group permissions</p>
+          <mat-list role="list" class="settings-list">
+            <mat-list-item role="listitem">
+              <label>Change Password</label>
+              <input type="text" class="showonly" placeholder="******" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Confirm Password</label>
+              <input type="text" class="showonly" placeholder="BlueSky Software" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 1</label>
+              <input type="text" class="showonly" placeholder="Where did you born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 2</label>
+              <input type="text" class="showonly" placeholder="Where did your father born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Contact Number</label>
+              <input type="text" class="showonly" placeholder="+923157118511" />
+            </mat-list-item>
+          </mat-list>
+          <div class="btn-grp">
+            <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
+            <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+          </div>
+        </mat-card>
+      </div>
+
+      <!--Privacy Settings-->
+      <div *ngIf="settingFeatures.privacy">
+        <mat-card>
+          <h3 class="setting-title">Privacy Setting</h3>
+          <p>Choose privacy setting for your account</p>
+          <mat-list role="list" class="settings-list">
+            <mat-list-item role="listitem">
+              <label>Change Password</label>
+              <input type="text" class="showonly" placeholder="******" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Confirm Password</label>
+              <input type="text" class="showonly" placeholder="BlueSky Software" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 1</label>
+              <input type="text" class="showonly" placeholder="Where did you born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Security Question 2</label>
+              <input type="text" class="showonly" placeholder="Where did your father born?" />
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <label>Contact Number</label>
+              <input type="text" class="showonly" placeholder="+923157118511" />
+            </mat-list-item>
+          </mat-list>
+          <div class="btn-grp">
+            <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
+            <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+          </div>
+        </mat-card>
+      </div>
+
+      <!--Change Theme-->
+      <div *ngIf="settingFeatures.theme">
+        <mat-card>
+          <h3 class="setting-title">Change Theme</h3>
+          <p>Change your account theme</p>
+          <mat-list role="list" class="settings-list theme-selector">
+            <mat-list-item>
+              <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
+                <mat-radio-button value="{{ appTheme.lightTheme }}">{{translated.STRINGS.LIGHTDEFAULT}}</mat-radio-button>
+                <mat-radio-button value="{{ appTheme.darkTheme }}">{{translated.STRINGS.EVILDARK}}</mat-radio-button>
+                <mat-radio-button value="{{ appTheme.oliveLight }}">{{translated.STRINGS.OLIVEGREEN}}</mat-radio-button>
+                <mat-radio-button value="{{ appTheme.darkForest }}">{{translated.STRINGS.DARKFOREST}}</mat-radio-button>
+              </mat-radio-group>
+            </mat-list-item>
+          </mat-list>
+        </mat-card>
+      </div>
     </div>
   </div>
-</div>
 </div>

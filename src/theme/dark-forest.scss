@@ -263,5 +263,23 @@ $theme: createTheme($primary, $secondary, $warn);
       border-bottom-color: mat-color($primary);
     }
   }
+  app-settings{
+    .navigator{
+      background: mat-color($primary-pallet, 800);
+      mat-list-item{
+        span{
+          color: #fff !important;
+          &:hover, &.active{
+            background: mat-color($primary-pallet, 400);
+          }
+        }
+      }
+    }
+    .settings-wrap{
+      .mat-list-item{
+        border-color: mat-color($primary-pallet, 400) !important;
+      }
+    }
+  }
   @include amte-setTheme($theme);
 }

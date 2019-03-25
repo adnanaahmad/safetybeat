@@ -185,5 +185,24 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
+  app-settings{
+    .navigator{
+      background: mat-color($primary-pallet, 50);
+      mat-list-item{
+        span{
+          &:hover, &.active{
+            background: mat-color($primary-pallet, 500);
+            color: #fff;
+            .mat-icon{
+              color:#fff;
+            }
+          }
+        }
+      }
+      .mat-icon{
+        color:mat-color($primary-pallet, 500);
+      }
+    }
+  }
   @include amte-setTheme($light-theme);
 }

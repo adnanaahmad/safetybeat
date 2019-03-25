@@ -5,6 +5,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Translation } from "src/app/models/translate.model";
 import { ConstantService } from "src/app/shared/constant/constant.service";
 import { LoggingService } from 'src/app/shared/logging/logging.service';
+import {forEach} from 'lodash';
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.component.html",
@@ -16,6 +17,7 @@ export class SettingsComponent implements OnInit {
   appIcons: any;
   appConstants: any;
   appTheme: any;
+  settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "privacy": false, "theme": false};
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
@@ -47,5 +49,16 @@ export class SettingsComponent implements OnInit {
       }
     });
     this.overlay.getContainerElement().classList.add(this.themeSelected);
+  }
+
+  changeSetting(settings: any) {
+    var self = this
+    forEach(this.settingFeatures, function (value, key) {
+      if (key === settings) {
+        self.settingFeatures[key] = true;
+      } else {
+        self.settingFeatures[key] = false;
+      }
+    })
   }
 }

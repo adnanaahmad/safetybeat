@@ -301,5 +301,18 @@ $theme: createTheme($primary, $secondary, $warn);
       border-bottom-color: mat-color($primary, 400);
     }
   }
+  app-settings{
+    .navigator{
+      background: mat-color($primary-pallet, 400);
+      mat-list-item{
+        span{
+          color: #fff !important;
+          &:hover, &.active{
+            background: mat-color($primary-pallet, 500);
+          }
+        }
+      }
+    }
+  }
   @include amte-setTheme($theme);
 }
