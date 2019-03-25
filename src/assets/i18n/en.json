@@ -227,10 +227,18 @@
       "PASSWORDCHANGE": "Change password load success",
       "SETTING_COMPONENT": "Settings load success",
       "CREATEENTITY_ERROR": "Entity details are required to create an entity",
-      "INVITEUSER_ERROR":"User details are required to Invite a user",
+      "INVITEUSER_ERROR": "User details are required to Invite a user",
       "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again.",
       "ROLES_RECIEVED": "Roles recieved",
       "ROLES_RECIEVED_ERROR": "Error recieving roles"
     }
+  },
+  "STATUS": {
+    "DEFAULT": "DEFAULT",
+    "INFO": "INFO",
+    "SUCCESS": "SUCCESS",
+    "WARNING": "WARNING",
+    "ERROR": "ERROR",
+    "CUSTOM": "CUSTOM"
   }
 }

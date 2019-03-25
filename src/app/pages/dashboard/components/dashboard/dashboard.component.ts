@@ -2,14 +2,13 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Cha
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Translation } from 'src/app/models/translate.model';
-import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Chart } from 'angular-highcharts'
 import * as Highcharts from 'highcharts';
-import { Router } from '@angular/router';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { OrgRegistrationComponent } from 'src/app/pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -22,24 +21,20 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   option4: object;
   translated: Translation
   constructor(
-    private route: Router,
-    public translate: TranslateService,
     private logging: LoggingService,
     public dialog: MatDialog,
+    public helperService: HelperService
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
-      .subscribe(values => {
-        this.translated = values;
-        this.logging.appLoggerForDev(
-          this.translated.LOGGER.STATUS.SUCCESS,
-          this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
-        );
-      });
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        dialogConfig.closeOnNavigation = false;
-        this.dialog.open(OrgRegistrationComponent);
+    this.translated = this.helperService.translation;
+    this.logging.appLoggerForDev(
+      this.translated.LOGGER.STATUS.SUCCESS,
+      this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
+    );
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.closeOnNavigation = false;
+    this.dialog.open(OrgRegistrationComponent);
     this.option1 = {
       chart: {
         plotBackgroundColor: null,

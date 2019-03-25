@@ -6,9 +6,7 @@ import { ConstantService } from '../constant/constant.service';
 })
 export class LoggingService {
     constructor(private notifier: NotifierService,
-        // public constants :
     ) {
-        this.notifier = notifier;
     }
     hideAllAppLoggers(): void {
         this.notifier.hideAll();

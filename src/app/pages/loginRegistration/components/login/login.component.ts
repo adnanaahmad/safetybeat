@@ -1,17 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { loginCredentials } from 'src/app/models/user.model';
-import { ToastService } from 'src/app/shared/toast/toast.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-import { HttpClient } from '@angular/common/http';
-
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -32,16 +29,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     public router: Router,
     public loginService: LoginRegistrationService,
-    public translate: TranslateService,
-    public toastProvider: ToastService,
+    public helperService: HelperService,
     private logging: LoggingService,
     private compiler: CompilerProvider,
-    private http:HttpClient
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
-    });
+    this.translated = this.helperService.translation;
+    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
     this.appConstants = ConstantService.appConstant;
   }
   ngOnInit() {
@@ -78,32 +71,34 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.loginService.loginUser(value)
-      .subscribe(
-        (data) => {
-          if (data.responseDetails.code === '0000') {
-            this.data = data;
-            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
-            data ? this.loginService.setToken(this.data.data.token) : this.loginService.setToken('');
-            let entityUserData = this.compiler.constructUserEntityData(this.data.data);
-            localStorage.setItem('entityUserData', JSON.stringify(entityUserData));
-            this.toastProvider.createSuccessToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG);
-            this.router.navigate(['/home']);
-          } else if (data.responseDetails.code === '0001') {
-            this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
-            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
-            this.loading = false;
-          } else if (data.responseDetails.code === '0002') {
-            this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
-            this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
-            this.loading = false;
-          }
-        },
-        (error) => {
-          this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, error);
-          this.loading = false;
-          this.toastProvider.createErrorToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG);
+    this.loginService.loginUser(value).subscribe((data) => {
+      if (data.responseDetails.code === '0000') {
+        this.data = data;
+        data ? this.loginService.setToken(this.data.data.token) : this.loginService.setToken('');
+        if (this.data.data.result.length == 0) {
+          this.router.navigate(['/welcomeScreen']);
+        } else {
+          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGGEDIN);
+          let entityUserData = this.compiler.constructUserEntityData(this.data.data);
+          this.loginService.setEntityData(JSON.stringify(entityUserData))
+          this.helperService.createToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.translated.STATUS.SUCCESS)
+          this.router.navigate(['/home']);
         }
-      );
+      } else if (data.responseDetails.code === '0001') {
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+        this.loading = false;
+      } else if (data.responseDetails.code === '0002') {
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, data.responseDetails.message);
+        this.loading = false;
+      }
+    },
+      (error) => {
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, error);
+        this.loading = false;
+        this.helperService.createToaster(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG, this.translated.STATUS.ERROR)
+      }
+    );
   }
 }

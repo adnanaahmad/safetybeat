@@ -8,6 +8,7 @@ import { createTranslateLoader } from 'src/app/app.module';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { async } from 'q';
 import { inject } from '@angular/core';
+import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 describe('CoreService', () => {
     let router: Router;
@@ -15,7 +16,7 @@ describe('CoreService', () => {
     let service: CoreService;
     let httpTestingController: HttpTestingController;
     let http: HttpClient;
-    const storageKey = 'token';
+    const storageKey = ConstantService.localStorageKeys.token;
     const tokenSecret = 'this-is-a-test-secret';
     beforeEach(() => {
         TestBed.configureTestingModule({

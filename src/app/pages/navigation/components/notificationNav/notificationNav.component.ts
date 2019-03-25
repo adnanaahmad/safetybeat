@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { Translation } from 'src/app/models/translate.model';
 
 @Component({
   selector: 'app-notificationNav',
@@ -6,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notificationNav.component.scss']
 })
 export class NotificationNavComponent implements OnInit {
+  translated: Translation;
 
-  constructor() { }
+  constructor(
+    public helperService: HelperService,
+  ) {
+    this.translated = this.helperService.translation;
+  }
 
   ngOnInit() {
   }

@@ -2,16 +2,15 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { share } from 'rxjs/operators';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditUser } from 'src/app/models/profile.model';
-import { ToastService } from 'src/app/shared/toast/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { ModalDialogComponent } from '../changePasswordModal/changePasswordModal.component';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import * as _ from 'lodash';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-profile',
@@ -45,19 +44,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private profile: ProfileService,
     private logging: LoggingService,
-    private translate: TranslateService,
     private formBuilder: FormBuilder,
-    public toastProvider: ToastService,
     public dialog: MatDialog,
-    public adminServices: AdminControlService
+    public adminServices: AdminControlService,
+    public helperService: HelperService
   ) {
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES', 'STRINGS']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
-    });
+    this.translated = this.helperService.translation;
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
     this.appIcons = ConstantService.appIcons;
     this.appConstants = ConstantService.appConstant;
-    this.profileData = JSON.parse(localStorage.getItem('entityUserData'));
+    this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
     this.user_id = this.profileData.user.id;
     this.userData = this.getUserData();
   }
@@ -145,7 +141,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.editUser(this.user_id, value).subscribe((data) => {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
-      this.toastProvider.createSuccessToaster(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
+      this.helperService.createToaster(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.translated.STATUS.SUCCESS)
       this.getUserData();
     },
       (error) => {

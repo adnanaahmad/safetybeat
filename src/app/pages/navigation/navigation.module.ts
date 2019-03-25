@@ -14,7 +14,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
     FixedNavComponent,
     NavListComponent,
     NavigationComponent,
-    NotificationNavComponent
+    NotificationNavComponent,
   ],
   imports: [
     CommonModule,
