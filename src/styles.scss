@@ -20,6 +20,9 @@ body {
 * {
   font-family: "Montserrat", sans-serif;
 }
+.app-content{
+  overflow-x: hidden !important;
+}
 .paragraph {
   line-height: 1.7;
 }

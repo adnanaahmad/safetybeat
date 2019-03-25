@@ -187,7 +187,6 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   }
   app-settings{
     .navigator{
-      background: mat-color($primary-pallet, 50);
       mat-list-item{
         span{
           &:hover, &.active{

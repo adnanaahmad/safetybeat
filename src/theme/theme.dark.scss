@@ -303,7 +303,6 @@ $theme: createTheme($primary, $secondary, $warn);
   }
   app-settings{
     .navigator{
-      background: mat-color($primary-pallet, 400);
       mat-list-item{
         span{
           color: #fff !important;
