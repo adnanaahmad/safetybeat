@@ -19,7 +19,7 @@ import { NavigationService } from '../../services/navigation.service';
   styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent implements OnInit, OnDestroy,AfterViewInit {
+export class NavigationComponent implements OnInit, OnDestroy {
   @Output() entitySelected =  new EventEmitter();;
   translated: Translation;
   appIcons: any;
@@ -34,6 +34,9 @@ export class NavigationComponent implements OnInit, OnDestroy,AfterViewInit {
   entityUserData: EntityUserData;
   selectedEntity;
   Entity: any;
+  moduleData = {
+    'moduleName': 'Safetybeat'
+  }
   constructor(
     public core: CoreService,
     public translate: TranslateService,
@@ -57,21 +60,29 @@ export class NavigationComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
   ngOnInit() {
+    debugger
+    // this.viewAllEntities();
   }
   ngAfterViewInit(){
-    this.viewAllEntities();
     this.navService.data.subscribe((res)=>{
-      debugger;
-      this.allEntitiesData = res;
-      this.entityUserData = this.allEntitiesData.entities;
-      let index = findIndex(this.entityUserData, function(entity){
-        return entity.active===true
-      });
-      this.selectedEntity = (index!=-1)?this.entityUserData[index]:this.entityUserData[0];
-      this.switchSideMenu(this.selectedEntity);
-    }),(error)=>{
-      debugger;
-    }
+      if(res!==1){
+        debugger;
+        this.allEntitiesData = res;
+        this.entityUserData = this.allEntitiesData.entities;
+        let index = findIndex(this.entityUserData, function(entity){
+          return entity.active===true
+        });
+        this.selectedEntity = (index!=-1)?this.entityUserData[index]:this.entityUserData[0];
+        this.switchSideMenu(this.selectedEntity);
+      } else {
+        this.adminServices.viewEntities(this.moduleData).subscribe((entitesData)=>{
+          this.allEntitiesData = entitesData;
+          this.entityUserData = this.compiler.constructUserEntityData(this.allEntitiesData.data.result);
+          this.navService.changeEntites(this.entityUserData);
+        })
+      }
+
+    })
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
@@ -141,8 +152,10 @@ export class NavigationComponent implements OnInit, OnDestroy,AfterViewInit {
       'moduleName': 'Safetybeat'
     };
     this.adminServices.viewEntities(data).subscribe((res)=>{
+      debugger
       this.entitiesList = res;
-      this.allEntitiesData = this.entitiesList.data.result;
+      this.entityUserData = this.entitiesList.data.result;
+      this.navService.changeEntites(this.entityUserData);
     })
   }
   switchListDefault(data) {
