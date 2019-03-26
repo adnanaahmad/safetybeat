@@ -63,6 +63,8 @@ export class InviteUserModalComponent implements OnInit {
         if (this.success.responseDetails.code == '0020') {
           group.controls.email.setErrors({ exists: true })
         }
+      }, err => {
+        this.helperService.logoutError(err.status)
       });
     }
   }
@@ -90,6 +92,8 @@ export class InviteUserModalComponent implements OnInit {
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, "User has been successfully Invited.");
     }, (err) => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, "Error inviting user.");
+      this.dialogRef.close();
+      this.helperService.logoutError(err.status)
     })
   }
 

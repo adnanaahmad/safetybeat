@@ -1,12 +1,7 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { Chart } from 'angular-highcharts'
 import * as Highcharts from 'highcharts';
-import { MatDialogConfig, MatDialog } from '@angular/material';
 import { OrgRegistrationComponent } from 'src/app/pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 @Component({
@@ -22,7 +17,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   translated: Translation
   constructor(
     private logging: LoggingService,
-    public dialog: MatDialog,
     public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
@@ -30,11 +24,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.translated.LOGGER.STATUS.SUCCESS,
       this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
     );
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.closeOnNavigation = false;
-    this.dialog.open(OrgRegistrationComponent);
+    this.helperService.createModal(OrgRegistrationComponent)
+
+
     this.option1 = {
       chart: {
         plotBackgroundColor: null,

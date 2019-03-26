@@ -5,7 +5,6 @@ import { NavigationService } from '../../services/navigation.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { InviteUserModalComponent } from '../inviteUserModal/inviteUserModal.component';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import * as _ from 'lodash'
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -45,12 +44,13 @@ export class NavListComponent implements OnInit {
     this.navService.getRoles().subscribe((res) => {
       this.roles = res;
       var self = this;
-      _.forEach(this.roles, function (obj) {
+      this.helperService.iterations(this.roles, function (obj) {
         obj.name = self.compiler.insertSpaces(obj.name)
       })
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ROLES_RECIEVED);
     }, (err) => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ROLES_RECIEVED_ERROR);
+      this.helperService.logoutError(err.status);
     })
   }
   onItemSelected(navLinks: NavItem) {
@@ -75,10 +75,7 @@ export class NavListComponent implements OnInit {
   }
 
   inviteUserModal(entityId) {
-    this.dialogConfig.disableClose = true;
-    this.dialogConfig.autoFocus = true;
-    this.dialogConfig.closeOnNavigation = false;
-    this.dialog.open(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
+    this.helperService.createModal(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
   }
 
 }

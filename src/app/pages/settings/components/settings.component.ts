@@ -38,11 +38,12 @@ export class SettingsComponent implements OnInit {
 
   changed() {
     this.settings.setActiveTheme(this.themeSelected);
-    this.overlay.getContainerElement().classList.forEach((value, index) => {
+    var self = this;
+    this.helperService.iterations(this.overlay.getContainerElement().classList, function (value, index) {
       if (index !== 0) {
-        this.overlay.getContainerElement().classList.remove(value);
+        self.overlay.getContainerElement().classList.remove(value);
       }
-    });
+    })
     this.overlay.getContainerElement().classList.add(this.themeSelected);
   }
 

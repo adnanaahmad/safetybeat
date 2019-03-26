@@ -21,7 +21,7 @@ export class LoginRegistrationService {
   reset_success: string;
   reset_msg: string;
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     public coreServices: CoreService) { }
   /**
    * login user api is called here and api url comes from constant service and login data that comes from
