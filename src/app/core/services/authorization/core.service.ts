@@ -20,7 +20,7 @@ export class CoreService {
         private translate: TranslateService,
         private cookies: CookieService
     ) {
-        this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES','STATUS']).subscribe((values) => {
+        this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'STATUS']).subscribe((values) => {
             this.translated = values;
             this.logout_success = values.MESSAGES.LOGOUT_SUCCESS;
             this.logout_msg = values.MESSAGES.LOGOUT_MSG;
@@ -34,7 +34,7 @@ export class CoreService {
         sessionStorage.clear();
         this.cookies.delete('sessionid');
         this.cookies.deleteAll();
-        this.helperService.createToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG,this.translated.STATUS.WARNING)
+        this.helperService.createToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.translated.STATUS.WARNING)
         this.router.navigate(['/login']);
     }
     /**
@@ -80,10 +80,9 @@ export class CoreService {
             console.error(
                 `Backend returned code ${error.status}, ` +
                 `body was: ${error.message}`);
-
         }
         // return an observable with a user-facing error message
-        return throwError(
-            'Something bad happened; please try again later.');
+        debugger
+        return throwError({ error: "Something bad happened; please try again later.", status: error.status })
     };
 }

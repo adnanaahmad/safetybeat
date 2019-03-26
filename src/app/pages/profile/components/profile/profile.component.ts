@@ -87,6 +87,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.PROFILE_ERROR +
         this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+      this.helperService.logoutError(error.status)
     });
     return this.dataRecieved;
   }
@@ -144,6 +145,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
           this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
         this.logging.appLoggerForDev(this.translated.MESSAGES.LOGIN_FAIL, this.translated.LOGGER.MESSAGES.PROFILE_NOTUPDATED);
+        this.helperService.logoutError(error.status)
       }
     )
   };

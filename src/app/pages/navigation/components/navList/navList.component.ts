@@ -50,6 +50,7 @@ export class NavListComponent implements OnInit {
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ROLES_RECIEVED);
     }, (err) => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ROLES_RECIEVED_ERROR);
+      this.helperService.logoutError(err.status);
     })
   }
   onItemSelected(navLinks: NavItem) {

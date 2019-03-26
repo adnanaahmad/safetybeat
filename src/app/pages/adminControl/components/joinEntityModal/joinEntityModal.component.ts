@@ -70,7 +70,7 @@ export class JoinEntityModalComponent implements OnInit {
       }
     }, (error) => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, "You can not joined entity.");
-
+      this.helperService.logoutError(error.status)
     })
 
   }

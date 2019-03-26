@@ -66,6 +66,8 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
         error => {
           this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
             this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+            this.onNoClick();
+          this.helperService.logoutError(error.status)
         });
   }
 

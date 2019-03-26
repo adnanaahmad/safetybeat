@@ -11,7 +11,6 @@ import { CreateEntityComponent } from '../createEntityModal/createEntity.compone
 import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { AdminControlService } from '../../services/adminControl.service';
-import * as _ from 'lodash';
 import { share } from 'rxjs/operators';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -71,6 +70,8 @@ export class EntityControlComponent implements OnInit {
       localStorage.setItem("entities", JSON.stringify(this.entitiesList));
       this.dataSource = new MatTableDataSource(this.entitiesList);
       this.dataSource.paginator = this.paginator;
+    }, error => {
+      this.helperService.logoutError(error.status)
     });
   }
 }

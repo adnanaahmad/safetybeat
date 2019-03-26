@@ -38,7 +38,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public core: CoreService,
     public adminServices: AdminControlService,
     private logging: LoggingService,
-    private router: Router,
     public compiler: CompilerProvider,
     public helperService: HelperService,
   ) {
@@ -53,7 +52,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.entityUserData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
-    let index = _.findIndex(this.entityUserData.entities, function (entity) {
+    
+    let index = this.helperService.findIndex(this.entityUserData.entities, function (entity) {
       return entity.active === true
     });
     this.selectedEntity = (index != -1) ? this.entityUserData.entities[index] : this.entityUserData.entities[0]

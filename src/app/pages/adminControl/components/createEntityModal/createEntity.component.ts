@@ -88,6 +88,8 @@ export class CreateEntityComponent implements OnInit {
       }
     }, (error => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+      this.onNoClick()
+      this.helperService.logoutError(error.status)
     })
     );
   }

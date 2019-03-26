@@ -76,10 +76,12 @@ export class ModalDialogComponent implements OnInit {
     },
       (error) => {
         this.helperService.createToaster(this.translated.MESSAGES.CHANGEPASSWORD_FAIL, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.translated.STATUS.ERROR)
+        this.dialogRef.close();
         this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
           this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
         this.logging.appLoggerForDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
           this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+        this.helperService.logoutError(error.status)
       });
 
   }

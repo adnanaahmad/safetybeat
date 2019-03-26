@@ -45,6 +45,8 @@ export class UserComponent implements OnInit {
       this.allUsersList = result.data;
       this.dataSource = new MatTableDataSource(this.allUsersList);
       this.dataSource.paginator = this.paginator;
+    }, error => {
+      this.helperService.logoutError(error.status)
     });
   }
 }
