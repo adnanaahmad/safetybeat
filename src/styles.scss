@@ -58,7 +58,6 @@ mat-dialog-container{
   text-align: center;
   transform: translateY(-50%);
   box-shadow: -8px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  border: 3px solid #fff;
   img {
     max-width: 100%;
     position: absolute;
@@ -177,7 +176,7 @@ mat-dialog-container{
   .mat-form-field-underline {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  width: 60%;
+  width: 70%;
   margin: 100px auto;
   box-shadow: 0 0px 60px -20px #0000007a !important;
   border-radius: 10px !important;
@@ -300,7 +299,7 @@ mat-dialog-container{
     border-radius: 50%;
     color: #fff;
     mat-icon {
-      font-size: 40px;
+      font-size: 30px;
       transition: all cubic-bezier(0.45, 0.01, 0, 3) 0.3s;
       transform: scale(1);
     }

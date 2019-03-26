@@ -21,6 +21,7 @@ export interface Strings {
   CHANGETHEME: string;
   EXPAND: string;
   REMOVE: string;
+  USERINFO: string;
 }
 export interface Auth {
   USERNAME: string;
