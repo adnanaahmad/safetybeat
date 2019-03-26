@@ -19,6 +19,7 @@ export class FixedNavComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<boolean>();
   @Output() switchNavList = new EventEmitter();
   @Output() switchNavListDefault = new EventEmitter();
+  @Input() public selectedEntity;
   translated: Translation;
   expanded: boolean;
   appIcons: any;
@@ -30,19 +31,9 @@ export class FixedNavComponent implements OnInit {
       toolTip: 'Dashboard'
     },
     {
-      route: '/home/profile/user',
-      iconName: ConstantService.appIcons.group,
-      toolTip: 'All Users'
-    },
-    {
       route: '/home/adminControl/entityControl',
       iconName: ConstantService.appIcons.contacts,
       toolTip: 'Entity Control Center'
-    },
-    {
-      route: '/home/documents',
-      iconName: ConstantService.appIcons.insertDriveFile,
-      toolTip: 'Documents'
     }
   ];
   public navLinksBottom: NavItem[] = [
@@ -86,17 +77,9 @@ export class FixedNavComponent implements OnInit {
     this.sidenavToggle.emit(this.navOpened);
   }
   public switchNavListMenuDefault() {
+    debugger
     this.navLinks = this.defaultNavLinks;
     this.switchNavListDefault.emit();
   }
-  ngOnInit() { }
-
-  onItemSelected(navLinks: NavItem) {
-    if (!navLinks.children || !navLinks.children.length) {
-      this.router.navigate([navLinks.route]);
-    }
-    if (navLinks.children && navLinks.children.length) {
-      this.expanded = !this.expanded;
-    }
-  }
+  ngOnInit() {}
 }

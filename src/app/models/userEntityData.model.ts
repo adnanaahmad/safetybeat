@@ -1,7 +1,7 @@
 import { User } from './user.model';
 
 export interface EntityUserData {
-  user: User;
+  // user: User;
   entities: Entity[];
 }
 
@@ -9,7 +9,17 @@ export interface Entity {
   entityInfo: EntityInfo;
   permissions: EntityPermissions;
   reportAccess: ReportAccess;
-  active:boolean
+  administrator: Administrator;
+  active:boolean;
+  role:string;
+}
+
+export interface Administrator {
+  email:string;
+  first_name:string;
+  last_name:string;
+  username:string;
+  contactNo:string;
 }
 
 export interface EntityInfo {

@@ -1,0 +1,131 @@
+<mat-toolbar class="pagehead">
+  <div class="user-avatar">
+    <img src="../../../../../assets/images/useravatar.jpg" />
+  </div>
+  <div class="user-info">
+    <h3><strong>{{ username }}</strong></h3>
+    <p>Production Manager - <strong>TheCompany</strong></p>
+  </div>
+</mat-toolbar>
+
+<div class="text-right paddingbox">
+  <button btn-primary mat-raised-button color="primary" (click)="editAccount()">
+    <mat-icon>edit</mat-icon>{{translated.BUTTONS.EDIT_ACCOUNT}}
+  </button>
+</div>
+
+<div class="grid-container">
+  <mat-grid-list cols="2">
+    <mat-grid-tile>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">About you</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content btn-grids">
+            <a mat-button mat-raised-button (click)="onCreate('profile')">
+                <mat-icon>{{appIcons.workOff}}</mat-icon> {{translated.BUTTONS.LEAVE}}
+              </a>
+          <a mat-button mat-raised-button (click)="onCreate('leaves')">
+            <mat-icon>{{appIcons.workOff}}</mat-icon> {{translated.BUTTONS.LEAVE}}
+          </a>
+          <a mat-button mat-raised-button (click)="onCreate('entities')">
+            <mat-icon>{{appIcons.style}}</mat-icon> {{translated.BUTTONS.ENTRIES}}
+          </a>
+          <a mat-button mat-raised-button (click)="onCreate('activities')" >
+            <mat-icon>{{appIcons.localActivity}}</mat-icon> {{translated.BUTTONS.ACTIVITIES}}
+          </a>
+          <a mat-button mat-raised-button (click)="onCreate('changePassword')">
+            <mat-icon>{{appIcons.questionAnswer}}</mat-icon> {{translated.BUTTONS.CHANGEPASSWORD}}
+          </a>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="dashboard-card" *ngIf="profileFeatures.profile">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">{{translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
+        </mat-card-header>
+        <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
+          <mat-card-content *ngIf="userData | async; let userData">
+            <mat-list role="list">
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{translated.STRINGS.FIRSTNAME}} </strong>
+                    <input matInput type="text" [(ngModel)]=userData.first_name formControlName={{appConstants.firstName}}
+                      [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.firstName}} required />
+                  </span>
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{translated.STRINGS.LASTNAME}}</strong>
+                    <input matInput type="text" [(ngModel)]=userData.last_name formControlName={{appConstants.lastName}}
+                      [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.lastName}} required />
+                  </span>
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{translated.STRINGS.EMAIL}} </strong>
+                    <input matInput type="text" [(ngModel)]=userData.email formControlName={{appConstants.email}}
+                      formControlName={{appConstants.email}} [ngClass]="disabled ? 'active' : 'inactive'" required />
+                  </span>
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{translated.STRINGS.MOBILE}} </strong>
+                    <input matInput type="text" [(ngModel)]=userData.contactNo formControlName=contactNo
+                      [ngClass]="disabled ? 'active' : 'inactive'" formControlName=contactNo required />
+                  </span>
+                </mat-list-item>
+              </div>
+            </mat-list>
+          </mat-card-content>
+          <div *ngIf="disabled" class="btn-grp">
+            <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="profileForm.pristine">
+              <mat-icon>{{appIcons.save}}</mat-icon> {{translated.BUTTONS.SAVE}}
+            </button>
+            <button mat-raised-button custom-btn btn-primary color="warn" (click)="cancelEditAccount()">{{translated.BUTTONS.CANCEL}}</button>
+          </div>
+        </form>
+      </mat-card>
+      <mat-card class="dashboard-card" *ngIf="profileFeatures.entities">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">{{translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+        <h1>Entities</h1>
+      </mat-card-content>  
+      </mat-card>
+      <mat-card class="dashboard-card" *ngIf="profileFeatures.leaves">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">{{translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <h1>Leaves</h1>
+        </mat-card-content>    
+      </mat-card>
+      <mat-card class="dashboard-card" *ngIf="profileFeatures.changePassword">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">{{translated.MESSAGES.CHANGEPASSWORD}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <h1>CHANGE PASSWORD</h1>
+        </mat-card-content>      
+      </mat-card>
+      <mat-card class="dashboard-card" *ngIf="profileFeatures.activities">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">{{translated.MESSAGES.CHANGEPASSWORD}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <h1>Activities</h1>
+        </mat-card-content>      
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

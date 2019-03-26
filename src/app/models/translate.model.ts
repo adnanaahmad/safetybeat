@@ -21,6 +21,7 @@ export interface Strings {
   CHANGETHEME: string;
   EXPAND: string;
   REMOVE: string;
+  USERINFO: string;
 }
 export interface Auth {
   USERNAME: string;
@@ -261,6 +262,8 @@ export interface SiteTitle {
   ENTITYCONTROL_DESCRIPTION: string;
   USERS_TITLE: string;
   USERS_DESCRIPTION: string;
+  SETTINGS_TITLE: string;
+  SETTINGS_DESCRIPTION: string;
 }
 
 export interface TableHeadings {
@@ -277,6 +280,7 @@ export interface TableHeadings {
   LAST_ACTION: string;
   DATE_TIME: string;
   TIMEZONE: string;
+  ADMINISTRATED_BY:string;
 }
 
 export interface Status {

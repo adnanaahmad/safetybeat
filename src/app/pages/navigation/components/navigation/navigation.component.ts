@@ -1,17 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { NavItem } from 'src/app/models/navItems.model';
-import * as _ from 'lodash';
-import { share } from 'rxjs/operators';
+import { findIndex } from 'lodash';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { Router } from '@angular/router';
 import { EntityUserData } from 'src/app/models/userEntityData.model';
-import { disableDebugTools } from '@angular/platform-browser';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { NavigationService } from '../../services/navigation.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
@@ -21,11 +19,12 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent implements OnInit, OnDestroy {
+  @Output() entitySelected =  new EventEmitter();;
   translated: Translation;
   appIcons: any;
   empty: boolean = false;
   navLinks: NavItem[] = [];
-  entitiesList: string;
+  entitiesList: any;
   entitesName: any = [];
   abc: any;
   allEntitiesData: any;
@@ -34,11 +33,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
   entityUserData: EntityUserData;
   selectedEntity;
   Entity: any;
+  moduleData = {
+    'moduleName': 'Safetybeat'
+  }
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
     private logging: LoggingService,
     public compiler: CompilerProvider,
+    private navService: NavigationService,
     public helperService: HelperService,
   ) {
     this.translated = this.helperService.translation;
@@ -51,13 +54,29 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.entityUserData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
-    
-    let index = this.helperService.findIndex(this.entityUserData.entities, function (entity) {
-      return entity.active === true
-    });
-    this.selectedEntity = (index != -1) ? this.entityUserData.entities[index] : this.entityUserData.entities[0]
-    this.switchSideMenu(this.selectedEntity)
+    debugger
+    // this.viewAllEntities();
+  }
+  ngAfterViewInit(){
+    this.navService.data.subscribe((res)=>{
+      if(res!==1){
+        debugger;
+        this.allEntitiesData = res;
+        this.entityUserData = this.allEntitiesData.entities;
+        let index = findIndex(this.entityUserData, function(entity){
+          return entity.active===true
+        });
+        this.selectedEntity = (index!=-1)?this.entityUserData[index]:this.entityUserData[0];
+        this.switchSideMenu(this.selectedEntity);
+      } else {
+        this.adminServices.viewEntities(this.moduleData).subscribe((entitesData)=>{
+          this.allEntitiesData = entitesData;
+          this.entityUserData = this.compiler.constructUserEntityData(this.allEntitiesData.data);
+          this.navService.changeEntites(this.entityUserData);
+        })
+      }
+
+    })
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
@@ -122,12 +141,26 @@ export class NavigationComponent implements OnInit, OnDestroy {
       },
     ];
   }
+  viewAllEntities() {
+    var data = {
+      'moduleName': 'Safetybeat'
+    };
+    this.adminServices.viewEntities(data).subscribe((res)=>{
+      debugger
+      this.entitiesList = res;
+      this.entityUserData = this.entitiesList.data.result;
+      this.navService.changeEntites(this.entityUserData);
+    })
+  }
   switchListDefault(data) {
     this.navLinks = this.compiler.switchSideMenuDefault(data)
   }
 
   switchSideMenu(data: any) {
+    debugger
     this.Entity = data;
+    this.navService.changeRole(this.Entity.role);
+    this.navService.changeRoleId(this.Entity.permissions.role);
     this.navLinks = this.compiler.switchSideMenuDefault(data)
   }
 }

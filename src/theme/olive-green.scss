@@ -232,5 +232,23 @@ $theme: mat-light-theme($primary, $secondary, $warn);
       background-color: mat-color($primary);
     }
   }
+  app-settings{
+    .navigator{
+      mat-list-item{
+        span{
+          &:hover, &.active{
+            background: mat-color($primary-pallet, 500);
+            color: #fff;
+            .mat-icon{
+              color:#fff;
+            }
+          }
+        }
+      }
+      .mat-icon{
+        color:mat-color($primary-pallet, 500);
+      }
+    }
+  }
   @include amte-setTheme($theme);
 }
