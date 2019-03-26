@@ -1,4 +1,4 @@
-/// <reference types="@types/googlemaps" />
+/// <reference types='@types/googlemaps' />
 import { Directive, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Directive({
@@ -9,7 +9,6 @@ export class GooglePlacesDirective implements OnInit {
   private element: HTMLInputElement;
   constructor(elRef: ElementRef) {
     this.element = elRef.nativeElement;
-
   }
   getFormattedAddress(place) {
     let location_obj = {};

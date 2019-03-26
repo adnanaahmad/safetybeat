@@ -1,14 +1,15 @@
-import { Injectable } from "@angular/core";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { EntityUserData, Entity } from "src/app/models/userEntityData.model";
-import { forEach } from 'lodash';
-import { NavItem } from 'src/app/models/navItems.model';
+import { Injectable } from '@angular/core';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
+import { HelperService } from '../helperService/helper.service';
 
 @Injectable()
 export class CompilerProvider {
   newMenu: any = []
   navList: any = []
-  constructor() { }
+  constructor(
+    public helperService: HelperService
+  ) { }
   /**
    * @param event
    * To check if the input is number or not
@@ -31,11 +32,11 @@ export class CompilerProvider {
     };
     return user;
   }
-    insertSpaces(string) {
-        string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
-        string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
-        return string;
-    }
+  insertSpaces(string) {
+    string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
+    string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+    return string;
+  }
   constructProfileData(loginApiResponse: any) {
     let profileData = {
       userid: loginApiResponse.userId,
@@ -49,7 +50,7 @@ export class CompilerProvider {
   constructUserEntityData(loginApiResponse: any): EntityUserData {
     debugger
     let allEntities: Entity[] = [];
-    forEach(loginApiResponse, function(entity) {
+    this.helperService.iterations(loginApiResponse, function (entity) {
       let data: Entity = {
         entityInfo: entity.entity,
         permissions: entity.permissions,
@@ -179,7 +180,7 @@ export class CompilerProvider {
       }
     ];
     var self = this;
-    forEach(this.navList, function (obj) {
+    this.helperService.iterations(this.navList, function (obj) {
       if (obj.displayName == name) {
         self.newMenu = obj.children
       }
@@ -299,6 +300,6 @@ export class CompilerProvider {
       }
     ];
     return this.navList
-    
+
   }
 }

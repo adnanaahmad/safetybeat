@@ -1,25 +1,25 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { AppRoutingModule } from "./app-routing.module";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { AppComponent } from "./app.component";
-import { MaterialModule } from "./shared/material/material.module";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppComponent } from './app.component';
+import { MaterialModule } from './shared/material/material.module';
 import {
   TranslateModule,
   TranslateLoader,
   TranslateService
-} from "@ngx-translate/core";
-import { HttpClient } from "@angular/common/http";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { AuthGuard } from "./core/services/guards/auth.guard";
-import { TokenInterceptorService } from "./core/services/interceptors/tokenInterceptor";
-import { ToastrModule } from "ng6-toastr-notifications";
-import { NotifierModule } from "angular-notifier";
-import { CoreService } from "./core/services/authorization/core.service";
-import { CookieService } from "ngx-cookie-service";
-import { GooglePlacesDirective } from "./directives/googlePlaces/googlePlaces.directive";
+} from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AuthGuard } from './core/services/guards/auth.guard';
+import { TokenInterceptorService } from './core/services/interceptors/tokenInterceptor';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { NotifierModule } from 'angular-notifier';
+import { CoreService } from './core/services/authorization/core.service';
+import { CookieService } from 'ngx-cookie-service';
+import { GooglePlacesDirective } from './directives/googlePlaces/googlePlaces.directive';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CreateEntityComponent } from './pages/adminControl/components/createEntityModal/createEntity.component';
 import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
@@ -30,13 +30,13 @@ import { InviteUserModalComponent } from './pages/navigation/components/inviteUs
 
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
   declarations: [
     AppComponent,
-    ModalDialogComponent,
+    ModalDialogComponent, // this need to be remove after profile page is done 
     OrgRegistrationComponent,
     GooglePlacesDirective,
     CreateEntityComponent,
@@ -77,7 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
 
   bootstrap: [AppComponent],
   entryComponents: [
-    ModalDialogComponent,
+    ModalDialogComponent, // this need to be remove after profile page is done 
     OrgRegistrationComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,

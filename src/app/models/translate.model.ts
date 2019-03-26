@@ -5,6 +5,7 @@ export interface Translation {
   LOGGER: Logger;
   STRINGS: Strings;
   SITETITLE: SiteTitle;
+  STATUS: Status
 }
 export interface Strings {
   USERNAME: string;
@@ -277,4 +278,13 @@ export interface TableHeadings {
   DATE_TIME: string;
   TIMEZONE: string;
   ADMINISTRATED_BY:string;
+}
+
+export interface Status {
+  DEFAULT: string;
+  INFO: string;
+  SUCCESS: string;
+  WARNING: string;
+  ERROR: string;
+  CUSTOM: string;
 }

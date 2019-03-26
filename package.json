@@ -38,6 +38,7 @@
     "ng6-toastr-notifications": "^1.0.4",
     "ngx-cookie-service": "^2.0.2",
     "rxjs": "^6.3.3",
+    "ts-md5": "^1.2.4",
     "tslib": "1.9.0",
     "zone.js": "~0.8.26"
   },
@@ -49,6 +50,7 @@
     "@types/google-maps": "^3.2.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/md5": "^2.1.33",
     "@types/node": "^8.10.40",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ConstantService } from '../../shared/constant/constant.service';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingService {
-  themeKey = 'theme';
+  themeKey = ConstantService.localStorageKeys.theme;
   themeLight = ConstantService.config.theme.light
   private theme: BehaviorSubject<String>;
   constructor() {

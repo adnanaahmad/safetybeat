@@ -1,23 +1,54 @@
+<<<<<<< HEAD
 <div class="loginbox">
   <h2>{{ translated.MESSAGES.CREATEENTITY_MSG }}</h2>
+=======
+<mat-card-title class="mat-dialog-title">{{translated.MESSAGES.CREATEENTITY_MSG}}</mat-card-title>
+<div mat-dialog-content>
+>>>>>>> 29be02dfad5ea76f4dd43569e77caf8002daef36
   <form [formGroup]="createEntityForm" (ngSubmit)="entityCreation(createEntityForm)">
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" placeholder="{{ translated.MESSAGES.ENTITYNAME }}"
           formControlName="{{ appConstants.name }}" required />
         <mat-error *ngIf="formValidation.name.errors">
+<<<<<<< HEAD
           <span *ngIf="formValidation.name.errors.required">{{translated.MESSAGES.ENTITYNAME_REQ}}</span>
+=======
+          <span *ngIf="formValidation.name.errors.required">{{
+            translated.MESSAGES.ENTITYNAME_REQ
+          }}</span>
+>>>>>>> 29be02dfad5ea76f4dd43569e77caf8002daef36
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field full-width>
+<<<<<<< HEAD
         <input matInput type="text" placeholder="{{ translated.MESSAGES.HEADOFFICE_LOCATION }}" appGooglePlaces (onSelect)="setAddress($event)" formControlName="{{ appConstants.headOffice }}" required />
         <mat-error *ngIf="formValidation.headOffice.errors">
           <span *ngIf="formValidation.headOffice.errors.required">{{translated.MESSAGES.OFFICELOCATION_REQ}}</span>
         </mat-error>
       </mat-form-field>
     </div>
+=======
+        <input
+          matInput
+          type="text"
+          placeholder="{{ translated.MESSAGES.HEADOFFICE_LOCATION }}"
+          appGooglePlaces
+          (onSelect)="setAddress($event)"
+          formControlName="{{appConstants.headOffice}}"
+          required
+        />
+        <mat-error *ngIf="formValidation.headOffice.errors">
+          <span *ngIf="formValidation.headOffice.errors.required">{{
+            translated.MESSAGES.OFFICELOCATION_REQ
+          }}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+>>>>>>> 29be02dfad5ea76f4dd43569e77caf8002daef36
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">
         {{ translated.BUTTONS.CREATE_ENTITY }}

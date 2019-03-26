@@ -1,10 +1,11 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { entityData } from 'src/app/models/entity.model';
+import { entityData } from '../../../../models/entity.model';
+import { AdminControlService } from '../../../adminControl/services/adminControl.service';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-createEntity',
@@ -12,26 +13,27 @@ import { entityData } from 'src/app/models/entity.model';
   styleUrls: ['./createEntity.component.scss']
 })
 export class CreateEntityComponent implements OnInit {
+  translated: Translation;
+  appConstants: any;
+  public title = 'Places';
+  public addrKeys: string[];
+  public addr: object;
+  city: string;
+  country: string;
+  zipCode: string;
+  appIcons: any;
   createEntityForm: FormGroup;
-  translated:Translation;
-  appConstants:any;
-  city: any;
-  country: any;
-  zipCode: any;
-  addr: any;
-  addrKeys: string[];
   entityDetails: any;
+  entityResponse: any;
   constructor(
-    private formBuilder:FormBuilder,
-    private translate: TranslateService,
+    public formBuilder: FormBuilder,
     private logging: LoggingService,
     private zone: NgZone,
-
-  ) { 
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
-    });
+    private adminServices: AdminControlService,
+    public helperService: HelperService
+  ) {
+    this.translated = this.helperService.translation;
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
     this.appConstants = ConstantService.appConstant;
   }
 
@@ -55,7 +57,7 @@ export class CreateEntityComponent implements OnInit {
 
   get formValidation() { return this.createEntityForm.controls; }
 
-  entityCreation({ value, valid }: { value: entityData; valid: boolean }):void{
+  entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value
@@ -65,6 +67,24 @@ export class CreateEntityComponent implements OnInit {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
+    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
+      this.entityResponse = result;
+      if (this.entityResponse.responseDetails.code == '0012') {
+        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
+      }
+      else if (this.entityResponse.responseDetails.code == '0013') {
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+      }
+      else if (this.entityResponse.responseDetails.code == '0017') {
+        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+      }
+    }, (error => {
+      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+    })
+    );
   }
+
 
 }

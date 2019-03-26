@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { TranslateService } from '@ngx-translate/core';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
@@ -12,6 +11,7 @@ import { Router } from '@angular/router';
 import { EntityUserData } from 'src/app/models/userEntityData.model';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { NavigationService } from '../../services/navigation.service';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-navigation',
@@ -39,22 +39,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
   constructor(
     public core: CoreService,
-    public translate: TranslateService,
     public adminServices: AdminControlService,
     private logging: LoggingService,
     private router: Router,
     public compiler: CompilerProvider,
-    private navService: NavigationService
+    private navService: NavigationService,
+    public helperService: HelperService,
   ) {
-    translate
-      .get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
-      .subscribe(values => {
-        this.translated = values;
-        this.logging.appLoggerForDev(
-          this.translated.LOGGER.STATUS.SUCCESS,
-          this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
-        );
-      });
+    this.translated = this.helperService.translation;
+    this.logging.appLoggerForDev(
+      this.translated.LOGGER.STATUS.SUCCESS,
+      this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
+    );
     this.appIcons = ConstantService.appIcons;
     this.navLinks = this.defaultList;
   }
@@ -77,7 +73,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       } else {
         this.adminServices.viewEntities(this.moduleData).subscribe((entitesData)=>{
           this.allEntitiesData = entitesData;
-          this.entityUserData = this.compiler.constructUserEntityData(this.allEntitiesData.data.result);
+          this.entityUserData = this.compiler.constructUserEntityData(this.allEntitiesData.data);
           this.navService.changeEntites(this.entityUserData);
         })
       }
@@ -163,8 +159,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   switchSideMenu(data: any) {
+    debugger
     this.Entity = data;
     this.navService.changeRole(this.Entity.role);
+    this.navService.changeRoleId(this.Entity.permissions.role);
     this.navLinks = this.compiler.switchSideMenuDefault(data)
   }
 }

@@ -18,9 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     WelcomeScreenRoutingModule,
     MaterialModule,
-    ReactiveFormsModule,
+    CoreModule,
     FormsModule,
-    CoreModule
+    ReactiveFormsModule,
   ]
 })
 export class WelcomeScreenModule { }

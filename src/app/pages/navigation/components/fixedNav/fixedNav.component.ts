@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { NavItem } from 'src/app/models/navItems.model';
 import { Router } from '@angular/router';
 import { share } from 'rxjs/operators';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -58,16 +58,12 @@ export class FixedNavComponent implements OnInit {
   joinEntityData: { moduleName: string };
 
   constructor(
-    public translate: TranslateService,
+    public helperService: HelperService,
     private logging: LoggingService,
     private adminServices: AdminControlService,
     private router: Router
   ) {
-    translate
-      .get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER'])
-      .subscribe(values => {
-        this.translated = values;
-      });
+    this.translated = this.helperService.translation;
     this.appIcons = ConstantService.appIcons;
     this.navLinks = this.defaultNavLinks;
   }

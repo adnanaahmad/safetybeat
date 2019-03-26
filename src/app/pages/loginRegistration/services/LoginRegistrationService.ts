@@ -1,25 +1,28 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, forkJoin, throwError } from "rxjs";
-import { ConstantService } from "../../../shared/constant/constant.service";
-import { TranslateService } from "@ngx-translate/core";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, forkJoin, throwError } from 'rxjs';
+import { ConstantService } from '../../../shared/constant/constant.service';
+import { TranslateService } from '@ngx-translate/core';
 import {
   loginCredentials,
   LoginResponse,
   ForgotPassword,
   ForgotPasswordResponse
-} from "src/app/models/user.model";
-import { map, catchError } from "rxjs/operators";
-import { LoggingService } from "src/app/shared/logging/logging.service";
-import { CoreService } from "src/app/core/services/authorization/core.service";
+} from 'src/app/models/user.model';
+import { map, catchError } from 'rxjs/operators';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { CoreService } from 'src/app/core/services/authorization/core.service';
+
 
 @Injectable({ providedIn: "root" })
 export class LoginRegistrationService {
-  storageKey = "token";
+  storageKey = ConstantService.localStorageKeys.token;
   selected = true;
   reset_success: string;
   reset_msg: string;
-  constructor(private http: HttpClient, public coreServices: CoreService) {}
+  constructor(
+    private http: HttpClient, 
+    public coreServices: CoreService) { }
   /**
    * login user api is called here and api url comes from constant service and login data that comes from
    * login.component.html file is passed here with the apiUrl
@@ -27,9 +30,7 @@ export class LoginRegistrationService {
    */
 
   loginUser(data: loginCredentials): Observable<LoginResponse> {
-    return this.http
-      .post<LoginResponse>(ConstantService.apiRoutes.login, data)
-      .pipe(catchError(this.coreServices.handleError));
+    return this.http.post<LoginResponse>(ConstantService.apiRoutes.login, data).pipe(catchError(this.coreServices.handleError));
   }
   /**
    * in this function all the api calls related to organization registration data are called over here
@@ -93,6 +94,9 @@ export class LoginRegistrationService {
    */
   setToken(token: string) {
     localStorage.setItem(this.storageKey, token);
+  }
+  setEntityData(data) {
+    localStorage.setItem(ConstantService.localStorageKeys.entityUserData, data);
   }
   /**
    * this function is used to get the token key that the user gets when he logs in.

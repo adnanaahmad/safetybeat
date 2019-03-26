@@ -3,10 +3,10 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { ConstantService } from 'src/app/shared/constant/constant.service'
 
 describe('AuthGuard', () => {
-    const storageKey = 'token';
+    const storageKey = ConstantService.localStorageKeys.token;
     const tokenSecret = 'this-is-a-test-secret';
 
     beforeEach(() => {

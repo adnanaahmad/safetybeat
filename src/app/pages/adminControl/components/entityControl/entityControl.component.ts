@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { TranslateService } from '@ngx-translate/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import {
   MatDialogConfig,
@@ -12,8 +11,10 @@ import { CreateEntityComponent } from '../createEntityModal/createEntity.compone
 import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { AdminControlService } from '../../services/adminControl.service';
+import * as _ from 'lodash';
+import { share } from 'rxjs/operators';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
-import { NavigationComponent } from 'src/app/pages/navigation/components/navigation/navigation.component';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 
 @Component({
@@ -27,7 +28,6 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   displayedColumns: string[] = ['name', 'headOffice','role','administrator', 'symbol'];
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(NavigationComponent) navBar;
   translated: Translation;
   appIcons: any;
   joinEntityData: any;
@@ -37,26 +37,13 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   createEntityOption:boolean=false;
   constructor(
     public dialog: MatDialog,
-    public translate: TranslateService,
     private logging: LoggingService,
     public adminServices: AdminControlService,
-    private navService:NavigationService
+    public helperService: HelperService,
+    private navService : NavigationService
   ) {
-    translate
-      .get([
-        'AUTH',
-        'BUTTONS',
-        'MESSAGES',
-        'LOGGER',
-        'STRINGS',
-        'ICONS',
-        'SITETITLE',
-        'TABLEHEADINGS'
-      ])
-      .subscribe(values => {
-        this.translated = values;
-        this.appIcons = ConstantService.appIcons;
-      });
+    this.translated = this.helperService.translation;
+    this.appIcons = ConstantService.appIcons;
     this.logging.appLoggerForDev(
       this.translated.LOGGER.STATUS.SUCCESS,
       this.translated.LOGGER.MESSAGES.ENTITYCONTROL
@@ -71,21 +58,13 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   ngAfterViewInit(){
   }
   createEntity() {
-    this.dialogConfig.disableClose = true;
-    this.dialogConfig.autoFocus = true;
-    this.dialogConfig.closeOnNavigation = false;
-    this.dialog.open(CreateEntityComponent);
+    this.helperService.createModal(CreateEntityComponent)
   }
   joinEntity() {
-    this.dialogConfig.disableClose = true;
-    this.dialogConfig.autoFocus = true;
-    this.dialogConfig.closeOnNavigation = false;
-    this.dialog.open(JoinEntityModalComponent);
+    this.helperService.createModal(JoinEntityModalComponent)
   }
   entityCode(code, name) {
-    const dialogRef = this.dialog.open(AlertModalComponent, {
-      data: { name: name, code: code }
-    });
+    this.helperService.createModal(AlertModalComponent, { data: { name: name, code: code } });
   }
   viewAllEntities() {
     var data = {

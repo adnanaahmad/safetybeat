@@ -21,8 +21,6 @@ export const routes: Routes = [
     path: '**',
     loadChildren: 'src/app/core/core.module#CoreModule'
   },
-
-
 ];
 
 @NgModule({

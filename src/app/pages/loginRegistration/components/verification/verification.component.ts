@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Verification } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { Location } from '@angular/common';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-verification',
@@ -15,7 +15,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./verification.component.scss']
 })
 export class VerificationComponent implements OnInit, OnDestroy {
-  // @ViewChild(RegistrationComponent) reg;
   translated: Translation;
   verifyForm: FormGroup;
   emaill: string;
@@ -26,20 +25,17 @@ export class VerificationComponent implements OnInit, OnDestroy {
   appConstants: any;
   constructor(
     private logging: LoggingService,
-    public translate: TranslateService,
     private router: Router,
     public formBuilder: FormBuilder,
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
     private route: ActivatedRoute,
     private location: Location,
-
+    public helperService: HelperService,
   ) {
     this.render.addClass(document.body, ConstantService.config.theme.background);
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
-    });
+    this.translated = this.helperService.translation;
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
     this.appConstants = ConstantService.appConstant;
   }
 
@@ -48,7 +44,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
       (event: NavigationCancel) => {
         this.location.replaceState('/signup');
       }
-
     );
     this.verifyForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
@@ -71,7 +66,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.loginRegService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code=='0020') {
+        if (this.success.responseDetails.code == '0020') {
           group.controls.email.setErrors({ exists: true })
         }
       });
@@ -90,8 +85,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.emaill = value.email;
     const verificationData = {
-      email:value.email,
-      userId:this.data.data.userId
+      email: value.email,
+      userId: this.data.data.userId
     };
     this.loginRegService.changeEmail(verificationData).subscribe((res) => {
       this.res = res;
@@ -107,8 +102,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
   resendVerification() {
     const resendData = {
-      userId:this.data.data.userId,
-      email:this.data.data.userData.email
+      userId: this.data.data.userId,
+      email: this.data.data.userData.email
     }
     this.loginRegService.resendemail(resendData).subscribe((res) => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
