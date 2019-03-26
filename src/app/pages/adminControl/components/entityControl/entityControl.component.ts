@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import {
@@ -14,15 +14,17 @@ import { AdminControlService } from '../../services/adminControl.service';
 import { share } from 'rxjs/operators';
 import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 
 @Component({
-  selector: "app-entityControl",
-  templateUrl: "./entityControl.component.html",
-  styleUrls: ["./entityControl.component.scss"]
+  selector: 'app-entityControl',
+  templateUrl: './entityControl.component.html',
+  styleUrls: ['./entityControl.component.scss']
 })
-export class EntityControlComponent implements OnInit {
+export class EntityControlComponent implements OnInit,AfterViewInit{
+  entitySelectedRole:string;
   dialogConfig = new MatDialogConfig();
-  displayedColumns: string[] = ["id", "name", "headOffice", "symbol"];
+  displayedColumns: string[] = ['name', 'headOffice','role','administrator', 'symbol'];
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   translated: Translation;
@@ -31,11 +33,13 @@ export class EntityControlComponent implements OnInit {
   allEntitiesData: any = [];
   entitiesList: any = [];
   empty: boolean = false;
+  createEntityOption:boolean=false;
   constructor(
     public dialog: MatDialog,
     private logging: LoggingService,
     public adminServices: AdminControlService,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private navService : NavigationService
   ) {
     this.translated = this.helperService.translation;
     this.appIcons = ConstantService.appIcons;
@@ -47,6 +51,10 @@ export class EntityControlComponent implements OnInit {
 
   ngOnInit() {
     this.viewAllEntities();
+    this.creationEnable();
+  }
+
+  ngAfterViewInit(){
   }
   createEntity() {
     this.helperService.createModal(CreateEntityComponent)
@@ -58,20 +66,29 @@ export class EntityControlComponent implements OnInit {
     this.helperService.createModal(AlertModalComponent, { data: { name: name, code: code } });
   }
   viewAllEntities() {
-    this.joinEntityData = {
-      moduleName: this.translated.BUTTONS.SAFETYBEAT
+    var data = {
+      'moduleName': 'Safetybeat'
     };
-    this.allEntitiesData = this.adminServices
-      .viewEntities(this.joinEntityData)
-      .pipe(share());
-    this.allEntitiesData.subscribe(result => {
-      this.empty = true;
-      this.entitiesList = result.data;
-      localStorage.setItem("entities", JSON.stringify(this.entitiesList));
-      this.dataSource = new MatTableDataSource(this.entitiesList);
+    this.navService.data.subscribe((res)=>{
+      debugger;
+      console.log(res);
+      this.entitiesList = res;
+      this.allEntitiesData = this.entitiesList.entities;
+      this.dataSource = new MatTableDataSource(this.allEntitiesData);
       this.dataSource.paginator = this.paginator;
     }, error => {
       this.helperService.logoutError(error.status)
     });
+
+  }
+  creationEnable(){
+    this.navService.currentRole.subscribe((res)=>{
+      this.entitySelectedRole = res;
+      if(this.entitySelectedRole==='Owner'){
+        this.createEntityOption = true;
+      } else{
+        this.createEntityOption = false;
+      }
+    })
   }
 }

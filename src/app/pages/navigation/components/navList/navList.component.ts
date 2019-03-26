@@ -54,6 +54,7 @@ export class NavListComponent implements OnInit {
     })
   }
   onItemSelected(navLinks: NavItem) {
+    debugger
     if (!navLinks.children || !navLinks.children.length) {
       this.router.navigate([navLinks.route]);
     }

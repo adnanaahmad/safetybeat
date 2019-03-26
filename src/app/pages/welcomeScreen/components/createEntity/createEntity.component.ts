@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Translation } from 'src/app/models/translate.model';
@@ -44,9 +44,8 @@ export class CreateEntityComponent implements OnInit {
       status: false
     });
   }
-
   setAddress(addrObj) {
-    debugger
+    debugger;
     this.city = addrObj.locality;
     this.country = addrObj.country;
     this.zipCode = addrObj.zipCode;
@@ -63,7 +62,7 @@ export class CreateEntityComponent implements OnInit {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value
     }
-    if (!valid) {
+    if(!valid){
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;

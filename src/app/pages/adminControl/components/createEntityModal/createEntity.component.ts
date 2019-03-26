@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Input, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
@@ -7,13 +7,15 @@ import { entity, entityData } from 'src/app/models/entity.model';
 import { AdminControlService } from '../../services/adminControl.service';
 import { MatDialogRef } from '@angular/material';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-createEntity',
   templateUrl: './createEntity.component.html',
   styleUrls: ['./createEntity.component.scss']
 })
-export class CreateEntityComponent implements OnInit {
+export class CreateEntityComponent implements OnInit,AfterViewInit {
   translated: Translation;
   appConstants: any;
   public title = 'Places';
@@ -26,13 +28,17 @@ export class CreateEntityComponent implements OnInit {
   createEntityForm: FormGroup;
   entityDetails: any;
   entityResponse: any;
+  roleId: number;
+  entites: any;
   constructor(
     public dialogRef: MatDialogRef<CreateEntityComponent>,
     public formBuilder: FormBuilder,
     private logging: LoggingService,
     private zone: NgZone,
     private adminServices: AdminControlService,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private navService:NavigationService,
+    private compiler: CompilerProvider
   ) {
     this.translated = this.helperService.translation;
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
@@ -43,7 +49,13 @@ export class CreateEntityComponent implements OnInit {
     this.createEntityForm = this.formBuilder.group({
       name: ['', Validators.required],
       headOffice: ['', Validators.required],
-      status: false
+      status : false
+    });
+  }
+
+  ngAfterViewInit(){
+    this.navService.currentRoleId.subscribe((res)=>{
+      this.roleId = res;
     });
   }
 
@@ -61,11 +73,13 @@ export class CreateEntityComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
   entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
+    debugger
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
-      entityData: value
+      entityData: value,
+      active: value.status,
+      roleId : this.roleId
     }
     if (!valid) {
       this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
@@ -77,7 +91,15 @@ export class CreateEntityComponent implements OnInit {
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
       this.entityResponse = result;
       this.onNoClick();
-      if (this.entityResponse.responseDetails.code == '0012') {
+      if(this.entityResponse.responseDetails.code=='0012'){
+        var data = {
+          'moduleName': 'Safetybeat'
+        }
+        this.adminServices.viewEntities(data).subscribe(res=>{
+          this.entites = res;
+          let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
+          this.navService.changeEntites(entityUserData);
+        })
         this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
       }
       else if (this.entityResponse.responseDetails.code == '0013') {
