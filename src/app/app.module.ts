@@ -36,7 +36,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ModalDialogComponent,
+    ModalDialogComponent, // this need to be remove after profile page is done 
     OrgRegistrationComponent,
     GooglePlacesDirective,
     CreateEntityComponent,
@@ -77,7 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
 
   bootstrap: [AppComponent],
   entryComponents: [
-    ModalDialogComponent,
+    ModalDialogComponent, // this need to be remove after profile page is done 
     OrgRegistrationComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,

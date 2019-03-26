@@ -74,8 +74,7 @@ export class NavListComponent implements OnInit {
   }
 
   inviteUserModal(entityId) {
-    var data = { data: { "role": this.roles, "entityId": entityId } };
-    this.helperService.createModal(InviteUserModalComponent, data);
+    this.helperService.createModal(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
   }
 
 }

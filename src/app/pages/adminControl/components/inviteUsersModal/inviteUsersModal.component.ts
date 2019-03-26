@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogConfig, MatDialog } from '@angular/material';
-import { OrgRegistrationComponent } from 'src/app/pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
+import { MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';

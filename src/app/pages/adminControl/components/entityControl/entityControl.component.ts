@@ -50,21 +50,13 @@ export class EntityControlComponent implements OnInit {
     this.viewAllEntities();
   }
   createEntity() {
-    this.dialogConfig.disableClose = true;
-    this.dialogConfig.autoFocus = true;
-    this.dialogConfig.closeOnNavigation = false;
-    this.dialog.open(CreateEntityComponent);
+    this.helperService.createModal(CreateEntityComponent)
   }
   joinEntity() {
-    this.dialogConfig.disableClose = true;
-    this.dialogConfig.autoFocus = true;
-    this.dialogConfig.closeOnNavigation = false;
-    this.dialog.open(JoinEntityModalComponent);
+    this.helperService.createModal(JoinEntityModalComponent)
   }
   entityCode(code, name) {
-    const dialogRef = this.dialog.open(AlertModalComponent, {
-      data: { name: name, code: code }
-    });
+    this.helperService.createModal(AlertModalComponent, { data: { name: name, code: code } });
   }
   viewAllEntities() {
     this.joinEntityData = {
