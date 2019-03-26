@@ -49,7 +49,7 @@ export class SettingsComponent implements OnInit {
 
   changeSetting(settings: any) {
     var self = this
-    this.helperService.itrations(this.settingFeatures, function (value, key) {
+    this.helperService.iterations(this.settingFeatures, function (value, key) {
       if (key === settings) {
         self.settingFeatures[key] = true;
       } else {

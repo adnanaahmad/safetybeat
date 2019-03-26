@@ -2,28 +2,19 @@
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
     (switchNavListDefault)="switchListDefault(Entity)"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
-    <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
-      <div>
-        <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
-      </div>
-      <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Change Entity
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-form-field class="entity-switcher">
-              <mat-select [(value)]="selectedEntity" (selectionChange)="switchSideMenu(selectedEntity)">
-                <mat-option *ngFor="let entity of entityUserData.entities" [value]="entity">{{entity.entityInfo.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </mat-expansion-panel>
-        </mat-accordion>
-      <mat-nav-list>
-        <app-nav-list [navLinks]="navLinks" [selectedEntity]="Entity"></app-nav-list>
-      </mat-nav-list>
-    </mat-sidenav>
+      <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
+          <div>
+            <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
+          </div>
+          <mat-form-field class="entity-switcher">
+            <mat-select [(value)]="selectedEntity" (selectionChange)="switchSideMenu(selectedEntity)">
+              <mat-option *ngFor="let entity of entityUserData" [value]="entity">{{entity.entityInfo.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-nav-list>
+            <app-nav-list [navLinks]="navLinks" [selectedEntity]="Entity"></app-nav-list>
+          </mat-nav-list>
+        </mat-sidenav>
     <!-- Content of rest of section -->
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
