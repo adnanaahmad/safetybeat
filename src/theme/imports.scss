@@ -16,7 +16,7 @@
 @import "src/app/pages/adminControl/components/entityControl/entityControl.component.scss";
 @import "src/app/pages/navigation/components/notificationNav/notificationNav.component.scss";
 @import "src/app/pages/adminControl/components/alert-modal/alert-modal.component.scss";
-@import "src/app/pages/loginRegistration/components/landing/landing/landing.component.scss";
+@import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);

@@ -10,7 +10,7 @@ import { RegistrationComponent } from "./components/registration/registration.co
 import { VerificationComponent } from "./components/verification/verification.component";
 import { AuthGuard } from "src/app/core/services/guards/auth.guard";
 import { ForgotPasswordComponent } from "./components/forgotPassword/forgotPassword.component";
-import { LandingComponent } from './components/landing/landing/landing.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 const authRoutes: Routes = [
   {
@@ -34,12 +34,12 @@ const authRoutes: Routes = [
     path: "signup",
     component: RegistrationComponent
   },
-  {
-    path: "verification",
-    component: VerificationComponent,
-    canActivate: [AuthGuard],
-    canDeactivate: ["canDeactivateVerification"]
-  }
+  // {
+  //   path: "verification",
+  //   component: VerificationComponent,
+  //   canActivate: [AuthGuard],
+  //   canDeactivate: ["canDeactivateVerification"]
+  // }
 ];
 
 @NgModule({

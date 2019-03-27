@@ -449,6 +449,11 @@ hr.forheading {
     }
   }
 }
+.verify-modal{
+  .cdk-overlay-backdrop{
+    // background:black;
+  }
+}
 @media (max-width: 992px) {
   .monogram {
     width: 100px;

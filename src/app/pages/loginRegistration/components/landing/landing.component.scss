@@ -23,6 +23,12 @@
         display: block;
         left: 0;
         top: 0;
+        .particle{
+          opacity: 1;
+          mat-icon{
+            font-size: 20px;
+          }
+        }
       }
     }
     .text-wrapper {
