@@ -12,13 +12,13 @@ import { NavigationService } from '../../services/navigation.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss'],
+  selector: "app-navigation",
+  templateUrl: "./navigation.component.html",
+  styleUrls: ["./navigation.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent implements OnInit, OnDestroy {
-  @Output() entitySelected =  new EventEmitter();;
+  @Output() entitySelected = new EventEmitter();
   translated: Translation;
   appIcons: any;
   empty: boolean = false;
@@ -33,15 +33,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
   selectedEntity;
   Entity: any;
   moduleData = {
-    'moduleName': 'Safetybeat'
-  }
+    moduleName: "Safetybeat"
+  };
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
     private logging: LoggingService,
     public compiler: CompilerProvider,
     private navService: NavigationService,
-    public helperService: HelperService,
+    public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
     this.logging.appLoggerForDev(
@@ -63,17 +63,21 @@ export class NavigationComponent implements OnInit, OnDestroy {
         let index = this.helperService.findIndex(this.entityUserData, function(entity){
           return entity.active===true
         });
-        this.selectedEntity = (index!=-1)?this.entityUserData[index]:this.entityUserData[0];
+        this.selectedEntity =
+          index != -1 ? this.entityUserData[index] : this.entityUserData[0];
         this.switchSideMenu(this.selectedEntity);
       } else {
-        this.adminServices.viewEntities(this.moduleData).subscribe((entitesData)=>{
-          this.allEntitiesData = entitesData;
-          this.entityUserData = this.compiler.constructUserEntityData(this.allEntitiesData.data);
-          this.navService.changeEntites(this.entityUserData);
-        })
+        this.adminServices
+          .viewEntities(this.moduleData)
+          .subscribe(entitesData => {
+            this.allEntitiesData = entitesData;
+            this.entityUserData = this.compiler.constructUserEntityData(
+              this.allEntitiesData.data
+            );
+            this.navService.changeEntites(this.entityUserData);
+          });
       }
-
-    })
+    });
   }
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
@@ -81,81 +85,81 @@ export class NavigationComponent implements OnInit, OnDestroy {
   switchList() {
     this.navLinks = [
       {
-        route: '/home',
+        route: "/home",
         iconName: ConstantService.appIcons.dashboard,
-        displayName: 'Dashboard',
+        displayName: "Dashboard",
         disabled: true
       },
       {
-        displayName: 'Action Report',
-        route: '/home/analyticsReport/actionReport',
+        displayName: "Action Report",
+        route: "/home/analyticsReport/actionReport",
         disabled: true
       },
       {
-        displayName: 'Average Daily Actions',
-        route: '/home/analyticsReport/averageDailyActionsReport',
+        displayName: "Average Daily Actions",
+        route: "/home/analyticsReport/averageDailyActionsReport",
         disabled: true
       },
       {
-        displayName: 'Checkin by Activity',
-        route: '/home/analyticsReport/checkInActivityReport',
+        displayName: "Checkin by Activity",
+        route: "/home/analyticsReport/checkInActivityReport",
         disabled: true
       },
       {
-        displayName: 'Checkin and Alert by Person',
-        route: '/home/analyticsReport/alertsPersonReport',
+        displayName: "Checkin and Alert by Person",
+        route: "/home/analyticsReport/alertsPersonReport",
         disabled: true
       },
       {
-        displayName: 'Actions vs Alerts',
-        route: '/home/analyticsReport/actionAlertsReport',
+        displayName: "Actions vs Alerts",
+        route: "/home/analyticsReport/actionAlertsReport",
         disabled: true
       },
       {
-        displayName: 'Pulse Report by Entity',
-        route: '/home/analyticsReport/entityPulseReport',
+        displayName: "Pulse Report by Entity",
+        route: "/home/analyticsReport/entityPulseReport",
         disabled: true
       },
       {
-        displayName: 'Pulse Report by Person',
-        route: '/home/analyticsReport/personPulseReport',
+        displayName: "Pulse Report by Person",
+        route: "/home/analyticsReport/personPulseReport",
         disabled: true
       },
       {
-        displayName: 'Compliant Checkout',
-        route: '/home/analyticsReport/compliantCheckoutReport',
+        displayName: "Compliant Checkout",
+        route: "/home/analyticsReport/compliantCheckoutReport",
         disabled: true
       },
       {
-        displayName: 'Site Activity Report',
-        route: '/home/analyticsReport/siteActivityReport',
+        displayName: "Site Activity Report",
+        route: "/home/analyticsReport/siteActivityReport",
         disabled: true
       },
       {
-        displayName: 'Hazard Reports',
-        route: '/home/analyticsReport/hazardReport',
+        displayName: "Hazard Reports",
+        route: "/home/analyticsReport/hazardReport",
         disabled: true
-      },
+      }
     ];
   }
   viewAllEntities() {
     var data = {
-      'moduleName': 'Safetybeat'
+      moduleName: "Safetybeat"
     };
     this.adminServices.viewEntities(data).subscribe((res)=>{
       this.entitiesList = res;
       this.entityUserData = this.entitiesList.data.result;
       this.navService.changeEntites(this.entityUserData);
-    })
+    });
   }
   switchListDefault(data) {
-    this.navLinks = this.compiler.switchSideMenuDefault(data)
+    this.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 
   switchSideMenu(data: any) {
     this.Entity = data;
     this.navService.changeRole(this.Entity.role);
     this.navService.changeRoleId(this.Entity.permissions.role);
-    this.navLinks = this.compiler.switchSideMenuDefault(data)
+    this.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 }
