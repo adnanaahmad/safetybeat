@@ -48,7 +48,6 @@ export class CompilerProvider {
   }
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
-    debugger
     let allEntities: Entity[] = [];
     this.helperService.iterations(loginApiResponse, function (entity) {
       let data: Entity = {

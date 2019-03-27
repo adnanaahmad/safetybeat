@@ -74,7 +74,6 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
     this.dialogRef.close();
   }
   entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
-    debugger
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value,

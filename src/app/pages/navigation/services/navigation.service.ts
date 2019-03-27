@@ -51,7 +51,6 @@ export class NavigationService {
   }
 
   changeEntites(entitiesInfo:any){
-    debugger;
     this.dataSource.next(entitiesInfo);
     console.log(this.dataSource)
   }

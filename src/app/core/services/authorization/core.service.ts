@@ -71,7 +71,6 @@ export class CoreService {
     }
 
     handleError(error: HttpErrorResponse) {
-        debugger
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
             console.error('An error occurred:', error.error.message);
@@ -83,7 +82,6 @@ export class CoreService {
                 `body was: ${error.message}`);
         }
         // return an observable with a user-facing error message
-        debugger
         return throwError({ error: "Something bad happened; please try again later.", status: error.status })
     };
 }

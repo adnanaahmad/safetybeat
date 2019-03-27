@@ -450,8 +450,44 @@ hr.forheading {
   }
 }
 .verify-modal{
+  mat-dialog-container{
+    background:transparent !important;
+    color:#fff !important;
+    overflow: hidden;
+    position: relative;
+    &:before{
+      content:"";
+      background:rgba(255, 255, 255, 0.1);
+      width: 100%;
+      height: 100%;
+      left:0;
+      top:0;
+      position: absolute;
+      z-index: 1;
+    }
+    app-verification{
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      display: block;
+      text-align: center;
+      p{
+        line-height: 2;
+      }
+    }
+  }
   .cdk-overlay-backdrop{
-    // background:black;
+    background-image:url(./assets/images/verify-bg.jpg);
+    background-size: cover;
+    &:after{
+      content:"";
+      background:rgba(0, 0, 0, 0.63);
+      position: absolute;
+      left:0;
+      width:100%;
+      height: 100%;
+      top: 0;
+    }
   }
 }
 @media (max-width: 992px) {

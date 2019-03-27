@@ -215,7 +215,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     }
     #particle-container {
       .particle {
-        color: mat-color($primary-pallet, 200);
+        color: mat-color($primary-pallet, 50);
       }
     }
   }

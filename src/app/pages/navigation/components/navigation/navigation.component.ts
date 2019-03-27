@@ -1,24 +1,15 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Input,
-  Output,
-  EventEmitter,
-  AfterViewInit
-} from "@angular/core";
-import { ChangeDetectionStrategy } from "@angular/core";
-import { CoreService } from "src/app/core/services/authorization/core.service";
-import { LoggingService } from "src/app/shared/logging/logging.service";
-import { Translation } from "src/app/models/translate.model";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { NavItem } from "src/app/models/navItems.model";
-import { findIndex } from "lodash";
-import { AdminControlService } from "src/app/pages/adminControl/services/adminControl.service";
-import { EntityUserData } from "src/app/models/userEntityData.model";
-import { CompilerProvider } from "src/app/shared/compiler/compiler";
-import { NavigationService } from "../../services/navigation.service";
-import { HelperService } from "src/app/shared/helperService/helper.service";
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { CoreService } from 'src/app/core/services/authorization/core.service';
+import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { Translation } from 'src/app/models/translate.model';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { NavItem } from 'src/app/models/navItems.model';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import { EntityUserData } from 'src/app/models/userEntityData.model';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { NavigationService } from '../../services/navigation.service';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: "app-navigation",
@@ -62,18 +53,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    debugger;
     // this.viewAllEntities();
   }
-  ngAfterViewInit() {
-    this.navService.data.subscribe(res => {
-      if (res !== 1) {
+  ngAfterViewInit(){
+    this.navService.data.subscribe((res)=>{
+      if(res!==1){
         this.allEntitiesData = res;
         this.entityUserData = this.allEntitiesData.entities;
-        let index = this.helperService.findIndex(this.entityUserData, function(
-          entity
-        ) {
-          return entity.active === true;
+        let index = this.helperService.findIndex(this.entityUserData, function(entity){
+          return entity.active===true
         });
         this.selectedEntity =
           index != -1 ? this.entityUserData[index] : this.entityUserData[0];
@@ -158,8 +146,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     var data = {
       moduleName: "Safetybeat"
     };
-    this.adminServices.viewEntities(data).subscribe(res => {
-      debugger;
+    this.adminServices.viewEntities(data).subscribe((res)=>{
       this.entitiesList = res;
       this.entityUserData = this.entitiesList.data.result;
       this.navService.changeEntites(this.entityUserData);
@@ -170,7 +157,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   switchSideMenu(data: any) {
-    debugger;
     this.Entity = data;
     this.navService.changeRole(this.Entity.role);
     this.navService.changeRoleId(this.Entity.permissions.role);
