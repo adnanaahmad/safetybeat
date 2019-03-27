@@ -10,7 +10,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-// import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { NotifierService } from 'angular-notifier';
+import { LoggingService } from '../logging/logging.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,16 +19,19 @@ export class HelperService {
   iterations: any;
   findIndex: any;
   translation: Translation;
+  constants: typeof ConstantService;
   constructor(
     public toast: ToastrManager,
     public translate: TranslateService,
     public dialog: MatDialog,
     private cookies: CookieService,
-    private router: Router
+    private router: Router,
+    private logging: LoggingService,
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
     });
+    this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
   }
@@ -35,24 +39,28 @@ export class HelperService {
 
   createToaster(message, title, type, ...params: any) {
     switch (type) {
-      case 'SUCCESS':
-        // this.translation.STATUS.SUCCESS
+      case this.constants.status.SUCCESS:
         this.toast.successToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
-      case 'CUSTOM':
-        // this.translation.STATUS.CUSTOM
+      case this.constants.status.CUSTOM:
         this.toast.customToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
-      case 'WARNING':
-        // this.translation.STATUS.WARNING
+      case this.constants.status.WARNING:
         this.toast.warningToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
-      case 'ERROR':
-        // this.translation.STATUS.ERROR
+      case this.constants.status.ERROR:
         this.toast.errorToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
       default:
         break;
+    }
+  }
+
+  creatLogger(type: string, message: any, showDev: boolean) {
+    if (showDev) {
+      this.logging.appLoggerForDev(type, message);
+    } else {
+      this.logging.appLogger(type, message);
     }
   }
 
@@ -71,8 +79,8 @@ export class HelperService {
   }
 
   removeToken() {
-    localStorage.removeItem(ConstantService.localStorageKeys.entityUserData);
-    localStorage.removeItem(ConstantService.localStorageKeys.token);
+    localStorage.removeItem(this.constants.localStorageKeys.entityUserData);
+    localStorage.removeItem(this.constants.localStorageKeys.token);
   }
   logoutUser() {
     this.removeToken();
@@ -83,12 +91,8 @@ export class HelperService {
     this.router.navigate(['/login']);
   }
   logoutError(status) {
-    if (status === 401) {
+    if (status === 401 || status === 0) {
       this.logoutUser()
     }
   }
-
-
-
-
 }

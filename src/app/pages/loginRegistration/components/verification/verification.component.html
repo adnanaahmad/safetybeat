@@ -1,31 +1,59 @@
-<app-particle-container></app-particle-container>
-<mat-card class="midbox loginbox">
-    <span class="monogram">
-        <img src="/assets/images/monogram.png" />
-    </span>
-    <mat-card-title>{{translated.MESSAGES.VERIFY_ACCOUNT}}</mat-card-title>
-    <p class="subheading">{{translated.MESSAGES.VERIFY_MSG}}</p>
-    <hr class="forheading">
-    <p class="subheading">{{translated.MESSAGES.SIGNEDUP_EMAIL_MSG}} <a href="mailto:{{data.data.userData.email}">{{data.data.userData.email}}</a></p>
-    <p class="
-            subheading">{{translated.MESSAGES.VERIFY_REQ}}</p>
-    <button mat-raised-button custom-btn btn-primary color="primary" (click)="resendVerification()">{{translated.BUTTONS.RESEND_EMAIL}}</button>
-    <form [formGroup]='verifyForm' (ngSubmit)="changeEmail(verifyForm)">
-        <p class="subheading"><strong>{{translated.MESSAGES.OR}}</strong></p>
-        <p class="subheading">{{translated.MESSAGES.CHANGE_EMAIL}}</p>
-        <div [formGroup]='verifyForm'>
-            <mat-form-field>
-                <input matInput type="email" [placeholder]=translated.MESSAGES.EMAIL_RESET_PLACEHOLDER formControlName={{appConstants.email}}
-                    required (blur)="checkEmail(verifyForm)">
-                <mat-error *ngIf="formValidation.email.errors ">
-                    <span *ngIf="formValidation.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
-                    <span *ngIf="formValidation.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
-                </mat-error>
-            </mat-form-field>
-            <button style="margin-left:10px;" mat-raised-button custom-btn btn-primary [disabled]="formValidation.email.errors?.exists"
-                onclick="changeEmail" color="secondary">{{translated.BUTTONS.CHANGE_EMAIL}}</button>
-        </div>
-    </form>
-    <p class="subheading">{{translated.MESSAGES.QUESTION_QUERY}}</p>
-    <p class="subheading">{{translated.MESSAGES.REACH_MSG}} <a href="mailto:help@safetybeat.com">{{translated.MESSAGES.HELP_EMAIL}}</a></p>
-</mat-card>
+<h1>We've got your email !</h1>
+<p>
+  We sent a 6-digit code to s.amjad@optergy.com. Enter it below to unlock your
+  free trial of SafetyBeat
+</p>
+<form class="verification-form">
+  <input class="ver-input"
+    maxlength="1"
+    type="text"
+    matInput
+    (keyup)="keyTab($event, test.value)"
+    name="test"
+    #test
+  />
+  <input class="ver-input"
+    maxlength="1"
+    type="text"
+    matInput
+    (keyup)="keyTab($event, test1.value)"
+    name="test1"
+    #test1
+  />
+  <input class="ver-input"
+    maxlength="1"
+    type="text"
+    matInput
+    (keyup)="keyTab($event, test2.value)"
+    name="test2"
+    #test2
+  />
+  <input class="ver-input"
+    maxlength="1"
+    maxlength="1"
+    type="text"
+    matInput
+    (keyup)="keyTab($event, test3.value)"
+    name="test3"
+    #test3
+  />
+  <input class="ver-input"
+    maxlength="1"
+    type="text"
+    matInput
+    (keyup)="keyTab($event, test4.value)"
+    name="test4"
+    #test4
+  />
+  <input class="ver-input"
+    maxlength="1"
+    type="text"
+    matInput
+    (keyup)="keyTab($event, test5.value)"
+    name="test5"
+    #test5
+  />
+</form>
+<span class="resend"
+  >Didn't receive the code yet? <a href="#">Click here to send again.</a></span
+>

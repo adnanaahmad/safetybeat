@@ -1,21 +1,24 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { Translation } from 'src/app/models/translate.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { entityData } from '../../../../models/entity.model';
-import { AdminControlService } from '../../../adminControl/services/adminControl.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { Component, OnInit, NgZone } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ConstantService } from "src/app/shared/constant/constant.service";
+import { Translation } from "src/app/models/translate.model";
+import { LoggingService } from "src/app/shared/logging/logging.service";
+import { entityData } from "../../../../models/entity.model";
+import { AdminControlService } from "../../../adminControl/services/adminControl.service";
+import { HelperService } from "src/app/shared/helperService/helper.service";
+import { CompilerProvider } from "src/app/shared/compiler/compiler";
+import { NavigationService } from "src/app/pages/navigation/services/navigation.service";
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-createEntity',
-  templateUrl: './createEntity.component.html',
-  styleUrls: ['./createEntity.component.scss']
+  selector: "app-createEntity",
+  templateUrl: "./createEntity.component.html",
+  styleUrls: ["./createEntity.component.scss"]
 })
 export class CreateEntityComponent implements OnInit {
   translated: Translation;
   appConstants: any;
-  public title = 'Places';
+  public title = "Places";
   public addrKeys: string[];
   public addr: object;
   city: string;
@@ -25,23 +28,31 @@ export class CreateEntityComponent implements OnInit {
   createEntityForm: FormGroup;
   entityDetails: any;
   entityResponse: any;
+  entites: any;
+  roleId: any;
   constructor(
     public formBuilder: FormBuilder,
     private logging: LoggingService,
     private zone: NgZone,
     private adminServices: AdminControlService,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private compiler: CompilerProvider,
+    private navService: NavigationService,
+    private router: Router
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
+    this.logging.appLoggerForDev(
+      this.translated.LOGGER.STATUS.SUCCESS,
+      this.translated.LOGGER.MESSAGES.CREATEENTITY
+    );
     this.appConstants = ConstantService.appConstant;
   }
 
   ngOnInit() {
     this.createEntityForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      headOffice: ['', Validators.required],
-      status: false
+      name: ["", Validators.required],
+      headOffice: ["", Validators.required],
+      status: [""]
     });
   }
   setAddress(addrObj) {
@@ -54,36 +65,82 @@ export class CreateEntityComponent implements OnInit {
     });
   }
 
-  get formValidation() { return this.createEntityForm.controls; }
-
-  entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
-    this.entityDetails = {
-      moduleName: this.translated.BUTTONS.SAFETYBEAT,
-      entityData: value
-    }
-    if(!valid){
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
-      return;
-    }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
-      this.entityResponse = result;
-      if (this.entityResponse.responseDetails.code == '0012') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
-      }
-      else if (this.entityResponse.responseDetails.code == '0013') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
-      }
-      else if (this.entityResponse.responseDetails.code == '0017') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
-      }
-    }, (error => {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
-    })
-    );
+  get formValidation() {
+    return this.createEntityForm.controls;
   }
 
-
+  entityCreation({
+    value,
+    valid
+  }: {
+    value: entityData;
+    valid: boolean;
+  }): void {
+    debugger
+    this.entityDetails = {
+      moduleName: this.translated.BUTTONS.SAFETYBEAT,
+      entityData: value,
+      active: value.status,
+      roleId: 2,
+      uid: 115
+    };
+    if (!valid) {
+      debugger
+      this.logging.appLoggerForDev(
+        this.translated.LOGGER.STATUS.WARNING,
+        valid
+      );
+      this.logging.appLogger(
+        this.translated.LOGGER.STATUS.ERROR,
+        this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
+      );
+      return;
+    }
+    debugger
+    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
+    this.logging.appLogger(
+      this.translated.LOGGER.STATUS.INFO,
+      JSON.stringify(value)
+    );
+    this.adminServices.createEntity(this.entityDetails).subscribe(
+      result => {
+        debugger
+        this.entityResponse = result;
+        if (this.entityResponse.responseDetails.code == "0012") {
+          var data = {
+            moduleName: "Safetybeat"
+          };
+          this.adminServices.viewEntities(data).subscribe(res => {
+            this.entites = res;
+            let entityUserData = this.compiler.constructUserEntityData(
+              this.entites.data
+            );
+            this.navService.changeEntites(entityUserData);
+          });
+          this.router.navigate(['/home']);
+          this.logging.appLogger(
+            this.translated.LOGGER.STATUS.SUCCESS,
+            this.entityResponse.responseDetails.message
+          );
+        } else if (this.entityResponse.responseDetails.code == "0013") {
+          this.logging.appLogger(
+            this.translated.LOGGER.STATUS.ERROR,
+            this.entityResponse.responseDetails.message
+          );
+        } else if (this.entityResponse.responseDetails.code == "0017") {
+          this.logging.appLogger(
+            this.translated.LOGGER.STATUS.ERROR,
+            this.entityResponse.responseDetails.message
+          );
+        }
+      },
+      error => {
+        this.logging.appLogger(
+          this.translated.LOGGER.STATUS.ERROR,
+          this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED
+        );
+        // this.helperService.logoutError(error.status);
+      }
+    );
+  }
 }

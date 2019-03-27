@@ -14,6 +14,7 @@ import { VerificationComponent } from './components/verification/verification.co
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassword.component';
 import { ParticleContainerComponent } from './components/particleContainer/particleContainer.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   imports: [
@@ -28,8 +29,8 @@ import { ParticleContainerComponent } from './components/particleContainer/parti
     LoginComponent,
     RegistrationComponent,
     ForgotPasswordComponent,
-    VerificationComponent,
-    ParticleContainerComponent
+    ParticleContainerComponent,
+    LandingComponent
   ],
   providers: [
     LoginRegistrationService,

@@ -30,10 +30,11 @@ export class ConstantService {
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
-    getRoles: `${environment.apiUrl}/role/`
+    getRoles: `${environment.apiUrl}/role/`,
+    validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`
   };
   static localStorageKeys = {
-    token : 'sb_User_Token',
+    token: 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
     theme: 'sb_Theme_Selected'
   };
@@ -43,11 +44,12 @@ export class ConstantService {
     time1: 3000
   };
   static config = {
-    devMode: false,
+    devMode: true,
     theme: {
       dark: "dark-theme",
       light: "light-theme",
-      background: "body-bg"
+      background: "body-bg",
+      modalClass: "verify-modal"
     }
   };
   static appTheme = {
@@ -134,4 +136,12 @@ export class ConstantService {
     payment: "payment",
     exit_to_app: "exitToApp"
   };
+  static status = {
+    CUSTOM: "custom",
+    DEFAULT: "default",
+    INFO: "info",
+    SUCCESS: "success",
+    WARNING: "warning",
+    ERROR: "error"
+  }
 }

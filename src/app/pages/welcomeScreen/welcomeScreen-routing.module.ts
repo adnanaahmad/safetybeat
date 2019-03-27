@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WelcomeScreenComponent } from './components/welcomeScreen/welcomeScreen.component';
 import { CreateEntityComponent } from './components/createEntity/createEntity.component';
+import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'entityCreation',
+    canActivate: [AuthGuard],
     component: CreateEntityComponent
   }
 ];

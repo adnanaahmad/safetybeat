@@ -5,10 +5,8 @@ import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { packges, RegisterOrganization } from 'src/app/models/user.model';
 import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import { MapsAPILoader } from '@agm/core';
 import { MatDialogRef } from '@angular/material';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
@@ -53,18 +51,18 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ORGANIZATIONDETAILS);
-    this.appConstants = ConstantService.appConstant;
-    this.appIcons = ConstantService.appIcons;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.appIcons = this.helperService.constants.appIcons;
+    this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.ORGANIZATIONDETAILS);
     this.register.registrationData()
       .subscribe(data => {
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+        this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.types = data[0];
         this.modules = data[1];
         this.packages = data[2];
       },
         error => {
-          this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
+          this.logging.appLoggerForDev(this.helperService.constants.status.ERROR, `${error.error +
             this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
             this.onNoClick();
           this.helperService.logoutError(error.status)
@@ -166,13 +164,13 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
 
     if (this.organizationForm.invalid || (this.moduleForm.value.name.length
       !== this.registerData.module_pkg.length)) {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
+      this.logging.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
+      this.logging.appLoggerForDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
     this.loading = true;
-    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.organizationForm.value, this.moduleForm.value));
+    this.logging.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
+    this.logging.appLoggerForDev(this.helperService.constants.status.INFO, JSON.stringify(this.organizationForm.value, this.moduleForm.value));
   }
 }
 
