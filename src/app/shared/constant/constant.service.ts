@@ -32,7 +32,7 @@ export class ConstantService {
     getRoles: `${environment.apiUrl}/role/`
   };
   static localStorageKeys = {
-    token : 'sb_User_Token',
+    token: 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
     theme: 'sb_Theme_Selected'
   };
@@ -132,4 +132,12 @@ export class ConstantService {
     payment: "payment",
     exit_to_app: "exitToApp"
   };
+  static status = {
+    CUSTOM: "custom",
+    DEFAULT: "default",
+    INFO: "info",
+    SUCCESS: "success",
+    WARNING: "warning",
+    ERROR: "error"
+  }
 }

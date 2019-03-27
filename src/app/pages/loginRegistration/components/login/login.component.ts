@@ -7,9 +7,7 @@ import { loginCredentials } from 'src/app/models/user.model';
 import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-import { HttpClient } from '@angular/common/http';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -37,12 +35,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private logging: LoggingService,
     private compiler: CompilerProvider,
-    private adminService:AdminControlService,
+    private adminService: AdminControlService,
     private navService: NavigationService
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
-    this.appConstants = ConstantService.appConstant;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.logging.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
   }
   ngOnInit() {
     if (this.loginService.getToken()) {
@@ -80,19 +78,19 @@ export class LoginComponent implements OnInit, OnDestroy {
   }): void {
     if (!valid) {
       this.logging.appLoggerForDev(
-        this.translated.LOGGER.STATUS.WARNING,
+        this.helperService.constants.status.WARNING,
         valid
       );
       this.logging.appLogger(
-        this.translated.LOGGER.STATUS.ERROR,
+        this.helperService.constants.status.ERROR,
         this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
       );
       return;
     }
     this.loading = true;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
+    this.logging.appLoggerForDev(this.helperService.constants.status.INFO, valid);
     this.logging.appLogger(
-      this.translated.LOGGER.STATUS.INFO,
+      this.helperService.constants.status.INFO,
       JSON.stringify(value)
     );
     this.loginService.loginUser(value).subscribe(
@@ -103,49 +101,49 @@ export class LoginComponent implements OnInit, OnDestroy {
             ? this.loginService.setToken(this.data.data.token)
             : this.loginService.setToken('');
           var entityData = {
-            'moduleName':'Safetybeat'
+            'moduleName': 'Safetybeat'
           };
-          this.adminService.viewEntities(entityData).subscribe((res)=>{
+          this.adminService.viewEntities(entityData).subscribe((res) => {
             this.entites = res;
             let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
             this.navService.changeEntites(entityUserData);
             this.logging.appLoggerForDev(
-              this.translated.LOGGER.STATUS.SUCCESS,
+              this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.createToaster(this.translated.MESSAGES.LOGIN_SUCCESS,this.translated.MESSAGES.LOGIN_MSG, this.translated.STATUS.SUCCESS);
+            this.helperService.createToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
             this.router.navigate(['/home']);
           })
 
         } else if (data.responseDetails.code === '0001') {
           this.logging.appLogger(
-            this.translated.LOGGER.STATUS.ERROR,
+            this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
           this.logging.appLoggerForDev(
-            this.translated.LOGGER.STATUS.ERROR,
+            this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
           this.loading = false;
         } else if (data.responseDetails.code === '0002') {
           this.logging.appLoggerForDev(
-            this.translated.LOGGER.STATUS.ERROR,
+            this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
           this.logging.appLogger(
-            this.translated.LOGGER.STATUS.ERROR,
+            this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
           this.loading = false;
         }
       },
       error => {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, error);
+        this.logging.appLogger(this.helperService.constants.status.ERROR, error);
         this.loading = false;
         this.helperService.createToaster(
           this.translated.MESSAGES.LOGIN_FAIL,
           this.translated.MESSAGES.LOGINFAIL_MSG,
-          this.translated.STATUS.ERROR
+          this.helperService.constants.status.ERROR
         );
       }
     );

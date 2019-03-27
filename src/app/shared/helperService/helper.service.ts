@@ -18,6 +18,7 @@ export class HelperService {
   iterations: any;
   findIndex: any;
   translation: Translation;
+  constants: typeof ConstantService;
   constructor(
     public toast: ToastrManager,
     public translate: TranslateService,
@@ -28,6 +29,7 @@ export class HelperService {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
     });
+    this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
   }
@@ -35,20 +37,16 @@ export class HelperService {
 
   createToaster(message, title, type, ...params: any) {
     switch (type) {
-      case 'SUCCESS':
-        // this.translation.STATUS.SUCCESS
+      case this.constants.status.SUCCESS:
         this.toast.successToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
-      case 'CUSTOM':
-        // this.translation.STATUS.CUSTOM
+      case this.constants.status.CUSTOM:
         this.toast.customToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
-      case 'WARNING':
-        // this.translation.STATUS.WARNING
+      case this.constants.status.WARNING:
         this.toast.warningToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
-      case 'ERROR':
-        // this.translation.STATUS.ERROR
+      case this.constants.status.ERROR:
         this.toast.errorToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
         break;
       default:
@@ -70,8 +68,8 @@ export class HelperService {
   }
 
   removeToken() {
-    localStorage.removeItem(ConstantService.localStorageKeys.entityUserData);
-    localStorage.removeItem(ConstantService.localStorageKeys.token);
+    localStorage.removeItem(this.constants.localStorageKeys.entityUserData);
+    localStorage.removeItem(this.constants.localStorageKeys.token);
   }
   logoutUser() {
     this.removeToken();
