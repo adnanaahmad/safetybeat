@@ -46,7 +46,6 @@ export class CreateEntityComponent implements OnInit {
   }
 
   setAddress(addrObj) {
-    debugger
     this.city = addrObj.locality;
     this.country = addrObj.country;
     this.zipCode = addrObj.zipCode;

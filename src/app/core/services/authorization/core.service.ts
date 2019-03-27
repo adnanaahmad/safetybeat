@@ -82,7 +82,6 @@ export class CoreService {
                 `body was: ${error.message}`);
         }
         // return an observable with a user-facing error message
-        debugger
         return throwError({ error: "Something bad happened; please try again later.", status: error.status })
     };
 }

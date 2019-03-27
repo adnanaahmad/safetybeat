@@ -74,7 +74,6 @@ export class HelperService {
     localStorage.removeItem(ConstantService.localStorageKeys.token);
   }
   logoutUser() {
-    debugger
     this.removeToken();
     sessionStorage.clear();
     this.cookies.delete('sessionid');
@@ -83,13 +82,8 @@ export class HelperService {
     this.router.navigate(['/login']);
   }
   logoutError(status) {
-    debugger
-    if (status === 401) {
+    if (status === 401 || status === 0) {
       this.logoutUser()
     }
   }
-
-
-
-
 }
