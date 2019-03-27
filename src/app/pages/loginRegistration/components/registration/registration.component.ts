@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, Input, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
@@ -17,6 +17,8 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
+  addr: any;
+  addrKeys: string[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,12 +26,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private register: LoginRegistrationService,
     private logging: LoggingService,
     private compiler: CompilerProvider,
+    private zone: NgZone,
     public helperService: HelperService,
   ) {
     this.translated = this.helperService.translation
     this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
+    this.register.registrationData()
+    .subscribe(data => {
+      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+      this.types = data[0];
+      this.modules = data[1];
+      this.packages = data[2];
+    }, error => {
+        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
+          this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+      });
   }
 
   /**
@@ -43,12 +56,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return this.organizationForm.controls;
   }
 
+  get orgTypeForm(){
+    return this.organizationTypeForm.controls;
+  }
+
   get modForm() {
     return this.moduleForm.controls;
   }
 
   @Input() userForm: FormGroup;
   organizationForm: FormGroup;
+  organizationTypeForm: FormGroup
   moduleForm: FormGroup;
   email: FormGroup;
 
@@ -71,18 +89,33 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      // email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       contactNo: ['', Validators.required],
-      password1: ['', [Validators.required, Validators.minLength(8)]],
-      password2: ['', [Validators.required, Validators.minLength(8)]],
-    }, { validator: this.checkPasswords });
+      password1: ['', [Validators.required, Validators.minLength(8)]]
+    });
+
+    this.organizationForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required]
+    });
+
+    this.organizationTypeForm = this.formBuilder.group({
+      type: ['']
+    });
+
     this.formErrorMatcher = new FormErrorHandler();
   }
 
   ngOnDestroy() {
     this.logging.hideAllAppLoggers();
+  }
+  setAddress(addrObj) {
+    this.zone.run(() => {
+      this.addr = addrObj;
+      this.addrKeys = Object.keys(addrObj);
+    });
   }
 
   numberOnly(event): boolean {

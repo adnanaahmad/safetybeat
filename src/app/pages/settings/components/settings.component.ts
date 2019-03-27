@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit {
   appIcons: any;
   appConstants: any;
   appTheme: any;
+  settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "privacy": false, "theme": false};
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
@@ -44,5 +45,16 @@ export class SettingsComponent implements OnInit {
       }
     })
     this.overlay.getContainerElement().classList.add(this.themeSelected);
+  }
+
+  changeSetting(settings: any) {
+    var self = this
+    this.helperService.iterations(this.settingFeatures, function (value, key) {
+      if (key === settings) {
+        self.settingFeatures[key] = true;
+      } else {
+        self.settingFeatures[key] = false;
+      }
+    })
   }
 }

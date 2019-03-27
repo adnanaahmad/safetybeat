@@ -34,7 +34,7 @@ export class ConstantService {
   static localStorageKeys = {
     token : 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
-    theme: 'sb_Theme_Selected'  
+    theme: 'sb_Theme_Selected'
   };
   static toast = {
     location: "toast-top-left",

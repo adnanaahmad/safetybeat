@@ -62,6 +62,7 @@
     "CHANGETHEME": "Change Theme",
     "EXPAND": "Expand",
     "REMOVE": "Remove"
+
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -141,7 +142,7 @@
     "CHANGEPASSWORD_FAIL": "Change Password Unsuccessful!",
     "CHANGEPASSWORD_SUCCESS": "Change password successful!",
     "PROFIILE_INFO": "Profile Info",
-    "ANONYMOUS": "Safetybeat !",
+    "ANONYMOUS": "SafetyBeat",
     "CHANGEPASSWORD": "Change Password",
     "NOTFOUND_HEADING": "Nothing found",
     "NOTFOUND_DESCRIPTION": "The page you are looking for is not here, or maybe broken",
@@ -164,7 +165,9 @@
     "ENTITYCONTROL_TITLE": "Entity Control Center",
     "ENTITYCONTROL_DESCRIPTION": "Create, remove or edit entities",
     "USERS_TITLE": "All Users",
-    "USERS_DESCRIPTION": "Add, remove or review users"
+    "USERS_DESCRIPTION": "Add, remove or review users",
+    "SETTINGS_TITLE": "Settings",
+    "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Entity Id",
@@ -179,7 +182,8 @@
     "SITE": "Site",
     "LAST_ACTION": "Last Action",
     "DATE_TIME": "Date/Time",
-    "TIMEZONE": "Time Zone"
+    "TIMEZONE": "Time Zone",
+    "ADMINISTRATED_BY": "Administrated By"
   },
   "LOGGER": {
     "STATUS": {

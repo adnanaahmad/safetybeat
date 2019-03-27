@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   password2: string;
   appIcons: any;
   appConstants: any;
-  profileFeatures = { "activities": false, "entities": false, "leaves": false, "profile": true, "changePassword": false };
+  profileFeatures = { "general": false, "entities": false, "leaves": false, "profile": true, "changePassword": false };
   joinEntityData: { moduleName: string; };
   allEntries: Object;
   entitiesList: any;
@@ -91,6 +91,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     return this.dataRecieved;
   }
+
+
   onCreate(feature: any) {
     var self = this
     this.helperService.iterations(this.profileFeatures, function (value, key) {

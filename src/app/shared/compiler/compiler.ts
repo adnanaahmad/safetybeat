@@ -49,17 +49,19 @@ export class CompilerProvider {
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
     let allEntities: Entity[] = [];
-    this.helperService.iterations(loginApiResponse.result, function (entity) {
+    this.helperService.iterations(loginApiResponse, function (entity) {
       let data: Entity = {
         entityInfo: entity.entity,
         permissions: entity.permissions,
         reportAccess: entity.reportAccess,
-        active: entity.active
+        administrator: entity.administrator,
+        active: entity.active,
+        role: entity.role
       };
       allEntities.push(data);
     });
     let userEntityData: EntityUserData = {
-      user: loginApiResponse.user,
+      // user: loginApiResponse.user,
       entities: allEntities
     };
     return userEntityData;
