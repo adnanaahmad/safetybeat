@@ -42,7 +42,7 @@ export class ConstantService {
     time1: 3000
   };
   static config = {
-    devMode: false,
+    devMode: true,
     theme: {
       dark: "dark-theme",
       light: "light-theme",
