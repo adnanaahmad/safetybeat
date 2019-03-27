@@ -81,8 +81,7 @@ export class CreateEntityComponent implements OnInit {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
       active: value.status,
-      roleId: 2,
-      uid: 115
+      roleId: 2
     };
     if (!valid) {
       debugger
