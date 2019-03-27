@@ -10,6 +10,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
+import { LoggingService } from '../logging/logging.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +27,7 @@ export class HelperService {
     public dialog: MatDialog,
     private cookies: CookieService,
     private router: Router,
+    private logging: LoggingService,
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
@@ -51,6 +54,14 @@ export class HelperService {
         break;
       default:
         break;
+    }
+  }
+
+  creatLogger(type: string, message: any, showDev: boolean) {
+    if (showDev) {
+      this.logging.appLoggerForDev(type, message);
+    } else {
+      this.logging.appLogger(type, message);
     }
   }
 

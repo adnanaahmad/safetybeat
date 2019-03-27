@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   appConstants: any;
   formErrorMatcher: any;
   entites: any;
-
+  devMode: boolean = false;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -40,7 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
-    this.logging.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
+    this.devMode = this.helperService.constants.config.devMode;
+    this.helperService.creatLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT, this.devMode)
   }
   ngOnInit() {
     if (this.loginService.getToken()) {
@@ -88,11 +89,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.logging.appLoggerForDev(this.helperService.constants.status.INFO, valid);
-    this.logging.appLogger(
-      this.helperService.constants.status.INFO,
-      JSON.stringify(value)
-    );
+    this.helperService.creatLogger(this.helperService.constants.status.INFO, valid, this.devMode)
+    this.helperService.creatLogger(this.helperService.constants.status.INFO, JSON.stringify(value), this.devMode)
     this.loginService.loginUser(value).subscribe(
       data => {
         if (data.responseDetails.code === '0000') {
