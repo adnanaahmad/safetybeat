@@ -54,16 +54,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    debugger
     // this.viewAllEntities();
   }
   ngAfterViewInit(){
     this.navService.data.subscribe((res)=>{
       if(res!==1){
-        debugger;
         this.allEntitiesData = res;
         this.entityUserData = this.allEntitiesData.entities;
-        let index = findIndex(this.entityUserData, function(entity){
+        let index = this.helperService.findIndex(this.entityUserData, function(entity){
           return entity.active===true
         });
         this.selectedEntity = (index!=-1)?this.entityUserData[index]:this.entityUserData[0];
@@ -75,7 +73,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.navService.changeEntites(this.entityUserData);
         })
       }
-
     })
   }
   ngOnDestroy() {
@@ -146,7 +143,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       'moduleName': 'Safetybeat'
     };
     this.adminServices.viewEntities(data).subscribe((res)=>{
-      debugger
       this.entitiesList = res;
       this.entityUserData = this.entitiesList.data.result;
       this.navService.changeEntites(this.entityUserData);
@@ -157,8 +153,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   switchSideMenu(data: any) {
-    debugger
     this.Entity = data;
+    this.navService.changeSelectedEntity(this.Entity);
     this.navService.changeRole(this.Entity.role);
     this.navService.changeRoleId(this.Entity.permissions.role);
     this.navLinks = this.compiler.switchSideMenuDefault(data)

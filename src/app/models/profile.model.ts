@@ -16,6 +16,12 @@ export interface EditUser {
     contactNo: string;
 }
 
+export interface EditEntity {
+    name:string;
+    code:string;
+    headOffice:string;
+}
+
 export interface changePassword {
     currentPassword: string;
     password1: string;

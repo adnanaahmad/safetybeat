@@ -31,7 +31,6 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
   roleId: number;
   entites: any;
   constructor(
-    public dialogRef: MatDialogRef<CreateEntityComponent>,
     public formBuilder: FormBuilder,
     private logging: LoggingService,
     private zone: NgZone,
@@ -70,11 +69,10 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
   }
 
   get formValidation() { return this.createEntityForm.controls; }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
   entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
-    debugger
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
@@ -90,7 +88,7 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
     this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
       this.entityResponse = result;
-      this.onNoClick();
+      // this.onNoClick();
       if(this.entityResponse.responseDetails.code=='0012'){
         var data = {
           'moduleName': 'Safetybeat'
@@ -110,7 +108,7 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
       }
     }, (error => {
       this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
-      this.onNoClick()
+      // this.onNoClick()
       this.helperService.logoutError(error.status)
     })
     );

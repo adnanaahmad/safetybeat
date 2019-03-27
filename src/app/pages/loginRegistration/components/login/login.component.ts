@@ -97,17 +97,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
     this.loginService.loginUser(value).subscribe(
       data => {
+        debugger
         if (data.responseDetails.code === '0000') {
-          debugger;
           this.data = data;
           data
             ? this.loginService.setToken(this.data.data.token)
             : this.loginService.setToken('');
+          let userData = this.compiler.constructUserData(this.data.data.user);
+          this.loginService.updateProfileData(userData);
           var entityData = {
             'moduleName':'Safetybeat'
           };
           this.adminService.viewEntities(entityData).subscribe((res)=>{
-            debugger
             this.entites = res;
             let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
             this.navService.changeEntites(entityUserData);
@@ -142,7 +143,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       },
       error => {
-        debugger
         this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, error);
         this.loading = false;
         this.helperService.createToaster(

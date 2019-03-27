@@ -20,7 +20,7 @@
           <span (click)="changeSetting('group')"><mat-icon>group_add</mat-icon> Create Group</span>
         </mat-list-item>
         <mat-list-item role="listitem">
-          <span (click)="changeSetting('privacy')"><mat-icon>screen_lock_portrait</mat-icon> Privacy Settings</span>
+          <span (click)="changeSetting('entity')"><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span>
         </mat-list-item>
         <mat-list-item role="listitem">
           <span (click)="changeSetting('theme')"><mat-icon>brightness_medium</mat-icon> Theme Settings</span>
@@ -169,36 +169,48 @@
       </div>
 
       <!--Privacy Settings-->
-      <div *ngIf="settingFeatures.privacy">
+      <div *ngIf="settingFeatures.entity">
         <mat-card>
-          <h3 class="setting-title">Privacy Setting</h3>
-          <p>Choose privacy setting for your account</p>
-          <mat-list role="list" class="settings-list">
-            <mat-list-item role="listitem">
-              <label>Change Password</label>
-              <input type="text" class="showonly" placeholder="******" />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Confirm Password</label>
-              <input type="text" class="showonly" placeholder="BlueSky Software" />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Security Question 1</label>
-              <input type="text" class="showonly" placeholder="Where did you born?" />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Security Question 2</label>
-              <input type="text" class="showonly" placeholder="Where did your father born?" />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Contact Number</label>
-              <input type="text" class="showonly" placeholder="+923157118511" />
-            </mat-list-item>
-          </mat-list>
-          <div class="btn-grp">
-            <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
-            <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+          <h3 class="setting-title">Entity Setting</h3>
+          <p>Choose Entity setting for your account</p>
+          <div class="text-right paddingbox">
+            <button btn-primary mat-raised-button color="primary" (click)="editEntity()">
+              <mat-icon>edit</mat-icon>Edit Entity
+            </button>
           </div>
+          <form class="profile-form" [formGroup]="entityForm" (ngSubmit)="updateEntity(entityForm)">
+            <mat-card-content>
+              <mat-list role="list">
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                      <label>{{translated.TABLEHEADINGS.NAME}} </label>
+                      <input matInput type="text" placeholder={{entitiesData.name}} [(ngModel)]="entitiesData.name" formControlName={{appConstants.name}}
+                        [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.name}} required />
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                      <label>Entity Code</label>
+                      <input matInput type="text" [(ngModel)]="entitiesData.code" formControlName={{appConstants.code}}
+                        [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.code}} required />
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                      <label>{{translated.TABLEHEADINGS.ENTITY_HEADOFFICE}} </label>
+                      <input matInput type="text" [(ngModel)]="entitiesData.headOffice" formControlName={{appConstants.headOffice}}
+                        formControlName={{appConstants.headOffice}} [ngClass]="disabled ? 'active' : 'inactive'" required />
+                  </mat-list-item>
+                </div>
+              </mat-list>
+            </mat-card-content>
+            <div *ngIf="disabled" class="btn-grp">
+              <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
+                <mat-icon>{{appIcons.save}}</mat-icon> {{translated.BUTTONS.SAVE}}
+              </button>
+              <button mat-raised-button custom-btn btn-primary color="warn">{{translated.BUTTONS.CANCEL}}</button>
+            </div>
+          </form>
         </mat-card>
       </div>
 

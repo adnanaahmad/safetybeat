@@ -10,11 +10,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+// import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
-
   iterations: any;
   findIndex: any;
   translation: Translation;
@@ -23,7 +23,7 @@ export class HelperService {
     public translate: TranslateService,
     public dialog: MatDialog,
     private cookies: CookieService,
-    private router: Router,
+    private router: Router
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
@@ -58,6 +58,7 @@ export class HelperService {
 
 
   createModal(component, ...params: any) {
+    debugger;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -74,7 +75,6 @@ export class HelperService {
     localStorage.removeItem(ConstantService.localStorageKeys.token);
   }
   logoutUser() {
-    debugger
     this.removeToken();
     sessionStorage.clear();
     this.cookies.delete('sessionid');
@@ -83,7 +83,6 @@ export class HelperService {
     this.router.navigate(['/login']);
   }
   logoutError(status) {
-    debugger
     if (status === 401) {
       this.logoutUser()
     }

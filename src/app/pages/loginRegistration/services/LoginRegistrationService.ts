@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, forkJoin, throwError } from 'rxjs';
+import { Observable, forkJoin, throwError, BehaviorSubject } from 'rxjs';
 import { ConstantService } from '../../../shared/constant/constant.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   loginCredentials,
   LoginResponse,
   ForgotPassword,
-  ForgotPasswordResponse
+  ForgotPasswordResponse,
+  User
 } from 'src/app/models/user.model';
-import { map, catchError } from 'rxjs/operators';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
+import { catchError } from 'rxjs/operators';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 
 
@@ -20,6 +20,8 @@ export class LoginRegistrationService {
   selected = true;
   reset_success: string;
   reset_msg: string;
+  private userData = new BehaviorSubject<any>(1);
+  profileData = this.userData.asObservable();
   constructor(
     private http: HttpClient,
     public coreServices: CoreService) { }
@@ -103,5 +105,9 @@ export class LoginRegistrationService {
    */
   getToken() {
     return localStorage.getItem(this.storageKey);
+  }
+
+  updateProfileData(data:any){
+    this.userData.next(data);
   }
 }

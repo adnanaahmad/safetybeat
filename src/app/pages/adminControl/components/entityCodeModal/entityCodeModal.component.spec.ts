@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AlertModalComponent } from './alert-modal.component';
+import { AlertModalComponent } from './entityCodeModal.component';
 
 describe('AlertModalComponent', () => {
   let component: AlertModalComponent;
