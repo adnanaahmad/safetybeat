@@ -46,7 +46,8 @@ export class ConstantService {
     theme: {
       dark: "dark-theme",
       light: "light-theme",
-      background: "body-bg"
+      background: "body-bg",
+      modalClass: "verify-modal"
     }
   };
   static appTheme = {

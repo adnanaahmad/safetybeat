@@ -27,6 +27,7 @@ import { OrgRegistrationComponent } from './pages/loginRegistration/components/o
 import { JoinEntityModalComponent } from './pages/adminControl/components/joinEntityModal/joinEntityModal.component';
 import { AlertModalComponent } from './pages/adminControl/components/alert-modal/alert-modal.component';
 import { InviteUserModalComponent } from './pages/navigation/components/inviteUserModal/inviteUserModal.component';
+import { VerificationComponent } from './pages/loginRegistration/components/verification/verification.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -42,7 +43,8 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
-    InviteUserModalComponent
+    InviteUserModalComponent,
+    VerificationComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -82,7 +84,8 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
-    InviteUserModalComponent
+    InviteUserModalComponent,
+    VerificationComponent
   ]
 })
 export class AppModule { }
