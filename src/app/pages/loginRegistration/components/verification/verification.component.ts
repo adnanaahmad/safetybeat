@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Verification } from "src/app/models/user.model";
 import { LoginRegistrationService } from "../../services/LoginRegistrationService";
 import { HelperService } from "src/app/shared/helperService/helper.service";
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: "app-verification",
@@ -28,6 +29,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
   success: any;
   res: any;
   appConstants: any;
+  code: string = "";
+  codeNumber: number;
   constructor(
     private logging: LoggingService,
     private router: Router,
@@ -35,8 +38,10 @@ export class VerificationComponent implements OnInit, OnDestroy {
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
     private route: ActivatedRoute,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private dialogRef: MatDialogRef<VerificationComponent>
   ) {
+    dialogRef.disableClose = true;
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(
@@ -64,8 +69,19 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
   @ViewChildren("input") inputs;
   keyTab($event, value) {
+    if (this.code == "") {
+      this.code = value;
+    } else {
+      this.code = this.code + value;
+    }
+
     let element = $event.srcElement.nextElementSibling;
     if (element == null) {
+      console.log(this.code);
+      debugger;
+      this.codeNumber = parseInt(this.code);
+      console.log(this.codeNumber);
+      this.myfunc(this.codeNumber);
       return;
     } else {
       element.focus();
@@ -171,5 +187,9 @@ export class VerificationComponent implements OnInit, OnDestroy {
         );
       }
     );
+  }
+
+  myfunc(data: any) {
+    console.log("this is requested code", data);
   }
 }
