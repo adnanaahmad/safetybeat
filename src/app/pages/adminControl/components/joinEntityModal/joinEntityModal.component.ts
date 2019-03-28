@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Translation } from 'src/app/models/translate.model';
-import { joinEntity, entityCode } from 'src/app/models/entity.model';
+import { entityCode } from 'src/app/models/entity.model';
 import { AdminControlService } from '../../services/adminControl.service';
 import { MatDialogRef } from '@angular/material';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -24,13 +22,12 @@ export class JoinEntityModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<JoinEntityModalComponent>,
     public formBuilder: FormBuilder,
-    private logging: LoggingService,
     private adminServices: AdminControlService,
     public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.JOINENTITY);
-    this.appConstants = ConstantService.appConstant;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.JOINENTITY);
+    this.appConstants = this.helperService.constants.appConstant;
   }
 
   ngOnInit() {
@@ -46,30 +43,30 @@ export class JoinEntityModalComponent implements OnInit {
 
   entityJoin({ value, valid }: { value: entityCode; valid: boolean }) {
     if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
     this.joinEntityData = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityCode: value.joinCode
     };
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.adminServices.joinEntity(this.joinEntityData).subscribe((res) => {
       this.entityResponse = res;
       this.onNoClick();
       if (this.entityResponse.responseDetails.code == '0025') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'Entity is Joined successfully');
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Entity is Joined successfully');
       }
       else if (this.entityResponse.responseDetails.code == '0027') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, 'Already Joined this entity')
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Already Joined this entity')
       }
       else if (this.entityResponse.responseDetails.code == '0026') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, 'Entity Not Found')
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Entity Not Found')
       }
     }, (error) => {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, "You can not joined entity.");
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, "You can not joined entity.");
       this.helperService.logoutError(error.status)
     })
 

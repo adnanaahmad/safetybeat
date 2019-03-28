@@ -44,7 +44,8 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
-    InviteUserModalComponent
+    InviteUserModalComponent,
+    VerificationComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -74,7 +75,7 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: TokenInterceptorService,
       multi: true
     },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
 
   bootstrap: [AppComponent],
@@ -84,7 +85,9 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
-    InviteUserModalComponent
+    InviteUserModalComponent,
+    CreateEntityComponent,
+    VerificationComponent
   ]
 })
 export class AppModule { }

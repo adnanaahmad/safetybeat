@@ -1,18 +1,10 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Renderer2,
-  ViewChild,
-  ViewChildren
-} from "@angular/core";
-import { Translation } from "src/app/models/translate.model";
-import { LoggingService } from "src/app/shared/logging/logging.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Verification } from "src/app/models/user.model";
-import { LoginRegistrationService } from "../../services/LoginRegistrationService";
-import { HelperService } from "src/app/shared/helperService/helper.service";
+import { Component, OnInit, OnDestroy, Renderer2, ViewChildren, Inject } from '@angular/core';
+import { Translation } from 'src/app/models/translate.model';
+import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginRegistrationService } from '../../services/LoginRegistrationService';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: "app-verification",
@@ -28,41 +20,33 @@ export class VerificationComponent implements OnInit, OnDestroy {
   res: any;
   appConstants: any;
   code: string = "";
-  codeNumber: number;
   registrationData: any;
+  validationData: any;
+  userEmail: any;
   constructor(
-    private logging: LoggingService,
     private router: Router,
     public formBuilder: FormBuilder,
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
     private route: ActivatedRoute,
-    public helperService: HelperService
+    public helperService: HelperService,
+    @Inject(MAT_DIALOG_DATA) public email: any,
+    public dialogRef: MatDialogRef<VerificationComponent>,
   ) {
+    debugger
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
-    this.render.addClass(
-      document.body,
-      this.helperService.constants.config.theme.modalClass
-    );
-    this.logging.appLoggerForDev(
-      this.helperService.constants.status.SUCCESS,
-      this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT
-    );
+    this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
   }
 
   ngOnInit() {
-    this.route.params.subscribe(data => {
-      this.emaill = data;
-    });
+    console.log(this.email)
   }
 
   ngOnDestroy() {
-    this.render.removeClass(
-      document.body,
-      this.helperService.constants.config.theme.background
-    );
-    this.logging.hideAllAppLoggers();
+    this.render.removeClass(document.body, this.helperService.constants.config.theme.background);
+    this.helperService.hideLoggers();
   }
   @ViewChildren("input") inputs;
   keyTab($event, value) {
@@ -74,8 +58,10 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
     let element = $event.srcElement.nextElementSibling;
     if (element == null) {
-      this.codeNumber = parseInt(this.code);
-      this.validateUser(this.codeNumber);
+      var data = {
+        'code' : parseInt(this.code)
+      };
+      this.validateUser(data);
       return;
     } else {
       element.focus();
@@ -89,6 +75,15 @@ export class VerificationComponent implements OnInit, OnDestroy {
   validateUser(data: any) {
     this.loginRegService.verifyCode(data).subscribe(res => {
       debugger
+      this.validationData = res;
+      this.userEmail = this.validationData.data.data;
+      if(this.validationData.responseDetails.code === '0035'){
+        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS,'You have been verifiesd');
+        this.dialogRef.close();
+        this.router.navigate(['/signup', {data:JSON.stringify(this.userEmail)}], { skipLocationChange: true });
+      }
+    },(error)=>{
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR,'You have not been verifiesd');
     });
   }
 
@@ -96,21 +91,19 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.loginRegService.validateUser(this.emaill).subscribe(
       data => {
         debugger
-        this.helperService.creatLogger(
+        this.helperService.appLogger(
           this.helperService.constants.status.SUCCESS,
-          this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS,
-          false
+          this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS
         );
-        this.helperService.creatLogger(
+        this.helperService.appLogger(
           this.helperService.constants.status.SUCCESS,
-          this.translated.MESSAGES.RESET_SUCCESS,
-          false
+          this.translated.MESSAGES.RESET_SUCCESS
         );
         this.router.navigate(["/signup"]);
       },
       error => {
-          this.helperService.creatLogger(this.helperService.constants.status.ERROR, error.error, false);
-          this.helperService.creatLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR,false);
+          this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
+          this.helperService.appLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR);
       }
     );
   }

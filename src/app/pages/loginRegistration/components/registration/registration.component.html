@@ -32,16 +32,6 @@
           <!-- <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p> -->
           <p class="subheading">Please tell us about yourself</p>
           <form [formGroup]="userForm">
-              <div class="input">
-                  <mat-form-field full-width>
-                    <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}}
-                      [errorStateMatcher]="formErrorMatcher" required />
-                    <mat-error *ngIf="userDetailForm.email.errors">
-                      <span *ngIf="userDetailForm.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
-                      <span *ngIf="userDetailForm.email.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="translated.AUTH.FIRSTNAME"

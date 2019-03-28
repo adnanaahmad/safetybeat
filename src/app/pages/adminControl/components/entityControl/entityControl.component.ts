@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import {
   MatDialogConfig,
   MatDialog,
@@ -9,7 +8,6 @@ import {
 } from '@angular/material';
 import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
 import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { AdminControlService } from '../../services/adminControl.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
@@ -35,15 +33,14 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   createEntityOption:boolean=false;
   constructor(
     public dialog: MatDialog,
-    private logging: LoggingService,
     public adminServices: AdminControlService,
     public helperService: HelperService,
     private navService : NavigationService
   ) {
     this.translated = this.helperService.translation;
-    this.appIcons = ConstantService.appIcons;
-    this.logging.appLoggerForDev(
-      this.translated.LOGGER.STATUS.SUCCESS,
+    this.appIcons = this.helperService.constants.appIcons;
+    this.helperService.appLogger(
+      this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.ENTITYCONTROL
     );
   }

@@ -11,7 +11,6 @@ import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
-import { LoggingService } from '../logging/logging.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +25,7 @@ export class HelperService {
     public dialog: MatDialog,
     private cookies: CookieService,
     private router: Router,
-    private logging: LoggingService,
+    private notifier: NotifierService,
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
@@ -56,14 +55,17 @@ export class HelperService {
     }
   }
 
-  creatLogger(type: string, message: any, showDev: boolean) {
-    if (showDev) {
-      this.logging.appLoggerForDev(type, message);
-    } else {
-      this.logging.appLogger(type, message);
+  hideLoggers(): void {
+    this.notifier.hideAll();
+  }
+  appLogger(type: string, message: any): void {
+    this.notifier.notify(type, message);
+  }
+  appLoggerDev(type: string, message: any): void {
+    if (this.constants.config.devMode) {
+      this.notifier.notify(type, message);
     }
   }
-
 
   createModal(component, ...params: any) {
     debugger;
@@ -71,6 +73,7 @@ export class HelperService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = false;
+    debugger
     if (params.length === 0) {
       this.dialog.open(component);
     } else {

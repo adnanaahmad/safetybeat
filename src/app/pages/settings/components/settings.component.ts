@@ -3,7 +3,6 @@ import { SettingService } from 'src/app/shared/settings/setting.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from '../../navigation/services/navigation.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -30,13 +29,12 @@ export class SettingsComponent implements OnInit,AfterViewInit {
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
-    private logging: LoggingService,
     public helperService: HelperService,
     private navService: NavigationService,
     private formBuilder:FormBuilder
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
     this.appTheme = ConstantService.appTheme;
@@ -110,7 +108,7 @@ export class SettingsComponent implements OnInit,AfterViewInit {
       'createdBy' : this.createdBy
     }
     if(!valid){
-      this.logging.appLogger(this.translated.STATUS.ERROR,'Invalid Entity Fields');
+      this.helperService.appLogger(this.translated.STATUS.ERROR,'Invalid Entity Fields');
       return;
     }
     this.settings.editEntity(this.entityId,data).subscribe((res)=>{

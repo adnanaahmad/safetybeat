@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, Input, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { RegisterUser } from 'src/app/models/user.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
@@ -21,29 +20,34 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   organizationData: any;
   registrationData: any;
   devMode:boolean = false;
+  userEmail: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private register: LoginRegistrationService,
-    private logging: LoggingService,
     private compiler: CompilerProvider,
     private zone: NgZone,
     public helperService: HelperService,
+    private route:ActivatedRoute
   ) {
+
+    this.route.params.subscribe((data)=>{
+      this.userEmail = data;
+    })
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
     this.devMode = this.helperService.constants.config.devMode;
-    this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
-        this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.types = data[0];
         this.modules = data[1];
         this.packages = data[2];
       }, error => {
-        this.logging.appLoggerForDev(this.helperService.constants.status.ERROR, `${error.error +
+        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
           this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       });
   }
@@ -92,7 +96,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      email: ['',Validators.required],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       contactNo: ['', Validators.required],
@@ -113,7 +116,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
   setAddress(addrObj) {
     this.zone.run(() => {
@@ -167,7 +170,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'type': this.organizationTypeForm.value.type
     };
     this.registerData = {
-      'email' : this.userForm.value.email,
+      'email' : JSON.parse(this.userEmail.data),
       'first_name' : this.userForm.value.first_name,
       'last_name' : this.userForm.value.last_name,
       'password1' : this.userForm.value.password1,
@@ -181,23 +184,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     };
 
     if (this.organizationForm.invalid || this.userForm.invalid) {
-      this.logging.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
-      this.logging.appLoggerForDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
+      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
-    this.helperService.creatLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerData),this.devMode);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerData));
     this.register.registerUser(this.registerData).subscribe((result)=>{
       this.registrationData = result;
       if(this.registrationData.responseDetails.code === '0011'){
         debugger
         result ? this.register.setToken(this.registrationData.data.token) : this.register.setToken('');
-        this.helperService.creatLogger(this.helperService.constants.status.SUCCESS,this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS,this.devMode);
-        this.helperService.creatLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS,this.devMode);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
         this.router.navigate(['/welcomeScreen']);
       }
     }, (error)=>{
-      this.helperService.creatLogger(this.helperService.constants.status.ERROR, error.error, this.devMode);
-      this.helperService.creatLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR,false);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status)
     });
 

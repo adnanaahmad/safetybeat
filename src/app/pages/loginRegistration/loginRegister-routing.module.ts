@@ -33,11 +33,6 @@ const authRoutes: Routes = [
   {
     path: "signup",
     component: RegistrationComponent
-  },
-  {
-    path: "verification",
-    component: VerificationComponent,
-    canDeactivate: ["canDeactivateVerification"]
   }
 ];
 

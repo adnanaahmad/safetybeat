@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
 import { HelperService } from '../helperService/helper.service';
 import { User } from 'src/app/models/user.model';
 
 @Injectable()
 export class CompilerProvider {
-  newMenu: any = []
-  navList: any = []
+  newMenu: any = [];
+  navList: any = [];
+  appIcons: any;
   constructor(
     public helperService: HelperService
-  ) { }
+  ) {
+    this.appIcons = this.helperService.constants.appIcons;
+  }
   /**
    * @param event
    * To check if the input is number or not
@@ -74,13 +76,13 @@ export class CompilerProvider {
     this.navList = [
       {
         route: '/home',
-        iconName: ConstantService.appIcons.dashboard,
+        iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
       {
         route: '/home/profile/user',
-        iconName: ConstantService.appIcons.group,
+        iconName: this.appIcons.group,
         displayName: 'Users',
         disabled: data.permissions.allUsers
       },
@@ -120,7 +122,7 @@ export class CompilerProvider {
       },
       {
         route: '/home/documents',
-        iconName: ConstantService.appIcons.insertDriveFile,
+        iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         disabled: data.permissions.documents
       },
@@ -194,13 +196,13 @@ export class CompilerProvider {
     this.navList = [
       {
         route: '/home',
-        iconName: ConstantService.appIcons.dashboard,
+        iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
       {
         route: '/home/profile/user',
-        iconName: ConstantService.appIcons.group,
+        iconName: this.appIcons.group,
         displayName: 'Users',
         disabled: data.permissions.allUsers
       },
@@ -240,7 +242,7 @@ export class CompilerProvider {
       },
       {
         route: '/home/documents',
-        iconName: ConstantService.appIcons.insertDriveFile,
+        iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         disabled: data.permissions.documents
       },

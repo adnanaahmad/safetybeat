@@ -7,7 +7,6 @@ import {
 } from "@angular/core";
 import { ProfileService } from "../../services/profile.service";
 import { share } from "rxjs/operators";
-import { LoggingService } from "src/app/shared/logging/logging.service";
 import { Translation } from "src/app/models/translate.model";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { EditUser } from "src/app/models/profile.model";
@@ -56,7 +55,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private profile: ProfileService,
-    private logging: LoggingService,
     private loginService: LoginRegistrationService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -65,7 +63,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     private compiler: CompilerProvider
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(
+    this.helperService.appLoggerDev(
       this.translated.LOGGER.STATUS.SUCCESS,
       this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
@@ -85,7 +83,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
 
   ngAfterViewInit() {
@@ -168,29 +166,29 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {
-      this.logging.appLoggerForDev(
+      this.helperService.appLoggerDev(
         this.translated.LOGGER.STATUS.WARNING,
         valid
       );
-      this.logging.appLogger(
+      this.helperService.appLogger(
         this.translated.LOGGER.STATUS.ERROR,
         this.translated.LOGGER.MESSAGES.PROFILE_CREDENTIAL_REQ
       );
       return;
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(
+    this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.INFO, valid);
+    this.helperService.appLogger(
       this.translated.LOGGER.STATUS.INFO,
       JSON.stringify(value)
     );
     value[this.appConstants.userName] = this.username;
     this.profile.editUser(this.userId, value).subscribe(
       data => {
-        this.logging.appLoggerForDev(
+        this.helperService.appLoggerDev(
           this.translated.LOGGER.STATUS.SUCCESS,
           valid
         );
-        this.logging.appLogger(
+        this.helperService.appLogger(
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
@@ -202,13 +200,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getUserData();
       },
       error => {
-        this.logging.appLoggerForDev(
+        this.helperService.appLoggerDev(
           this.translated.LOGGER.STATUS.ERROR,
           `${error.error.detail +
             this.translated.LOGGER.MESSAGES.STATUS +
             error.status}`
         );
-        this.logging.appLoggerForDev(
+        this.helperService.appLoggerDev(
           this.translated.MESSAGES.LOGIN_FAIL,
           this.translated.LOGGER.MESSAGES.PROFILE_NOTUPDATED
         );
