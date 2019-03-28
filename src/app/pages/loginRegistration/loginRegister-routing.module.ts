@@ -34,12 +34,6 @@ const authRoutes: Routes = [
     path: "signup",
     component: RegistrationComponent
   },
-  // {
-  //   path: "verification",
-  //   component: VerificationComponent,
-  //   canActivate: [AuthGuard],
-  //   canDeactivate: ["canDeactivateVerification"]
-  // }
 ];
 
 @NgModule({
