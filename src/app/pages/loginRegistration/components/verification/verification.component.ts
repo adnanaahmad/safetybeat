@@ -6,6 +6,7 @@ import { Verification } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { Location } from '@angular/common';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: "app-verification",

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Translation } from 'src/app/models/translate.model';
@@ -9,13 +9,14 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.scss"]
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements OnInit {
   themeSelected: any;
   translated: Translation;
   appIcons: any;
   appConstants: any;
   appTheme: any;
   settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "privacy": false, "theme": false};
+  render: any;
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
@@ -34,12 +35,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.render.removeClass(
-      document.getElementsByClassName("settingNav"),
-      this.helperService.constants.config.theme.background
-    );
-  }
+  
 
   changed() {
     this.settings.setActiveTheme(this.themeSelected);
