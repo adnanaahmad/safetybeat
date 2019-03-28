@@ -21,14 +21,18 @@ export class VerificationComponent implements OnInit, OnDestroy {
   success: any;
   res: any;
   appConstants: any;
+  code: string = "";
+  codeNumber: number;
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
     private route: ActivatedRoute,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private dialogRef: MatDialogRef<VerificationComponent>
   ) {
+    dialogRef.disableClose = true;
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
@@ -47,8 +51,19 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
   @ViewChildren("input") inputs;
   keyTab($event, value) {
+    if (this.code == "") {
+      this.code = value;
+    } else {
+      this.code = this.code + value;
+    }
+
     let element = $event.srcElement.nextElementSibling;
     if (element == null) {
+      console.log(this.code);
+      debugger;
+      this.codeNumber = parseInt(this.code);
+      console.log(this.codeNumber);
+      this.myfunc(this.codeNumber);
       return;
     } else {
       element.focus();
@@ -113,5 +128,9 @@ export class VerificationComponent implements OnInit, OnDestroy {
     }, (err) => {
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, err);
     });
+  }
+
+  myfunc(data: any) {
+    console.log("this is requested code", data);
   }
 }
