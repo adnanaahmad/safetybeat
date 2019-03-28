@@ -22,29 +22,29 @@ export class FixedNavComponent implements OnInit {
   public defaultNavLinks: NavItem[] = [
     {
       route: '/home',
-      iconName: this.appIcons.dashboard,
+      iconName: this.helperService.constants.appIcons.dashboard,
       toolTip: 'Dashboard'
     },
     {
       route: '/home/adminControl/entityControl',
-      iconName: this.appIcons.contacts,
+      iconName: this.helperService.constants.appIcons.contacts,
       toolTip: 'Entity Control Center'
     }
   ];
   public navLinksBottom: NavItem[] = [
     {
       route: '/home/profile',
-      iconName: this.appIcons.person,
+      iconName: this.helperService.constants.appIcons.person,
       toolTip: 'Profile'
     },
     {
       route: '/home',
-      iconName: this.appIcons.help,
+      iconName: this.helperService.constants.appIcons.help,
       toolTip: 'Support Center'
     },
     {
       route: '/home/settings',
-      iconName: this.appIcons.settings,
+      iconName: this.helperService.constants.appIcons.settings,
       toolTip: 'Settings'
     }
   ];
