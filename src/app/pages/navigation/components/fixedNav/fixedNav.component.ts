@@ -1,11 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { NavItem } from 'src/app/models/navItems.model';
-import { Router } from '@angular/router';
-import { share } from 'rxjs/operators';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
@@ -27,29 +22,29 @@ export class FixedNavComponent implements OnInit {
   public defaultNavLinks: NavItem[] = [
     {
       route: '/home',
-      iconName: ConstantService.appIcons.dashboard,
+      iconName: this.appIcons.dashboard,
       toolTip: 'Dashboard'
     },
     {
       route: '/home/adminControl/entityControl',
-      iconName: ConstantService.appIcons.contacts,
+      iconName: this.appIcons.contacts,
       toolTip: 'Entity Control Center'
     }
   ];
   public navLinksBottom: NavItem[] = [
     {
       route: '/home/profile',
-      iconName: ConstantService.appIcons.person,
+      iconName: this.appIcons.person,
       toolTip: 'Profile'
     },
     {
       route: '/home',
-      iconName: ConstantService.appIcons.help,
+      iconName: this.appIcons.help,
       toolTip: 'Support Center'
     },
     {
       route: '/home/settings',
-      iconName: ConstantService.appIcons.settings,
+      iconName: this.appIcons.settings,
       toolTip: 'Settings'
     }
   ];
@@ -59,19 +54,16 @@ export class FixedNavComponent implements OnInit {
 
   constructor(
     public helperService: HelperService,
-    private logging: LoggingService,
-    private adminServices: AdminControlService,
-    private router: Router
   ) {
     this.translated = this.helperService.translation;
-    this.appIcons = ConstantService.appIcons;
+    this.appIcons = this.helperService.constants.appIcons;
     this.navLinks = this.defaultNavLinks;
   }
   // Toggle the sidenav
   public toggleSideNav() {
     this.navOpened = !this.navOpened;
-    this.logging.appLoggerForDev(
-      this.translated.LOGGER.STATUS.INFO,
+    this.helperService.appLoggerDev(
+      this.helperService.constants.status.INFO,
       `${this.translated.LOGGER.MESSAGES.SIDE_NAV + this.navOpened}`
     );
     this.sidenavToggle.emit(this.navOpened);
@@ -80,5 +72,5 @@ export class FixedNavComponent implements OnInit {
     this.navLinks = this.defaultNavLinks;
     this.switchNavListDefault.emit();
   }
-  ngOnInit() {}
+  ngOnInit() { }
 }

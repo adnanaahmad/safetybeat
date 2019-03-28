@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Verification } from 'src/app/models/user.model';
@@ -23,7 +22,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
   res: any;
   appConstants: any;
   constructor(
-    private logging: LoggingService,
     private router: Router,
     public formBuilder: FormBuilder,
     private render: Renderer2,
@@ -35,7 +33,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.background);
-    this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
   }
 
   ngOnInit() {
@@ -54,7 +52,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.background);
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
 
   checkEmail(group) {
@@ -76,12 +74,12 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
   changeEmail({ value, valid }: { value: Verification, valid: boolean }): void {
     if (!valid) {
-      this.logging.appLoggerForDev(this.helperService.constants.status.WARNING, valid);
-      this.logging.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
       return;
     }
-    this.logging.appLoggerForDev(this.helperService.constants.status.INFO, valid);
-    this.logging.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.emaill = value.email;
     const verificationData = {
       email: value.email,
@@ -91,12 +89,12 @@ export class VerificationComponent implements OnInit, OnDestroy {
       this.res = res;
       this.data.data.userData.email = value.email;
       this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((result) => {
-        this.logging.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-        this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
       }, (err) => {
-        this.logging.appLoggerForDev(this.helperService.constants.status.ERROR, err);
+        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, err);
       });
-      this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.EMAIL_CHANGED);
+      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.EMAIL_CHANGED);
     })
   }
   resendVerification() {
@@ -105,10 +103,10 @@ export class VerificationComponent implements OnInit, OnDestroy {
       email: this.data.data.userData.email
     }
     this.loginRegService.resendemail(resendData).subscribe((res) => {
-      this.logging.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-      this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
     }, (err) => {
-      this.logging.appLoggerForDev(this.helperService.constants.status.ERROR, err);
+      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, err);
     });
   }
 }

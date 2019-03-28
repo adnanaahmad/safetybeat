@@ -1,8 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { Translation } from 'src/app/models/translate.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { entityData } from '../../../../models/entity.model';
 import { AdminControlService } from '../../../adminControl/services/adminControl.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -27,14 +25,13 @@ export class CreateEntityComponent implements OnInit {
   entityResponse: any;
   constructor(
     public formBuilder: FormBuilder,
-    private logging: LoggingService,
     private zone: NgZone,
     private adminServices: AdminControlService,
     public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
-    this.appConstants = ConstantService.appConstant;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
+    this.appConstants = this.helperService.constants.appConstant;
   }
 
   ngOnInit() {
@@ -62,25 +59,25 @@ export class CreateEntityComponent implements OnInit {
       entityData: value
     }
     if(!valid){
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
       this.entityResponse = result;
       if (this.entityResponse.responseDetails.code == '0012') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.entityResponse.responseDetails.message);
       }
       else if (this.entityResponse.responseDetails.code == '0013') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
       }
       else if (this.entityResponse.responseDetails.code == '0017') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
       }
     }, (error => {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
     })
     );
   }

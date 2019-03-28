@@ -1,9 +1,7 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { NavItem } from 'src/app/models/navItems.model';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { EntityUserData } from 'src/app/models/userEntityData.model';
@@ -38,17 +36,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
-    private logging: LoggingService,
     public compiler: CompilerProvider,
     private navService: NavigationService,
     public helperService: HelperService,
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(
-      this.translated.LOGGER.STATUS.SUCCESS,
+    this.helperService.appLoggerDev(
+      this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
     );
-    this.appIcons = ConstantService.appIcons;
+    this.appIcons = this.helperService.constants.appIcons;
     this.navLinks = this.defaultList;
   }
 
@@ -76,13 +73,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
     })
   }
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
   switchList() {
     this.navLinks = [
       {
         route: '/home',
-        iconName: ConstantService.appIcons.dashboard,
+        iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
         disabled: true
       },

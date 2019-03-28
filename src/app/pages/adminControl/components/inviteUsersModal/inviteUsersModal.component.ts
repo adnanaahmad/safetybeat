@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Translation } from 'src/app/models/translate.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
@@ -19,13 +17,12 @@ export class InviteUsersModalComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public formBuilder: FormBuilder,
-    private logging: LoggingService,
     public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
-    this.appConstants = ConstantService.appConstant;
-    this.appIcons = ConstantService.appIcons;
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
+    this.appConstants =this.helperService.constants.appConstant;
+    this.appIcons = this.helperService.constants.appIcons;
   }
 
   ngOnInit() {
