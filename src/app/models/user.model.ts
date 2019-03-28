@@ -10,6 +10,10 @@ export interface responseDetails {
     code: string;
     message: string;
 }
+
+export interface validateUser{
+    email:string
+}
 export interface loginCredentials {
     username: string;
     password: string;

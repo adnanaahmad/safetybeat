@@ -25,9 +25,10 @@ import { CreateEntityComponent } from './pages/adminControl/components/createEnt
 import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
 import { OrgRegistrationComponent } from './pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 import { JoinEntityModalComponent } from './pages/adminControl/components/joinEntityModal/joinEntityModal.component';
-import { AlertModalComponent } from './pages/adminControl/components/alert-modal/alert-modal.component';
 import { InviteUserModalComponent } from './pages/navigation/components/inviteUserModal/inviteUserModal.component';
+import { AlertModalComponent } from './pages/adminControl/components/entityCodeModal/entityCodeModal.component';
 import { VerificationComponent } from './pages/loginRegistration/components/verification/verification.component';
+import { WelcomeScreenModule } from './pages/welcomeScreen/welcomeScreen.module';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -85,6 +86,7 @@ export function createTranslateLoader(http: HttpClient) {
     JoinEntityModalComponent,
     AlertModalComponent,
     InviteUserModalComponent,
+    CreateEntityComponent,
     VerificationComponent
   ]
 })

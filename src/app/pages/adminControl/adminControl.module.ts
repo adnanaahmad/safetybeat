@@ -9,6 +9,7 @@ import { QuestionCenterComponent } from './components/questionCenter/questionCen
 import { SiteCenterComponent } from './components/siteCenter/siteCenter.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { InviteUsersModalComponent } from './components/inviteUsersModal/inviteUsersModal.component';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,9 @@ import { InviteUsersModalComponent } from './components/inviteUsersModal/inviteU
     CommonModule,
     MaterialModule,
     AdminControlRoutingModule
+  ],
+  providers: [
+    CompilerProvider
   ]
 })
 export class AdminControlModule { }

@@ -13,8 +13,8 @@ export class ProfileService {
     private http: HttpClient,
     public coreServices: CoreService) { }
 
-  getUser(id) {
-    return this.http.get<UserProfile>(`${ConstantService.apiRoutes.user}/${id}`).pipe(catchError(this.coreServices.handleError));
+  getUser() {
+    return this.http.get(`${ConstantService.apiRoutes.user}`).pipe(catchError(this.coreServices.handleError));
   }
 
   editUser(id, data) {

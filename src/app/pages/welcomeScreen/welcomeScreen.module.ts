@@ -7,12 +7,13 @@ import { ParticleContainerComponent2 } from 'src/app/core/components/particleCon
 import { CoreModule } from 'src/app/core/core.module';
 import { CreateEntityComponent } from './components/createEntity/createEntity.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 
 
 @NgModule({
   declarations: [
     WelcomeScreenComponent,
-    CreateEntityComponent
+    CreateEntityComponent,
   ],
   imports: [
     CommonModule,
@@ -21,6 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    CompilerProvider,
   ]
 })
 export class WelcomeScreenModule { }

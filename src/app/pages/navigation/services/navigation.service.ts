@@ -19,6 +19,8 @@ export class NavigationService {
   data = this.dataSource.asObservable();
   private entitySelectedId = new BehaviorSubject<number>(1);
   currentRoleId = this.entitySelectedId.asObservable();
+  private entitySelected = new BehaviorSubject<any>(1);
+  selectedEntityData = this.entitySelected.asObservable();
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -57,6 +59,10 @@ export class NavigationService {
 
   changeRoleId(roleId:number){
     this.entitySelectedId.next(roleId);
+  }
+
+  changeSelectedEntity(data:any){
+    this.entitySelected.next(data);
   }
 
 }
