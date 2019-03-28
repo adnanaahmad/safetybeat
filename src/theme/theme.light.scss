@@ -190,7 +190,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       mat-list-item {
         span {
           &:hover,
-          &.active {
+          &.settingNav {
             background: mat-color($primary-pallet, 500);
             color: #fff;
             .mat-icon {
@@ -216,6 +216,21 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     #particle-container {
       .particle {
         color: mat-color($primary-pallet, 50);
+      }
+    }
+    .top-nav {
+      ul {
+        li {
+          a {
+            &.login {
+              border: 1px solid mat-color($primary-pallet, 500);
+              &:hover {
+                background: mat-color($primary-pallet, 500);
+                color:#fff;
+              }
+            }
+          }
+        }
       }
     }
   }
