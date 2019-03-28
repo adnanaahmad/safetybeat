@@ -9,6 +9,7 @@ import { HelperService } from "src/app/shared/helperService/helper.service";
 import { CompilerProvider } from "src/app/shared/compiler/compiler";
 import { NavigationService } from "src/app/pages/navigation/services/navigation.service";
 import { Router } from '@angular/router';
+import { WelcomeScreenService } from '../../services/welcome-screen.service';
 
 @Component({
   selector: "app-createEntity",
@@ -38,7 +39,8 @@ export class CreateEntityComponent implements OnInit {
     public helperService: HelperService,
     private compiler: CompilerProvider,
     private navService: NavigationService,
-    private router: Router
+    private router: Router,
+    private welcomeService:WelcomeScreenService
   ) {
     this.translated = this.helperService.translation;
     this.logging.appLoggerForDev(
@@ -101,7 +103,7 @@ export class CreateEntityComponent implements OnInit {
       this.translated.LOGGER.STATUS.INFO,
       JSON.stringify(value)
     );
-    this.adminServices.createEntity(this.entityDetails).subscribe(
+    this.welcomeService.createEntity(this.entityDetails).subscribe(
       result => {
         debugger
         this.entityResponse = result;
@@ -109,7 +111,7 @@ export class CreateEntityComponent implements OnInit {
           var data = {
             moduleName: "Safetybeat"
           };
-          this.adminServices.viewEntities(data).subscribe(res => {
+          this.welcomeService.viewEntities(data).subscribe(res => {
             this.entites = res;
             let entityUserData = this.compiler.constructUserEntityData(
               this.entites.data

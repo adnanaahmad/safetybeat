@@ -22,12 +22,14 @@ import { HelperService } from "src/app/shared/helperService/helper.service";
 export class VerificationComponent implements OnInit, OnDestroy {
   translated: Translation;
   verifyForm: FormGroup;
-  emaill: string;
+  emaill: any;
   data: any;
-  email: FormGroup;
   success: any;
   res: any;
   appConstants: any;
+  code: string = "";
+  codeNumber: number;
+  registrationData: any;
   constructor(
     private logging: LoggingService,
     private router: Router,
@@ -50,8 +52,8 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.verifyForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]]
+    this.route.params.subscribe(data => {
+      this.emaill = data;
     });
   }
 
@@ -64,29 +66,19 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
   @ViewChildren("input") inputs;
   keyTab($event, value) {
+    if (this.code == "") {
+      this.code = value;
+    } else {
+      this.code = this.code + value;
+    }
+
     let element = $event.srcElement.nextElementSibling;
     if (element == null) {
+      this.codeNumber = parseInt(this.code);
+      this.validateUser(this.codeNumber);
       return;
     } else {
       element.focus();
-    }
-  }
-
-  checkEmail(group) {
-    this.email = this.formBuilder.group({
-      email: [group.value.email, Validators.email]
-    });
-    if (this.email.status === "VALID") {
-      const email = { email: group.value.email };
-      this.loginRegService
-        .checkEmail(email)
-        .pipe()
-        .subscribe(res => {
-          this.success = res;
-          if (this.success.responseDetails.code == "0020") {
-            group.controls.email.setErrors({ exists: true });
-          }
-        });
     }
   }
 
@@ -94,81 +86,31 @@ export class VerificationComponent implements OnInit, OnDestroy {
     return this.verifyForm.controls;
   }
 
-  changeEmail({ value, valid }: { value: Verification; valid: boolean }): void {
-    if (!valid) {
-      this.logging.appLoggerForDev(
-        this.helperService.constants.status.WARNING,
-        valid
-      );
-      this.logging.appLogger(
-        this.helperService.constants.status.ERROR,
-        this.translated.LOGGER.MESSAGES.FORGOT_REQ
-      );
-      return;
-    }
-    this.logging.appLoggerForDev(
-      this.helperService.constants.status.INFO,
-      valid
-    );
-    this.logging.appLogger(
-      this.helperService.constants.status.INFO,
-      JSON.stringify(value)
-    );
-    this.emaill = value.email;
-    const verificationData = {
-      email: value.email,
-      userId: this.data.data.userId
-    };
-    this.loginRegService.changeEmail(verificationData).subscribe(res => {
-      this.res = res;
-      this.data.data.userData.email = value.email;
-      this.loginRegService
-        .resendemail({ email: this.data.userData.email })
-        .subscribe(
-          result => {
-            this.logging.appLogger(
-              this.helperService.constants.status.SUCCESS,
-              this.translated.LOGGER.MESSAGES.FORGOTSUCCESS
-            );
-            this.logging.appLoggerForDev(
-              this.helperService.constants.status.SUCCESS,
-              this.translated.LOGGER.MESSAGES.FORGOTSUCCESS
-            );
-          },
-          err => {
-            this.logging.appLoggerForDev(
-              this.helperService.constants.status.ERROR,
-              err
-            );
-          }
-        );
-      this.logging.appLoggerForDev(
-        this.helperService.constants.status.SUCCESS,
-        this.translated.MESSAGES.EMAIL_CHANGED
-      );
+  validateUser(data: any) {
+    this.loginRegService.verifyCode(data).subscribe(res => {
+      debugger
     });
   }
+
   resendVerification() {
-    const resendData = {
-      userId: this.data.data.userId,
-      email: this.data.data.userData.email
-    };
-    this.loginRegService.resendemail(resendData).subscribe(
-      res => {
-        this.logging.appLogger(
+    this.loginRegService.validateUser(this.emaill).subscribe(
+      data => {
+        debugger
+        this.helperService.creatLogger(
           this.helperService.constants.status.SUCCESS,
-          this.translated.LOGGER.MESSAGES.FORGOTSUCCESS
+          this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS,
+          false
         );
-        this.logging.appLoggerForDev(
+        this.helperService.creatLogger(
           this.helperService.constants.status.SUCCESS,
-          this.translated.LOGGER.MESSAGES.FORGOTSUCCESS
+          this.translated.MESSAGES.RESET_SUCCESS,
+          false
         );
+        this.router.navigate(["/signup"]);
       },
-      err => {
-        this.logging.appLoggerForDev(
-          this.helperService.constants.status.ERROR,
-          err
-        );
+      error => {
+          this.helperService.creatLogger(this.helperService.constants.status.ERROR, error.error, false);
+          this.helperService.creatLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR,false);
       }
     );
   }

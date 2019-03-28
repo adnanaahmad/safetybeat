@@ -157,7 +157,9 @@
     "JOINENTITY_MSG": "Enter Details to Join Entity",
     "ENTITYCODE": "Enter entity code to join entity",
     "ENTITYCODE_REQ": "Entity Code is Required.",
-    "BACKEND_ERROR": "Something bad happened; please try again later."
+    "BACKEND_ERROR": "Something bad happened; please try again later.",
+    "ORGTYPEMESSAGE":"Please choose your organization type",
+    "VERIFICATIONCODEEMAIL": "Email has been sent with verification code"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

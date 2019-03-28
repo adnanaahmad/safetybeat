@@ -44,8 +44,7 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
-    InviteUserModalComponent,
-    VerificationComponent
+    InviteUserModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -85,8 +84,7 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
-    InviteUserModalComponent,
-    VerificationComponent
+    InviteUserModalComponent
   ]
 })
 export class AppModule { }

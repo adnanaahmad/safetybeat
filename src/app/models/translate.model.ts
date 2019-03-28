@@ -203,6 +203,9 @@ export interface Messages {
   JOINENTITY_MSG: string;
   ENTITYCODE: string;
   ENTITYCODE_REQ: string;
+  BACKEND_ERROR:string;
+  ORGTYPEMESSAGE:string;
+  VERIFICATIONCODEEMAIL:string;
 }
 export interface Logger {
   STATUS: LoggerStatus;

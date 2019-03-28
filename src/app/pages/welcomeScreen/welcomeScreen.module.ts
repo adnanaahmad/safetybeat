@@ -8,8 +8,6 @@ import { CoreModule } from 'src/app/core/core.module';
 import { CreateEntityComponent } from './components/createEntity/createEntity.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
 
 
 @NgModule({
@@ -27,11 +25,6 @@ import { TokenInterceptorService } from 'src/app/core/services/interceptors/toke
   ],
   providers: [
     CompilerProvider,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    },
   ]
 })
 export class WelcomeScreenModule { }

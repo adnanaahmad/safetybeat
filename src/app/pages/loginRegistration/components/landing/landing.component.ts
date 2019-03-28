@@ -13,12 +13,22 @@ import { FormArrayName, FormBuilder, FormGroup, Validators } from '@angular/form
 })
 export class LandingComponent implements OnInit {
   validateForm: FormGroup;
+  validationResponse: any;
+  devMode:boolean = false;
+  translated:any;
+  appConstants:any;
+  appIcons:any;
   constructor(
     public router: Router, 
     private helperService: HelperService,
     private loginService:LoginRegistrationService,
     private formBuilder:FormBuilder
-    ) {}
+    ) {
+    this.translated = this.helperService.translation;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.appIcons = this.helperService.constants.appIcons;
+    this.devMode = this.helperService.constants.config.devMode;
+    }
 
   ngOnInit() {
     this.validateForm = this.formBuilder.group({
@@ -35,15 +45,18 @@ export class LandingComponent implements OnInit {
   }
   validateUser({ value, valid }: { value: validateUser; valid: boolean }):void{
     if(!valid){
-      this.helperService.creatLogger(this.helperService.constants.status.ERROR,'User data is invalid',false);
+      this.helperService.creatLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.EMAIL_MSG,this.devMode);
       return;
     }
-
     this.loginService.validateUser(value).subscribe((result)=>{
-      debugger
-    })
-
-
-
+      this.validationResponse = result;
+      if(this.validationResponse.responseDetails.code === '0034'){
+        this.helperService.creatLogger(this.helperService.constants.status.SUCCESS,this.translated.MESSAGES.VERIFICATIONCODEEMAIL,this.devMode);
+        this.router.navigate(['/verification']);
+      }
+    }, (error)=>{
+      this.helperService.creatLogger(this.helperService.constants.status.ERROR, `${error.error +
+        this.translated.LOGGER.MESSAGES.STATUS + error.status}`,this.devMode);
+    });
   }
 }

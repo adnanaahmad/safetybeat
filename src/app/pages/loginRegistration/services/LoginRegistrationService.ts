@@ -120,4 +120,8 @@ export class LoginRegistrationService {
   validateUser(data:any){
     return this.http.post(this.apiRoutes.validateUser,data).pipe(catchError(this.coreServices.handleError));
   }
+
+  verifyCode(data:any){
+    return this.http.post(this.apiRoutes.verifyCode,data).pipe(catchError(this.coreServices.handleError));
+  }
 }

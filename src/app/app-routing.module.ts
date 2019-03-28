@@ -14,7 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'welcomeScreen',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: 'src/app/pages/welcomeScreen/welcomeScreen.module#WelcomeScreenModule'
   },
   {

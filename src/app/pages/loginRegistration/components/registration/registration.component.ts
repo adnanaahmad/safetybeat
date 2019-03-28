@@ -20,6 +20,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   addrKeys: string[];
   organizationData: any;
   registrationData: any;
+  devMode:boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
+    this.devMode = this.helperService.constants.config.devMode;
     this.logging.appLoggerForDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
@@ -178,19 +180,26 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'role': 'Owner'
     };
 
+    if (this.organizationForm.invalid || this.userForm.invalid) {
+      this.logging.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
+      this.logging.appLoggerForDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
+      return;
+    }
+    this.helperService.creatLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerData),this.devMode);
     this.register.registerUser(this.registerData).subscribe((result)=>{
       this.registrationData = result;
       if(this.registrationData.responseDetails.code === '0011'){
         debugger
-        result
-        ? this.register.setToken(this.registrationData.data.token)
-        : this.register.setToken('');
-        this.helperService.creatLogger(this.helperService.constants.status.SUCCESS,'You have successfully registered',false);
+        result ? this.register.setToken(this.registrationData.data.token) : this.register.setToken('');
+        this.helperService.creatLogger(this.helperService.constants.status.SUCCESS,this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS,this.devMode);
+        this.helperService.creatLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS,this.devMode);
         this.router.navigate(['/welcomeScreen']);
       }
     }, (error)=>{
-      this.helperService.creatLogger(this.helperService.constants.status.ERROR,'Something bad happenede and registration is unsuccessfull',false);
-    })
+      this.helperService.creatLogger(this.helperService.constants.status.ERROR, error.error, this.devMode);
+      this.helperService.creatLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR,false);
+      this.helperService.logoutError(error.status)
+    });
 
     
   }

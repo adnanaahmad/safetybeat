@@ -30,6 +30,7 @@ import { LandingComponent } from './components/landing/landing.component';
     RegistrationComponent,
     ForgotPasswordComponent,
     ParticleContainerComponent,
+    VerificationComponent,
     LandingComponent
   ],
   providers: [
@@ -45,7 +46,8 @@ import { LandingComponent } from './components/landing/landing.component';
   exports: [
     LoginComponent,
     RegistrationComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    VerificationComponent
   ]
 })
 export class LoginRegisterModule { }
