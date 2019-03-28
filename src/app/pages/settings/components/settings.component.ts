@@ -3,7 +3,6 @@ import { SettingService } from 'src/app/shared/settings/setting.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Translation } from 'src/app/models/translate.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 @Component({
   selector: "app-settings",
@@ -20,12 +19,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
-    private logging: LoggingService,
-    public helperService: HelperService,
-    private render: Renderer2,
+    public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
     this.appConstants = ConstantService.appConstant;
     this.appIcons = ConstantService.appIcons;
     this.appTheme = ConstantService.appTheme;

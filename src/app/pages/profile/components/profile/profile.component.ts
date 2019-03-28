@@ -1,12 +1,10 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { share } from 'rxjs/operators';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditUser } from 'src/app/models/profile.model';
 import { MatDialog } from '@angular/material';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
@@ -41,17 +39,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private profile: ProfileService,
-    private logging: LoggingService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     public adminServices: AdminControlService,
     public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
-    this.appIcons = ConstantService.appIcons;
-    this.appConstants = ConstantService.appConstant;
-    this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT);
+    this.appIcons = this.helperService.constants.appIcons;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.profileData = JSON.parse(localStorage.getItem(this.helperService.constants.localStorageKeys.entityUserData));
     this.user_id = this.profileData.user.id;
     this.userData = this.getUserData();
   }
@@ -67,7 +64,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
@@ -82,10 +79,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.firstname = data.first_name;
       this.lastname = data.last_name;
       this.username = this.firstname + this.lastname;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
+      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_SUCCESS);
 
     }, (error) => {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.PROFILE_ERROR +
+      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${this.translated.LOGGER.MESSAGES.PROFILE_ERROR +
         this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       this.helperService.logoutError(error.status)
     });
@@ -130,23 +127,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.PROFILE_CREDENTIAL_REQ);
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.PROFILE_CREDENTIAL_REQ);
       return;
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     value[this.appConstants.userName] = this.username;
     this.profile.editUser(this.user_id, value).subscribe((data) => {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
-      this.helperService.createToaster(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.translated.STATUS.SUCCESS)
+      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, valid);
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED);
+      this.helperService.createToaster(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.translated.STATUS.SUCCESS)
       this.getUserData();
     },
       (error) => {
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
+        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
           this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        this.logging.appLoggerForDev(this.translated.MESSAGES.LOGIN_FAIL, this.translated.LOGGER.MESSAGES.PROFILE_NOTUPDATED);
+        this.helperService.appLoggerDev(this.translated.MESSAGES.LOGIN_FAIL, this.translated.LOGGER.MESSAGES.PROFILE_NOTUPDATED);
         this.helperService.logoutError(error.status)
       }
     )

@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { loginCredentials } from 'src/app/models/user.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
@@ -33,7 +31,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     public router: Router,
     public loginService: LoginRegistrationService,
     public helperService: HelperService,
-    private logging: LoggingService,
     private compiler: CompilerProvider,
     private adminService: AdminControlService,
     private navService: NavigationService
@@ -41,7 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.devMode = this.helperService.constants.config.devMode;
-    this.helperService.creatLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT, this.devMode)
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT)
   }
   ngOnInit() {
     if (this.loginService.getToken()) {
@@ -55,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
 
   /**
@@ -78,19 +75,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     valid: boolean;
   }): void {
     if (!valid) {
-      this.logging.appLoggerForDev(
+      this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,
         valid
       );
-      this.logging.appLogger(
+      this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
         this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
       );
       return;
     }
     this.loading = true;
-    this.helperService.creatLogger(this.helperService.constants.status.INFO, valid, this.devMode)
-    this.helperService.creatLogger(this.helperService.constants.status.INFO, JSON.stringify(value), this.devMode)
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid)
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value))
     this.loginService.loginUser(value).subscribe(
       data => {
         if (data.responseDetails.code === '0000') {
@@ -105,7 +102,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.entites = res;
             let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
             this.navService.changeEntites(entityUserData);
-            this.logging.appLoggerForDev(
+            this.helperService.appLoggerDev(
               this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
@@ -114,21 +111,21 @@ export class LoginComponent implements OnInit, OnDestroy {
           })
 
         } else if (data.responseDetails.code === '0001') {
-          this.logging.appLogger(
+          this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
-          this.logging.appLoggerForDev(
+          this.helperService.appLoggerDev(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
           this.loading = false;
         } else if (data.responseDetails.code === '0002') {
-          this.logging.appLoggerForDev(
+          this.helperService.appLoggerDev(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
-          this.logging.appLogger(
+          this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
@@ -136,7 +133,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       },
       error => {
-        this.logging.appLogger(this.helperService.constants.status.ERROR, error);
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loading = false;
         this.helperService.createToaster(
           this.translated.MESSAGES.LOGIN_FAIL,

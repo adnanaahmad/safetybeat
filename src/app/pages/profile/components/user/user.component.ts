@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { ProfileService } from '../../services/profile.service';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { share } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -28,11 +26,10 @@ export class UserComponent implements OnInit {
   empty: boolean = false;
   constructor(
     public userService: ProfileService,
-    public logging: LoggingService,
     public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
-    this.appIcons = ConstantService.appIcons;
+    this.appIcons = this.helperService.constants.appIcons;
   }
 
   ngOnInit() {

@@ -1,8 +1,6 @@
 import { Component, OnInit, NgZone, Input, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { entity, entityData } from 'src/app/models/entity.model';
 import { AdminControlService } from '../../services/adminControl.service';
 import { MatDialogRef } from '@angular/material';
@@ -33,7 +31,6 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
   constructor(
     public dialogRef: MatDialogRef<CreateEntityComponent>,
     public formBuilder: FormBuilder,
-    private logging: LoggingService,
     private zone: NgZone,
     private adminServices: AdminControlService,
     public helperService: HelperService,
@@ -41,8 +38,8 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
     private compiler: CompilerProvider
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
-    this.appConstants = ConstantService.appConstant;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
   }
 
   ngOnInit() {
@@ -81,12 +78,13 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
       roleId : this.roleId
     }
     if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
       this.entityResponse = result;
       this.onNoClick();
@@ -99,16 +97,16 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
           let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
           this.navService.changeEntites(entityUserData);
         })
-        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.entityResponse.responseDetails.message);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.entityResponse.responseDetails.message);
       }
       else if (this.entityResponse.responseDetails.code == '0013') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
       }
       else if (this.entityResponse.responseDetails.code == '0017') {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.entityResponse.responseDetails.message)
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
       }
     }, (error => {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
       this.onNoClick()
       this.helperService.logoutError(error.status)
     })

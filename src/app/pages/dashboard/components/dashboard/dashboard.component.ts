@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import * as Highcharts from 'highcharts';
 import { OrgRegistrationComponent } from 'src/app/pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -16,12 +15,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   option4: object;
   translated: Translation
   constructor(
-    private logging: LoggingService,
     public helperService: HelperService
   ) {
     this.translated = this.helperService.translation;
-    this.logging.appLoggerForDev(
-      this.translated.LOGGER.STATUS.SUCCESS,
+    this.helperService.appLoggerDev(
+      this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
     );
     this.helperService.createModal(OrgRegistrationComponent)
@@ -220,7 +218,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() { }
   ngAfterViewInit() { }
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
 
 }
