@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   appConstants: any;
   appTheme: any;
   settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "privacy": false, "theme": false};
+  render: any;
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,

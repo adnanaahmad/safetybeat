@@ -205,8 +205,9 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     }
   }
   app-landing {
-    background-color: mat-color($primary-pallet, 50);
+    background-color: #fff;
     .text-wrapper {
+      background-color: mat-color($primary-pallet, 50);
       h1 {
         span {
           color: mat-color($primary-pallet, 500);
@@ -215,7 +216,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     }
     #particle-container {
       .particle {
-        color: mat-color($primary-pallet, 50);
+        color: mat-color($primary-pallet, 500);
       }
     }
     .top-nav {
@@ -226,7 +227,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
               border: 1px solid mat-color($primary-pallet, 500);
               &:hover {
                 background: mat-color($primary-pallet, 500);
-                color:#fff;
+                color: #fff;
               }
             }
           }
