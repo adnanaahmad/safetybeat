@@ -13,6 +13,8 @@ import {
 import { catchError } from 'rxjs/operators';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { resetPassword } from 'src/app/models/profile.model';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 
 @Injectable({ providedIn: "root" })
@@ -87,6 +89,10 @@ export class LoginRegistrationService {
       this.apiRoutes.passwordReset,
       data
     ).pipe(catchError(this.coreServices.handleError));
+  }
+
+  resetPassword(data:resetPassword){
+    return this.http.post(ConstantService.apiRoutes.forgotPassword,data).pipe(catchError(this.coreServices.handleError));
   }
 
   resendemail(data) {
