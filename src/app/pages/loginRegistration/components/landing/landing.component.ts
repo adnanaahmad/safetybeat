@@ -68,7 +68,7 @@ export class LandingComponent implements OnInit {
             this.translated.MESSAGES.VERIFICATIONCODEEMAIL
           );
           this.helperService.createModal(VerificationComponent, {
-            email: { email: value.email }
+            data: { email: value.email }
           });
         }
       },

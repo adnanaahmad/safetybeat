@@ -33,16 +33,13 @@ export class VerificationComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public email: any,
     public dialogRef: MatDialogRef<VerificationComponent>,
   ) {
-    debugger
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
   }
 
-  ngOnInit() {
-    console.log(this.email)
-  }
+  ngOnInit() { }
 
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.background);
@@ -59,7 +56,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     let element = $event.srcElement.nextElementSibling;
     if (element == null) {
       var data = {
-        'code' : parseInt(this.code)
+        'code': parseInt(this.code)
       };
       this.validateUser(data);
       return;
@@ -77,20 +74,19 @@ export class VerificationComponent implements OnInit, OnDestroy {
       debugger
       this.validationData = res;
       this.userEmail = this.validationData.data.data;
-      if(this.validationData.responseDetails.code === '0035'){
-        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS,'You have been verifiesd');
+      if (this.validationData.responseDetails.code === '0035') {
+        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verifiesd');
         this.dialogRef.close();
-        this.router.navigate(['/signup', {data:JSON.stringify(this.userEmail)}], { skipLocationChange: true });
+        this.router.navigate(['/signup', { data: JSON.stringify(this.userEmail) }], { skipLocationChange: true });
       }
-    },(error)=>{
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR,'You have not been verifiesd');
+    }, (error) => {
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verifiesd');
     });
   }
 
   resendVerification() {
-    this.loginRegService.validateUser(this.emaill).subscribe(
+    this.loginRegService.validateUser(this.email.email).subscribe(
       data => {
-        debugger
         this.helperService.appLogger(
           this.helperService.constants.status.SUCCESS,
           this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS
@@ -99,11 +95,10 @@ export class VerificationComponent implements OnInit, OnDestroy {
           this.helperService.constants.status.SUCCESS,
           this.translated.MESSAGES.RESET_SUCCESS
         );
-        this.router.navigate(["/signup"]);
       },
       error => {
-          this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
-          this.helperService.appLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR);
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);
       }
     );
   }
