@@ -15,7 +15,8 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-  addr: any;
+  public title = 'Places';
+  addr: object;
   addrKeys: string[];
   organizationData: any;
   registrationData: any;
@@ -119,6 +120,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
   setAddress(addrObj) {
+    debugger
     this.zone.run(() => {
       this.addr = addrObj;
       this.addrKeys = Object.keys(addrObj);
@@ -153,6 +155,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  
 
   /**
    * saves package against module

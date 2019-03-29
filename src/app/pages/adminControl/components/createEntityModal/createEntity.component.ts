@@ -66,9 +66,7 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
   }
 
   get formValidation() { return this.createEntityForm.controls; }
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
+
   entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
@@ -86,7 +84,6 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
       this.entityResponse = result;
-      // this.onNoClick();
       if(this.entityResponse.responseDetails.code=='0012'){
         var data = {
           'moduleName': 'Safetybeat'

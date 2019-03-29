@@ -46,6 +46,6 @@ import { LandingComponent } from './components/landing/landing.component';
     LoginComponent,
     RegistrationComponent,
     ForgotPasswordComponent
-  ]
+  ],
 })
 export class LoginRegisterModule { }

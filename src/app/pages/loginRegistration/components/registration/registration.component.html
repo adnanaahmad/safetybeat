@@ -119,7 +119,8 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="translated.AUTH.ADDRESS"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.address }}" required />
+                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.address }}" appGooglePlaces
+                  (onSelect)="setAddress($event)" required />
                 <mat-error *ngIf="orgForm.address.errors">
                   <span *ngIf="orgForm.address.errors.required">{{translated.AUTH.ADDRESS}}</span>
                 </mat-error>

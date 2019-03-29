@@ -84,7 +84,10 @@ export class VerificationComponent implements OnInit, OnDestroy {
   }
 
   resendVerification() {
-    this.loginRegService.validateUser(this.email.email).subscribe(
+    var emailData = {
+      'email': this.email.email
+    }
+    this.loginRegService.validateUser(emailData).subscribe(
       data => {
         this.helperService.appLogger(
           this.helperService.constants.status.SUCCESS,
