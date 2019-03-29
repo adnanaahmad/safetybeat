@@ -1,14 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { ForgotPassword } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
-import { ToastService } from 'src/app/shared/toast/toast.service';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -28,16 +25,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     public forgotService: LoginRegistrationService,
     private router: Router,
     public formBuilder: FormBuilder,
-    public translate: TranslateService,
-    private logging: LoggingService,
-    public toastProvider: ToastService,
-    public constantProvider: ConstantService
+    public helperService: HelperService,
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'ICONS', 'STRINGS']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
-    });
-    this.appConstants = ConstantService.appConstant;
+    this.translated = this.helperService.translation;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
+    this.formErrorMatcher = new FormErrorHandler();
   }
   ngOnInit() {
     this.forgotPassForm = this.formBuilder.group({
@@ -45,7 +38,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
   checkEmail(group) {
     this.email = this.formBuilder.group({
@@ -73,21 +66,21 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   onSubmit({ value, valid }: { value: ForgotPassword; valid: boolean }): void {
     debugger
     if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
       return;
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.forgotService.forgotPassword(value).subscribe(
       data => {
-        this.toastProvider.createSuccessToaster(this.translated.MESSAGES.RESET_SUCCESS, this.translated.MESSAGES.RESETMSG);
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+        this.helperService.createToaster(this.translated.MESSAGES.RESET_SUCCESS, this.translated.MESSAGES.RESETMSG, this.helperService.constants.status.SUCCESS)
+        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
         this.router.navigate(['/login']);
       },
       error => {
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        this.toastProvider.createErrorToaster(this.translated.MESSAGES.RESETFAIL, this.translated.MESSAGES.RESETFAIL_MSG);
+        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.helperService.createToaster(this.translated.MESSAGES.RESET_SUCCESS, this.translated.MESSAGES.RESETMSG, this.helperService.constants.status.ERROR)
       }
     );
 

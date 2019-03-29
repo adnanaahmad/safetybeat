@@ -1,120 +1,104 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ViewChildren, Inject } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { Verification } from 'src/app/models/user.model';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { Location } from '@angular/common';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-verification',
-  templateUrl: './verification.component.html',
-  styleUrls: ['./verification.component.scss']
+  selector: "app-verification",
+  templateUrl: "./verification.component.html",
+  styleUrls: ["./verification.component.scss"]
 })
 export class VerificationComponent implements OnInit, OnDestroy {
-  // @ViewChild(RegistrationComponent) reg;
   translated: Translation;
   verifyForm: FormGroup;
-  emaill: string;
+  emaill: any;
   data: any;
-  email: FormGroup;
   success: any;
   res: any;
   appConstants: any;
+  code: string = "";
+  registrationData: any;
+  validationData: any;
+  userEmail: any;
   constructor(
-    private logging: LoggingService,
-    public translate: TranslateService,
     private router: Router,
     public formBuilder: FormBuilder,
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
     private route: ActivatedRoute,
-    private location: Location,
-
+    public helperService: HelperService,
+    @Inject(MAT_DIALOG_DATA) public email: any,
+    public dialogRef: MatDialogRef<VerificationComponent>,
   ) {
-    this.render.addClass(document.body, ConstantService.config.theme.background);
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
-    });
-    this.appConstants = ConstantService.appConstant;
+    this.translated = this.helperService.translation;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
   }
 
-  ngOnInit() {
-    this.router.events.pipe().subscribe(
-      (event: NavigationCancel) => {
-        this.location.replaceState('/signup');
-      }
-
-    );
-    this.verifyForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
-    });
-    this.route.params.subscribe(params => {
-      this.data = JSON.parse(params.data);
-    })
-  }
+  ngOnInit() { }
 
   ngOnDestroy() {
-    this.render.removeClass(document.body, ConstantService.config.theme.background);
-    this.logging.hideAllAppLoggers();
+    this.render.removeClass(document.body, this.helperService.constants.config.theme.background);
+    this.helperService.hideLoggers();
   }
-
-  checkEmail(group) {
-    this.email = this.formBuilder.group({
-      'email': [group.value.email, Validators.email]
-    });
-    if (this.email.status === 'VALID') {
-      const email = { email: group.value.email };
-      this.loginRegService.checkEmail(email).pipe().subscribe((res) => {
-        this.success = res;
-        if (this.success.responseDetails.code=='0020') {
-          group.controls.email.setErrors({ exists: true })
-        }
-      });
+  @ViewChildren("input") inputs;
+  keyTab($event, value) {
+    if (this.code == "") {
+      this.code = value;
+    } else {
+      this.code = this.code + value;
     }
-  }
 
-  get formValidation() { return this.verifyForm.controls; }
-
-  changeEmail({ value, valid }: { value: Verification, valid: boolean }): void {
-    if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
+    let element = $event.srcElement.nextElementSibling;
+    if (element == null) {
+      var data = {
+        'code': parseInt(this.code)
+      };
+      this.validateUser(data);
       return;
+    } else {
+      element.focus();
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
-    this.emaill = value.email;
-    const verificationData = {
-      email:value.email,
-      userId:this.data.data.userId
-    };
-    this.loginRegService.changeEmail(verificationData).subscribe((res) => {
-      this.res = res;
-      this.data.data.userData.email = value.email;
-      this.loginRegService.resendemail({ 'email': this.data.userData.email }).subscribe((result) => {
-        this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-      }, (err) => {
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, err);
-      });
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.MESSAGES.EMAIL_CHANGED);
-    })
   }
-  resendVerification() {
-    const resendData = {
-      userId:this.data.data.userId,
-      email:this.data.data.userData.email
-    }
-    this.loginRegService.resendemail(resendData).subscribe((res) => {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-    }, (err) => {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, err);
+
+  get formValidation() {
+    return this.verifyForm.controls;
+  }
+
+  validateUser(data: any) {
+    this.loginRegService.verifyCode(data).subscribe(res => {
+      this.validationData = res;
+      this.userEmail = this.validationData.data.data;
+      if (this.validationData.responseDetails.code === '0035') {
+        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verifiesd');
+        this.dialogRef.close();
+        this.router.navigate(['/signup', { data: JSON.stringify(this.userEmail) }], { skipLocationChange: true });
+      }
+    }, (error) => {
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verifiesd');
     });
+  }
+
+  resendVerification() {
+    this.loginRegService.validateUser(this.email.email).subscribe(
+      data => {
+        this.helperService.appLogger(
+          this.helperService.constants.status.SUCCESS,
+          this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS
+        );
+        this.helperService.appLogger(
+          this.helperService.constants.status.SUCCESS,
+          this.translated.MESSAGES.RESET_SUCCESS
+        );
+      },
+      error => {
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);
+      }
+    );
   }
 }

@@ -116,8 +116,8 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   &.body-bg {
     background-color: mat-color($primary, 700);
   }
-  mat-dialog-container{
-    mat-card-title{
+  mat-dialog-container {
+    mat-card-title {
       background-color: mat-color($primary, 500);
     }
   }
@@ -158,20 +158,14 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
-  app-alert-modal {
-    .entity-code {
-      border: 1px solid #05647c1c;
-      background: #05647c14;
-      color: mat-color($warn-pallete, 500);
-    }
-  }
-  .notification-icon{
-    .notifcount{
+  
+  .notification-icon {
+    .notifcount {
       background: mat-color($warn-pallete, 600);
     }
   }
-  .customTable{
-    .mat-header-row{
+  .customTable {
+    .mat-header-row {
       background-color: mat-color($primary);
     }
   }
@@ -180,8 +174,58 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       .unread-notif {
         background: mat-color($primary-pallet, 500);
       }
-      .read-notif{
+      .read-notif {
         background: mat-color($primary-pallet, 100);
+      }
+    }
+  }
+  app-settings {
+    .navigator {
+      mat-list-item {
+        span {
+          &:hover,
+          &.settingNav {
+            background: mat-color($primary-pallet, 500);
+            color: #fff;
+            .mat-icon {
+              color: #fff;
+            }
+          }
+        }
+      }
+      .mat-icon {
+        color: mat-color($primary-pallet, 500);
+      }
+    }
+  }
+  app-landing {
+    background-color: mat-color($primary-pallet, 50);
+    .text-wrapper {
+      background-color: #fff;
+      h1 {
+        span {
+          color: mat-color($primary-pallet, 500);
+        }
+      }
+    }
+    #particle-container {
+      .particle {
+        color: mat-color($primary-pallet, 500);
+      }
+    }
+    .top-nav {
+      ul {
+        li {
+          a {
+            &.login {
+              border: 1px solid mat-color($primary-pallet, 500);
+              &:hover {
+                background: mat-color($primary-pallet, 500);
+                color: #fff;
+              }
+            }
+          }
+        }
       }
     }
   }

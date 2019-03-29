@@ -1,14 +1,18 @@
-import { Injectable } from "@angular/core";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { EntityUserData, Entity } from "src/app/models/userEntityData.model";
-import { forEach } from 'lodash';
-import { NavItem } from 'src/app/models/navItems.model';
+import { Injectable } from '@angular/core';
+import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
+import { HelperService } from '../helperService/helper.service';
+import { User } from 'src/app/models/user.model';
 
 @Injectable()
 export class CompilerProvider {
-  newMenu: any = []
-  navList: any = []
-  constructor() { }
+  newMenu: any = [];
+  navList: any = [];
+  appIcons: any;
+  constructor(
+    public helperService: HelperService
+  ) {
+    this.appIcons = this.helperService.constants.appIcons;
+  }
   /**
    * @param event
    * To check if the input is number or not
@@ -22,20 +26,21 @@ export class CompilerProvider {
     );
   }
   constructUserData(profileApiResponse: any) {
-    let user = {
+    let user:User = {
+      id: profileApiResponse.id,
       username: profileApiResponse.username,
       first_name: profileApiResponse.first_name,
       last_name: profileApiResponse.last_name,
       email: profileApiResponse.email,
-      mobile_no: profileApiResponse.mobile_no
+      contactNo: profileApiResponse.contactNo
     };
     return user;
   }
-    insertSpaces(string) {
-        string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
-        string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
-        return string;
-    }
+  insertSpaces(string) {
+    string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
+    string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+    return string;
+  }
   constructProfileData(loginApiResponse: any) {
     let profileData = {
       userid: loginApiResponse.userId,
@@ -48,17 +53,19 @@ export class CompilerProvider {
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
     let allEntities: Entity[] = [];
-    forEach(loginApiResponse.result, function(entity) {
+    this.helperService.iterations(loginApiResponse, function (entity) {
       let data: Entity = {
         entityInfo: entity.entity,
         permissions: entity.permissions,
         reportAccess: entity.reportAccess,
-        active: entity.active
+        administrator: entity.administrator,
+        active: entity.active,
+        role: entity.role
       };
       allEntities.push(data);
     });
     let userEntityData: EntityUserData = {
-      user: loginApiResponse.user,
+      // user: loginApiResponse.user,
       entities: allEntities
     };
     return userEntityData;
@@ -68,13 +75,13 @@ export class CompilerProvider {
     this.navList = [
       {
         route: '/home',
-        iconName: ConstantService.appIcons.dashboard,
+        iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
       {
         route: '/home/profile/user',
-        iconName: ConstantService.appIcons.group,
+        iconName: this.appIcons.group,
         displayName: 'Users',
         disabled: data.permissions.allUsers
       },
@@ -114,7 +121,7 @@ export class CompilerProvider {
       },
       {
         route: '/home/documents',
-        iconName: ConstantService.appIcons.insertDriveFile,
+        iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         disabled: data.permissions.documents
       },
@@ -176,7 +183,7 @@ export class CompilerProvider {
       }
     ];
     var self = this;
-    forEach(this.navList, function (obj) {
+    this.helperService.iterations(this.navList, function (obj) {
       if (obj.displayName == name) {
         self.newMenu = obj.children
       }
@@ -188,13 +195,13 @@ export class CompilerProvider {
     this.navList = [
       {
         route: '/home',
-        iconName: ConstantService.appIcons.dashboard,
+        iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
       {
         route: '/home/profile/user',
-        iconName: ConstantService.appIcons.group,
+        iconName: this.appIcons.group,
         displayName: 'Users',
         disabled: data.permissions.allUsers
       },
@@ -234,7 +241,7 @@ export class CompilerProvider {
       },
       {
         route: '/home/documents',
-        iconName: ConstantService.appIcons.insertDriveFile,
+        iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         disabled: data.permissions.documents
       },
@@ -296,6 +303,6 @@ export class CompilerProvider {
       }
     ];
     return this.navList
-    
+
   }
 }

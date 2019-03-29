@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
-import { TranslateService } from '@ngx-translate/core';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-particle-container',
@@ -11,16 +9,13 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 })
 export class ParticleContainerComponent implements OnInit {
   translated: Translation;
-  appConstants: any;
+  appIcons: any;
   constructor(
-    public translate: TranslateService,
-    private logging: LoggingService
+    public helperService: HelperService,
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'ICONS']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PARTICLE_COMPONENT);
-    });
-    this.appConstants = ConstantService.appIcons;
+    this.translated = this.helperService.translation;
+    this.appIcons = this.helperService.constants.appIcons;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PARTICLE_COMPONENT);
   }
 
   ngOnInit() {

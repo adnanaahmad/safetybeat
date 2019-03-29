@@ -2,13 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { changePassword } from 'src/app/models/profile.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { ToastService } from 'src/app/shared/toast/toast.service';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { ProfileService } from '../../services/profile.service';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -26,17 +23,13 @@ export class ModalDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ModalDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: changePassword,
     public formBuilder: FormBuilder,
-    private translate: TranslateService,
-    private logging: LoggingService,
     private modalService: ProfileService,
-    private toastProvider: ToastService
+    public helperService: HelperService
   ) {
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE);
-    });
-    this.appConstants = ConstantService.appConstant;
-    this.profileData = JSON.parse(localStorage.getItem('entityUserData'));
+    this.translated = this.helperService.translation;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE);
+    this.appConstants = this.helperService.constants.appConstant;
+    this.profileData = JSON.parse(localStorage.getItem(this.helperService.constants.localStorageKeys.entityUserData));
     this.user_id = this.profileData.user.id;
   }
 
@@ -61,12 +54,12 @@ export class ModalDialogComponent implements OnInit {
 
   changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
     if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.AUTH.PASSWORD_REQ);
       return;
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     let result = {
       oldPassword: value.currentPassword,
       newPassword: value.password1,
@@ -74,18 +67,18 @@ export class ModalDialogComponent implements OnInit {
     }
     this.modalService.changePassword(result).subscribe((res) => {
       this.dialogRef.close();
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
-      this.toastProvider.createSuccessToaster(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
-        this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.helperService.createToaster(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.translated.STATUS.SUCCESS)
     },
       (error) => {
-        this.toastProvider.createErrorToaster(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-          this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
+        this.helperService.createToaster(this.translated.MESSAGES.CHANGEPASSWORD_FAIL, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.translated.STATUS.ERROR)
+        this.dialogRef.close();
+        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
           this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        this.logging.appLoggerForDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+        this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
           this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+        this.helperService.logoutError(error.status)
       });
 
   }

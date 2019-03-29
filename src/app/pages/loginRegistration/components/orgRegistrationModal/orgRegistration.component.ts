@@ -1,16 +1,11 @@
 import { Component, OnInit, Input, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { Translation } from 'src/app/models/translate.model';
 import { packges, RegisterOrganization } from 'src/app/models/user.model';
 import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import { MapsAPILoader } from '@agm/core';
 import { MatDialogRef } from '@angular/material';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-orgRegistration',
@@ -35,11 +30,11 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
   public title = 'Places';
   public addrKeys: string[];
   public addr: object;
-  city:string;
-  country:string;
-  zipCode:string;
-  appConstants:any;
-  appIcons:any;
+  city: string;
+  country: string;
+  zipCode: string;
+  appConstants: any;
+  appIcons: any;
   formErrorMatcher: any;
 
 
@@ -48,29 +43,27 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
   constructor(
     public dialogRef: MatDialogRef<OrgRegistrationComponent>,
     private formBuilder: FormBuilder,
-    private router: Router,
     private register: LoginRegistrationService,
-    public translate: TranslateService,
-    private logging: LoggingService,
-    private zone: NgZone
+    private zone: NgZone,
+    public helperService: HelperService,
   ) {
-    translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.ORGANIZATIONDETAILS);
-    });
-    this.appConstants = ConstantService.appConstant;
-    this.appIcons = ConstantService.appIcons;
+    this.translated = this.helperService.translation;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.appIcons = this.helperService.constants.appIcons;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.ORGANIZATIONDETAILS);
     this.register.registrationData()
-    .subscribe(data => {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
-      this.types = data[0];
-      this.modules = data[1];
-      this.packages = data[2];
-    },
-      error => {
-        this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error +
-          this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      });
+      .subscribe(data => {
+        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+        this.types = data[0];
+        this.modules = data[1];
+        this.packages = data[2];
+      },
+        error => {
+          this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
+            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+            this.onNoClick();
+          this.helperService.logoutError(error.status)
+        });
   }
 
   ngOnInit() {
@@ -85,7 +78,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     this.formErrorMatcher = new FormErrorHandler();
   }
   ngOnDestroy() {
-    this.logging.hideAllAppLoggers();
+    this.helperService.hideLoggers();
   }
   setAddress(addrObj) {
     this.city = addrObj.locality;
@@ -132,7 +125,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       const billingemail_check = this.register.checkOrgBillingEmail(billingEmail).pipe();
       billingemail_check.subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code=='0018') {
+        if (this.success.responseDetails.code == '0018') {
           group.controls.billingEmail.setErrors({ exists: true })
         }
       });
@@ -168,13 +161,13 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
 
     if (this.organizationForm.invalid || (this.moduleForm.value.name.length
       !== this.registerData.module_pkg.length)) {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
+      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
     this.loading = true;
-    this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, JSON.stringify(this.organizationForm.value, this.moduleForm.value));
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, JSON.stringify(this.organizationForm.value, this.moduleForm.value));
   }
 }
 

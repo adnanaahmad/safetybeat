@@ -16,7 +16,10 @@
 @import "src/app/core/components/pageNotFound/pageNotFound.component.scss";
 @import "src/app/pages/adminControl/components/entityControl/entityControl.component.scss";
 @import "src/app/pages/navigation/components/notificationNav/notificationNav.component.scss";
-@import "src/app/pages/adminControl/components/alert-modal/alert-modal.component.scss";
+@import "src/app/pages/adminControl/components/entityCodeModal/entityCodeModal.component.scss";
+@import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
+@import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
+@import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -31,6 +34,7 @@
   @include amte-orgRegistration($primary, $accent, $warn);
   @include amte-login($primary, $accent, $warn);
   @include amte-forgot-password($primary, $accent, $warn);
+  @include amte-app-landing($primary, $accent, $warn);
   @include amte-verification($primary, $accent, $warn);
   @include amte-fixed-nav($primary, $accent, $warn);
   @include amte-nav-list($primary, $accent, $warn);
@@ -42,6 +46,7 @@
   @include amte-dashboard($primary, $accent, $warn);
   @include amte-notfound($primary, $accent, $warn);
   @include amte-entityControl($primary, $accent, $warn);
-  @include amte-alertModal($primary, &accent, &warn);
   @include amte-passwordRecovery($primary, &accent, &warn);
+  @include amte-entityCodeModal($primary, &accent, &warn);
+  @include amte-welcomeScreen($primary, $accent, $warn)
 }

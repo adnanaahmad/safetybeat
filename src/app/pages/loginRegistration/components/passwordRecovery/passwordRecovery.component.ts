@@ -5,8 +5,8 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { resetPassword, Reset } from 'src/app/models/profile.model';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-passwordRecovery',
@@ -23,9 +23,9 @@ export class PasswordRecoveryComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder:FormBuilder,
     private translate: TranslateService,
-    private logging:LoggingService,
     private resetServices: LoginRegistrationService,
-    private router:Router
+    private router:Router,
+    private helperService:HelperService
   ) {
 
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
@@ -53,8 +53,8 @@ export class PasswordRecoveryComponent implements OnInit {
 
   changePassword({ value, valid }: { value: Reset; valid: boolean }): void {
     if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
+      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.WARNING, valid);
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
       return;
     }
 
@@ -65,13 +65,13 @@ export class PasswordRecoveryComponent implements OnInit {
     };
 
     this.resetServices.resetPassword(data).subscribe((res)=>{
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
       this.router.navigate(['/login']);
     },(error)=>{
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
+      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
         this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      this.logging.appLoggerForDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+      this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
     })
   }

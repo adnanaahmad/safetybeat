@@ -1,12 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { inviteUser } from '../../../../models/inviteUser.model';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
 import { NavigationService } from '../../services/navigation.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-invite-user-modal',
@@ -27,17 +25,14 @@ export class InviteUserModalComponent implements OnInit {
   entityID: any;
   constructor(
     public dialogRef: MatDialogRef<InviteUserModalComponent>,
-    private translate: TranslateService,
     public formBuilder: FormBuilder,
-    private logging: LoggingService,
     private navigationService: NavigationService,
+    public helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
-      this.translated = values;
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
-    });
-    this.appConstants = ConstantService.appConstant;
+    this.translated = this.helperService.translation;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
+    this.appConstants = this.helperService.constants.appConstant;
     this.roleList = this.data.role
     this.entityID = this.data.entityId
   }
@@ -65,6 +60,8 @@ export class InviteUserModalComponent implements OnInit {
         if (this.success.responseDetails.code == '0020') {
           group.controls.email.setErrors({ exists: true })
         }
+      }, err => {
+        this.helperService.logoutError(err.status)
       });
     }
   }
@@ -81,17 +78,19 @@ export class InviteUserModalComponent implements OnInit {
       entityId: this.entityID
     }
     if (!valid) {
-      this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.INVITEUSER_ERROR);
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.INVITEUSER_ERROR);
       return;
     }
-    this.logging.appLoggerForDev(this.translated.LOGGER.STATUS.INFO, valid);
-    this.logging.appLogger(this.translated.LOGGER.STATUS.INFO, JSON.stringify(value));
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.InviteUserData).subscribe((res) => {
       this.dialogRef.close();
-      this.logging.appLogger(this.translated.LOGGER.STATUS.SUCCESS, "User has been successfully Invited.");
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, "User has been successfully Invited.");
     }, (err) => {
-      this.logging.appLogger(this.translated.LOGGER.STATUS.ERROR, "Error inviting user.");
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, "Error inviting user.");
+      this.dialogRef.close();
+      this.helperService.logoutError(err.status)
     })
   }
 

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NotificationsService } from './notifications.service';
+import { WelcomeScreenService } from './welcome-screen.service';
 
-describe('NotificationsService', () => {
+describe('WelcomeScreenService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: NotificationsService = TestBed.get(NotificationsService);
+    const service: WelcomeScreenService = TestBed.get(WelcomeScreenService);
     expect(service).toBeTruthy();
   });
 });

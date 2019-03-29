@@ -54,7 +54,6 @@ describe('TokenInterceptorService', () => {
         platform = TestBed.get(Platform);
         httpTestingController = injector.get(HttpTestingController);
         http = injector.get(HttpClient);
-        tokenService = new TokenInterceptorService(coreService);
         coreSpy = TestBed.get(CoreService);
     });
 

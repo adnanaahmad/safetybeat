@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ConstantService } from '../../shared/constant/constant.service';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingService {
-  themeKey = 'theme';
+  themeKey = ConstantService.localStorageKeys.theme;
   themeLight = ConstantService.config.theme.light
   private theme: BehaviorSubject<String>;
-  constructor() {
+  constructor(
+    private http:HttpClient
+  ) {
     if (localStorage.getItem(this.themeKey)) {
       this.theme = new BehaviorSubject<String>(localStorage.getItem(this.themeKey))
     } else {
@@ -24,5 +27,9 @@ export class SettingService {
 
   getActiveTheme() {
     return this.theme.asObservable();
+  }
+
+  editEntity(id, data) {
+    return this.http.put(`${ConstantService.apiRoutes.editEntity}/${id}/`, data);
   }
 }

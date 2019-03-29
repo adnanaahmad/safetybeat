@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { Translation } from "src/app/models/translate.model";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { ProfileService } from "../../services/profile.service";
-import { LoggingService } from "src/app/shared/logging/logging.service";
-import { MatTableDataSource, MatPaginator } from "@angular/material";
-import { share } from "rxjs/operators";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Translation } from 'src/app/models/translate.model';
+import { ProfileService } from '../../services/profile.service';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { share } from 'rxjs/operators';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 @Component({
   selector: "app-user",
   templateUrl: "./user.component.html",
@@ -27,25 +25,11 @@ export class UserComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   empty: boolean = false;
   constructor(
-    translate: TranslateService,
     public userService: ProfileService,
-    public logging: LoggingService
+    public helperService: HelperService
   ) {
-    translate
-      .get([
-        "AUTH",
-        "BUTTONS",
-        "MESSAGES",
-        "LOGGER",
-        "STRINGS",
-        "ICONS",
-        "SITETITLE",
-        "TABLEHEADINGS"
-      ])
-      .subscribe(values => {
-        this.translated = values;
-      });
-    this.appIcons = ConstantService.appIcons;
+    this.translated = this.helperService.translation;
+    this.appIcons = this.helperService.constants.appIcons;
   }
 
   ngOnInit() {
@@ -56,9 +40,10 @@ export class UserComponent implements OnInit {
     this.allUsers.subscribe(result => {
       this.empty = true;
       this.allUsersList = result.data;
-      localStorage.setItem("users", JSON.stringify(this.allUsersList));
       this.dataSource = new MatTableDataSource(this.allUsersList);
       this.dataSource.paginator = this.paginator;
+    }, error => {
+      this.helperService.logoutError(error.status)
     });
   }
 }

@@ -20,25 +20,28 @@ body {
 * {
   font-family: "Montserrat", sans-serif;
 }
+.app-content {
+  overflow-x: hidden !important;
+}
 .paragraph {
   line-height: 1.7;
 }
 [btn-primary] {
   color: #fff !important;
 }
-mat-dialog-container{
-  width:600px !important;
-  padding:0 !important;
-  mat-card-title{
+mat-dialog-container {
+  width: 600px !important;
+  padding: 0 !important;
+  mat-card-title {
     padding: 15px 20px;
     color: #fff;
-    box-shadow:0 0 15px 1px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
   }
-  .mat-dialog-content{
-    padding:0 20px 20px !important;
-    margin:0 !important;
+  .mat-dialog-content {
+    padding: 0 20px 20px !important;
+    margin: 0 !important;
   }
-  .subheading{
+  .subheading {
     padding: 0 20px;
   }
 }
@@ -55,7 +58,6 @@ mat-dialog-container{
   text-align: center;
   transform: translateY(-50%);
   box-shadow: -8px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  border: 3px solid #fff;
   img {
     max-width: 100%;
     position: absolute;
@@ -66,19 +68,19 @@ mat-dialog-container{
     margin: 0 auto;
   }
 }
-.page-title{
+.page-title {
   margin: 10px 0;
   display: inline-block;
-  h3{
-    margin-top:0;
+  h3 {
+    margin-top: 0;
   }
 }
-.buttonRow{
-  margin:20px 0 10px;
+.buttonRow {
+  margin: 20px 0 10px;
   text-align: right;
   float: right;
-  button:last-child{
-      margin-left:10px;
+  button:last-child {
+    margin-left: 10px;
   }
 }
 .topbar {
@@ -88,10 +90,10 @@ mat-dialog-container{
   display: block !important;
   height: auto !important;
 }
-.flexbox{
-  display:flex;
-  & > div{
-    width:100%;
+.flexbox {
+  display: flex;
+  & > div {
+    width: 100%;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -169,12 +171,20 @@ mat-dialog-container{
     }
   }
 }
+.centerbox {
+  width: 70%;
+  margin: 0 auto;
+  .midbox{
+    width:100%;
+    margin:50px auto;
+  }
+}
 .midbox {
   border-top: 4px solid;
   .mat-form-field-underline {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  width: 60%;
+  width: 70%;
   margin: 100px auto;
   box-shadow: 0 0px 60px -20px #0000007a !important;
   border-radius: 10px !important;
@@ -297,7 +307,7 @@ mat-dialog-container{
     border-radius: 50%;
     color: #fff;
     mat-icon {
-      font-size: 40px;
+      font-size: 30px;
       transition: all cubic-bezier(0.45, 0.01, 0, 3) 0.3s;
       transform: scale(1);
     }
@@ -419,9 +429,9 @@ hr.forheading {
   width: 30%;
   opacity: 0.4;
 }
-.customTable{
-  width:100%;
-  .table-img{
+.customTable {
+  width: 100%;
+  .table-img {
     width: 60px;
     height: 60px;
     border-radius: 100px;
@@ -429,21 +439,53 @@ hr.forheading {
     margin: 10px 0;
     border: 1px solid #fff;
   }
-  .mat-header-row{
-    .mat-header-cell{
-      color:#fff;
+  .mat-header-row {
+    .mat-header-cell {
+      color: #fff;
     }
   }
-  .btn-table{
+  .btn-table {
     font-size: 12px;
     padding: 0px 5px;
     line-height: 2;
-    mat-icon{
+    mat-icon {
       font-size: 14px;
       position: relative;
       top: 5px;
       padding-right: 5px;
       width: auto;
+    }
+  }
+}
+.verify-modal {
+  mat-dialog-container {
+    background: transparent !important;
+    color: #fff !important;
+    overflow: hidden;
+    position: relative;
+    box-shadow:none !important;
+    app-verification {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      display: block;
+      text-align: center;
+      p {
+        line-height: 2;
+      }
+    }
+  }
+  .cdk-overlay-backdrop {
+    background-image: url(./assets/images/verify-bg.jpg);
+    background-size: cover;
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      opacity:0.9;
     }
   }
 }
@@ -481,8 +523,8 @@ hr.forheading {
   }
 }
 @media (max-width: 768px) {
-  mat-dialog-container{
-    width:500px !important;
+  mat-dialog-container {
+    width: 500px !important;
   }
   .dashboard-widgets {
     height: auto !important;
