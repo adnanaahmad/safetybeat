@@ -11,6 +11,7 @@ import { VerificationComponent } from "./components/verification/verification.co
 import { AuthGuard } from "src/app/core/services/guards/auth.guard";
 import { ForgotPasswordComponent } from "./components/forgotPassword/forgotPassword.component";
 import { LandingComponent } from './components/landing/landing.component';
+import { PasswordRecoveryComponent } from './components/passwordRecovery/passwordRecovery.component';
 
 const authRoutes: Routes = [
   {
@@ -31,6 +32,9 @@ const authRoutes: Routes = [
     component: ForgotPasswordComponent
   },
   {
+    path: 'passwordRecovery/:uid/:token',
+    component: PasswordRecoveryComponent
+},{
     path: "signup",
     component: RegistrationComponent
   }
