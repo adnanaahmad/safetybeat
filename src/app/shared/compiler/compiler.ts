@@ -26,7 +26,6 @@ export class CompilerProvider {
     );
   }
   constructUserData(profileApiResponse: any) {
-    debugger
     let user:User = {
       id: profileApiResponse.id,
       username: profileApiResponse.username,

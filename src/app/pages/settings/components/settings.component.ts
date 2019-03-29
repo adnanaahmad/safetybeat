@@ -55,7 +55,6 @@ export class SettingsComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(){
     this.navService.selectedEntityData.subscribe((selectedEntity)=>{
-      debugger
       this.allEntites = selectedEntity;
       this.entitiesData = this.allEntites.entityInfo;
       this.entityId = this.entitiesData.id;
@@ -63,7 +62,6 @@ export class SettingsComponent implements OnInit,AfterViewInit {
       this.managedBy = this.entitiesData.managedBy;
     })
   }
-
   editEntity() {
     this.disabled = true;
     this.entityForm.enable();

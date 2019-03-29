@@ -71,7 +71,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
   validateUser(data: any) {
     this.loginRegService.verifyCode(data).subscribe(res => {
-      debugger
       this.validationData = res;
       this.userEmail = this.validationData.data.data;
       if (this.validationData.responseDetails.code === '0035') {

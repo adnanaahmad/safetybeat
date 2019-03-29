@@ -76,7 +76,6 @@ export class CreateEntityComponent implements OnInit {
     value: entityData;
     valid: boolean;
   }): void {
-    debugger
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
