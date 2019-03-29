@@ -79,7 +79,9 @@ export class CreateEntityComponent implements OnInit {
     debugger
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
-      entityData: value
+      entityData: value,
+      active: value.status,
+      roleId : 2
     }
     if(!valid){
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
@@ -92,6 +94,7 @@ export class CreateEntityComponent implements OnInit {
       this.entityResponse = result;
       if (this.entityResponse.responseDetails.code == '0012') {
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.entityResponse.responseDetails.message);
+        this.router.navigate(['/home']);
       }
       else if (this.entityResponse.responseDetails.code == '0013') {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
