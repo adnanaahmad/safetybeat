@@ -28,31 +28,34 @@
       font-size: 12px;
       display: block;
       padding: 20px;
+      a{
+        color:#fff;
+      }
     }
     .verification-form {
       /* Safari 4.0 - 8.0 */
       @-webkit-keyframes bgOp {
         0% {
-          opacity: 0.5;
+          opacity: 0.4;
         }
         50% {
           opacity: 1;
         }
         100% {
-          opacity: 0.5;
+          opacity: 0.4;
         }
       }
 
       /* Standard syntax */
       @keyframes bgOp {
         0% {
-          opacity: 0.5;
+          opacity: 0.4;
         }
         50% {
           opacity: 1;
         }
         100% {
-          opacity: 0.5;
+          opacity: 0.4;
         }
       }
       display: flex;
@@ -61,6 +64,7 @@
         -webkit-animation: bgOp 2s infinite;
         animation: bgOp 2s infinite;
         width: 100%;
+        opacity: 0.4;
         background: rgba(255, 255, 255, 0.2);
         margin: 10px;
         border-radius: 100px;

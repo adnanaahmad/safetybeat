@@ -69,10 +69,11 @@ export class HelperService {
 
   createModal(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = params.disableClose ? params.disableClose : true;
-    dialogConfig.autoFocus = params.autoFocus ? params.autoFocus : true;
-    dialogConfig.closeOnNavigation = params.closeOnNavigation ? params.closeOnNavigation : false;
-    dialogConfig.data = params.data ? params.data : null;
+    debugger
+    dialogConfig.disableClose = params && params.disableClose ? params.disableClose : true;
+    dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;
+    dialogConfig.closeOnNavigation = params && params.closeOnNavigation ? params.closeOnNavigation : false;
+    dialogConfig.data = params && params.data ? params.data : null;
     this.dialog.open(component, dialogConfig);
   }
   removeToken() {

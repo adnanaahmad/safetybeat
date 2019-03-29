@@ -158,13 +158,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
-  app-alert-modal {
-    .entity-code {
-      border: 1px solid #05647c1c;
-      background: #05647c14;
-      color: mat-color($warn-pallete, 500);
-    }
-  }
+  
   .notification-icon {
     .notifcount {
       background: mat-color($warn-pallete, 600);
@@ -207,6 +201,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   app-landing {
     background-color: mat-color($primary-pallet, 50);
     .text-wrapper {
+      background-color: #fff;
       h1 {
         span {
           color: mat-color($primary-pallet, 500);
@@ -215,7 +210,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     }
     #particle-container {
       .particle {
-        color: mat-color($primary-pallet, 50);
+        color: mat-color($primary-pallet, 500);
       }
     }
     .top-nav {
@@ -226,7 +221,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
               border: 1px solid mat-color($primary-pallet, 500);
               &:hover {
                 background: mat-color($primary-pallet, 500);
-                color:#fff;
+                color: #fff;
               }
             }
           }

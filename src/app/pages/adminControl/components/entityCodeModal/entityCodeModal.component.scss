@@ -1,27 +1,10 @@
 @mixin amte-entityCodeModal($primary, $accent, $warn) {
   :host,
-  app-alert-modal {
+  app-entityCodeModal {
+    display: none;
     .entity-code {
-      display: block;
-      padding: 10px;
-      border-radius: 100px;
-      border: 1px solid #05647c1c;
-      text-align: center;
-      clear: both;
-      margin: 10px auto;
-      font-size: 18px;
-      width: 80px;
-      height: 80px;
-      line-height: 80px;
-      background: #05647c14;
-      color: #05647c;
-      cursor: pointer;
+      font-size: 30px;
+      font-weight: 600;
     }
-  }
-  .entitycode-box{
-      .hidden-entity{
-          opacity:0;
-          visibility: hidden;
-      }
   }
 }

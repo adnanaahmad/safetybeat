@@ -84,7 +84,7 @@ export class LoginRegistrationService {
    */
   forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
     return this.http.post<ForgotPasswordResponse>(
-      this.apiRoutes.passwordReset,
+      this.apiRoutes.forgotPassword,
       data
     ).pipe(catchError(this.coreServices.handleError));
   }
