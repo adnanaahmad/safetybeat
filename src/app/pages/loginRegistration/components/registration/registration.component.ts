@@ -164,7 +164,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.organizationData = {
       'name':this.organizationForm.value.name,
       'address': this.organizationForm.value.address,
-      'billingEmail': this.userForm.value.email,
+      'billingEmail': JSON.parse(this.userEmail.data),
       'accountNo': '12344532',
       'phoneNo' : this.userForm.value.contactNo,
       'type': this.organizationTypeForm.value.type
@@ -192,7 +192,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.register.registerUser(this.registerData).subscribe((result)=>{
       this.registrationData = result;
       if(this.registrationData.responseDetails.code === '0011'){
-        debugger
         result ? this.register.setToken(this.registrationData.data.token) : this.register.setToken('');
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);

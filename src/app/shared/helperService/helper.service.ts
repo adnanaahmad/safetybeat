@@ -67,20 +67,14 @@ export class HelperService {
     }
   }
 
-  createModal(component, ...params: any) {
-    debugger;
+  createModal(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.closeOnNavigation = false;
-    debugger
-    if (params.length === 0) {
-      this.dialog.open(component);
-    } else {
-      this.dialog.open(component, params[0]);
-    }
+    dialogConfig.disableClose = params.disableClose ? params.disableClose : true;
+    dialogConfig.autoFocus = params.autoFocus ? params.autoFocus : true;
+    dialogConfig.closeOnNavigation = params.closeOnNavigation ? params.closeOnNavigation : false;
+    dialogConfig.data = params.data ? params.data : null;
+    this.dialog.open(component, dialogConfig);
   }
-
   removeToken() {
     localStorage.removeItem(this.constants.localStorageKeys.entityUserData);
     localStorage.removeItem(this.constants.localStorageKeys.token);
