@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
     );
-    this.helperService.createModal(OrgRegistrationComponent)
+    // this.helperService.createModal(OrgRegistrationComponent)
 
 
     this.option1 = {

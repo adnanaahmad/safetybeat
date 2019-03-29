@@ -307,41 +307,81 @@
           <h3 class="setting-title">Entity Setting</h3>
           <p>Choose Entity setting for your account</p>
           <div class="text-right paddingbox">
-            <button btn-primary mat-raised-button color="primary" (click)="editEntity()">
+            <button
+              btn-primary
+              mat-raised-button
+              color="primary"
+              (click)="editEntity()"
+            >
               <mat-icon>edit</mat-icon>Edit Entity
             </button>
           </div>
-          <form class="profile-form" [formGroup]="entityForm" (ngSubmit)="updateEntity(entityForm)">
-            <mat-card-content>
-              <mat-list role="list">
-                <div class="form-group">
-                  <mat-list-item role="listitem">
-                      <label>{{translated.TABLEHEADINGS.NAME}} </label>
-                      <input matInput type="text" placeholder={{entitiesData.name}} [(ngModel)]="entitiesData.name" formControlName={{appConstants.name}}
-                        [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.name}} required />
-                  </mat-list-item>
-                </div>
-                <div class="form-group">
-                  <mat-list-item role="listitem">
-                      <label>Entity Code</label>
-                      <input matInput type="text" [(ngModel)]="entitiesData.code" formControlName={{appConstants.code}}
-                        [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.code}} required />
-                  </mat-list-item>
-                </div>
-                <div class="form-group">
-                  <mat-list-item role="listitem">
-                      <label>{{translated.TABLEHEADINGS.ENTITY_HEADOFFICE}} </label>
-                      <input matInput type="text" [(ngModel)]="entitiesData.headOffice" formControlName={{appConstants.headOffice}}
-                        formControlName={{appConstants.headOffice}} [ngClass]="disabled ? 'active' : 'inactive'" required />
-                  </mat-list-item>
-                </div>
-              </mat-list>
-            </mat-card-content>
+          <form
+            class="profile-form"
+            [formGroup]="entityForm"
+            (ngSubmit)="updateEntity(entityForm)"
+          >
+            <mat-list role="list">
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <label>{{ translated.TABLEHEADINGS.NAME }} </label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="{{ entitiesData.name }}"
+                    [(ngModel)]="entitiesData.name"
+                    formControlName="{{ appConstants.name }}"
+                    [ngClass]="disabled ? 'active' : 'inactive'"
+                    formControlName="{{ appConstants.name }}"
+                    required
+                  />
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <label>Entity Code</label>
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="entitiesData.code"
+                    formControlName="{{ appConstants.code }}"
+                    [ngClass]="disabled ? 'active' : 'inactive'"
+                    formControlName="{{ appConstants.code }}"
+                    required
+                  />
+                </mat-list-item>
+              </div>
+              <div class="form-group">
+                <mat-list-item role="listitem">
+                  <label
+                    >{{ translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
+                  </label>
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="entitiesData.headOffice"
+                    formControlName="{{ appConstants.headOffice }}"
+                    formControlName="{{ appConstants.headOffice }}"
+                    [ngClass]="disabled ? 'active' : 'inactive'"
+                    required
+                  />
+                </mat-list-item>
+              </div>
+            </mat-list>
             <div *ngIf="disabled" class="btn-grp">
-              <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
-                <mat-icon>{{appIcons.save}}</mat-icon> {{translated.BUTTONS.SAVE}}
+              <button
+                mat-raised-button
+                custom-btn
+                btn-danger
+                color="primary"
+                [disabled]="entityForm.pristine"
+              >
+                <mat-icon>{{ appIcons.save }}</mat-icon>
+                {{ translated.BUTTONS.SAVE }}
               </button>
-              <button mat-raised-button custom-btn btn-primary color="warn">{{translated.BUTTONS.CANCEL}}</button>
+              <button mat-raised-button custom-btn btn-primary color="warn">
+                {{ translated.BUTTONS.CANCEL }}
+              </button>
             </div>
           </form>
       </div>
