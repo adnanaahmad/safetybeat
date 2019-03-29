@@ -62,7 +62,6 @@ export class SettingsComponent implements OnInit,AfterViewInit {
       this.managedBy = this.entitiesData.managedBy;
     })
   }
-
   editEntity() {
     this.disabled = true;
     this.entityForm.enable();

@@ -124,7 +124,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             this.email = this.userData.email;
             this.contactNo = this.userData.contactNo;
             this.loginService.updateProfileData(this.userData);
-            console.log(this.dataRecieved);
           });
         }
       }
@@ -143,7 +142,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   // }
 
   editAccount() {
-    debugger
     this.disabled = true;
     this.profileForm.enable();
   }
@@ -162,7 +160,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   onActivities() {}
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
-    debugger
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {

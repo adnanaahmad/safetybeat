@@ -66,7 +66,6 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
       'moduleName': 'Safetybeat'
     };
     this.navService.data.subscribe((res)=>{
-      console.log(res);
       this.entitiesList = res;
       this.allEntitiesData = this.entitiesList.entities;
       this.dataSource = new MatTableDataSource(this.allEntitiesData);

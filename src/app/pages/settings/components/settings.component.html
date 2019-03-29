@@ -1,39 +1,8 @@
-<<<<<<< HEAD
-<div class="paddingbox theme-selector">
-  <div class="page-title">
-    <h3>{{ translated.SITETITLE.SETTINGS_TITLE }}</h3>
-    <p>{{ translated.SITETITLE.SETTINGS_DESCRIPTION }}</p>
-  </div>
-  <div class="clearfix"></div>
-  <div class="flexbox">
-    <div class="navigator">
-      <mat-list role="list">
-        <mat-list-item role="listitem">
-          <span (click)="changeSetting('general')" ngClass="settingFeatures.general"><mat-icon>settings</mat-icon> General</span>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <span (click)="changeSetting('security')"><mat-icon>security</mat-icon> Security</span>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <span (click)="changeSetting('organization')"><mat-icon>business</mat-icon>Organization Info</span>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <span (click)="changeSetting('group')"><mat-icon>group_add</mat-icon> Create Group</span>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <span (click)="changeSetting('entity')"><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span>
-        </mat-list-item>
-        <mat-list-item role="listitem">
-          <span (click)="changeSetting('theme')"><mat-icon>brightness_medium</mat-icon> Theme Settings</span>
-        </mat-list-item>
-      </mat-list>
-=======
 <div class="centerbox">
   <div class="paddingbox midbox theme-selector">
     <div class="page-title">
       <h3>{{ translated.SITETITLE.SETTINGS_TITLE }}</h3>
       <p>{{ translated.SITETITLE.SETTINGS_DESCRIPTION }}</p>
->>>>>>> 11bbf91deef7af61d20db3916cb825ada13c6884
     </div>
     <div class="clearfix"></div>
     <div class="flexbox">
@@ -70,9 +39,9 @@
           </mat-list-item>
           <mat-list-item role="listitem">
             <span
-              [ngClass]="settingFeatures.privacy ? 'settingNav' : 'abc'"
-              (click)="changeSetting('privacy')"
-              ><mat-icon>screen_lock_portrait</mat-icon> Privacy Settings</span
+              [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'"
+              (click)="changeSetting('entity')"
+              ><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span
             >
           </mat-list-item>
           <mat-list-item role="listitem">
@@ -333,10 +302,8 @@
           </div>
         </div>
 
-<<<<<<< HEAD
       <!--Privacy Settings-->
       <div *ngIf="settingFeatures.entity">
-        <mat-card>
           <h3 class="setting-title">Entity Setting</h3>
           <p>Choose Entity setting for your account</p>
           <div class="text-right paddingbox">
@@ -377,70 +344,7 @@
               <button mat-raised-button custom-btn btn-primary color="warn">{{translated.BUTTONS.CANCEL}}</button>
             </div>
           </form>
-        </mat-card>
       </div>
-=======
-        <!--Privacy Settings-->
-        <div *ngIf="settingFeatures.privacy">
-          <h3 class="setting-title">Privacy Setting</h3>
-          <p>Choose privacy setting for your account</p>
-          <mat-list role="list" class="settings-list">
-            <mat-list-item role="listitem">
-              <label>Change Password</label>
-              <input type="text" class="showonly" placeholder="******" />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Confirm Password</label>
-              <input
-                type="text"
-                class="showonly"
-                placeholder="BlueSky Software"
-              />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Security Question 1</label>
-              <input
-                type="text"
-                class="showonly"
-                placeholder="Where did you born?"
-              />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Security Question 2</label>
-              <input
-                type="text"
-                class="showonly"
-                placeholder="Where did your father born?"
-              />
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <label>Contact Number</label>
-              <input type="text" class="showonly" placeholder="+923157118511" />
-            </mat-list-item>
-          </mat-list>
-          <div class="btn-grp">
-            <button
-              type="button"
-              mat-raised-button
-              routerLink=""
-              custom-btn
-              btn-primary
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              mat-raised-button
-              routerLink=""
-              color="warn"
-              custom-btn
-              btn-danger
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
->>>>>>> 11bbf91deef7af61d20db3916cb825ada13c6884
 
         <!--Change Theme-->
         <div *ngIf="settingFeatures.theme">
