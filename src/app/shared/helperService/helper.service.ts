@@ -70,14 +70,11 @@ export class HelperService {
 
   createModal(component, ...params: any) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.closeOnNavigation = false;
-    if (params.length === 0) {
-      this.dialog.open(component);
-    } else {
-      this.dialog.open(component, params[0]);
-    }
+    dialogConfig.disableClose = params[0].length != 0 ? params[0].disableClose : true;
+    dialogConfig.autoFocus = params[0].length != 0 ? params[0].autoFocus : true;
+    dialogConfig.closeOnNavigation = params[0].length != 0 ? params[0].closeOnNavigation : true;
+    dialogConfig.data = params[0].length != 0 ? params[0].data != undefined ? params[0].data : '' : '';
+    this.dialog.open(component, dialogConfig);
   }
 
   removeToken() {
