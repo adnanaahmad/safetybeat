@@ -33,7 +33,7 @@ const authRoutes: Routes = [
   {
     path: "signup",
     component: RegistrationComponent
-  },
+  }
 ];
 
 @NgModule({

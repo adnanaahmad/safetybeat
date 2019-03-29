@@ -9,10 +9,9 @@ import {
 import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
 import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
 import { AdminControlService } from '../../services/adminControl.service';
-import { share } from 'rxjs/operators';
-import { AlertModalComponent } from '../alert-modal/alert-modal.component';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+import { AlertModalComponent } from '../entityCodeModal/entityCodeModal.component';
 
 @Component({
   selector: 'app-entityControl',

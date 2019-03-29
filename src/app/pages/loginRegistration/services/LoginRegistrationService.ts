@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {  BehaviorSubject } from 'rxjs';
 import { Observable, forkJoin, throwError } from 'rxjs';
 import {
   loginCredentials,
   LoginResponse,
   ForgotPassword,
-  ForgotPasswordResponse
+  ForgotPasswordResponse,
+  User,
+  validateUser
 } from 'src/app/models/user.model';
 import { catchError } from 'rxjs/operators';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
@@ -18,6 +21,8 @@ export class LoginRegistrationService {
   selected = true;
   reset_success: string;
   reset_msg: string;
+  private userData = new BehaviorSubject<any>(1);
+  profileData = this.userData.asObservable();
   apiRoutes: any;
   constructor(
     private http: HttpClient,
@@ -67,7 +72,7 @@ export class LoginRegistrationService {
    * in this function all the data that comes in the organization registration form is passed to this function
    * and then it is sent to the related api to register the user with the organization,module and packages data.
    */
-  registerUser(data: object) {
+  registerUser(data: any) {
     return this.http.post(this.apiRoutes.signup, data).pipe(catchError(this.coreServices.handleError));
   }
   /**
@@ -106,5 +111,17 @@ export class LoginRegistrationService {
    */
   getToken() {
     return localStorage.getItem(this.storageKey);
+  }
+
+  updateProfileData(data:any){
+    this.userData.next(data);
+  }
+
+  validateUser(data:any){
+    return this.http.post(this.apiRoutes.validateUser,data).pipe(catchError(this.coreServices.handleError));
+  }
+
+  verifyCode(data:any){
+    return this.http.post(this.apiRoutes.verifyCode,data).pipe(catchError(this.coreServices.handleError));
   }
 }

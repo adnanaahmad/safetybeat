@@ -15,7 +15,6 @@ import { NotifierService } from 'angular-notifier';
   providedIn: 'root'
 })
 export class HelperService {
-
   iterations: any;
   findIndex: any;
   translation: Translation;
@@ -68,15 +67,14 @@ export class HelperService {
     }
   }
 
-  createModal(component, ...params: any) {
+  createModal(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = params[0].length != 0 ? params[0].disableClose : true;
-    dialogConfig.autoFocus = params[0].length != 0 ? params[0].autoFocus : true;
-    dialogConfig.closeOnNavigation = params[0].length != 0 ? params[0].closeOnNavigation : true;
-    dialogConfig.data = params[0].length != 0 ? params[0].data != undefined ? params[0].data : '' : '';
+    dialogConfig.disableClose = params.disableClose ? params.disableClose : true;
+    dialogConfig.autoFocus = params.autoFocus ? params.autoFocus : true;
+    dialogConfig.closeOnNavigation = params.closeOnNavigation ? params.closeOnNavigation : false;
+    dialogConfig.data = params.data ? params.data : null;
     this.dialog.open(component, dialogConfig);
   }
-
   removeToken() {
     localStorage.removeItem(this.constants.localStorageKeys.entityUserData);
     localStorage.removeItem(this.constants.localStorageKeys.token);

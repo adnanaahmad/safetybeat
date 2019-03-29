@@ -74,7 +74,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
             this.navService.changeEntites(this.entityUserData);
           });
       }
-    });
+    })
   }
   ngOnDestroy() {
     this.helperService.hideLoggers();
@@ -155,6 +155,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   switchSideMenu(data: any) {
     this.Entity = data;
+    this.navService.changeSelectedEntity(this.Entity);
     this.navService.changeRole(this.Entity.role);
     this.navService.changeRoleId(this.Entity.permissions.role);
     this.navLinks = this.compiler.switchSideMenuDefault(data);
