@@ -15,7 +15,7 @@ export class ConstantService {
     packages: `${environment.apiUrl}/packages/`,
     passwordReset: `${environment.apiUrl}/password/reset/`,
     organization: `${environment.apiUrl}/organization/`,
-    user: `${environment.apiUrl}/users`,
+    user: `${environment.apiUrl}/users/viewUser/`,
     checkUsername: `${environment.apiUrl}/users/checkUsername/`,
     checkEmail: `${environment.apiUrl}/users/checkEmail/`,
     checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
@@ -23,13 +23,16 @@ export class ConstantService {
     resendverification: `${environment.apiUrl}/sendEmailVerification/`,
     changeEmail: `${environment.apiUrl}/users/editEmail/`,
     editProfile: `${environment.apiUrl}/users`,
+    editEntity: `${environment.apiUrl}/entity`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
     getInvite: `${environment.apiUrl}/registration/`,
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
-    getRoles: `${environment.apiUrl}/role/`
+    getRoles: `${environment.apiUrl}/role/`,
+    validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
+    verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`
   };
   static localStorageKeys = {
     token: 'sb_User_Token',
@@ -79,7 +82,8 @@ export class ConstantService {
     headOffice: "headOffice",
     status: "status",
     joinCode: "joinCode",
-    role: "role"
+    role: "role",
+    code:"code"
   };
   static appIcons = {
     skipNext: "skip_next",

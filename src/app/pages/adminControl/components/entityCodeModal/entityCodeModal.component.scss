@@ -1,4 +1,4 @@
-@mixin amte-alertModal($primary, $accent, $warn) {
+@mixin amte-entityCodeModal($primary, $accent, $warn) {
   :host,
   app-alert-modal {
     .entity-code {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
 import { RegisterUser } from 'src/app/models/user.model';
@@ -17,6 +17,10 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
 export class RegistrationComponent implements OnInit, OnDestroy {
   addr: any;
   addrKeys: string[];
+  organizationData: any;
+  registrationData: any;
+  devMode:boolean = false;
+  userEmail: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,10 +29,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private compiler: CompilerProvider,
     private zone: NgZone,
     public helperService: HelperService,
+    private route:ActivatedRoute
   ) {
+
+    this.route.params.subscribe((data)=>{
+      this.userEmail = data;
+    })
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
+    this.devMode = this.helperService.constants.config.devMode;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
@@ -86,12 +96,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.userForm = this.formBuilder.group({
-      // email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       contactNo: ['', Validators.required],
-      password1: ['', [Validators.required, Validators.minLength(8)]]
-    });
+      password1: ['', [Validators.required, Validators.minLength(8)]],
+      password2: ['', [Validators.required,Validators.minLength(8)]]
+    },{ validator: this.checkPasswords });
 
     this.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -149,42 +159,51 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param name name of the module
    * @param data selected package against module
    */
-  registerOrginazation({ value, valid }: { value: RegisterUser; valid: boolean }) {
-    this.userData = <RegisterUser>this.userForm.value;
-    this.registerData = {
-      'first_name': value.first_name,
-      'last_name': value.last_name,
-      'email': value.email,
-      'contactNo': value.contactNo,
-      'password1': value.password1,
-      'password2': value.password2,
-      'invitation': false,
-      'module': this.translated.BUTTONS.SAFETYBEAT,
-      'package': this.translated.AUTH.TRIAL,
-      'role': this.translated.AUTH.OWNER
+  registration() {
+
+    this.organizationData = {
+      'name':this.organizationForm.value.name,
+      'address': this.organizationForm.value.address,
+      'billingEmail': this.userForm.value.email,
+      'accountNo': '12344532',
+      'phoneNo' : this.userForm.value.contactNo,
+      'type': this.organizationTypeForm.value.type
     };
-    if (!valid) {
+    this.registerData = {
+      'email' : JSON.parse(this.userEmail.data),
+      'first_name' : this.userForm.value.first_name,
+      'last_name' : this.userForm.value.last_name,
+      'password1' : this.userForm.value.password1,
+      'password2' : this.userForm.value.password2,
+      'contactNo' : this.userForm.value.contactNo,
+      'organization': this.organizationData,
+      'invitation': false,
+      'module': 'Safetybeat',
+      'package': 'Trial',
+      'role': 'Owner'
+    };
+
+    if (this.organizationForm.invalid || this.userForm.invalid) {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
-    this.loading = true;
-    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.TRUE);
-    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, JSON.stringify(this.userForm.value));
-    this.register.registerUser(this.registerData)
-      .subscribe(
-        (data) => {
-          this.data = data;
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-          this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-          this.router.navigate(['/verification', { data: JSON.stringify(data) }], { skipLocationChange: true });
-        },
-        (error) => {
-          this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
-            this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-          this.loading = false;
-        });
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerData));
+    this.register.registerUser(this.registerData).subscribe((result)=>{
+      this.registrationData = result;
+      if(this.registrationData.responseDetails.code === '0011'){
+        debugger
+        result ? this.register.setToken(this.registrationData.data.token) : this.register.setToken('');
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
+        this.router.navigate(['/welcomeScreen']);
+      }
+    }, (error)=>{
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR);
+      this.helperService.logoutError(error.status)
+    });
+
+    
   }
 }

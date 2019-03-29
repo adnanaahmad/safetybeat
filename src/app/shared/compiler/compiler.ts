@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
 import { HelperService } from '../helperService/helper.service';
+import { User } from 'src/app/models/user.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -25,12 +26,14 @@ export class CompilerProvider {
     );
   }
   constructUserData(profileApiResponse: any) {
-    let user = {
+    debugger
+    let user:User = {
+      id: profileApiResponse.id,
       username: profileApiResponse.username,
       first_name: profileApiResponse.first_name,
       last_name: profileApiResponse.last_name,
       email: profileApiResponse.email,
-      mobile_no: profileApiResponse.mobile_no
+      contactNo: profileApiResponse.contactNo
     };
     return user;
   }

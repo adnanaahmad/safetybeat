@@ -16,11 +16,14 @@
       The only safety app that allows you to easily manage the safety of your
       mobile, remote and lone workers, anytime, anywhere
     </p>
-    <form>
+    <form [formGroup]="validateForm" (ngSubmit)="validateUser(validateForm)">
       <mat-form-field>
-        <input matInput placeholder="Enter your email" />
+        <input matInput type="email" placeholder='Please enter email' formControlName='email' required />
+        <mat-error *ngIf="formValidation.email.errors">
+          <span *ngIf="formValidation.email.errors.required">Enter valid email first</span>
+        </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" btn-primary custom-btn (click)="start()">get Started</button>
+      <button mat-raised-button color="primary" btn-primary custom-btn>get Started</button>
     </form>
     <p class="trial-info">Free 7-day trial. Sign Up now!</p>
   </div>

@@ -1,8 +1,39 @@
+<<<<<<< HEAD
+<div class="paddingbox theme-selector">
+  <div class="page-title">
+    <h3>{{ translated.SITETITLE.SETTINGS_TITLE }}</h3>
+    <p>{{ translated.SITETITLE.SETTINGS_DESCRIPTION }}</p>
+  </div>
+  <div class="clearfix"></div>
+  <div class="flexbox">
+    <div class="navigator">
+      <mat-list role="list">
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('general')" ngClass="settingFeatures.general"><mat-icon>settings</mat-icon> General</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('security')"><mat-icon>security</mat-icon> Security</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('organization')"><mat-icon>business</mat-icon>Organization Info</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('group')"><mat-icon>group_add</mat-icon> Create Group</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('entity')"><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <span (click)="changeSetting('theme')"><mat-icon>brightness_medium</mat-icon> Theme Settings</span>
+        </mat-list-item>
+      </mat-list>
+=======
 <div class="centerbox">
   <div class="paddingbox midbox theme-selector">
     <div class="page-title">
       <h3>{{ translated.SITETITLE.SETTINGS_TITLE }}</h3>
       <p>{{ translated.SITETITLE.SETTINGS_DESCRIPTION }}</p>
+>>>>>>> 11bbf91deef7af61d20db3916cb825ada13c6884
     </div>
     <div class="clearfix"></div>
     <div class="flexbox">
@@ -302,6 +333,53 @@
           </div>
         </div>
 
+<<<<<<< HEAD
+      <!--Privacy Settings-->
+      <div *ngIf="settingFeatures.entity">
+        <mat-card>
+          <h3 class="setting-title">Entity Setting</h3>
+          <p>Choose Entity setting for your account</p>
+          <div class="text-right paddingbox">
+            <button btn-primary mat-raised-button color="primary" (click)="editEntity()">
+              <mat-icon>edit</mat-icon>Edit Entity
+            </button>
+          </div>
+          <form class="profile-form" [formGroup]="entityForm" (ngSubmit)="updateEntity(entityForm)">
+            <mat-card-content>
+              <mat-list role="list">
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                      <label>{{translated.TABLEHEADINGS.NAME}} </label>
+                      <input matInput type="text" placeholder={{entitiesData.name}} [(ngModel)]="entitiesData.name" formControlName={{appConstants.name}}
+                        [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.name}} required />
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                      <label>Entity Code</label>
+                      <input matInput type="text" [(ngModel)]="entitiesData.code" formControlName={{appConstants.code}}
+                        [ngClass]="disabled ? 'active' : 'inactive'" formControlName={{appConstants.code}} required />
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                      <label>{{translated.TABLEHEADINGS.ENTITY_HEADOFFICE}} </label>
+                      <input matInput type="text" [(ngModel)]="entitiesData.headOffice" formControlName={{appConstants.headOffice}}
+                        formControlName={{appConstants.headOffice}} [ngClass]="disabled ? 'active' : 'inactive'" required />
+                  </mat-list-item>
+                </div>
+              </mat-list>
+            </mat-card-content>
+            <div *ngIf="disabled" class="btn-grp">
+              <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
+                <mat-icon>{{appIcons.save}}</mat-icon> {{translated.BUTTONS.SAVE}}
+              </button>
+              <button mat-raised-button custom-btn btn-primary color="warn">{{translated.BUTTONS.CANCEL}}</button>
+            </div>
+          </form>
+        </mat-card>
+      </div>
+=======
         <!--Privacy Settings-->
         <div *ngIf="settingFeatures.privacy">
           <h3 class="setting-title">Privacy Setting</h3>
@@ -362,6 +440,7 @@
             </button>
           </div>
         </div>
+>>>>>>> 11bbf91deef7af61d20db3916cb825ada13c6884
 
         <!--Change Theme-->
         <div *ngIf="settingFeatures.theme">

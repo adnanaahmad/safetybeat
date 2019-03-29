@@ -15,7 +15,6 @@ import { NotifierService } from 'angular-notifier';
   providedIn: 'root'
 })
 export class HelperService {
-
   iterations: any;
   findIndex: any;
   translation: Translation;
@@ -69,10 +68,12 @@ export class HelperService {
   }
 
   createModal(component, ...params: any) {
+    debugger;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.closeOnNavigation = false;
+    debugger
     if (params.length === 0) {
       this.dialog.open(component);
     } else {

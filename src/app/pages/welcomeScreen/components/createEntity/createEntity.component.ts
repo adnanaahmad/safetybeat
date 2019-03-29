@@ -1,19 +1,24 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Translation } from 'src/app/models/translate.model';
-import { entityData } from '../../../../models/entity.model';
-import { AdminControlService } from '../../../adminControl/services/adminControl.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { Component, OnInit, NgZone } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ConstantService } from "src/app/shared/constant/constant.service";
+import { Translation } from "src/app/models/translate.model";
+import { entityData } from "../../../../models/entity.model";
+import { AdminControlService } from "../../../adminControl/services/adminControl.service";
+import { HelperService } from "src/app/shared/helperService/helper.service";
+import { CompilerProvider } from "src/app/shared/compiler/compiler";
+import { NavigationService } from "src/app/pages/navigation/services/navigation.service";
+import { Router } from '@angular/router';
+import { WelcomeScreenService } from '../../services/welcome-screen.service';
 
 @Component({
-  selector: 'app-createEntity',
-  templateUrl: './createEntity.component.html',
-  styleUrls: ['./createEntity.component.scss']
+  selector: "app-createEntity",
+  templateUrl: "./createEntity.component.html",
+  styleUrls: ["./createEntity.component.scss"]
 })
 export class CreateEntityComponent implements OnInit {
   translated: Translation;
   appConstants: any;
-  public title = 'Places';
+  public title = "Places";
   public addrKeys: string[];
   public addr: object;
   city: string;
@@ -23,22 +28,31 @@ export class CreateEntityComponent implements OnInit {
   createEntityForm: FormGroup;
   entityDetails: any;
   entityResponse: any;
+  entites: any;
+  roleId: any;
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
     private adminServices: AdminControlService,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private compiler: CompilerProvider,
+    private navService: NavigationService,
+    private router: Router,
+    private welcomeService:WelcomeScreenService
   ) {
     this.translated = this.helperService.translation;
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
-    this.appConstants = this.helperService.constants.appConstant;
+    this.helperService.appLoggerDev(
+      this.translated.LOGGER.STATUS.SUCCESS,
+      this.translated.LOGGER.MESSAGES.CREATEENTITY
+    );
+    this.appConstants = ConstantService.appConstant;
   }
 
   ngOnInit() {
     this.createEntityForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      headOffice: ['', Validators.required],
-      status: false
+      name: ["", Validators.required],
+      headOffice: ["", Validators.required],
+      status: [""]
     });
   }
   setAddress(addrObj) {
@@ -51,9 +65,18 @@ export class CreateEntityComponent implements OnInit {
     });
   }
 
-  get formValidation() { return this.createEntityForm.controls; }
+  get formValidation() {
+    return this.createEntityForm.controls;
+  }
 
-  entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
+  entityCreation({
+    value,
+    valid
+  }: {
+    value: entityData;
+    valid: boolean;
+  }): void {
+    debugger
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value
@@ -81,6 +104,4 @@ export class CreateEntityComponent implements OnInit {
     })
     );
   }
-
-
 }
