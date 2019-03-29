@@ -29,6 +29,7 @@ import { InviteUserModalComponent } from './pages/navigation/components/inviteUs
 import { AlertModalComponent } from './pages/adminControl/components/entityCodeModal/entityCodeModal.component';
 import { VerificationComponent } from './pages/loginRegistration/components/verification/verification.component';
 import { WelcomeScreenModule } from './pages/welcomeScreen/welcomeScreen.module';
+import { CompilerProvider } from './shared/compiler/compiler';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -70,6 +71,7 @@ export function createTranslateLoader(http: HttpClient) {
     CoreService,
     AuthGuard,
     CookieService,
+    CompilerProvider,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
