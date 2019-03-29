@@ -74,12 +74,12 @@ export class VerificationComponent implements OnInit, OnDestroy {
       this.validationData = res;
       this.userEmail = this.validationData.data.data;
       if (this.validationData.responseDetails.code === '0035') {
-        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verifiesd');
+        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verified');
         this.dialogRef.close();
         this.router.navigate(['/signup', { data: JSON.stringify(this.userEmail) }], { skipLocationChange: true });
       }
     }, (error) => {
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verifiesd');
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verified');
     });
   }
 

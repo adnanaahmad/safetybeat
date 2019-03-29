@@ -23,7 +23,7 @@
           <span *ngIf="formValidation.email.errors.required">Enter valid email first</span>
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" btn-primary custom-btn>get Started</button>
+      <button mat-raised-button color="primary" btn-primary custom-btn [disabled]="btnStatus">get Started</button>
     </form>
     <p class="trial-info">Free 7-day trial. Sign Up now!</p>
   </div>

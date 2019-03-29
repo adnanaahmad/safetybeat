@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   username: string;
   firstname: string;
   lastname: string;
-  contactNo:string;
+  contactNo: string;
   dataRecieved: any;
   disabled: boolean = false;
   isEdited: boolean = false;
@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.userData = userDataResult;
           this.userId = this.userData.id;
           this.username = this.userData.first_name + this.userData.last_name;
-          this.firstname  =this.userData.first_name;
+          this.firstname = this.userData.first_name;
           this.lastname = this.userData.last_name;
           this.email = this.userData.email;
           this.contactNo = this.userData.contactNo;
@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             );
             this.userId = this.userData.id;
             this.username = this.userData.first_name + this.userData.last_name;
-            this.firstname  =this.userData.first_name;
+            this.firstname = this.userData.first_name;
             this.lastname = this.userData.last_name;
             this.email = this.userData.email;
             this.contactNo = this.userData.contactNo;
@@ -127,7 +127,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       }
-    )
+    );
   }
 
   // onCreate(feature: any) {
@@ -154,7 +154,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   onLeaves() {
     this.profileFeatures.leaves = true;
   }
-
+  changeAvatarModal() {
+    alert();
+  }
   onEntities() {}
 
   onActivities() {}

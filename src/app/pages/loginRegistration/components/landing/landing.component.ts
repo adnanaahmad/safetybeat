@@ -23,6 +23,7 @@ export class LandingComponent implements OnInit {
   translated: any;
   appConstants: any;
   appIcons: any;
+  btnStatus:boolean = false;
   constructor(
     public router: Router,
     private helperService: HelperService,
@@ -59,8 +60,10 @@ export class LandingComponent implements OnInit {
       );
       return;
     }
+    this.helperService.appLogger(this.helperService.constants.status.INFO,JSON.stringify(value));
     this.loginService.validateUser(value).subscribe(
       result => {
+        this.btnStatus = true;
         this.validationResponse = result;
         if (this.validationResponse.responseDetails.code === "0034") {
           this.helperService.appLogger(
