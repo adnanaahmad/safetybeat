@@ -1,39 +1,58 @@
-<mat-card-title class="mat-dialog-title">{{translated.MESSAGES.CREATEENTITY_MSG}}</mat-card-title>
-<div mat-dialog-content>
-  <form [formGroup]="createEntityForm" (ngSubmit)="entityCreation(createEntityForm)">
-    <div class="form-group">
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder="{{ translated.MESSAGES.ENTITYNAME }}"
-          formControlName="{{ appConstants.name }}" required />
-        <mat-error *ngIf="formValidation.name.errors">
-          <span *ngIf="formValidation.name.errors.required">{{
-            translated.MESSAGES.ENTITYNAME_REQ
-          }}</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field full-width>
-        <input
-          matInput
-          type="text"
-          placeholder="{{ translated.MESSAGES.HEADOFFICE_LOCATION }}"
-          appGooglePlaces
-          (onSelect)="setAddress($event)"
-          formControlName="{{appConstants.headOffice}}"
-          required
-        />
-        <mat-error *ngIf="formValidation.headOffice.errors">
-          <span *ngIf="formValidation.headOffice.errors.required">{{
-            translated.MESSAGES.OFFICELOCATION_REQ
-          }}</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
-
-    <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">
-        {{ translated.BUTTONS.CREATE_ENTITY }}
-      </button>
-    </mat-dialog-actions>
-  </form>
+<mat-grid-list cols="2" rowHeight="100%">
+  <mat-grid-tile>
+    <mat-card class="sideLegend">
+      <div class="legendContent">
+        <h1>Create Entity</h1>
+        <img width="70%" src="/assets/images/sdb.png" />
+      </div>
+    </mat-card>
+  </mat-grid-tile>
+  <span class="monogram">
+    <img src="/assets/images/monogram.png" />
+  </span>
+  <mat-grid-tile>
+    <mat-card class="loginbox">
+        <form [formGroup]="createEntityForm" (ngSubmit)="entityCreation(createEntityForm)">
+            <div class="form-group">
+              <mat-form-field full-width>
+                <input matInput type="text" placeholder="{{ translated.MESSAGES.ENTITYNAME }}"
+                  formControlName="{{ appConstants.name }}" required />
+                <mat-error *ngIf="formValidation.name.errors">
+                  <span *ngIf="formValidation.name.errors.required">{{
+                    translated.MESSAGES.ENTITYNAME_REQ
+                  }}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field full-width>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="{{ translated.MESSAGES.HEADOFFICE_LOCATION }}"
+                  appGooglePlaces
+                  (onSelect)="setAddress($event)"
+                  formControlName="{{appConstants.headOffice}}"
+                  required
+                />
+                <mat-error *ngIf="formValidation.headOffice.errors">
+                  <span *ngIf="formValidation.headOffice.errors.required">{{
+                    translated.MESSAGES.OFFICELOCATION_REQ
+                  }}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <mat-checkbox formControlName="{{ appConstants.status }}">{{
+                translated.MESSAGES.STATUS
+              }}</mat-checkbox>
+              &nbsp; &nbsp;
+            <mat-dialog-actions>
+              <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">
+                {{ translated.BUTTONS.CREATE_ENTITY }}
+              </button>
+            </mat-dialog-actions>
+          </form>
+    </mat-card>
+  </mat-grid-tile>
+<app-particle2-container></app-particle2-container>
+</mat-grid-list>

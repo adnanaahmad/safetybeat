@@ -31,9 +31,9 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
     getRoles: `${environment.apiUrl}/role/`,
+    forgotPassword:  `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
-    forgotPassword: `${environment.apiUrl}/users/forgotPassword/`
   };
   static localStorageKeys = {
     token: 'sb_User_Token',
