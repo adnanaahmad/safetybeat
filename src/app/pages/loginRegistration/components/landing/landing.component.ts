@@ -24,6 +24,7 @@ export class LandingComponent implements OnInit {
   translated: any;
   appConstants: any;
   appIcons: any;
+  addrKeys: string[];
   loading:boolean = false;
   email: FormGroup;
   success: any;
