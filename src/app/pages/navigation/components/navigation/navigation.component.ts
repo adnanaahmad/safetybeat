@@ -155,12 +155,10 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
     });
   }
   switchListDefault(data) {
-    debugger
     this.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 
   switchSideMenu(data: any) {
-    debugger
     this.Entity = data;
     this.navService.changeSelectedEntity(this.Entity);
     this.navService.changeRole(this.Entity.role);

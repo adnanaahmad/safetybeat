@@ -192,7 +192,6 @@ export class CompilerProvider {
 
   }
   switchSideMenuDefault(data) {
-    debugger
     this.navList = [
       {
         route: '/home',
