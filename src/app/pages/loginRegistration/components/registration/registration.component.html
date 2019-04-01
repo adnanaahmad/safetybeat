@@ -82,8 +82,8 @@
             </div>
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD formControlName={{appConstants.password2}}
-                  [errorStateMatcher]="formErrorMatcher" required />
+                <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD
+                  formControlName={{appConstants.password2}} [errorStateMatcher]="formErrorMatcher" required />
                 <mat-error *ngIf="userDetailForm.password2.errors ">
                   <span *ngIf="userDetailForm.password2.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
                   <span *ngIf="userDetailForm.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
@@ -159,9 +159,11 @@
             <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
               <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
             </button>
-            <button mat-raised-button [disabled]="loading" custom-btn btn-primary color="primary" (click)='registration()'>
-              Submit
-            </button>
+              <button mat-raised-button [disabled]="loading" custom-btn btn-primary color="primary"
+                (click)='registration()'>
+                Submit
+              </button>
+              <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
           </form>
         </mat-card>
       </mat-step>

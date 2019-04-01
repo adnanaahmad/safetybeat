@@ -1,6 +1,6 @@
 <h1>We've got your email !</h1>
 <p>
-  We sent a 6-digit code to s.amjad@optergy.com. Enter it below to unlock your
+  We sent a 6-digit code to {{mailData}}. Enter it below to unlock your
   free trial of SafetyBeat
 </p>
 <form class="verification-form">
@@ -54,6 +54,4 @@
     #test5
   />
 </form>
-<span class="resend"
-  >Didn't receive the code yet? <a (click)='resendVerification()'>Click here to send again.</a></span
->
+<span class="resend">Didn't receive the code yet? <a (click)='resendVerification()'>Click here to send again.</a></span>

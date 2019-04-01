@@ -10,7 +10,6 @@ import { createTranslateLoader } from 'src/app/app.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrManager, ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
-import { LoggingService } from 'src/app/shared/logging/logging.service';
 import { ParticleContainerComponent } from '../particleContainer/particleContainer.component';
 import { Router } from '@angular/router';
 import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
@@ -50,7 +49,6 @@ describe('RegistrationComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
-        LoggingService
       ]
     })
       .compileComponents();
