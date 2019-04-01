@@ -90,6 +90,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value))
     this.loginService.loginUser(value).subscribe(
       data => {
+        debugger
         if (data.responseDetails.code === '0000') {
           this.data = data;
           data
