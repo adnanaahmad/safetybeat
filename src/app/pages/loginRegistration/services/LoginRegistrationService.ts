@@ -110,7 +110,7 @@ export class LoginRegistrationService {
   forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
     this.ForgotPassword$ = this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.forgotPassword,
+      this.apiRoutes.passwordReset,
       data
     );
     return this.ForgotPassword$;
