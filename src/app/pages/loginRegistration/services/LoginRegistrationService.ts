@@ -8,6 +8,8 @@ import {
   ForgotPasswordResponse
 } from 'src/app/models/user.model';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { resetPassword } from 'src/app/models/profile.model';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
 
 
 @Injectable({ providedIn: "root" })
@@ -22,7 +24,7 @@ export class LoginRegistrationService {
   method: { get: string; post: string; put: string; delete: string; };
   public ForgotPassword$: Observable<ForgotPasswordResponse>
   public Login$: Observable<LoginResponse>
-  constructor(public helperService: HelperService) { 
+  constructor(public helperService: HelperService) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.storageKey = this.helperService.constants.localStorageKeys.token;
     this.method = this.helperService.constants.apiMethod
@@ -34,7 +36,7 @@ export class LoginRegistrationService {
    */
 
   loginUser(data: loginCredentials): Observable<LoginResponse> {
-     
+
     this.Login$ = this.helperService.requestCall(this.method.post, this.apiRoutes.login, data);
     return this.Login$;
   }
@@ -80,6 +82,10 @@ export class LoginRegistrationService {
   forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
     this.ForgotPassword$ = this.helperService.requestCall(this.method.post, this.apiRoutes.passwordReset, data);
     return this.ForgotPassword$;
+  }
+
+  resetPassword(data: resetPassword) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.forgotPassword, data);
   }
 
   resendemail(data) {

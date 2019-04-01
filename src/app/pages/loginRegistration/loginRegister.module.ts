@@ -13,6 +13,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassword.component';
 import { ParticleContainerComponent } from './components/particleContainer/particleContainer.component';
+import { PasswordRecoveryComponent } from './components/passwordRecovery/passwordRecovery.component';
 import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { LandingComponent } from './components/landing/landing.component';
     RegistrationComponent,
     ForgotPasswordComponent,
     ParticleContainerComponent,
-    LandingComponent,
+    PasswordRecoveryComponent,
+    LandingComponent
   ],
   providers: [
     LoginRegistrationService,

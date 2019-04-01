@@ -13,7 +13,7 @@ export class ConstantService {
     companyTypes: `${environment.apiUrl}/companyTypes/`,
     modules: `${environment.apiUrl}/modules/`,
     packages: `${environment.apiUrl}/packages/`,
-    passwordReset: `${environment.apiUrl}/password/reset/`,
+    passwordReset: `${environment.apiUrl}/users/resetPassword/`,
     organization: `${environment.apiUrl}/organization/`,
     user: `${environment.apiUrl}/users/viewUser/`,
     checkUsername: `${environment.apiUrl}/users/checkUsername/`,
@@ -31,8 +31,9 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
     getRoles: `${environment.apiUrl}/role/`,
+    forgotPassword:  `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
-    verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`
+    verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
   };
   static apiMethod = {
     get: 'get',
