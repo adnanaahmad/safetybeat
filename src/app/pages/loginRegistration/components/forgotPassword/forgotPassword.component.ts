@@ -48,7 +48,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       const email = { email: group.value.email };
       this.forgotService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        debugger;
         if (this.success.responseDetails.code == '0021') {
           group.controls.email.setErrors({ exists: true })
         }
@@ -64,7 +63,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
    * sent to the user.and then navigates to the login page
    */
   onSubmit({ value, valid }: { value: ForgotPassword; valid: boolean }): void {
-    debugger
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);

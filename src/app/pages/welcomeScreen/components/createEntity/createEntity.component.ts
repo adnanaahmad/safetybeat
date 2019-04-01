@@ -32,6 +32,7 @@ export class CreateEntityComponent implements OnInit {
   roleId: any;
   entitiesList: any;
   entityUserData: any;
+  loading:boolean = false;
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
@@ -78,6 +79,7 @@ export class CreateEntityComponent implements OnInit {
     value: entityData;
     valid: boolean;
   }): void {
+    this.loading = true;
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
@@ -97,6 +99,7 @@ export class CreateEntityComponent implements OnInit {
         this.helperService.constants.status.ERROR,
         this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
       );
+      this.loading = false;
       return;
     }
     this.helperService.appLoggerDev(
@@ -115,6 +118,7 @@ export class CreateEntityComponent implements OnInit {
             this.entitiesList = res;
             this.entityUserData = this.compiler.constructUserEntityData(this.entitiesList.data);
             this.navService.changeEntites(this.entityUserData);
+          this.loading = false;
             this.helperService.appLogger(
               this.helperService.constants.status.SUCCESS,
               this.entityResponse.responseDetails.message
@@ -122,11 +126,13 @@ export class CreateEntityComponent implements OnInit {
             this.router.navigate(["/home"]);
           });
         } else if (this.entityResponse.responseDetails.code == "0013") {
+          this.loading = false;
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             this.entityResponse.responseDetails.message
           );
         } else if (this.entityResponse.responseDetails.code == "0017") {
+          this.loading = false;
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             this.entityResponse.responseDetails.message
@@ -138,6 +144,7 @@ export class CreateEntityComponent implements OnInit {
           this.helperService.constants.status.ERROR,
           this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED
         );
+        this.loading = false;
       }
     );
   }

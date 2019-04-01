@@ -18,12 +18,16 @@
     </p>
     <form [formGroup]="validateForm" (ngSubmit)="validateUser(validateForm)">
       <mat-form-field>
-        <input matInput type="email" placeholder='Please enter email' formControlName='email' required />
+          <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}} required
+          (blur)="checkEmail(validateForm)" />
         <mat-error *ngIf="formValidation.email.errors">
-          <span *ngIf="formValidation.email.errors.required">Enter valid email first</span>
+          <span *ngIf="formValidation.email.errors.email">{{translated.AUTH.EMAIL_VALID}}</span>
+          <span *ngIf="formValidation.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
+          <span *ngIf="formValidation.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" btn-primary custom-btn>get Started</button>
+      <button mat-raised-button color="primary" [disabled]="loading" btn-primary custom-btn>get Started</button>
+      <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
     </form>
     <p class="trial-info">Free 7-day trial. Sign Up now!</p>
   </div>

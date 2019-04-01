@@ -23,6 +23,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
   registrationData: any;
   validationData: any;
   userEmail: any;
+  mailData: any;
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -37,12 +38,13 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
+    this.mailData = this.email.email;
   }
 
   ngOnInit() { }
 
   ngOnDestroy() {
-    this.render.removeClass(document.body, this.helperService.constants.config.theme.background);
+    this.render.removeClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.hideLoggers();
   }
   @ViewChildren("input") inputs;

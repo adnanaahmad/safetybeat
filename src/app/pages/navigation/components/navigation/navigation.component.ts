@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, OnChanges } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { Translation } from 'src/app/models/translate.model';
@@ -15,11 +15,11 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
   styleUrls: ["./navigation.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent implements OnInit, OnDestroy {
+export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
   @Output() entitySelected = new EventEmitter();
   translated: Translation;
   appIcons: any;
-  empty: boolean = false;
+  empty: boolean = true;
   navLinks: NavItem[] = [];
   entitiesList: any;
   entitesName: any = [];
@@ -57,6 +57,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       if(res!==1){
         this.allEntitiesData = res;
         this.entityUserData = this.allEntitiesData.entities;
+        this.empty = false;
         let index = this.helperService.findIndex(this.entityUserData, function(entity){
           return entity.active===true
         });
@@ -75,6 +76,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
           });
       }
     })
+  }
+
+  ngOnChanges(){
+    this.empty = false;
   }
   ngOnDestroy() {
     this.helperService.hideLoggers();

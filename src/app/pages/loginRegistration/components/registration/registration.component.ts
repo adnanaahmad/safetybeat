@@ -78,7 +78,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   moduleForm: FormGroup;
   email: FormGroup;
 
-  loading: boolean;
+  loading: boolean = false;
   selectedPackage: any = {};
   registerData: any = [];
   translated: Translation;
@@ -120,7 +120,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
   setAddress(addrObj) {
-    debugger
     this.zone.run(() => {
       this.addr = addrObj;
       this.addrKeys = Object.keys(addrObj);
@@ -164,6 +163,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param data selected package against module
    */
   registration() {
+    this.loading = true;
 
     this.organizationData = {
       'name':this.organizationForm.value.name,
@@ -188,6 +188,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     };
 
     if (this.organizationForm.invalid || this.userForm.invalid) {
+      this.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
@@ -199,9 +200,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         result ? this.register.setToken(this.registrationData.data.token) : this.register.setToken('');
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
+        this.loading = false;
         this.router.navigate(['/welcomeScreen']);
       }
     }, (error)=>{
+      this.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
       this.helperService.appLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status)
