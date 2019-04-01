@@ -7,8 +7,9 @@ import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { PhoneNumberUtil, PhoneNumber } from 'google-libphonenumber';
 
-
+const phoneNumberUtil = PhoneNumberUtil.getInstance();
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -101,7 +102,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required,Validators.minLength(8)]]
-    },{ validator: this.checkPasswords });
+    },{ validator: this.checkPasswords && this.phoneNumberValid});
 
     this.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -151,6 +152,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           group.controls.email.setErrors({ exists: true });
         }
       });
+    }
+  }
+
+  phoneNumberValid(group: FormGroup){
+    try {
+      const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
+        group.controls.contactNo.value, undefined
+      );
+      console.log("Number is"+phoneNumberUtil.isValidNumber(phoneNumber));
+      return phoneNumberUtil.isValidNumber(phoneNumber) ? null : group.controls.contactNo.setErrors({ inValid: true });
+    } catch (e) { 
+      return group.controls.contactNo.setErrors({ inValid: true });
+      console.log("Error in number validation"+e)
     }
   }
 
