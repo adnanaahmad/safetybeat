@@ -23,6 +23,12 @@ export class LandingComponent implements OnInit {
   translated: any;
   appConstants: any;
   appIcons: any;
+  city: any;
+  country: any;
+  zipCode: any;
+  zone: any;
+  addr: any;
+  addrKeys: string[];
   constructor(
     public router: Router,
     private helperService: HelperService,
@@ -43,6 +49,15 @@ export class LandingComponent implements OnInit {
 
   get formValidation() {
     return this.validateForm.controls;
+  }
+  setAddress(addrObj) {
+    this.city = addrObj.locality;
+    this.country = addrObj.country;
+    this.zipCode = addrObj.zipCode;
+    this.zone.run(() => {
+      this.addr = addrObj;
+      this.addrKeys = Object.keys(addrObj);
+    });
   }
 
   validateUser({

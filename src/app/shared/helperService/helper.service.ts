@@ -130,6 +130,7 @@ export class HelperService {
         `body was: ${error.message}`);
     }
     // return an observable with a user-facing error message
-    return throwError({ error: "Something bad happened; please try again later.", status: error.status })
+    var msg = error.error.email ? error.error.email[0] : "Something bad happened, Please try again later.";
+    return throwError({ error: msg, status: error.status })
   };
 }
