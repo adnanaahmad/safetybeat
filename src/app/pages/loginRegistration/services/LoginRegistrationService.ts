@@ -80,6 +80,7 @@ export class LoginRegistrationService {
    * user gets an email to reset his/her password and that email comes backend api.
    */
   forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
+    debugger
     this.ForgotPassword$ = this.helperService.requestCall(this.method.post, this.apiRoutes.passwordReset, data);
     return this.ForgotPassword$;
   }

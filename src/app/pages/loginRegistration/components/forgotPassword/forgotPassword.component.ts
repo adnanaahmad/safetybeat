@@ -68,10 +68,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
       return;
     }
+    debugger;
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.forgotService.forgotPassword(value).subscribe(
       data => {
+        debugger
         this.helperService.createToaster(this.translated.MESSAGES.RESET_SUCCESS, this.translated.MESSAGES.RESETMSG, this.helperService.constants.status.SUCCESS)
         this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
         this.router.navigate(['/login']);
