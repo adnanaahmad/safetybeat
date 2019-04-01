@@ -158,7 +158,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
-  
+
   .notification-icon {
     .notifcount {
       background: mat-color($warn-pallete, 600);
@@ -201,32 +201,25 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   app-landing {
     background-color: mat-color($primary-pallet, 50);
     .text-wrapper {
-      background-color: #fff;
-      h1 {
-        span {
-          color: mat-color($primary-pallet, 500);
-        }
-      }
-    }
-    #particle-container {
-      .particle {
-        color: mat-color($primary-pallet, 500);
-      }
+      background-color: mat-color($primary-pallet, 500);
     }
     .top-nav {
       ul {
         li {
           a {
             &.login {
-              border: 1px solid mat-color($primary-pallet, 500);
+              border: 1px solid mat-color($primary-pallet, 50);
               &:hover {
-                background: mat-color($primary-pallet, 500);
+                background: mat-color($primary-pallet, 600);
                 color: #fff;
               }
             }
           }
         }
       }
+    }
+    .dialogue-1 {
+      background: mat-color($primary-pallet, 500);
     }
   }
   @include amte-setTheme($light-theme);
