@@ -11,6 +11,9 @@ import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { throwError, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +23,7 @@ export class HelperService {
   translation: Translation;
   constants: typeof ConstantService;
   constructor(
+    private http: HttpClient,
     public toast: ToastrManager,
     public translate: TranslateService,
     public dialog: MatDialog,
@@ -84,7 +88,7 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.createToaster(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.translation.STATUS.WARNING)
+    this.createToaster(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING)
     this.router.navigate(['/login']);
   }
   logoutError(status) {
@@ -92,4 +96,41 @@ export class HelperService {
       this.logoutUser()
     }
   }
+  requestCall(method, api, data?: any) {
+    var response;
+
+    switch (method) {
+      case this.constants.apiMethod.post:
+        response = this.http.post(api, data).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.get:
+        response = this.http.get(api).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.put:
+        response = this.http.put(api, data).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.delete:
+        response = this.http.delete(api, data).pipe(catchError(this.handleError));
+        break;
+      default:
+        break;
+    }
+    return response
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.message}`);
+    }
+    // return an observable with a user-facing error message
+    var msg = error.error.email ? error.error.email[0] : "Something bad happened, Please try again later.";
+    return throwError({ error: msg, status: error.status })
+  };
 }

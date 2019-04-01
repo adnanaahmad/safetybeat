@@ -35,6 +35,12 @@ export class ConstantService {
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
   };
+  static apiMethod = {
+    get: 'get',
+    post: 'post',
+    put: 'put',
+    delete: 'delete'
+  }
   static localStorageKeys = {
     token: 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
@@ -84,7 +90,7 @@ export class ConstantService {
     status: "status",
     joinCode: "joinCode",
     role: "role",
-    code:"code"
+    code: "code"
   };
   static appIcons = {
     skipNext: "skip_next",

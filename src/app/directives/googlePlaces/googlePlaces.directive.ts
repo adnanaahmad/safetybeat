@@ -9,8 +9,10 @@ export class GooglePlacesDirective implements OnInit {
   private element: HTMLInputElement;
   constructor(elRef: ElementRef) {
     this.element = elRef.nativeElement;
+    debugger;
   }
   getFormattedAddress(place) {
+    debugger
     let location_obj = {};
     for (let i in place.address_components) {
       let item = place.address_components[i];

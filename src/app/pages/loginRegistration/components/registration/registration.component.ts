@@ -16,12 +16,15 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   public title = 'Places';
-  addr: object;
+  addr: any;
   addrKeys: string[];
   organizationData: any;
   registrationData: any;
-  devMode:boolean = false;
+  devMode: boolean = false;
   userEmail: any;
+  city: string;
+  country: string;
+  zipCode: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,10 +33,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private compiler: CompilerProvider,
     private zone: NgZone,
     public helperService: HelperService,
-    private route:ActivatedRoute
+    private route: ActivatedRoute
   ) {
 
-    this.route.params.subscribe((data)=>{
+    this.route.params.subscribe((data) => {
       this.userEmail = data;
     })
     this.translated = this.helperService.translation;
@@ -101,8 +104,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       last_name: ['', Validators.required],
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
-      password2: ['', [Validators.required,Validators.minLength(8)]]
-    },{ validator: this.checkPasswords });
+      password2: ['', [Validators.required, Validators.minLength(8)]]
+    }, { validator: this.checkPasswords });
 
     this.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -119,13 +122,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
+
   setAddress(addrObj) {
+    this.city = addrObj.locality;
+    this.country = addrObj.country;
+    this.zipCode = addrObj.zipCode;
     this.zone.run(() => {
       this.addr = addrObj;
       this.addrKeys = Object.keys(addrObj);
     });
   }
-
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
@@ -166,20 +172,20 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.organizationData = {
-      'name':this.organizationForm.value.name,
-      'address': this.organizationForm.value.address,
+      'name': this.organizationForm.value.name,
+      'address': this.addr.formatted_address,
       'billingEmail': JSON.parse(this.userEmail.data),
       'accountNo': '12344532',
-      'phoneNo' : this.userForm.value.contactNo,
+      'phoneNo': this.userForm.value.contactNo,
       'type': this.organizationTypeForm.value.type
     };
     this.registerData = {
-      'email' : JSON.parse(this.userEmail.data),
-      'first_name' : this.userForm.value.first_name,
-      'last_name' : this.userForm.value.last_name,
-      'password1' : this.userForm.value.password1,
-      'password2' : this.userForm.value.password2,
-      'contactNo' : this.userForm.value.contactNo,
+      'email': JSON.parse(this.userEmail.data),
+      'first_name': this.userForm.value.first_name,
+      'last_name': this.userForm.value.last_name,
+      'password1': this.userForm.value.password1,
+      'password2': this.userForm.value.password2,
+      'contactNo': this.userForm.value.contactNo,
       'organization': this.organizationData,
       'invitation': false,
       'module': 'Safetybeat',
@@ -194,11 +200,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       return;
     }
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerData));
-    this.register.registerUser(this.registerData).subscribe((result)=>{
+    this.register.registerUser(this.registerData).subscribe((result) => {
       this.registrationData = result;
-      if(this.registrationData.responseDetails.code === '0011'){
+      if (this.registrationData.responseDetails.code === '0011') {
         result ? this.register.setToken(this.registrationData.data.token) : this.register.setToken('');
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
         this.loading = false;
         this.router.navigate(['/welcomeScreen']);
@@ -206,10 +212,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }, (error)=>{
       this.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,this.translated.MESSAGES.BACKEND_ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status)
     });
 
-    
+
   }
 }
