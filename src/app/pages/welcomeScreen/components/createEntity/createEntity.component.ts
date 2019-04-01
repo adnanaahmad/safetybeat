@@ -7,8 +7,8 @@ import { AdminControlService } from "../../../adminControl/services/adminControl
 import { HelperService } from "src/app/shared/helperService/helper.service";
 import { CompilerProvider } from "src/app/shared/compiler/compiler";
 import { NavigationService } from "src/app/pages/navigation/services/navigation.service";
-import { Router } from '@angular/router';
-import { WelcomeScreenService } from '../../services/welcome-screen.service';
+import { Router } from "@angular/router";
+import { WelcomeScreenService } from "../../services/welcome-screen.service";
 
 @Component({
   selector: "app-createEntity",
@@ -30,6 +30,9 @@ export class CreateEntityComponent implements OnInit {
   entityResponse: any;
   entites: any;
   roleId: any;
+  entitiesList: any;
+  entityUserData: any;
+  loading:boolean = false;
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
@@ -38,7 +41,7 @@ export class CreateEntityComponent implements OnInit {
     private compiler: CompilerProvider,
     private navService: NavigationService,
     private router: Router,
-    private welcomeService:WelcomeScreenService
+    private welcomeService: WelcomeScreenService
   ) {
     this.translated = this.helperService.translation;
     this.helperService.appLoggerDev(
@@ -76,34 +79,73 @@ export class CreateEntityComponent implements OnInit {
     value: entityData;
     valid: boolean;
   }): void {
+    this.loading = true;
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
       active: value.status,
-      roleId : 2
-    }
-    if(!valid){
-      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      roleId: 2
+    };
+    var data = {
+      moduleName: "Safetybeat"
+    };
+
+    if (!valid) {
+      this.helperService.appLoggerDev(
+        this.helperService.constants.status.WARNING,
+        valid
+      );
+      this.helperService.appLogger(
+        this.helperService.constants.status.ERROR,
+        this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
+      );
+      this.loading = false;
       return;
     }
-    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
-    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
-    this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
-      this.entityResponse = result;
-      if (this.entityResponse.responseDetails.code == '0012') {
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.entityResponse.responseDetails.message);
-        this.router.navigate(['/home']);
+    this.helperService.appLoggerDev(
+      this.helperService.constants.status.INFO,
+      valid
+    );
+    this.helperService.appLogger(
+      this.helperService.constants.status.INFO,
+      JSON.stringify(value)
+    );
+    this.adminServices.createEntity(this.entityDetails).subscribe(
+      result => {
+        this.entityResponse = result;
+        if (this.entityResponse.responseDetails.code == "0012") {
+          this.adminServices.viewEntities(data).subscribe(res => {
+            this.entitiesList = res;
+            this.entityUserData = this.compiler.constructUserEntityData(this.entitiesList.data);
+            this.navService.changeEntites(this.entityUserData);
+          this.loading = false;
+            this.helperService.appLogger(
+              this.helperService.constants.status.SUCCESS,
+              this.entityResponse.responseDetails.message
+            );
+            this.router.navigate(["/home"]);
+          });
+        } else if (this.entityResponse.responseDetails.code == "0013") {
+          this.loading = false;
+          this.helperService.appLogger(
+            this.helperService.constants.status.ERROR,
+            this.entityResponse.responseDetails.message
+          );
+        } else if (this.entityResponse.responseDetails.code == "0017") {
+          this.loading = false;
+          this.helperService.appLogger(
+            this.helperService.constants.status.ERROR,
+            this.entityResponse.responseDetails.message
+          );
+        }
+      },
+      error => {
+        this.helperService.appLogger(
+          this.helperService.constants.status.ERROR,
+          this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED
+        );
+        this.loading = false;
       }
-      else if (this.entityResponse.responseDetails.code == '0013') {
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
-      }
-      else if (this.entityResponse.responseDetails.code == '0017') {
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
-      }
-    }, (error => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
-    })
     );
   }
 }
