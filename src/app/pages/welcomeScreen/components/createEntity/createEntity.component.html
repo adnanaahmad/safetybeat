@@ -47,9 +47,10 @@
               }}</mat-checkbox>
               &nbsp; &nbsp;
             <mat-dialog-actions>
-              <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">
+              <button [disabled]="loading" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">
                 {{ translated.BUTTONS.CREATE_ENTITY }}
               </button>
+          <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
             </mat-dialog-actions>
           </form>
     </mat-card>

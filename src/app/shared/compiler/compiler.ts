@@ -218,22 +218,22 @@ export class CompilerProvider {
       {
         displayName: 'Site Center',
         route: '/home/adminControl/siteCenter',
-        disabled: data.permissions.siteCenter
+        disabled: data.permissions.siteCentre
       },
       {
         displayName: 'Question Center',
         route: '/home/adminControl/questionCenter',
-        disabled: data.permissions.questionCenter
+        disabled: data.permissions.questionCentre
       },
       {
         displayName: 'Permission Center',
         route: '/home/adminControl/permissionCenter',
-        disabled: data.permissions.permissionCenter
+        disabled: data.permissions.permissionCentre
       },
       {
         displayName: 'Hazard Center',
         route: '/home/adminControl/hazardCenter',
-        disabled: data.permissions.hazardCenter
+        disabled: data.permissions.hazardCentre
       },
       {
         displayName: 'Invite Users',

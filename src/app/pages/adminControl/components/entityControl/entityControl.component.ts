@@ -62,16 +62,20 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
     this.helperService.createModal(AlertModalComponent, { data: { name: name, code: code } });
   }
   viewAllEntities() {
+    this.empty = true;
     var data = {
       'moduleName': 'Safetybeat'
     };
     this.navService.data.subscribe((res)=>{
+      debugger
       this.entitiesList = res;
       this.allEntitiesData = this.entitiesList.entities;
+      this.empty = false;
       this.dataSource = new MatTableDataSource(this.allEntitiesData);
       this.dataSource.paginator = this.paginator;
     }, error => {
-      this.helperService.logoutError(error.status)
+      this.empty = false;
+      this.helperService.logoutError(error.status);
     });
 
   }

@@ -18,7 +18,7 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
   appConstants: any;
   public title = 'Places';
   public addrKeys: string[];
-  public addr: object;
+  public addr: any;
   city: string;
   country: string;
   zipCode: string;
@@ -72,18 +72,23 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
     this.dialogRef.close();
   }
   entityCreation({ value, valid }: { value: entityData; valid: boolean }): void {
+    debugger
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
-      entityData: value,
+      entityData : {
+        'name':value.name,
+        'headOffice':this.addr.formatted_address,
+        'status': value.status
+      },
       active: value.status,
       roleId : this.roleId
     }
     if (!valid) {
-      
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
+    debugger
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {

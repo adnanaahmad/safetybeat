@@ -29,6 +29,7 @@ import {
   MatExpansionModule,
   MatTabsModule
 } from '@angular/material';
+import { GooglePlacesDirective } from 'src/app/directives/googlePlaces/googlePlaces.directive';
 
 @NgModule({
   imports: [
@@ -61,7 +62,7 @@ import {
     MatExpansionModule,
     MatTabsModule
   ],
-  declarations: [],
+  declarations: [GooglePlacesDirective],
   exports: [
     MatTooltipModule,
     MatGridListModule,
@@ -90,7 +91,8 @@ import {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    GooglePlacesDirective
   ]
 })
 export class MaterialModule { }

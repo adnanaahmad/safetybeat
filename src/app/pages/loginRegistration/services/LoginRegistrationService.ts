@@ -1,21 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {  BehaviorSubject } from 'rxjs';
-import { Observable, forkJoin, throwError } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { Observable, forkJoin } from "rxjs";
 import {
   loginCredentials,
   LoginResponse,
   ForgotPassword,
-  ForgotPasswordResponse,
-  User,
-  validateUser
-} from 'src/app/models/user.model';
-import { catchError } from 'rxjs/operators';
-import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { resetPassword } from 'src/app/models/profile.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-
+  ForgotPasswordResponse
+} from "src/app/models/user.model";
+import { HelperService } from "src/app/shared/helperService/helper.service";
+import { resetPassword } from "src/app/models/profile.model";
+import { ConstantService } from "src/app/shared/constant/constant.service";
 
 @Injectable({ providedIn: "root" })
 export class LoginRegistrationService {
@@ -26,12 +20,13 @@ export class LoginRegistrationService {
   private userData = new BehaviorSubject<any>(1);
   profileData = this.userData.asObservable();
   apiRoutes: any;
-  constructor(
-    private http: HttpClient,
-    public coreServices: CoreService,
-    public helperService: HelperService) {
+  method: { get: string; post: string; put: string; delete: string };
+  public ForgotPassword$: Observable<ForgotPasswordResponse>;
+  public Login$: Observable<LoginResponse>;
+  constructor(public helperService: HelperService) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.storageKey = this.helperService.constants.localStorageKeys.token;
+    this.method = this.helperService.constants.apiMethod;
   }
   /**
    * login user api is called here and api url comes from constant service and login data that comes from
@@ -40,33 +35,57 @@ export class LoginRegistrationService {
    */
 
   loginUser(data: loginCredentials): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.apiRoutes.login, data).pipe(catchError(this.coreServices.handleError));
+    this.Login$ = this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.login,
+      data
+    );
+    return this.Login$;
   }
   /**
    * in this function all the api calls related to organization registration data are called over here
    * and fork join is used when you have a group of observables and only care about the final emitted value of each.
    */
   registrationData(): Observable<any> {
-    const companyTypes = this.http.get(this.apiRoutes.companyTypes).pipe(catchError(this.coreServices.handleError));
+    const companyTypes = this.helperService.requestCall(
+      this.method.get,
+      this.apiRoutes.companyTypes
+    );
     const modules = "Safetybeat";
-    const packages = this.http.get(this.apiRoutes.packages).pipe(catchError(this.coreServices.handleError));
+    const packages = this.helperService.requestCall(
+      this.method.get,
+      this.apiRoutes.packages
+    );
     return forkJoin([companyTypes, modules, packages]);
   }
 
   checkUserName(username: object) {
-    return this.http.post(this.apiRoutes.checkUsername, username).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.checkUsername,
+      username
+    );
   }
   checkEmail(email: object) {
-    return this.http.post(this.apiRoutes.checkEmail, email).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.checkEmail,
+      email
+    );
   }
   checkOrgName(OrgName: object) {
-    return this.http.post(this.apiRoutes.checkOrgName, OrgName).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.checkOrgName,
+      OrgName
+    );
   }
   checkOrgBillingEmail(OrgBillingEmail: object) {
-    return this.http.post(
+    return this.helperService.requestCall(
+      this.method.post,
       this.apiRoutes.checkBilling,
       OrgBillingEmail
-    ).pipe(catchError(this.coreServices.handleError));
+    );
   }
   /**
    * in this function all the data that comes in the organization registration form is passed to this function
@@ -75,7 +94,11 @@ export class LoginRegistrationService {
    * and then it is sent to the related api to register the user with the organization,module and packages data.
    */
   registerUser(data: any) {
-    return this.http.post(this.apiRoutes.signup, data).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.signup,
+      data
+    );
   }
   /**
    *
@@ -85,22 +108,36 @@ export class LoginRegistrationService {
    * user gets an email to reset his/her password and that email comes backend api.
    */
   forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
-    return this.http.post<ForgotPasswordResponse>(
-      this.apiRoutes.passwordReset,
+    this.ForgotPassword$ = this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.forgotPassword,
       data
-    ).pipe(catchError(this.coreServices.handleError));
+    );
+    return this.ForgotPassword$;
   }
 
-  resetPassword(data:resetPassword){
-    return this.http.post(ConstantService.apiRoutes.forgotPassword,data).pipe(catchError(this.coreServices.handleError));
+  resetPassword(data: resetPassword) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.forgotPassword,
+      data
+    );
   }
 
   resendemail(data) {
-    return this.http.post(this.apiRoutes.resendverification, data).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.resendverification,
+      data
+    );
   }
 
   changeEmail(data) {
-    return this.http.put(this.apiRoutes.changeEmail, data).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(
+      this.method.put,
+      this.apiRoutes.changeEmail,
+      data
+    );
   }
   /**
    * this function is used to set the Token key when the user logs in,
@@ -110,7 +147,10 @@ export class LoginRegistrationService {
     localStorage.setItem(this.storageKey, token);
   }
   setEntityData(data) {
-    localStorage.setItem(this.helperService.constants.localStorageKeys.entityUserData, data);
+    localStorage.setItem(
+      this.helperService.constants.localStorageKeys.entityUserData,
+      data
+    );
   }
   /**
    * this function is used to get the token key that the user gets when he logs in.
@@ -119,15 +159,23 @@ export class LoginRegistrationService {
     return localStorage.getItem(this.storageKey);
   }
 
-  updateProfileData(data:any){
+  updateProfileData(data: any) {
     this.userData.next(data);
   }
 
-  validateUser(data:any){
-    return this.http.post(this.apiRoutes.validateUser,data).pipe(catchError(this.coreServices.handleError));
+  validateUser(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.validateUser,
+      data
+    );
   }
 
-  verifyCode(data:any){
-    return this.http.post(this.apiRoutes.verifyCode,data).pipe(catchError(this.coreServices.handleError));
+  verifyCode(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.verifyCode,
+      data
+    );
   }
 }
