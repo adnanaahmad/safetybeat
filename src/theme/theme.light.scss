@@ -221,6 +221,20 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     .dialogue-1 {
       background: mat-color($primary-pallet, 500);
     }
+    .features {
+      ul {
+        li {
+          mat-icon {
+            background: mat-color($primary-pallet, 500);
+          }
+        }
+      }
+    }
+  }
+  .section-heading {
+    &:after {
+      background: mat-color($primary-pallet, 500);
+    }
   }
   @include amte-setTheme($light-theme);
 }

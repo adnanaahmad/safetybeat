@@ -24,8 +24,8 @@
     <img src="/assets/images/monogram.png" />
   </span>
   <mat-grid-tile>
-    <mat-horizontal-stepper [linear]="isLinear" #stepper>
-      <mat-step [stepControl]="firstFormGroup">
+    <mat-horizontal-stepper linear="true" #stepper>
+      <mat-step [stepControl]="userForm">
         <mat-card class="loginbox">
           <!-- <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title> -->
           <mat-card-title>User Info</mat-card-title>
@@ -54,15 +54,34 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="input">
+            <div class="input prefix">
+                <mat-form-field full-width>
+                  <input matInput type="text" disabled placeholder="+"
+                    [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
+                    onPaste="return false" autocomplete="off" />
+                  <mat-error *ngIf="userDetailForm.contactNo.errors">
+                    <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            <div class="input country-code">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]="translated.AUTH.MOBILENO"
+                <span class="prefix">+</span>
+                <input matInput type="text" placeholder="Code"
                   [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
                   onPaste="return false" autocomplete="off" />
                 <mat-error *ngIf="userDetailForm.contactNo.errors">
-                  <span *ngIf="userDetailForm.contactNo.errors.required">{{
-                    translated.AUTH.MOBILE_REQ
-                  }}</span>
+                  <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="input contact-number">
+              <mat-form-field full-width>
+                <input matInput type="text" placeholder="Phone Number"
+                  [errorStateMatcher]="hehehe" formControlName="hehehe" (keypress)="hehehe"
+                  onPaste="return false" autocomplete="off" />
+                <mat-error *ngIf="userDetailForm.contactNo.errors">
+                  <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
                 </mat-error>
               </mat-form-field>
             </div>

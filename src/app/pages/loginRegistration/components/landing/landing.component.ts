@@ -74,7 +74,6 @@ export class LandingComponent implements OnInit {
     value: validateUser;
     valid: boolean;
   }): void {
-    this.loading = true;
     if (!valid) {
       this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
