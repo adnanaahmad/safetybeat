@@ -9,16 +9,17 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
 })
 export class ParticleContainerComponent2 implements OnInit {
   translated: Translation;
-  appConstants: any;
+  particlesIcons: any;
   constructor(
     public helperService: HelperService,
   ) {
     this.translated = this.helperService.translation;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PARTICLE_COMPONENT);
-    this.appConstants = this.helperService.constants.appIcons;
+    this.particlesIcons = this.helperService.constants.particlesIcons;
   }
 
   ngOnInit() {
+
   }
   ngOnDestroy() {
     this.helperService.hideLoggers();

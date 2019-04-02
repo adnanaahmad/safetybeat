@@ -189,11 +189,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
-        this.helperService.createToaster(
-          this.translated.LOGGER.STATUS.SUCCESS,
-          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED,
-          this.translated.STATUS.SUCCESS
-        );
+        this.helperService.creactSnack(this.translated.LOGGER.STATUS.SUCCESS,null);
         this.getUserData();
       },
       error => {

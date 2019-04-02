@@ -6,14 +6,14 @@ import {
 } from 'lodash'
 import { TranslateService } from '@ngx-translate/core';
 import { Translation } from 'src/app/models/translate.model';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
 import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
+import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +25,7 @@ export class HelperService {
   constructor(
     private http: HttpClient,
     public toast: ToastrManager,
+    private snackBar: MatSnackBar,
     public translate: TranslateService,
     public dialog: MatDialog,
     private cookies: CookieService,
@@ -39,24 +40,11 @@ export class HelperService {
     this.findIndex = findIndex;
   }
 
-
-  createToaster(message, title, type, ...params: any) {
-    switch (type) {
-      case this.constants.status.SUCCESS:
-        this.toast.successToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
-        break;
-      case this.constants.status.CUSTOM:
-        this.toast.customToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
-        break;
-      case this.constants.status.WARNING:
-        this.toast.warningToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
-        break;
-      case this.constants.status.ERROR:
-        this.toast.errorToastr(message, title, [{ toastLife: params.time }, { animate: params.position }]);
-        break;
-      default:
-        break;
-    }
+  creactSnack(message, alert) {
+    this.snackBar.open(message, alert, {
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right',
+    })
   }
 
   hideLoggers(): void {
@@ -88,7 +76,7 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.createToaster(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING)
+    this.creactSnack(this.translation.MESSAGES.LOGOUT_SUCCESS,null);
     this.router.navigate(['/login']);
   }
   logoutError(status) {

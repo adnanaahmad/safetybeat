@@ -34,7 +34,7 @@ export class CoreService {
         sessionStorage.clear();
         this.cookies.delete('sessionid');
         this.cookies.deleteAll();
-        this.helperService.createToaster(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.translated.STATUS.WARNING)
+        this.helperService.creactSnack(this.translated.MESSAGES.LOGOUT_SUCCESS,null);
         this.router.navigate(['/login']);
     }
     /**

@@ -111,7 +111,7 @@ export class SettingsComponent implements OnInit,AfterViewInit {
       return;
     }
     this.settings.editEntity(this.entityId,data).subscribe((res)=>{
-      this.helperService.createToaster('Entity has been updated Successfully','Entity Updated',this.translated.STATUS.SUCCESS);
+      this.helperService.creactSnack('Entity has been updated Successfully',null);
     })
     
 

@@ -28,6 +28,7 @@ import { InviteUserModalComponent } from './pages/navigation/components/inviteUs
 import { AlertModalComponent } from './pages/adminControl/components/entityCodeModal/entityCodeModal.component';
 import { VerificationComponent } from './pages/loginRegistration/components/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -75,6 +76,11 @@ export function createTranslateLoader(http: HttpClient) {
       multi: true
     },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 3000,
+      }
+    }
   ],
 
   bootstrap: [AppComponent],

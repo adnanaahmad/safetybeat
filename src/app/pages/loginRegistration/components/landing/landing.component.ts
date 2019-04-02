@@ -46,6 +46,7 @@ export class LandingComponent implements OnInit {
       email: ["", Validators.email]
     });
   }
+
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
