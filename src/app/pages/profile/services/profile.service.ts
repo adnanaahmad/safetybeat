@@ -4,11 +4,13 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { UserProfile } from 'src/app/models/profile.model';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { catchError } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-
+  private orgUsers = new BehaviorSubject<any>(1);
+  usersData = this.orgUsers.asObservable();
   constructor(
     private http: HttpClient,
     public coreServices: CoreService) { }
@@ -28,5 +30,10 @@ export class ProfileService {
   }
   getAllUsers() {
     return this.http.get(`${ConstantService.apiRoutes.allUsersOfOrganization}`).pipe(catchError(this.coreServices.handleError));
+  }
+
+  updateUsers(data:any){
+    debugger
+    this.orgUsers.next(data);
   }
 }

@@ -28,6 +28,7 @@ import { InviteUserModalComponent } from './pages/navigation/components/inviteUs
 import { AlertModalComponent } from './pages/adminControl/components/entityCodeModal/entityCodeModal.component';
 import { VerificationComponent } from './pages/loginRegistration/components/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
+import { InviteTeamModalComponent } from './pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -43,7 +44,8 @@ export function createTranslateLoader(http: HttpClient) {
     JoinEntityModalComponent,
     AlertModalComponent,
     InviteUserModalComponent,
-    VerificationComponent
+    VerificationComponent,
+    InviteTeamModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -86,7 +88,8 @@ export function createTranslateLoader(http: HttpClient) {
     AlertModalComponent,
     InviteUserModalComponent,
     CreateEntityComponent,
-    VerificationComponent
+    VerificationComponent,
+    InviteTeamModalComponent
   ]
 })
 export class AppModule { }

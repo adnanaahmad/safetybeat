@@ -4,6 +4,7 @@ import { ProfileService } from '../../services/profile.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { share } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 @Component({
   selector: "app-user",
   templateUrl: "./user.component.html",
@@ -20,7 +21,7 @@ export class UserComponent implements OnInit {
     "symbol"
   ];
   allUsers: any = [];
-  allUsersList: any = [];
+  allUsersList: any ;
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   empty: boolean = false;
@@ -38,8 +39,10 @@ export class UserComponent implements OnInit {
   getAllUsers() {
     this.allUsers = this.userService.getAllUsers().pipe(share());
     this.allUsers.subscribe(result => {
+      debugger
       this.empty = true;
       this.allUsersList = result.data;
+      this.userService.updateUsers(this.allUsersList);
       this.dataSource = new MatTableDataSource(this.allUsersList);
       this.dataSource.paginator = this.paginator;
     }, error => {

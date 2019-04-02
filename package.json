@@ -29,7 +29,6 @@
     "@types/lodash": "^4.14.120",
     "angular-highcharts": "^7.1.0",
     "angular-notifier": "^4.1.1",
-    "angular2-highcharts": "^0.5.5",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "highcharts": "^7.0.3",

@@ -206,6 +206,11 @@ export interface Messages {
   BACKEND_ERROR:string;
   ORGTYPEMESSAGE:string;
   VERIFICATIONCODEEMAIL:string;
+  JOINENTITY_SUCCESS: string;
+  ALREADYJOINED_ENTITY: string;
+  ENTITYNOTFOUND:string;
+  ENTITYJOINFIAL:string
+
 }
 export interface Logger {
   STATUS: LoggerStatus;

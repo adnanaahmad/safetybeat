@@ -4,11 +4,11 @@ import { entity, joinEntity } from 'src/app/models/entity.model';
 import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { map, catchError } from 'rxjs/operators';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminControlService {
-
   constructor(
     private http: HttpClient,
     public coreServices: CoreService
@@ -24,4 +24,6 @@ export class AdminControlService {
   joinEntity(data:joinEntity){
     return this.http.post(ConstantService.apiRoutes.joinEntity,data).pipe(catchError(this.coreServices.handleError));
   }
+
+
 }

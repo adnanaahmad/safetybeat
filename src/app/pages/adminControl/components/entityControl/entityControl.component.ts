@@ -12,6 +12,7 @@ import { AdminControlService } from '../../services/adminControl.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 import { AlertModalComponent } from '../entityCodeModal/entityCodeModal.component';
+import { InviteTeamModalComponent } from '../inviteTeamModal/inviteTeamModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -31,6 +32,7 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   entitiesList: any = [];
   empty: boolean = false;
   createEntityOption:boolean=false;
+  joinOption:boolean = false;
   constructor(
     public dialog: MatDialog,
     public adminServices: AdminControlService,
@@ -48,15 +50,16 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   ngOnInit() {
     this.viewAllEntities();
     this.creationEnable();
+    this.joinEnable();
   }
 
   ngAfterViewInit(){
   }
   createEntity() {
-    this.helperService.createModal(CreateEntityComponent)
+    this.helperService.createModal(CreateEntityComponent);
   }
   joinEntity() {
-    this.helperService.createModal(JoinEntityModalComponent)
+    this.helperService.createModal(JoinEntityModalComponent);
   }
   entityCode(code, name) {
     this.helperService.createModal(AlertModalComponent, { data: { name: name, code: code } });
@@ -87,5 +90,20 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
         this.createEntityOption = false;
       }
     })
+  }
+
+  joinEnable(){
+    this.navService.currentRole.subscribe((res)=>{
+      this.entitySelectedRole = res;
+      if(this.entitySelectedRole==='Owner'|| this.entitySelectedRole==='TeamLead' || this.entitySelectedRole==='EntityManager'){
+        this.joinOption = true;
+      } else{
+        this.joinOption = false;
+      }
+    })
+  }
+
+  inviteTeam(entityData:any){
+    this.helperService.createModal(InviteTeamModalComponent,{data:{entityData}});
   }
 }
