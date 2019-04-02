@@ -1,6 +1,7 @@
 <div class="container">
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
     (switchNavListDefault)="switchListDefault(Entity)" [selectedEntity]="Entity"></app-fixed-nav>
+  <!-- <mat-progress-bar mode="indeterminate" *ngIf='empty'></mat-progress-bar> -->
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
       <div>

@@ -54,6 +54,7 @@ export class JoinEntityModalComponent implements OnInit {
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.adminServices.joinEntity(this.joinEntityData).subscribe((res) => {
+      debugger
       this.entityResponse = res;
       this.onNoClick();
       if (this.entityResponse.responseDetails.code == '0025') {
