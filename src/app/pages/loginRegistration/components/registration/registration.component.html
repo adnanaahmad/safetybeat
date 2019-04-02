@@ -54,10 +54,31 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="input">
+            <div class="input prefix">
+                <mat-form-field full-width>
+                  <input matInput type="text" disabled placeholder="+"
+                    [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
+                    onPaste="return false" autocomplete="off" />
+                  <mat-error *ngIf="userDetailForm.contactNo.errors">
+                    <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            <div class="input country-code">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]="translated.AUTH.MOBILENO"
+                <span class="prefix">+</span>
+                <input matInput type="text" placeholder="Code"
                   [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
+                  onPaste="return false" autocomplete="off" />
+                <mat-error *ngIf="userDetailForm.contactNo.errors">
+                  <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="input contact-number">
+              <mat-form-field full-width>
+                <input matInput type="text" placeholder="Phone Number"
+                  [errorStateMatcher]="hehehe" formControlName="hehehe" (keypress)="hehehe"
                   onPaste="return false" autocomplete="off" />
                 <mat-error *ngIf="userDetailForm.contactNo.errors">
                   <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
