@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, Input, NgZone,ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { RegisterUser} from 'src/app/models/user.model';
+import { RegisterUser } from 'src/app/models/user.model';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
@@ -103,14 +103,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * registerOrgnaization function to register new user with organization info
    */
   ngOnInit() {
+    this.helperService.createMap(this.gmapElement); //By default settings of map set
     this.userForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      countryCode:[''],
+      countryCode: [''],
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
-      password2: ['', [Validators.required,Validators.minLength(8)]]
-    },{ validator: this.checkPasswords && this.phoneNumberValid});
+      password2: ['', [Validators.required, Validators.minLength(8)]]
+    }, { validator: this.checkPasswords && this.phoneNumberValid });
 
     this.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -168,34 +169,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
-  phoneNumberValid(group: FormGroup){
+  phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-        "+"+group.controls.countryCode.value+group.controls.contactNo.value, undefined
+        "+" + group.controls.countryCode.value + group.controls.contactNo.value, undefined
       );
-      return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null): group.controls.contactNo.setErrors({ inValid: true });
-    } catch (e) { 
+      return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null) : group.controls.contactNo.setErrors({ inValid: true });
+    } catch (e) {
       return group.controls.contactNo.setErrors({ inValid: true });
     }
   }
 
-  setMap(address){
-    let mapProp = new google.maps.Map(this.gmapElement.nativeElement, {
-      zoom: 15,
-      center: {lat: 33.738, lng: 73.084},
-      gestureHandling: 'none',
-      // zoomControl: false
-    });
-    let geoCoder = new google.maps.Geocoder();
-    geoCoder.geocode({'address': address}, function (results, status){
-      if (status.toString() === "OK"){
-        mapProp.setCenter(results[0].geometry.location);
-        let marker = new google.maps.Marker({
-          map: mapProp,
-          position: results[0].geometry.location
-        });
-      }
-    });
+  /**
+   * Set map location according to address
+   * @param address
+   */
+  setMap(address) {
+    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement));
   }
 
   /**
@@ -244,7 +234,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.router.navigate(['/welcomeScreen']);
       }
-    }, (error)=>{
+    }, (error) => {
       this.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);

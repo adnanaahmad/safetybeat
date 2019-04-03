@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import {
   forEach,
@@ -133,4 +133,32 @@ export class HelperService {
     var msg = error.error.email ? error.error.email[0] : "Something bad happened, Please try again later.";
     return throwError({ error: msg, status: error.status })
   };
+  /**
+   * It will create a map on required element with specific map configuration
+   * @param gmapElement 
+   * @param mapConfig 
+   */
+  createMap(gmapElement: ElementRef, mapConfig?: any) {
+    mapConfig = (mapConfig) ? mapConfig : this.constants.defaultMapconfig
+    return new google.maps.Map(gmapElement.nativeElement, mapConfig)
+  }
+
+  /**
+   * Set map location according to given address and on mapProp element
+   * @param address 
+   * @param mapProp 
+   */
+  setLocationGeocode(address, mapProp) {
+    let geoCoder = new google.maps.Geocoder();
+    let self = this;
+    geoCoder.geocode({ 'address': address }, function (results, status) {
+      if (status.toString() === self.constants.status.OK) {
+        mapProp.setCenter(results[0].geometry.location);
+        let marker = new google.maps.Marker({
+          map: mapProp,
+          position: results[0].geometry.location
+        });
+      }
+    });
+  }
 }

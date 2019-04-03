@@ -31,7 +31,7 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
     getRoles: `${environment.apiUrl}/role/`,
-    forgotPassword:  `${environment.apiUrl}/users/forgotPassword/`,
+    forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
   };
@@ -91,7 +91,6 @@ export class ConstantService {
     joinCode: "joinCode",
     role: "role",
     code: "code",
-    plusSign: "+"
   };
   static appIcons = {
     skipNext: "skip_next",
@@ -151,6 +150,12 @@ export class ConstantService {
     INFO: "info",
     SUCCESS: "success",
     WARNING: "warning",
-    ERROR: "error"
+    ERROR: "error",
+    OK: "OK"
+  }
+  static defaultMapconfig = {
+    zoom: 15,
+    center: { lat: 33.738, lng: 73.084 },
+    zoomControl: true
   }
 }
