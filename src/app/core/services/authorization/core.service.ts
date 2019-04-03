@@ -34,7 +34,7 @@ export class CoreService {
         sessionStorage.clear();
         this.cookies.delete('sessionid');
         this.cookies.deleteAll();
-        this.helperService.creactSnack(this.translated.MESSAGES.LOGOUT_SUCCESS,null);
+        this.helperService.creactSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.helperService.constants.status.WARNING);
         this.router.navigate(['/login']);
     }
     /**
@@ -69,7 +69,7 @@ export class CoreService {
         }
         return false;
     }
-
+    // this handleError function need to be removed
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.

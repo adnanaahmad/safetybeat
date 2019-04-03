@@ -14,6 +14,7 @@ import { NotifierService } from 'angular-notifier';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { ToasterComponent } from 'src/app/common/toaster/toaster.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,11 +41,12 @@ export class HelperService {
     this.findIndex = findIndex;
   }
 
-  creactSnack(message, alert) {
-    this.snackBar.open(message, alert, {
+  creactSnack(message, title, type) {
+    this.snackBar.openFromComponent(ToasterComponent, {
+      data: { message: message, title: title, type: type },
       verticalPosition: 'bottom',
       horizontalPosition: 'right',
-    })
+    });
   }
 
   hideLoggers(): void {
@@ -76,7 +78,7 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.creactSnack(this.translation.MESSAGES.LOGOUT_SUCCESS,null);
+    this.creactSnack(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
     this.router.navigate(['/login']);
   }
   logoutError(status) {
@@ -86,7 +88,6 @@ export class HelperService {
   }
   requestCall(method, api, data?: any) {
     var response;
-
     switch (method) {
       case this.constants.apiMethod.post:
         response = this.http.post(api, data).pipe(catchError(this.handleError));

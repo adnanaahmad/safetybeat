@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS, null);
+            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
             this.router.navigate(['/home']);
           })
 
@@ -137,7 +137,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loading = false;
-        this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_FAIL, null);
+        this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }

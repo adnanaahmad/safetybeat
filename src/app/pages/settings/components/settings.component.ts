@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SettingService } from 'src/app/shared/settings/setting.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Translation } from 'src/app/models/translate.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from '../../navigation/services/navigation.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,16 +11,16 @@ import { EditEntity } from 'src/app/models/profile.model';
   templateUrl: "./settings.component.html",
   styleUrls: ["./settings.component.scss"]
 })
-export class SettingsComponent implements OnInit,AfterViewInit {
+export class SettingsComponent implements OnInit, AfterViewInit {
   themeSelected: any;
   translated: Translation;
-  entityForm:FormGroup;
+  entityForm: FormGroup;
   appIcons: any;
   appConstants: any;
   appTheme: any;
-  entitiesData:any;
-  allEntites:any;
-  settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "entity": false, "theme": false};
+  entitiesData: any;
+  allEntites: any;
+  settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "entity": false, "theme": false };
   disabled: boolean = false;
   entityId: any;
   createdBy: any;
@@ -31,13 +30,13 @@ export class SettingsComponent implements OnInit,AfterViewInit {
     public overlay: OverlayContainer,
     public helperService: HelperService,
     private navService: NavigationService,
-    private formBuilder:FormBuilder
+    private formBuilder: FormBuilder
   ) {
     this.translated = this.helperService.translation;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
-    this.appConstants = ConstantService.appConstant;
-    this.appIcons = ConstantService.appIcons;
-    this.appTheme = ConstantService.appTheme;
+    this.appConstants = this.helperService.constants.appConstant;
+    this.appIcons = this.helperService.constants.appIcons;
+    this.appTheme = this.helperService.constants.appTheme;
   }
 
   ngOnInit() {
@@ -53,8 +52,8 @@ export class SettingsComponent implements OnInit,AfterViewInit {
     this.entityForm.disable();
   }
 
-  ngAfterViewInit(){
-    this.navService.selectedEntityData.subscribe((selectedEntity)=>{
+  ngAfterViewInit() {
+    this.navService.selectedEntityData.subscribe((selectedEntity) => {
       this.allEntites = selectedEntity;
       this.entitiesData = this.allEntites.entityInfo;
       this.entityId = this.entitiesData.id;
@@ -96,24 +95,24 @@ export class SettingsComponent implements OnInit,AfterViewInit {
     })
   }
 
-  updateEntity({ value, valid }: { value: EditEntity; valid: boolean }):void{
+  updateEntity({ value, valid }: { value: EditEntity; valid: boolean }): void {
     this.disabled = false;
     this.entityForm.disable();
     var data = {
-      'name' : value.name,
-      'code' : value.code,
-      'headOffice' : value.headOffice,
+      'name': value.name,
+      'code': value.code,
+      'headOffice': value.headOffice,
       'managedBy': this.managedBy,
-      'createdBy' : this.createdBy
+      'createdBy': this.createdBy
     }
-    if(!valid){
-      this.helperService.appLogger(this.translated.STATUS.ERROR,'Invalid Entity Fields');
+    if (!valid) {
+      this.helperService.appLogger(this.translated.STATUS.ERROR, 'Invalid Entity Fields');
       return;
     }
-    this.settings.editEntity(this.entityId,data).subscribe((res)=>{
-      this.helperService.creactSnack('Entity has been updated Successfully',null);
+    this.settings.editEntity(this.entityId, data).subscribe((res) => {
+      this.helperService.creactSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
     })
-    
+
 
 
   }
