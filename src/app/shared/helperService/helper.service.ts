@@ -98,7 +98,6 @@ export class HelperService {
   }
   requestCall(method, api, data?: any) {
     var response;
-
     switch (method) {
       case this.constants.apiMethod.post:
         response = this.http.post(api, data).pipe(catchError(this.handleError));

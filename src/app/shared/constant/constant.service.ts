@@ -34,6 +34,7 @@ export class ConstantService {
     forgotPassword:  `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
+    viewAllSites: `${environment.apiUrl}/api/sites`,
   };
   static apiMethod = {
     get: 'get',
