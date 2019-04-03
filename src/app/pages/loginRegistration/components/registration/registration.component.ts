@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, Input, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, NgZone,ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { RegisterUser } from 'src/app/models/user.model';
+import { RegisterUser} from 'src/app/models/user.model';
 import { Translation } from 'src/app/models/translate.model';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
@@ -16,6 +16,10 @@ const phoneNumberUtil = PhoneNumberUtil.getInstance();
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
+
+  @ViewChild('gmap') gmapElement: ElementRef;
+  map: google.maps.Map;
+
   public title = 'Places';
   addr: any;
   addrKeys: string[];
@@ -103,6 +107,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.userForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
+      countryCode:[''],
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required,Validators.minLength(8)]]
@@ -125,6 +130,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   setAddress(addrObj) {
+    console.log(addrObj);
     this.city = addrObj.locality;
     this.country = addrObj.country;
     this.zipCode = addrObj.zipCode;
@@ -132,6 +138,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.addr = addrObj;
       this.addrKeys = Object.keys(addrObj);
     });
+    this.setMap(addrObj.formatted_address);
   }
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
@@ -165,14 +172,32 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   phoneNumberValid(group: FormGroup){
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-        group.controls.contactNo.value, undefined
+        "+"+group.controls.countryCode.value+group.controls.contactNo.value, undefined
       );
       console.log("Number is"+phoneNumberUtil.isValidNumber(phoneNumber));
       return phoneNumberUtil.isValidNumber(phoneNumber) ? null : group.controls.contactNo.setErrors({ inValid: true });
     } catch (e) { 
-      return group.controls.contactNo.setErrors({ inValid: true });
       console.log("Error in number validation"+e)
+      return group.controls.contactNo.setErrors({ inValid: true });
     }
+  }
+
+  setMap(address){
+    let mapProp = new google.maps.Map(this.gmapElement.nativeElement, {
+      zoom: 13,
+      center: {lat: -34.397, lng: 150.644},
+      gestureHandling: 'none',
+      zoomControl: false
+    });
+    let geoCoder = new google.maps.Geocoder();
+    geoCoder.geocode({'address': address}, function (results, status){
+        this.map.setCenter(results[0].geometry.location);
+        let marker = new google.maps.Marker({
+          map: mapProp,
+          position: results[0].geometry.location
+        });
+        console.log("The marker is pointed at:" + marker);
+    });
   }
 
   /**

@@ -24,7 +24,7 @@
     <img src="/assets/images/monogram.png" />
   </span>
   <mat-grid-tile>
-    <mat-horizontal-stepper linear="true" #stepper>
+    <mat-horizontal-stepper linear="false" #stepper>
       <mat-step [stepControl]="userForm">
         <mat-card class="loginbox">
           <!-- <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title> -->
@@ -35,7 +35,7 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="translated.AUTH.FIRSTNAME"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.firstName }}" />
+                  [errorStateMatcher]="formErrorMatcher" [formControlName]="appConstants.firstName" />
                 <mat-error *ngIf="userDetailForm.first_name.errors">
                   <span *ngIf="userDetailForm.first_name.errors.required">{{
                     translated.AUTH.FIRSTNAME_REQ
@@ -54,7 +54,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="input prefix">
+            <!-- <div class="input prefix">
                 <mat-form-field full-width>
                   <input matInput type="text" disabled placeholder="+"
                     [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
@@ -63,22 +63,21 @@
                     <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
                   </mat-error>
                 </mat-form-field>
-              </div>
+              </div> -->
             <div class="input country-code">
               <mat-form-field full-width>
-                <span class="prefix">+</span>
                 <input matInput type="text" placeholder="Code"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
+                  [errorStateMatcher]="formErrorMatcher" formControlName="countryCode" (keypress)="numberOnly($event)"
                   onPaste="return false" autocomplete="off" />
-                <mat-error *ngIf="userDetailForm.contactNo.errors">
+                <!-- <mat-error *ngIf="userDetailForm.contactNo.errors">
                   <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
-                </mat-error>
+                </mat-error> -->
               </mat-form-field>
             </div>
             <div class="input contact-number">
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Phone Number"
-                  [errorStateMatcher]="hehehe" formControlName="hehehe" (keypress)="hehehe"
+                  [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
                   onPaste="return false" autocomplete="off" />
                 <mat-error *ngIf="userDetailForm.contactNo.errors">
                   <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
@@ -145,6 +144,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
+            <div #gmap style="width:100%;height:400px"></div>
             <div class="button">
               <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
                 <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
