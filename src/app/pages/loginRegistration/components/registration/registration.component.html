@@ -24,7 +24,7 @@
     <img src="/assets/images/monogram.png" />
   </span>
   <mat-grid-tile>
-    <mat-horizontal-stepper linear="false" #stepper>
+    <mat-horizontal-stepper linear="true" #stepper>
       <mat-step [stepControl]="userForm">
         <mat-card class="loginbox">
           <!-- <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title> -->
@@ -67,11 +67,11 @@
             <div class="input country-code">
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Code"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="countryCode" (keypress)="numberOnly($event)"
+                  [errorStateMatcher]="formErrorMatcher" formControlName="countryCode" (keypress)="numberOnly($event)&&phoneNumberValid(userForm)"
+                  maxlength="3"
                   onPaste="return false" autocomplete="off" />
-                <!-- <mat-error *ngIf="userDetailForm.contactNo.errors">
-                  <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
-                </mat-error> -->
+                <mat-error *ngIf="userDetailForm.countryCode.errors">
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="input contact-number">

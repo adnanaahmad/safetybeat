@@ -90,7 +90,8 @@ export class ConstantService {
     status: "status",
     joinCode: "joinCode",
     role: "role",
-    code: "code"
+    code: "code",
+    plusSign: "+"
   };
   static appIcons = {
     skipNext: "skip_next",

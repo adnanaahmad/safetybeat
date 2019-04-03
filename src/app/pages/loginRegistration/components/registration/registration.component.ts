@@ -18,7 +18,6 @@ const phoneNumberUtil = PhoneNumberUtil.getInstance();
 export class RegistrationComponent implements OnInit, OnDestroy {
 
   @ViewChild('gmap') gmapElement: ElementRef;
-  map: google.maps.Map;
 
   public title = 'Places';
   addr: any;
@@ -174,29 +173,28 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
         "+"+group.controls.countryCode.value+group.controls.contactNo.value, undefined
       );
-      console.log("Number is"+phoneNumberUtil.isValidNumber(phoneNumber));
-      return phoneNumberUtil.isValidNumber(phoneNumber) ? null : group.controls.contactNo.setErrors({ inValid: true });
+      return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null): group.controls.contactNo.setErrors({ inValid: true });
     } catch (e) { 
-      console.log("Error in number validation"+e)
       return group.controls.contactNo.setErrors({ inValid: true });
     }
   }
 
   setMap(address){
     let mapProp = new google.maps.Map(this.gmapElement.nativeElement, {
-      zoom: 13,
-      center: {lat: -34.397, lng: 150.644},
+      zoom: 15,
+      center: {lat: 33.738, lng: 73.084},
       gestureHandling: 'none',
-      zoomControl: false
+      // zoomControl: false
     });
     let geoCoder = new google.maps.Geocoder();
     geoCoder.geocode({'address': address}, function (results, status){
-        this.map.setCenter(results[0].geometry.location);
+      if (status.toString() === "OK"){
+        mapProp.setCenter(results[0].geometry.location);
         let marker = new google.maps.Marker({
           map: mapProp,
           position: results[0].geometry.location
         });
-        console.log("The marker is pointed at:" + marker);
+      }
     });
   }
 
