@@ -35,7 +35,7 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="translated.AUTH.FIRSTNAME"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.firstName }}" />
+                  [errorStateMatcher]="formErrorMatcher" [formControlName]="appConstants.firstName" />
                 <mat-error *ngIf="userDetailForm.first_name.errors">
                   <span *ngIf="userDetailForm.first_name.errors.required">{{
                     translated.AUTH.FIRSTNAME_REQ
@@ -54,7 +54,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div class="input prefix">
+            <!-- <div class="input prefix">
                 <mat-form-field full-width>
                   <input matInput type="text" disabled placeholder="+"
                     [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
@@ -63,25 +63,24 @@
                     <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
                   </mat-error>
                 </mat-form-field>
-              </div>
+              </div> -->
             <div class="input country-code">
               <mat-form-field full-width>
-                <span class="prefix">+</span>
-                <input matInput type="text" placeholder="Code"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
-                  onPaste="return false" autocomplete="off" />
-                <mat-error *ngIf="userDetailForm.contactNo.errors">
-                  <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
+                <input matInput type="text" placeholder="Code" [errorStateMatcher]="formErrorMatcher"
+                  formControlName="countryCode" (keypress)="numberOnly($event)&&phoneNumberValid(userForm)"
+                  maxlength="3" onPaste="return false" autocomplete="off" />
+                <mat-error *ngIf="userDetailForm.countryCode.errors">
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input contact-number">
               <mat-form-field full-width>
-                <input matInput type="text" placeholder="Phone Number"
-                  [errorStateMatcher]="hehehe" formControlName="hehehe" (keypress)="hehehe"
-                  onPaste="return false" autocomplete="off" />
+                <input matInput type="text" placeholder="Phone Number" [errorStateMatcher]="formErrorMatcher"
+                  formControlName="contactNo" (keypress)="numberOnly($event)" onPaste="return false"
+                  autocomplete="off" />
                 <mat-error *ngIf="userDetailForm.contactNo.errors">
-                  <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
+                  <span
+                    *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -137,14 +136,15 @@
             </div>
             <div class="input">
               <mat-form-field full-width>
-                <input matInput  appGooglePlaces type="text" [placeholder]="translated.AUTH.ADDRESS"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.address }}" 
+                <input matInput appGooglePlaces type="text" [placeholder]="translated.AUTH.ADDRESS"
+                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.address }}"
                   (onSelect)="setAddress($event)" required />
                 <mat-error *ngIf="orgForm.address.errors">
                   <span *ngIf="orgForm.address.errors.required">{{translated.AUTH.ADDRESS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
+            <div #gmap style="width:100%;height:400px"></div>
             <div class="button">
               <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
                 <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
@@ -178,11 +178,11 @@
             <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
               <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
             </button>
-              <button mat-raised-button [disabled]="loading" custom-btn btn-primary color="primary"
-                (click)='registration()'>
-                Submit
-              </button>
-              <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
+            <button mat-raised-button [disabled]="loading" custom-btn btn-primary color="primary"
+              (click)='registration()'>
+              Submit
+            </button>
+            <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
           </form>
         </mat-card>
       </mat-step>

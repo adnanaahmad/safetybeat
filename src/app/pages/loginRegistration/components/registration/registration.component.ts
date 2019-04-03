@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginRegistrationService } from '../../services/LoginRegistrationService';
@@ -16,6 +16,9 @@ const phoneNumberUtil = PhoneNumberUtil.getInstance();
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
+
+  @ViewChild('gmap') gmapElement: ElementRef;
+
   public title = 'Places';
   addr: any;
   addrKeys: string[];
@@ -100,9 +103,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * registerOrgnaization function to register new user with organization info
    */
   ngOnInit() {
+    this.helperService.createMap(this.gmapElement); //By default settings of map set
     this.userForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
+      countryCode: [''],
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required,Validators.minLength(8)]]
@@ -125,6 +130,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   setAddress(addrObj) {
+    console.log(addrObj);
     this.city = addrObj.locality;
     this.country = addrObj.country;
     this.zipCode = addrObj.zipCode;
@@ -132,6 +138,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.addr = addrObj;
       this.addrKeys = Object.keys(addrObj);
     });
+    this.setMap(addrObj.formatted_address);
   }
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
@@ -162,17 +169,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
-  phoneNumberValid(group: FormGroup){
+  phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-        group.controls.contactNo.value, undefined
+        "+" + group.controls.countryCode.value + group.controls.contactNo.value, undefined
       );
-      console.log("Number is"+phoneNumberUtil.isValidNumber(phoneNumber));
-      return phoneNumberUtil.isValidNumber(phoneNumber) ? null : group.controls.contactNo.setErrors({ inValid: true });
-    } catch (e) { 
+      return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null) : group.controls.contactNo.setErrors({ inValid: true });
+    } catch (e) {
       return group.controls.contactNo.setErrors({ inValid: true });
-      console.log("Error in number validation"+e)
     }
+  }
+
+  /**
+   * Set map location according to address
+   * @param address
+   */
+  setMap(address) {
+    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement));
   }
 
   /**
@@ -221,7 +234,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.router.navigate(['/welcomeScreen']);
       }
-    }, (error)=>{
+    }, (error) => {
       this.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);

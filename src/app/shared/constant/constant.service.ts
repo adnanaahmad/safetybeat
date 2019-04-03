@@ -31,7 +31,7 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
     getRoles: `${environment.apiUrl}/role/`,
-    forgotPassword:  `${environment.apiUrl}/users/forgotPassword/`,
+    forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
   };
@@ -90,7 +90,7 @@ export class ConstantService {
     status: "status",
     joinCode: "joinCode",
     role: "role",
-    code: "code"
+    code: "code",
   };
   static appIcons = {
     skipNext: "skip_next",
@@ -144,12 +144,40 @@ export class ConstantService {
     payment: "payment",
     exit_to_app: "exitToApp"
   };
+  static particlesIcons = [
+    'more_vert',
+    'data_usage',
+    'change_history',
+    'crop_din',
+    'panorama_horizontal',
+    'texture',
+    'all_inclusive',
+    'radio_button_unchecked',
+    'panorama_wide_angle',
+    'my_location',
+    'share',
+    'waves',
+    'gps_not_fixed',
+    'scatter_plot',
+    'details',
+    'drag_indicator',
+    'av_timer',
+    'filter_list',
+    'wifi_tethering',
+    'blur_on'
+  ]
   static status = {
     CUSTOM: "custom",
     DEFAULT: "default",
     INFO: "info",
     SUCCESS: "success",
     WARNING: "warning",
-    ERROR: "error"
+    ERROR: "error",
+    OK: "OK"
+  }
+  static defaultMapconfig = {
+    zoom: 15,
+    center: { lat: 33.738, lng: 73.084 },
+    zoomControl: true
   }
 }

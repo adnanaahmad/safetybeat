@@ -21,8 +21,7 @@ export class CompilerProvider {
     const charCode = event.which ? event.which : event.key;
     return !(
       charCode > 31 &&
-      (charCode < 48 || charCode > 57) &&
-      charCode !== 43
+      (charCode < 48 || charCode > 57)
     );
   }
   constructUserData(profileApiResponse: any) {

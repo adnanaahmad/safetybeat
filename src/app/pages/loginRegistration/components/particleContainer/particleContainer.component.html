@@ -1,66 +1,6 @@
 <div id="particle-container">
-    <div class="particle">
-      <mat-icon>{{appIcons.moveVert}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.dataUsage}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.changeHistory}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.cropDin}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.panoramaHorizontal}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.texture}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.allInclusive}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.radioButtonUnchecked}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.panoramaWideAngle}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.myLocation}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.share}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.waves}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.gpsNotFixed}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.scatterPlot}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.details}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.moveVert}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.dataUsage}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.changeHistory}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.cropDin}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.panoramaHorizontal}}</mat-icon>
-    </div>
-    <div class="particle">
-      <mat-icon>{{appIcons.texture}}</mat-icon>
-    </div>
+  <div class="particle" *ngFor="let icon of particlesIcons">
+    <mat-icon>{{icon}}</mat-icon>
   </div>
+</div>
   

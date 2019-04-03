@@ -25,7 +25,7 @@ export class LandingComponent implements OnInit {
   appConstants: any;
   appIcons: any;
   addrKeys: string[];
-  loading:boolean = false;
+  loading: boolean = false;
   email: FormGroup;
   success: any;
   constructor(
@@ -33,7 +33,7 @@ export class LandingComponent implements OnInit {
     private helperService: HelperService,
     private loginService: LoginRegistrationService,
     private formBuilder: FormBuilder,
-    private navService:NavigationService
+    private navService: NavigationService
   ) {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
@@ -74,6 +74,7 @@ export class LandingComponent implements OnInit {
     value: validateUser;
     valid: boolean;
   }): void {
+    this.loading = true;
     if (!valid) {
       this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
@@ -102,8 +103,8 @@ export class LandingComponent implements OnInit {
         this.helperService.appLogger(
           this.helperService.constants.status.ERROR,
           `${error.error +
-            this.translated.LOGGER.MESSAGES.STATUS +
-            error.status}`
+          this.translated.LOGGER.MESSAGES.STATUS +
+          error.status}`
         );
       }
     );

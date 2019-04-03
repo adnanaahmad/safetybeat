@@ -154,12 +154,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   onLeaves() {
     this.profileFeatures.leaves = true;
   }
-  changeAvatarModal() {
-    alert();
-  }
-  onEntities() {}
 
-  onActivities() {}
+  onEntities() { }
+
+  onActivities() { }
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
     this.disabled = false;
@@ -191,19 +189,15 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
-        this.helperService.createToaster(
-          this.translated.LOGGER.STATUS.SUCCESS,
-          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED,
-          this.translated.STATUS.SUCCESS
-        );
+        this.helperService.creactSnack(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
         this.getUserData();
       },
       error => {
         this.helperService.appLoggerDev(
           this.translated.LOGGER.STATUS.ERROR,
           `${error.error.detail +
-            this.translated.LOGGER.MESSAGES.STATUS +
-            error.status}`
+          this.translated.LOGGER.MESSAGES.STATUS +
+          error.status}`
         );
         this.helperService.appLoggerDev(
           this.translated.MESSAGES.LOGIN_FAIL,
