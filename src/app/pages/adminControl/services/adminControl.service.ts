@@ -5,16 +5,22 @@ import { ConstantService } from 'src/app/shared/constant/constant.service';
 import { map, catchError } from 'rxjs/operators';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { HelperService } from '../../../shared/helperService/helper.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminControlService {
   apiRoutes: any;
   method: { get: string; post: string; put: string; delete: string };
+  private sites = new BehaviorSubject<any>(1);
+  siteObserver = this.sites.asObservable();
   constructor(public helperService: HelperService) { 
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.method = this.helperService.constants.apiMethod;
+  }
+
+  changeSites(sitesInfo:any){
+    this.sites.next(sitesInfo)
   }
 
   createEntity(data: entity) {
@@ -42,6 +48,7 @@ export class AdminControlService {
   }
 
   viewSites(data:object){
+    debugger
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllSites,

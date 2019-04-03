@@ -34,7 +34,7 @@ export class ConstantService {
     forgotPassword:  `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
-    viewAllSites: `${environment.apiUrl}/api/sites`,
+    viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
   };
   static apiMethod = {
     get: 'get',
@@ -143,7 +143,8 @@ export class ConstantService {
     folderShared: "folder_shared",
     groupAdd: "group_add",
     payment: "payment",
-    exit_to_app: "exitToApp"
+    exit_to_app: "exitToApp",
+    addSite: "playlist_add"
   };
   static status = {
     CUSTOM: "custom",

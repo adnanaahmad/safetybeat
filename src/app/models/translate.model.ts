@@ -267,6 +267,9 @@ export interface SiteTitle {
   USERS_DESCRIPTION: string;
   SETTINGS_TITLE: string;
   SETTINGS_DESCRIPTION: string;
+  SITE_CENTRE: string;
+  SITE_CENTRE_DESCRIPTION: string;
+  ADD_SITE: string;
 }
 
 export interface TableHeadings {
