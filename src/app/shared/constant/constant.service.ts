@@ -144,6 +144,28 @@ export class ConstantService {
     payment: "payment",
     exit_to_app: "exitToApp"
   };
+  static particlesIcons = [
+    'more_vert',
+    'data_usage',
+    'change_history',
+    'crop_din',
+    'panorama_horizontal',
+    'texture',
+    'all_inclusive',
+    'radio_button_unchecked',
+    'panorama_wide_angle',
+    'my_location',
+    'share',
+    'waves',
+    'gps_not_fixed',
+    'scatter_plot',
+    'details',
+    'drag_indicator',
+    'av_timer',
+    'filter_list',
+    'wifi_tethering',
+    'blur_on'
+  ]
   static status = {
     CUSTOM: "custom",
     DEFAULT: "default",
