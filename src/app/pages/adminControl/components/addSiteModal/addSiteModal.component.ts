@@ -20,6 +20,7 @@ export class AddSiteModalComponent implements OnInit {
     public helperService: HelperService,
     public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddSiteModalComponent>
+    
 
   ) { 
     this.translated = this.helperService.translation;

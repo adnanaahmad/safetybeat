@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Compiler, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Compiler, AfterViewInit, Renderer2 } from '@angular/core';
 import { Translation } from '../../../../models/translate.model';
 import { HelperService } from '../../../../shared/helperService/helper.service';
 import {
@@ -36,7 +36,8 @@ export class SiteCenterComponent implements OnInit{
     public helperService: HelperService,
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
-    private navService:NavigationService
+    private navService:NavigationService,
+    private render: Renderer2
   ) { 
     this.translated = this.helperService.translation;
     this.appIcons = this.helperService.constants.appIcons;
@@ -44,10 +45,26 @@ export class SiteCenterComponent implements OnInit{
       this.entityData = res;
       this.entityId = this.entityData.entityInfo.id;
     });
+    this.adminServices.siteObserver.subscribe((res)=>{
+      if(res===1){
+        this.viewAllSites();
+      } else {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+
+      }
+    })
+    this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
+
   }
 
   ngOnInit() {
     this.viewAllSites();
+  }
+
+  ngOnDestroy() {
+    this.render.removeClass(document.body, this.helperService.constants.config.theme.modalClass);
+    this.helperService.hideLoggers();
   }
 
   viewAllSites() {
@@ -56,10 +73,10 @@ export class SiteCenterComponent implements OnInit{
     };
     this.adminServices.viewSites(data).subscribe((res)=>{
       this.sitesList = res;
-      this.sitesData = this.compiler.constructSiteData(this.sitesList)
+      this.sitesData = this.compiler.constructSiteData(this.sitesList);
+      this.adminServices.changeSites(this.sitesData);
       this.dataSource = new MatTableDataSource(this.sitesData);
       this.dataSource.paginator = this.paginator;
-      this.adminServices.changeSites(this.sitesData);
     });
   }
   

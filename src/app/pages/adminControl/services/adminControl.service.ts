@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { HelperService } from '../../../shared/helperService/helper.service';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { Site } from '../../../models/site.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -53,5 +54,13 @@ export class AdminControlService {
       this.apiRoutes.viewAllSites,
       data
     );
+  }
+
+  addSites(data:Site){
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.addSites,
+      data
+    )
   }
 }
