@@ -54,7 +54,6 @@ export class SiteCenterComponent implements OnInit{
       'entityId': this.entityId
     };
     this.adminServices.viewSites(data).subscribe((res)=>{
-      debugger
       this.sitesList = res;
       this.sitesData = this.compiler.constructSiteData(this.sitesList)
       this.dataSource = new MatTableDataSource(this.sitesData);

@@ -144,7 +144,7 @@ export class ConstantService {
     groupAdd: "group_add",
     payment: "payment",
     exit_to_app: "exitToApp",
-    addSite: "playlist_add"
+    edit:"edit"
   };
   static particlesIcons = [
     'more_vert',

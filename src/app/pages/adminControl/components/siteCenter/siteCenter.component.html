@@ -6,7 +6,7 @@
   <mat-progress-bar mode="indeterminate" *ngIf='empty'></mat-progress-bar>
   <div class="buttonRow">
     <button btn-primary mat-raised-button color="primary" (click)="joinEntity()">
-      <mat-icon>{{ appIcons.addSite }}</mat-icon>
+      <mat-icon>{{ appIcons.createEntity }}</mat-icon>
       {{ translated.BUTTONS.ADD_SITE }}
     </button>
   </div>
@@ -51,7 +51,7 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="entityCode(element.entityInfo.code, element.entityInfo.name)">
-            <mat-icon>{{ appIcons.fingerPrint }}</mat-icon>Edit Site
+            <mat-icon>{{ appIcons.edit }}</mat-icon>Edit Site
           </button>
           <button mat-menu-item>
             <mat-icon>{{ appIcons.folderShared }}</mat-icon>View Site

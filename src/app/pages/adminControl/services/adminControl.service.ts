@@ -48,7 +48,6 @@ export class AdminControlService {
   }
 
   viewSites(data:object){
-    debugger
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllSites,
