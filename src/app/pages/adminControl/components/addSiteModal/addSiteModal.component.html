@@ -1,5 +1,5 @@
 <mat-card-title class="mat-dialog-title">{{
-    translated.MESSAGES.JOINENTITY_MSG
+    translated.MESSAGES.ADDSITE_MSG
   }}</mat-card-title>
   <div mat-dialog-content>
     <form [formGroup]="joinEntityForm" (ngSubmit)="entityJoin(joinEntityForm)">
@@ -8,7 +8,7 @@
           <input
             matInput
             type="text"
-            placeholder="{{ translated.MESSAGES.ENTITYCODE }}"
+            placeholder="{{ translated.MESSAGES.SITE_NAME }}"
             formControlName="{{ appConstants.joinCode }}"
             required
           />
@@ -27,7 +27,7 @@
           btn-primary
           color="primary"
         >
-          {{ translated.BUTTONS.JOIN_ENTITY }}
+          {{ translated.BUTTONS.ADD_SITE }}
         </button>
         <button mat-button mat-dialog-close>
           {{ translated.BUTTONS.CANCEL }}

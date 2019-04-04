@@ -160,7 +160,9 @@
     "ENTITYCODE_REQ": "Entity Code is Required.",
     "BACKEND_ERROR": "Something bad happened; please try again later.",
     "ORGTYPEMESSAGE":"Please choose your organization type",
-    "VERIFICATIONCODEEMAIL": "Email has been sent with verification code"
+    "VERIFICATIONCODEEMAIL": "Email has been sent with verification code",
+    "ADDSITE_MSG":"Enter Site Details to Add Site",
+    "SITE_NAME": "Enter Site Name"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

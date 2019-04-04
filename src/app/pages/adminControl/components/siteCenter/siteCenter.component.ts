@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Compiler, AfterViewInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, Compiler, AfterViewInit } from '@angular/core';
 import { Translation } from '../../../../models/translate.model';
 import { HelperService } from '../../../../shared/helperService/helper.service';
 import {
@@ -37,7 +37,6 @@ export class SiteCenterComponent implements OnInit{
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
     private navService:NavigationService,
-    private render: Renderer2
   ) { 
     this.translated = this.helperService.translation;
     this.appIcons = this.helperService.constants.appIcons;
@@ -54,17 +53,10 @@ export class SiteCenterComponent implements OnInit{
 
       }
     })
-    this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
-
   }
 
   ngOnInit() {
     this.viewAllSites();
-  }
-
-  ngOnDestroy() {
-    this.render.removeClass(document.body, this.helperService.constants.config.theme.modalClass);
-    this.helperService.hideLoggers();
   }
 
   viewAllSites() {

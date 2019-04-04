@@ -139,6 +139,7 @@ export interface Buttons {
   MAP: string;
   HOURS: string;
   INVITE_USER: string;
+  ADD_SITE: string;
 }
 export interface Messages {
   CHANGEPASSWORD: string;
@@ -206,6 +207,8 @@ export interface Messages {
   BACKEND_ERROR:string;
   ORGTYPEMESSAGE:string;
   VERIFICATIONCODEEMAIL:string;
+  ADDSITE_MSG: string;
+  SITE_NAME: string;
 }
 export interface Logger {
   STATUS: LoggerStatus;
@@ -269,7 +272,6 @@ export interface SiteTitle {
   SETTINGS_DESCRIPTION: string;
   SITE_CENTRE: string;
   SITE_CENTRE_DESCRIPTION: string;
-  ADD_SITE: string;
 }
 
 export interface TableHeadings {
