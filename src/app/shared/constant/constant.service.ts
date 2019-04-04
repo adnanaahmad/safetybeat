@@ -31,7 +31,7 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
     getRoles: `${environment.apiUrl}/role/`,
-    forgotPassword:  `${environment.apiUrl}/users/forgotPassword/`,
+    forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
@@ -146,6 +146,28 @@ export class ConstantService {
     exit_to_app: "exitToApp",
     addSite: "playlist_add"
   };
+  static particlesIcons = [
+    'more_vert',
+    'data_usage',
+    'change_history',
+    'crop_din',
+    'panorama_horizontal',
+    'texture',
+    'all_inclusive',
+    'radio_button_unchecked',
+    'panorama_wide_angle',
+    'my_location',
+    'share',
+    'waves',
+    'gps_not_fixed',
+    'scatter_plot',
+    'details',
+    'drag_indicator',
+    'av_timer',
+    'filter_list',
+    'wifi_tethering',
+    'blur_on'
+  ]
   static status = {
     CUSTOM: "custom",
     DEFAULT: "default",

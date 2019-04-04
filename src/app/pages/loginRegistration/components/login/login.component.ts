@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           var entityData = {
             'moduleName': 'Safetybeat'
           };
-          this.adminService.viewEntities(entityData).subscribe((res)=>{
+          this.adminService.viewEntities(entityData).subscribe((res) => {
             this.entites = res;
             let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
             this.navService.changeEntites(entityUserData);
@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.createToaster(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
             this.router.navigate(['/home']);
           })
         } else if (data.responseDetails.code === '0001') {
@@ -136,11 +136,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loading = false;
-        this.helperService.createToaster(
-          this.translated.MESSAGES.LOGIN_FAIL,
-          this.translated.MESSAGES.LOGINFAIL_MSG,
-          this.helperService.constants.status.ERROR
-        );
+        this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }

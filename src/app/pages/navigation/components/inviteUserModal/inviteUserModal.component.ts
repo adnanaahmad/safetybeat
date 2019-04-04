@@ -68,7 +68,6 @@ export class InviteUserModalComponent implements OnInit {
 
   inviteUser({ value, valid }: { value: inviteUser; valid: boolean }): void {
     this.InviteUserData = {
-      // username: value.first_name + value.last_name,
       first_name: value.first_name,
       last_name: value.last_name,
       email: value.email,
