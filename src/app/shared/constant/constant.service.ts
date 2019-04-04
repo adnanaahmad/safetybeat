@@ -58,7 +58,8 @@ export class ConstantService {
       dark: "dark-theme",
       light: "light-theme",
       background: "body-bg",
-      modalClass: "verify-modal"
+      modalClass: "verify-modal",
+      addSite: "addsite-modal"
     }
   };
   static appTheme = {
@@ -144,7 +145,10 @@ export class ConstantService {
     groupAdd: "group_add",
     payment: "payment",
     exit_to_app: "exitToApp",
-    edit:"edit"
+    edit: "edit",
+    viewSite: "remove_red_eye",
+    siteQuestionCenter: "question_answer",
+    log: "library_books"
   };
   static particlesIcons = [
     'more_vert',

@@ -5,7 +5,7 @@
   </div>
   <mat-progress-bar mode="indeterminate" *ngIf='empty'></mat-progress-bar>
   <div class="buttonRow">
-    <button btn-primary mat-raised-button color="primary" (click)="joinEntity()">
+    <button btn-primary mat-raised-button color="primary" (click)="addSite()">
       <mat-icon>{{ appIcons.createEntity }}</mat-icon>
       {{ translated.BUTTONS.ADD_SITE }}
     </button>
@@ -54,13 +54,13 @@
             <mat-icon>{{ appIcons.edit }}</mat-icon>Edit Site
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ appIcons.folderShared }}</mat-icon>View Site
+            <mat-icon>{{ appIcons.viewSite }}</mat-icon>View Site
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ appIcons.groupAdd }}</mat-icon>Site Question Control
+            <mat-icon>{{ appIcons.siteQuestionCenter }}</mat-icon>Site Question Control
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ appIcons.payment }}</mat-icon>Log
+            <mat-icon>{{ appIcons.log }}</mat-icon>Log
           </button>
         </mat-menu>
       </td>

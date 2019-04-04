@@ -12,6 +12,7 @@ import { AdminControlService } from '../../services/adminControl.service';
 import { SitesInfo } from '../../../../models/site.model';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { NavigationService } from '../../../navigation/services/navigation.service';
+import { AddSiteModalComponent } from '../addSiteModal/addSiteModal.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -57,12 +58,14 @@ export class SiteCenterComponent implements OnInit{
       this.sitesList = res;
       this.sitesData = this.compiler.constructSiteData(this.sitesList)
       this.dataSource = new MatTableDataSource(this.sitesData);
-      console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.adminServices.changeSites(this.sitesData);
     });
   }
   
+  addSite() {
+    this.helperService.createModal(AddSiteModalComponent)
+  }
   
 
 }
