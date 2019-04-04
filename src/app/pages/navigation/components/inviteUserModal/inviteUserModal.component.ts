@@ -67,9 +67,7 @@ export class InviteUserModalComponent implements OnInit {
   }
 
   inviteUser({ value, valid }: { value: inviteUser; valid: boolean }): void {
-    debugger
     this.InviteUserData = {
-      // username: value.first_name + value.last_name,
       first_name: value.first_name,
       last_name: value.last_name,
       email: value.email,
@@ -87,7 +85,6 @@ export class InviteUserModalComponent implements OnInit {
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.InviteUserData).subscribe((res) => {
-      debugger
       this.dialogRef.close();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, "User has been successfully Invited.");
     }, (err) => {

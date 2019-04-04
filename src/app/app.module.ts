@@ -29,6 +29,8 @@ import { AlertModalComponent } from './pages/adminControl/components/entityCodeM
 import { VerificationComponent } from './pages/loginRegistration/components/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
 import { InviteTeamModalComponent } from './pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import { ToasterComponent } from './common/toaster/toaster.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -45,7 +47,8 @@ export function createTranslateLoader(http: HttpClient) {
     AlertModalComponent,
     InviteUserModalComponent,
     VerificationComponent,
-    InviteTeamModalComponent
+    InviteTeamModalComponent,
+    ToasterComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -77,6 +80,11 @@ export function createTranslateLoader(http: HttpClient) {
       multi: true
     },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 10000,
+      }
+    }
   ],
 
   bootstrap: [AppComponent],
@@ -89,7 +97,8 @@ export function createTranslateLoader(http: HttpClient) {
     InviteUserModalComponent,
     CreateEntityComponent,
     VerificationComponent,
-    InviteTeamModalComponent
+    InviteTeamModalComponent,
+    ToasterComponent
   ]
 })
 export class AppModule { }

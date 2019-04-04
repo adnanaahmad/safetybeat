@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   username: string;
   firstname: string;
   lastname: string;
-  contactNo:string;
+  contactNo: string;
   dataRecieved: any;
   disabled: boolean = false;
   isEdited: boolean = false;
@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.userData = userDataResult;
           this.userId = this.userData.id;
           this.username = this.userData.first_name + this.userData.last_name;
-          this.firstname  =this.userData.first_name;
+          this.firstname = this.userData.first_name;
           this.lastname = this.userData.last_name;
           this.email = this.userData.email;
           this.contactNo = this.userData.contactNo;
@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             );
             this.userId = this.userData.id;
             this.username = this.userData.first_name + this.userData.last_name;
-            this.firstname  =this.userData.first_name;
+            this.firstname = this.userData.first_name;
             this.lastname = this.userData.last_name;
             this.email = this.userData.email;
             this.contactNo = this.userData.contactNo;
@@ -155,9 +155,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileFeatures.leaves = true;
   }
 
-  onEntities() {}
+  onEntities() { }
 
-  onActivities() {}
+  onActivities() { }
 
   updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
     this.disabled = false;
@@ -189,19 +189,15 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
-        this.helperService.createToaster(
-          this.translated.LOGGER.STATUS.SUCCESS,
-          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED,
-          this.translated.STATUS.SUCCESS
-        );
+        this.helperService.creactSnack(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
         this.getUserData();
       },
       error => {
         this.helperService.appLoggerDev(
           this.translated.LOGGER.STATUS.ERROR,
           `${error.error.detail +
-            this.translated.LOGGER.MESSAGES.STATUS +
-            error.status}`
+          this.translated.LOGGER.MESSAGES.STATUS +
+          error.status}`
         );
         this.helperService.appLoggerDev(
           this.translated.MESSAGES.LOGIN_FAIL,
