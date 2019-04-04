@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
 import { HelperService } from '../helperService/helper.service';
 import { User } from 'src/app/models/user.model';
+import { Site, SitesInfo } from '../../models/site.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -69,6 +70,10 @@ export class CompilerProvider {
       entities: allEntities
     };
     return userEntityData;
+  }
+
+  constructSiteData(siteApiResponse: any): SitesInfo[] {
+    return siteApiResponse.data;
   }
 
   switchSideMenu(data, name) {

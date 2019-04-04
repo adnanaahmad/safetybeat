@@ -188,7 +188,11 @@
     "LAST_ACTION": "Last Action",
     "DATE_TIME": "Date/Time",
     "TIMEZONE": "Time Zone",
-    "ADMINISTRATED_BY": "Administrated By"
+    "ADMINISTRATED_BY": "Administrated By",
+    "SITE_NAME":"Site Name",
+    "SITE_ADDRESS":"Site Location",
+    "SITE_SAFE_ZONE":"Safe Zone",
+    "SITE_CREATED_BY":"Created By"
   },
   "LOGGER": {
     "STATUS": {

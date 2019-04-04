@@ -10,35 +10,34 @@
       {{ translated.BUTTONS.ADD_SITE }}
     </button>
   </div>
-  <table mat-table [dataSource]="sitesData" class="customTable mat-elevation-z8">
-
+  <table mat-table [dataSource]="dataSource" class="customTable mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>
-        {{ translated.TABLEHEADINGS.ENTITY_NAME }}
+        {{ translated.TABLEHEADINGS.SITE_NAME }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.entityInfo.name }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.site.name }}</td> 
     </ng-container>
 
-    <ng-container matColumnDef="headOffice">
+    <ng-container matColumnDef="location">
       <th mat-header-cell *matHeaderCellDef>
-        {{ translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
+        {{ translated.TABLEHEADINGS.SITE_ADDRESS }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.entityInfo.headOffice }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.site.location }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="role">
+    <ng-container matColumnDef="safeZone">
       <th mat-header-cell *matHeaderCellDef>
-        {{ translated.TABLEHEADINGS.ACCESS_LEVEL }}
+        {{ translated.TABLEHEADINGS.SITE_SAFE_ZONE }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.site.safeZone }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="administrator">
+    <ng-container matColumnDef="createdBy">
       <th mat-header-cell *matHeaderCellDef>
-        {{ translated.TABLEHEADINGS.ADMINISTRATED_BY }}
+        {{ translated.TABLEHEADINGS.SITE_CREATED_BY }}
       </th>
-      <td mat-cell *matCellDef="let element"><strong>{{ element.administrator.username }} </strong><br>
-        {{ element.administrator.email }}</td>
+      <td mat-cell *matCellDef="let element"><strong>{{ element.createdBy.username }} </strong><br>
+        {{ element.createdBy.email }} </td>
     </ng-container>
 
     <ng-container matColumnDef="symbol">
@@ -52,16 +51,16 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="entityCode(element.entityInfo.code, element.entityInfo.name)">
-            <mat-icon>{{ appIcons.fingerPrint }}</mat-icon>Entity Code
+            <mat-icon>{{ appIcons.fingerPrint }}</mat-icon>Edit Site
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ appIcons.folderShared }}</mat-icon>Invite Team
+            <mat-icon>{{ appIcons.folderShared }}</mat-icon>View Site
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ appIcons.groupAdd }}</mat-icon>Register Team
+            <mat-icon>{{ appIcons.groupAdd }}</mat-icon>Site Question Control
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ appIcons.payment }}</mat-icon>Payment History
+            <mat-icon>{{ appIcons.payment }}</mat-icon>Log
           </button>
         </mat-menu>
       </td>

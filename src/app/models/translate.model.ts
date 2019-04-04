@@ -287,6 +287,10 @@ export interface TableHeadings {
   DATE_TIME: string;
   TIMEZONE: string;
   ADMINISTRATED_BY:string;
+  SITE_NAME:string;
+  SITE_ADDRESS:string;
+  SITE_SAFE_ZONE:string;
+  SITE_CREATED_BY:string;
 }
 
 export interface Status {
