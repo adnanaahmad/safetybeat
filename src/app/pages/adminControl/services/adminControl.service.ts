@@ -56,10 +56,10 @@ export class AdminControlService {
     );
   }
 
-  addSites(data:Site){
+  addSite(data:any){
     return this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.addSites,
+      this.apiRoutes.addSite,
       data
     )
   }

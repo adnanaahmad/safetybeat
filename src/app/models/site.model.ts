@@ -14,3 +14,10 @@ export interface SitesInfo{
     site:Site,
     createdBy:User
 }
+
+export interface SiteAddData {
+    siteName: string,
+    siteAddress: string,
+    safeZone: boolean,
+    siteSafetyPlan: string,
+}

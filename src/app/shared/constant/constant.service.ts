@@ -93,7 +93,11 @@ export class ConstantService {
     status: "status",
     joinCode: "joinCode",
     role: "role",
-    code: "code"
+    code: "code",
+    siteName: "siteName",
+    siteSafetyPlan: "siteSafetyPlan",
+    siteAddress: "siteAddress",
+    safeZone: "safeZone"
   };
   static appIcons = {
     skipNext: "skip_next",

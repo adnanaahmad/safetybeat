@@ -2,13 +2,14 @@
   {{translated.MESSAGES.ADDSITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form>
+  <form [formGroup]="addSiteForm" (ngSubmit)= addSite(addSiteForm)>
     <div class="form-group">
       <mat-form-field full-width>
         <input
           matInput
           type="text"
           placeholder="{{ translated.TABLEHEADINGS.SITE_NAME }}"
+          formControlName="{{ appConstants.siteName }}"
           required
         />
       </mat-form-field>
@@ -17,6 +18,7 @@
           matInput
           type="text"
           placeholder="{{ translated.STRINGS.SITESAFETYPLAN }}"
+          formControlName="{{ appConstants.siteSafetyPlan }}"
           required
         />
       </mat-form-field>
@@ -24,11 +26,14 @@
         <input
           matInput
           type="text"
-          placeholder="{{ translated.STRINGS.MAPLOCATION }}"
+          placeholder="{{ translated.STRINGS.SITEADDRESS }}"
+          formControlName="{{ appConstants.siteAddress }}"
           required
         />
       </mat-form-field>
-      <mat-slide-toggle>Safe Zone</mat-slide-toggle>
+      <mat-slide-toggle formControlName="{{ appConstants.safeZone }}">
+        Safe Zone
+    </mat-slide-toggle>
     </div>
     <mat-dialog-actions>
       <button

@@ -22,7 +22,7 @@ export interface Strings {
   EXPAND: string;
   REMOVE: string;
   USERINFO: string;
-  MAPLOCATION: string;
+  SITEADDRESS: string;
   SITESAFETYPLAN: string;
 }
 export interface Auth {

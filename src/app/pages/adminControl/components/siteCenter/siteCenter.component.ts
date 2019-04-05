@@ -60,7 +60,7 @@ export class SiteCenterComponent implements OnInit{
   }
 
   viewAllSites() {
-    var data = {
+    let data = {
       'entityId': this.entityId
     };
     this.adminServices.viewSites(data).subscribe((res)=>{
