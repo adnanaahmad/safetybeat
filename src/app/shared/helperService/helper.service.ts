@@ -15,7 +15,6 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { ToasterComponent } from 'src/app/common/toaster/toaster.component';
-import { CompilerProvider } from '../compiler/compiler';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,7 +23,6 @@ export class HelperService {
   findIndex: any;
   translation: Translation;
   constants: typeof ConstantService;
-  compilerProvider: any;
   constructor(
     private http: HttpClient,
     public toast: ToastrManager,
@@ -33,14 +31,12 @@ export class HelperService {
     public dialog: MatDialog,
     private cookies: CookieService,
     private router: Router,
-    private notifier: NotifierService,
-    public compiler: CompilerProvider
+    private notifier: NotifierService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
     });
     this.constants = ConstantService;
-    this.compilerProvider = this.compiler;
     this.iterations = forEach;
     this.findIndex = findIndex;
   }
