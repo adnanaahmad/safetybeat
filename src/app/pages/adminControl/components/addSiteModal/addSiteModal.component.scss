@@ -1,0 +1,11 @@
+@mixin amte-addsite-modal($primary, $accent, $warn) {
+  :host,
+  app-addsitemodal {
+    .multiple-inputs {
+      mat-form-field {
+        width: 48%;
+        margin: 1%;
+      }
+    }
+  }
+}

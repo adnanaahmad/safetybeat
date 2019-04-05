@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { HelperService } from '../../../../shared/helperService/helper.service';
 import { Translation } from '../../../../models/translate.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -19,12 +19,14 @@ export class AddSiteModalComponent implements OnInit {
   constructor(
     public helperService: HelperService,
     public formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddSiteModalComponent>
+    public dialogRef: MatDialogRef<AddSiteModalComponent>,
+    private render: Renderer2
     
 
   ) { 
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
+    this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
 
   }
 
@@ -33,7 +35,10 @@ export class AddSiteModalComponent implements OnInit {
       joinCode: ['', Validators.required]
     });
   }
-
+  ngOnDestroy() {
+    this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
+    this.helperService.hideLoggers();
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

@@ -61,7 +61,9 @@
     "OTHERSETTINGS": "Other Settings",
     "CHANGETHEME": "Change Theme",
     "EXPAND": "Expand",
-    "REMOVE": "Remove"
+    "REMOVE": "Remove",
+    "MAPLOCATION": "Map Location",
+    "SITESAFETYPLAN": "Site Safety Plan"
 
   },
   "BUTTONS": {

@@ -60,7 +60,7 @@ export class ConstantService {
       light: "light-theme",
       background: "body-bg",
       modalClass: "verify-modal",
-      addSite: "addsite-modal"
+      addSiteClass: "addsite-modal"
     }
   };
   static appTheme = {
