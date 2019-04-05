@@ -1,25 +1,28 @@
 <mat-form-field class="example-chip-list">
-  <mat-chip-list #chipList aria-label="Fruit selection">
+  <mat-chip-list #chipList>
     <mat-chip
-      *ngFor="let user of allUsersList"
+      *ngFor="let user of users"
       [selectable]="selectable"
       [removable]="removable"
       (removed)="remove(user)">
-      {{user.username}}
+      {{user.first_name}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
     <input
-      placeholder="Select users to invite"
-      #fruitInput
-      [formControl]="fruitCtrl"
+      placeholder="Insert users to invite"
+      #userInput
+      [formControl]="userCtrl"
       [matAutocomplete]="auto"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      [matChipInputAddOnBlur]="addOnBlur">
+      [matChipInputAddOnBlur]="addOnBlur"
+      >
   </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let user of allUsersList" [value]="user">
-      {{user.username}}
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+      {{user.first_name}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
+<button mat-raised-button (click)='inviteTeam()'>Invite</button>
+<button mat-raised-button (click)='cancel()'>Cancel</button>

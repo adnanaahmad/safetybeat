@@ -93,7 +93,8 @@ export class LandingComponent implements OnInit {
           );
           this.loading = false;
           this.helperService.createModal(VerificationComponent, {
-            data: { email: value.email }
+            data: { email: value.email },
+            disableClose: false
           });
         }
       },

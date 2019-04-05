@@ -54,7 +54,6 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
   }
   ngAfterViewInit(){
     this.navService.data.subscribe((res)=>{
-      debugger
       if(res!==1){
         this.allEntitiesData = res;
         this.entityUserData = this.allEntitiesData.entities;
@@ -69,7 +68,6 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
         this.adminServices
           .viewEntities(this.moduleData)
           .subscribe(entitesData => {
-            debugger
             this.allEntitiesData = entitesData;
             this.entityUserData = this.compiler.constructUserEntityData(
               this.allEntitiesData.data
@@ -162,7 +160,6 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
 
   switchSideMenu(data: any) {
     this.Entity = data;
-    debugger
     this.navService.changeSelectedEntity(this.Entity);
     this.navService.changeRole(this.Entity.role);
     this.navService.changeRoleId(this.Entity.permissions.role);
