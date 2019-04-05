@@ -31,7 +31,7 @@ export class HelperService {
     public dialog: MatDialog,
     private cookies: CookieService,
     private router: Router,
-    private notifier: NotifierService,
+    private notifier: NotifierService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
