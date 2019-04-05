@@ -8,7 +8,6 @@ import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
 import { MaterialModule } from 'src/app/shared/material/material.module';
-import { ToastrModule } from 'ng6-toastr-notifications';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
   ],
   providers: [
     CompilerProvider,

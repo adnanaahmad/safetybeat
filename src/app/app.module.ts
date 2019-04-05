@@ -15,7 +15,6 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthGuard } from './core/services/guards/auth.guard';
 import { TokenInterceptorService } from './core/services/interceptors/tokenInterceptor';
-import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 import { CoreService } from './core/services/authorization/core.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -55,7 +54,6 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

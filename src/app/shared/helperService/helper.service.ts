@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import {
   forEach,
   findIndex
@@ -25,7 +24,6 @@ export class HelperService {
   constants: typeof ConstantService;
   constructor(
     private http: HttpClient,
-    public toast: ToastrManager,
     private snackBar: MatSnackBar,
     public translate: TranslateService,
     public dialog: MatDialog,
