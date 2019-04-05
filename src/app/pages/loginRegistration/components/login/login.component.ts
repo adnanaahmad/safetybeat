@@ -9,6 +9,7 @@ import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandl
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { ProfileService } from 'src/app/pages/profile/services/profile.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private compiler: CompilerProvider,
     private adminService: AdminControlService,
-    private navService: NavigationService
+    private navService: NavigationService,
   ) {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
@@ -101,6 +102,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             'moduleName': 'Safetybeat'
           };
           this.adminService.viewEntities(entityData).subscribe((res) => {
+            debugger
             this.entites = res;
             let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
             this.navService.changeEntites(entityUserData);
@@ -108,8 +110,6 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-            this.router.navigate(['/home']);
           })
 
         } else if (data.responseDetails.code === '0001') {

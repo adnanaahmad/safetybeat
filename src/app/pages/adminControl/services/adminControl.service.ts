@@ -17,7 +17,7 @@ export class AdminControlService {
     return this.http.post(ConstantService.apiRoutes.createEntity,data).pipe(catchError(this.coreServices.handleError));
   }
 
-  viewEntities(data:object){
+  viewEntities(data:any){
     return this.http.post(ConstantService.apiRoutes.viewAllEntities,data).pipe(catchError(this.coreServices.handleError));
   }
 

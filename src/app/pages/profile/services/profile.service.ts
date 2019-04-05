@@ -33,7 +33,6 @@ export class ProfileService {
   }
 
   updateUsers(data:any){
-    debugger
     this.orgUsers.next(data);
   }
 }

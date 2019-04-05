@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Translation } from 'src/app/models/translate.model';
-import { ProfileService } from '../../services/profile.service';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { share } from 'rxjs/operators';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
+import { Translation } from "src/app/models/translate.model";
+import { ProfileService } from "../../services/profile.service";
+import { MatTableDataSource, MatPaginator } from "@angular/material";
+import { share } from "rxjs/operators";
+import { HelperService } from "src/app/shared/helperService/helper.service";
+import { CompilerProvider } from "src/app/shared/compiler/compiler";
 @Component({
   selector: "app-user",
   templateUrl: "./user.component.html",
   styleUrls: ["./user.component.scss"]
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
   translated: Translation;
   appIcons: any;
   displayedColumns: string[] = [
@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
     "symbol"
   ];
   allUsers: any = [];
-  allUsersList: any ;
+  allUsersList: any;
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   empty: boolean = false;
@@ -33,20 +33,33 @@ export class UserComponent implements OnInit {
     this.appIcons = this.helperService.constants.appIcons;
   }
 
-  ngOnInit() {
-    this.getAllUsers();
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.userService.usersData.subscribe(res => {
+      debugger
+      if (res === 1) {
+        this.getAllUsers();
+      } else {
+        this.empty = true;
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
   getAllUsers() {
     this.allUsers = this.userService.getAllUsers().pipe(share());
-    this.allUsers.subscribe(result => {
-      debugger
-      this.empty = true;
-      this.allUsersList = result.data;
-      this.userService.updateUsers(this.allUsersList);
-      this.dataSource = new MatTableDataSource(this.allUsersList);
-      this.dataSource.paginator = this.paginator;
-    }, error => {
-      this.helperService.logoutError(error.status)
-    });
+    this.allUsers.subscribe(
+      result => {
+        this.empty = true;
+        this.allUsersList = result.data;
+        this.userService.updateUsers(this.allUsersList);
+        this.dataSource = new MatTableDataSource(this.allUsersList);
+        this.dataSource.paginator = this.paginator;
+      },
+      error => {
+        this.helperService.logoutError(error.status);
+      }
+    );
   }
 }
