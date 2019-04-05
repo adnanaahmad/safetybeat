@@ -174,9 +174,9 @@ mat-dialog-container {
 .centerbox {
   width: 70%;
   margin: 0 auto;
-  .midbox{
-    width:100%;
-    margin:50px auto;
+  .midbox {
+    width: 100%;
+    margin: 50px auto;
   }
 }
 .midbox {
@@ -463,7 +463,7 @@ hr.forheading {
     color: #fff !important;
     overflow: hidden;
     position: relative;
-    box-shadow:none !important;
+    box-shadow: none !important;
     app-verification {
       position: relative;
       z-index: 2;
@@ -485,40 +485,11 @@ hr.forheading {
       width: 100%;
       height: 100%;
       top: 0;
-      opacity:0.9;
+      opacity: 0.9;
     }
   }
 }
 
-.addsite-modal {
-  mat-dialog-container {
-    overflow: hidden;
-    position: relative;
-    app-verification {
-      position: relative;
-      z-index: 2;
-      padding: 20px;
-      display: block;
-      text-align: center;
-      p {
-        line-height: 2;
-      }
-    }
-  }
-  .cdk-overlay-backdrop {
-    background-image: url(./assets/images/map-bg.jpg);
-    background-size: cover;
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      opacity:0.9;
-    }
-  }
-}
 @media (max-width: 992px) {
   .monogram {
     width: 100px;

@@ -53,13 +53,11 @@ export class SiteCenterComponent implements OnInit{
 
       }
     })
-
   }
 
   ngOnInit() {
     this.viewAllSites();
   }
-
 
   viewAllSites() {
     var data = {
