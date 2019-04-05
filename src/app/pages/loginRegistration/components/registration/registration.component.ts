@@ -154,6 +154,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return this.compiler.numberOnly(event);
   }
 
+  characterOnly(event): boolean {
+    return this.compiler.charactersOnly(event);
+  }
+
   /**
    * to check if password and confirm password is same
    * @param group formGroup for user form

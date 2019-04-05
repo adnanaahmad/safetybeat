@@ -34,8 +34,9 @@
           <form [formGroup]="userForm">
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]="translated.AUTH.FIRSTNAME"
-                  [errorStateMatcher]="formErrorMatcher" [formControlName]="appConstants.firstName" />
+                <input matInput type="text" [placeholder]="translated.AUTH.FIRSTNAME" (keypress)="characterOnly($event)"
+                  onPaste="return false" autocomplete="off" [errorStateMatcher]="formErrorMatcher"
+                  [formControlName]="appConstants.firstName" />
                 <mat-error *ngIf="userDetailForm.first_name.errors">
                   <span *ngIf="userDetailForm.first_name.errors.required">{{
                     translated.AUTH.FIRSTNAME_REQ
@@ -45,8 +46,9 @@
             </div>
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]="translated.AUTH.LASTNAME"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.lastName }}" required />
+                <input matInput type="text" [placeholder]="translated.AUTH.LASTNAME" (keypress)="characterOnly($event)"
+                  onPaste="return false" autocomplete="off" [errorStateMatcher]="formErrorMatcher"
+                  formControlName="{{ appConstants.lastName }}" required />
                 <mat-error *ngIf="userDetailForm.last_name.errors">
                   <span *ngIf="userDetailForm.last_name.errors.required">{{
                     translated.AUTH.LASTNAME_REQ
@@ -137,8 +139,8 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput appGooglePlaces type="text" [placeholder]="translated.AUTH.ADDRESS"
-                  formControlName="{{ appConstants.address }}" #addressVal
-                  (onSelect)="setAddress($event)" (keyup)="setFalse($event)" required />
+                  formControlName="{{ appConstants.address }}" #addressVal (onSelect)="setAddress($event)"
+                  (keyup)="setFalse($event)" required />
                 <mat-error *ngIf="orgForm.address.errors">
                   <span *ngIf="orgForm.address.errors.required">{{translated.AUTH.ADDRESS}}</span>
                   <span *ngIf="orgForm.address.errors.invalid">{{translated.MESSAGES.INVALIDADDRESS}}</span>
@@ -150,7 +152,8 @@
               <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
                 <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
               </button>
-              <button matStepperNext mat-raised-button (click)="setAddress({})" [disabled]="!displayNextButton" custom-btn btn-primary color="primary">
+              <button matStepperNext mat-raised-button (click)="setAddress({})" [disabled]="!displayNextButton"
+                custom-btn btn-primary color="primary">
                 {{translated.BUTTONS.NEXT}} <mat-icon>{{appIcons.arrowForward}}</mat-icon>
               </button>
               <img *ngIf="loading" [src]="translated.MESSAGES.LOADING_URL" />
