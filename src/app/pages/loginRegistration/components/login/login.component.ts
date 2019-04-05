@@ -110,6 +110,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
+            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.router.navigate(['/home']);
           })
 
         } else if (data.responseDetails.code === '0001') {
