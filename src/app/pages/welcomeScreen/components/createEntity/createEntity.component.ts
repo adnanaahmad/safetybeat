@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ConstantService } from "src/app/shared/constant/constant.service";
 import { Translation } from "src/app/models/translate.model";
@@ -16,6 +16,7 @@ import { WelcomeScreenService } from "../../services/welcome-screen.service";
   styleUrls: ["./createEntity.component.scss"]
 })
 export class CreateEntityComponent implements OnInit {
+  @ViewChild('gmap') gmapElement: ElementRef;
   translated: Translation;
   appConstants: any;
   public title = "Places";
@@ -32,7 +33,7 @@ export class CreateEntityComponent implements OnInit {
   roleId: any;
   entitiesList: any;
   entityUserData: any;
-  loading:boolean = false;
+  loading: boolean = false;
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
@@ -52,6 +53,7 @@ export class CreateEntityComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.helperService.createMap(this.gmapElement);
     this.createEntityForm = this.formBuilder.group({
       name: ["", Validators.required],
       headOffice: ["", Validators.required],
@@ -66,6 +68,15 @@ export class CreateEntityComponent implements OnInit {
       this.addr = addrObj;
       this.addrKeys = Object.keys(addrObj);
     });
+    this.setMap(addrObj.formatted_address);
+  }
+
+  /**
+  * Set map location according to address
+  * @param address
+  */
+  setMap(address) {
+    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement));
   }
 
   get formValidation() {
@@ -118,7 +129,7 @@ export class CreateEntityComponent implements OnInit {
             this.entitiesList = res;
             this.entityUserData = this.compiler.constructUserEntityData(this.entitiesList.data);
             this.navService.changeEntites(this.entityUserData);
-          this.loading = false;
+            this.loading = false;
             this.helperService.appLogger(
               this.helperService.constants.status.SUCCESS,
               this.entityResponse.responseDetails.message

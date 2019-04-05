@@ -118,7 +118,7 @@
           </form>
         </mat-card>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
+      <mat-step [stepControl]="organizationForm">
         <mat-card class="loginbox">
           <mat-card-title>{{translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
           <p class="subheading">{{translated.MESSAGES.ORGSIGNUPMESSAGE}}</p>
@@ -137,10 +137,11 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput appGooglePlaces type="text" [placeholder]="translated.AUTH.ADDRESS"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.address }}"
-                  (onSelect)="setAddress($event)" required />
+                  formControlName="{{ appConstants.address }}" #addressVal
+                  (onSelect)="setAddress($event,true)" required />
                 <mat-error *ngIf="orgForm.address.errors">
                   <span *ngIf="orgForm.address.errors.required">{{translated.AUTH.ADDRESS}}</span>
+                  <span *ngIf="orgForm.address.errors.invalid">{{translated.MESSAGES.INVALIDADDRESS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -149,7 +150,7 @@
               <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
                 <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
               </button>
-              <button matStepperNext mat-raised-button [disabled]="loading" custom-btn btn-primary color="primary">
+              <button matStepperNext mat-raised-button [disabled]="!displayNextButton||loading" custom-btn btn-primary color="primary">
                 {{translated.BUTTONS.NEXT}} <mat-icon>{{appIcons.arrowForward}}</mat-icon>
               </button>
               <img *ngIf="loading" [src]="translated.MESSAGES.LOADING_URL" />
@@ -178,8 +179,8 @@
             <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
               <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
             </button>
-            <button mat-raised-button [disabled]="loading" custom-btn btn-primary color="primary"
-              (click)='registration()'>
+            <button mat-raised-button [disabled]="loading||orgTypeForm.type.errors" custom-btn btn-primary
+              color="primary" (click)='registration()'>
               Submit
             </button>
             <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />

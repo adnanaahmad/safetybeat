@@ -8,6 +8,7 @@ import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { PhoneNumberUtil, PhoneNumber } from 'google-libphonenumber';
+import { debug } from 'util';
 
 const phoneNumberUtil = PhoneNumberUtil.getInstance();
 @Component({
@@ -16,9 +17,7 @@ const phoneNumberUtil = PhoneNumberUtil.getInstance();
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-
   @ViewChild('gmap') gmapElement: ElementRef;
-
   public title = 'Places';
   addr: any;
   addrKeys: string[];
@@ -29,6 +28,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   city: string;
   country: string;
   zipCode: string;
+  displayNextButton: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -111,7 +111,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
-    }, { validator: this.checkPasswords && this.phoneNumberValid });
+    }, { validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)]) });
 
     this.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -119,7 +119,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
 
     this.organizationTypeForm = this.formBuilder.group({
-      type: ['']
+      type: ['', Validators.required]
     });
 
     this.formErrorMatcher = new FormErrorHandler();
@@ -129,17 +129,25 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
 
-  setAddress(addrObj) {
-    console.log(addrObj);
-    this.city = addrObj.locality;
-    this.country = addrObj.country;
-    this.zipCode = addrObj.zipCode;
-    this.zone.run(() => {
-      this.addr = addrObj;
-      this.addrKeys = Object.keys(addrObj);
-    });
-    this.setMap(addrObj.formatted_address);
+  setAddress(addrObj, onSelect: boolean) {
+    // console.log(addrObj)
+    let address = "";
+    if (!this.helperService.isEmpty(addrObj) && onSelect) {
+      this.city = addrObj.locality;
+      this.country = addrObj.country;
+      this.zipCode = addrObj.zipCode;
+      this.zone.run(() => {
+        this.addr = addrObj;
+        this.addrKeys = Object.keys(addrObj);
+      });
+      address = addrObj.formatted_address;
+    }
+    else {
+      address = this.organizationForm.controls.address.value;
+    }
+    this.setMap(address);
   }
+
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
@@ -181,11 +189,18 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Set map location according to address
+   * Set map location according to address in organization form
    * @param address
    */
   setMap(address) {
-    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement));
+    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement)).then(res => {
+      this.displayNextButton = (res) ? true : false;
+      console.log(this.displayNextButton)
+      return (res) ? this.organizationForm.controls.address.setErrors(null) : this.organizationForm.controls.address.setErrors({ invalid: true });
+    }).catch(err => {
+      this.displayNextButton = true;
+      return this.organizationForm.controls.address.setErrors({ invalid: true })
+    })
   }
 
   /**

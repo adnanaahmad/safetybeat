@@ -206,6 +206,7 @@ export interface Messages {
   BACKEND_ERROR:string;
   ORGTYPEMESSAGE:string;
   VERIFICATIONCODEEMAIL:string;
+  INVALIDADDRESS:string
 }
 export interface Logger {
   STATUS: LoggerStatus;

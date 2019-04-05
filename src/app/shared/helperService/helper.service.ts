@@ -140,14 +140,28 @@ export class HelperService {
   setLocationGeocode(address, mapProp) {
     let geoCoder = new google.maps.Geocoder();
     let self = this;
-    geoCoder.geocode({ 'address': address }, function (results, status) {
-      if (status.toString() === self.constants.status.OK) {
-        mapProp.setCenter(results[0].geometry.location);
-        let marker = new google.maps.Marker({
-          map: mapProp,
-          position: results[0].geometry.location
-        });
-      }
-    });
+    // console.log("The address I have is: "+address)
+    let promise = new Promise((resolve) => {
+      geoCoder.geocode({ 'address': address }, function (results, status) {
+          if (status.toString() === self.constants.status.OK) {
+            mapProp.setCenter(results[0].geometry.location);
+            let marker = new google.maps.Marker({
+              map: mapProp,
+              position: results[0].geometry.location
+            });
+            resolve(true)
+          } else {
+          resolve(false)
+        }
+      })
+    })
+    return promise
   }
+
+/**
+ *  Return true if a object is empty
+ */
+isEmpty(myObj){
+  return Object.keys(myObj).length===0;
+}
 }
