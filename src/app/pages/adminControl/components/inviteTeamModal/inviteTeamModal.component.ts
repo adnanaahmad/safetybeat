@@ -1,9 +1,4 @@
-import {
-  Component,
-  Inject,
-  ViewChild,
-  ElementRef
-} from "@angular/core";
+import { Component, Inject, ViewChild, ElementRef } from "@angular/core";
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
@@ -19,8 +14,7 @@ import { ProfileService } from "src/app/pages/profile/services/profile.service";
 import { HelperService } from "src/app/shared/helperService/helper.service";
 import { User } from "src/app/models/user.model";
 import { CompilerProvider } from "src/app/shared/compiler/compiler";
-import * as _ from "lodash";
-import { AdminControlService } from '../../services/adminControl.service';
+import { AdminControlService } from "../../services/adminControl.service";
 @Component({
   selector: "app-inviteTeamModal",
   templateUrl: "./inviteTeamModal.component.html",
@@ -43,9 +37,9 @@ export class InviteTeamModalComponent {
   constructor(
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private adminServices:AdminControlService
+    private adminServices: AdminControlService,
+    private helperService: HelperService
   ) {
-    console.log(data);
     this.allUsers = this.data.inviteTeamData.usersData.map(x =>
       Object.assign({}, x)
     );
@@ -64,7 +58,7 @@ export class InviteTeamModalComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    let index = _.findIndex(this.users, function(obj) {
+    let index = this.helperService.findIndex(this.users, function(obj) {
       return obj.first_name === event.option.value.first_name;
     });
     if (index === -1) {
@@ -84,10 +78,17 @@ export class InviteTeamModalComponent {
     });
   }
 
-  inviteTeam(){
+  inviteTeam() {
+    let userEmails: any = [];
+    this.helperService.iterations(this.users, function(obj) {
+      userEmails.push(obj.email);
+    });
     let inviteTeamData = {
-      email: this.users,
-      entityCode: this.data.entityData.entityCode
+      email: userEmails,
+      entityCode: this.data.inviteTeamData.entityData
     };
+    this.adminServices.inviteTeam(inviteTeamData).subscribe((res)=>{
+      console.log(res);
+    })
   }
 }

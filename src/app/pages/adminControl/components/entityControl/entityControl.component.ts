@@ -150,7 +150,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
 
   inviteTeam(entityData: any) {
     let inviteTeamData = {
-      entityData: entityData,
+      entityData: entityData.entityInfo.code,
       usersData: this.allUsersList
     };
     this.helperService.createModal(InviteTeamModalComponent, {
