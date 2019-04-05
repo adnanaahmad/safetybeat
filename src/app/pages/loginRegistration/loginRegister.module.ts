@@ -31,7 +31,7 @@ import { LandingComponent } from './components/landing/landing.component';
     ForgotPasswordComponent,
     ParticleContainerComponent,
     PasswordRecoveryComponent,
-    LandingComponent
+    LandingComponent,
   ],
   providers: [
     LoginRegistrationService,

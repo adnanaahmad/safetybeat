@@ -46,7 +46,7 @@ export function createTranslateLoader(http: HttpClient) {
     AlertModalComponent,
     InviteUserModalComponent,
     VerificationComponent,
-    ToasterComponent
+    ToasterComponent,
   ],
   imports: [
     BrowserAnimationsModule,
