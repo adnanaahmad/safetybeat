@@ -9,6 +9,7 @@ import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandl
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { PhoneNumberUtil, PhoneNumber } from 'google-libphonenumber';
 import { debug } from 'util';
+import { EventManager } from '@angular/platform-browser';
 
 const phoneNumberUtil = PhoneNumberUtil.getInstance();
 @Component({
@@ -129,10 +130,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
 
-  setAddress(addrObj, onSelect: boolean) {
-    // console.log(addrObj)
-    let address = "";
-    if (!this.helperService.isEmpty(addrObj) && onSelect) {
+  setAddress(addrObj) {
+    let address = "", onSelect: boolean = false;
+        this.displayNextButton=true;
+    if (!this.helperService.isEmpty(addrObj)) {
       this.city = addrObj.locality;
       this.country = addrObj.country;
       this.zipCode = addrObj.zipCode;
@@ -141,11 +142,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.addrKeys = Object.keys(addrObj);
       });
       address = addrObj.formatted_address;
+      onSelect = true;
     }
     else {
       address = this.organizationForm.controls.address.value;
     }
-    this.setMap(address);
+    this.setMap(address, onSelect);
   }
 
   numberOnly(event): boolean {
@@ -192,13 +194,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * Set map location according to address in organization form
    * @param address
    */
-  setMap(address) {
+  setMap(address, onSelect: boolean) {
+    this.displayNextButton = onSelect;
     this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement)).then(res => {
-      this.displayNextButton = (res) ? true : false;
-      console.log(this.displayNextButton)
-      return (res) ? this.organizationForm.controls.address.setErrors(null) : this.organizationForm.controls.address.setErrors({ invalid: true });
-    }).catch(err => {
       this.displayNextButton = true;
+      return this.organizationForm.controls.address.setErrors(null);
+    }).catch(err => {
+      this.displayNextButton = false;
       return this.organizationForm.controls.address.setErrors({ invalid: true })
     })
   }
@@ -255,7 +257,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status)
     });
-
-
+  }
+  setFalse(event) {
+    if (event.which !== 13) {
+      this.displayNextButton = false;
+    }
   }
 }

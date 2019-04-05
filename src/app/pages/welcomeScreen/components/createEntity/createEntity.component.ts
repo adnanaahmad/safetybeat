@@ -34,6 +34,7 @@ export class CreateEntityComponent implements OnInit {
   entitiesList: any;
   entityUserData: any;
   loading: boolean = false;
+  displayCreateButton: boolean = false;
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
@@ -57,26 +58,41 @@ export class CreateEntityComponent implements OnInit {
     this.createEntityForm = this.formBuilder.group({
       name: ["", Validators.required],
       headOffice: ["", Validators.required],
-      status: [""]
     });
   }
   setAddress(addrObj) {
-    this.city = addrObj.locality;
-    this.country = addrObj.country;
-    this.zipCode = addrObj.zipCode;
-    this.zone.run(() => {
-      this.addr = addrObj;
-      this.addrKeys = Object.keys(addrObj);
-    });
-    this.setMap(addrObj.formatted_address);
+    let address = "", onSelect: boolean = false;;
+    this.displayCreateButton = true;
+    if (!this.helperService.isEmpty(addrObj)) {
+      this.city = addrObj.locality;
+      this.country = addrObj.country;
+      this.zipCode = addrObj.zipCode;
+      this.zone.run(() => {
+        this.addr = addrObj;
+        this.addrKeys = Object.keys(addrObj);
+      });
+      address = addrObj.formatted_address;
+      onSelect = true;
+    }
+    else {
+      address = this.createEntityForm.controls.headOffice.value;
+    }
+    this.setMap(address, onSelect);
   }
 
   /**
-  * Set map location according to address
-  * @param address
-  */
-  setMap(address) {
-    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement));
+   * Set map location according to address in organization form
+   * @param address
+   */
+  setMap(address, onSelect: boolean) {
+    this.displayCreateButton = onSelect;
+    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement)).then(res => {
+      this.displayCreateButton = true;
+      return this.createEntityForm.controls.headOffice.setErrors(null);
+    }).catch(err => {
+      this.displayCreateButton = false;
+      return this.createEntityForm.controls.headOffice.setErrors({ invalid: true })
+    })
   }
 
   get formValidation() {
@@ -94,7 +110,7 @@ export class CreateEntityComponent implements OnInit {
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
-      active: value.status,
+      active: true,
       roleId: 2
     };
     var data = {
@@ -158,5 +174,10 @@ export class CreateEntityComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+  setFalse(event) {
+    if (event.which !== 13) {
+      this.displayCreateButton = false;
+    }
   }
 }

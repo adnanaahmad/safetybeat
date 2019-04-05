@@ -140,8 +140,7 @@ export class HelperService {
   setLocationGeocode(address, mapProp) {
     let geoCoder = new google.maps.Geocoder();
     let self = this;
-    // console.log("The address I have is: "+address)
-    let promise = new Promise((resolve) => {
+    let promise = new Promise((resolve,reject) => {
       geoCoder.geocode({ 'address': address }, function (results, status) {
           if (status.toString() === self.constants.status.OK) {
             mapProp.setCenter(results[0].geometry.location);
@@ -151,7 +150,7 @@ export class HelperService {
             });
             resolve(true)
           } else {
-          resolve(false)
+          reject(false)
         }
       })
     })
