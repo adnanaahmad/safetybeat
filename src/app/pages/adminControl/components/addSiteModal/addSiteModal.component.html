@@ -1,0 +1,53 @@
+<mat-card-title class="mat-dialog-title">
+  {{addSiteModel.translated.MESSAGES.ADDSITE_MSG}}
+</mat-card-title>
+<div mat-dialog-content>
+  <form [formGroup]="addSiteForm" (ngSubmit)= addSite(addSiteForm)>
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input
+          matInput
+          type="text"
+          placeholder="{{ addSiteModel.translated.TABLEHEADINGS.SITE_NAME }}"
+          formControlName="{{ addSiteModel.appConstants.siteName }}"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field full-width>
+        <input
+          matInput
+          type="text"
+          placeholder="{{ addSiteModel.translated.STRINGS.SITESAFETYPLAN }}"
+          formControlName="{{ addSiteModel.appConstants.siteSafetyPlan }}"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field full-width>
+        <input
+          matInput
+          type="text"
+          placeholder="{{ addSiteModel.translated.STRINGS.SITEADDRESS }}"
+          formControlName="{{ addSiteModel.appConstants.siteAddress }}"
+          required
+        />
+      </mat-form-field>
+      <mat-slide-toggle formControlName="{{ addSiteModel.appConstants.safeZone }}">
+        Safe Zone
+    </mat-slide-toggle>
+    </div>
+    <mat-dialog-actions>
+      <button
+        mat-raised-button
+        cdkFocusInitial
+        custom-btn
+        btn-primary
+        color="primary"
+      >
+        {{ addSiteModel.translated.BUTTONS.ADD_SITE }}
+      </button>
+      <button mat-button mat-dialog-close>
+        {{ addSiteModel.translated.BUTTONS.CANCEL }}
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

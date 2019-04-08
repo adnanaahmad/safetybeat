@@ -10,6 +10,7 @@ import { SiteCenterComponent } from './components/siteCenter/siteCenter.componen
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { InviteUsersModalComponent } from './components/inviteUsersModal/inviteUsersModal.component';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { AddSiteModalComponent } from './components/addSiteModal/addSiteModal.component';
 
 @NgModule({
   declarations: [

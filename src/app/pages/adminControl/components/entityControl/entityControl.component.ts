@@ -1,27 +1,27 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
-import { Translation } from 'src/app/models/translate.model';
+import {Component, OnInit, ViewChild, Input, AfterViewInit} from '@angular/core';
+import {Translation} from 'src/app/models/translate.model';
 import {
   MatDialogConfig,
   MatDialog,
   MatTableDataSource,
   MatPaginator
 } from '@angular/material';
-import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
-import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
-import { AdminControlService } from '../../services/adminControl.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { AlertModalComponent } from '../entityCodeModal/entityCodeModal.component';
+import {CreateEntityComponent} from '../createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from '../joinEntityModal/joinEntityModal.component';
+import {AdminControlService} from '../../services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {AlertModalComponent} from '../entityCodeModal/entityCodeModal.component';
 
 @Component({
   selector: 'app-entityControl',
   templateUrl: './entityControl.component.html',
   styleUrls: ['./entityControl.component.scss']
 })
-export class EntityControlComponent implements OnInit,AfterViewInit{
-  entitySelectedRole:string;
+export class EntityControlComponent implements OnInit, AfterViewInit {
+  entitySelectedRole: string;
   dialogConfig = new MatDialogConfig();
-  displayedColumns: string[] = ['name', 'headOffice','role','administrator', 'symbol'];
+  displayedColumns: string[] = ['name', 'headOffice', 'role', 'administrator', 'symbol'];
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   translated: Translation;
@@ -30,12 +30,13 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   allEntitiesData: any = [];
   entitiesList: any = [];
   empty: boolean = false;
-  createEntityOption:boolean=false;
+  createEntityOption: boolean = false;
+
   constructor(
     public dialog: MatDialog,
     public adminServices: AdminControlService,
     public helperService: HelperService,
-    private navService : NavigationService
+    private navService: NavigationService
   ) {
     this.translated = this.helperService.translation;
     this.appIcons = this.helperService.constants.appIcons;
@@ -50,23 +51,27 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
     this.creationEnable();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
   }
+
   createEntity() {
     this.helperService.createModal(CreateEntityComponent)
   }
+
   joinEntity() {
     this.helperService.createModal(JoinEntityModalComponent)
   }
+
   entityCode(code, name) {
-    this.helperService.createModal(AlertModalComponent, { data: { name: name, code: code } });
+    this.helperService.createModal(AlertModalComponent, {data: {name: name, code: code}});
   }
+
   viewAllEntities() {
     this.empty = true;
-    var data = {
+    let data = {
       'moduleName': 'Safetybeat'
     };
-    this.navService.data.subscribe((res)=>{
+    this.navService.data.subscribe((res) => {
       this.entitiesList = res;
       this.allEntitiesData = this.entitiesList.entities;
       this.empty = false;
@@ -78,12 +83,13 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
     });
 
   }
-  creationEnable(){
-    this.navService.currentRole.subscribe((res)=>{
+
+  creationEnable() {
+    this.navService.currentRole.subscribe((res) => {
       this.entitySelectedRole = res;
-      if(this.entitySelectedRole==='Owner'){
+      if (this.entitySelectedRole === 'Owner') {
         this.createEntityOption = true;
-      } else{
+      } else {
         this.createEntityOption = false;
       }
     })
