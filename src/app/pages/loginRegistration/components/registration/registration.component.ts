@@ -1,9 +1,9 @@
 import {Component, OnInit, OnDestroy, Input, NgZone, ViewChild, ElementRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoginRegistrationService} from '../../services/LoginRegistrationService';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {Translation} from 'src/app/models/translate.model';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 
