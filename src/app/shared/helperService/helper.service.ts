@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import {
   forEach,
   findIndex
@@ -25,13 +24,12 @@ export class HelperService {
   constants: typeof ConstantService;
   constructor(
     private http: HttpClient,
-    public toast: ToastrManager,
     private snackBar: MatSnackBar,
     public translate: TranslateService,
     public dialog: MatDialog,
     private cookies: CookieService,
     private router: Router,
-    private notifier: NotifierService,
+    private notifier: NotifierService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', "SITETITLE", 'STATUS', "TABLEHEADINGS"]).subscribe((values) => {
       this.translation = values;
