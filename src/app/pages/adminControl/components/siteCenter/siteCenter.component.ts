@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewChild, Compiler, AfterViewInit} from '@angular/core';
-import {Translation} from 'src/app/models/translate.model';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {
   MatDialogConfig,
@@ -7,12 +6,11 @@ import {
   MatTableDataSource,
   MatPaginator
 } from '@angular/material';
-import {BehaviorSubject} from 'rxjs';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {SitesInfo} from 'src/app/models/site.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {AddSiteModalComponent} from 'src/app/pages/adminControl/components/addSiteModal/addSiteModal.component';
+import { SiteCentre } from 'src/app/models/adminControl/siteCentre.model';
 
 @Component({
   selector: 'app-siteCenter',
@@ -21,16 +19,10 @@ import {AddSiteModalComponent} from 'src/app/pages/adminControl/components/addSi
 })
 export class SiteCenterComponent implements OnInit {
 
-  translated: Translation;
   dialogConfig = new MatDialogConfig();
-  dataSource: any = [];
-  appIcons: any;
-  sitesList: any;
-  sitesData: SitesInfo[];
-  displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  entityData: any;
-  entityId: any;
+  siteCentreModel : SiteCentre = <SiteCentre>{};
+  displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'symbol'];
 
   constructor(
     public dialog: MatDialog,
@@ -39,11 +31,11 @@ export class SiteCenterComponent implements OnInit {
     public compiler: CompilerProvider,
     private navService: NavigationService,
   ) {
-    this.translated = this.helperService.translation;
-    this.appIcons = this.helperService.constants.appIcons;
+    this.siteCentreModel.translated = this.helperService.translation;
+    this.siteCentreModel.appIcons = this.helperService.constants.appIcons;
     this.navService.selectedEntityData.subscribe((res) => {
-      this.entityData = res;
-      this.entityId = this.entityData.entityInfo.id;
+      this.siteCentreModel.entityData = res;
+      this.siteCentreModel.entityId = this.siteCentreModel.entityData.entityInfo.id;
     });
 
   }
@@ -56,18 +48,18 @@ export class SiteCenterComponent implements OnInit {
     this.adminServices.siteObserver.subscribe((res) => {
       if (res === 1) {
         let data = {
-          'entityId': this.entityId
+          'entityId': this.siteCentreModel.entityId
         };
         this.adminServices.viewSites(data).subscribe((res) => {
-          this.sitesList = res;
-          this.sitesData = this.compiler.constructSiteData(this.sitesList);
-          this.adminServices.changeSites(this.sitesData);
-          this.dataSource = new MatTableDataSource(this.sitesData);
-          this.dataSource.paginator = this.paginator;
+          this.siteCentreModel.sitesList = res;
+          this.siteCentreModel.sitesData = this.compiler.constructSiteData(this.siteCentreModel.sitesList);
+          this.adminServices.changeSites(this.siteCentreModel.sitesData);
+          this.siteCentreModel.dataSource = new MatTableDataSource(this.siteCentreModel.sitesData);
+          this.siteCentreModel.dataSource.paginator = this.paginator;
         });
       } else {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
+        this.siteCentreModel.dataSource = new MatTableDataSource(res);
+        this.siteCentreModel.dataSource.paginator = this.paginator;
 
       }
     });
