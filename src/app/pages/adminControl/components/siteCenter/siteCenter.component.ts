@@ -21,7 +21,7 @@ export class SiteCenterComponent implements OnInit {
 
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  siteCentreModel : SiteCentre = <SiteCentre>{};
+  siteCentreModel: SiteCentre = <SiteCentre>{};
   displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'symbol'];
 
   constructor(
