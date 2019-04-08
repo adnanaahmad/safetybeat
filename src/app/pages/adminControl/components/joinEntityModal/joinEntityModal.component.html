@@ -1,5 +1,5 @@
 <mat-card-title class="mat-dialog-title">{{
-  translated.MESSAGES.JOINENTITY_MSG
+  joinEntity.translated.MESSAGES.JOINENTITY_MSG
 }}</mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="joinEntityForm" (ngSubmit)="entityJoin(joinEntityForm)">
@@ -8,13 +8,13 @@
         <input
           matInput
           type="text"
-          placeholder="{{ translated.MESSAGES.ENTITYCODE }}"
-          formControlName="{{ appConstants.joinCode }}"
+          placeholder="{{ joinEntity.translated.MESSAGES.ENTITYCODE }}"
+          formControlName="{{ joinEntity.appConstants.joinCode }}"
           required
         />
         <mat-error *ngIf="formValidation.joinCode.errors">
           <span *ngIf="formValidation.joinCode.errors.required">{{
-            translated.MESSAGES.ENTITYCODE_REQ
+            joinEntity.translated.MESSAGES.ENTITYCODE_REQ
           }}</span>
         </mat-error>
       </mat-form-field>
@@ -27,10 +27,10 @@
         btn-primary
         color="primary"
       >
-        {{ translated.BUTTONS.JOIN_ENTITY }}
+        {{ joinEntity.translated.BUTTONS.JOIN_ENTITY }}
       </button>
       <button mat-button mat-dialog-close>
-        {{ translated.BUTTONS.CANCEL }}
+        {{ joinEntity.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>
   </form>
