@@ -1,8 +1,8 @@
-import {Component, OnInit, NgZone, Input, AfterViewInit} from '@angular/core';
+import {Component, OnInit, NgZone, AfterViewInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {FormBuilder, Validators, FormGroup} from '@angular/forms';
-import {entity, entityData} from 'src/app/models/entity.model';
-import {AdminControlService} from '../../services/adminControl.service';
+import { entityData} from 'src/app/models/entity.model';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -93,8 +93,8 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
         this.entityResponse = result;
         this.onNoClick();
-        if (this.entityResponse.responseDetails.code == '0012') {
-          var data = {
+        if (this.entityResponse.responseDetails.code === '0012') {
+          let data = {
             'moduleName': 'Safetybeat'
           }
           this.adminServices.viewEntities(data).subscribe(res => {
@@ -103,9 +103,9 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
             this.navService.changeEntites(entityUserData);
           })
           this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.entityResponse.responseDetails.message);
-        } else if (this.entityResponse.responseDetails.code == '0013') {
+        } else if (this.entityResponse.responseDetails.code === '0013') {
           this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
-        } else if (this.entityResponse.responseDetails.code == '0017') {
+        } else if (this.entityResponse.responseDetails.code === '0017') {
           this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
         }
       }, (error => {

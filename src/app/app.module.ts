@@ -21,7 +21,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CreateEntityComponent } from './pages/adminControl/components/createEntityModal/createEntity.component';
 import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
-import { OrgRegistrationComponent } from './pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component';
 import { JoinEntityModalComponent } from './pages/adminControl/components/joinEntityModal/joinEntityModal.component';
 import { InviteUserModalComponent } from './pages/navigation/components/inviteUserModal/inviteUserModal.component';
 import { AlertModalComponent } from './pages/adminControl/components/entityCodeModal/entityCodeModal.component';
@@ -39,8 +38,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ModalDialogComponent, // this need to be remove after profile page is done 
-    OrgRegistrationComponent,
+    ModalDialogComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
@@ -87,8 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
 
   bootstrap: [AppComponent],
   entryComponents: [
-    ModalDialogComponent, // this need to be remove after profile page is done 
-    OrgRegistrationComponent,
+    ModalDialogComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,

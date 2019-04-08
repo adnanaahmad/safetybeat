@@ -4,7 +4,7 @@ import {entity, joinEntity} from 'src/app/models/entity.model';
 import {map, catchError} from 'rxjs/operators';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {InviteTeamData, InviteTeamResponse} from '../../../models/inviteUser.model';
+import {InviteTeamData, InviteTeamResponse} from 'src/app/models/inviteUser.model';
 import {Observable} from 'rxjs';
 
 @Injectable({

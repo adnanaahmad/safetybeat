@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   ViewChild,
-  Input,
   AfterViewInit
 } from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
@@ -12,13 +11,13 @@ import {
   MatTableDataSource,
   MatPaginator
 } from '@angular/material';
-import {CreateEntityComponent} from '../createEntityModal/createEntity.component';
-import {JoinEntityModalComponent} from '../joinEntityModal/joinEntityModal.component';
-import {AdminControlService} from '../../services/adminControl.service';
+import {CreateEntityComponent} from 'src/app/pages/adminControl/components/createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from 'src/app/pages/adminControl/components/joinEntityModal/joinEntityModal.component';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AlertModalComponent} from '../entityCodeModal/entityCodeModal.component';
-import {InviteTeamModalComponent} from '../inviteTeamModal/inviteTeamModal.component';
+import {AlertModalComponent} from 'src/app/pages/adminControl/components/entityCodeModal/entityCodeModal.component';
+import {InviteTeamModalComponent} from 'src/app/pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
 
@@ -41,7 +40,6 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   translated: Translation;
   appIcons: any;
-  joinEntityData: any;
   allEntitiesData: any = [];
   entitiesList: any = [];
   empty: boolean = false;

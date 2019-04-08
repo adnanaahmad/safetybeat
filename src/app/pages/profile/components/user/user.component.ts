@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
-import {ProfileService} from '../../services/profile.service';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {share} from 'rxjs/operators';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-user',

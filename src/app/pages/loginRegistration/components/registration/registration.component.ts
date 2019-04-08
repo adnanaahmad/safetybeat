@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, Input, NgZone } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { RegisterUser } from 'src/app/models/user.model';
-import { Translation } from 'src/app/models/translate.model';
-import { CompilerProvider } from '../../../../shared/compiler/compiler';
-import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, OnDestroy, Input, NgZone} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import {Translation} from 'src/app/models/translate.model';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 
 @Component({
@@ -46,13 +45,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
-        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+          this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.types = data[0];
         this.modules = data[1];
         this.packages = data[2];
       }, error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
-          this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       });
   }
 
@@ -105,7 +105,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
-    }, { validator: this.checkPasswords });
+    }, {validator: this.checkPasswords});
 
     this.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -132,6 +132,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.addrKeys = Object.keys(addrObj);
     });
   }
+
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
@@ -143,7 +144,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
-    return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
+    return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
   checkEmail(group) {
@@ -151,17 +152,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'email': [group.value.email, Validators.email]
     });
     if (this.email.status === 'VALID') {
-      const email = { email: group.value.email };
+      const email = {email: group.value.email};
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code == '0020') {
-          group.controls.email.setErrors({ exists: true });
+        if (this.success.responseDetails.code === '0020') {
+          group.controls.email.setErrors({exists: true});
         }
       });
     }
   }
 
-  
 
   /**
    * saves package against module
@@ -209,7 +209,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.router.navigate(['/welcomeScreen']);
       }
-    }, (error)=>{
+    }, (error) => {
       this.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);

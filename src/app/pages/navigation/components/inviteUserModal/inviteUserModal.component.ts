@@ -1,8 +1,8 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {inviteUser} from '../../../../models/inviteUser.model';
+import {inviteUser} from 'src/app/models/inviteUser.model';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {Translation} from 'src/app/models/translate.model';
-import {NavigationService} from '../../services/navigation.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 

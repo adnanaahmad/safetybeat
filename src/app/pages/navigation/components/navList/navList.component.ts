@@ -1,17 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NavItem } from 'src/app/models/navItems.model';
-import { Router } from '@angular/router';
-import { NavigationService } from '../../services/navigation.service';
-import { MatDialogConfig, MatDialog } from '@angular/material';
-import { InviteUserModalComponent } from '../inviteUserModal/inviteUserModal.component';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { Translation } from 'src/app/models/translate.model';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, Input} from '@angular/core';
+import {NavItem} from 'src/app/models/navItems.model';
+import {Router} from '@angular/router';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {MatDialogConfig, MatDialog} from '@angular/material';
+import {InviteUserModalComponent} from 'src/app/pages/navigation/components/inviteUserModal/inviteUserModal.component';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {Translation} from 'src/app/models/translate.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: "app-nav-list",
-  templateUrl: "./navList.component.html",
-  styleUrls: ["./navList.component.scss"]
+  selector: 'app-nav-list',
+  templateUrl: './navList.component.html',
+  styleUrls: ['./navList.component.scss']
 })
 export class NavListComponent implements OnInit {
   item: any;
@@ -22,6 +22,7 @@ export class NavListComponent implements OnInit {
   @Input() public navLinksBottom;
   roles: any;
   @Input() public selectedEntity;
+
   constructor(
     public router: Router,
     public navService: NavigationService,
@@ -38,10 +39,11 @@ export class NavListComponent implements OnInit {
       this.item = this.navLinks;
     }
   }
+
   getRoles() {
     this.navService.getRoles().subscribe((res) => {
       this.roles = res;
-      var self = this;
+      let self = this;
       this.helperService.iterations(this.roles, function (obj) {
         obj.name = self.compiler.insertSpaces(obj.name)
       })
@@ -51,6 +53,7 @@ export class NavListComponent implements OnInit {
       this.helperService.logoutError(err.status);
     })
   }
+
   onItemSelected(navLinks: NavItem) {
     if (!navLinks.children || !navLinks.children.length) {
       this.router.navigate([navLinks.route]);
@@ -59,6 +62,7 @@ export class NavListComponent implements OnInit {
       this.expanded = !this.expanded;
     }
   }
+
   customActions(displayName) {
     switch (displayName) {
       case 'Invite Users':
@@ -73,7 +77,7 @@ export class NavListComponent implements OnInit {
   }
 
   inviteUserModal(entityId) {
-    this.helperService.createModal(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
+    this.helperService.createModal(InviteUserModalComponent, {data: {'role': this.roles, 'entityId': entityId}});
   }
 
 }

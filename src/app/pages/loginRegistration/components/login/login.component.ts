@@ -1,7 +1,7 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoginRegistrationService} from '../../services/LoginRegistrationService';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {loginCredentials} from 'src/app/models/user.model';
 import {Translation} from 'src/app/models/translate.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
@@ -9,7 +9,6 @@ import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   data: any;
   translated: Translation;
   success: any;
-  showError: string;
   appConstants: any;
   formErrorMatcher: any;
   entites: any;

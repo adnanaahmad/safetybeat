@@ -22,6 +22,7 @@ export class InviteTeamModalComponent {
 
   @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
   constructor(
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,9 +36,10 @@ export class InviteTeamModalComponent {
     this.inviteTeamModel.userCtrl = new FormControl();
     this.inviteTeamModel.translated = this.helperService.translation;
     this.inviteTeamModel.loading = false;
-    this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData.map(x =>
+
+    this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData ? this.data.inviteTeamData.usersData.map(x =>
       Object.assign({}, x)
-    );
+    ) : [];
     this.inviteTeamModel.filteredUsers = this.inviteTeamModel.userCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: any | null) => {
