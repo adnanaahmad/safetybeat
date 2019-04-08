@@ -4,38 +4,38 @@ import {
   ViewChild,
   Input,
   AfterViewInit
-} from "@angular/core";
-import { Translation } from "src/app/models/translate.model";
+} from '@angular/core';
+import {Translation} from 'src/app/models/translate.model';
 import {
   MatDialogConfig,
   MatDialog,
   MatTableDataSource,
   MatPaginator
-} from "@angular/material";
-import { CreateEntityComponent } from "../createEntityModal/createEntity.component";
-import { JoinEntityModalComponent } from "../joinEntityModal/joinEntityModal.component";
-import { AdminControlService } from "../../services/adminControl.service";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { NavigationService } from "src/app/pages/navigation/services/navigation.service";
-import { AlertModalComponent } from "../entityCodeModal/entityCodeModal.component";
-import { InviteTeamModalComponent } from "../inviteTeamModal/inviteTeamModal.component";
-import { ProfileService } from "src/app/pages/profile/services/profile.service";
-import { share } from "rxjs/operators";
+} from '@angular/material';
+import {CreateEntityComponent} from '../createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from '../joinEntityModal/joinEntityModal.component';
+import {AdminControlService} from '../../services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {AlertModalComponent} from '../entityCodeModal/entityCodeModal.component';
+import {InviteTeamModalComponent} from '../inviteTeamModal/inviteTeamModal.component';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {share} from 'rxjs/operators';
 
 @Component({
-  selector: "app-entityControl",
-  templateUrl: "./entityControl.component.html",
-  styleUrls: ["./entityControl.component.scss"]
+  selector: 'app-entityControl',
+  templateUrl: './entityControl.component.html',
+  styleUrls: ['./entityControl.component.scss']
 })
 export class EntityControlComponent implements OnInit, AfterViewInit {
   entitySelectedRole: string;
   dialogConfig = new MatDialogConfig();
   displayedColumns: string[] = [
-    "name",
-    "headOffice",
-    "role",
-    "administrator",
-    "symbol"
+    'name',
+    'headOffice',
+    'role',
+    'administrator',
+    'symbol'
   ];
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,6 +49,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   joinOption: boolean = false;
   allUsers: any;
   allUsersList: any;
+
   constructor(
     public dialog: MatDialog,
     public adminServices: AdminControlService,
@@ -77,22 +78,27 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.joinEnable();
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+  }
+
   createEntity() {
     this.helperService.createModal(CreateEntityComponent);
   }
+
   joinEntity() {
     this.helperService.createModal(JoinEntityModalComponent);
   }
+
   entityCode(code, name) {
     this.helperService.createModal(AlertModalComponent, {
-      data: { name: name, code: code }
+      data: {name: name, code: code}
     });
   }
+
   viewAllEntities() {
     this.empty = true;
-    var data = {
-      moduleName: "Safetybeat"
+    let data = {
+      moduleName: 'Safetybeat'
     };
     this.navService.data.subscribe(
       res => {
@@ -108,10 +114,11 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
   creationEnable() {
     this.navService.currentRole.subscribe(res => {
       this.entitySelectedRole = res;
-      if (this.entitySelectedRole === "Owner") {
+      if (this.entitySelectedRole === 'Owner') {
         this.createEntityOption = true;
       } else {
         this.createEntityOption = false;
@@ -123,9 +130,9 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.navService.currentRole.subscribe(res => {
       this.entitySelectedRole = res;
       if (
-        this.entitySelectedRole === "Owner" ||
-        this.entitySelectedRole === "TeamLead" ||
-        this.entitySelectedRole === "EntityManager"
+        this.entitySelectedRole === 'Owner' ||
+        this.entitySelectedRole === 'TeamLead' ||
+        this.entitySelectedRole === 'EntityManager'
       ) {
         this.joinOption = true;
       } else {
@@ -154,7 +161,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
       usersData: this.allUsersList
     };
     this.helperService.createModal(InviteTeamModalComponent, {
-      data: { inviteTeamData }
+      data: {inviteTeamData}
     });
   }
 }

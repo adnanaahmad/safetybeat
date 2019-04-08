@@ -1,30 +1,32 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
-import { Translation } from "src/app/models/translate.model";
-import { ProfileService } from "../../services/profile.service";
-import { MatTableDataSource, MatPaginator } from "@angular/material";
-import { share } from "rxjs/operators";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { CompilerProvider } from "src/app/shared/compiler/compiler";
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {Translation} from 'src/app/models/translate.model';
+import {ProfileService} from '../../services/profile.service';
+import {MatTableDataSource, MatPaginator} from '@angular/material';
+import {share} from 'rxjs/operators';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+
 @Component({
-  selector: "app-user",
-  templateUrl: "./user.component.html",
-  styleUrls: ["./user.component.scss"]
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit, AfterViewInit {
   translated: Translation;
   appIcons: any;
   displayedColumns: string[] = [
-    "Firstname",
-    "Lastname",
-    "Email",
-    "Contact No.",
-    "symbol"
+    'Firstname',
+    'Lastname',
+    'Email',
+    'Contact No.',
+    'symbol'
   ];
   allUsers: any = [];
   allUsersList: any;
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   empty: boolean = false;
+
   constructor(
     public userService: ProfileService,
     public helperService: HelperService
@@ -33,11 +35,11 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.appIcons = this.helperService.constants.appIcons;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngAfterViewInit() {
     this.userService.usersData.subscribe(res => {
-      debugger
       if (res === 1) {
         this.getAllUsers();
       } else {
@@ -47,6 +49,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   getAllUsers() {
     this.allUsers = this.userService.getAllUsers().pipe(share());
     this.allUsers.subscribe(
