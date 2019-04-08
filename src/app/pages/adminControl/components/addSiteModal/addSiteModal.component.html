@@ -1,5 +1,5 @@
 <mat-card-title class="mat-dialog-title">
-  {{translated.MESSAGES.ADDSITE_MSG}}
+  {{addSiteModel.translated.MESSAGES.ADDSITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="addSiteForm" (ngSubmit)= addSite(addSiteForm)>
@@ -8,8 +8,8 @@
         <input
           matInput
           type="text"
-          placeholder="{{ translated.TABLEHEADINGS.SITE_NAME }}"
-          formControlName="{{ appConstants.siteName }}"
+          placeholder="{{ addSiteModel.translated.TABLEHEADINGS.SITE_NAME }}"
+          formControlName="{{ addSiteModel.appConstants.siteName }}"
           required
         />
       </mat-form-field>
@@ -17,8 +17,8 @@
         <input
           matInput
           type="text"
-          placeholder="{{ translated.STRINGS.SITESAFETYPLAN }}"
-          formControlName="{{ appConstants.siteSafetyPlan }}"
+          placeholder="{{ addSiteModel.translated.STRINGS.SITESAFETYPLAN }}"
+          formControlName="{{ addSiteModel.appConstants.siteSafetyPlan }}"
           required
         />
       </mat-form-field>
@@ -26,12 +26,12 @@
         <input
           matInput
           type="text"
-          placeholder="{{ translated.STRINGS.SITEADDRESS }}"
-          formControlName="{{ appConstants.siteAddress }}"
+          placeholder="{{ addSiteModel.translated.STRINGS.SITEADDRESS }}"
+          formControlName="{{ addSiteModel.appConstants.siteAddress }}"
           required
         />
       </mat-form-field>
-      <mat-slide-toggle formControlName="{{ appConstants.safeZone }}">
+      <mat-slide-toggle formControlName="{{ addSiteModel.appConstants.safeZone }}">
         Safe Zone
     </mat-slide-toggle>
     </div>
@@ -43,10 +43,10 @@
         btn-primary
         color="primary"
       >
-        {{ translated.BUTTONS.ADD_SITE }}
+        {{ addSiteModel.translated.BUTTONS.ADD_SITE }}
       </button>
       <button mat-button mat-dialog-close>
-        {{ translated.BUTTONS.CANCEL }}
+        {{ addSiteModel.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>
   </form>

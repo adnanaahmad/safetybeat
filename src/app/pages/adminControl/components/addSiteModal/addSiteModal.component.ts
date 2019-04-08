@@ -7,6 +7,7 @@ import { AdminControlService } from '../../services/adminControl.service';
 import { Site, SiteAddData, SitesInfo } from '../../../../models/site.model';
 import { NavigationService } from '../../../navigation/services/navigation.service';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
+import { AddSite } from '../../../../models/adminControl/addSite.model';
 
 @Component({
   selector: 'app-addSiteModal',
@@ -15,14 +16,9 @@ import { CompilerProvider } from '../../../../shared/compiler/compiler';
 })
 export class AddSiteModalComponent implements OnInit {
 
-  translated: Translation;
+  
   addSiteForm: FormGroup;
-  appConstants: any;
-  entityData: any;
-  entityId: any;
-  sitesList: any;
-  sitesData: SitesInfo[];
-  addSiteResponse: any;
+  addSiteModel: AddSite = <AddSite>{};
 
   constructor(
     public helperService: HelperService,
@@ -35,11 +31,11 @@ export class AddSiteModalComponent implements OnInit {
 
   ) {
     this.navService.selectedEntityData.subscribe((res) => {
-      this.entityData = res;
-      this.entityId = this.entityData.entityInfo.id;
+      this.addSiteModel.entityData = res;
+      this.addSiteModel.entityId = this.addSiteModel.entityData.entityInfo.id;
     });
-    this.translated = this.helperService.translation;
-    this.appConstants = this.helperService.constants.appConstant;
+    this.addSiteModel.translated = this.helperService.translation;
+    this.addSiteModel.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
 
   }
@@ -66,23 +62,23 @@ export class AddSiteModalComponent implements OnInit {
       location: value.siteAddress,
       safeZone: value.safeZone,
       siteSafetyPlan: value.siteSafetyPlan,
-      entity: this.entityId
+      entity: this.addSiteModel.entityId
     };
     let data = {
-      'entityId': this.entityId
+      'entityId': this.addSiteModel.entityId
     };
     this.adminServices.addSite(siteData).subscribe((res) => {
-      this.addSiteResponse = res;
-      if (this.addSiteResponse.responseDetails.code == '0038') {
+      this.addSiteModel.addSiteResponse = res;
+      if (this.addSiteModel.addSiteResponse.responseDetails.code === '0038') {
         this.adminServices.viewSites(data).subscribe((res) => {
-          this.sitesList = res;
-          this.sitesData = this.compiler.constructSiteData(this.sitesList);
-          this.adminServices.changeSites(this.sitesData);
+          this.addSiteModel.sitesList = res;
+          this.addSiteModel.sitesData = this.compiler.constructSiteData(this.addSiteModel.sitesList);
+          this.adminServices.changeSites(this.addSiteModel.sitesData);
           this.onNoClick();
         });
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Site has been created successfully');
       }
-      else if (this.addSiteResponse.responseDetails.code == '0037') {
+      else if (this.addSiteModel.addSiteResponse.responseDetails.code === '0037') {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Site Creation Failed')
       }
     });
