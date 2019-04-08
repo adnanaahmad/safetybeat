@@ -113,7 +113,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           }, (err) => {
             
           })
-
         } else if (data.responseDetails.code === '0001') {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,

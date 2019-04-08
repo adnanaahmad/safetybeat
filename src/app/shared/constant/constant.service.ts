@@ -34,6 +34,8 @@ export class ConstantService {
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
+    viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
+    addSite: `${environment.apiUrl}/api/sites/addSite/`
   };
   static apiMethod = {
     get: 'get',
@@ -57,7 +59,8 @@ export class ConstantService {
       dark: "dark-theme",
       light: "light-theme",
       background: "body-bg",
-      modalClass: "verify-modal"
+      modalClass: "verify-modal",
+      addSiteClass: "addsite-modal"
     }
   };
   static appTheme = {
@@ -90,7 +93,11 @@ export class ConstantService {
     status: "status",
     joinCode: "joinCode",
     role: "role",
-    code: "code"
+    code: "code",
+    siteName: "siteName",
+    siteSafetyPlan: "siteSafetyPlan",
+    siteAddress: "siteAddress",
+    safeZone: "safeZone"
   };
   static appIcons = {
     skipNext: "skip_next",
@@ -142,7 +149,11 @@ export class ConstantService {
     folderShared: "folder_shared",
     groupAdd: "group_add",
     payment: "payment",
-    exit_to_app: "exitToApp"
+    exit_to_app: "exitToApp",
+    edit: "edit",
+    viewSite: "remove_red_eye",
+    siteQuestionCenter: "question_answer",
+    log: "library_books"
   };
   static particlesIcons = [
     'more_vert',
