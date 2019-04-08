@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, Compiler, AfterViewInit} from '@angular/core';
-import {Translation} from '../../../../models/translate.model';
-import {HelperService} from '../../../../shared/helperService/helper.service';
+import {Translation} from 'src/app/models/translate.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {
   MatDialogConfig,
   MatDialog,
@@ -8,11 +8,11 @@ import {
   MatPaginator
 } from '@angular/material';
 import {BehaviorSubject} from 'rxjs';
-import {AdminControlService} from '../../services/adminControl.service';
-import {SitesInfo} from '../../../../models/site.model';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-import {NavigationService} from '../../../navigation/services/navigation.service';
-import {AddSiteModalComponent} from '../addSiteModal/addSiteModal.component';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {SitesInfo} from 'src/app/models/site.model';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {AddSiteModalComponent} from 'src/app/pages/adminControl/components/addSiteModal/addSiteModal.component';
 
 @Component({
   selector: 'app-siteCenter',

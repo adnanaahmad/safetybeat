@@ -1,13 +1,13 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { HelperService } from '../../../../shared/helperService/helper.service';
-import { Translation } from '../../../../models/translate.model';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { Translation } from 'src/app/models/translate.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { AdminControlService } from '../../services/adminControl.service';
-import { Site, SiteAddData, SitesInfo } from '../../../../models/site.model';
-import { NavigationService } from '../../../navigation/services/navigation.service';
-import { CompilerProvider } from '../../../../shared/compiler/compiler';
-import { AddSite } from '../../../../models/adminControl/addSite.model';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import { Site, SiteAddData, SitesInfo } from 'src/app/models/site.model';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { AddSite } from 'src/app/models/adminControl/addSite.model';
 
 @Component({
   selector: 'app-addSiteModal',
