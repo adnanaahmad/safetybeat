@@ -6,7 +6,6 @@ import { PageNotFoundComponent } from './components/pageNotFound/pageNotFound.co
 import { ParticleContainerComponent2 } from './components/particleContainer/particleContainer2.component';
 import { MaterialModule } from '../shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastrModule } from 'ng6-toastr-notifications';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,6 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
     CoreRoutingModule
   ],  
   exports: [

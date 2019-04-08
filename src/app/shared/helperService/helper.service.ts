@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import {
   forEach,
   findIndex
@@ -15,7 +14,6 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { ToasterComponent } from 'src/app/common/toaster/toaster.component';
-import { CompilerProvider } from '../compiler/compiler';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,7 +24,6 @@ export class HelperService {
   constants: typeof ConstantService;
   constructor(
     private http: HttpClient,
-    public toast: ToastrManager,
     private snackBar: MatSnackBar,
     public translate: TranslateService,
     public dialog: MatDialog,
