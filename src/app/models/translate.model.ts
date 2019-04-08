@@ -211,6 +211,7 @@ export interface Messages {
   VERIFICATIONCODEEMAIL:string;
   ADDSITE_MSG: string;
   SITE_NAME: string;
+  INVALIDADDRESS:string
 }
 export interface Logger {
   STATUS: LoggerStatus;

@@ -61,5 +61,21 @@
         }
       }
     }
+    .prefix{
+      width:5%;
+      float:left;
+    }
+    .country-code{
+      width:15%;
+      float:left;
+      .mat-form-field-label{
+        padding-left:10px;
+      }
+    }
+    .contact-number{
+      width:77%;
+      float:left;
+      margin-left:3%;
+    }
   }
 }
