@@ -1,5 +1,4 @@
 import { Injectable, ElementRef } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import {
   forEach,
   findIndex
@@ -25,7 +24,6 @@ export class HelperService {
   constants: typeof ConstantService;
   constructor(
     private http: HttpClient,
-    public toast: ToastrManager,
     private snackBar: MatSnackBar,
     public translate: TranslateService,
     public dialog: MatDialog,
@@ -124,8 +122,8 @@ export class HelperService {
   };
   /**
    * It will create a map on required element with specific map configuration
-   * @param gmapElement 
-   * @param mapConfig 
+   * @param gmapElement
+   * @param mapConfig
    */
   createMap(gmapElement: ElementRef, mapConfig?: any) {
     mapConfig = (mapConfig) ? mapConfig : this.constants.defaultMapconfig
@@ -134,8 +132,8 @@ export class HelperService {
 
   /**
    * Set map location according to given address and on mapProp element
-   * @param address 
-   * @param mapProp 
+   * @param address
+   * @param mapProp
    */
   setLocationGeocode(address, mapProp) {
     let geoCoder = new google.maps.Geocoder();

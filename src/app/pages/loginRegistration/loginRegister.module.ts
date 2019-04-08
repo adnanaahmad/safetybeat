@@ -9,7 +9,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginRegistrationService } from './services/LoginRegistrationService';
 import { AuthGuard } from 'src/app/core/services/guards/auth.guard';
 import { TokenInterceptorService } from 'src/app/core/services/interceptors/tokenInterceptor';
-import { ToastrModule } from 'ng6-toastr-notifications';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassword.component';
 import { ParticleContainerComponent } from './components/particleContainer/particleContainer.component';
@@ -22,8 +21,7 @@ import { LandingComponent } from './components/landing/landing.component';
     LoginRegisterRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    ReactiveFormsModule
   ],
   declarations: [
     LoginComponent,
