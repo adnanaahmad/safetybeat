@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { HelperService } from "src/app/shared/helperService/helper.service";
-import { VerificationComponent } from "../verification/verification.component";
+import { VerificationComponent } from "../../../../Dialogs/verification/verification.component";
 import { validateUser } from "src/app/models/user.model";
 import { LoginRegistrationService } from "../../services/LoginRegistrationService";
 import {
@@ -92,7 +92,7 @@ export class LandingComponent implements OnInit {
             this.translated.MESSAGES.VERIFICATIONCODEEMAIL
           );
           this.loading = false;
-          this.helperService.createModal(VerificationComponent, {
+          this.helperService.createDialog(VerificationComponent, {
             data: { email: value.email }
           });
         }

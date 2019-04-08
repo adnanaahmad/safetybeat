@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Translation } from 'src/app/models/translate.model';
 import { entityCode } from 'src/app/models/entity.model';
-import { AdminControlService } from '../../services/adminControl.service';
+import { AdminControlService } from '../../pages/adminControl/services/adminControl.service';
 import { MatDialogRef } from '@angular/material';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 

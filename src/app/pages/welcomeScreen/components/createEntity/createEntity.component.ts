@@ -1,24 +1,24 @@
-import { Component, OnInit, NgZone } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { Translation } from "src/app/models/translate.model";
-import { entityData } from "../../../../models/entity.model";
-import { AdminControlService } from "../../../adminControl/services/adminControl.service";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { CompilerProvider } from "src/app/shared/compiler/compiler";
-import { NavigationService } from "src/app/pages/navigation/services/navigation.service";
-import { Router } from "@angular/router";
-import { WelcomeScreenService } from "../../services/welcome-screen.service";
+import {Component, OnInit, NgZone} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ConstantService} from 'src/app/shared/constant/constant.service';
+import {Translation} from 'src/app/models/translate.model';
+import {entityData} from '../../../../models/entity.model';
+import {AdminControlService} from '../../../adminControl/services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {Router} from '@angular/router';
+import {WelcomeScreenService} from '../../services/welcome-screen.service';
 
 @Component({
-  selector: "app-createEntity",
-  templateUrl: "./createEntity.component.html",
-  styleUrls: ["./createEntity.component.scss"]
+  selector: 'app-createEntity',
+  templateUrl: './createEntity.component.html',
+  styleUrls: ['./createEntity.component.scss']
 })
 export class CreateEntityComponent implements OnInit {
   translated: Translation;
   appConstants: any;
-  public title = "Places";
+  public title = 'Places';
   public addrKeys: string[];
   public addr: object;
   city: string;
@@ -32,7 +32,8 @@ export class CreateEntityComponent implements OnInit {
   roleId: any;
   entitiesList: any;
   entityUserData: any;
-  loading:boolean = false;
+  loading: boolean = false;
+
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
@@ -53,11 +54,12 @@ export class CreateEntityComponent implements OnInit {
 
   ngOnInit() {
     this.createEntityForm = this.formBuilder.group({
-      name: ["", Validators.required],
-      headOffice: ["", Validators.required],
-      status: [""]
+      name: ['', Validators.required],
+      headOffice: ['', Validators.required],
+      status: ['']
     });
   }
+
   setAddress(addrObj) {
     this.city = addrObj.locality;
     this.country = addrObj.country;
@@ -73,9 +75,9 @@ export class CreateEntityComponent implements OnInit {
   }
 
   entityCreation({
-    value,
-    valid
-  }: {
+                   value,
+                   valid
+                 }: {
     value: entityData;
     valid: boolean;
   }): void {
@@ -87,7 +89,7 @@ export class CreateEntityComponent implements OnInit {
       roleId: 2
     };
     var data = {
-      moduleName: "Safetybeat"
+      moduleName: 'Safetybeat'
     };
 
     if (!valid) {
@@ -113,25 +115,25 @@ export class CreateEntityComponent implements OnInit {
     this.adminServices.createEntity(this.entityDetails).subscribe(
       result => {
         this.entityResponse = result;
-        if (this.entityResponse.responseDetails.code == "0012") {
+        if (this.entityResponse.responseDetails.code == '0012') {
           this.adminServices.viewEntities(data).subscribe(res => {
             this.entitiesList = res;
             this.entityUserData = this.compiler.constructUserEntityData(this.entitiesList.data);
             this.navService.changeEntites(this.entityUserData);
-          this.loading = false;
+            this.loading = false;
             this.helperService.appLogger(
               this.helperService.constants.status.SUCCESS,
               this.entityResponse.responseDetails.message
             );
-            this.router.navigate(["/home"]);
+            this.router.navigate(['/home']);
           });
-        } else if (this.entityResponse.responseDetails.code == "0013") {
+        } else if (this.entityResponse.responseDetails.code == '0013') {
           this.loading = false;
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             this.entityResponse.responseDetails.message
           );
-        } else if (this.entityResponse.responseDetails.code == "0017") {
+        } else if (this.entityResponse.responseDetails.code == '0017') {
           this.loading = false;
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,

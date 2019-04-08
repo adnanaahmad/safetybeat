@@ -6,12 +6,12 @@ import {
   MatTableDataSource,
   MatPaginator
 } from '@angular/material';
-import { CreateEntityComponent } from '../createEntityModal/createEntity.component';
-import { JoinEntityModalComponent } from '../joinEntityModal/joinEntityModal.component';
+import { CreateEntityComponent } from '../../../../Dialogs/createEntityModal/createEntity.component';
+import { JoinEntityModalComponent } from '../../../../Dialogs/joinEntityModal/joinEntityModal.component';
 import { AdminControlService } from '../../services/adminControl.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { AlertModalComponent } from '../entityCodeModal/entityCodeModal.component';
+import { AlertModalComponent } from '../../../../Dialogs/entityCodeModal/entityCodeModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -21,7 +21,7 @@ import { AlertModalComponent } from '../entityCodeModal/entityCodeModal.componen
 export class EntityControlComponent implements OnInit,AfterViewInit{
   entitySelectedRole:string;
   dialogConfig = new MatDialogConfig();
-  displayedColumns: string[] = ['name', 'headOffice','role','administrator', 'symbol'];
+  displayedColumns: string[] = ['name', 'headOffice', 'role', 'administrator', 'symbol'];
   dataSource: any = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   translated: Translation;
@@ -53,13 +53,13 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   ngAfterViewInit(){
   }
   createEntity() {
-    this.helperService.createModal(CreateEntityComponent)
+    this.helperService.createDialog(CreateEntityComponent)
   }
   joinEntity() {
-    this.helperService.createModal(JoinEntityModalComponent)
+    this.helperService.createDialog(JoinEntityModalComponent)
   }
   entityCode(code, name) {
-    this.helperService.createModal(AlertModalComponent, { data: { name: name, code: code } });
+    this.helperService.createDialog(AlertModalComponent, { data: { name: name, code: code } });
   }
   viewAllEntities() {
     this.empty = true;

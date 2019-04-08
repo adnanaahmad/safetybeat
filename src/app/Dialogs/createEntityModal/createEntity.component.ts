@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone, Input, AfterViewInit } from '@angular/core';
 import { Translation } from 'src/app/models/translate.model';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { entity, entityData } from 'src/app/models/entity.model';
-import { AdminControlService } from '../../services/adminControl.service';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { MatDialogRef } from '@angular/material';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
@@ -13,7 +13,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
   templateUrl: './createEntity.component.html',
   styleUrls: ['./createEntity.component.scss']
 })
-export class CreateEntityComponent implements OnInit,AfterViewInit {
+export class CreateEntityComponent implements OnInit, AfterViewInit {
   translated: Translation;
   appConstants: any;
   public title = 'Places';
@@ -33,7 +33,7 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
     private zone: NgZone,
     private adminServices: AdminControlService,
     public helperService: HelperService,
-    private navService:NavigationService,
+    private navService: NavigationService,
     private compiler: CompilerProvider,
     public dialogRef: MatDialogRef<CreateEntityComponent>,
 
@@ -79,7 +79,6 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
       roleId : this.roleId
     }
     if (!valid) {
-      
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
@@ -89,8 +88,8 @@ export class CreateEntityComponent implements OnInit,AfterViewInit {
     this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
       this.entityResponse = result;
       this.onNoClick();
-      if(this.entityResponse.responseDetails.code=='0012'){
-        var data = {
+      if(this.entityResponse.responseDetails.code == '0012'){
+        let data = {
           'moduleName': 'Safetybeat'
         }
         this.adminServices.viewEntities(data).subscribe(res=>{

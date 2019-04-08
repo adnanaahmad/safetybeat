@@ -3,7 +3,7 @@
 @import "src/app/pages/loginRegistration/components/registration/registration.component.scss";
 @import "src/app/pages/loginRegistration/components/login/login.component.scss";
 @import "src/app/pages/loginRegistration/components/forgotPassword/forgotPassword.component.scss";
-@import "src/app/pages/loginRegistration/components/verification/verification.component.scss";
+@import "src/app/Dialogs/verification/verification.component.scss";
 @import "src/app/pages/loginRegistration/components/passwordRecovery/passwordRecovery.component.scss";
 @import "src/app/pages/loginRegistration/components/orgRegistrationModal/orgRegistration.component.scss";
 @import "src/app/pages/navigation/components/fixedNav/fixedNav.component.scss";
@@ -16,7 +16,7 @@
 @import "src/app/core/components/pageNotFound/pageNotFound.component.scss";
 @import "src/app/pages/adminControl/components/entityControl/entityControl.component.scss";
 @import "src/app/pages/navigation/components/notificationNav/notificationNav.component.scss";
-@import "src/app/pages/adminControl/components/entityCodeModal/entityCodeModal.component.scss";
+@import "src/app/Dialogs/entityCodeModal/entityCodeModal.component.scss";
 @import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
 @import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
@@ -46,7 +46,7 @@
   @include amte-dashboard($primary, $accent, $warn);
   @include amte-notfound($primary, $accent, $warn);
   @include amte-entityControl($primary, $accent, $warn);
-  @include amte-passwordRecovery($primary, &accent, &warn);
-  @include amte-entityCodeModal($primary, &accent, &warn);
+  @include amte-passwordRecovery($primary, & accent, & warn);
+  @include amte-entityCodeModal($primary, & accent, & warn);
   @include amte-welcomeScreen($primary, $accent, $warn)
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2, ViewChildren, Inject } from '@
 import { Translation } from 'src/app/models/translate.model';
 import { Router, ActivatedRoute, NavigationCancel } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginRegistrationService } from '../../services/LoginRegistrationService';
+import { LoginRegistrationService } from '../../pages/loginRegistration/services/LoginRegistrationService';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 

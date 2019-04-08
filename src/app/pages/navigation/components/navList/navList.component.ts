@@ -3,7 +3,7 @@ import { NavItem } from 'src/app/models/navItems.model';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../services/navigation.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { InviteUserModalComponent } from '../inviteUserModal/inviteUserModal.component';
+import { InviteUserModalComponent } from '../../../../Dialogs/inviteUserModal/inviteUserModal.component';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { Translation } from 'src/app/models/translate.model';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -73,7 +73,7 @@ export class NavListComponent implements OnInit {
   }
 
   inviteUserModal(entityId) {
-    this.helperService.createModal(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
+    this.helperService.createDialog(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
   }
 
 }
