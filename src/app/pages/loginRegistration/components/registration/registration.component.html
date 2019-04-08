@@ -4,18 +4,6 @@
       <div class="legendContent">
         <h3>{{ translated.MESSAGES.WELCOME }}</h3>
         <h1>{{ translated.MESSAGES.ANONYMOUS }}</h1>
-        <!-- <p>{{ translated.MESSAGES.WELCOME_MSG }}</p>
-        <span>{{ translated.MESSAGES.ALREADY_ACCOUNT }}</span> -->
-
-        <!-- <button
-          mat-raised-button
-          custom-btn
-          btn-white
-          routerLink="/login"
-          [disabled]="loading"
-        >
-          {{ translated.BUTTONS.LOGIN }}
-        </button> -->
         <img width="70%" src="/assets/images/sdb.png" />
       </div>
     </mat-card>
@@ -24,12 +12,10 @@
     <img src="/assets/images/monogram.png" />
   </span>
   <mat-grid-tile>
-    <mat-horizontal-stepper linear="true" #stepper>
+    <mat-horizontal-stepper linear="appConstant.linearForm" #stepper>
       <mat-step [stepControl]="userForm">
         <mat-card class="loginbox">
-          <!-- <mat-card-title>{{translated.BUTTONS.REGISTER}}</mat-card-title> -->
           <mat-card-title>User Info</mat-card-title>
-          <!-- <p class="subheading">{{translated.MESSAGES.SIGNUPMESSAGE}}</p> -->
           <p class="subheading">Please tell us about yourself</p>
           <form [formGroup]="userForm">
             <div class="input">
@@ -56,16 +42,6 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <!-- <div class="input prefix">
-                <mat-form-field full-width>
-                  <input matInput type="text" disabled placeholder="+"
-                    [errorStateMatcher]="formErrorMatcher" formControlName="contactNo" (keypress)="numberOnly($event)"
-                    onPaste="return false" autocomplete="off" />
-                  <mat-error *ngIf="userDetailForm.contactNo.errors">
-                    <span *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
-                  </mat-error>
-                </mat-form-field>
-              </div> -->
             <div class="input country-code">
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Code" [errorStateMatcher]="formErrorMatcher"
@@ -140,7 +116,7 @@
               <mat-form-field full-width>
                 <input matInput appGooglePlaces type="text" [placeholder]="translated.AUTH.ADDRESS"
                   formControlName="{{ appConstants.address }}" #addressVal (onSelect)="setAddress($event)"
-                  (keyup)="setFalse($event)" required />
+                (keyup)="setFalse($event)" required />
                 <mat-error *ngIf="orgForm.address.errors">
                   <span *ngIf="orgForm.address.errors.required">{{translated.AUTH.ADDRESS}}</span>
                   <span *ngIf="orgForm.address.errors.invalid">{{translated.MESSAGES.INVALIDADDRESS}}</span>

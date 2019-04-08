@@ -1,25 +1,23 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { Translation } from "src/app/models/translate.model";
-import { entityData } from "../../../../models/entity.model";
-import { AdminControlService } from "../../../adminControl/services/adminControl.service";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { CompilerProvider } from "src/app/shared/compiler/compiler";
-import { NavigationService } from "src/app/pages/navigation/services/navigation.service";
-import { Router } from "@angular/router";
-import { WelcomeScreenService } from "../../services/welcome-screen.service";
+import {Component, OnInit, NgZone, ViewChild, ElementRef} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ConstantService} from 'src/app/shared/constant/constant.service';
+import {Translation} from 'src/app/models/translate.model';
+import {entityData} from '../../../../models/entity.model';
+import {AdminControlService} from '../../../adminControl/services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 
 @Component({
-  selector: "app-createEntity",
-  templateUrl: "./createEntity.component.html",
-  styleUrls: ["./createEntity.component.scss"]
+  selector: 'app-createEntity',
+  templateUrl: './createEntity.component.html',
+  styleUrls: ['./createEntity.component.scss']
 })
 export class CreateEntityComponent implements OnInit {
   @ViewChild('gmap') gmapElement: ElementRef;
   translated: Translation;
   appConstants: any;
-  public title = "Places";
+  public title = 'Places';
   public addrKeys: string[];
   public addr: object;
   city: string;
@@ -35,6 +33,7 @@ export class CreateEntityComponent implements OnInit {
   entityUserData: any;
   loading: boolean = false;
   displayCreateButton: boolean = false;
+
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
@@ -42,8 +41,6 @@ export class CreateEntityComponent implements OnInit {
     public helperService: HelperService,
     private compiler: CompilerProvider,
     private navService: NavigationService,
-    private router: Router,
-    private welcomeService: WelcomeScreenService
   ) {
     this.translated = this.helperService.translation;
     this.helperService.appLoggerDev(
@@ -56,12 +53,14 @@ export class CreateEntityComponent implements OnInit {
   ngOnInit() {
     this.helperService.createMap(this.gmapElement);
     this.createEntityForm = this.formBuilder.group({
-      name: ["", Validators.required],
-      headOffice: ["", Validators.required],
+      name: ['', Validators.required],
+      headOffice: ['', Validators.required],
     });
   }
+
   setAddress(addrObj) {
-    let address = "", onSelect: boolean = false;;
+    let address = '', onSelect: boolean = false;
+    ;
     this.displayCreateButton = true;
     if (!this.helperService.isEmpty(addrObj)) {
       this.city = addrObj.locality;
@@ -73,8 +72,7 @@ export class CreateEntityComponent implements OnInit {
       });
       address = addrObj.formatted_address;
       onSelect = true;
-    }
-    else {
+    } else {
       address = this.createEntityForm.controls.headOffice.value;
     }
     this.setMap(address, onSelect);
@@ -91,8 +89,8 @@ export class CreateEntityComponent implements OnInit {
       return this.createEntityForm.controls.headOffice.setErrors(null);
     }).catch(err => {
       this.displayCreateButton = false;
-      return this.createEntityForm.controls.headOffice.setErrors({ invalid: true })
-    })
+      return this.createEntityForm.controls.headOffice.setErrors({invalid: true});
+    });
   }
 
   get formValidation() {
@@ -100,12 +98,13 @@ export class CreateEntityComponent implements OnInit {
   }
 
   entityCreation({
-    value,
-    valid
-  }: {
+                   value,
+                   valid
+                 }: {
     value: entityData;
     valid: boolean;
   }): void {
+    this.setAddress({});
     this.loading = true;
     this.entityDetails = {
       moduleName: this.translated.BUTTONS.SAFETYBEAT,
@@ -113,8 +112,8 @@ export class CreateEntityComponent implements OnInit {
       active: true,
       roleId: 2
     };
-    var data = {
-      moduleName: "Safetybeat"
+    let data = {
+      moduleName: 'Safetybeat'
     };
 
     if (!valid) {
@@ -140,7 +139,7 @@ export class CreateEntityComponent implements OnInit {
     this.adminServices.createEntity(this.entityDetails).subscribe(
       result => {
         this.entityResponse = result;
-        if (this.entityResponse.responseDetails.code == "0012") {
+        if (this.entityResponse.responseDetails.code === '0012') {
           this.adminServices.viewEntities(data).subscribe(res => {
             this.entitiesList = res;
             this.entityUserData = this.compiler.constructUserEntityData(this.entitiesList.data);
@@ -150,15 +149,15 @@ export class CreateEntityComponent implements OnInit {
               this.helperService.constants.status.SUCCESS,
               this.entityResponse.responseDetails.message
             );
-            this.router.navigate(["/home"]);
+            this.helperService.navigateTo(['/home']);
           });
-        } else if (this.entityResponse.responseDetails.code == "0013") {
+        } else if (this.entityResponse.responseDetails.code === '0013') {
           this.loading = false;
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             this.entityResponse.responseDetails.message
           );
-        } else if (this.entityResponse.responseDetails.code == "0017") {
+        } else if (this.entityResponse.responseDetails.code === '0017') {
           this.loading = false;
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
@@ -175,8 +174,9 @@ export class CreateEntityComponent implements OnInit {
       }
     );
   }
+
   setFalse(event) {
-    if (event.which !== 13) {
+    if (event.which !== this.appConstants.enterKey) {
       this.displayCreateButton = false;
     }
   }

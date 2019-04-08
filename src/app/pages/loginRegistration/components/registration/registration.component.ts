@@ -1,17 +1,15 @@
-import { Component, OnInit, OnDestroy, Input, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { RegisterUser } from 'src/app/models/user.model';
-import { Translation } from 'src/app/models/translate.model';
-import { CompilerProvider } from '../../../../shared/compiler/compiler';
-import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { PhoneNumberUtil, PhoneNumber } from 'google-libphonenumber';
-import { debug } from 'util';
-import { EventManager } from '@angular/platform-browser';
+import {Component, OnInit, OnDestroy, Input, NgZone, ViewChild, ElementRef} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LoginRegistrationService} from '../../services/LoginRegistrationService';
+import {Translation} from 'src/app/models/translate.model';
+import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
-const phoneNumberUtil = PhoneNumberUtil.getInstance();
+
+const phoneNumberUtil = HelperService.getPhoneNumberUtil();
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -43,7 +41,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     this.route.params.subscribe((data) => {
       this.userEmail = data;
-    })
+    });
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
@@ -51,13 +49,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
-        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+          this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.types = data[0];
         this.modules = data[1];
         this.packages = data[2];
       }, error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
-          this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       });
   }
 
@@ -82,12 +81,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   @Input() userForm: FormGroup;
   organizationForm: FormGroup;
-  organizationTypeForm: FormGroup
+  organizationTypeForm: FormGroup;
   moduleForm: FormGroup;
   email: FormGroup;
 
   loading: boolean = false;
-  selectedPackage: any = {};
   registerData: any = [];
   translated: Translation;
   types: any;
@@ -97,14 +95,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   data: any;
   appConstants: any;
   appIcons: any;
-  userData: any;
   formErrorMatcher: any;
 
   /**
    * registerOrgnaization function to register new user with organization info
    */
   ngOnInit() {
-    this.helperService.createMap(this.gmapElement); //By default settings of map set
+    this.helperService.createMap(this.gmapElement); // By default settings of map set
     this.userForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -112,7 +109,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
-    }, { validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)]) });
+    }, {validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)])});
 
     this.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -131,8 +128,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   setAddress(addrObj) {
-    let address = "", onSelect: boolean = false;
-        this.displayNextButton=true;
+    let address = '', onSelect: boolean = false;
+    this.displayNextButton = true;
     if (!this.helperService.isEmpty(addrObj)) {
       this.city = addrObj.locality;
       this.country = addrObj.country;
@@ -143,8 +140,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       });
       address = addrObj.formatted_address;
       onSelect = true;
-    }
-    else {
+    } else {
       address = this.organizationForm.controls.address.value;
     }
     this.setMap(address, onSelect);
@@ -165,7 +161,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
-    return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
+    return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
   checkEmail(group) {
@@ -173,11 +169,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'email': [group.value.email, Validators.email]
     });
     if (this.email.status === 'VALID') {
-      const email = { email: group.value.email };
+      const email = {email: group.value.email};
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code == '0020') {
-          group.controls.email.setErrors({ exists: true });
+        if (this.success.responseDetails.code === '0020') {
+          group.controls.email.setErrors({exists: true});
         }
       });
     }
@@ -186,11 +182,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-        "+" + group.controls.countryCode.value + group.controls.contactNo.value, undefined
+        '+' + group.controls.countryCode.value + group.controls.contactNo.value, undefined
       );
-      return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null) : group.controls.contactNo.setErrors({ inValid: true });
+      return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null) :
+        group.controls.contactNo.setErrors({inValid: true});
     } catch (e) {
-      return group.controls.contactNo.setErrors({ inValid: true });
+      return group.controls.contactNo.setErrors({inValid: true});
     }
   }
 
@@ -205,8 +202,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       return this.organizationForm.controls.address.setErrors(null);
     }).catch(err => {
       this.displayNextButton = false;
-      return this.organizationForm.controls.address.setErrors({ invalid: true })
-    })
+      return this.organizationForm.controls.address.setErrors({invalid: true});
+    });
   }
 
   /**
@@ -253,17 +250,18 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
         this.loading = false;
-        this.router.navigate(['/welcomeScreen']);
+        this.helperService.navigateTo(['/welcomeScreen']);
       }
     }, (error) => {
       this.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);
-      this.helperService.logoutError(error.status)
+      this.helperService.logoutError(error.status);
     });
   }
+
   setFalse(event) {
-    if (event.which !== 13) {
+    if (event.which !== this.appConstants.enterKey) {
       this.displayNextButton = false;
     }
   }

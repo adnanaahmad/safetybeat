@@ -12,7 +12,7 @@
   </span>
   <mat-grid-tile>
     <mat-card class="loginbox">
-      <form [formGroup]="createEntityForm" (ngSubmit)="entityCreation(createEntityForm);setAddress({})">
+      <form [formGroup]="createEntityForm" (ngSubmit)="entityCreation(createEntityForm)">
         <div class="form-group">
           <mat-form-field full-width>
             <input matInput type="text" placeholder="{{ translated.MESSAGES.ENTITYNAME }}"
