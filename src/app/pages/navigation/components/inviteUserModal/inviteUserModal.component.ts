@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { inviteUser } from '../../../../models/inviteUser.model';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Translation } from 'src/app/models/translate.model';
-import { NavigationService } from '../../services/navigation.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, Inject} from '@angular/core';
+import {inviteUser} from '../../../../models/inviteUser.model';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {Translation} from 'src/app/models/translate.model';
+import {NavigationService} from '../../services/navigation.service';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: 'app-invite-user-modal',
+  selector: 'app-inviteUserModal',
   templateUrl: './inviteUserModal.component.html',
   styleUrls: ['./inviteUserModal.component.scss']
 })
@@ -23,6 +23,7 @@ export class InviteUserModalComponent implements OnInit {
   ]
   InviteUserData: any;
   entityID: any;
+
   constructor(
     public dialogRef: MatDialogRef<InviteUserModalComponent>,
     public formBuilder: FormBuilder,
@@ -46,7 +47,9 @@ export class InviteUserModalComponent implements OnInit {
     });
   }
 
-  get formValidation() { return this.inviteUserForm.controls; }
+  get formValidation() {
+    return this.inviteUserForm.controls;
+  }
 
 
   checkEmail(group) {
@@ -54,11 +57,11 @@ export class InviteUserModalComponent implements OnInit {
       'email': [group.value.email, Validators.email]
     });
     if (this.email.status === 'VALID') {
-      const email = { email: group.value.email };
+      const email = {email: group.value.email};
       this.navigationService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code == '0020') {
-          group.controls.email.setErrors({ exists: true })
+        if (this.success.responseDetails.code === '0020') {
+          group.controls.email.setErrors({exists: true})
         }
       }, err => {
         this.helperService.logoutError(err.status)
@@ -66,7 +69,7 @@ export class InviteUserModalComponent implements OnInit {
     }
   }
 
-  inviteUser({ value, valid }: { value: inviteUser; valid: boolean }): void {
+  inviteUser({value, valid}: { value: inviteUser; valid: boolean }): void {
     this.InviteUserData = {
       first_name: value.first_name,
       last_name: value.last_name,
@@ -74,7 +77,7 @@ export class InviteUserModalComponent implements OnInit {
       invitation: true,
       roleId: value.role,
       contactNo: '545535456',
-      moduleName: "Safetybeat",
+      moduleName: 'Safetybeat',
       entityId: this.entityID
     }
     if (!valid) {
@@ -86,9 +89,9 @@ export class InviteUserModalComponent implements OnInit {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.InviteUserData).subscribe((res) => {
       this.dialogRef.close();
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, "User has been successfully Invited.");
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'User has been successfully Invited.');
     }, (err) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, "Error inviting user.");
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Error inviting user.');
       this.dialogRef.close();
       this.helperService.logoutError(err.status)
     })

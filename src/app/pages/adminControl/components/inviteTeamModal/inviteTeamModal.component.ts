@@ -9,8 +9,8 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormControl} from '@angular/forms';
 import {startWith, map} from 'rxjs/operators';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {AdminControlService} from '../../services/adminControl.service';
-import {InviteTeamModel} from '../../../../models/inviteTeam.model';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {InviteTeamModel} from 'src/app/models/inviteTeam.model';
 
 @Component({
   selector: 'app-inviteTeamModal',
