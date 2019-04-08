@@ -6,6 +6,7 @@ export interface Translation {
   STRINGS: Strings;
   SITETITLE: SiteTitle;
   STATUS: Status;
+  TABLEHEADINGS: TableHeadings;
 }
 export interface Strings {
   USERNAME: string;

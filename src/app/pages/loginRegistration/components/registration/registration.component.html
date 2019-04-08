@@ -2,14 +2,14 @@
   <mat-grid-tile>
     <mat-card class="sideLegend">
       <div class="legendContent">
-        <h3>{{ translated.MESSAGES.WELCOME }}</h3>
-        <h1>{{ translated.MESSAGES.ANONYMOUS }}</h1>
-        <img width="70%" src="/assets/images/sdb.png" />
+        <h3>{{ registerObj.translated.MESSAGES.WELCOME }}</h3>
+        <h1>{{ registerObj.translated.MESSAGES.ANONYMOUS }}</h1>
+        <img width="70%" src="/assets/images/sdb.png"/>
       </div>
     </mat-card>
   </mat-grid-tile>
   <span class="monogram">
-    <img src="/assets/images/monogram.png" />
+    <img src="/assets/images/monogram.png"/>
   </span>
   <mat-grid-tile>
     <mat-horizontal-stepper linear="appConstant.linearForm" #stepper>
@@ -20,119 +20,135 @@
           <form [formGroup]="userForm">
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]="translated.AUTH.FIRSTNAME" (keypress)="characterOnly($event)"
-                  onPaste="return false" autocomplete="off" [errorStateMatcher]="formErrorMatcher"
-                  [formControlName]="appConstants.firstName" />
+                <input matInput type="text" [placeholder]="registerObj.translated.AUTH.FIRSTNAME"
+                       (keypress)="characterOnly($event)"
+                       onPaste="return false" autocomplete="off" [errorStateMatcher]="registerObj.formErrorMatcher"
+                       [formControlName]="registerObj.appConstants.firstName"/>
                 <mat-error *ngIf="userDetailForm.first_name.errors">
                   <span *ngIf="userDetailForm.first_name.errors.required">{{
-                    translated.AUTH.FIRSTNAME_REQ
-                  }}</span>
+                    registerObj.translated.AUTH.FIRSTNAME_REQ
+                    }}</span>
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]="translated.AUTH.LASTNAME" (keypress)="characterOnly($event)"
-                  onPaste="return false" autocomplete="off" [errorStateMatcher]="formErrorMatcher"
-                  formControlName="{{ appConstants.lastName }}" required />
+                <input matInput type="text" [placeholder]="registerObj.translated.AUTH.LASTNAME"
+                       (keypress)="characterOnly($event)"
+                       onPaste="return false" autocomplete="off" [errorStateMatcher]="registerObj.formErrorMatcher"
+                       formControlName="{{ registerObj.appConstants.lastName }}" required/>
                 <mat-error *ngIf="userDetailForm.last_name.errors">
                   <span *ngIf="userDetailForm.last_name.errors.required">{{
-                    translated.AUTH.LASTNAME_REQ
-                  }}</span>
+                    registerObj.translated.AUTH.LASTNAME_REQ
+                    }}</span>
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input country-code">
               <mat-form-field full-width>
-                <input matInput type="text" placeholder="Code" [errorStateMatcher]="formErrorMatcher"
-                  formControlName="countryCode" (keypress)="numberOnly($event)&&phoneNumberValid(userForm)"
-                  maxlength="3" onPaste="return false" autocomplete="off" />
+                <input matInput type="text" placeholder="Code" [errorStateMatcher]="registerObj.formErrorMatcher"
+                       formControlName="countryCode" (keypress)="numberOnly($event)&&phoneNumberValid(userForm)"
+                       maxlength="3" onPaste="return false" autocomplete="off"/>
                 <mat-error *ngIf="userDetailForm.countryCode.errors">
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input contact-number">
               <mat-form-field full-width>
-                <input matInput type="text" placeholder="Phone Number" [errorStateMatcher]="formErrorMatcher"
-                  formControlName="contactNo" (keypress)="numberOnly($event)" onPaste="return false"
-                  autocomplete="off" />
+                <input matInput type="text" placeholder="Phone Number"
+                       [errorStateMatcher]="registerObj.formErrorMatcher"
+                       formControlName="contactNo" (keypress)="numberOnly($event)" onPaste="return false"
+                       autocomplete="off"/>
                 <mat-error *ngIf="userDetailForm.contactNo.errors">
                   <span
-                    *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{translated.AUTH.MOBILE_REQ}}</span>
+                    *ngIf="userDetailForm.contactNo.errors.required||userDetailForm.contactNo.errors.inValid">{{registerObj.translated.AUTH.MOBILE_REQ}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="password" [placeholder]="translated.AUTH.PASSWORD"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.password1 }}" required />
+                <input matInput type="password" [placeholder]="registerObj.translated.AUTH.PASSWORD"
+                       [errorStateMatcher]="registerObj.formErrorMatcher"
+                       formControlName="{{ registerObj.appConstants.password1 }}" required/>
                 <mat-error *ngIf="userDetailForm.password1.errors">
                   <span *ngIf="userDetailForm.password1.errors.required">{{
-                    translated.AUTH.PASSWORD_REQ
-                  }}</span>
+                    registerObj.translated.AUTH.PASSWORD_REQ
+                    }}</span>
                   <span *ngIf="userDetailForm.password1.errors.minlength">{{
-                    translated.MESSAGES.PASSWORD_ERROR
-                  }}</span>
+                    registerObj.translated.MESSAGES.PASSWORD_ERROR
+                    }}</span>
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="password" [placeholder]=translated.AUTH.CONFIRM_PASSWORD
-                  formControlName={{appConstants.password2}} [errorStateMatcher]="formErrorMatcher" required />
+                <input matInput type="password" [placeholder]="registerObj.translated.AUTH.CONFIRM_PASSWORD"
+                       formControlName="{{registerObj.appConstants.password2}}" [errorStateMatcher]="registerObj.formErrorMatcher"
+                       required/>
                 <mat-error *ngIf="userDetailForm.password2.errors ">
-                  <span *ngIf="userDetailForm.password2.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-                  <span *ngIf="userDetailForm.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-                  <span *ngIf="userDetailForm.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
+                  <span
+                    *ngIf="userDetailForm.password2.errors.required">{{registerObj.translated.AUTH.PASSWORD_REQ}}</span>
+                  <span
+                    *ngIf="userDetailForm.password2.errors.minlength">{{registerObj.translated.MESSAGES.PASSWORD_ERROR}}</span>
+                  <span
+                    *ngIf="userDetailForm.password2.errors?.notSame">{{registerObj.translated.MESSAGES.MATCH_ERROR}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="button">
-              <button matStepperNext mat-raised-button [disabled]="loading" custom-btn btn-primary color="primary">
-                {{translated.BUTTONS.NEXT}} <mat-icon>{{appIcons.arrowForward}}</mat-icon>
+              <button matStepperNext mat-raised-button [disabled]="registerObj.loading" custom-btn btn-primary
+                      color="primary">
+                {{registerObj.translated.BUTTONS.NEXT}}
+                <mat-icon>{{registerObj.appIcons.arrowForward}}</mat-icon>
               </button>
-              <img *ngIf="loading" [src]="translated.MESSAGES.LOADING_URL" />
+              <img *ngIf="registerObj.loading" [src]="registerObj.translated.MESSAGES.LOADING_URL"/>
             </div>
           </form>
         </mat-card>
       </mat-step>
       <mat-step [stepControl]="organizationForm">
         <mat-card class="loginbox">
-          <mat-card-title>{{translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
-          <p class="subheading">{{translated.MESSAGES.ORGSIGNUPMESSAGE}}</p>
+          <mat-card-title>{{registerObj.translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
+          <p class="subheading">{{registerObj.translated.MESSAGES.ORGSIGNUPMESSAGE}}</p>
           <form [formGroup]="organizationForm">
             <div class="input">
               <mat-form-field full-width>
-                <input matInput type="text" [placeholder]="translated.TABLEHEADINGS.NAME"
-                  [errorStateMatcher]="formErrorMatcher" formControlName="{{ appConstants.name }}" />
+                <input matInput type="text" [placeholder]="registerObj.translated.TABLEHEADINGS.NAME"
+                       [errorStateMatcher]="registerObj.formErrorMatcher"
+                       formControlName="{{ registerObj.appConstants.name }}"/>
                 <mat-error *ngIf="orgForm.name.errors">
                   <span *ngIf="orgForm.name.errors.required">{{
-                    translated.AUTH.ORGANIZATIONNAME_REQ
-                  }}</span>
+                    registerObj.translated.AUTH.ORGANIZATIONNAME_REQ
+                    }}</span>
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input">
               <mat-form-field full-width>
-                <input matInput appGooglePlaces type="text" [placeholder]="translated.AUTH.ADDRESS"
-                  formControlName="{{ appConstants.address }}" #addressVal (onSelect)="setAddress($event)"
-                (keyup)="setFalse($event)" required />
+                <input matInput appGooglePlaces type="text" [placeholder]="registerObj.translated.AUTH.ADDRESS"
+                       formControlName="{{ registerObj.appConstants.address }}" #addressVal
+                       (onSelect)="setAddress($event)"
+                       (keyup)="setFalse($event)" required/>
                 <mat-error *ngIf="orgForm.address.errors">
-                  <span *ngIf="orgForm.address.errors.required">{{translated.AUTH.ADDRESS}}</span>
-                  <span *ngIf="orgForm.address.errors.invalid">{{translated.MESSAGES.INVALIDADDRESS}}</span>
+                  <span *ngIf="orgForm.address.errors.required">{{registerObj.translated.AUTH.ADDRESS}}</span>
+                  <span *ngIf="orgForm.address.errors.invalid">{{registerObj.translated.MESSAGES.INVALIDADDRESS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
             <div #gmap style="width:100%;height:400px"></div>
             <div class="button">
-              <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
-                <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
+              <button matStepperPrevious mat-raised-button [disabled]="registerObj.loading" custom-btn btn-danger
+                      color="danger">
+                <mat-icon>{{registerObj.appIcons.arrowBack}}</mat-icon>
+                {{registerObj.translated.BUTTONS.BACK}}
               </button>
-              <button matStepperNext mat-raised-button (click)="setAddress({})" [disabled]="!displayNextButton"
-                custom-btn btn-primary color="primary">
-                {{translated.BUTTONS.NEXT}} <mat-icon>{{appIcons.arrowForward}}</mat-icon>
+              <button matStepperNext mat-raised-button (click)="setAddress({})"
+                      [disabled]="!registerObj.displayNextButton"
+                      custom-btn btn-primary color="primary">
+                {{registerObj.translated.BUTTONS.NEXT}}
+                <mat-icon>{{registerObj.appIcons.arrowForward}}</mat-icon>
               </button>
-              <img *ngIf="loading" [src]="translated.MESSAGES.LOADING_URL" />
+              <img *ngIf="registerObj.loading" [src]="registerObj.translated.MESSAGES.LOADING_URL"/>
             </div>
           </form>
         </mat-card>
@@ -140,29 +156,32 @@
       <mat-step>
         <mat-card class="loginbox">
           <mat-card-title>Usage Type</mat-card-title>
-          <p class="subheading">{{translated.MESSAGES.ORGTYPEMESSAGE}}</p>
+          <p class="subheading">{{registerObj.translated.MESSAGES.ORGTYPEMESSAGE}}</p>
           <form [formGroup]="organizationTypeForm">
             <div class="input">
               <mat-form-field full-width>
-                <mat-select [placeholder]="translated.MESSAGES.TYPE_MSG" formControlName="{{ appConstants.type }}"
-                  required>
-                  <mat-option *ngFor="let type of types" [value]="type.id">
+                <mat-select [placeholder]="registerObj.translated.MESSAGES.TYPE_MSG"
+                            formControlName="{{ registerObj.appConstants.type }}"
+                            required>
+                  <mat-option *ngFor="let type of registerObj.types" [value]="type.id">
                     {{ type.name }}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="orgTypeForm.type.errors">
-                  {{ translated.MESSAGES.TYPE_MSG }}
+                  {{ registerObj.translated.MESSAGES.TYPE_MSG }}
                 </mat-error>
               </mat-form-field>
             </div>
-            <button matStepperPrevious mat-raised-button [disabled]="loading" custom-btn btn-danger color="danger">
-              <mat-icon>{{appIcons.arrowBack}}</mat-icon> {{translated.BUTTONS.BACK}}
+            <button matStepperPrevious mat-raised-button [disabled]="registerObj.loading" custom-btn btn-danger
+                    color="danger">
+              <mat-icon>{{registerObj.appIcons.arrowBack}}</mat-icon>
+              {{registerObj.translated.BUTTONS.BACK}}
             </button>
-            <button mat-raised-button [disabled]="loading||orgTypeForm.type.errors" custom-btn btn-primary
-              color="primary" (click)='registration()'>
+            <button mat-raised-button [disabled]="registerObj.loading||orgTypeForm.type.errors" custom-btn btn-primary
+                    color="primary" (click)='registration()'>
               Submit
             </button>
-            <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
+            <img *ngIf="registerObj.loading" [src]="registerObj.translated.MESSAGES.LOADING_URL"/>
           </form>
         </mat-card>
       </mat-step>
