@@ -1,71 +1,67 @@
-import { Component, Inject, ViewChild, ElementRef } from "@angular/core";
+import {Component, Inject, ViewChild, ElementRef} from '@angular/core';
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatAutocomplete,
   MatAutocompleteSelectedEvent,
-  MatChipInputEvent
-} from "@angular/material";
-import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { FormControl } from "@angular/forms";
-import { Observable } from "rxjs";
-import { startWith, map, share } from "rxjs/operators";
-import { ProfileService } from "src/app/pages/profile/services/profile.service";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { User } from "src/app/models/user.model";
-import { CompilerProvider } from "src/app/shared/compiler/compiler";
-import { AdminControlService } from "../../services/adminControl.service";
+} from '@angular/material';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {FormControl} from '@angular/forms';
+import {startWith, map} from 'rxjs/operators';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {AdminControlService} from '../../services/adminControl.service';
+import {InviteTeamModel} from '../../../../models/inviteTeam.model';
+
 @Component({
-  selector: "app-inviteTeamModal",
-  templateUrl: "./inviteTeamModal.component.html",
-  styleUrls: ["./inviteTeamModal.component.scss"]
+  selector: 'app-inviteTeamModal',
+  templateUrl: './inviteTeamModal.component.html',
+  styleUrls: ['./inviteTeamModal.component.scss']
 })
 export class InviteTeamModalComponent {
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  userCtrl = new FormControl();
-  filteredUsers: Observable<any[]>;
-  users: any[] = [];
-  allUsers: any[] = [];
+  inviteTeamModel: InviteTeamModel = <InviteTeamModel>{};
 
-  @ViewChild("userInput") userInput: ElementRef<HTMLInputElement>;
-  @ViewChild("auto") matAutocomplete: MatAutocomplete;
-
+  @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private adminServices: AdminControlService,
     private helperService: HelperService
   ) {
-    this.allUsers = this.data.inviteTeamData.usersData.map(x =>
+    this.inviteTeamModel.removable = true;
+    this.inviteTeamModel.separatorKeysCodes = [ENTER, COMMA];
+    this.inviteTeamModel.users = [];
+    this.inviteTeamModel.allUsers = [];
+    this.inviteTeamModel.userCtrl = new FormControl();
+    this.inviteTeamModel.translated = this.helperService.translation;
+    this.inviteTeamModel.loading = false;
+    this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData.map(x =>
       Object.assign({}, x)
     );
-    this.filteredUsers = this.userCtrl.valueChanges.pipe(
+    this.inviteTeamModel.filteredUsers = this.inviteTeamModel.userCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: any | null) => {
-        return fruit ? this._filter(fruit) : this.allUsers.slice();
+        return fruit ? this._filter(fruit) : this.inviteTeamModel.allUsers.slice();
       })
     );
   }
+
   remove(fruit: any): void {
-    const index = this.users.indexOf(fruit);
+    const index = this.inviteTeamModel.users.indexOf(fruit);
     if (index >= 0) {
-      this.users.splice(index, 1);
+      this.inviteTeamModel.users.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    let index = this.helperService.findIndex(this.users, function(obj) {
+    let index = this.helperService.findIndex(this.inviteTeamModel.users, function (obj) {
       return obj.first_name === event.option.value.first_name;
     });
     if (index === -1) {
-      this.users.push(event.option.value);
+      this.inviteTeamModel.users.push(event.option.value);
     }
-    this.userInput.nativeElement.value = "";
-    this.userCtrl.setValue(null);
+    this.userInput.nativeElement.value = '';
+    this.inviteTeamModel.userCtrl.setValue(null);
   }
 
   private _filter(value: any): any[] {
@@ -73,22 +69,40 @@ export class InviteTeamModalComponent {
       value && value.first_name
         ? value.first_name.toLowerCase()
         : value.toLowerCase();
-    return this.allUsers.filter(fruit => {
+    return this.inviteTeamModel.allUsers.filter(fruit => {
       return fruit.first_name.toLowerCase().indexOf(filterValue) === 0;
     });
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
   inviteTeam() {
     let userEmails: any = [];
-    this.helperService.iterations(this.users, function(obj) {
+    this.helperService.iterations(this.inviteTeamModel.users, function (obj) {
       userEmails.push(obj.email);
     });
     let inviteTeamData = {
       email: userEmails,
       entityCode: this.data.inviteTeamData.entityData
     };
-    this.adminServices.inviteTeam(inviteTeamData).subscribe((res)=>{
-      console.log(res);
+    this.inviteTeamModel.loading = true;
+    this.adminServices.inviteTeam(inviteTeamData).subscribe((res) => {
+      let responseData = res;
+      if (responseData.responseDetails.code === '0029') {
+        this.helperService.creactSnack(responseData.responseDetails.message,
+          this.inviteTeamModel.translated.MESSAGES.INVITETEAMSUCCESS, this.helperService.constants.status.SUCCESS);
+        this.onNoClick();
+      } else {
+        this.helperService.creactSnack(responseData.responseDetails.message,
+          this.inviteTeamModel.translated.MESSAGES.INVITETEAMFAIL, this.helperService.constants.status.ERROR);
+        this.onNoClick();
+      }
+      this.inviteTeamModel.loading = false;
+    }, (error) => {
+      this.inviteTeamModel.loading = false;
+      this.helperService.handleError(error);
     })
   }
 }

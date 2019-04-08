@@ -3,7 +3,6 @@
     <h3>{{ translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
     <p>{{ translated.SITETITLE.ENTITYCONTROL_DESCRIPTION }}</p>
   </div>
-  <mat-progress-bar mode="indeterminate" *ngIf='empty'></mat-progress-bar>
   <div class="buttonRow">
     <button btn-primary mat-raised-button color="primary" *ngIf="joinOption" (click)="joinEntity()">
       <mat-icon>{{ appIcons.joinEntity }}</mat-icon>

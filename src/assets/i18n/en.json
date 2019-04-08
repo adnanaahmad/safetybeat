@@ -62,7 +62,6 @@
     "CHANGETHEME": "Change Theme",
     "EXPAND": "Expand",
     "REMOVE": "Remove"
-
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -92,7 +91,8 @@
     "INVITE_USER": "INVITE",
     "SKIP": "SKIP",
     "MAP": "Map",
-    "HOURS": "Hours"
+    "HOURS": "Hours",
+    "INVITETEAM": "Invite"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -158,12 +158,16 @@
     "ENTITYCODE": "Enter entity code to join entity",
     "ENTITYCODE_REQ": "Entity Code is Required.",
     "BACKEND_ERROR": "Something bad happened; please try again later.",
-    "ORGTYPEMESSAGE":"Please choose your organization type",
+    "ORGTYPEMESSAGE": "Please choose your organization type",
     "VERIFICATIONCODEEMAIL": "Email has been sent with verification code",
     "JOINENTITY_SUCCESS": "Entity has been joined successfully",
     "ALREADYJOINED_ENTITY": "Entity has already been joined",
-    "ENTITYNOTFOUND":"Entity not found",
-    "ENTITYJOINFIAL": "Sorry, something bad happened thats why you can not join this entity"
+    "ENTITYNOTFOUND": "Entity not found",
+    "ENTITYJOINFIAL": "Sorry, something bad happened thats why you can not join this entity",
+    "INVITETEAMSUCCESS": "Invitation Successful",
+    "INVITETEAMFAIL": "Invitation Unsuccessful",
+    "INVITETEAMTITLE": "Invite Team",
+    "INVITETEAMPLACEHOLDER": "Type user names to invite"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
