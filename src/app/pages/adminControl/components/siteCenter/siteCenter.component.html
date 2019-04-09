@@ -3,7 +3,7 @@
     <h3>{{ siteCentreModel.translated.SITETITLE.SITE_CENTRE }}</h3>
     <p>{{ siteCentreModel.translated.SITETITLE.SITE_CENTRE_DESCRIPTION }}</p>
   </div>
-  <mat-progress-bar mode="indeterminate" *ngIf='empty'></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf='siteCentreModel.empty'></mat-progress-bar>
   <div class="buttonRow">
     <button btn-primary mat-raised-button color="primary" (click)="addSite()">
       <mat-icon>{{ siteCentreModel.appIcons.createEntity }}</mat-icon>
@@ -50,7 +50,7 @@
           Actions
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="entityCode(element.entityInfo.code, element.entityInfo.name)">
+          <button mat-menu-item>
             <mat-icon>{{ siteCentreModel.appIcons.edit }}</mat-icon>Edit Site
           </button>
           <button mat-menu-item>

@@ -1,5 +1,5 @@
-import { Translation } from '../translate.model';
-import { SitesInfo } from '../site.model';
+import {Translation} from '../translate.model';
+import {SitesInfo} from '../site.model';
 
 export interface SiteCentre {
   translated: Translation;
@@ -9,4 +9,6 @@ export interface SiteCentre {
   sitesData: SitesInfo[];
   entityData: any;
   entityId: any;
+  empty: boolean;
 }
+

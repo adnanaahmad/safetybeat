@@ -10,7 +10,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {AddSiteModalComponent} from 'src/app/pages/adminControl/components/addSiteModal/addSiteModal.component';
-import { SiteCentre } from 'src/app/models/adminControl/siteCentre.model';
+import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 
 @Component({
   selector: 'app-siteCenter',
@@ -31,6 +31,7 @@ export class SiteCenterComponent implements OnInit {
     public compiler: CompilerProvider,
     private navService: NavigationService,
   ) {
+    this.initialize();
     this.siteCentreModel.translated = this.helperService.translation;
     this.siteCentreModel.appIcons = this.helperService.constants.appIcons;
     this.navService.selectedEntityData.subscribe((res) => {
@@ -40,8 +41,13 @@ export class SiteCenterComponent implements OnInit {
 
   }
 
+
+  initialize() {
+    this.siteCentreModel.empty = false;
+  }
+
   ngOnInit() {
-     this.viewAllSites();
+    this.viewAllSites();
   }
 
   viewAllSites() {
@@ -63,6 +69,7 @@ export class SiteCenterComponent implements OnInit {
 
       }
     });
+    this.siteCentreModel.empty = true;
   }
 
   addSite() {
