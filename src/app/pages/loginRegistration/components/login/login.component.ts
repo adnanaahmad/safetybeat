@@ -1,7 +1,7 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import {LoginRegistrationService} from '../../services/LoginRegistrationService';
 import {loginCredentials} from 'src/app/models/user.model';
 import {Translation} from 'src/app/models/translate.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   entites: any;
   devMode: boolean = false;
 
+
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.devMode = this.helperService.constants.config.devMode;
-    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT)
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
   }
 
   ngOnInit() {
@@ -88,8 +89,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid)
-    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value))
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.loginService.loginUser(value).subscribe(
       data => {
         if (data.responseDetails.code === '0000') {
@@ -110,12 +111,11 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS,
+            this.helperService.createSnack(this.translated.MESSAGES.LOGIN_SUCCESS,
               this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-            this.router.navigate(['/home']);
+            this.helperService.navigateTo(['/home']);
           }, (err) => {
-
-          })
+          });
         } else if (data.responseDetails.code === '0001') {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
@@ -141,7 +141,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loading = false;
-        this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_FAIL,
+        this.helperService.createSnack(this.translated.MESSAGES.LOGIN_FAIL,
           this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
       }
     );

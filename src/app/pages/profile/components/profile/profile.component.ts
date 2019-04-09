@@ -71,6 +71,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     // this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
   }
 
+
   @Input()
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
@@ -90,6 +91,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getUserData();
   }
 
+
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
@@ -97,6 +99,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       ? null
       : group.controls.password2.setErrors({notSame: true});
   }
+
 
   get profileDataForm() {
     return this.profileForm.controls;
@@ -129,7 +132,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       }
-    )
+    );
   }
 
   // onCreate(feature: any) {
@@ -147,6 +150,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.disabled = true;
     this.profileForm.enable();
   }
+
 
   cancelEditAccount() {
     this.disabled = false;
@@ -194,7 +198,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
-        this.helperService.creactSnack(this.translated.LOGGER.STATUS.SUCCESS,
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
+          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
         this.getUserData();
       },

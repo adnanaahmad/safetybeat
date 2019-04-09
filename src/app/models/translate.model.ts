@@ -227,7 +227,8 @@ export interface Messages {
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
   SITE_NAME: string;
-  INVALIDADDRESS: string
+  INVALIDADDRESS: string;
+  EMAIL_NOT_REGISTERED: string;
 }
 
 export interface Logger {

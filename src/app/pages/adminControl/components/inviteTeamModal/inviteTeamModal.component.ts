@@ -93,11 +93,11 @@ export class InviteTeamModalComponent {
     this.adminServices.inviteTeam(inviteTeamData).subscribe((res) => {
       let responseData = res;
       if (responseData.responseDetails.code === '0029') {
-        this.helperService.creactSnack(responseData.responseDetails.message,
+        this.helperService.createSnack(responseData.responseDetails.message,
           this.inviteTeamModel.translated.MESSAGES.INVITETEAMSUCCESS, this.helperService.constants.status.SUCCESS);
         this.onNoClick();
       } else {
-        this.helperService.creactSnack(responseData.responseDetails.message,
+        this.helperService.createSnack(responseData.responseDetails.message,
           this.inviteTeamModel.translated.MESSAGES.INVITETEAMFAIL, this.helperService.constants.status.ERROR);
         this.onNoClick();
       }
