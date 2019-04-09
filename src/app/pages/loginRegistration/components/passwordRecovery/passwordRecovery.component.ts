@@ -3,10 +3,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {TranslateService} from '@ngx-translate/core';
-import {Translation} from 'src/app/models/translate.model';
 import {Reset} from 'src/app/models/profile.model';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {PasswordRecovery} from '../../../../models/loginRegistration/passwordRecovery.model';
+import {FormErrorHandler} from '../../../../shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
   selector: 'app-passwordRecovery',
@@ -14,10 +15,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
   styleUrls: ['./passwordRecovery.component.scss']
 })
 export class PasswordRecoveryComponent implements OnInit {
-  data: any;
-  resetPasswordForm: FormGroup;
-  appConstants: any;
-  translated: Translation;
+  passRecoveryObj: PasswordRecovery = <PasswordRecovery>{};
 
   constructor(
     private route: ActivatedRoute,
@@ -29,17 +27,18 @@ export class PasswordRecoveryComponent implements OnInit {
   ) {
 
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
-      this.translated = values;
+      this.passRecoveryObj.translated = values;
     });
     this.route.params.subscribe(data => {
-      this.data = data;
-    })
-    this.appConstants = ConstantService.appConstant;
+      this.passRecoveryObj.data = data;
+    });
+    this.passRecoveryObj.appConstants = ConstantService.appConstant;
+    this.passRecoveryObj.formErrorMatcher = new FormErrorHandler();
 
   }
 
   ngOnInit() {
-    this.resetPasswordForm = this.formBuilder.group({
+    this.passRecoveryObj.resetPasswordForm = this.formBuilder.group({
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: this.checkPasswords});
@@ -52,32 +51,34 @@ export class PasswordRecoveryComponent implements OnInit {
   }
 
   get formValidation() {
-    return this.resetPasswordForm.controls;
+    return this.passRecoveryObj.resetPasswordForm.controls;
   }
 
   changePassword({value, valid}: { value: Reset; valid: boolean }): void {
     if (!valid) {
-      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
+      this.helperService.appLoggerDev(this.passRecoveryObj.translated.LOGGER.STATUS.WARNING, valid);
+      this.helperService.appLogger(this.passRecoveryObj.translated.LOGGER.STATUS.ERROR, this.passRecoveryObj.translated.AUTH.PASSWORD_REQ);
       return;
     }
 
     let data = {
       'password': value.password1,
-      'uid': this.data.uid,
-      'token': this.data.token
+      'uid': this.passRecoveryObj.data.uid,
+      'token': this.passRecoveryObj.data.token
     };
 
     this.resetServices.resetPassword(data).subscribe((res) => {
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
-      this.router.navigate(['/login']);
+      this.helperService.appLogger(this.passRecoveryObj.translated.LOGGER.STATUS.SUCCESS,
+        this.passRecoveryObj.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLoggerDev(this.passRecoveryObj.translated.LOGGER.STATUS.SUCCESS
+        , this.passRecoveryObj.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.helperService.navigateTo(['/login']);
     }, (error) => {
-      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
-      this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-        this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
-    })
+      this.helperService.appLoggerDev(this.passRecoveryObj.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
+      this.passRecoveryObj.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+      this.helperService.appLoggerDev(this.passRecoveryObj.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+        this.passRecoveryObj.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+    });
   }
 
 }
