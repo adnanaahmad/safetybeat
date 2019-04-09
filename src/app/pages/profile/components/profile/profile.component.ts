@@ -4,23 +4,22 @@ import {
   Input,
   OnDestroy,
   AfterViewInit
-} from "@angular/core";
-import { ProfileService } from "../../services/profile.service";
-import { share } from "rxjs/operators";
-import { Translation } from "src/app/models/translate.model";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { EditUser } from "src/app/models/profile.model";
-import { MatDialog } from "@angular/material";
-import { ConstantService } from "src/app/shared/constant/constant.service";
-import { AdminControlService } from "src/app/pages/adminControl/services/adminControl.service";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { LoginRegistrationService } from "src/app/pages/loginRegistration/services/LoginRegistrationService";
-import { CompilerProvider } from "src/app/shared/compiler/compiler";
+} from '@angular/core';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {Translation} from 'src/app/models/translate.model';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {EditUser} from 'src/app/models/profile.model';
+import {MatDialog} from '@angular/material';
+import {ConstantService} from 'src/app/shared/constant/constant.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.scss"]
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   userData: any;
@@ -71,13 +70,15 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.appConstants = ConstantService.appConstant;
     // this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
   }
+
+
   @Input()
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      first_name: ["", Validators.required],
-      last_name: ["", Validators.required],
-      contactNo: ["", Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      contactNo: ['', Validators.required]
     });
     this.profileForm.disable();
   }
@@ -89,13 +90,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.getUserData();
   }
+
+
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass
       ? null
-      : group.controls.password2.setErrors({ notSame: true });
+      : group.controls.password2.setErrors({notSame: true});
   }
+
+
   get profileDataForm() {
     return this.profileForm.controls;
   }
@@ -127,7 +132,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       }
-    )
+    );
   }
 
   // onCreate(feature: any) {
@@ -145,6 +150,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.disabled = true;
     this.profileForm.enable();
   }
+
+
   cancelEditAccount() {
     this.disabled = false;
     this.profileForm.disable();
@@ -155,11 +162,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileFeatures.leaves = true;
   }
 
-  onEntities() { }
+  onEntities() {
+  }
 
-  onActivities() { }
+  onActivities() {
+  }
 
-  updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
+  updateProfile({value, valid}: { value: EditUser; valid: boolean }): void {
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {
@@ -189,7 +198,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
-        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
+          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
+          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
         this.getUserData();
       },
       error => {

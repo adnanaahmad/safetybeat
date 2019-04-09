@@ -1,9 +1,9 @@
 <div class="paddingbox">
+    <mat-progress-bar mode="indeterminate" *ngIf='!siteCentreModel.empty'></mat-progress-bar>
   <div class="page-title">
     <h3>{{ siteCentreModel.translated.SITETITLE.SITE_CENTRE }}</h3>
     <p>{{ siteCentreModel.translated.SITETITLE.SITE_CENTRE_DESCRIPTION }}</p>
   </div>
-  <mat-progress-bar mode="indeterminate" *ngIf='siteCentreModel.empty'></mat-progress-bar>
   <div class="buttonRow">
     <button btn-primary mat-raised-button color="primary" (click)="addSite()">
       <mat-icon>{{ siteCentreModel.appIcons.createEntity }}</mat-icon>
@@ -15,7 +15,7 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ siteCentreModel.translated.TABLEHEADINGS.SITE_NAME }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.site.name }}</td> 
+      <td mat-cell *matCellDef="let element">{{ element.site.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="location">

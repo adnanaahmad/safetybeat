@@ -1,21 +1,21 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, OnChanges } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { Translation } from 'src/app/models/translate.model';
-import { NavItem } from 'src/app/models/navItems.model';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { EntityUserData } from 'src/app/models/userEntityData.model';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { NavigationService } from '../../services/navigation.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, OnDestroy, Output, EventEmitter, OnChanges, AfterViewInit} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {CoreService} from 'src/app/core/services/authorization/core.service';
+import {Translation} from 'src/app/models/translate.model';
+import {NavItem} from 'src/app/models/navItems.model';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {EntityUserData} from 'src/app/models/userEntityData.model';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: "app-navigation",
-  templateUrl: "./navigation.component.html",
-  styleUrls: ["./navigation.component.scss"],
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
+export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Output() entitySelected = new EventEmitter();
   translated: Translation;
   appIcons: any;
@@ -31,8 +31,9 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
   selectedEntity;
   Entity: any;
   moduleData = {
-    moduleName: "Safetybeat"
+    moduleName: 'Safetybeat'
   };
+
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
@@ -50,19 +51,19 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
   }
 
   ngOnInit() {
-    // this.viewAllEntities();
   }
-  ngAfterViewInit(){
-    this.navService.data.subscribe((res)=>{
-      if(res!==1){
+
+  ngAfterViewInit() {
+    this.navService.data.subscribe((res) => {
+      if (res !== 1) {
         this.allEntitiesData = res;
         this.entityUserData = this.allEntitiesData.entities;
         this.empty = false;
-        let index = this.helperService.findIndex(this.entityUserData, function(entity){
-          return entity.active===true
+        let index = this.helperService.findIndex(this.entityUserData, function (entity) {
+          return entity.active === true
         });
         this.selectedEntity =
-          index != -1 ? this.entityUserData[index] : this.entityUserData[0];
+          index !== -1 ? this.entityUserData[index] : this.entityUserData[0];
         this.switchSideMenu(this.selectedEntity);
       } else {
         this.adminServices
@@ -78,12 +79,14 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
     })
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.empty = false;
   }
+
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
+
   switchList() {
     this.navLinks = [
       {
@@ -93,67 +96,69 @@ export class NavigationComponent implements OnInit, OnDestroy,OnChanges {
         disabled: true
       },
       {
-        displayName: "Action Report",
-        route: "/home/analyticsReport/actionReport",
+        displayName: 'Action Report',
+        route: '/home/analyticsReport/actionReport',
         disabled: true
       },
       {
-        displayName: "Average Daily Actions",
-        route: "/home/analyticsReport/averageDailyActionsReport",
+        displayName: 'Average Daily Actions',
+        route: '/home/analyticsReport/averageDailyActionsReport',
         disabled: true
       },
       {
-        displayName: "Checkin by Activity",
-        route: "/home/analyticsReport/checkInActivityReport",
+        displayName: 'Checkin by Activity',
+        route: '/home/analyticsReport/checkInActivityReport',
         disabled: true
       },
       {
-        displayName: "Checkin and Alert by Person",
-        route: "/home/analyticsReport/alertsPersonReport",
+        displayName: 'Checkin and Alert by Person',
+        route: '/home/analyticsReport/alertsPersonReport',
         disabled: true
       },
       {
-        displayName: "Actions vs Alerts",
-        route: "/home/analyticsReport/actionAlertsReport",
+        displayName: 'Actions vs Alerts',
+        route: '/home/analyticsReport/actionAlertsReport',
         disabled: true
       },
       {
-        displayName: "Pulse Report by Entity",
-        route: "/home/analyticsReport/entityPulseReport",
+        displayName: 'Pulse Report by Entity',
+        route: '/home/analyticsReport/entityPulseReport',
         disabled: true
       },
       {
-        displayName: "Pulse Report by Person",
-        route: "/home/analyticsReport/personPulseReport",
+        displayName: 'Pulse Report by Person',
+        route: '/home/analyticsReport/personPulseReport',
         disabled: true
       },
       {
-        displayName: "Compliant Checkout",
-        route: "/home/analyticsReport/compliantCheckoutReport",
+        displayName: 'Compliant Checkout',
+        route: '/home/analyticsReport/compliantCheckoutReport',
         disabled: true
       },
       {
-        displayName: "Site Activity Report",
-        route: "/home/analyticsReport/siteActivityReport",
+        displayName: 'Site Activity Report',
+        route: '/home/analyticsReport/siteActivityReport',
         disabled: true
       },
       {
-        displayName: "Hazard Reports",
-        route: "/home/analyticsReport/hazardReport",
+        displayName: 'Hazard Reports',
+        route: '/home/analyticsReport/hazardReport',
         disabled: true
       }
     ];
   }
+
   viewAllEntities() {
-    var data = {
-      moduleName: "Safetybeat"
+    let data = {
+      moduleName: 'Safetybeat'
     };
-    this.adminServices.viewEntities(data).subscribe((res)=>{
+    this.adminServices.viewEntities(data).subscribe((res) => {
       this.entitiesList = res;
       this.entityUserData = this.entitiesList.data.result;
       this.navService.changeEntites(this.entityUserData);
     });
   }
+
   switchListDefault(data) {
     this.navLinks = this.compiler.switchSideMenuDefault(data);
   }

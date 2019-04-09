@@ -27,7 +27,8 @@ import {
   MatProgressSpinnerModule,
   MatProgressBarModule,
   MatExpansionModule,
-  MatTabsModule
+  MatTabsModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { GooglePlacesDirective } from 'src/app/directives/googlePlaces/googlePlaces.directive';
 
@@ -60,7 +61,8 @@ import { GooglePlacesDirective } from 'src/app/directives/googlePlaces/googlePla
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule
   ],
   declarations: [GooglePlacesDirective],
   exports: [
@@ -92,7 +94,8 @@ import { GooglePlacesDirective } from 'src/app/directives/googlePlaces/googlePla
     MatProgressBarModule,
     MatExpansionModule,
     MatTabsModule,
-    GooglePlacesDirective
+    GooglePlacesDirective,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }

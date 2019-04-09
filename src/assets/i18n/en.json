@@ -95,6 +95,7 @@
     "SKIP": "SKIP",
     "MAP": "Map",
     "HOURS": "Hours",
+    "INVITETEAM": "Invite",
     "ADD_SITE": "Add Site"
   },
   "MESSAGES": {
@@ -161,9 +162,17 @@
     "ENTITYCODE": "Enter entity code to join entity",
     "ENTITYCODE_REQ": "Entity Code is Required.",
     "BACKEND_ERROR": "Something bad happened; please try again later.",
-    "ORGTYPEMESSAGE":"Please choose your organization type",
-    "INVALIDADDRESS": "Invalid address",
+    "ORGTYPEMESSAGE": "Please choose your organization type",
     "VERIFICATIONCODEEMAIL": "Email has been sent with verification code",
+    "JOINENTITY_SUCCESS": "Entity has been joined successfully",
+    "ALREADYJOINED_ENTITY": "Entity has already been joined",
+    "ENTITYNOTFOUND": "Entity not found",
+    "ENTITYJOINFIAL": "Sorry, something bad happened thats why you can not join this entity",
+    "INVITETEAMSUCCESS": "Invitation Successful",
+    "INVITETEAMFAIL": "Invitation Unsuccessful",
+    "INVITETEAMTITLE": "Invite Team",
+    "INVITETEAMPLACEHOLDER": "Type user names to invite",
+    "INVALIDADDRESS": "Invalid address",
     "ADDSITE_MSG":"Enter Site Details to Add Site",
     "SITE_NAME": "Enter Site Name"
   },
