@@ -128,7 +128,7 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput appGooglePlaces type="text" [placeholder]="registerObj.translated.AUTH.ADDRESS"
-                       formControlName="{{ registerObj.appConstants.address }}" #addressVal
+                       formControlName="{{ registerObj.appConstants.address }}"
                        (onSelect)="setAddress($event)"
                        (keyup)="setFalse($event)" required/>
                 <mat-error *ngIf="orgForm.address.errors">

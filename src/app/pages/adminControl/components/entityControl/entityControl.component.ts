@@ -45,6 +45,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.viewAllEntities();
     this.creationEnable();
   }
+
   initialize() {
     this.entityControl.empty = false;
     this.entityControl.createEntityOption = false;
@@ -54,11 +55,11 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   createEntity() {
-    this.helperService.createModal(CreateEntityComponent)
+    this.helperService.createModal(CreateEntityComponent);
   }
 
   joinEntity() {
-    this.helperService.createModal(JoinEntityModalComponent)
+    this.helperService.createModal(JoinEntityModalComponent);
   }
 
   entityCode(code, name) {
@@ -91,6 +92,6 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
       } else {
         this.entityControl.createEntityOption = false;
       }
-    })
+    });
   }
 }

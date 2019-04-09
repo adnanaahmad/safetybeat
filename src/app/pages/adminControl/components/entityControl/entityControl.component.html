@@ -9,7 +9,8 @@
       <mat-icon>{{ entityControl.appIcons.joinEntity }}</mat-icon>
       {{ entityControl.translated.BUTTONS.JOIN_ENTITY }}
     </button>
-    <button btn-primary mat-raised-button color="primary" *ngIf="entityControl.createEntityOption" (click)="createEntity()">
+    <button btn-primary mat-raised-button color="primary" *ngIf="entityControl.createEntityOption"
+            (click)="createEntity()">
       <mat-icon>{{ entityControl.appIcons.createEntity }}</mat-icon>
       {{ entityControl.translated.BUTTONS.CREATE_ENTITY }}
     </button>
@@ -56,16 +57,20 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="entityCode(element.entityInfo.code, element.entityInfo.name)">
-            <mat-icon>{{ entityControl.appIcons.fingerPrint }}</mat-icon>Entity Code
+            <mat-icon>{{ entityControl.appIcons.fingerPrint }}</mat-icon>
+            Entity Code
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ entityControl.appIcons.folderShared }}</mat-icon>Invite Team
+            <mat-icon>{{ entityControl.appIcons.folderShared }}</mat-icon>
+            Invite Team
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ entityControl.appIcons.groupAdd }}</mat-icon>Register Team
+            <mat-icon>{{ entityControl.appIcons.groupAdd }}</mat-icon>
+            Register Team
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ entityControl.appIcons.payment }}</mat-icon>Payment History
+            <mat-icon>{{ entityControl.appIcons.payment }}</mat-icon>
+            Payment History
           </button>
         </mat-menu>
       </td>
