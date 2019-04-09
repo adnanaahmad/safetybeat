@@ -141,7 +141,7 @@
     "EMAIL_CHANGED": "Your email has been changed successfully",
     "NOT_REGISTETRED": "Email/Username is not registered",
     "INVALID_PASSWORD": "Invalid Password",
-    "EMAIL_NOT_REGISTERED": "This email is not registered,insert valid email",
+    "EMAIL_NOT_REGISTERED": "This email is not registered, add a valid email",
     "CHANGEPASSWORD_FAIL": "Change Password Unsuccessful!",
     "CHANGEPASSWORD_SUCCESS": "Change password successful!",
     "PROFIILE_INFO": "Profile Info",

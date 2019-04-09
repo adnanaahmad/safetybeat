@@ -189,7 +189,7 @@ export class ConstantService {
     ERROR: 'error',
     OK: 'OK'
   };
-  static defaultMapconfig = {
+  static defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
     zoomControl: true

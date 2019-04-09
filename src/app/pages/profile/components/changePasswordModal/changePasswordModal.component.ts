@@ -69,9 +69,9 @@ export class ModalDialogComponent implements OnInit {
       this.dialogRef.close();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
       this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
-      this.helperService.creactSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
+      this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
     }, (error) => {
-      this.helperService.creactSnack(this.translated.MESSAGES.CHANGEPASSWORD_FAIL, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_FAIL, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
       this.dialogRef.close();
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
         this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
