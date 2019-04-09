@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginRegistrationService } from '../../services/LoginRegistrationService';
-import { loginCredentials } from 'src/app/models/user.model';
-import { Translation } from 'src/app/models/translate.model';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { FormErrorHandler } from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import {loginCredentials} from 'src/app/models/user.model';
+import {Translation} from 'src/app/models/translate.model';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -21,11 +21,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   data: any;
   translated: Translation;
   success: any;
-  showError: string;
   appConstants: any;
   formErrorMatcher: any;
   entites: any;
   devMode: boolean = false;
+
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -33,13 +33,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private compiler: CompilerProvider,
     private adminService: AdminControlService,
-    private navService: NavigationService
+    private navService: NavigationService,
   ) {
     this.translated = this.helperService.translation;
     this.appConstants = this.helperService.constants.appConstant;
     this.devMode = this.helperService.constants.config.devMode;
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT)
   }
+
   ngOnInit() {
     if (this.loginService.getToken()) {
       this.router.navigate(['/home']);
@@ -61,6 +62,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   get formValidation() {
     return this.loginForm.controls;
   }
+
   /**
    * this function is used when we click on the login button then first of all it is checked that whether the form data is
    * valid or not if its invalid then its returned and if this is valid then the loginfrom data is sent to the api and if
@@ -68,9 +70,9 @@ export class LoginComponent implements OnInit, OnDestroy {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({
-    value,
-    valid
-  }: {
+             value,
+             valid
+           }: {
     value: loginCredentials;
     valid: boolean;
   }): void {
@@ -97,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             : this.loginService.setToken('');
           let userData = this.compiler.constructUserData(this.data.data.user);
           this.loginService.updateProfileData(userData);
-          var entityData = {
+          let entityData = {
             'moduleName': 'Safetybeat'
           };
           this.adminService.viewEntities(entityData).subscribe((res) => {
@@ -108,10 +110,11 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.constants.status.SUCCESS,
               this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS, this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_SUCCESS,
+              this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
             this.router.navigate(['/home']);
           }, (err) => {
-            
+
           })
         } else if (data.responseDetails.code === '0001') {
           this.helperService.appLogger(
@@ -138,7 +141,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loading = false;
-        this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_FAIL, this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
+        this.helperService.creactSnack(this.translated.MESSAGES.LOGIN_FAIL,
+          this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }

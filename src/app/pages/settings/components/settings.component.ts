@@ -1,15 +1,16 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { SettingService } from 'src/app/shared/settings/setting.service';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Translation } from 'src/app/models/translate.model';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { NavigationService } from '../../navigation/services/navigation.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EditEntity } from 'src/app/models/profile.model';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {SettingService} from 'src/app/shared/settings/setting.service';
+import {OverlayContainer} from '@angular/cdk/overlay';
+import {Translation} from 'src/app/models/translate.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {EditEntity} from 'src/app/models/profile.model';
+
 @Component({
-  selector: "app-settings",
-  templateUrl: "./settings.component.html",
-  styleUrls: ["./settings.component.scss"]
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
   themeSelected: any;
@@ -20,11 +21,12 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   appTheme: any;
   entitiesData: any;
   allEntites: any;
-  settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "entity": false, "theme": false };
+  settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false};
   disabled: boolean = false;
   entityId: any;
   createdBy: any;
   managedBy: any;
+
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
@@ -61,21 +63,25 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.managedBy = this.entitiesData.managedBy;
     })
   }
+
   editEntity() {
     this.disabled = true;
     this.entityForm.enable();
   }
+
   cancelEditAccount() {
     this.disabled = false;
     this.entityForm.disable();
   }
 
-  get entityDataForm() { return this.entityForm.controls; }
+  get entityDataForm() {
+    return this.entityForm.controls;
+  }
 
 
   changed() {
     this.settings.setActiveTheme(this.themeSelected);
-    var self = this;
+    let self = this;
     this.helperService.iterations(this.overlay.getContainerElement().classList, function (value, index) {
       if (index !== 0) {
         self.overlay.getContainerElement().classList.remove(value);
@@ -85,7 +91,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   changeSetting(settings: any) {
-    var self = this
+    let self = this
     this.helperService.iterations(this.settingFeatures, function (value, key) {
       if (key === settings) {
         self.settingFeatures[key] = true;
@@ -95,10 +101,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     })
   }
 
-  updateEntity({ value, valid }: { value: EditEntity; valid: boolean }): void {
+  updateEntity({value, valid}: { value: EditEntity; valid: boolean }): void {
     this.disabled = false;
     this.entityForm.disable();
-    var data = {
+    let data = {
       'name': value.name,
       'code': value.code,
       'headOffice': value.headOffice,
@@ -112,7 +118,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.settings.editEntity(this.entityId, data).subscribe((res) => {
       this.helperService.creactSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
     })
-
 
 
   }
