@@ -174,7 +174,9 @@
     "INVITETEAMPLACEHOLDER": "Type user names to invite",
     "INVALIDADDRESS": "Invalid address",
     "ADDSITE_MSG":"Enter Site Details to Add Site",
-    "SITE_NAME": "Enter Site Name"
+    "SITE_NAME": "Enter Site Name",
+    "NOUSER":"No user found. Please invite users first",
+    "NOUSERTITLE": "No user found to invite for team"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

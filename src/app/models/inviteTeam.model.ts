@@ -2,6 +2,7 @@ import {Translation} from './translate.model';
 import {Observable} from 'rxjs';
 
 export interface InviteTeamModel {
+  showMessage: boolean;
   loading: boolean;
   selectable: boolean;
   removable: boolean;

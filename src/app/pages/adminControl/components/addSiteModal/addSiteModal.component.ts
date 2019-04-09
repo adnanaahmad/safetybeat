@@ -82,6 +82,8 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
           this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Site has been created successfully');
         });
       } else if (this.addSiteModel.addSiteResponse.responseDetails.code === '0037') {
+        this.addSiteModel.loading = false;        
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Site Creation Failed')
       }
     });
