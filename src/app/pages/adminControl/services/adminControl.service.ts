@@ -1,38 +1,64 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {entity, joinEntity} from 'src/app/models/entity.model';
-import {map, catchError} from 'rxjs/operators';
-import {CoreService} from 'src/app/core/services/authorization/core.service';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {InviteTeamData, InviteTeamResponse} from 'src/app/models/inviteUser.model';
-import {Observable} from 'rxjs';
-
+import { Injectable } from '@angular/core';
+import { entity, joinEntity, entityData } from 'src/app/models/entity.model';
+import { HelperService } from '../../../shared/helperService/helper.service';
+import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminControlService {
-  method: any;
-  public inviteTeamResponse$: Observable<InviteTeamResponse>
+  apiRoutes: any;
+  inviteTeamResponse$:Observable<InviteTeamResponse>
+  method: { get: string; post: string; put: string; delete: string };
+  private sites = new BehaviorSubject<any>(1);
+  siteObserver = this.sites.asObservable();
+  constructor(public helperService: HelperService) { 
+    this.apiRoutes = this.helperService.constants.apiRoutes;
+    this.method = this.helperService.constants.apiMethod;
+  }
 
-  constructor(
-    private http: HttpClient,
-    public coreServices: CoreService,
-    private helperService: HelperService
-  ) {
-    this.method = this.helperService.constants.apiMethod
-
+  changeSites(sitesInfo:any){
+    this.sites.next(sitesInfo)
   }
 
   createEntity(data: entity) {
-    return this.http.post(this.helperService.constants.apiRoutes.createEntity, data).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.createEntity,
+      data
+    ); 
+  }
+  
+  viewEntities(data:object){
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.viewAllEntities,
+      data
+    );
   }
 
-  viewEntities(data: any) {
-    return this.http.post(this.helperService.constants.apiRoutes.viewAllEntities, data).pipe(catchError(this.coreServices.handleError));
+  joinEntity(data:joinEntity){
+    return this.helperService.requestCall(
+     this.method.post,
+     this.apiRoutes.joinEntity,
+     data 
+    );
   }
 
-  joinEntity(data: joinEntity) {
-    return this.http.post(this.helperService.constants.apiRoutes.joinEntity, data).pipe(catchError(this.coreServices.handleError));
+  viewSites(data:object){
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.viewAllSites,
+      data
+    );
+  }
+
+  addSite(data:any){
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.addSite,
+      data
+    )
   }
 
   inviteTeam(data: InviteTeamData): Observable<InviteTeamResponse> {

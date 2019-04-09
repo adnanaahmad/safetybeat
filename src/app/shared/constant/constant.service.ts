@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../environments/environment';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -35,14 +35,16 @@ export class ConstantService {
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
-    inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`
+    inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
+    viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
+    addSite: `${environment.apiUrl}/api/sites/addSite/`
   };
   static apiMethod = {
     get: 'get',
     post: 'post',
     put: 'put',
     delete: 'delete'
-  }
+  };
   static localStorageKeys = {
     token: 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
@@ -59,7 +61,8 @@ export class ConstantService {
       dark: 'dark-theme',
       light: 'light-theme',
       background: 'body-bg',
-      modalClass: 'verify-modal'
+      modalClass: 'verify-modal',
+      addSiteClass: 'addsite-modal'
     }
   };
   static appTheme = {
@@ -92,7 +95,13 @@ export class ConstantService {
     status: 'status',
     joinCode: 'joinCode',
     role: 'role',
-    code: 'code'
+    code: 'code',
+    siteName: 'siteName',
+    siteSafetyPlan: 'siteSafetyPlan',
+    siteAddress: 'siteAddress',
+    safeZone: 'safeZone',
+    linearForm: 'true',
+    enterKey: 13
   };
   static appIcons = {
     skipNext: 'skip_next',
@@ -144,7 +153,11 @@ export class ConstantService {
     folderShared: 'folder_shared',
     groupAdd: 'group_add',
     payment: 'payment',
-    exit_to_app: 'exitToApp'
+    exit_to_app: 'exitToApp',
+    edit: 'edit',
+    viewSite: 'remove_red_eye',
+    siteQuestionCenter: 'question_answer',
+    log: 'library_books'
   };
   static particlesIcons = [
     'more_vert',
@@ -167,13 +180,19 @@ export class ConstantService {
     'filter_list',
     'wifi_tethering',
     'blur_on'
-  ]
+  ];
   static status = {
     CUSTOM: 'custom',
     DEFAULT: 'default',
     INFO: 'info',
     SUCCESS: 'success',
     WARNING: 'warning',
-    ERROR: 'error'
-  }
+    ERROR: 'error',
+    OK: 'OK'
+  };
+  static defaultMapconfig = {
+    zoom: 15,
+    center: {lat: 33.738, lng: 73.084},
+    zoomControl: true
+  };
 }

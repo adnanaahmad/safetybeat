@@ -61,7 +61,10 @@
     "OTHERSETTINGS": "Other Settings",
     "CHANGETHEME": "Change Theme",
     "EXPAND": "Expand",
-    "REMOVE": "Remove"
+    "REMOVE": "Remove",
+    "SITEADDRESS": "Site Address",
+    "SITESAFETYPLAN": "Site Safety Plan"
+
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -92,7 +95,8 @@
     "SKIP": "SKIP",
     "MAP": "Map",
     "HOURS": "Hours",
-    "INVITETEAM": "Invite"
+    "INVITETEAM": "Invite",
+    "ADD_SITE": "Add Site"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -167,7 +171,10 @@
     "INVITETEAMSUCCESS": "Invitation Successful",
     "INVITETEAMFAIL": "Invitation Unsuccessful",
     "INVITETEAMTITLE": "Invite Team",
-    "INVITETEAMPLACEHOLDER": "Type user names to invite"
+    "INVITETEAMPLACEHOLDER": "Type user names to invite",
+    "INVALIDADDRESS": "Invalid address",
+    "ADDSITE_MSG":"Enter Site Details to Add Site",
+    "SITE_NAME": "Enter Site Name"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -177,7 +184,9 @@
     "USERS_TITLE": "All Users",
     "USERS_DESCRIPTION": "Add, remove or review users",
     "SETTINGS_TITLE": "Settings",
-    "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages"
+    "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages",
+    "SITE_CENTRE": "Site Centre",
+    "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Entity Id",
@@ -193,7 +202,11 @@
     "LAST_ACTION": "Last Action",
     "DATE_TIME": "Date/Time",
     "TIMEZONE": "Time Zone",
-    "ADMINISTRATED_BY": "Administrated By"
+    "ADMINISTRATED_BY": "Administrated By",
+    "SITE_NAME":"Site Name",
+    "SITE_ADDRESS":"Site Location",
+    "SITE_SAFE_ZONE":"Safe Zone",
+    "SITE_CREATED_BY":"Created By"
   },
   "LOGGER": {
     "STATUS": {

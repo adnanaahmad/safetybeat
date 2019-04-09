@@ -5,7 +5,7 @@ export interface Translation {
   LOGGER: Logger;
   STRINGS: Strings;
   SITETITLE: SiteTitle;
-  STATUS: Status
+  STATUS: Status;
 }
 
 export interface Strings {
@@ -23,6 +23,8 @@ export interface Strings {
   EXPAND: string;
   REMOVE: string;
   USERINFO: string;
+  SITEADDRESS: string;
+  SITESAFETYPLAN: string;
 }
 
 export interface Auth {
@@ -145,6 +147,7 @@ export interface Buttons {
   HOURS: string;
   INVITE_USER: string;
   INVITETEAM: string;
+  ADD_SITE: string;
 }
 
 export interface Messages {
@@ -210,9 +213,6 @@ export interface Messages {
   JOINENTITY_MSG: string;
   ENTITYCODE: string;
   ENTITYCODE_REQ: string;
-  BACKEND_ERROR: string;
-  ORGTYPEMESSAGE: string;
-  VERIFICATIONCODEEMAIL: string;
   JOINENTITY_SUCCESS: string;
   ALREADYJOINED_ENTITY: string;
   ENTITYNOTFOUND: string;
@@ -221,7 +221,12 @@ export interface Messages {
   INVITETEAMFAIL: string;
   INVITETEAMTITLE: string;
   INVITETEAMPLACEHOLDER: string;
-
+  BACKEND_ERROR:string;
+  ORGTYPEMESSAGE:string;
+  VERIFICATIONCODEEMAIL:string;
+  ADDSITE_MSG: string;
+  SITE_NAME: string;
+  INVALIDADDRESS:string
 }
 
 export interface Logger {
@@ -275,7 +280,7 @@ export interface LoggerMessage {
   INVITEUSER_ERROR: string;
   ENTITYNOTCREATED: string;
   ROLES_RECIEVED: string;
-  ROLES_RECIEVED_ERROR: string
+  ROLES_RECIEVED_ERROR: string;
 }
 
 export interface SiteTitle {
@@ -287,6 +292,8 @@ export interface SiteTitle {
   USERS_DESCRIPTION: string;
   SETTINGS_TITLE: string;
   SETTINGS_DESCRIPTION: string;
+  SITE_CENTRE: string;
+  SITE_CENTRE_DESCRIPTION: string;
 }
 
 export interface TableHeadings {
@@ -304,6 +311,10 @@ export interface TableHeadings {
   DATE_TIME: string;
   TIMEZONE: string;
   ADMINISTRATED_BY: string;
+  SITE_NAME: string;
+  SITE_ADDRESS: string;
+  SITE_SAFE_ZONE: string;
+  SITE_CREATED_BY: string;
 }
 
 export interface Status {
