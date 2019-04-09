@@ -2,7 +2,7 @@
   {{addSiteModel.translated.MESSAGES.ADDSITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="addSiteForm" (ngSubmit)= addSite(addSiteForm)>
+  <form [formGroup]="addSiteModel.addSiteForm" (ngSubmit)= addSite(addSiteModel.addSiteForm)>
     <div class="form-group">
       <mat-form-field full-width>
         <input

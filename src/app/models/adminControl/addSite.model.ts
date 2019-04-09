@@ -1,7 +1,9 @@
 import {Translation} from '../translate.model';
 import {Site, SitesInfo} from '../site.model';
+import {FormGroup} from '@angular/forms';
 
 export interface AddSite {
+  addSiteForm: FormGroup;
   translated: Translation;
   entityData: any;
   entityId: any;
@@ -10,3 +12,4 @@ export interface AddSite {
   sitesList: any;
   sitesData: SitesInfo[];
 }
+

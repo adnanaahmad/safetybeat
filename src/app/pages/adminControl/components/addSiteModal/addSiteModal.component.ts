@@ -16,8 +16,6 @@ import {AddSite} from 'src/app/models/adminControl/addSite.model';
 })
 export class AddSiteModalComponent implements OnInit, OnDestroy {
 
-
-  addSiteForm: FormGroup;
   addSiteModel: AddSite = <AddSite>{};
 
   constructor(
@@ -40,7 +38,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.addSiteForm = this.formBuilder.group({
+    this.addSiteModel.addSiteForm = this.formBuilder.group({
       siteName: ['', Validators.required],
       siteSafetyPlan: ['', Validators.required],
       siteAddress: ['', Validators.required],
