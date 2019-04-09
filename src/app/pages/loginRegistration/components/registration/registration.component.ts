@@ -5,7 +5,7 @@ import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {Registration} from 'src/app/models/loginRegistration/registration.model';
+import {RegistrationComp} from 'src/app/models/loginRegistration/registration.model';
 
 
 const phoneNumberUtil = HelperService.getPhoneNumberUtil();
@@ -17,12 +17,7 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('gmap') gmapElement: ElementRef;
-  registerObj: Registration = <Registration>{};
-  @Input() userForm: FormGroup;
-  organizationForm: FormGroup;
-  organizationTypeForm: FormGroup;
-  moduleForm: FormGroup;
-  email: FormGroup;
+  registerObj: RegistrationComp = <RegistrationComp>{};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -71,15 +66,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * handling forms validations
    */
   get userDetailForm() {
-    return this.userForm.controls;
+    return this.registerObj.userForm.controls;
   }
 
   get orgForm() {
-    return this.organizationForm.controls;
+    return this.registerObj.organizationForm.controls;
   }
 
   get orgTypeForm() {
-    return this.organizationTypeForm.controls;
+    return this.registerObj.organizationTypeForm.controls;
   }
 
   /**
@@ -87,7 +82,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.helperService.createMap(this.gmapElement); // By default settings of map set
-    this.userForm = this.formBuilder.group({
+    this.registerObj.userForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       countryCode: [''],
@@ -96,12 +91,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)])});
 
-    this.organizationForm = this.formBuilder.group({
+    this.registerObj.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
       address: ['', Validators.required]
     });
 
-    this.organizationTypeForm = this.formBuilder.group({
+    this.registerObj.organizationTypeForm = this.formBuilder.group({
       type: ['', Validators.required]
     });
 
@@ -127,7 +122,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       address = addrObj.formatted_address;
       onSelect = true;
     } else {
-      address = this.organizationForm.controls.address.value;
+      address = this.registerObj.organizationForm.controls.address.value;
       this.registerObj.addr = address;
     }
     this.setMap({address: address, onSelect: onSelect});
@@ -152,10 +147,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   checkEmail(group) {
-    this.email = this.formBuilder.group({
+    this.registerObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
     });
-    if (this.email.status === 'VALID') {
+    if (this.registerObj.email.status === 'VALID') {
       const email = {email: group.value.email};
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.registerObj.success = res;
@@ -185,10 +180,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerObj.displayNextButton = onSelect;
     this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement)).then(res => {
       this.registerObj.displayNextButton = true;
-      return this.organizationForm.controls.address.setErrors(null);
+      return this.registerObj.organizationForm.controls.address.setErrors(null);
     }).catch(err => {
       this.registerObj.displayNextButton = false;
-      return this.organizationForm.controls.address.setErrors({invalid: true});
+      return this.registerObj.organizationForm.controls.address.setErrors({invalid: true});
     });
   }
 
@@ -200,20 +195,20 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   registration() {
     this.registerObj.loading = true;
     this.registerObj.organizationData = {
-      'name': this.organizationForm.value.name,
+      'name': this.registerObj.organizationForm.value.name,
       'address': this.registerObj.addr,
       'billingEmail': JSON.parse(this.registerObj.userEmail.data),
       'accountNo': '12344532',
-      'phoneNo': this.userForm.value.contactNo,
-      'type': this.organizationTypeForm.value.type
+      'phoneNo': this.registerObj.userForm.value.contactNo,
+      'type': this.registerObj.organizationTypeForm.value.type
     };
     this.registerObj.registerData = {
       'email': JSON.parse(this.registerObj.userEmail.data),
-      'first_name': this.userForm.value.first_name,
-      'last_name': this.userForm.value.last_name,
-      'password1': this.userForm.value.password1,
-      'password2': this.userForm.value.password2,
-      'contactNo': this.userForm.value.contactNo,
+      'first_name': this.registerObj.userForm.value.first_name,
+      'last_name': this.registerObj.userForm.value.last_name,
+      'password1': this.registerObj.userForm.value.password1,
+      'password2': this.registerObj.userForm.value.password2,
+      'contactNo': this.registerObj.userForm.value.contactNo,
       'organization': this.registerObj.organizationData,
       'invitation': false,
       'module': 'Safetybeat',
@@ -221,7 +216,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'role': 'Owner'
     };
 
-    if (this.organizationForm.invalid || this.userForm.invalid) {
+    if (this.registerObj.organizationForm.invalid || this.registerObj.userForm.invalid) {
       this.registerObj.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.registerObj.translated.LOGGER.MESSAGES.FALSE);
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,

@@ -53,7 +53,8 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.ORGANIZATIONDETAILS);
     this.register.registrationData()
       .subscribe(data => {
-        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+          this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.types = data[0];
         this.modules = data[1];
         this.packages = data[2];

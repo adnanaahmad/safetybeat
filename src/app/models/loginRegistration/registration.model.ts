@@ -1,6 +1,12 @@
 import {Translation} from '../translate.model';
+import {FormGroup} from '@angular/forms';
 
-export interface Registration {
+export interface RegistrationComp {
+  userForm: FormGroup;
+  organizationForm: FormGroup;
+  organizationTypeForm: FormGroup;
+  moduleForm: FormGroup;
+  email: FormGroup;
   title: string;
   addr: any;
   addrKeys: string[];

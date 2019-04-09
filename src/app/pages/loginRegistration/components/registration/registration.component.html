@@ -13,11 +13,11 @@
   </span>
   <mat-grid-tile>
     <mat-horizontal-stepper linear="appConstant.linearForm" #stepper>
-      <mat-step [stepControl]="userForm">
+      <mat-step [stepControl]="registerObj.userForm">
         <mat-card class="loginbox">
           <mat-card-title>User Info</mat-card-title>
           <p class="subheading">Please tell us about yourself</p>
-          <form [formGroup]="userForm">
+          <form [formGroup]="registerObj.userForm">
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="registerObj.translated.AUTH.FIRSTNAME"
@@ -47,7 +47,8 @@
             <div class="input country-code">
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Code" [errorStateMatcher]="registerObj.formErrorMatcher"
-                       formControlName="countryCode" (keypress)="numberOnly($event)&&phoneNumberValid(userForm)"
+                       formControlName="countryCode"
+                       (keypress)="numberOnly($event)&&phoneNumberValid(registerObj.userForm)"
                        maxlength="3" onPaste="return false" autocomplete="off"/>
                 <mat-error *ngIf="userDetailForm.countryCode.errors">
                 </mat-error>
@@ -83,7 +84,8 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="password" [placeholder]="registerObj.translated.AUTH.CONFIRM_PASSWORD"
-                       formControlName="{{registerObj.appConstants.password2}}" [errorStateMatcher]="registerObj.formErrorMatcher"
+                       formControlName="{{registerObj.appConstants.password2}}"
+                       [errorStateMatcher]="registerObj.formErrorMatcher"
                        required/>
                 <mat-error *ngIf="userDetailForm.password2.errors ">
                   <span
@@ -106,11 +108,11 @@
           </form>
         </mat-card>
       </mat-step>
-      <mat-step [stepControl]="organizationForm">
+      <mat-step [stepControl]="registerObj.organizationForm">
         <mat-card class="loginbox">
           <mat-card-title>{{registerObj.translated.MESSAGES.ORGSIGNUP}}</mat-card-title>
           <p class="subheading">{{registerObj.translated.MESSAGES.ORGSIGNUPMESSAGE}}</p>
-          <form [formGroup]="organizationForm">
+          <form [formGroup]="registerObj.organizationForm">
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="registerObj.translated.TABLEHEADINGS.NAME"
@@ -157,7 +159,7 @@
         <mat-card class="loginbox">
           <mat-card-title>Usage Type</mat-card-title>
           <p class="subheading">{{registerObj.translated.MESSAGES.ORGTYPEMESSAGE}}</p>
-          <form [formGroup]="organizationTypeForm">
+          <form [formGroup]="registerObj.organizationTypeForm">
             <div class="input">
               <mat-form-field full-width>
                 <mat-select [placeholder]="registerObj.translated.MESSAGES.TYPE_MSG"
