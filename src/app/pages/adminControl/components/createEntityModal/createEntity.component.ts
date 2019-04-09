@@ -53,7 +53,6 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
   }
 
   setAddress(addrObj) {
-    debugger;
     let address = '', onSelect: boolean = false;
     this.createEntity.displaySubmitButton = true;
     if (!this.helperService.isEmpty(addrObj)) {
@@ -107,8 +106,8 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
             'moduleName': 'Safetybeat'
           };
           this.adminServices.viewEntities(data).subscribe(res => {
-            this.createEntity.entites = res;
-            let entityUserData = this.compiler.constructUserEntityData(this.createEntity.entites.data);
+            this.createEntity.entities = res;
+            let entityUserData = this.compiler.constructUserEntityData(this.createEntity.entities.data);
             this.navService.changeEntites(entityUserData);
           });
           this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
