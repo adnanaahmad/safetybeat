@@ -1,22 +1,22 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { Translation } from 'src/app/models/translate.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { Site, SiteAddData, SitesInfo } from 'src/app/models/site.model';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { AddSite } from 'src/app/models/adminControl/addSite.model';
+import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {Translation} from 'src/app/models/translate.model';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {MatDialogRef} from '@angular/material';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {Site, SiteAddData, SitesInfo} from 'src/app/models/site.model';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {AddSite} from 'src/app/models/adminControl/addSite.model';
 
 @Component({
   selector: 'app-addSiteModal',
   templateUrl: './addSiteModal.component.html',
   styleUrls: ['./addSiteModal.component.scss']
 })
-export class AddSiteModalComponent implements OnInit {
+export class AddSiteModalComponent implements OnInit, OnDestroy {
 
-  
+
   addSiteForm: FormGroup;
   addSiteModel: AddSite = <AddSite>{};
 
@@ -28,7 +28,6 @@ export class AddSiteModalComponent implements OnInit {
     private adminServices: AdminControlService,
     private navService: NavigationService,
     public compiler: CompilerProvider,
-
   ) {
     this.navService.selectedEntityData.subscribe((res) => {
       this.addSiteModel.entityData = res;
@@ -48,15 +47,17 @@ export class AddSiteModalComponent implements OnInit {
       safeZone: ['', Validators.required]
     });
   }
+
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.helperService.hideLoggers();
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  addSite({ value }: { value: SiteAddData }) {
+  addSite({value}: { value: SiteAddData }) {
     let siteData = {
       name: value.siteName,
       location: value.siteAddress,
@@ -77,8 +78,7 @@ export class AddSiteModalComponent implements OnInit {
           this.onNoClick();
         });
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Site has been created successfully');
-      }
-      else if (this.addSiteModel.addSiteResponse.responseDetails.code === '0037') {
+      } else if (this.addSiteModel.addSiteResponse.responseDetails.code === '0037') {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Site Creation Failed')
       }
     });
