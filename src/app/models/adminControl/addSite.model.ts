@@ -11,5 +11,6 @@ export interface AddSite {
   addSiteResponse: any;
   sitesList: any;
   sitesData: SitesInfo[];
+  loading:boolean;
 }
 

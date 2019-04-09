@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Translation } from 'src/app/models/translate.model';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit} from '@angular/core';
+import {Translation} from 'src/app/models/translate.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-particle-container',
@@ -9,7 +9,8 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
 })
 export class ParticleContainerComponent implements OnInit {
   translated: Translation;
-  particlesIcons:any;
+  particlesIcons: any;
+
   constructor(
     public helperService: HelperService,
   ) {

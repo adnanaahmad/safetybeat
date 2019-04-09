@@ -34,6 +34,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.addSiteModel.translated = this.helperService.translation;
     this.addSiteModel.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
+    this.addSiteModel.loading = false;
 
   }
 
@@ -66,6 +67,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     let data = {
       'entityId': this.addSiteModel.entityId
     };
+    this.addSiteModel.loading = true;
     this.adminServices.addSite(siteData).subscribe((res) => {
       this.addSiteModel.addSiteResponse = res;
       if (this.addSiteModel.addSiteResponse.responseDetails.code === '0038') {
@@ -73,9 +75,10 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
           this.addSiteModel.sitesList = res;
           this.addSiteModel.sitesData = this.compiler.constructSiteData(this.addSiteModel.sitesList);
           this.adminServices.changeSites(this.addSiteModel.sitesData);
+          this.addSiteModel.loading = false;
           this.onNoClick();
+          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Site has been created successfully');
         });
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Site has been created successfully');
       } else if (this.addSiteModel.addSiteResponse.responseDetails.code === '0037') {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Site Creation Failed')
       }

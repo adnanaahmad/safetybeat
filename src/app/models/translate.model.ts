@@ -147,6 +147,7 @@ export interface Buttons {
   MAP: string;
   HOURS: string;
   INVITE_USER: string;
+  INVITETEAM: string;
   ADD_SITE: string;
 }
 
@@ -213,6 +214,14 @@ export interface Messages {
   JOINENTITY_MSG: string;
   ENTITYCODE: string;
   ENTITYCODE_REQ: string;
+  JOINENTITY_SUCCESS: string;
+  ALREADYJOINED_ENTITY: string;
+  ENTITYNOTFOUND: string;
+  ENTITYJOINFIAL: string,
+  INVITETEAMSUCCESS: string;
+  INVITETEAMFAIL: string;
+  INVITETEAMTITLE: string;
+  INVITETEAMPLACEHOLDER: string;
   BACKEND_ERROR: string;
   ORGTYPEMESSAGE: string;
   VERIFICATIONCODEEMAIL: string;
