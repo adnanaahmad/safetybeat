@@ -6,7 +6,7 @@ export interface CreateEntity {
   appConstants: any;
   title: String;
   addrKeys: string[];
-   addr: object;
+  addr: any;
   city: string;
   country: string;
   zipCode: string;
@@ -16,5 +16,6 @@ export interface CreateEntity {
   entityResponse: any;
   roleId: number;
   entites: any;
+  displaySubmitButton: boolean;
 }
 

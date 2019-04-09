@@ -230,6 +230,7 @@ export interface Messages {
   INVALIDADDRESS: string;
   NOUSER:string;
   NOUSERTITLE:string;
+  EMAIL_NOT_REGISTERED: string;
 }
 
 export interface Logger {

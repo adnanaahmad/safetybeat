@@ -169,7 +169,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
       data: {inviteTeamData}
     });
   } else {
-    this.helperService.creactSnack(this.translated.MESSAGES.NOUSER,
+    this.helperService.createSnack(this.translated.MESSAGES.NOUSER,
     this.helperService.translation.MESSAGES.NOUSERTITLE,this.helperService.translation.LOGGER.STATUS.ERROR);
   }
 }

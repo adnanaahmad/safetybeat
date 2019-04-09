@@ -21,13 +21,13 @@ export class LoginRegistrationService {
   profileData = this.userData.asObservable();
   apiRoutes: any;
   method: { get: string; post: string; put: string; delete: string; };
-  public ForgotPassword$: Observable<ForgotPasswordResponse>
-  public Login$: Observable<LoginResponse>
+  public ForgotPassword$: Observable<ForgotPasswordResponse>;
+  public Login$: Observable<LoginResponse>;
 
   constructor(public helperService: HelperService) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.storageKey = this.helperService.constants.localStorageKeys.token;
-    this.method = this.helperService.constants.apiMethod
+    this.method = this.helperService.constants.apiMethod;
   }
 
   /**

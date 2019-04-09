@@ -108,14 +108,14 @@ export class InviteTeamModalComponent implements OnInit {
       res => {
         let responseData = res;
         if (responseData.responseDetails.code === "0029") {
-          this.helperService.creactSnack(
+          this.helperService.createSnack(
             responseData.responseDetails.message,
             this.inviteTeamModel.translated.MESSAGES.INVITETEAMSUCCESS,
             this.helperService.constants.status.SUCCESS
           );
           this.onNoClick();
         } else {
-          this.helperService.creactSnack(
+          this.helperService.createSnack(
             responseData.responseDetails.message,
             this.inviteTeamModel.translated.MESSAGES.INVITETEAMFAIL,
             this.helperService.constants.status.ERROR
