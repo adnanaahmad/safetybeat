@@ -7,6 +7,7 @@ import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {CreateEntity} from '../../../../models/adminControl/createEntity.model';
 
 @Component({
   selector: 'app-createEntity',
@@ -14,20 +15,8 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
   styleUrls: ['./createEntity.component.scss']
 })
 export class CreateEntityComponent implements OnInit, AfterViewInit {
-  translated: Translation;
-  appConstants: any;
-  public title = 'Places';
-  public addrKeys: string[];
-  public addr: object;
-  city: string;
-  country: string;
-  zipCode: string;
-  appIcons: any;
-  createEntityForm: FormGroup;
-  entityDetails: any;
-  entityResponse: any;
-  roleId: number;
-  entites: any;
+
+  createEntity: CreateEntity = <CreateEntity>{};
 
   constructor(
     public formBuilder: FormBuilder,
@@ -38,13 +27,19 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     private compiler: CompilerProvider,
     public dialogRef: MatDialogRef<CreateEntityComponent>,
   ) {
-    this.translated = this.helperService.translation;
-    this.appConstants = this.helperService.constants.appConstant;
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
+    this.intialize();
+    this.createEntity.translated = this.helperService.translation;
+    this.createEntity.appConstants = this.helperService.constants.appConstant;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+      this.createEntity.translated.LOGGER.MESSAGES.CREATEENTITY);
+  }
+
+  intialize() {
+    this.createEntity.title = 'Places';
   }
 
   ngOnInit() {
-    this.createEntityForm = this.formBuilder.group({
+    this.createEntity.createEntityForm = this.formBuilder.group({
       name: ['', Validators.required],
       headOffice: ['', Validators.required],
       status: false
@@ -53,22 +48,22 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.navService.currentRoleId.subscribe((res) => {
-      this.roleId = res;
+      this.createEntity.roleId = res;
     });
   }
 
   setAddress(addrObj) {
-    this.city = addrObj.locality;
-    this.country = addrObj.country;
-    this.zipCode = addrObj.zipCode;
+    this.createEntity.city = addrObj.locality;
+    this.createEntity.country = addrObj.country;
+    this.createEntity.zipCode = addrObj.zipCode;
     this.zone.run(() => {
-      this.addr = addrObj;
-      this.addrKeys = Object.keys(addrObj);
+      this.createEntity.addr = addrObj;
+      this.createEntity.addrKeys = Object.keys(addrObj);
     });
   }
 
   get formValidation() {
-    return this.createEntityForm.controls;
+    return this.createEntity.createEntityForm.controls;
   }
 
   onNoClick(): void {
@@ -76,40 +71,45 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
   }
 
   entityCreation({value, valid}: { value: entityData; valid: boolean }): void {
-    this.entityDetails = {
-      moduleName: this.translated.BUTTONS.SAFETYBEAT,
+    this.createEntity.entityDetails = {
+      moduleName: this.createEntity.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
       active: value.status,
-      roleId: this.roleId
+      roleId: this.createEntity.roleId
     }
     if (!valid) {
 
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR,
+        this.createEntity.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
-    this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
-        this.entityResponse = result;
+    this.adminServices.createEntity(this.createEntity.entityDetails).subscribe((result) => {
+        this.createEntity.entityResponse = result;
         this.onNoClick();
-        if (this.entityResponse.responseDetails.code === '0012') {
+        if (this.createEntity.entityResponse.responseDetails.code === '0012') {
           let data = {
             'moduleName': 'Safetybeat'
           }
           this.adminServices.viewEntities(data).subscribe(res => {
-            this.entites = res;
-            let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
+            this.createEntity.entites = res;
+            let entityUserData = this.compiler.constructUserEntityData(this.createEntity.entites.data);
             this.navService.changeEntites(entityUserData);
           })
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.entityResponse.responseDetails.message);
-        } else if (this.entityResponse.responseDetails.code === '0013') {
-          this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
-        } else if (this.entityResponse.responseDetails.code === '0017') {
-          this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message)
+          this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+            this.createEntity.entityResponse.responseDetails.message);
+        } else if (this.createEntity.entityResponse.responseDetails.code === '0013') {
+          this.helperService.appLogger(this.helperService.constants.status.ERROR,
+            this.createEntity.entityResponse.responseDetails.message)
+        } else if (this.createEntity.entityResponse.responseDetails.code === '0017') {
+          this.helperService.appLogger(this.helperService.constants.status.ERROR,
+            this.createEntity.entityResponse.responseDetails.message)
         }
       }, (error => {
-        this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+        this.helperService.appLogger(this.createEntity.translated.LOGGER.STATUS.ERROR,
+          this.createEntity.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
         this.helperService.logoutError(error.status)
       })
     );

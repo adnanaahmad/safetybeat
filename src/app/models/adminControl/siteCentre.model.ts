@@ -11,3 +11,4 @@ export interface SiteCentre {
   entityId: any;
   empty: boolean;
 }
+

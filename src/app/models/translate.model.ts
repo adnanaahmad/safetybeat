@@ -6,6 +6,7 @@ export interface Translation {
   STRINGS: Strings;
   SITETITLE: SiteTitle;
   STATUS: Status;
+  TABLEHEADINGS: TableHeadings;
 }
 
 export interface Strings {
@@ -221,12 +222,12 @@ export interface Messages {
   INVITETEAMFAIL: string;
   INVITETEAMTITLE: string;
   INVITETEAMPLACEHOLDER: string;
-  BACKEND_ERROR:string;
-  ORGTYPEMESSAGE:string;
-  VERIFICATIONCODEEMAIL:string;
+  BACKEND_ERROR: string;
+  ORGTYPEMESSAGE: string;
+  VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
   SITE_NAME: string;
-  INVALIDADDRESS:string
+  INVALIDADDRESS: string
 }
 
 export interface Logger {

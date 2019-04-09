@@ -55,6 +55,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     private navService: NavigationService,
     private userService: ProfileService
   ) {
+    this.initialize();
     this.translated = this.helperService.translation;
     this.appIcons = this.helperService.constants.appIcons;
     this.helperService.appLogger(
@@ -74,6 +75,10 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.viewAllEntities();
     this.creationEnable();
     this.joinEnable();
+  }
+  initialize() {
+    this.empty = false;
+    this.createEntityOption = false;
   }
 
   ngAfterViewInit() {
