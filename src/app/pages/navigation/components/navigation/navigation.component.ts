@@ -79,7 +79,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
             this.navService.changeEntites(this.entityUserData);
           });
       }
-    })
+    });
   }
 
   ngOnChanges() {
@@ -166,6 +166,10 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 
+  /**
+   * thuiguyg
+   * @params data
+   */
   switchSideMenu(data: any) {
     this.Entity = data;
     let entityData = {

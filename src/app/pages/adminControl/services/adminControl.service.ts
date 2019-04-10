@@ -19,19 +19,30 @@ export class AdminControlService {
     this.method = this.helperService.constants.apiMethod;
   }
 
-  changeSites(sitesInfo: any) {
-    debugger
+  /**
+   * this function is used to...
+   * @params sitesInfo
+   */
+  changeSites(sitesInfo:any){
     this.sites.next(sitesInfo)
   }
 
+  /**
+   * this function is used to...
+   * @params data
+   */
   createEntity(data: entity) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.createEntity,
       data
-    );
+    ); 
   }
 
+  /**
+   * this function is used to
+   * @params data
+   */
   viewEntities(data: object) {
     return this.helperService.requestCall(
       this.method.post,
@@ -40,14 +51,22 @@ export class AdminControlService {
     );
   }
 
+  /**
+   * this function is used to
+   * @params data
+   */
   joinEntity(data: joinEntity) {
     return this.helperService.requestCall(
-      this.method.post,
-      this.apiRoutes.joinEntity,
-      data
+     this.method.post,
+     this.apiRoutes.joinEntity,
+     data
     );
   }
 
+  /**
+   * this function is used to...
+   * @params data
+   */
   viewSites(data: object) {
     return this.helperService.requestCall(
       this.method.post,
@@ -56,6 +75,10 @@ export class AdminControlService {
     );
   }
 
+  /**
+   * this function is used to
+   * @params data
+   */
   addSite(data: any) {
     return this.helperService.requestCall(
       this.method.post,

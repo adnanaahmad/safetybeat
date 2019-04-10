@@ -57,6 +57,10 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
+  /**
+   * this function  is used to...
+   * @params value
+   */
   setAddress(addrObj) {
     let onSelect: boolean = false;
     this.addSiteModel.displaySubmitButton = true;

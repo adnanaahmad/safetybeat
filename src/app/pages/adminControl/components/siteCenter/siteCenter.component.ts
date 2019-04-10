@@ -50,6 +50,9 @@ export class SiteCenterComponent implements OnInit {
     this.viewAllSites();
   }
 
+  /**
+   * this function is used to display all the sites of a particular entity
+   */
   viewAllSites() {
     this.adminServices.siteObserver.subscribe((res) => {
       debugger
@@ -77,8 +80,11 @@ export class SiteCenterComponent implements OnInit {
     this.siteCentreModel.empty = true;
   }
 
+  /**
+   * this function is used to create Add Site Dialog
+   */
   addSite() {
-    this.helperService.createModal(AddSiteModalComponent)
+    this.helperService.createDialog(AddSiteModalComponent);
   }
 
 
