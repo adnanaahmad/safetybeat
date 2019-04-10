@@ -3,7 +3,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {changePassword} from 'src/app/models/profile.model';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Translation} from 'src/app/models/translate.model';
-import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {ProfileService} from '../../services/profile.service';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 
@@ -43,21 +43,32 @@ export class ModalDialogComponent implements OnInit {
     this.formErrorMatcher = new FormErrorHandler();
   }
 
+  /**
+   * this function ...
+   * @params group
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
-  get formValidation() {
-    return this.changePasswordForm.controls;
-  }
+
+  /**
+   * this function is used to validate form
+   */
+  get formValidation() { return this.changePasswordForm.controls; }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  changePassword({value, valid}: { value: changePassword; valid: boolean }): void {
+  /**
+   * this function...
+   * @params value
+   * @params valid
+   */
+  changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.AUTH.PASSWORD_REQ);
@@ -69,22 +80,24 @@ export class ModalDialogComponent implements OnInit {
       oldPassword: value.currentPassword,
       newPassword: value.password1,
       pk: this.user_id
-    }
+    };
     this.modalService.changePassword(result).subscribe((res) => {
       this.dialogRef.close();
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
-      this.helperService.creactSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+        this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+        this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
         this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
     }, (error) => {
-      this.helperService.creactSnack(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+      this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
       this.dialogRef.close();
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
       this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
-      this.helperService.logoutError(error.status)
+      this.helperService.logoutError(error.status);
     });
 
   }

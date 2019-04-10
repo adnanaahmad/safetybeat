@@ -1,12 +1,13 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {NavItem} from 'src/app/models/navItems.model';
-import {Router} from '@angular/router';
-import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {MatDialogConfig, MatDialog} from '@angular/material';
-import {InviteUserModalComponent} from 'src/app/pages/navigation/components/inviteUserModal/inviteUserModal.component';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {Translation} from 'src/app/models/translate.model';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { NavItem } from 'src/app/models/navItems.model';
+import { Router } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { InviteUserModalComponent } from '../../../../Dialogs/inviteUserModal/inviteUserModal.component';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { Translation } from 'src/app/models/translate.model';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+
 
 @Component({
   selector: 'app-nav-list',
@@ -40,6 +41,9 @@ export class NavListComponent implements OnInit {
     }
   }
 
+  /**
+   * this function ...
+   */
   getRoles() {
     this.navService.getRoles().subscribe((res) => {
       this.roles = res;
@@ -63,6 +67,10 @@ export class NavListComponent implements OnInit {
     }
   }
 
+  /**
+   * this function ...
+   * @params displayName
+   */
   customActions(displayName) {
     switch (displayName) {
       case 'Invite Users':
@@ -76,8 +84,12 @@ export class NavListComponent implements OnInit {
     }
   }
 
+  /**
+   * this function ...
+   * @params entityId
+   */
   inviteUserModal(entityId) {
-    this.helperService.createModal(InviteUserModalComponent, {data: {'role': this.roles, 'entityId': entityId}});
+    this.helperService.createDialog(InviteUserModalComponent, { data: { 'role': this.roles, 'entityId': entityId } });
   }
 
 }

@@ -21,7 +21,7 @@ export class InviteUsersModalComponent implements OnInit {
   ) {
     this.translated = this.helperService.translation;
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
-    this.appConstants =this.helperService.constants.appConstant;
+    this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
   }
 

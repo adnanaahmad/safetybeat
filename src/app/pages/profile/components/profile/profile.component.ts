@@ -71,6 +71,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     // this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
   }
 
+
   @Input()
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
@@ -90,6 +91,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getUserData();
   }
 
+
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
@@ -98,10 +100,14 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       : group.controls.password2.setErrors({notSame: true});
   }
 
+
   get profileDataForm() {
     return this.profileForm.controls;
   }
 
+  /**
+   * this function ...
+   */
   getUserData() {
     this.profileData = this.loginService.profileData.subscribe(
       userDataResult => {
@@ -129,7 +135,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       }
-    )
+    );
   }
 
   // onCreate(feature: any) {
@@ -142,12 +148,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   //     }
   //   });
   // }
-
+  /**
+   * this function ..
+   */
   editAccount() {
     this.disabled = true;
     this.profileForm.enable();
   }
 
+  /**
+   * this function ..
+   */
   cancelEditAccount() {
     this.disabled = false;
     this.profileForm.disable();
@@ -164,7 +175,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   onActivities() {
   }
 
-  updateProfile({value, valid}: { value: EditUser; valid: boolean }): void {
+  /**
+   * this function..
+   * @params value
+   * @params valid
+   */
+  updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {
@@ -194,7 +210,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
-        this.helperService.creactSnack(this.translated.LOGGER.STATUS.SUCCESS,
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
+          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
         this.getUserData();
       },

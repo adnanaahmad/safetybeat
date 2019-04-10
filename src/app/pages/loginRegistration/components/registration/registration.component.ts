@@ -2,10 +2,10 @@ import {Component, OnInit, OnDestroy, Input, NgZone, ViewChild, ElementRef} from
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import {Translation} from 'src/app/models/translate.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {RegistrationComp} from 'src/app/models/loginRegistration/registration.model';
 
 
 const phoneNumberUtil = HelperService.getPhoneNumberUtil();
@@ -17,17 +17,7 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('gmap') gmapElement: ElementRef;
-  public title = 'Places';
-  addr: any;
-  addrKeys: string[];
-  organizationData: any;
-  registrationData: any;
-  devMode: boolean = false;
-  userEmail: any;
-  city: string;
-  country: string;
-  zipCode: string;
-  displayNextButton: boolean = false;
+  registerObj: RegistrationComp = <RegistrationComp>{};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,71 +28,61 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private route: ActivatedRoute
   ) {
-
+    this.initialize();
     this.route.params.subscribe((data) => {
-      this.userEmail = data;
+      this.registerObj.userEmail = data;
     });
-    this.translated = this.helperService.translation;
-    this.appConstants = this.helperService.constants.appConstant;
-    this.appIcons = this.helperService.constants.appIcons;
-    this.devMode = this.helperService.constants.config.devMode;
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
+    this.registerObj.translated = this.helperService.translation;
+    this.registerObj.appConstants = this.helperService.constants.appConstant;
+    this.registerObj.appIcons = this.helperService.constants.appIcons;
+    this.registerObj.devMode = this.helperService.constants.config.devMode;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+      this.registerObj.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
         this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-          this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
-        this.types = data[0];
-        this.modules = data[1];
-        this.packages = data[2];
+          this.registerObj.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+        this.registerObj.types = data[0];
+        this.registerObj.modules = data[1];
+        this.registerObj.packages = data[2];
       }, error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
-        this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.registerObj.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       });
+  }
+
+  /**
+   * Intialize registerObj
+   */
+  initialize() {
+    this.registerObj.title = 'Places';
+    this.registerObj.devMode = false;
+    this.registerObj.displayNextButton = false;
+    this.registerObj.loading = false;
+    this.registerObj.registerData = [];
   }
 
   /**
    * handling forms validations
    */
   get userDetailForm() {
-    return this.userForm.controls;
+    return this.registerObj.userForm.controls;
   }
 
   get orgForm() {
-    return this.organizationForm.controls;
+    return this.registerObj.organizationForm.controls;
   }
 
   get orgTypeForm() {
-    return this.organizationTypeForm.controls;
+    return this.registerObj.organizationTypeForm.controls;
   }
-
-  get modForm() {
-    return this.moduleForm.controls;
-  }
-
-  @Input() userForm: FormGroup;
-  organizationForm: FormGroup;
-  organizationTypeForm: FormGroup;
-  moduleForm: FormGroup;
-  email: FormGroup;
-
-  loading: boolean = false;
-  registerData: any = [];
-  translated: Translation;
-  types: any;
-  modules: any;
-  packages: any;
-  success: any;
-  data: any;
-  appConstants: any;
-  appIcons: any;
-  formErrorMatcher: any;
 
   /**
    * registerOrgnaization function to register new user with organization info
    */
   ngOnInit() {
     this.helperService.createMap(this.gmapElement); // By default settings of map set
-    this.userForm = this.formBuilder.group({
+    this.registerObj.userForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       countryCode: [''],
@@ -111,41 +91,46 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)])});
 
-    this.organizationForm = this.formBuilder.group({
+    this.registerObj.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
       address: ['', Validators.required]
     });
 
-    this.organizationTypeForm = this.formBuilder.group({
+    this.registerObj.organizationTypeForm = this.formBuilder.group({
       type: ['', Validators.required]
     });
 
-    this.formErrorMatcher = new FormErrorHandler();
+    this.registerObj.formErrorMatcher = new FormErrorHandler();
   }
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
 
+  /**
+   * this function...
+   * @params addrObj
+   */
   setAddress(addrObj) {
     let address = '', onSelect: boolean = false;
-    this.displayNextButton = true;
+    this.registerObj.displayNextButton = true;
     if (!this.helperService.isEmpty(addrObj)) {
-      this.city = addrObj.locality;
-      this.country = addrObj.country;
-      this.zipCode = addrObj.zipCode;
+      this.registerObj.city = addrObj.locality;
+      this.registerObj.country = addrObj.country;
+      this.registerObj.zipCode = addrObj.zipCode;
       this.zone.run(() => {
-        this.addr = addrObj;
-        this.addrKeys = Object.keys(addrObj);
+        this.registerObj.addr = addrObj;
+        this.registerObj.addrKeys = Object.keys(addrObj);
+        this.registerObj.addr = addrObj.formatted_address;
       });
       address = addrObj.formatted_address;
       onSelect = true;
     } else {
-      address = this.organizationForm.controls.address.value;
+      address = this.registerObj.organizationForm.controls.address.value;
+      this.registerObj.addr = address;
     }
-    this.setMap(address, onSelect);
+    this.setMap({address: address, onSelect: onSelect});
   }
-
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
@@ -164,21 +149,29 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
+  /**
+   *
+   * @params group
+   */
   checkEmail(group) {
-    this.email = this.formBuilder.group({
+    this.registerObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
     });
-    if (this.email.status === 'VALID') {
+    if (this.registerObj.email.status === 'VALID') {
       const email = {email: group.value.email};
       this.register.checkEmail(email).pipe().subscribe((res) => {
-        this.success = res;
-        if (this.success.responseDetails.code === '0020') {
+        this.registerObj.success = res;
+        if (this.registerObj.success.responseDetails.code === '0020') {
           group.controls.email.setErrors({exists: true});
         }
       });
     }
   }
 
+  /**
+   *
+   * @params group
+   */
   phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
@@ -193,16 +186,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   /**
    * Set map location according to address in organization form
-   * @param address
+   * @params address
    */
-  setMap(address, onSelect: boolean) {
-    this.displayNextButton = onSelect;
+  setMap({address, onSelect}: { address: any, onSelect: boolean }) {
+    this.registerObj.displayNextButton = onSelect;
     this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement)).then(res => {
-      this.displayNextButton = true;
-      return this.organizationForm.controls.address.setErrors(null);
+      this.registerObj.displayNextButton = true;
+      return this.registerObj.organizationForm.controls.address.setErrors(null);
     }).catch(err => {
-      this.displayNextButton = false;
-      return this.organizationForm.controls.address.setErrors({invalid: true});
+      this.registerObj.displayNextButton = false;
+      return this.registerObj.organizationForm.controls.address.setErrors({invalid: true});
     });
   }
 
@@ -212,57 +205,59 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param data selected package against module
    */
   registration() {
-    this.loading = true;
-
-    this.organizationData = {
-      'name': this.organizationForm.value.name,
-      'address': this.addr.formatted_address,
-      'billingEmail': JSON.parse(this.userEmail.data),
+    this.registerObj.loading = true;
+    this.registerObj.organizationData = {
+      'name': this.registerObj.organizationForm.value.name,
+      'address': this.registerObj.addr,
+      'billingEmail': JSON.parse(this.registerObj.userEmail.data),
       'accountNo': '12344532',
-      'phoneNo': this.userForm.value.contactNo,
-      'type': this.organizationTypeForm.value.type
+      'phoneNo': this.registerObj.userForm.value.contactNo,
+      'type': this.registerObj.organizationTypeForm.value.type
     };
-    this.registerData = {
-      'email': JSON.parse(this.userEmail.data),
-      'first_name': this.userForm.value.first_name,
-      'last_name': this.userForm.value.last_name,
-      'password1': this.userForm.value.password1,
-      'password2': this.userForm.value.password2,
-      'contactNo': this.userForm.value.contactNo,
-      'organization': this.organizationData,
+    this.registerObj.registerData = {
+      'email': JSON.parse(this.registerObj.userEmail.data),
+      'first_name': this.registerObj.userForm.value.first_name,
+      'last_name': this.registerObj.userForm.value.last_name,
+      'password1': this.registerObj.userForm.value.password1,
+      'password2': this.registerObj.userForm.value.password2,
+      'contactNo': this.registerObj.userForm.value.contactNo,
+      'organization': this.registerObj.organizationData,
       'invitation': false,
       'module': 'Safetybeat',
       'package': 'Trial',
       'role': 'Owner'
     };
 
-    if (this.organizationForm.invalid || this.userForm.invalid) {
-      this.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
-      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
+    if (this.registerObj.organizationForm.invalid || this.registerObj.userForm.invalid) {
+      this.registerObj.loading = false;
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.registerObj.translated.LOGGER.MESSAGES.FALSE);
+      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
+        this.registerObj.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
-    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerData));
-    this.register.registerUser(this.registerData).subscribe((result) => {
-      this.registrationData = result;
-      if (this.registrationData.responseDetails.code === '0011') {
-        result ? this.register.setToken(this.registrationData.data.token) : this.register.setToken('');
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.MESSAGES.RESET_SUCCESS);
-        this.loading = false;
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerObj.registerData));
+    this.register.registerUser(this.registerObj.registerData).subscribe((result) => {
+      this.registerObj.registrationData = result;
+      if (this.registerObj.registrationData.responseDetails.code === '0011') {
+        result ? this.register.setToken(this.registerObj.registrationData.data.token) : this.register.setToken('');
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+          this.registerObj.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+          this.registerObj.translated.MESSAGES.RESET_SUCCESS);
+        this.registerObj.loading = false;
         this.helperService.navigateTo(['/welcomeScreen']);
       }
     }, (error) => {
-      this.loading = false;
+      this.registerObj.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.registerObj.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status);
     });
   }
 
   setFalse(event) {
-    if (event.which !== this.appConstants.enterKey) {
-      this.displayNextButton = false;
+    if (event.which !== this.registerObj.appConstants.enterKey) {
+      this.registerObj.displayNextButton = false;
     }
   }
 }

@@ -12,7 +12,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   styleUrls: ['./verification.component.scss']
 })
 export class VerificationComponent implements OnInit, OnDestroy {
-
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -28,10 +27,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);
     this.mailData = this.email.email;
-  }
-
-  get formValidation() {
-    return this.verifyForm.controls;
   }
 
   translated: Translation;
@@ -55,7 +50,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.hideLoggers();
   }
-
   keyTab($event, value) {
     if (this.code === '') {
       this.code = value;
@@ -75,20 +69,34 @@ export class VerificationComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * this function is used to validate Verify form and show error if the form field is invalid
+   */
+  get formValidation() {
+    return this.verifyForm.controls;
+  }
+
+  /**
+   * this function  verifies the user if the code matches
+   * @params data
+   */
   validateUser(data: any) {
     this.loginRegService.verifyCode(data).subscribe(res => {
       this.validationData = res;
       this.userEmail = this.validationData.data.data;
       if (this.validationData.responseDetails.code === '0035') {
-        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verifiesd');
+        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verified');
         this.dialogRef.close();
         this.router.navigate(['/signup', {data: JSON.stringify(this.userEmail)}], {skipLocationChange: true});
       }
     }, (error) => {
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verifiesd');
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verified');
     });
   }
 
+  /**
+   * this function resends the code to user
+   */
   resendVerification() {
     let emailData = {
       'email': this.email.email

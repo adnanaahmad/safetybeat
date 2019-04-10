@@ -1,11 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {ForgotPassword} from 'src/app/models/user.model';
+import {ForgotPasswordComp} from 'src/app/models/loginRegistration/forgotPassword.model';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import {Translation} from 'src/app/models/translate.model';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {ForgotPassword} from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,29 +12,22 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
   styleUrls: ['./forgotPassword.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
-  forgotPassForm: FormGroup;
-  translated: Translation;
-  selectedTheme: String;
-  showError: string;
-  email: FormGroup;
-  success: any;
-  appConstants: any;
-  formErrorMatcher: any;
+  forgotPassObj: ForgotPasswordComp = <ForgotPasswordComp>{};
 
   constructor(
     public forgotService: LoginRegistrationService,
-    private router: Router,
     public formBuilder: FormBuilder,
     public helperService: HelperService,
   ) {
-    this.translated = this.helperService.translation;
-    this.appConstants = this.helperService.constants.appConstant;
-    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
-    this.formErrorMatcher = new FormErrorHandler();
+    this.forgotPassObj.translated = this.helperService.translation;
+    this.forgotPassObj.appConstants = this.helperService.constants.appConstant;
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+      this.forgotPassObj.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
+    this.forgotPassObj.formErrorMatcher = new FormErrorHandler();
   }
 
   ngOnInit() {
-    this.forgotPassForm = this.formBuilder.group({
+    this.forgotPassObj.forgotPassForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
@@ -44,26 +36,30 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
 
+  /**
+   * this function is used to validate the email if user forgets the password
+   * @params group
+   */
   checkEmail(group) {
-    this.email = this.formBuilder.group({
+    this.forgotPassObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
     });
-    if (this.email.status === 'VALID') {
+    if (this.forgotPassObj.email.status === 'VALID') {
       const email = {email: group.value.email};
       this.forgotService.checkEmail(email).pipe().subscribe((res) => {
-        this.success = res;
-        if (this.success.responseDetails.code === '0021') {
-          group.controls.email.setErrors({exists: true})
+        this.forgotPassObj.success = res;
+        if (this.forgotPassObj.success.responseDetails.code === '0021') {
+          group.controls.email.setErrors({exists: true});
         }
       });
     }
   }
 
   /**
-   * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
+   * in this function login form controls are checked whether they are valid or not and this is basically builtin fucntionality
    */
   get formValidation() {
-    return this.forgotPassForm.controls;
+    return this.forgotPassObj.forgotPassForm.controls;
   }
 
   /**
@@ -73,23 +69,27 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   onSubmit({value, valid}: { value: ForgotPassword; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FORGOT_REQ);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.forgotPassObj.translated.LOGGER.MESSAGES.FORGOT_REQ);
       return;
     }
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.forgotService.forgotPassword(value).subscribe(
       data => {
-        this.helperService.creactSnack(this.translated.MESSAGES.RESET_SUCCESS,
-          this.translated.MESSAGES.RESETMSG, this.helperService.constants.status.SUCCESS);
-        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-        this.router.navigate(['/login']);
+        let res = data;
+        if (res.responseDetails.code !== '0005') {
+          this.helperService.createSnack(this.forgotPassObj.translated.MESSAGES.RESET_SUCCESS,
+            this.forgotPassObj.translated.MESSAGES.RESETMSG, this.helperService.constants.status.SUCCESS);
+          this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+            this.forgotPassObj.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+          this.helperService.navigateTo(['/login']);
+        }
       },
       error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
-          `${this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        this.helperService.creactSnack(this.translated.MESSAGES.RESET_SUCCESS,
-          this.translated.MESSAGES.RESETMSG, this.helperService.constants.status.ERROR);
+          `${this.forgotPassObj.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.helperService.createSnack(this.forgotPassObj.translated.MESSAGES.RESET_SUCCESS,
+          this.forgotPassObj.translated.MESSAGES.RESETMSG, this.helperService.constants.status.ERROR);
 
       }
     );
