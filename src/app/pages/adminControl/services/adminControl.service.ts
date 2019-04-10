@@ -1,7 +1,7 @@
 import {InviteTeamData, InviteTeamResponse} from 'src/app/models/inviteUser.model';
 import {Injectable} from '@angular/core';
-import {entity, joinEntity, entityData} from 'src/app/models/entity.model';
-import {HelperService} from '../../../shared/helperService/helper.service';
+import {entity, joinEntity} from 'src/app/models/entity.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
 
 @Injectable({

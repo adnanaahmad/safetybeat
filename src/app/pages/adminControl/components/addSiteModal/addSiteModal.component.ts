@@ -1,10 +1,9 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {Translation} from 'src/app/models/translate.model';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {Site, SiteAddData, SitesInfo} from 'src/app/models/site.model';
+import { SiteAddData} from 'src/app/models/site.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';

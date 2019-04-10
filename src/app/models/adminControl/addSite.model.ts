@@ -1,5 +1,5 @@
-import {Translation} from '../translate.model';
-import {Site, SitesInfo} from '../site.model';
+import {Translation} from 'src/app/models/translate.model';
+import {SitesInfo} from 'src/app/models/site.model';
 import {FormGroup} from '@angular/forms';
 
 export interface AddSite {

@@ -8,7 +8,7 @@ import {EntityUserData} from 'src/app/models/userEntityData.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {SitesInfo} from '../../../../models/site.model';
+import {SitesInfo} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-navigation',
