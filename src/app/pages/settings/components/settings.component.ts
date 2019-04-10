@@ -7,9 +7,9 @@ import { NavigationService } from '../../navigation/services/navigation.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EditEntity } from 'src/app/models/profile.model';
 @Component({
-  selector: "app-settings",
-  templateUrl: "./settings.component.html",
-  styleUrls: ["./settings.component.scss"]
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
   themeSelected: any;
@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   appTheme: any;
   entitiesData: any;
   allEntites: any;
-  settingFeatures = { "general": true, "security": false, "organization": false, "group": false, "entity": false, "theme": false };
+  settingFeatures = { 'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false };
   disabled: boolean = false;
   entityId: any;
   createdBy: any;
@@ -75,7 +75,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   changed() {
     this.settings.setActiveTheme(this.themeSelected);
-    var self = this;
+    let self = this;
     this.helperService.iterations(this.overlay.getContainerElement().classList, function (value, index) {
       if (index !== 0) {
         self.overlay.getContainerElement().classList.remove(value);
@@ -85,7 +85,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   changeSetting(settings: any) {
-    var self = this
+    let self = this
     this.helperService.iterations(this.settingFeatures, function (value, key) {
       if (key === settings) {
         self.settingFeatures[key] = true;
@@ -98,7 +98,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   updateEntity({ value, valid }: { value: EditEntity; valid: boolean }): void {
     this.disabled = false;
     this.entityForm.disable();
-    var data = {
+    let data = {
       'name': value.name,
       'code': value.code,
       'headOffice': value.headOffice,

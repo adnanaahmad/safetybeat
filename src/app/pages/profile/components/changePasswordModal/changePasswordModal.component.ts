@@ -41,17 +41,31 @@ export class ModalDialogComponent implements OnInit {
     }, { validator: this.checkPasswords });
     this.formErrorMatcher = new FormErrorHandler();
   }
+
+  /**
+   * this function ...
+   * @params group
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
+
+  /**
+   * this function is used to validate form
+   */
   get formValidation() { return this.changePasswordForm.controls; }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * this function...
+   * @params value
+   * @params valid
+   */
   changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);

@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { VerificationComponent } from "../../../../Dialogs/verification/verification.component";
-import { validateUser } from "src/app/models/user.model";
-import { LoginRegistrationService } from "../../services/LoginRegistrationService";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {VerificationComponent} from '../../../../Dialogs/verification/verification.component';
+import {validateUser} from 'src/app/models/user.model';
+import {LoginRegistrationService} from '../../services/LoginRegistrationService';
 import {
   FormArrayName,
   FormBuilder,
   FormGroup,
   Validators
-} from "@angular/forms";
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+} from '@angular/forms';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 
 @Component({
-  selector: "app-landing",
-  templateUrl: "./landing.component.html",
-  styleUrls: ["./landing.component.scss"]
+  selector: 'app-landing',
+  templateUrl: './landing.component.html',
+  styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
   validateForm: FormGroup;
@@ -28,6 +28,7 @@ export class LandingComponent implements OnInit {
   loading: boolean = false;
   email: FormGroup;
   success: any;
+
   constructor(
     public router: Router,
     private helperService: HelperService,
@@ -43,34 +44,47 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     this.validateForm = this.formBuilder.group({
-      email: ["", Validators.email]
+      email: ['', Validators.email]
     });
   }
+
+  /**
+   * this function is used to
+   * @params group
+   */
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
     });
     if (this.email.status === 'VALID') {
-      const email = { email: group.value.email };
+      const email = {email: group.value.email};
       this.navService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code == '0020') {
-          group.controls.email.setErrors({ exists: true })
+        if (this.success.responseDetails.code === '0020') {
+          group.controls.email.setErrors({exists: true});
         }
       }, err => {
-        this.helperService.logoutError(err.status)
+        this.helperService.logoutError(err.status);
       });
     }
   }
 
+  /**
+   * this function is used for validation of Form and shows error if the form field is invalid
+   */
   get formValidation() {
     return this.validateForm.controls;
   }
 
+  /**
+   * this function is used to
+   * @params value
+   * @params valid
+   */
   validateUser({
-    value,
-    valid
-  }: {
+                 value,
+                 valid
+               }: {
     value: validateUser;
     valid: boolean;
   }): void {
@@ -86,14 +100,14 @@ export class LandingComponent implements OnInit {
     this.loginService.validateUser(value).subscribe(
       result => {
         this.validationResponse = result;
-        if (this.validationResponse.responseDetails.code === "0034") {
+        if (this.validationResponse.responseDetails.code === '0034') {
           this.helperService.appLogger(
             this.helperService.constants.status.SUCCESS,
             this.translated.MESSAGES.VERIFICATIONCODEEMAIL
           );
           this.loading = false;
           this.helperService.createDialog(VerificationComponent, {
-            data: { email: value.email }
+            data: {email: value.email}
           });
         }
       },

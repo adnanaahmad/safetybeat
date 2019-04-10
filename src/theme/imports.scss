@@ -20,6 +20,7 @@
 @import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
 @import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
+@import "src/app/pages/adminControl/components/addSiteModal/addSiteModal.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -46,7 +47,8 @@
   @include amte-dashboard($primary, $accent, $warn);
   @include amte-notfound($primary, $accent, $warn);
   @include amte-entityControl($primary, $accent, $warn);
-  @include amte-passwordRecovery($primary, & accent, & warn);
-  @include amte-entityCodeModal($primary, & accent, & warn);
-  @include amte-welcomeScreen($primary, $accent, $warn)
+  @include amte-passwordRecovery($primary, &accent, &warn);
+  @include amte-entityCodeModal($primary, &accent, &warn);
+  @include amte-welcomeScreen($primary, $accent, $warn);
+  @include amte-addsite-modal($primary, $accent, $warn);
 }

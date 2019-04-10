@@ -46,9 +46,15 @@ export class InviteUserModalComponent implements OnInit {
     });
   }
 
+  /**
+   * This function is used to validate Invite User form and shows error if the form field is invalid
+   */
   get formValidation() { return this.inviteUserForm.controls; }
 
-
+  /**
+   * this function is used to check if the email is valid or already exists
+   * @params group
+   */
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -57,7 +63,7 @@ export class InviteUserModalComponent implements OnInit {
       const email = { email: group.value.email };
       this.navigationService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code == '0020') {
+        if (this.success.responseDetails.code === '0020') {
           group.controls.email.setErrors({ exists: true })
         }
       }, err => {
@@ -66,6 +72,12 @@ export class InviteUserModalComponent implements OnInit {
     }
   }
 
+  /**
+   * this function is used to register a user by taking information from Invite User form and checks if the
+   * user is successfully invited or not
+   * @params value
+   * @params valid
+   */
   inviteUser({ value, valid }: { value: inviteUser; valid: boolean }): void {
     this.InviteUserData = {
       first_name: value.first_name,
@@ -74,7 +86,7 @@ export class InviteUserModalComponent implements OnInit {
       invitation: true,
       roleId: value.role,
       contactNo: '545535456',
-      moduleName: "Safetybeat",
+      moduleName: 'Safetybeat',
       entityId: this.entityID
     }
     if (!valid) {
@@ -86,9 +98,9 @@ export class InviteUserModalComponent implements OnInit {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.InviteUserData).subscribe((res) => {
       this.dialogRef.close();
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, "User has been successfully Invited.");
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'User has been successfully Invited.');
     }, (err) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, "Error inviting user.");
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Error inviting user.');
       this.dialogRef.close();
       this.helperService.logoutError(err.status)
     })

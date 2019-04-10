@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             : this.loginService.setToken('');
           let userData = this.compiler.constructUserData(this.data.data.user);
           this.loginService.updateProfileData(userData);
-          var entityData = {
+          let entityData = {
             'moduleName': 'Safetybeat'
           };
           this.adminService.viewEntities(entityData).subscribe((res) => {
@@ -115,7 +115,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           }, (err) => {
             
           })
-
         } else if (data.responseDetails.code === '0001') {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,

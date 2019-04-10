@@ -18,8 +18,8 @@ import { AlertModalComponent } from '../../../../Dialogs/entityCodeModal/entityC
   templateUrl: './entityControl.component.html',
   styleUrls: ['./entityControl.component.scss']
 })
-export class EntityControlComponent implements OnInit,AfterViewInit{
-  entitySelectedRole:string;
+export class EntityControlComponent implements OnInit, AfterViewInit {
+  entitySelectedRole: string;
   dialogConfig = new MatDialogConfig();
   displayedColumns: string[] = ['name', 'headOffice', 'role', 'administrator', 'symbol'];
   dataSource: any = [];
@@ -30,12 +30,13 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
   allEntitiesData: any = [];
   entitiesList: any = [];
   empty: boolean = false;
-  createEntityOption:boolean=false;
+  createEntityOption: boolean = false;
+
   constructor(
     public dialog: MatDialog,
     public adminServices: AdminControlService,
     public helperService: HelperService,
-    private navService : NavigationService
+    private navService: NavigationService
   ) {
     this.translated = this.helperService.translation;
     this.appIcons = this.helperService.constants.appIcons;
@@ -50,23 +51,41 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
     this.creationEnable();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
   }
+
+  /**
+   * this funnction is used to create Create Entity Dialog
+   */
   createEntity() {
     this.helperService.createDialog(CreateEntityComponent)
   }
+
+  /**
+   * this function is used to create Join Entity Dialog
+   */
   joinEntity() {
     this.helperService.createDialog(JoinEntityModalComponent)
   }
+
+  /**
+   * this function is used to create Alert Modal Dialog
+   * @params code
+   * @params name
+   */
   entityCode(code, name) {
     this.helperService.createDialog(AlertModalComponent, { data: { name: name, code: code } });
   }
+
+  /**
+   * this function is used to show all the existing entities
+   */
   viewAllEntities() {
     this.empty = true;
-    var data = {
+    let data = {
       'moduleName': 'Safetybeat'
     };
-    this.navService.data.subscribe((res)=>{
+    this.navService.data.subscribe((res) => {
       this.entitiesList = res;
       this.allEntitiesData = this.entitiesList.entities;
       this.empty = false;
@@ -78,12 +97,16 @@ export class EntityControlComponent implements OnInit,AfterViewInit{
     });
 
   }
-  creationEnable(){
-    this.navService.currentRole.subscribe((res)=>{
+
+  /**
+   * this function is used to....
+   */
+  creationEnable() {
+    this.navService.currentRole.subscribe((res) => {
       this.entitySelectedRole = res;
-      if(this.entitySelectedRole==='Owner'){
+      if (this.entitySelectedRole === 'Owner') {
         this.createEntityOption = true;
-      } else{
+      } else {
         this.createEntityOption = false;
       }
     })

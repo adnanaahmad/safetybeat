@@ -35,12 +35,24 @@ export class JoinEntityModalComponent implements OnInit {
       joinCode: ['', Validators.required]
     });
   }
+
+  /**
+   * this function is used to close the dialog
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * this function is used to validate Join Entity form and show error if the form field is invalid
+   */
   get formValidation() { return this.joinEntityForm.controls; }
 
+  /**
+   *this function is used to make a new entity and checks if it already exists/ if its not found
+   * @params value
+   * @params valid
+   */
   entityJoin({ value, valid }: { value: entityCode; valid: boolean }) {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
@@ -56,17 +68,15 @@ export class JoinEntityModalComponent implements OnInit {
     this.adminServices.joinEntity(this.joinEntityData).subscribe((res) => {
       this.entityResponse = res;
       this.onNoClick();
-      if (this.entityResponse.responseDetails.code == '0025') {
+      if (this.entityResponse.responseDetails.code === '0025') {
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Entity is Joined successfully');
-      }
-      else if (this.entityResponse.responseDetails.code == '0027') {
+      } else if (this.entityResponse.responseDetails.code === '0027') {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Already Joined this entity')
-      }
-      else if (this.entityResponse.responseDetails.code == '0026') {
+      } else if (this.entityResponse.responseDetails.code === '0026') {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Entity Not Found')
       }
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, "You can not joined entity.");
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, 'You can not joined entity.');
       this.helperService.logoutError(error.status)
     })
 

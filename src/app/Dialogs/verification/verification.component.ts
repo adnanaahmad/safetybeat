@@ -7,9 +7,9 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: "app-verification",
-  templateUrl: "./verification.component.html",
-  styleUrls: ["./verification.component.scss"]
+  selector: 'app-verification',
+  templateUrl: './verification.component.html',
+  styleUrls: ['./verification.component.scss']
 })
 export class VerificationComponent implements OnInit, OnDestroy {
   translated: Translation;
@@ -19,7 +19,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
   success: any;
   res: any;
   appConstants: any;
-  code: string = "";
+  code: string = '';
   registrationData: any;
   validationData: any;
   userEmail: any;
@@ -47,9 +47,9 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.hideLoggers();
   }
-  @ViewChildren("input") inputs;
+  @ViewChildren('input') inputs;
   keyTab($event, value) {
-    if (this.code == "") {
+    if (this.code === '') {
       this.code = value;
     } else {
       this.code = this.code + value;
@@ -57,7 +57,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
     let element = $event.srcElement.nextElementSibling;
     if (element == null) {
-      var data = {
+      let data = {
         'code': parseInt(this.code)
       };
       this.validateUser(data);
@@ -67,26 +67,36 @@ export class VerificationComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * this function is used to validate Verify form and show error if the form field is invalid
+   */
   get formValidation() {
     return this.verifyForm.controls;
   }
 
+  /**
+   * this function  verifies the user if the code matches
+   * @params data
+   */
   validateUser(data: any) {
     this.loginRegService.verifyCode(data).subscribe(res => {
       this.validationData = res;
       this.userEmail = this.validationData.data.data;
       if (this.validationData.responseDetails.code === '0035') {
-        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verifiesd');
+        this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verified');
         this.dialogRef.close();
         this.router.navigate(['/signup', { data: JSON.stringify(this.userEmail) }], { skipLocationChange: true });
       }
     }, (error) => {
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verifiesd');
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verified');
     });
   }
 
+  /**
+   * this function resends the code to user
+   */
   resendVerification() {
-    var emailData = {
+    let emailData = {
       'email': this.email.email
     }
     this.loginRegService.validateUser(emailData).subscribe(

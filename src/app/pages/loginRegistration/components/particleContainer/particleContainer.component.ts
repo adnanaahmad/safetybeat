@@ -9,7 +9,7 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
 })
 export class ParticleContainerComponent implements OnInit {
   translated: Translation;
-  particlesIcons:any;
+  particlesIcons: any;
   constructor(
     public helperService: HelperService,
   ) {

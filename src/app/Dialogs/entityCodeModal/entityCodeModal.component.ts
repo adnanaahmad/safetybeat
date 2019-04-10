@@ -10,12 +10,14 @@ export class AlertModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AlertModalComponent>,
 
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) { 
-  }
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
   }
+
+  /**
+   * this function is used to close the dialog
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }

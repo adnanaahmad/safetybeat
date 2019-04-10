@@ -9,9 +9,9 @@ import { Translation } from 'src/app/models/translate.model';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: "app-nav-list",
-  templateUrl: "./navList.component.html",
-  styleUrls: ["./navList.component.scss"]
+  selector: 'app-nav-list',
+  templateUrl: './navList.component.html',
+  styleUrls: ['./navList.component.scss']
 })
 export class NavListComponent implements OnInit {
   item: any;
@@ -38,10 +38,14 @@ export class NavListComponent implements OnInit {
       this.item = this.navLinks;
     }
   }
+
+  /**
+   * this function ...
+   */
   getRoles() {
     this.navService.getRoles().subscribe((res) => {
       this.roles = res;
-      var self = this;
+      let self = this;
       this.helperService.iterations(this.roles, function (obj) {
         obj.name = self.compiler.insertSpaces(obj.name)
       })
@@ -59,6 +63,11 @@ export class NavListComponent implements OnInit {
       this.expanded = !this.expanded;
     }
   }
+
+  /**
+   * this function ...
+   * @params displayName
+   */
   customActions(displayName) {
     switch (displayName) {
       case 'Invite Users':
@@ -72,8 +81,12 @@ export class NavListComponent implements OnInit {
     }
   }
 
+  /**
+   * this function ...
+   * @params entityId
+   */
   inviteUserModal(entityId) {
-    this.helperService.createDialog(InviteUserModalComponent, { data: { "role": this.roles, "entityId": entityId } });
+    this.helperService.createDialog(InviteUserModalComponent, { data: { 'role': this.roles, 'entityId': entityId } });
   }
 
 }

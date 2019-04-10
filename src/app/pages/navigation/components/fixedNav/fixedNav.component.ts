@@ -68,6 +68,10 @@ export class FixedNavComponent implements OnInit {
     );
     this.sidenavToggle.emit(this.navOpened);
   }
+
+  /**
+   * this function...
+   */
   public switchNavListMenuDefault() {
     this.navLinks = this.defaultNavLinks;
     this.switchNavListDefault.emit();

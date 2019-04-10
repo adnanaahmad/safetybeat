@@ -17,15 +17,15 @@ export class PasswordRecoveryComponent implements OnInit {
   data: any;
   resetPasswordForm: FormGroup;
   appConstants: any;
-  translated : Translation;
+  translated: Translation;
 
   constructor(
     private route: ActivatedRoute,
-    private formBuilder:FormBuilder,
+    private formBuilder: FormBuilder,
     private translate: TranslateService,
     private resetServices: LoginRegistrationService,
-    private router:Router,
-    private helperService:HelperService
+    private router: Router,
+    private helperService: HelperService
   ) {
 
     this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
@@ -44,13 +44,27 @@ export class PasswordRecoveryComponent implements OnInit {
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.checkPasswords });
   }
+
+  /**
+   * this function
+   * @params group
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
+
+  /**
+   * this function is used to validate form and ....
+   */
   get formValidation() { return this.resetPasswordForm.controls; }
 
+  /**
+   *  this function
+   * @params value
+   * @params valid
+   */
   changePassword({ value, valid }: { value: Reset; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.WARNING, valid);
@@ -58,17 +72,17 @@ export class PasswordRecoveryComponent implements OnInit {
       return;
     }
 
-    var data = {
+    let data = {
       'password': value.password1,
       'uid': this.data.uid,
-      'token':this.data.token
+      'token': this.data.token
     };
 
-    this.resetServices.resetPassword(data).subscribe((res)=>{
+    this.resetServices.resetPassword(data).subscribe((res) => {
       this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
       this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
       this.router.navigate(['/login']);
-    },(error)=>{
+    }, (error) => {
       this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
         this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,

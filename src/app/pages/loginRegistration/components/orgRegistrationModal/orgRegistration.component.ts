@@ -38,7 +38,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
   formErrorMatcher: any;
 
 
-  @ViewChild("search")
+  @ViewChild('search')
   public searchElementRef: ElementRef;
   constructor(
     public dialogRef: MatDialogRef<OrgRegistrationComponent>,
@@ -80,6 +80,11 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
+
+  /**
+   * this function...
+   * @params addrObj
+   */
   setAddress(addrObj) {
     this.city = addrObj.locality;
     this.country = addrObj.country;
@@ -89,11 +94,21 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       this.addrKeys = Object.keys(addrObj);
     });
   }
+
+  /**
+   * this function...
+   * @params group
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
+
+  /**
+   * this function
+   * @params group
+   */
   checkUserName(group) {
     if (group.value.username !== '') {
       const username = { username: group.value.username };
@@ -105,6 +120,11 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  /**
+   * this function
+   * @params group
+   */
   checkOrgName(group) {
     if (group.value.name !== '') {
       const name = { name: group.value.name }
@@ -116,6 +136,11 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  /**
+   * this function is never used
+   * @params group
+   */
   checkOrgBillingEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.billingEmail, Validators.email]
@@ -125,7 +150,7 @@ export class OrgRegistrationComponent implements OnInit, OnDestroy {
       const billingemail_check = this.register.checkOrgBillingEmail(billingEmail).pipe();
       billingemail_check.subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code == '0018') {
+        if (this.success.responseDetails.code === '0018') {
           group.controls.billingEmail.setErrors({ exists: true })
         }
       });

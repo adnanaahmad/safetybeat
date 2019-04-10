@@ -5,7 +5,7 @@ export interface Translation {
   LOGGER: Logger;
   STRINGS: Strings;
   SITETITLE: SiteTitle;
-  STATUS: Status
+  STATUS: Status;
 }
 export interface Strings {
   USERNAME: string;
@@ -22,6 +22,8 @@ export interface Strings {
   EXPAND: string;
   REMOVE: string;
   USERINFO: string;
+  SITEADDRESS: string;
+  SITESAFETYPLAN: string;
 }
 export interface Auth {
   USERNAME: string;
@@ -139,6 +141,7 @@ export interface Buttons {
   MAP: string;
   HOURS: string;
   INVITE_USER: string;
+  ADD_SITE: string;
 }
 export interface Messages {
   CHANGEPASSWORD: string;
@@ -206,6 +209,9 @@ export interface Messages {
   BACKEND_ERROR:string;
   ORGTYPEMESSAGE:string;
   VERIFICATIONCODEEMAIL:string;
+  ADDSITE_MSG: string;
+  SITE_NAME: string;
+  INVALIDADDRESS:string
 }
 export interface Logger {
   STATUS: LoggerStatus;
@@ -256,7 +262,7 @@ export interface LoggerMessage {
   INVITEUSER_ERROR: string;
   ENTITYNOTCREATED: string;
   ROLES_RECIEVED: string;
-  ROLES_RECIEVED_ERROR: string
+  ROLES_RECIEVED_ERROR: string;
 }
 export interface SiteTitle {
   MEMBERCENTER_TITLE: string;
@@ -267,6 +273,8 @@ export interface SiteTitle {
   USERS_DESCRIPTION: string;
   SETTINGS_TITLE: string;
   SETTINGS_DESCRIPTION: string;
+  SITE_CENTRE: string;
+  SITE_CENTRE_DESCRIPTION: string;
 }
 
 export interface TableHeadings {
@@ -283,7 +291,11 @@ export interface TableHeadings {
   LAST_ACTION: string;
   DATE_TIME: string;
   TIMEZONE: string;
-  ADMINISTRATED_BY:string;
+  ADMINISTRATED_BY: string;
+  SITE_NAME: string;
+  SITE_ADDRESS: string;
+  SITE_SAFE_ZONE: string;
+  SITE_CREATED_BY: string;
 }
 
 export interface Status {
