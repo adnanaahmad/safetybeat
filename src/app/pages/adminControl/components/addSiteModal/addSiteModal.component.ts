@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Translation} from 'src/app/models/translate.model';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
@@ -15,7 +15,7 @@ import {AddSite} from 'src/app/models/adminControl/addSite.model';
   styleUrls: ['./addSiteModal.component.scss']
 })
 export class AddSiteModalComponent implements OnInit, OnDestroy {
-
+  @ViewChild('gmap') gmapElement: ElementRef;
   addSiteModel: AddSite = <AddSite>{};
 
   constructor(
@@ -39,6 +39,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.helperService.createMap(this.gmapElement);
     this.addSiteModel.addSiteForm = this.formBuilder.group({
       siteName: ['', Validators.required],
       siteSafetyPlan: ['', Validators.required],
@@ -56,10 +57,26 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
+  setAddress(addrObj) {
+    let onSelect: boolean = false;
+    this.addSiteModel.displaySubmitButton = true;
+    if (!this.helperService.isEmpty(addrObj)) {
+      this.addSiteModel.addr = addrObj.formatted_address;
+      onSelect = true;
+    } else {
+      this.addSiteModel.addr =  this.addSiteModel.addSiteForm.controls.siteAddress.value;
+    }
+    this.setMap({address: this.addSiteModel.addr, onSelect: onSelect});
+  }
+
+  get formValidation() {
+    return this.addSiteModel.addSiteForm.controls;
+  }
+
   addSite({value}: { value: SiteAddData }) {
     let siteData = {
       name: value.siteName,
-      location: value.siteAddress,
+      location: this.addSiteModel.addr,
       safeZone: value.safeZone,
       siteSafetyPlan: value.siteSafetyPlan,
       entity: this.addSiteModel.entityId
@@ -85,6 +102,17 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     });
 
 
+  }
+
+  setMap({address, onSelect}: { address: any, onSelect: boolean }) {
+    this.addSiteModel.displaySubmitButton = onSelect;
+    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement)).then(res => {
+      this.addSiteModel.displaySubmitButton = true;
+      return this.formValidation.siteAddress.setErrors(null);
+    }).catch(err => {
+      this.addSiteModel.displaySubmitButton = false;
+      return this.formValidation.siteAddress.setErrors({invalid: true});
+    });
   }
 
 }

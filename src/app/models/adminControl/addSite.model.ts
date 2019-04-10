@@ -3,6 +3,7 @@ import {Site, SitesInfo} from '../site.model';
 import {FormGroup} from '@angular/forms';
 
 export interface AddSite {
+  addr: any;
   addSiteForm: FormGroup;
   translated: Translation;
   entityData: any;
@@ -11,6 +12,7 @@ export interface AddSite {
   addSiteResponse: any;
   sitesList: any;
   sitesData: SitesInfo[];
-  loading:boolean;
+  loading: boolean;
+  displaySubmitButton: boolean;
 }
 
