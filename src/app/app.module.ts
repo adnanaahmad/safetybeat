@@ -30,6 +30,7 @@ import { InviteTeamModalComponent } from './pages/adminControl/components/invite
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/components/addSiteModal/addSiteModal.component';
+import {ImportSiteModalComponent} from './pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -47,7 +48,8 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
-    AddSiteModalComponent
+    AddSiteModalComponent,
+    ImportSiteModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -96,7 +98,8 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
-    AddSiteModalComponent
+    AddSiteModalComponent,
+    ImportSiteModalComponent
   ]
 })
 export class AppModule { }
