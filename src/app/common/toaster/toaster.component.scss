@@ -1,0 +1,26 @@
+@mixin amte-toaster($primary, $accent, $warn) {
+  :host,
+  app-toaster {
+    font-size: 14px;
+    .toast-title {
+      padding: 16px;
+      margin-top: 0;
+      border-radius: 4px 4px 0 0;
+      color:#fff;
+      box-shadow: 0 5px 4px -4px rgba(0, 0, 0, 0.3);
+      &.success {
+        background-color: mat-color($primary, 500);
+      }
+      &.warning {
+        background-color: mat-color($warn, 500);
+      }
+      &.error{
+        background-color: mat-color($warn, 500);
+      }
+    }
+    .toast-message,
+    .toast-type {
+      padding: 13px 16px;
+    }
+  }
+}

@@ -5,8 +5,10 @@ export interface Translation {
   LOGGER: Logger;
   STRINGS: Strings;
   SITETITLE: SiteTitle;
-  STATUS: Status
+  STATUS: Status;
+  TABLEHEADINGS: TableHeadings;
 }
+
 export interface Strings {
   USERNAME: string;
   FIRSTNAME: string;
@@ -22,7 +24,10 @@ export interface Strings {
   EXPAND: string;
   REMOVE: string;
   USERINFO: string;
+  SITEADDRESS: string;
+  SITESAFETYPLAN: string;
 }
+
 export interface Auth {
   USERNAME: string;
   PASSWORD: string;
@@ -72,6 +77,7 @@ export interface Auth {
   TRIAL: string;
   OWNER: string;
 }
+
 export interface Icons {
   MOVE_VERT: string;
   CHANGE_HISTORY: string;
@@ -89,6 +95,7 @@ export interface Icons {
   DETAILS: string;
   TEXTURE: string;
 }
+
 export interface Strings {
   EXPAND: string;
   REMOVE: string;
@@ -111,6 +118,7 @@ export interface Strings {
   PHONENO: string;
   FAX: string;
 }
+
 export interface Buttons {
   LOGIN: string;
   REGISTER: string;
@@ -139,7 +147,10 @@ export interface Buttons {
   MAP: string;
   HOURS: string;
   INVITE_USER: string;
+  INVITETEAM: string;
+  ADD_SITE: string;
 }
+
 export interface Messages {
   CHANGEPASSWORD: string;
   WELCOME: string;
@@ -203,14 +214,28 @@ export interface Messages {
   JOINENTITY_MSG: string;
   ENTITYCODE: string;
   ENTITYCODE_REQ: string;
-  BACKEND_ERROR:string;
-  ORGTYPEMESSAGE:string;
-  VERIFICATIONCODEEMAIL:string;
+  JOINENTITY_SUCCESS: string;
+  ALREADYJOINED_ENTITY: string;
+  ENTITYNOTFOUND: string;
+  ENTITYJOINFIAL: string,
+  INVITETEAMSUCCESS: string;
+  INVITETEAMFAIL: string;
+  INVITETEAMTITLE: string;
+  INVITETEAMPLACEHOLDER: string;
+  BACKEND_ERROR: string;
+  ORGTYPEMESSAGE: string;
+  VERIFICATIONCODEEMAIL: string;
+  ADDSITE_MSG: string;
+  SITE_NAME: string;
+  INVALIDADDRESS: string;
+  EMAIL_NOT_REGISTERED: string;
 }
+
 export interface Logger {
   STATUS: LoggerStatus;
   MESSAGES: LoggerMessage;
 }
+
 export interface LoggerStatus {
   DEFAULT: string;
   INFO: string;
@@ -218,6 +243,7 @@ export interface LoggerStatus {
   WARNING: string;
   ERROR: string;
 }
+
 export interface LoggerMessage {
   LOGGEDIN: string;
   CREDENTIAL_REQ: string;
@@ -256,8 +282,9 @@ export interface LoggerMessage {
   INVITEUSER_ERROR: string;
   ENTITYNOTCREATED: string;
   ROLES_RECIEVED: string;
-  ROLES_RECIEVED_ERROR: string
+  ROLES_RECIEVED_ERROR: string;
 }
+
 export interface SiteTitle {
   MEMBERCENTER_TITLE: string;
   MEMBERCENTER_DESCRIPTION: string;
@@ -267,6 +294,8 @@ export interface SiteTitle {
   USERS_DESCRIPTION: string;
   SETTINGS_TITLE: string;
   SETTINGS_DESCRIPTION: string;
+  SITE_CENTRE: string;
+  SITE_CENTRE_DESCRIPTION: string;
 }
 
 export interface TableHeadings {
@@ -283,7 +312,11 @@ export interface TableHeadings {
   LAST_ACTION: string;
   DATE_TIME: string;
   TIMEZONE: string;
-  ADMINISTRATED_BY:string;
+  ADMINISTRATED_BY: string;
+  SITE_NAME: string;
+  SITE_ADDRESS: string;
+  SITE_SAFE_ZONE: string;
+  SITE_CREATED_BY: string;
 }
 
 export interface Status {

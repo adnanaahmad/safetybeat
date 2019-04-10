@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
 import { HelperService } from '../helperService/helper.service';
 import { User } from 'src/app/models/user.model';
+import { Site, SitesInfo } from '../../models/site.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -24,8 +25,20 @@ export class CompilerProvider {
       (charCode < 48 || charCode > 57)
     );
   }
+
+  /**
+  * @param event
+  * To check if the input is character or not
+  */
+  charactersOnly(event): boolean {
+    const charCode = event.which ? event.which : event.key;
+    return !(
+      charCode > 31 &&
+      ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))
+    );
+  }
   constructUserData(profileApiResponse: any) {
-    let user:User = {
+    let user: User = {
       id: profileApiResponse.id,
       username: profileApiResponse.username,
       first_name: profileApiResponse.first_name,
@@ -68,6 +81,10 @@ export class CompilerProvider {
       entities: allEntities
     };
     return userEntityData;
+  }
+
+  constructSiteData(siteApiResponse: any): SitesInfo[] {
+    return siteApiResponse.data;
   }
 
   switchSideMenu(data, name) {

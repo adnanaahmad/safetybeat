@@ -181,6 +181,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   }
   app-settings {
     .navigator {
+      background-color: mat-color($primary, 50);
       mat-list-item {
         span {
           &:hover,
@@ -234,6 +235,11 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   .section-heading {
     &:after {
       background: mat-color($primary-pallet, 500);
+    }
+  }
+  app-toaster {
+    .toast-title {
+      // background: mat-color($primary-pallet, 500);
     }
   }
   @include amte-setTheme($light-theme);

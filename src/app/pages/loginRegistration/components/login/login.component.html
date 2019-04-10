@@ -5,8 +5,8 @@
         <h3>{{translated.MESSAGES.WELCOME}}</h3>
         <h1>{{translated.MESSAGES.ANONYMOUS}}</h1>
         <p>{{translated.MESSAGES.WELCOME_MSG}}</p>
-        <span>{{translated.MESSAGES.NOACCOUNT}}</span>
       </div>
+      
     </mat-card>
   </mat-grid-tile>
   <span class="monogram">
@@ -16,6 +16,7 @@
     <mat-card class="midbox loginbox">
       <mat-card-title>{{translated.BUTTONS.LOGIN}}</mat-card-title>
       <p class="subheading">{{translated.MESSAGES.SIGNINMESSAGE}}</p>
+      <button (click)="createSampleToast()">test toast</button>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
         <div class="input">
           <mat-form-field full-width>

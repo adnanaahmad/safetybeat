@@ -61,7 +61,9 @@
     "OTHERSETTINGS": "Other Settings",
     "CHANGETHEME": "Change Theme",
     "EXPAND": "Expand",
-    "REMOVE": "Remove"
+    "REMOVE": "Remove",
+    "SITEADDRESS": "Site Address",
+    "SITESAFETYPLAN": "Site Safety Plan"
 
   },
   "BUTTONS": {
@@ -92,7 +94,9 @@
     "INVITE_USER": "INVITE",
     "SKIP": "SKIP",
     "MAP": "Map",
-    "HOURS": "Hours"
+    "HOURS": "Hours",
+    "INVITETEAM": "Invite",
+    "ADD_SITE": "Add Site"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -138,7 +142,7 @@
     "EMAIL_CHANGED": "Your email has been changed successfully",
     "NOT_REGISTETRED": "Email/Username is not registered",
     "INVALID_PASSWORD": "Invalid Password",
-    "EMAIL_NOT_REGISTERED": "This email is not registered,insert valid email",
+    "EMAIL_NOT_REGISTERED": "This email is not registered, add a valid email",
     "CHANGEPASSWORD_FAIL": "Change Password Unsuccessful!",
     "CHANGEPASSWORD_SUCCESS": "Change password successful!",
     "PROFIILE_INFO": "Profile Info",
@@ -158,8 +162,19 @@
     "ENTITYCODE": "Enter entity code to join entity",
     "ENTITYCODE_REQ": "Entity Code is Required.",
     "BACKEND_ERROR": "Something bad happened; please try again later.",
-    "ORGTYPEMESSAGE":"Please choose your organization type",
-    "VERIFICATIONCODEEMAIL": "Email has been sent with verification code"
+    "ORGTYPEMESSAGE": "Please choose your organization type",
+    "VERIFICATIONCODEEMAIL": "Email has been sent with verification code",
+    "JOINENTITY_SUCCESS": "Entity has been joined successfully",
+    "ALREADYJOINED_ENTITY": "Entity has already been joined",
+    "ENTITYNOTFOUND": "Entity not found",
+    "ENTITYJOINFIAL": "Sorry, something bad happened thats why you can not join this entity",
+    "INVITETEAMSUCCESS": "Invitation Successful",
+    "INVITETEAMFAIL": "Invitation Unsuccessful",
+    "INVITETEAMTITLE": "Invite Team",
+    "INVITETEAMPLACEHOLDER": "Type user names to invite",
+    "INVALIDADDRESS": "Invalid address",
+    "ADDSITE_MSG":"Enter Site Details to Add Site",
+    "SITE_NAME": "Enter Site Name"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -169,7 +184,9 @@
     "USERS_TITLE": "All Users",
     "USERS_DESCRIPTION": "Add, remove or review users",
     "SETTINGS_TITLE": "Settings",
-    "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages"
+    "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages",
+    "SITE_CENTRE": "Site Centre",
+    "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Entity Id",
@@ -185,7 +202,11 @@
     "LAST_ACTION": "Last Action",
     "DATE_TIME": "Date/Time",
     "TIMEZONE": "Time Zone",
-    "ADMINISTRATED_BY": "Administrated By"
+    "ADMINISTRATED_BY": "Administrated By",
+    "SITE_NAME":"Site Name",
+    "SITE_ADDRESS":"Site Location",
+    "SITE_SAFE_ZONE":"Safe Zone",
+    "SITE_CREATED_BY":"Created By"
   },
   "LOGGER": {
     "STATUS": {

@@ -1,22 +1,28 @@
 @mixin amte-settings($primary, $accent, $warn) {
   :host,
   app-settings {
+    font-size: 14px;
     .flexbox > div {
       text-align: left;
     }
     .btn-grp {
       text-align: right;
+      margin-top: 20px;
       button {
         margin-left: 10px;
       }
     }
     .navigator {
-      width: 350px;
+      max-width: 300px;
       height: 100%;
       float: left;
       box-shadow: 0 2px 10px 0px rgba(0, 0, 0, 0.15);
       border-radius: 4px;
-      padding: 20px 0;
+      min-width: 230px;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      z-index: 2;
       .mat-list {
         padding-top: 0;
       }
@@ -28,42 +34,50 @@
         padding: 0;
       }
       mat-list-item {
+        font-size: 14px;
         span {
           text-decoration: none;
           display: block;
           width: 100%;
-          padding: 10px;
+          padding: 15px;
           line-height: 1.7;
           color: rgba(0, 0, 0, 0.8);
           cursor: pointer;
           transition: all ease 0.3s;
-          &.settingNav{
-            color:#fff;
+          &.settingNav {
+            color: #fff;
           }
         }
       }
     }
     .settings-wrap {
       float: left;
-      padding: 0 20px 20px 20px;
+      padding-left: 260px;
+      width: 500px;
+      padding-top: 50px;
       .mat-list-item-content {
         padding: 0;
       }
       label,
       input {
         width: 100%;
+        font-size: 14px;
+      }
+      label {
+        font-weight: 500;
+      }
+      mat-form-field {
+        width: 100%;
       }
       input {
-        text-align: right;
-        background: transparent;
-        border: 0;
-        outline: 0 none;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        background-color:#fff;
       }
       .mat-list-item {
-        margin-bottom: 10px;
         border-bottom: 1px solid #ddd;
         padding: 10px 0;
-        margin-top: 10px;
       }
     }
     .setting-title {
