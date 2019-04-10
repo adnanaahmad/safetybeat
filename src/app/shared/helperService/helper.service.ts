@@ -24,6 +24,7 @@ export class HelperService {
   findIndex: any;
   translation: Translation;
   constants: typeof ConstantService;
+  displayButton: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -186,4 +187,56 @@ export class HelperService {
     }).catch(err => {
     });
   }
+
+  /**
+   * Set map location according to address in organization form
+   */
+  setAddress(addrObj, gMapElement: ElementRef, formControl, address) {
+    let onSelect: boolean = false;
+    this.displayButton = true;
+    if (!this.isEmpty(addrObj)) {
+      address = addrObj.formatted_address;
+      onSelect = true;
+    } else {
+      address = formControl.value;
+    }
+    this.setMap({address: address, onSelect: onSelect, gMapElement: gMapElement, formControl: formControl});
+  }
+
+  /**
+   * Set map location according to address in organization form
+   */
+  setMap({address, onSelect, gMapElement, formControl}: { address: any, onSelect: boolean, gMapElement: ElementRef, formControl }) {
+    this.displayButton = onSelect;
+    this.setLocationGeocode(address, this.createMap(gMapElement)).then(res => {
+      this.displayButton = true;
+      return formControl.setErrors(null);
+    }).catch(err => {
+      this.displayButton = false;
+      return formControl.setErrors({invalid: true});
+    });
+  }
+
+  setFalse(event) {
+    if (event.which !== this.constants.appConstant.enterKey) {
+      this.displayButton = false;
+    }
+  }
+
+  /**
+   * Getter for app constants and translation through helper service
+   */
+
+  get appConstants() {
+    return this.constants.appConstant;
+  }
+
+  get translated() {
+    return this.translation;
+  }
+
+  get appIcons() {
+    return this.constants.appIcons;
+  }
+
 }

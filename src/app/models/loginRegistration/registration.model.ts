@@ -4,25 +4,22 @@ export interface RegistrationComp {
   userForm: FormGroup;
   organizationForm: FormGroup;
   organizationTypeForm: FormGroup;
-  moduleForm: FormGroup;
   email: FormGroup;
-  title: string;
-  addr: any;
-  addrKeys: string[];
+  address: string;
   organizationData: any;
   registrationData: any;
-  devMode: boolean;
   userEmail: any;
-  city: string;
-  country: string;
-  zipCode: string;
-  displayNextButton: boolean;
   loading: boolean;
   registerData: any;
-  types: any;
+  types: Type[];
   modules: any;
   packages: any;
   success: any;
   data: any;
   formErrorMatcher: any;
+}
+
+export interface Type {
+  id: number;
+  name: string;
 }
