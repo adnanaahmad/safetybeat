@@ -55,6 +55,7 @@ export class SiteCenterComponent implements OnInit {
    */
   viewAllSites() {
     this.adminServices.siteObserver.subscribe((res) => {
+      debugger
       if (res === 1) {
         let data = {
           'entityId': this.siteCentreModel.entityId
@@ -67,8 +68,12 @@ export class SiteCenterComponent implements OnInit {
           this.siteCentreModel.dataSource.paginator = this.paginator;
         });
       } else {
-        this.siteCentreModel.dataSource = new MatTableDataSource(res);
-        this.siteCentreModel.dataSource.paginator = this.paginator;
+        if (res === '') {
+          this.siteCentreModel.dataSource = 0;
+        } else {
+          this.siteCentreModel.dataSource = new MatTableDataSource(res);
+          this.siteCentreModel.dataSource.paginator = this.paginator;
+        }
 
       }
     });
