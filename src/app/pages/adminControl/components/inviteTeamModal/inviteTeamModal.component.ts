@@ -4,30 +4,30 @@ import {
   ViewChild,
   ElementRef,
   OnInit
-} from "@angular/core";
+} from '@angular/core';
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatAutocomplete,
   MatAutocompleteSelectedEvent
-} from "@angular/material";
-import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { FormControl } from "@angular/forms";
-import { startWith, map } from "rxjs/operators";
-import { HelperService } from "src/app/shared/helperService/helper.service";
-import { AdminControlService } from "src/app/pages/adminControl/services/adminControl.service";
-import { InviteTeamModel } from "src/app/models/inviteTeam.model";
+} from '@angular/material';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {FormControl} from '@angular/forms';
+import {startWith, map} from 'rxjs/operators';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {InviteTeamModel} from 'src/app/models/adminControl/inviteTeam.model';
 
 @Component({
-  selector: "app-inviteTeamModal",
-  templateUrl: "./inviteTeamModal.component.html",
-  styleUrls: ["./inviteTeamModal.component.scss"]
+  selector: 'app-inviteTeamModal',
+  templateUrl: './inviteTeamModal.component.html',
+  styleUrls: ['./inviteTeamModal.component.scss']
 })
 export class InviteTeamModalComponent implements OnInit {
   inviteTeamModel: InviteTeamModel = <InviteTeamModel>{};
 
-  @ViewChild("userInput") userInput: ElementRef<HTMLInputElement>;
-  @ViewChild("auto") matAutocomplete: MatAutocomplete;
+  @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
@@ -35,14 +35,7 @@ export class InviteTeamModalComponent implements OnInit {
     private adminServices: AdminControlService,
     private helperService: HelperService
   ) {
-    console.log(data, "this is the data that i get from entity control centre");
-    this.inviteTeamModel.removable = true;
-    this.inviteTeamModel.separatorKeysCodes = [ENTER, COMMA];
-    this.inviteTeamModel.users = [];
-    this.inviteTeamModel.allUsers = [];
-    this.inviteTeamModel.userCtrl = new FormControl();
-    this.inviteTeamModel.translated = this.helperService.translation;
-    this.inviteTeamModel.loading = false;
+    this.initialize();
     this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData
       ? this.data.inviteTeamData.usersData.map(x => Object.assign({}, x))
       : [];
@@ -59,6 +52,16 @@ export class InviteTeamModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  initialize() {
+    this.inviteTeamModel.removable = true;
+    this.inviteTeamModel.separatorKeysCodes = [ENTER, COMMA];
+    this.inviteTeamModel.users = [];
+    this.inviteTeamModel.allUsers = [];
+    this.inviteTeamModel.userCtrl = new FormControl();
+    this.inviteTeamModel.translated = this.helperService.translation;
+    this.inviteTeamModel.loading = false;
+  }
+
   remove(fruit: any): void {
     const index = this.inviteTeamModel.users.indexOf(fruit);
     if (index >= 0) {
@@ -69,14 +72,14 @@ export class InviteTeamModalComponent implements OnInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     let index = this.helperService.findIndex(
       this.inviteTeamModel.users,
-      function(obj) {
+      function (obj) {
         return obj.first_name === event.option.value.first_name;
       }
     );
     if (index === -1) {
       this.inviteTeamModel.users.push(event.option.value);
     }
-    this.userInput.nativeElement.value = "";
+    this.userInput.nativeElement.value = '';
     this.inviteTeamModel.userCtrl.setValue(null);
   }
 
@@ -96,7 +99,7 @@ export class InviteTeamModalComponent implements OnInit {
 
   inviteTeam() {
     let userEmails: any = [];
-    this.helperService.iterations(this.inviteTeamModel.users, function(obj) {
+    this.helperService.iterations(this.inviteTeamModel.users, function (obj) {
       userEmails.push(obj.email);
     });
     let inviteTeamData = {
@@ -107,7 +110,7 @@ export class InviteTeamModalComponent implements OnInit {
     this.adminServices.inviteTeam(inviteTeamData).subscribe(
       res => {
         let responseData = res;
-        if (responseData.responseDetails.code === "0029") {
+        if (responseData.responseDetails.code === '0029') {
           this.helperService.createSnack(
             responseData.responseDetails.message,
             this.inviteTeamModel.translated.MESSAGES.INVITETEAMSUCCESS,

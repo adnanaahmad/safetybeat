@@ -36,6 +36,7 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
   intialize() {
     this.createEntity.title = 'Places';
     this.createEntity.displaySubmitButton = false;
+    this.createEntity.loading = false;
   }
 
   ngOnInit() {
@@ -53,7 +54,6 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
   }
 
   setAddress(addrObj) {
-    debugger;
     let address = '', onSelect: boolean = false;
     this.createEntity.displaySubmitButton = true;
     if (!this.helperService.isEmpty(addrObj)) {
@@ -99,30 +99,35 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     }
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
+    this.createEntity.loading = true;
     this.adminServices.createEntity(this.createEntity.entityDetails).subscribe((result) => {
         this.createEntity.entityResponse = result;
-        this.onNoClick();
         if (this.createEntity.entityResponse.responseDetails.code === '0012') {
           let data = {
             'moduleName': 'Safetybeat'
           };
           this.adminServices.viewEntities(data).subscribe(res => {
+            this.createEntity.loading = false;
             this.createEntity.entites = res;
             let entityUserData = this.compiler.constructUserEntityData(this.createEntity.entites.data);
             this.navService.changeEntites(entityUserData);
+            this.onNoClick();
           });
           this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
             this.createEntity.entityResponse.responseDetails.message);
         } else if (this.createEntity.entityResponse.responseDetails.code === '0013') {
+          this.createEntity.loading = false;
           this.helperService.appLogger(this.helperService.constants.status.ERROR,
             this.createEntity.entityResponse.responseDetails.message);
         } else if (this.createEntity.entityResponse.responseDetails.code === '0017') {
+          this.createEntity.loading = false;
           this.helperService.appLogger(this.helperService.constants.status.ERROR,
             this.createEntity.entityResponse.responseDetails.message);
         }
       }, (error => {
         this.helperService.appLogger(this.createEntity.translated.LOGGER.STATUS.ERROR,
           this.createEntity.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+        this.createEntity.loading = false;
         this.helperService.logoutError(error.status);
       })
     );

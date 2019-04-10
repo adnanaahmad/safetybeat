@@ -1,23 +1,25 @@
-import {InviteTeamData, InviteTeamResponse} from 'src/app/models/inviteUser.model';
-import { Injectable } from '@angular/core';
-import { entity, joinEntity, entityData } from 'src/app/models/entity.model';
-import { HelperService } from '../../../shared/helperService/helper.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import {InviteTeamData, InviteTeamResponse} from 'src/app/models/adminControl/inviteUser.model';
+import {Injectable} from '@angular/core';
+import {entity, joinEntity, entityData} from 'src/app/models/entity.model';
+import {HelperService} from '../../../shared/helperService/helper.service';
+import {Observable, BehaviorSubject} from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AdminControlService {
   apiRoutes: any;
-  inviteTeamResponse$:Observable<InviteTeamResponse>
+  inviteTeamResponse$: Observable<InviteTeamResponse>
   method: { get: string; post: string; put: string; delete: string };
   private sites = new BehaviorSubject<any>(1);
   siteObserver = this.sites.asObservable();
-  constructor(public helperService: HelperService) { 
+
+  constructor(public helperService: HelperService) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.method = this.helperService.constants.apiMethod;
   }
 
-  changeSites(sitesInfo:any){
+  changeSites(sitesInfo: any) {
     this.sites.next(sitesInfo)
   }
 
@@ -26,10 +28,10 @@ export class AdminControlService {
       this.method.post,
       this.apiRoutes.createEntity,
       data
-    ); 
+    );
   }
-  
-  viewEntities(data:object){
+
+  viewEntities(data: object) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllEntities,
@@ -37,15 +39,15 @@ export class AdminControlService {
     );
   }
 
-  joinEntity(data:joinEntity){
+  joinEntity(data: joinEntity) {
     return this.helperService.requestCall(
-     this.method.post,
-     this.apiRoutes.joinEntity,
-     data 
+      this.method.post,
+      this.apiRoutes.joinEntity,
+      data
     );
   }
 
-  viewSites(data:object){
+  viewSites(data: object) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllSites,
@@ -53,7 +55,7 @@ export class AdminControlService {
     );
   }
 
-  addSite(data:any){
+  addSite(data: any) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.addSite,

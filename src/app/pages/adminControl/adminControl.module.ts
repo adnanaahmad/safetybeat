@@ -8,7 +8,6 @@ import { PermissionCenterComponent } from './components/permissionCenter/permiss
 import { QuestionCenterComponent } from './components/questionCenter/questionCenter.component';
 import { SiteCenterComponent } from './components/siteCenter/siteCenter.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
-import { InviteUsersModalComponent } from './components/inviteUsersModal/inviteUsersModal.component';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { AddSiteModalComponent } from './components/addSiteModal/addSiteModal.component';
 
@@ -20,7 +19,6 @@ import { AddSiteModalComponent } from './components/addSiteModal/addSiteModal.co
     PermissionCenterComponent,
     QuestionCenterComponent,
     SiteCenterComponent,
-    InviteUsersModalComponent,
   ],
   imports: [
     CommonModule,
