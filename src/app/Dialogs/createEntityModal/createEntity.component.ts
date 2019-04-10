@@ -1,4 +1,4 @@
-import {Component, OnInit, NgZone, Input, AfterViewInit} from '@angular/core';
+import {Component, OnInit, NgZone, Input, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import {entity, entityData} from 'src/app/models/entity.model';
@@ -7,6 +7,7 @@ import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import { CreateEntity } from 'src/app/models/adminControl/createEntity.model';
 
 @Component({
   selector: 'app-createEntity',
@@ -14,21 +15,8 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
   styleUrls: ['./createEntity.component.scss']
 })
 export class CreateEntityComponent implements OnInit, AfterViewInit {
-  translated: Translation;
-  appConstants: any;
-  public title = 'Places';
-  public addrKeys: string[];
-  public addr: object;
-  city: string;
-  country: string;
-  zipCode: string;
-  appIcons: any;
-  createEntityForm: FormGroup;
-  entityDetails: any;
-  entityResponse: any;
-  roleId: number;
-  entites: any;
-
+  createEntity: CreateEntity = <CreateEntity>{}
+  @ViewChild('gmap') gmapElement: ElementRef;
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
@@ -38,22 +26,22 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     private compiler: CompilerProvider,
     public dialogRef: MatDialogRef<CreateEntityComponent>,
   ) {
-    this.translated = this.helperService.translation;
-    this.appConstants = this.helperService.constants.appConstant;
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
+    this.createEntity.translated = this.helperService.translation;
+    this.createEntity.appConstants = this.helperService.constants.appConstant;
+    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.createEntity.translated.LOGGER.MESSAGES.CREATEENTITY);
   }
 
   ngOnInit() {
-    this.createEntityForm = this.formBuilder.group({
+    this.helperService.createMap(this.gmapElement);
+    this.createEntity.createEntityForm = this.formBuilder.group({
       name: ['', Validators.required],
-      headOffice: ['', Validators.required],
-      status: false
+      headOffice: ['', Validators.required]
     });
   }
 
   ngAfterViewInit() {
     this.navService.currentRoleId.subscribe((res) => {
-      this.roleId = res;
+      this.createEntity.roleId = res;
     });
   }
 
@@ -63,13 +51,24 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
    * @params addrObj
    */
   setAddress(addrObj) {
-    this.city = addrObj.locality;
-    this.country = addrObj.country;
-    this.zipCode = addrObj.zipCode;
-    this.zone.run(() => {
-      this.addr = addrObj;
-      this.addrKeys = Object.keys(addrObj);
-    });
+    let address = '', onSelect: boolean = false;
+    this.createEntity.displaySubmitButton = true;
+    if (!this.helperService.isEmpty(addrObj)) {
+      this.createEntity.city = addrObj.locality;
+      this.createEntity.country = addrObj.country;
+      this.createEntity.zipCode = addrObj.zipCode;
+      this.zone.run(() => {
+        this.createEntity.addr = addrObj;
+        this.createEntity.addrKeys = Object.keys(addrObj);
+        this.createEntity.addr = addrObj.formatted_address;
+      });
+      address = addrObj.formatted_address;
+      onSelect = true;
+    } else {
+      address = this.createEntity.createEntityForm.controls.headOffice.value;
+      this.createEntity.addr = address;
+    }
+    this.setMap({address: address, onSelect: onSelect});
   }
 
   /**
@@ -77,7 +76,7 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
    * form field is invalid
    */
   get formValidation() {
-    return this.createEntityForm.controls;
+    return this.createEntity.createEntityForm.controls;
   }
 
   /**
@@ -95,42 +94,57 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
    * @params valid
    */
   entityCreation({value, valid}: { value: entityData; valid: boolean }): void {
-    this.entityDetails = {
-      moduleName: this.translated.BUTTONS.SAFETYBEAT,
+    this.createEntity.entityDetails = {
+      moduleName: this.createEntity.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
-      active: value.status,
-      roleId: this.roleId
+      active: true,
+      roleId: this.createEntity.roleId
     };
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR,
+        this.createEntity.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
-    this.adminServices.createEntity(this.entityDetails).subscribe((result) => {
-        this.entityResponse = result;
+    this.adminServices.createEntity(this.createEntity.entityDetails).subscribe((result) => {
+        this.createEntity.entityResponse = result;
         this.onNoClick();
-        if (this.entityResponse.responseDetails.code === '0012') {
+        if (this.createEntity.entityResponse.responseDetails.code === '0012') {
           let data = {
             'moduleName': 'Safetybeat'
           };
           this.adminServices.viewEntities(data).subscribe(res => {
-            this.entites = res;
-            let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
+            this.createEntity.entites = res;
+            let entityUserData = this.compiler.constructUserEntityData(this.createEntity.entites.data);
             this.navService.changeEntites(entityUserData);
           });
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.entityResponse.responseDetails.message);
-        } else if (this.entityResponse.responseDetails.code === '0013') {
-          this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message);
-        } else if (this.entityResponse.responseDetails.code === '0017') {
-          this.helperService.appLogger(this.helperService.constants.status.ERROR, this.entityResponse.responseDetails.message);
+          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.createEntity.entityResponse.responseDetails.message);
+        } else if (this.createEntity.entityResponse.responseDetails.code === '0013') {
+          this.helperService.appLogger(this.helperService.constants.status.ERROR, this.createEntity.entityResponse.responseDetails.message);
+        } else if (this.createEntity.entityResponse.responseDetails.code === '0017') {
+          this.helperService.appLogger(this.helperService.constants.status.ERROR, this.createEntity.entityResponse.responseDetails.message);
         }
       }, (error => {
-        this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
+        this.helperService.appLogger(this.createEntity.translated.LOGGER.STATUS.ERROR, this.createEntity.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
         this.helperService.logoutError(error.status);
       })
     );
+  }
+
+  /**
+   * Set map location according to address in organization form
+   */
+  setMap({address, onSelect}: { address: any, onSelect: boolean }) {
+    this.createEntity.displaySubmitButton = onSelect;
+    this.helperService.setLocationGeocode(address, this.helperService.createMap(this.gmapElement)).then(res => {
+      this.createEntity.displaySubmitButton = true;
+      return this.formValidation.headOffice.setErrors(null);
+    }).catch(err => {
+      this.createEntity.displaySubmitButton = false;
+      return this.formValidation.headOffice.setErrors({invalid: true});
+    });
   }
 
 

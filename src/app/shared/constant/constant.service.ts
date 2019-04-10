@@ -35,6 +35,7 @@ export class ConstantService {
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
+    inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
     addSite: `${environment.apiUrl}/api/sites/addSite/`
   };
@@ -189,7 +190,7 @@ export class ConstantService {
     ERROR: 'error',
     OK: 'OK'
   };
-  static defaultMapconfig = {
+  static defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
     zoomControl: true

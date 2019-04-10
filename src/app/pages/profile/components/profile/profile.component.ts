@@ -5,17 +5,16 @@ import {
   OnDestroy,
   AfterViewInit
 } from '@angular/core';
-import { ProfileService } from '../../services/profile.service';
-import { share } from 'rxjs/operators';
-import { Translation } from 'src/app/models/translate.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EditUser } from 'src/app/models/profile.model';
-import { MatDialog } from '@angular/material';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {Translation} from 'src/app/models/translate.model';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {EditUser} from 'src/app/models/profile.model';
+import {MatDialog} from '@angular/material';
+import {ConstantService} from 'src/app/shared/constant/constant.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-profile',
@@ -71,6 +70,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.appConstants = ConstantService.appConstant;
     // this.profileData = JSON.parse(localStorage.getItem(ConstantService.localStorageKeys.entityUserData));
   }
+
+
   @Input()
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
@@ -89,13 +90,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.getUserData();
   }
+
+
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass
       ? null
-      : group.controls.password2.setErrors({ notSame: true });
+      : group.controls.password2.setErrors({notSame: true});
   }
+
+
   get profileDataForm() {
     return this.profileForm.controls;
   }
@@ -130,7 +135,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           });
         }
       }
-    )
+    );
   }
 
   // onCreate(feature: any) {
@@ -164,9 +169,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileFeatures.leaves = true;
   }
 
-  onEntities() { }
+  onEntities() {
+  }
 
-  onActivities() { }
+  onActivities() {
+  }
 
   /**
    * this function..
@@ -203,7 +210,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.translated.LOGGER.STATUS.SUCCESS,
           this.translated.LOGGER.MESSAGES.PROFILE_UPDATED
         );
-        this.helperService.creactSnack(this.translated.LOGGER.STATUS.SUCCESS, this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
+          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
+        this.helperService.createSnack(this.translated.LOGGER.STATUS.SUCCESS,
+          this.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
         this.getUserData();
       },
       error => {

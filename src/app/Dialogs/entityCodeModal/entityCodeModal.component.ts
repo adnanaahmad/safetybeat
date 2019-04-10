@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+
 @Component({
   selector: 'app-entityCodeModal',
   templateUrl: './entityCodeModal.component.html',
@@ -9,8 +10,9 @@ export class AlertModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AlertModalComponent>,
-
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+  }
 
   ngOnInit() {
   }

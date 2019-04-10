@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Translation } from 'src/app/models/translate.model';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, Inject} from '@angular/core';
 import {inviteUser} from 'src/app/models/inviteUser.model';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {Translation} from 'src/app/models/translate.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: 'app-invite-user-modal',
+  selector: 'app-inviteUserModal',
   templateUrl: './inviteUserModal.component.html',
   styleUrls: ['./inviteUserModal.component.scss']
 })
@@ -23,6 +23,7 @@ export class InviteUserModalComponent implements OnInit {
   ]
   InviteUserData: any;
   entityID: any;
+
   constructor(
     public dialogRef: MatDialogRef<InviteUserModalComponent>,
     public formBuilder: FormBuilder,
@@ -60,11 +61,11 @@ export class InviteUserModalComponent implements OnInit {
       'email': [group.value.email, Validators.email]
     });
     if (this.email.status === 'VALID') {
-      const email = { email: group.value.email };
+      const email = {email: group.value.email};
       this.navigationService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
         if (this.success.responseDetails.code === '0020') {
-          group.controls.email.setErrors({ exists: true })
+          group.controls.email.setErrors({exists: true})
         }
       }, err => {
         this.helperService.logoutError(err.status)

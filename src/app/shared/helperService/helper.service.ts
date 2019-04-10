@@ -47,7 +47,7 @@ export class HelperService {
     return PhoneNumberUtil.getInstance();
   }
 
-  creactSnack(message, title, type) {
+  createSnack(message, title, type) {
     this.snackBar.openFromComponent(ToasterComponent, {
       data: {message: message, title: title, type: type},
       verticalPosition: 'bottom',
@@ -71,7 +71,7 @@ export class HelperService {
 
   createDialog(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = params && params.disableClose ? params.disableClose : true;
+    dialogConfig.disableClose = params && params.disableClose ? params.disableClose : false;
     dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;
     dialogConfig.closeOnNavigation = params && params.closeOnNavigation ? params.closeOnNavigation : false;
     dialogConfig.data = params && params.data ? params.data : null;
@@ -88,7 +88,7 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.creactSnack(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
+    this.createSnack(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
     this.navigateTo(['/login']);
   }
 
@@ -141,7 +141,7 @@ export class HelperService {
    * @param mapConfig
    */
   createMap(gmapElement: ElementRef, mapConfig?: any) {
-    mapConfig = (mapConfig) ? mapConfig : this.constants.defaultMapconfig;
+    mapConfig = (mapConfig) ? mapConfig : this.constants.defaultMapConfig;
     return new google.maps.Map(gmapElement.nativeElement, mapConfig);
   }
 

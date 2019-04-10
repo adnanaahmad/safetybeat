@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {ConstantService} from '../../../shared/constant/constant.service';
-import {map, catchError} from 'rxjs/operators';
+import {ConstantService} from 'src/app/shared/constant/constant.service';
+import {catchError} from 'rxjs/operators';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
 
 @Injectable({

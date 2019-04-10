@@ -8,6 +8,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { Translation } from 'src/app/models/translate.model';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
+
 @Component({
   selector: 'app-nav-list',
   templateUrl: './navList.component.html',
@@ -22,6 +23,7 @@ export class NavListComponent implements OnInit {
   @Input() public navLinksBottom;
   roles: any;
   @Input() public selectedEntity;
+
   constructor(
     public router: Router,
     public navService: NavigationService,
@@ -55,6 +57,7 @@ export class NavListComponent implements OnInit {
       this.helperService.logoutError(err.status);
     })
   }
+
   onItemSelected(navLinks: NavItem) {
     if (!navLinks.children || !navLinks.children.length) {
       this.router.navigate([navLinks.route]);

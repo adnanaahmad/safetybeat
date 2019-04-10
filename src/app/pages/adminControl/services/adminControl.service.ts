@@ -1,17 +1,14 @@
+import {InviteTeamData, InviteTeamResponse} from 'src/app/models/inviteUser.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { entity, joinEntity, entityData } from 'src/app/models/entity.model';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { map, catchError } from 'rxjs/operators';
-import { CoreService } from 'src/app/core/services/authorization/core.service';
 import { HelperService } from '../../../shared/helperService/helper.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Site } from '../../../models/site.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminControlService {
   apiRoutes: any;
+  inviteTeamResponse$:Observable<InviteTeamResponse>
   method: { get: string; post: string; put: string; delete: string };
   private sites = new BehaviorSubject<any>(1);
   siteObserver = this.sites.asObservable();
@@ -87,4 +84,11 @@ export class AdminControlService {
       data
     )
   }
+
+  inviteTeam(data: InviteTeamData): Observable<InviteTeamResponse> {
+    this.inviteTeamResponse$ = this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.inviteTeam, data);
+    return this.inviteTeamResponse$;
+  }
+
+
 }

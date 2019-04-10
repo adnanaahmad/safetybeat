@@ -5,7 +5,6 @@ import {VerificationComponent} from '../../../../Dialogs/verification/verificati
 import {validateUser} from 'src/app/models/user.model';
 import {LoginRegistrationService} from '../../services/LoginRegistrationService';
 import {
-  FormArrayName,
   FormBuilder,
   FormGroup,
   Validators
@@ -61,7 +60,7 @@ export class LandingComponent implements OnInit {
       this.navService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
         if (this.success.responseDetails.code === '0020') {
-          group.controls.email.setErrors({exists: true});
+          group.controls.email.setErrors({exists: true})
         }
       }, err => {
         this.helperService.logoutError(err.status);
@@ -107,7 +106,8 @@ export class LandingComponent implements OnInit {
           );
           this.loading = false;
           this.helperService.createDialog(VerificationComponent, {
-            data: {email: value.email}
+            data: {email: value.email},
+            disableClose: false
           });
         }
       },
