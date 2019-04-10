@@ -157,7 +157,8 @@ export class ConstantService {
     edit: 'edit',
     viewSite: 'remove_red_eye',
     siteQuestionCenter: 'question_answer',
-    log: 'library_books'
+    log: 'library_books',
+    import: 'play_for_work'
   };
   static particlesIcons = [
     'more_vert',
