@@ -96,7 +96,8 @@
     "MAP": "Map",
     "HOURS": "Hours",
     "INVITETEAM": "Invite",
-    "ADD_SITE": "Add Site"
+    "ADD_SITE": "Add Site",
+    "IMPORT_SITE": "Import Site"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -174,7 +175,10 @@
     "INVITETEAMPLACEHOLDER": "Type user names to invite",
     "INVALIDADDRESS": "Invalid address",
     "ADDSITE_MSG":"Enter Site Details to Add Site",
-    "SITE_NAME": "Enter Site Name"
+    "SITE_NAME": "Enter Site Name",
+    "NO_RECORD_AVAILABLE": "No Record Available",
+    "IMPORTSITE_MSG": "Site Import",
+    "CSVIMPORT_MSG":"Select CSV file to import Sites"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

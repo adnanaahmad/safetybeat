@@ -43,15 +43,24 @@ export class JoinEntityModalComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used to close the dialog
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  get formValidation() {
-    return this.joinEntityForm.controls;
-  }
+  /**
+   * this function is used to validate Join Entity form and show error if the form field is invalid
+   */
+  get formValidation() { return this.joinEntityForm.controls; }
 
-  entityJoin({value, valid}: { value: entityCode; valid: boolean }) {
+  /**
+   *this function is used to make a new entity and checks if it already exists/ if its not found
+   * @params value
+   * @params valid
+   */
+  entityJoin({ value, valid }: { value: entityCode; valid: boolean }) {
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,

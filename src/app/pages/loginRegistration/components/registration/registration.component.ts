@@ -107,6 +107,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
 
+  /**
+   * this function...
+   * @params addrObj
+   */
   setAddress(addrObj) {
     let address = '', onSelect: boolean = false;
     this.registerObj.displayNextButton = true;
@@ -127,7 +131,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
     this.setMap({address: address, onSelect: onSelect});
   }
-
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
@@ -146,6 +149,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
+  /**
+   *
+   * @params group
+   */
   checkEmail(group) {
     this.registerObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -161,6 +168,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   *
+   * @params group
+   */
   phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
@@ -175,6 +186,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   /**
    * Set map location according to address in organization form
+   * @params address
    */
   setMap({address, onSelect}: { address: any, onSelect: boolean }) {
     this.registerObj.displayNextButton = onSelect;

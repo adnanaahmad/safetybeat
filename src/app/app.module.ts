@@ -19,17 +19,18 @@ import { NotifierModule } from 'angular-notifier';
 import { CoreService } from './core/services/authorization/core.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { CreateEntityComponent } from './pages/adminControl/components/createEntityModal/createEntity.component';
+import { CreateEntityComponent } from './Dialogs/createEntityModal/createEntity.component';
 import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
-import { JoinEntityModalComponent } from './pages/adminControl/components/joinEntityModal/joinEntityModal.component';
-import { InviteUserModalComponent } from './pages/navigation/components/inviteUserModal/inviteUserModal.component';
-import { AlertModalComponent } from './pages/adminControl/components/entityCodeModal/entityCodeModal.component';
-import { VerificationComponent } from './pages/loginRegistration/components/verification/verification.component';
+import { JoinEntityModalComponent } from './Dialogs/joinEntityModal/joinEntityModal.component';
+import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserModal.component';
+import { AlertModalComponent } from './Dialogs/entityCodeModal/entityCodeModal.component';
+import { VerificationComponent } from './Dialogs/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
 import { InviteTeamModalComponent } from './pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/components/addSiteModal/addSiteModal.component';
+import {ImportSiteModalComponent} from './pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -47,7 +48,8 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
-    AddSiteModalComponent
+    AddSiteModalComponent,
+    ImportSiteModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -96,7 +98,8 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
-    AddSiteModalComponent
+    AddSiteModalComponent,
+    ImportSiteModalComponent
   ]
 })
 export class AppModule { }
