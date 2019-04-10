@@ -229,6 +229,7 @@ export interface Messages {
   SITE_NAME: string;
   INVALIDADDRESS: string;
   EMAIL_NOT_REGISTERED: string;
+  INVALID_EMAIL: string;
 }
 
 export interface Logger {

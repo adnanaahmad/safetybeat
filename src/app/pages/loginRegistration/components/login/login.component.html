@@ -2,9 +2,9 @@
   <mat-grid-tile>
     <mat-card class="sideLegend">
       <div class="legendContent">
-        <h3>{{loginObj.translated.MESSAGES.WELCOME}}</h3>
-        <h1>{{loginObj.translated.MESSAGES.ANONYMOUS}}</h1>
-        <p>{{loginObj.translated.MESSAGES.WELCOME_MSG}}</p>
+        <h3>{{translated.MESSAGES.WELCOME}}</h3>
+        <h1>{{translated.MESSAGES.ANONYMOUS}}</h1>
+        <p>{{translated.MESSAGES.WELCOME_MSG}}</p>
       </div>
     </mat-card>
   </mat-grid-tile>
@@ -13,35 +13,35 @@
   </span>
   <mat-grid-tile>
     <mat-card class="midbox loginbox">
-      <mat-card-title>{{loginObj.translated.BUTTONS.LOGIN}}</mat-card-title>
-      <p class="subheading">{{loginObj.translated.MESSAGES.SIGNINMESSAGE}}</p>
+      <mat-card-title>{{translated.BUTTONS.LOGIN}}</mat-card-title>
+      <p class="subheading">{{translated.MESSAGES.SIGNINMESSAGE}}</p>
       <form [formGroup]="loginObj.loginForm" (ngSubmit)="onSubmit(loginObj.loginForm)">
         <div class="input">
           <mat-form-field full-width>
-            <input matInput type="email" [placeholder]=loginObj.translated.AUTH.EMAIL formControlName="{{loginObj.appConstants.email}}"
+            <input matInput type="email" [placeholder]="translated.AUTH.EMAIL" formControlName="{{appConstants.email}}"
               [errorStateMatcher]="loginObj.formErrorMatcher" required />
             <mat-error *ngIf="formValidation.email.errors">
-              <span *ngIf="formValidation.email.errors.required">{{loginObj.translated.AUTH.EMAIL_REQ}}</span>
-              <span *ngIf="formValidation.email.errors?.exists">{{loginObj.translated.MESSAGES.NOT_REGISTETRED}}</span>
+              <span *ngIf="formValidation.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
+              <span *ngIf="formValidation.email.errors?.exists">{{translated.MESSAGES.NOT_REGISTETRED}}</span>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="password">
           <mat-form-field full-width>
-            <input matInput type="password" [placeholder]=loginObj.translated.AUTH.PASSWORD formControlName="{{loginObj.appConstants.password}}"
+            <input matInput type="password" [placeholder]="translated.AUTH.PASSWORD" formControlName="{{appConstants.password}}"
               [errorStateMatcher]="loginObj.formErrorMatcher" required />
             <mat-error *ngIf="formValidation.password.errors">
-              <span *ngIf="formValidation.password.errors.required">{{loginObj.translated.AUTH.PASSWORD_REQ}}</span>
-              <span *ngIf="formValidation.password.errors?.exists">{{loginObj.translated.MESSAGES.INVALID_PASSWORD}}</span>
+              <span *ngIf="formValidation.password.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+              <span *ngIf="formValidation.password.errors?.exists">{{translated.MESSAGES.INVALID_PASSWORD}}</span>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="button">
-          <button mat-raised-button [disabled]="loginObj.loading" custom-btn btn-primary color="primary">{{loginObj.translated.BUTTONS.LOGIN}}</button>
-          <img *ngIf="loginObj.loading" [src]=loginObj.translated.MESSAGES.LOADING_URL />
+          <button mat-raised-button [disabled]="loginObj.loading" custom-btn btn-primary color="primary">{{translated.BUTTONS.LOGIN}}</button>
+          <img *ngIf="loginObj.loading" [src]="translated.MESSAGES.LOADING_URL" />
         </div>
         <div class="link">
-          <a routerLink="/forgotPassword">{{loginObj.translated.BUTTONS.FORGOTPASSWORD}}</a>
+          <a routerLink="/forgotPassword">{{translated.BUTTONS.FORGOTPASSWORD}}</a>
         </div>
       </form>
     </mat-card>

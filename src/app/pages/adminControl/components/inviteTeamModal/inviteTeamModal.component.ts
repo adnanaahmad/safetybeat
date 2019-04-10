@@ -92,7 +92,7 @@ export class InviteTeamModalComponent {
     this.inviteTeamModel.loading = true;
     this.adminServices.inviteTeam(inviteTeamData).subscribe((res) => {
       let responseData = res;
-      if (responseData.responseDetails.code === '0029') {
+      if (responseData.responseDetails.code === 103) {
         this.helperService.createSnack(responseData.responseDetails.message,
           this.inviteTeamModel.translated.MESSAGES.INVITETEAMSUCCESS, this.helperService.constants.status.SUCCESS);
         this.onNoClick();
@@ -105,6 +105,6 @@ export class InviteTeamModalComponent {
     }, (error) => {
       this.inviteTeamModel.loading = false;
       this.helperService.handleError(error);
-    })
+    });
   }
 }

@@ -101,7 +101,13 @@ export class ConstantService {
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
     linearForm: 'true',
-    enterKey: 13
+    enterKey: 13,
+    emailValid: 'VALID',
+    paths: {
+      home: '/home',
+      login: '/login'
+    },
+    codeValidations: [100, 101, 102, 103, 104],
   };
   static appIcons = {
     skipNext: 'skip_next',

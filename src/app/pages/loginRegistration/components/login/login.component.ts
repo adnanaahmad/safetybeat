@@ -27,15 +27,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     private adminService: AdminControlService,
     private navService: NavigationService,
   ) {
-    this.loginObj.translated = this.helperService.translation;
-    this.loginObj.appConstants = this.helperService.constants.appConstant;
-    this.loginObj.devMode = this.helperService.constants.config.devMode;
-    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.loginObj.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+      this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
   }
 
   ngOnInit() {
     if (this.loginService.getToken()) {
-      this.helperService.navigateTo(['/home']);
+      this.helperService.navigateTo([this.appConstants.paths.home]);
     }
     this.loginObj.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
@@ -46,6 +44,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
+  }
+
+  /**
+   * Getter for app constants and translation through helper service
+   */
+
+  get appConstants() {
+    return this.helperService.constants.appConstant;
+  }
+
+  get translated() {
+    return this.helperService.translation;
   }
 
   /**
@@ -75,7 +85,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
       this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
-        this.loginObj.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
+        this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
       );
       return;
     }
@@ -84,7 +94,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.loginService.loginUser(value).subscribe(
       data => {
-        if (data.responseDetails.code === '0000') {
+        if (data.responseDetails.code === this.appConstants.codeValidations[0]) {
           this.loginObj.data = data;
           data
             ? this.loginService.setToken(this.loginObj.data.data.token)
@@ -100,29 +110,19 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.navService.changeEntites(entityUserData);
             this.helperService.appLoggerDev(
               this.helperService.constants.status.SUCCESS,
-              this.loginObj.translated.LOGGER.MESSAGES.LOGGEDIN
+              this.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.createSnack(this.loginObj.translated.MESSAGES.LOGIN_SUCCESS,
-              this.loginObj.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-            this.helperService.navigateTo(['/home']);
+            this.helperService.createSnack(this.translated.MESSAGES.LOGIN_SUCCESS,
+              this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.helperService.navigateTo([this.appConstants.paths.home]);
           }, (err) => {
           });
-        } else if (data.responseDetails.code === '0001') {
+        } else if (data.responseDetails.code === this.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
           this.helperService.appLoggerDev(
-            this.helperService.constants.status.ERROR,
-            data.responseDetails.message
-          );
-          this.loginObj.loading = false;
-        } else if (data.responseDetails.code === '0002') {
-          this.helperService.appLoggerDev(
-            this.helperService.constants.status.ERROR,
-            data.responseDetails.message
-          );
-          this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
@@ -132,8 +132,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loginObj.loading = false;
-        this.helperService.createSnack(this.loginObj.translated.MESSAGES.LOGIN_FAIL,
-          this.loginObj.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.translated.MESSAGES.LOGIN_FAIL,
+          this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }
