@@ -46,22 +46,10 @@ export class PasswordRecoveryComponent implements OnInit {
     return this.passRecoveryObj.resetPasswordForm.controls;
   }
 
-  /**
-   * Getter for app constants and translation through helper service
-   */
-
-  get appConstants() {
-    return this.helperService.constants.appConstant;
-  }
-
-  get translated() {
-    return this.helperService.translation;
-  }
-
   changePassword({value, valid}: { value: Reset; valid: boolean }): void {
     if (!valid) {
-      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.WARNING, valid);
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
+      this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.WARNING, valid);
+      this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.ERROR, this.helperService.translated.AUTH.PASSWORD_REQ);
       return;
     }
 
@@ -72,16 +60,16 @@ export class PasswordRecoveryComponent implements OnInit {
     };
 
     this.resetServices.resetPassword(data).subscribe((res) => {
-      this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS,
-        this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.SUCCESS
-        , this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
-      this.helperService.navigateTo([this.appConstants.paths.login]);
+      this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.SUCCESS,
+        this.helperService.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.SUCCESS
+        , this.helperService.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.helperService.navigateTo([this.helperService.appConstants.paths.login]);
     }, (error) => {
-      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
-      this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-        this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+      this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
+      this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+      this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+        this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
     });
   }
 

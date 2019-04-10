@@ -28,12 +28,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
   ) {
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-      this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
+      this.helperService.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
   }
 
   ngOnInit() {
     if (this.loginService.getToken()) {
-      this.helperService.navigateTo([this.appConstants.paths.home]);
+      this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
     }
     this.loginObj.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
@@ -44,18 +44,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
-  }
-
-  /**
-   * Getter for app constants and translation through helper service
-   */
-
-  get appConstants() {
-    return this.helperService.constants.appConstant;
-  }
-
-  get translated() {
-    return this.helperService.translation;
   }
 
   /**
@@ -85,7 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
       this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
-        this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
+        this.helperService.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
       );
       return;
     }
@@ -94,7 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.loginService.loginUser(value).subscribe(
       data => {
-        if (data.responseDetails.code === this.appConstants.codeValidations[0]) {
+        if (data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.loginObj.data = data;
           data
             ? this.loginService.setToken(this.loginObj.data.data.token)
@@ -110,14 +98,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.navService.changeEntites(entityUserData);
             this.helperService.appLoggerDev(
               this.helperService.constants.status.SUCCESS,
-              this.translated.LOGGER.MESSAGES.LOGGEDIN
+              this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.createSnack(this.translated.MESSAGES.LOGIN_SUCCESS,
-              this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-            this.helperService.navigateTo([this.appConstants.paths.home]);
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
+              this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           }, (err) => {
           });
-        } else if (data.responseDetails.code === this.appConstants.codeValidations[1]) {
+        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
@@ -132,8 +120,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loginObj.loading = false;
-        this.helperService.createSnack(this.translated.MESSAGES.LOGIN_FAIL,
-          this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_FAIL,
+          this.helperService.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }

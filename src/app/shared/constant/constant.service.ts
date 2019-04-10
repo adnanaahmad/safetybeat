@@ -77,7 +77,7 @@ export class ConstantService {
     password: 'password',
     firstName: 'first_name',
     lastName: 'last_name',
-    mobileNo: 'mobile_no',
+    countryCode: 'countryCode',
     password1: 'password1',
     password2: 'password2',
     name: 'name',

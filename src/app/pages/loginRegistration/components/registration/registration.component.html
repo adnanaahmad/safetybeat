@@ -12,7 +12,7 @@
     <img src="/assets/images/monogram.png"/>
   </span>
   <mat-grid-tile>
-    <mat-horizontal-stepper [linear]="helperService.appConstants.linearForm" #stepper>
+    <mat-horizontal-stepper [linear]="helperService.appConstants.linearForm">
       <mat-step [stepControl]="registerObj.userForm">
         <mat-card class="loginbox">
           <mat-card-title>User Info</mat-card-title>
@@ -47,7 +47,7 @@
             <div class="input country-code">
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Code" [errorStateMatcher]="registerObj.formErrorMatcher"
-                       formControlName="countryCode"
+                       [formControlName]="helperService.appConstants.countryCode"
                        (keypress)="numberOnly($event)&&phoneNumberValid(registerObj.userForm)"
                        maxlength="3" onPaste="return false" autocomplete="off"/>
                 <mat-error *ngIf="userDetailForm.countryCode.errors">
@@ -58,7 +58,7 @@
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Phone Number"
                        [errorStateMatcher]="registerObj.formErrorMatcher"
-                       formControlName="contactNo" (keypress)="numberOnly($event)" onPaste="return false"
+                       [formControlName]="helperService.appConstants.contactNo" (keypress)="numberOnly($event)" onPaste="return false"
                        autocomplete="off"/>
                 <mat-error *ngIf="userDetailForm.contactNo.errors">
                   <span
