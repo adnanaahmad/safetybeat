@@ -105,6 +105,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     return this.profileForm.controls;
   }
 
+  /**
+   * this function ...
+   */
   getUserData() {
     this.profileData = this.loginService.profileData.subscribe(
       userDataResult => {
@@ -145,13 +148,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   //     }
   //   });
   // }
-
+  /**
+   * this function ..
+   */
   editAccount() {
     this.disabled = true;
     this.profileForm.enable();
   }
 
-
+  /**
+   * this function ..
+   */
   cancelEditAccount() {
     this.disabled = false;
     this.profileForm.disable();
@@ -168,7 +175,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   onActivities() {
   }
 
-  updateProfile({value, valid}: { value: EditUser; valid: boolean }): void {
+  /**
+   * this function..
+   * @params value
+   * @params valid
+   */
+  updateProfile({ value, valid }: { value: EditUser; valid: boolean }): void {
     this.disabled = false;
     this.profileForm.disable();
     if (!valid) {

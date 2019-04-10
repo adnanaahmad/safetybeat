@@ -45,17 +45,28 @@ export class PasswordRecoveryComponent implements OnInit {
     }, {validator: this.checkPasswords});
   }
 
+  /**
+   * this function
+   * @params group
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
-  get formValidation() {
-    return this.resetPasswordForm.controls;
-  }
 
-  changePassword({value, valid}: { value: Reset; valid: boolean }): void {
+  /**
+   * this function is used to validate form and ....
+   */
+  get formValidation() { return this.resetPasswordForm.controls; }
+
+  /**
+   *  this function
+   * @params value
+   * @params valid
+   */
+  changePassword({ value, valid }: { value: Reset; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.WARNING, valid);
       this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);

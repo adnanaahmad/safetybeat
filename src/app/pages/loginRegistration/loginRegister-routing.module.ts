@@ -7,7 +7,7 @@ import {
 } from "@angular/router";
 import { LoginComponent } from "./components/login/login.component";
 import { RegistrationComponent } from "./components/registration/registration.component";
-import { VerificationComponent } from "./components/verification/verification.component";
+import { VerificationComponent } from "../../Dialogs/verification/verification.component";
 import { AuthGuard } from "src/app/core/services/guards/auth.guard";
 import { ForgotPasswordComponent } from "./components/forgotPassword/forgotPassword.component";
 import { LandingComponent } from './components/landing/landing.component';

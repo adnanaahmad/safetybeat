@@ -54,10 +54,17 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
 
+  /**
+   *
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * this function  is used to...
+   * @params value
+   */
   addSite({value}: { value: SiteAddData }) {
     let siteData = {
       name: value.siteName,

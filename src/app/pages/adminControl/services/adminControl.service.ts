@@ -17,19 +17,31 @@ export class AdminControlService {
     this.method = this.helperService.constants.apiMethod;
   }
 
+  /**
+   * this function is used to...
+   * @params sitesInfo
+   */
   changeSites(sitesInfo:any){
     this.sites.next(sitesInfo)
   }
 
+  /**
+   * this function is used to...
+   * @params data
+   */
   createEntity(data: entity) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.createEntity,
       data
-    ); 
+    );
   }
-  
-  viewEntities(data:object){
+
+  /**
+   * this function is used to
+   * @params data
+   */
+  viewEntities(data: object) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllEntities,
@@ -37,15 +49,23 @@ export class AdminControlService {
     );
   }
 
-  joinEntity(data:joinEntity){
+  /**
+   * this function is used to
+   * @params data
+   */
+  joinEntity(data: joinEntity) {
     return this.helperService.requestCall(
      this.method.post,
      this.apiRoutes.joinEntity,
-     data 
+     data
     );
   }
 
-  viewSites(data:object){
+  /**
+   * this function is used to...
+   * @params data
+   */
+  viewSites(data: object) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllSites,
@@ -53,7 +73,11 @@ export class AdminControlService {
     );
   }
 
-  addSite(data:any){
+  /**
+   * this function is used to
+   * @params data
+   */
+  addSite(data: any) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.addSite,

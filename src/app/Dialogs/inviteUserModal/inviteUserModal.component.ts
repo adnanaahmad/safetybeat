@@ -47,11 +47,15 @@ export class InviteUserModalComponent implements OnInit {
     });
   }
 
-  get formValidation() {
-    return this.inviteUserForm.controls;
-  }
+  /**
+   * This function is used to validate Invite User form and shows error if the form field is invalid
+   */
+  get formValidation() { return this.inviteUserForm.controls; }
 
-
+  /**
+   * this function is used to check if the email is valid or already exists
+   * @params group
+   */
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -69,7 +73,13 @@ export class InviteUserModalComponent implements OnInit {
     }
   }
 
-  inviteUser({value, valid}: { value: inviteUser; valid: boolean }): void {
+  /**
+   * this function is used to register a user by taking information from Invite User form and checks if the
+   * user is successfully invited or not
+   * @params value
+   * @params valid
+   */
+  inviteUser({ value, valid }: { value: inviteUser; valid: boolean }): void {
     this.InviteUserData = {
       first_name: value.first_name,
       last_name: value.last_name,
