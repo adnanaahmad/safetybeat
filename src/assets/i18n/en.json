@@ -176,7 +176,9 @@
     "INVALIDADDRESS": "Invalid address",
     "ADDSITE_MSG":"Enter Site Details to Add Site",
     "SITE_NAME": "Enter Site Name",
-    "NO_RECORD_AVAILABLE": "No Record Available"
+    "NO_RECORD_AVAILABLE": "No Record Available",
+    "IMPORTSITE_MSG": "Site Import",
+    "CSVIMPORT_MSG":"Select CSV file to import Sites"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
