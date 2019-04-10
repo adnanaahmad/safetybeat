@@ -105,7 +105,8 @@ export class ConstantService {
     emailValid: 'VALID',
     paths: {
       home: '/home',
-      login: '/login'
+      login: '/login',
+      welcomeScreen: '/welcomeScreen'
     },
     codeValidations: [100, 101, 102, 103, 104],
   };

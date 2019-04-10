@@ -14,7 +14,7 @@
     </div>
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" placeholder="{{ createEntity.translated.MESSAGES.HEADOFFICE_LOCATION }}" appGooglePlaces
+        <input matInput type="text" [placeholder]="createEntity.translated.MESSAGES.HEADOFFICE_LOCATION" appGooglePlaces
           (onSelect)="setAddress($event)" formControlName="{{ createEntity.appConstants.headOffice }}" required />
         <mat-error *ngIf="formValidation.headOffice.errors">
           <span *ngIf="formValidation.headOffice.errors.required">{{

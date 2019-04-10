@@ -55,11 +55,11 @@ export class LandingComponent implements OnInit {
       const email = {email: group.value.email};
       this.navService.checkEmail(email).pipe().subscribe((res) => {
         this.success = res;
-        if (this.success.responseDetails.code === '0020') {
-          group.controls.email.setErrors({exists: true})
+        if (this.success.responseDetails.code === this.helperService.constants.appConstant.codeValidations[4]) {
+          group.controls.email.setErrors({exists: true});
         }
       }, err => {
-        this.helperService.logoutError(err.status)
+        this.helperService.logoutError(err.status);
       });
     }
   }
@@ -87,7 +87,7 @@ export class LandingComponent implements OnInit {
     this.loginService.validateUser(value).subscribe(
       result => {
         this.validationResponse = result;
-        if (this.validationResponse.responseDetails.code === '0034') {
+        if (this.validationResponse.responseDetails.code === this.helperService.constants.appConstant.codeValidations[0]) {
           this.helperService.appLogger(
             this.helperService.constants.status.SUCCESS,
             this.translated.MESSAGES.VERIFICATIONCODEEMAIL

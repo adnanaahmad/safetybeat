@@ -32,22 +32,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((data) => {
       this.registerObj.userEmail = data;
     });
-    this.registerObj.translated = this.helperService.translation;
-    this.registerObj.appConstants = this.helperService.constants.appConstant;
-    this.registerObj.appIcons = this.helperService.constants.appIcons;
     this.registerObj.devMode = this.helperService.constants.config.devMode;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-      this.registerObj.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
+      this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
         this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-          this.registerObj.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+          this.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.registerObj.types = data[0];
         this.registerObj.modules = data[1];
         this.registerObj.packages = data[2];
       }, error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
-        this.registerObj.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       });
   }
 
@@ -75,6 +72,22 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   get orgTypeForm() {
     return this.registerObj.organizationTypeForm.controls;
+  }
+
+  /**
+   * Getter for app constants and translation through helper service
+   */
+
+  get appConstants() {
+    return this.helperService.constants.appConstant;
+  }
+
+  get translated() {
+    return this.helperService.translation;
+  }
+
+  get appIcons() {
+    return this.helperService.constants.appIcons;
   }
 
   /**
@@ -150,11 +163,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
     });
-    if (this.registerObj.email.status === 'VALID') {
+    if (this.registerObj.email.status === this.appConstants.emailValid) {
       const email = {email: group.value.email};
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.registerObj.success = res;
-        if (this.registerObj.success.responseDetails.code === '0020') {
+        if (this.registerObj.success.responseDetails.code === this.appConstants.codeValidations[1]) {
           group.controls.email.setErrors({exists: true});
         }
       });
@@ -218,33 +231,33 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     if (this.registerObj.organizationForm.invalid || this.registerObj.userForm.invalid) {
       this.registerObj.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.registerObj.translated.LOGGER.MESSAGES.FALSE);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.LOGGER.MESSAGES.FALSE);
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
-        this.registerObj.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
+        this.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerObj.registerData));
     this.register.registerUser(this.registerObj.registerData).subscribe((result) => {
       this.registerObj.registrationData = result;
-      if (this.registerObj.registrationData.responseDetails.code === '0011') {
+      if (this.registerObj.registrationData.responseDetails.code === this.appConstants.codeValidations[0]) {
         result ? this.register.setToken(this.registerObj.registrationData.data.token) : this.register.setToken('');
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.registerObj.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
+          this.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.registerObj.translated.MESSAGES.RESET_SUCCESS);
+          this.translated.MESSAGES.RESET_SUCCESS);
         this.registerObj.loading = false;
-        this.helperService.navigateTo(['/welcomeScreen']);
+        this.helperService.navigateTo([this.appConstants.paths.welcomeScreen]);
       }
     }, (error) => {
       this.registerObj.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.registerObj.translated.MESSAGES.BACKEND_ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status);
     });
   }
 
   setFalse(event) {
-    if (event.which !== this.registerObj.appConstants.enterKey) {
+    if (event.which !== this.appConstants.enterKey) {
       this.registerObj.displayNextButton = false;
     }
   }

@@ -79,7 +79,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.loginRegService.verifyCode(data).subscribe(res => {
       this.validationData = res;
       this.userEmail = this.validationData.data.data;
-      if (this.validationData.responseDetails.code === '0035') {
+      if (this.validationData.responseDetails.code === this.helperService.constants.appConstant.codeValidations[0]) {
         this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS, 'You have been verifiesd');
         this.dialogRef.close();
         this.router.navigate(['/signup', {data: JSON.stringify(this.userEmail)}], {skipLocationChange: true});
@@ -92,7 +92,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
   resendVerification() {
     let emailData = {
       'email': this.email.email
-    }
+    };
     this.loginRegService.validateUser(emailData).subscribe(
       data => {
         this.helperService.appLogger(

@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {ConstantService} from 'src/app/shared/constant/constant.service';
-import {TranslateService} from '@ngx-translate/core';
 import {Reset} from 'src/app/models/profile.model';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
@@ -20,19 +18,13 @@ export class PasswordRecoveryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private translate: TranslateService,
     private resetServices: LoginRegistrationService,
     private router: Router,
     private helperService: HelperService
   ) {
-
-    this.translate.get(['LOGGER', 'BUTTONS', 'AUTH', 'MESSAGES']).subscribe((values) => {
-      this.passRecoveryObj.translated = values;
-    });
     this.route.params.subscribe(data => {
       this.passRecoveryObj.data = data;
     });
-    this.passRecoveryObj.appConstants = ConstantService.appConstant;
     this.passRecoveryObj.formErrorMatcher = new FormErrorHandler();
 
   }
@@ -54,10 +46,22 @@ export class PasswordRecoveryComponent implements OnInit {
     return this.passRecoveryObj.resetPasswordForm.controls;
   }
 
+  /**
+   * Getter for app constants and translation through helper service
+   */
+
+  get appConstants() {
+    return this.helperService.constants.appConstant;
+  }
+
+  get translated() {
+    return this.helperService.translation;
+  }
+
   changePassword({value, valid}: { value: Reset; valid: boolean }): void {
     if (!valid) {
-      this.helperService.appLoggerDev(this.passRecoveryObj.translated.LOGGER.STATUS.WARNING, valid);
-      this.helperService.appLogger(this.passRecoveryObj.translated.LOGGER.STATUS.ERROR, this.passRecoveryObj.translated.AUTH.PASSWORD_REQ);
+      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.WARNING, valid);
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, this.translated.AUTH.PASSWORD_REQ);
       return;
     }
 
@@ -68,16 +72,16 @@ export class PasswordRecoveryComponent implements OnInit {
     };
 
     this.resetServices.resetPassword(data).subscribe((res) => {
-      this.helperService.appLogger(this.passRecoveryObj.translated.LOGGER.STATUS.SUCCESS,
-        this.passRecoveryObj.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-      this.helperService.appLoggerDev(this.passRecoveryObj.translated.LOGGER.STATUS.SUCCESS
-        , this.passRecoveryObj.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
-      this.helperService.navigateTo(['/login']);
+      this.helperService.appLogger(this.translated.LOGGER.STATUS.SUCCESS,
+        this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.SUCCESS
+        , this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.helperService.navigateTo([this.appConstants.paths.login]);
     }, (error) => {
-      this.helperService.appLoggerDev(this.passRecoveryObj.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
-      this.passRecoveryObj.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      this.helperService.appLoggerDev(this.passRecoveryObj.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-        this.passRecoveryObj.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+      this.helperService.appLoggerDev(this.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
+      this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+      this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+        this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
     });
   }
 

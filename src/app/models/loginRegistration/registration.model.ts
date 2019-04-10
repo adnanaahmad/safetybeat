@@ -1,4 +1,3 @@
-import {Translation} from '../translate.model';
 import {FormGroup} from '@angular/forms';
 
 export interface RegistrationComp {
@@ -20,13 +19,10 @@ export interface RegistrationComp {
   displayNextButton: boolean;
   loading: boolean;
   registerData: any;
-  translated: Translation;
   types: any;
   modules: any;
   packages: any;
   success: any;
   data: any;
-  appConstants: any;
-  appIcons: any;
   formErrorMatcher: any;
 }
