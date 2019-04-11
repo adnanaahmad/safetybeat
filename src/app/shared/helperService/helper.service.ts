@@ -5,7 +5,7 @@ import {
 } from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
-import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
@@ -24,6 +24,7 @@ export class HelperService {
   findIndex: any;
   translation: Translation;
   constants: typeof ConstantService;
+  public dialogRef: MatDialogRef<any>;
 
   constructor(
     private http: HttpClient,
@@ -75,7 +76,7 @@ export class HelperService {
     dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;
     dialogConfig.closeOnNavigation = params && params.closeOnNavigation ? params.closeOnNavigation : false;
     dialogConfig.data = params && params.data ? params.data : null;
-    this.dialog.open(component, dialogConfig);
+    this.dialogRef = this.dialog.open(component, dialogConfig);
   }
 
   removeToken() {

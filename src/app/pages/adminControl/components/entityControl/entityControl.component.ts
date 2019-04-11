@@ -9,17 +9,18 @@ import {
   MatDialogConfig,
   MatDialog,
   MatTableDataSource,
-  MatPaginator
+  MatPaginator, MatDialogRef
 } from '@angular/material';
-import { CreateEntityComponent } from '../../../../Dialogs/createEntityModal/createEntity.component';
-import { JoinEntityModalComponent } from '../../../../Dialogs/joinEntityModal/joinEntityModal.component';
-import { AdminControlService } from '../../services/adminControl.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { AlertModalComponent } from '../../../../Dialogs/entityCodeModal/entityCodeModal.component';
+import {CreateEntityComponent} from 'src/app/Dialogs/createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from 'src/app/Dialogs/joinEntityModal/joinEntityModal.component';
+import {AdminControlService} from '../../services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {AlertModalComponent} from 'src/app/Dialogs/entityCodeModal/entityCodeModal.component';
 import {InviteTeamModalComponent} from 'src/app/pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -76,6 +77,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.creationEnable();
     this.joinEnable();
   }
+
   initialize() {
     this.empty = false;
     this.createEntityOption = false;
@@ -91,6 +93,13 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.helperService.createDialog(CreateEntityComponent)
   }
 
+  confirmationModal() {
+    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      console.log(res)
+    })
+  }
+
   /**
    * this function is used to create Join Entity Dialog
    */
@@ -104,7 +113,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    * @params name
    */
   entityCode(code, name) {
-    this.helperService.createDialog(AlertModalComponent, { data: { name: name, code: code } });
+    this.helperService.createDialog(AlertModalComponent, {data: {name: name, code: code}});
   }
 
   /**
