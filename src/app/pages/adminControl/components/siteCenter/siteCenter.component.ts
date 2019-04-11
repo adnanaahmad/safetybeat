@@ -11,6 +11,7 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {AddSiteModalComponent} from 'src/app/pages/adminControl/components/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
+import {ImportSiteModalComponent} from 'src/app/pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -48,6 +49,7 @@ export class SiteCenterComponent implements OnInit {
 
   ngOnInit() {
     this.viewAllSites();
+    this.siteAddorImportEnable()
   }
 
   /**
@@ -55,7 +57,6 @@ export class SiteCenterComponent implements OnInit {
    */
   viewAllSites() {
     this.adminServices.siteObserver.subscribe((res) => {
-      debugger
       if (res === 1) {
         let data = {
           'entityId': this.siteCentreModel.entityId
@@ -87,5 +88,23 @@ export class SiteCenterComponent implements OnInit {
     this.helperService.createDialog(AddSiteModalComponent);
   }
 
+  importSite() {
+    this.helperService.createDialog(ImportSiteModalComponent);
+  }
+
+  siteAddorImportEnable() {
+    this.navService.currentRole.subscribe(res => {
+      this.siteCentreModel.entitySelectedRole = res;
+      if (
+        this.siteCentreModel.entitySelectedRole === 'Owner' ||
+        this.siteCentreModel.entitySelectedRole === 'TeamLead' ||
+        this.siteCentreModel.entitySelectedRole === 'EntityManager'
+      ) {
+        this.siteCentreModel.siteOption = true;
+      } else {
+        this.siteCentreModel.siteOption = false;
+      }
+    });
+  }
 
 }

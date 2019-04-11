@@ -231,6 +231,8 @@ export interface Messages {
   INVALIDADDRESS: string;
   EMAIL_NOT_REGISTERED: string;
   NO_RECORD_AVAILABLE: string;
+  IMPORTSITE_MSG: string;
+  CSVIMPORT_MSG: string;
 }
 
 export interface Logger {

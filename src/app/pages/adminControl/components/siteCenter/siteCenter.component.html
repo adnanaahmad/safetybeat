@@ -5,11 +5,11 @@
     <p>{{ siteCentreModel.translated.SITETITLE.SITE_CENTRE_DESCRIPTION }}</p>
   </div>
   <div class="buttonRow">
-    <button btn-primary mat-raised-button color="primary" (click)="addSite()">
+    <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreModel.siteOption" (click)="addSite()">
       <mat-icon>{{ siteCentreModel.appIcons.createEntity }}</mat-icon>
       {{ siteCentreModel.translated.BUTTONS.ADD_SITE }}
     </button>
-    <button btn-primary mat-raised-button color="primary" (click)="addSite()">
+    <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreModel.siteOption" (click)="importSite()">
       <mat-icon>{{ siteCentreModel.appIcons.import }}</mat-icon>
       {{ siteCentreModel.translated.BUTTONS.IMPORT_SITE }}
     </button>
