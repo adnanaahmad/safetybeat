@@ -96,6 +96,7 @@ export class LandingComponent implements OnInit {
       this.loading = false;
       return;
     }
+    this.helperService.appLogger(this.helperService.constants.status.INFO,JSON.stringify(value));
     this.loginService.validateUser(value).subscribe(
       result => {
         this.validationResponse = result;

@@ -1,6 +1,54 @@
 @mixin amte-profile($primary, $accent, $warn) {
   :host,
   app-profile {
+    .pagehead {
+      height: auto !important;
+      margin-bottom: 50px;
+      padding: 30px 16px !important;
+      .user-avatar {
+        width: 150px;
+        position: relative;
+        img {
+          max-width: 100%;
+          border-radius: 100px;
+          overflow: hidden;
+          box-shadow: 0 0 10px 0px #00000075;
+          border: 2px solid #fff;
+        }
+        .change-avatar {
+          background: rgba(0, 0, 0, 0.6);
+          position: absolute;
+          left: 2px;
+          top: 2px;
+          height: 150px;
+          width: 150px;
+          border-radius: 100px;
+          transition: all ease 0.3s;
+          transform: scale(0);
+          opacity: 0;
+          cursor: pointer;
+          color: #fff;
+          font-size: 14px;
+          text-align: center;
+          line-height: 11;
+        }
+        &:hover {
+          .change-avatar {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      }
+      .user-info {
+        display: inline-block;
+        padding: 30px;
+        text-transform: capitalize;
+        p {
+          margin: 0;
+          font-size: 14px;
+        }
+      }
+    }
     .grid-container {
       .mat-figure {
         position: relative;

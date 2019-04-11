@@ -9,6 +9,8 @@ import {InviteTeamModalComponent} from 'src/app/Dialogs/inviteTeamModal/inviteTe
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
 import {EntityControl} from 'src/app//models/adminControl/entityControl.model';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 
 @Component({
   selector: 'app-entityControl',
@@ -22,6 +24,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialog: MatDialog,
+    public adminServices: AdminControlService,
     public helperService: HelperService,
     private navService: NavigationService,
     private userService: ProfileService
@@ -73,6 +76,15 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    */
   createEntity() {
     this.helperService.createDialog(CreateEntityComponent, {disableClose: true});
+  }
+
+  confirmationModal(entityId: number) {
+    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.deleteEntity(entityId);
+      }
+    });
   }
 
   /**
@@ -171,5 +183,10 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.NOUSER,
         this.helperService.translated.MESSAGES.NOUSERTITLE, this.helperService.translated.LOGGER.STATUS.ERROR);
     }
+  }
+
+  deleteEntity(entityId: any) {
+    this.adminServices.deleteEntity(entityId).subscribe(res => {
+    });
   }
 }

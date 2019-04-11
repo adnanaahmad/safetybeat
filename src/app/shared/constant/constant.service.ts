@@ -103,6 +103,7 @@ export class ConstantService {
     linearForm: 'true',
     enterKey: 13,
     emailValid: 'VALID',
+    yes: 'YES',
     codeValidations: [100, 101, 102, 103, 104],
     paths: {
       home: '/home',
@@ -170,7 +171,8 @@ export class ConstantService {
     viewSite: 'remove_red_eye',
     siteQuestionCenter: 'question_answer',
     log: 'library_books',
-    import: 'play_for_work'
+    import: 'play_for_work',
+    deleteSweep: 'delete_sweep'
   };
   static particlesIcons = [
     'more_vert',

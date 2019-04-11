@@ -5,7 +5,7 @@ import {
 } from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
-import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
@@ -26,6 +26,7 @@ export class HelperService {
   constants: typeof ConstantService;
   displayButton: boolean = false;
   address: string = '';
+  public dialogRef: MatDialogRef<any>;
 
   constructor(
     private http: HttpClient,
@@ -79,7 +80,7 @@ export class HelperService {
     dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;
     dialogConfig.closeOnNavigation = params && params.closeOnNavigation ? params.closeOnNavigation : false;
     dialogConfig.data = params && params.data ? params.data : null;
-    this.dialog.open(component, dialogConfig);
+    this.dialogRef = this.dialog.open(component, dialogConfig);
   }
 
   removeToken() {
@@ -103,7 +104,7 @@ export class HelperService {
   }
 
   requestCall(method, api, data?: any) {
-    var response;
+    let response;
     switch (method) {
       case this.constants.apiMethod.post:
         response = this.http.post(api, data).pipe(catchError(this.handleError));
@@ -115,7 +116,7 @@ export class HelperService {
         response = this.http.put(api, data).pipe(catchError(this.handleError));
         break;
       case this.constants.apiMethod.delete:
-        response = this.http.delete(api, data).pipe(catchError(this.handleError));
+        response = this.http.delete(api).pipe(catchError(this.handleError));
         break;
       default:
         break;

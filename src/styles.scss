@@ -148,32 +148,6 @@ mat-dialog-container {
 .mat-drawer-side {
   border-right: 0 !important;
 }
-.pagehead {
-  height: auto !important;
-  margin-bottom: 50px;
-  padding: 20px 16px !important;
-  .user-avatar {
-    width: 150px;
-    display: inline-block;
-    margin-bottom: -80px;
-    img {
-      max-width: 100%;
-      border-radius: 100px;
-      overflow: hidden;
-      box-shadow: 0 0 10px 0px #00000075;
-      border: 2px solid #fff;
-    }
-  }
-  .user-info {
-    display: inline-block;
-    padding: 30px;
-    text-transform: capitalize;
-    p {
-      margin: 0;
-      font-size: 14px;
-    }
-  }
-}
 .centerbox {
   width: 70%;
   margin: 0 auto;
@@ -492,7 +466,9 @@ hr.forheading {
     }
   }
 }
-
+snack-bar-container {
+  padding: 0 !important;
+}
 @media (max-width: 992px) {
   .monogram {
     width: 100px;

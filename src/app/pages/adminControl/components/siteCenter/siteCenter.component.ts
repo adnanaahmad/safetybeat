@@ -55,7 +55,6 @@ export class SiteCenterComponent implements OnInit {
           'entityId': this.siteCentreObj.entityId
         };
         this.adminServices.viewSites(data).subscribe((res) => {
-          debugger;
           this.siteCentreObj.sitesList = res;
           if (this.siteCentreObj.viewSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
             this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);

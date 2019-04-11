@@ -19,6 +19,7 @@
 @import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
 @import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
+@import "src/app/common/toaster/toaster.component.scss";
 @import "src/app/Dialogs/addSiteModal/addSiteModal.component.scss";
 
 @mixin amte-setTheme($theme) {
@@ -49,4 +50,5 @@
   @include amte-entityCodeModal($primary, &accent, &warn);
   @include amte-welcomeScreen($primary, $accent, $warn);
   @include amte-addsite-modal($primary, $accent, $warn);
+  @include amte-toaster($primary, $accent, $warn);
 }
