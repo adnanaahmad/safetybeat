@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
     this.formErrorMatcher = new FormErrorHandler();
   }
-
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
