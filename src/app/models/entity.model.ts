@@ -5,7 +5,7 @@ export interface entity {
 
 export interface entityData {
   name: string;
-  entityLocation: string;
+  headOffice: string;
   status: boolean;
 }
 

@@ -14,7 +14,7 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
     public helperService: HelperService
   ) {
     this.render.addClass(document.body, this.helperService.constants.config.theme.background);
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
   }
 
   ngOnInit() {

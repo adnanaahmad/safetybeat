@@ -26,8 +26,6 @@ export class ImportSiteModalComponent implements OnInit {
       this.importSiteModal.entityData = res;
       this.importSiteModal.entityId = this.importSiteModal.entityData.entityInfo.id;
     });
-    this.importSiteModal.translated = this.helperService.translation;
-    this.importSiteModal.appConstants = this.helperService.constants.appConstant;
   }
 
   ngOnInit() {

@@ -13,11 +13,10 @@ export class ParticleContainerComponent implements OnInit {
   constructor(
     public helperService: HelperService,
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.particlesIcons = this.helperService.constants.particlesIcons;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PARTICLE_COMPONENT);
   }
-
   ngOnInit() {
   }
 

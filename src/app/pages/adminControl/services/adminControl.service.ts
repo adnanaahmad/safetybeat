@@ -1,8 +1,10 @@
-import {InviteTeamData, InviteTeamResponse} from 'src/app/models/inviteUser.model';
+import {InviteTeamData, InviteTeamResponse} from 'src/app/models/adminControl/inviteUser.model';
 import {Injectable} from '@angular/core';
-import {entity, joinEntity} from 'src/app/models/entity.model';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {entity, joinEntity, entityData} from 'src/app/models/entity.model';
+import {HelperService} from '../../../shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
+import {ConstantService} from '../../../shared/constant/constant.service';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +12,12 @@ import {Observable, BehaviorSubject} from 'rxjs';
 export class AdminControlService {
   apiRoutes: any;
   inviteTeamResponse$: Observable<InviteTeamResponse>
-  method: { get: string; post: string; put: string; delete: string };
+  method: any;
   private sites = new BehaviorSubject<any>(1);
   siteObserver = this.sites.asObservable();
 
-  constructor(public helperService: HelperService) {
+  constructor(public helperService: HelperService,
+              private http: HttpClient) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.method = this.helperService.constants.apiMethod;
   }
@@ -88,9 +91,12 @@ export class AdminControlService {
   }
 
   inviteTeam(data: InviteTeamData): Observable<InviteTeamResponse> {
-    this.inviteTeamResponse$ = this.helperService.requestCall(this.method.post,
-      this.helperService.constants.apiRoutes.inviteTeam, data);
+    this.inviteTeamResponse$ = this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.inviteTeam, data);
     return this.inviteTeamResponse$;
+  }
+
+  deleteEntity(id) {
+    return this.http.delete(`${ConstantService.apiRoutes.editEntity}/${id}/`);
   }
 
   importSite(data: any) {

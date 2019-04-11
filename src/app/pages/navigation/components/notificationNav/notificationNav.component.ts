@@ -13,7 +13,7 @@ export class NotificationNavComponent implements OnInit {
   constructor(
     public helperService: HelperService,
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
   }
 
   ngOnInit() {

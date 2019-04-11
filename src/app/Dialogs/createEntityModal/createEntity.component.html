@@ -1,36 +1,42 @@
-<mat-card-title class="mat-dialog-title">{{createEntity.translated.MESSAGES.CREATEENTITY_MSG}}</mat-card-title>
+<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CREATEENTITY_MSG}}</mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="createEntity.createEntityForm" (ngSubmit)="entityCreation(createEntity.createEntityForm)">
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" placeholder="{{ createEntity.translated.MESSAGES.ENTITYNAME }}"
-          formControlName="{{ createEntity.appConstants.name }}" required />
+        <input matInput type="text" [placeholder]="helperService.translated.MESSAGES.ENTITYNAME"
+               [formControlName]="helperService.appConstants.name" required/>
         <mat-error *ngIf="formValidation.name.errors">
           <span *ngIf="formValidation.name.errors.required">{{
-            createEntity.translated.MESSAGES.ENTITYNAME_REQ
-          }}</span>
+            helperService.translated.MESSAGES.ENTITYNAME_REQ
+            }}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" placeholder="{{ createEntity.translated.MESSAGES.HEADOFFICE_LOCATION }}" appGooglePlaces
-          (onSelect)="setAddress($event)" formControlName="{{ createEntity.appConstants.headOffice }}" required />
+        <input matInput type="text" [placeholder]="helperService.translated.MESSAGES.HEADOFFICE_LOCATION"
+               appGooglePlaces
+               (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice)"
+               [formControlName]="helperService.appConstants.headOffice" required/>
         <mat-error *ngIf="formValidation.headOffice.errors">
           <span *ngIf="formValidation.headOffice.errors.required">{{
-            createEntity.translated.MESSAGES.OFFICELOCATION_REQ
-          }}</span>
-          <span *ngIf="formValidation.headOffice.errors.invalid">{{createEntity.translated.MESSAGES.INVALIDADDRESS}}</span>
+            helperService.translated.MESSAGES.OFFICELOCATION_REQ
+            }}</span>
+          <span
+            *ngIf="formValidation.headOffice.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <div #gmap style="width:100%;height:250px"></div>
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary" [disabled]="!createEntity.displaySubmitButton">
-        {{ createEntity.translated.BUTTONS.CREATE_ENTITY }}
+      <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
+              [disabled]="!helperService.displayButton || createEntity.loading">
+        {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
       </button>
+      <img *ngIf="createEntity.loading"
+           [src]="helperService.translated.MESSAGES.LOADING_URL"/>
       <button mat-button mat-dialog-close>
-        {{ createEntity.translated.BUTTONS.CANCEL }}
+        {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>
   </form>

@@ -5,7 +5,7 @@ import {
 } from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
-import {MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
@@ -22,8 +22,11 @@ import {PhoneNumberUtil} from 'google-libphonenumber';
 export class HelperService {
   iterations: any;
   findIndex: any;
-  translation: Translation;
+  translated: Translation;
   constants: typeof ConstantService;
+  displayButton: boolean = false;
+  address: string = '';
+  public dialogRef: MatDialogRef<any>;
 
   constructor(
     private http: HttpClient,
@@ -36,11 +39,13 @@ export class HelperService {
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
       'STATUS', 'TABLEHEADINGS']).subscribe((values) => {
-      this.translation = values;
+      this.translated = values;
     });
     this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
+    this.address = '';
+    this.displayButton = false;
   }
 
   static getPhoneNumberUtil() {
@@ -75,7 +80,7 @@ export class HelperService {
     dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;
     dialogConfig.closeOnNavigation = params && params.closeOnNavigation ? params.closeOnNavigation : false;
     dialogConfig.data = params && params.data ? params.data : null;
-    this.dialog.open(component, dialogConfig);
+    this.dialogRef = this.dialog.open(component, dialogConfig);
   }
 
   removeToken() {
@@ -88,8 +93,8 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.createSnack(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
-    this.navigateTo(['/login']);
+    this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
+    this.navigateTo([this.appConstants.paths.login]);
   }
 
   logoutError(status) {
@@ -99,7 +104,7 @@ export class HelperService {
   }
 
   requestCall(method, api, data?: any) {
-    var response;
+    let response;
     switch (method) {
       case this.constants.apiMethod.post:
         response = this.http.post(api, data).pipe(catchError(this.handleError));
@@ -111,7 +116,7 @@ export class HelperService {
         response = this.http.put(api, data).pipe(catchError(this.handleError));
         break;
       case this.constants.apiMethod.delete:
-        response = this.http.delete(api, data).pipe(catchError(this.handleError));
+        response = this.http.delete(api).pipe(catchError(this.handleError));
         break;
       default:
         break;
@@ -186,4 +191,45 @@ export class HelperService {
     }).catch(err => {
     });
   }
+
+  /**
+   * Set map location according to address in organization form
+   */
+  setAddress(addrObj, gMapElement: ElementRef, formControl) {
+    let onSelect: boolean = false;
+    this.displayButton = true;
+    if (!this.isEmpty(addrObj)) {
+      this.address = addrObj.formatted_address;
+      onSelect = true;
+    } else {
+      this.address = formControl.value;
+    }
+    this.displayButton = onSelect;
+    this.setLocationGeocode(this.address, this.createMap(gMapElement)).then(res => {
+      this.displayButton = true;
+      return formControl.setErrors(null);
+    }).catch(err => {
+      this.displayButton = false;
+      return formControl.setErrors({invalid: true});
+    });
+  }
+
+  setFalse(event) {
+    if (event.which !== this.constants.appConstant.enterKey) {
+      this.displayButton = false;
+    }
+  }
+
+  /**
+   * Getter for app constants through helper service
+   */
+
+  get appConstants() {
+    return this.constants.appConstant;
+  }
+
+  get appIcons() {
+    return this.constants.appIcons;
+  }
+
 }

@@ -1,14 +1,14 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoginRegistrationService} from '../../services/LoginRegistrationService';
+import {FormBuilder, Validators} from '@angular/forms';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {loginCredentials} from 'src/app/models/user.model';
-import {Translation} from 'src/app/models/translate.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {Login} from 'src/app/models/loginRegistration/login.model';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -16,16 +16,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
-  loading: boolean;
-  data: any;
-  translated: Translation;
-  success: any;
-  appConstants: any;
-  formErrorMatcher: any;
-  entites: any;
-  devMode: boolean = false;
-
+  loginObj: Login = <Login>{};
 
   constructor(
     public formBuilder: FormBuilder,
@@ -36,23 +27,20 @@ export class LoginComponent implements OnInit, OnDestroy {
     private adminService: AdminControlService,
     private navService: NavigationService,
   ) {
-    this.translated = this.helperService.translation;
-    this.appConstants = this.helperService.constants.appConstant;
-    this.devMode = this.helperService.constants.config.devMode;
-    this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
+    this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+      this.helperService.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
   }
 
   ngOnInit() {
     if (this.loginService.getToken()) {
-      this.router.navigate(['/home']);
+      this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
     }
-    this.loginForm = this.formBuilder.group({
+    this.loginObj.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required]
     });
-    this.formErrorMatcher = new FormErrorHandler();
+    this.loginObj.formErrorMatcher = new FormErrorHandler();
   }
-
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
@@ -61,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
    */
   get formValidation() {
-    return this.loginForm.controls;
+    return this.loginObj.loginForm.controls;
   }
 
   /**
@@ -84,39 +72,39 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
       this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
-        this.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
+        this.helperService.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
       );
       return;
     }
-    this.loading = true;
+    this.loginObj.loading = true;
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.loginService.loginUser(value).subscribe(
       data => {
-        if (data.responseDetails.code === '0000') {
-          this.data = data;
+        if (data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.loginObj.data = data;
           data
-            ? this.loginService.setToken(this.data.data.token)
+            ? this.loginService.setToken(this.loginObj.data.data.token)
             : this.loginService.setToken('');
-          let userData = this.compiler.constructUserData(this.data.data.user);
+          let userData = this.compiler.constructUserData(this.loginObj.data.data.user);
           this.loginService.updateProfileData(userData);
           let entityData = {
             'moduleName': 'Safetybeat'
           };
           this.adminService.viewEntities(entityData).subscribe((res) => {
-            this.entites = res;
-            let entityUserData = this.compiler.constructUserEntityData(this.entites.data);
+            this.loginObj.entities = res;
+            let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
             this.navService.changeEntites(entityUserData);
             this.helperService.appLoggerDev(
               this.helperService.constants.status.SUCCESS,
-              this.translated.LOGGER.MESSAGES.LOGGEDIN
+              this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
             );
-            this.helperService.createSnack(this.translated.MESSAGES.LOGIN_SUCCESS,
-              this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-            this.helperService.navigateTo(['/home']);
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
+              this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           }, (err) => {
           });
-        } else if (data.responseDetails.code === '0001') {
+        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
@@ -125,24 +113,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
-          this.loading = false;
-        } else if (data.responseDetails.code === '0002') {
-          this.helperService.appLoggerDev(
-            this.helperService.constants.status.ERROR,
-            data.responseDetails.message
-          );
-          this.helperService.appLogger(
-            this.helperService.constants.status.ERROR,
-            data.responseDetails.message
-          );
-          this.loading = false;
+          this.loginObj.loading = false;
         }
       },
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
-        this.loading = false;
-        this.helperService.createSnack(this.translated.MESSAGES.LOGIN_FAIL,
-          this.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
+        this.loginObj.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_FAIL,
+          this.helperService.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }
