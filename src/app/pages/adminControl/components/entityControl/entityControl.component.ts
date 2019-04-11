@@ -187,4 +187,8 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
         this.helperService.translation.MESSAGES.NOUSERTITLE, this.helperService.translation.LOGGER.STATUS.ERROR);
     }
   }
+
+  deleteEntity(data:any){
+
+  }
 }

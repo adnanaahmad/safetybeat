@@ -112,6 +112,7 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
         this.createEntity.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
       return;
     }
+    debugger
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.createEntity.loading = true;
