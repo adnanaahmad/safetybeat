@@ -85,11 +85,11 @@ export class SiteCenterComponent implements OnInit {
    * this function is used to create Add Site Dialog
    */
   addSite() {
-    this.helperService.createDialog(AddSiteModalComponent);
+    this.helperService.createDialog(AddSiteModalComponent, {disableClose: true});
   }
 
   importSite() {
-    this.helperService.createDialog(ImportSiteModalComponent);
+    this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
   }
 
   siteAddorImportEnable() {

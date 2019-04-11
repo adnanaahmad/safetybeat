@@ -23,7 +23,7 @@ export class AdminControlService {
    * this function is used to...
    * @params sitesInfo
    */
-  changeSites(sitesInfo:any){
+  changeSites(sitesInfo: any) {
     this.sites.next(sitesInfo)
   }
 
@@ -36,7 +36,7 @@ export class AdminControlService {
       this.method.post,
       this.apiRoutes.createEntity,
       data
-    ); 
+    );
   }
 
   /**
@@ -57,9 +57,9 @@ export class AdminControlService {
    */
   joinEntity(data: joinEntity) {
     return this.helperService.requestCall(
-     this.method.post,
-     this.apiRoutes.joinEntity,
-     data
+      this.method.post,
+      this.apiRoutes.joinEntity,
+      data
     );
   }
 
@@ -88,9 +88,17 @@ export class AdminControlService {
   }
 
   inviteTeam(data: InviteTeamData): Observable<InviteTeamResponse> {
-    this.inviteTeamResponse$ = this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.inviteTeam, data);
+    this.inviteTeamResponse$ = this.helperService.requestCall(this.method.post,
+      this.helperService.constants.apiRoutes.inviteTeam, data);
     return this.inviteTeamResponse$;
   }
 
+  importSite(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.importSite,
+      data
+    )
+  }
 
 }

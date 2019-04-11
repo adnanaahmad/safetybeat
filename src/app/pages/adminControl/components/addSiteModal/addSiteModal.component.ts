@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import { FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import { SiteAddData} from 'src/app/models/site.model';
+import {SiteAddData} from 'src/app/models/site.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
@@ -43,7 +43,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteName: ['', Validators.required],
       siteSafetyPlan: ['', Validators.required],
       siteAddress: ['', Validators.required],
-      safeZone: ['', Validators.required]
+      safeZone: false
     });
   }
 
@@ -67,7 +67,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       this.addSiteModel.addr = addrObj.formatted_address;
       onSelect = true;
     } else {
-      this.addSiteModel.addr =  this.addSiteModel.addSiteForm.controls.siteAddress.value;
+      this.addSiteModel.addr = this.addSiteModel.addSiteForm.controls.siteAddress.value;
     }
     this.setMap({address: this.addSiteModel.addr, onSelect: onSelect});
   }
