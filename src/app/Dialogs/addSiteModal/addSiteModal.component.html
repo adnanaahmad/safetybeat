@@ -7,9 +7,9 @@
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.SITE_NAME"
                [formControlName]="helperService.appConstants.siteName" required/>
-        <mat-error *ngIf="formValidation.name.errors">
+        <mat-error *ngIf="formValidation.siteName.errors">
           <span
-            *ngIf="formValidation.name.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>
+            *ngIf="formValidation.siteName.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field full-width>

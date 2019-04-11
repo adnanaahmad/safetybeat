@@ -96,9 +96,9 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
             let entityUserData = this.compiler.constructUserEntityData(this.createEntity.entities.data);
             this.navService.changeEntites(entityUserData);
             this.onNoClick();
+            this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+              this.createEntity.entityResponse.responseDetails.message);
           });
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-            this.createEntity.entityResponse.responseDetails.message);
         } else if (this.createEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
           this.helperService.appConstants.codeValidations[4]) {
           this.createEntity.loading = false;
