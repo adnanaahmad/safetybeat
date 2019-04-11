@@ -36,17 +36,29 @@ export class PasswordRecoveryComponent implements OnInit {
     }, {validator: this.checkPasswords});
   }
 
+  /**
+   * this function is used check if password and repeat password is same
+   * @params group
+   */
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
+  /**
+   *  Getter for resetPassword form
+   */
   get formValidation() {
     return this.passRecoveryObj.resetPasswordForm.controls;
   }
 
-  changePassword({value, valid}: { value: Reset; valid: boolean }): void {
+  /**
+   *  this function
+   * @params value
+   * @params valid
+   */
+  changePassword({ value, valid }: { value: Reset; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.WARNING, valid);
       this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.ERROR, this.helperService.translated.AUTH.PASSWORD_REQ);

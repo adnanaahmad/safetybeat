@@ -1,9 +1,9 @@
-import {Component, OnInit, NgZone, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, NgZone, ElementRef, ViewChild} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {Translation} from 'src/app/models/translate.model';
-import {entityData} from 'src/app/models/entity.model';
-import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {entityData} from '../../../../models/entity.model';
+import {AdminControlService} from '../../../adminControl/services/adminControl.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -55,9 +55,14 @@ export class CreateEntityComponent implements OnInit {
     this.createEntityForm = this.formBuilder.group({
       name: ['', Validators.required],
       headOffice: ['', Validators.required],
+      status: ['']
     });
   }
 
+  /**
+   * this ....
+   * @params addrObj
+   */
   setAddress(addrObj) {
     let address = '', onSelect: boolean = false;
     ;
@@ -80,7 +85,7 @@ export class CreateEntityComponent implements OnInit {
 
   /**
    * Set map location according to address in organization form
-   * @param address
+   * @params address
    */
   setMap(address, onSelect: boolean) {
     this.displayCreateButton = onSelect;
@@ -93,10 +98,18 @@ export class CreateEntityComponent implements OnInit {
     });
   }
 
+  /**
+   *this function is used to validate form and show error if the oninput field is invalid
+   */
   get formValidation() {
     return this.createEntityForm.controls;
   }
 
+  /**
+   * this function...
+   * @params value
+   * @params valid
+   */
   entityCreation({
                    value,
                    valid

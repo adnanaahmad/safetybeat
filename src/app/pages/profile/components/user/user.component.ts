@@ -48,6 +48,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  /**
+   * 
+   */
 
   getAllUsers() {
     this.allUsers = this.userService.getAllUsers().pipe(share());

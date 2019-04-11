@@ -50,8 +50,12 @@ export class SiteCenterComponent implements OnInit {
     this.viewAllSites();
   }
 
+  /**
+   * this function is used to display all the sites of a particular entity
+   */
   viewAllSites() {
     this.adminServices.siteObserver.subscribe((res) => {
+      debugger
       if (res === 1) {
         let data = {
           'entityId': this.siteCentreModel.entityId
@@ -64,16 +68,23 @@ export class SiteCenterComponent implements OnInit {
           this.siteCentreModel.dataSource.paginator = this.paginator;
         });
       } else {
-        this.siteCentreModel.dataSource = new MatTableDataSource(res);
-        this.siteCentreModel.dataSource.paginator = this.paginator;
+        if (res === '') {
+          this.siteCentreModel.dataSource = 0;
+        } else {
+          this.siteCentreModel.dataSource = new MatTableDataSource(res);
+          this.siteCentreModel.dataSource.paginator = this.paginator;
+        }
 
       }
     });
     this.siteCentreModel.empty = true;
   }
 
+  /**
+   * this function is used to create Add Site Dialog
+   */
   addSite() {
-    this.helperService.createModal(AddSiteModalComponent)
+    this.helperService.createDialog(AddSiteModalComponent);
   }
 
 

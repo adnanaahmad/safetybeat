@@ -34,6 +34,10 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
 
+  /**
+   * this function is used to validate the email if user forgets the password
+   * @params group
+   */
   checkEmail(group) {
     this.forgotPassObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -52,7 +56,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
+   * in this function login form controls are checked whether they are valid or not and this is basically builtin fucntionality
    */
   get formValidation() {
     return this.forgotPassObj.forgotPassForm.controls;

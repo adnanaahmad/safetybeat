@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Renderer2, ViewChildren, Inject} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
-import {Router, ActivatedRoute, NavigationCancel} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -12,13 +12,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   styleUrls: ['./verification.component.scss']
 })
 export class VerificationComponent implements OnInit, OnDestroy {
-
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
     private render: Renderer2,
     private loginRegService: LoginRegistrationService,
-    private route: ActivatedRoute,
     public helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public email: any,
     public dialogRef: MatDialogRef<VerificationComponent>,
@@ -36,7 +34,6 @@ export class VerificationComponent implements OnInit, OnDestroy {
 
   translated: Translation;
   verifyForm: FormGroup;
-  emaill: any;
   data: any;
   success: any;
   res: any;

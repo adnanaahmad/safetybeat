@@ -113,8 +113,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param group formGroup for user form
    */
   checkPasswords(group: FormGroup) {
-    const pass = group.controls.password1.value;
-    const confirmPass = group.controls.password2.value;
+    const pass = group.value.password1;
+    const confirmPass = group.value.password2;
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
@@ -136,7 +136,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-        '+' + group.controls.countryCode.value + group.controls.contactNo.value, undefined
+        '+' + group.value.countryCode + group.value.contactNo, undefined
       );
       return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null) :
         group.controls.contactNo.setErrors({inValid: true});
@@ -151,22 +151,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param data selected package against module
    */
   registration() {
+    let orgForm = this.registerObj.organizationForm.value, userForm = this.registerObj.userForm.value;
     this.registerObj.loading = true;
     this.registerObj.organizationData = {
-      'name': this.registerObj.organizationForm.value.name,
+      'name': orgForm.name,
       'address': this.registerObj.address,
       'billingEmail': JSON.parse(this.registerObj.userEmail.data),
       'accountNo': '12344532',
-      'phoneNo': this.registerObj.userForm.value.contactNo,
-      'type': this.registerObj.organizationTypeForm.value.type
+      'phoneNo': '+' + this.userDetailForm.countryCode + this.userDetailForm.contactNo,
+      'type': orgForm.type
     };
     this.registerObj.registerData = {
       'email': JSON.parse(this.registerObj.userEmail.data),
-      'first_name': this.registerObj.userForm.value.first_name,
-      'last_name': this.registerObj.userForm.value.last_name,
-      'password1': this.registerObj.userForm.value.password1,
-      'password2': this.registerObj.userForm.value.password2,
-      'contactNo': this.registerObj.userForm.value.contactNo,
+      'first_name': userForm.first_name,
+      'last_name': userForm.last_name,
+      'password1': userForm.password1,
+      'password2': userForm.password2,
+      'contactNo': '+' + userForm.countryCode + userForm.contactNo,
       'organization': this.registerObj.organizationData,
       'invitation': false,
       'module': 'Safetybeat',
