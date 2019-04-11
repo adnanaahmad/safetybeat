@@ -16,7 +16,7 @@ export class ImportSiteModalComponent implements OnInit {
     public helperService: HelperService,
     public dialogRef: MatDialogRef<ImportSiteModalComponent>,
   ) {
-    this.importSiteModal.translated = this.helperService.translation;
+    this.importSiteModal.translated = this.helperService.translated;
   }
 
   ngOnInit() {

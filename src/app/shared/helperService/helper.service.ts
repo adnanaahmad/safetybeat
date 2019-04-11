@@ -22,8 +22,10 @@ import {PhoneNumberUtil} from 'google-libphonenumber';
 export class HelperService {
   iterations: any;
   findIndex: any;
-  translation: Translation;
+  translated: Translation;
   constants: typeof ConstantService;
+  displayButton: boolean = false;
+  address: string = '';
   public dialogRef: MatDialogRef<any>;
 
   constructor(
@@ -37,11 +39,13 @@ export class HelperService {
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
       'STATUS', 'TABLEHEADINGS']).subscribe((values) => {
-      this.translation = values;
+      this.translated = values;
     });
     this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
+    this.address = '';
+    this.displayButton = false;
   }
 
   static getPhoneNumberUtil() {
@@ -89,8 +93,8 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.createSnack(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
-    this.navigateTo(['/login']);
+    this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
+    this.navigateTo([this.appConstants.paths.login]);
   }
 
   logoutError(status) {
@@ -100,7 +104,6 @@ export class HelperService {
   }
 
   requestCall(method, api, data?: any) {
-    debugger
     let response;
     switch (method) {
       case this.constants.apiMethod.post:
@@ -188,4 +191,45 @@ export class HelperService {
     }).catch(err => {
     });
   }
+
+  /**
+   * Set map location according to address in organization form
+   */
+  setAddress(addrObj, gMapElement: ElementRef, formControl) {
+    let onSelect: boolean = false;
+    this.displayButton = true;
+    if (!this.isEmpty(addrObj)) {
+      this.address = addrObj.formatted_address;
+      onSelect = true;
+    } else {
+      this.address = formControl.value;
+    }
+    this.displayButton = onSelect;
+    this.setLocationGeocode(this.address, this.createMap(gMapElement)).then(res => {
+      this.displayButton = true;
+      return formControl.setErrors(null);
+    }).catch(err => {
+      this.displayButton = false;
+      return formControl.setErrors({invalid: true});
+    });
+  }
+
+  setFalse(event) {
+    if (event.which !== this.constants.appConstant.enterKey) {
+      this.displayButton = false;
+    }
+  }
+
+  /**
+   * Getter for app constants through helper service
+   */
+
+  get appConstants() {
+    return this.constants.appConstant;
+  }
+
+  get appIcons() {
+    return this.constants.appIcons;
+  }
+
 }

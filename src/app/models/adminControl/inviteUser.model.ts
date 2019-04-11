@@ -1,10 +1,7 @@
 import {responseDetails} from '../user.model';
 import {FormGroup} from '@angular/forms';
-import {Translation} from '../translate.model';
 
 export interface InviteUser {
-  translated: Translation;
-  appConstants: any;
   inviteUserForm: FormGroup;
   email: FormGroup;
   success: any;

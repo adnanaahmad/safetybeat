@@ -27,7 +27,7 @@ export class ModalDialogComponent implements OnInit {
     private modalService: ProfileService,
     public helperService: HelperService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PASSWORDCHANGE);
     this.appConstants = this.helperService.constants.appConstant;
     this.profileData = JSON.parse(localStorage.getItem(this.helperService.constants.localStorageKeys.entityUserData));

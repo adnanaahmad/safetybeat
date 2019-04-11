@@ -96,7 +96,6 @@ export class AdminControlService {
   }
 
   deleteEntity(id) {
-    debugger
     return this.http.delete(`${ConstantService.apiRoutes.editEntity}/${id}/`);
   }
 

@@ -14,7 +14,6 @@ export class ConfirmationModalComponent implements OnInit {
   constructor(
     private helperService: HelperService
   ) {
-    this.translated = this.helperService.translation;
   }
 
   ngOnInit() {

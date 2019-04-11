@@ -1,11 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {
-  MatDialogConfig,
-  MatDialog,
-  MatTableDataSource,
-  MatPaginator
-} from '@angular/material';
+import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -22,7 +17,7 @@ export class SiteCenterComponent implements OnInit {
 
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  siteCentreModel: SiteCentre = <SiteCentre>{};
+  siteCentreObj: SiteCentre = <SiteCentre>{};
   displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'symbol'];
 
   constructor(
@@ -33,23 +28,21 @@ export class SiteCenterComponent implements OnInit {
     private navService: NavigationService,
   ) {
     this.initialize();
-    this.siteCentreModel.translated = this.helperService.translation;
-    this.siteCentreModel.appIcons = this.helperService.constants.appIcons;
     this.navService.selectedEntityData.subscribe((res) => {
-      this.siteCentreModel.entityData = res;
-      this.siteCentreModel.entityId = this.siteCentreModel.entityData.entityInfo.id;
+      this.siteCentreObj.entityData = res;
+      this.siteCentreObj.entityId = this.siteCentreObj.entityData.entityInfo.id;
     });
 
   }
 
 
   initialize() {
-    this.siteCentreModel.empty = false;
+    this.siteCentreObj.empty = false;
   }
 
   ngOnInit() {
     this.viewAllSites();
-    this.siteAddorImportEnable()
+    this.siteAddorImportEnable();
   }
 
   /**
@@ -59,26 +52,30 @@ export class SiteCenterComponent implements OnInit {
     this.adminServices.siteObserver.subscribe((res) => {
       if (res === 1) {
         let data = {
-          'entityId': this.siteCentreModel.entityId
+          'entityId': this.siteCentreObj.entityId
         };
         this.adminServices.viewSites(data).subscribe((res) => {
-          this.siteCentreModel.sitesList = res;
-          this.siteCentreModel.sitesData = this.compiler.constructSiteData(this.siteCentreModel.sitesList);
-          this.adminServices.changeSites(this.siteCentreModel.sitesData);
-          this.siteCentreModel.dataSource = new MatTableDataSource(this.siteCentreModel.sitesData);
-          this.siteCentreModel.dataSource.paginator = this.paginator;
+          this.siteCentreObj.sitesList = res;
+          if (this.siteCentreObj.viewSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
+            this.adminServices.changeSites(this.siteCentreObj.sitesData);
+            this.siteCentreObj.dataSource = new MatTableDataSource(this.siteCentreObj.sitesData);
+            this.siteCentreObj.dataSource.paginator = this.paginator;
+          } else {
+            this.siteCentreObj.dataSource = 0;
+          }
         });
       } else {
         if (res === '') {
-          this.siteCentreModel.dataSource = 0;
+          this.siteCentreObj.dataSource = 0;
         } else {
-          this.siteCentreModel.dataSource = new MatTableDataSource(res);
-          this.siteCentreModel.dataSource.paginator = this.paginator;
+          this.siteCentreObj.dataSource = new MatTableDataSource(res);
+          this.siteCentreObj.dataSource.paginator = this.paginator;
         }
 
       }
     });
-    this.siteCentreModel.empty = true;
+    this.siteCentreObj.empty = true;
   }
 
   /**
@@ -94,15 +91,15 @@ export class SiteCenterComponent implements OnInit {
 
   siteAddorImportEnable() {
     this.navService.currentRole.subscribe(res => {
-      this.siteCentreModel.entitySelectedRole = res;
+      this.siteCentreObj.entitySelectedRole = res;
       if (
-        this.siteCentreModel.entitySelectedRole === 'Owner' ||
-        this.siteCentreModel.entitySelectedRole === 'TeamLead' ||
-        this.siteCentreModel.entitySelectedRole === 'EntityManager'
+        this.siteCentreObj.entitySelectedRole === this.helperService.appConstants.roles.owner ||
+        this.siteCentreObj.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
+        this.siteCentreObj.entitySelectedRole === this.helperService.appConstants.roles.entityManager
       ) {
-        this.siteCentreModel.siteOption = true;
+        this.siteCentreObj.siteOption = true;
       } else {
-        this.siteCentreModel.siteOption = false;
+        this.siteCentreObj.siteOption = false;
       }
     });
   }
