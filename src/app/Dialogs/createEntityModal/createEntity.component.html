@@ -29,7 +29,7 @@
     <div #gmap style="width:100%;height:250px"></div>
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
-              [disabled]="!createEntity.displaySubmitButton">
+              [disabled]="!createEntity.displaySubmitButton && createEntity.loading">
         {{ createEntity.translated.BUTTONS.CREATE_ENTITY }}
       </button>
       <img *ngIf="createEntity.displaySubmitButton && createEntity.loading" [src]=createEntity.translated.MESSAGES.LOADING_URL/>

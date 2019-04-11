@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {VerificationComponent} from 'src/app/pages/loginRegistration/components/verification/verification.component';
+import {VerificationComponent} from '../../../../Dialogs/verification/verification.component';
 import {validateUser} from 'src/app/models/user.model';
-import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import {LoginRegistrationService} from '../../services/LoginRegistrationService';
 import {
   FormBuilder,
   FormGroup,
@@ -47,6 +47,10 @@ export class LandingComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used to
+   * @params group
+   */
   checkEmail(group) {
     this.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -59,15 +63,23 @@ export class LandingComponent implements OnInit {
           group.controls.email.setErrors({exists: true})
         }
       }, err => {
-        this.helperService.logoutError(err.status)
+        this.helperService.logoutError(err.status);
       });
     }
   }
 
+  /**
+   * this function is used for validation of Form and shows error if the form field is invalid
+   */
   get formValidation() {
     return this.validateForm.controls;
   }
 
+  /**
+   * this function is used to
+   * @params value
+   * @params valid
+   */
   validateUser({
                  value,
                  valid
@@ -93,7 +105,7 @@ export class LandingComponent implements OnInit {
             this.translated.MESSAGES.VERIFICATIONCODEEMAIL
           );
           this.loading = false;
-          this.helperService.createModal(VerificationComponent, {
+          this.helperService.createDialog(VerificationComponent, {
             data: {email: value.email},
             disableClose: false
           });

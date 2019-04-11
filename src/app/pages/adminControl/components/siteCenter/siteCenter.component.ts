@@ -9,7 +9,7 @@ import {
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AddSiteModalComponent} from 'src/app/pages/adminControl/components/addSiteModal/addSiteModal.component';
+import {AddSiteModalComponent} from 'src/app/Dialogs/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 
 @Component({
@@ -50,6 +50,9 @@ export class SiteCenterComponent implements OnInit {
     this.viewAllSites();
   }
 
+  /**
+   * this function is used to display all the sites of a particular entity
+   */
   viewAllSites() {
     this.adminServices.siteObserver.subscribe((res) => {
       if (res === 1) {
@@ -64,16 +67,23 @@ export class SiteCenterComponent implements OnInit {
           this.siteCentreModel.dataSource.paginator = this.paginator;
         });
       } else {
-        this.siteCentreModel.dataSource = new MatTableDataSource(res);
-        this.siteCentreModel.dataSource.paginator = this.paginator;
+        if (res === '') {
+          this.siteCentreModel.dataSource = 0;
+        } else {
+          this.siteCentreModel.dataSource = new MatTableDataSource(res);
+          this.siteCentreModel.dataSource.paginator = this.paginator;
+        }
 
       }
     });
     this.siteCentreModel.empty = true;
   }
 
+  /**
+   * this function is used to create Add Site Dialog
+   */
   addSite() {
-    this.helperService.createModal(AddSiteModalComponent)
+    this.helperService.createDialog(AddSiteModalComponent);
   }
 
 

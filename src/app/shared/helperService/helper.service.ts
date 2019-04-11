@@ -69,7 +69,7 @@ export class HelperService {
     }
   }
 
-  createModal(component, params?: any) {
+  createDialog(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = params && params.disableClose ? params.disableClose : false;
     dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;

@@ -2,7 +2,7 @@
   {{addSiteModel.translated.MESSAGES.ADDSITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="addSiteForm" (ngSubmit)=addSite(addSiteForm)>
+  <form [formGroup]="addSiteModel.addSiteForm" (ngSubmit)= addSite(addSiteModel.addSiteForm)>
     <div class="form-group">
       <mat-form-field full-width>
         <input
@@ -23,14 +23,16 @@
         />
       </mat-form-field>
       <mat-form-field full-width>
-        <input
-          matInput
-          type="text"
-          placeholder="{{ addSiteModel.translated.STRINGS.SITEADDRESS }}"
-          formControlName="{{ addSiteModel.appConstants.siteAddress }}"
-          required
-        />
+        <input matInput type="text" placeholder="{{ addSiteModel.translated.STRINGS.SITEADDRESS }}" appGooglePlaces
+               (onSelect)="setAddress($event)" formControlName="{{ addSiteModel.appConstants.siteAddress }}" required />
+        <mat-error *ngIf="formValidation.siteAddress.errors">
+        <span *ngIf="formValidation.siteAddress.errors.required">{{
+          addSiteModel.translated.MESSAGES.OFFICELOCATION_REQ
+          }}</span>
+          <span *ngIf="formValidation.siteAddress.errors.invalid">{{addSiteModel.translated.MESSAGES.INVALIDADDRESS}}</span>
+        </mat-error>
       </mat-form-field>
+      <div #gmap style="width:100%;height:250px"></div>
       <mat-slide-toggle formControlName="{{ addSiteModel.appConstants.safeZone }}">
         Safe Zone
       </mat-slide-toggle>

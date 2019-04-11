@@ -149,6 +149,7 @@ export interface Buttons {
   INVITE_USER: string;
   INVITETEAM: string;
   ADD_SITE: string;
+  IMPORT_SITE: string;
 }
 
 export interface Messages {
@@ -231,6 +232,7 @@ export interface Messages {
   NOUSER:string;
   NOUSERTITLE:string;
   EMAIL_NOT_REGISTERED: string;
+  NO_RECORD_AVAILABLE: string;
 }
 
 export interface Logger {

@@ -96,7 +96,8 @@
     "MAP": "Map",
     "HOURS": "Hours",
     "INVITETEAM": "Invite",
-    "ADD_SITE": "Add Site"
+    "ADD_SITE": "Add Site",
+    "IMPORT_SITE": "Import Site"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -175,6 +176,7 @@
     "INVALIDADDRESS": "Invalid address",
     "ADDSITE_MSG":"Enter Site Details to Add Site",
     "SITE_NAME": "Enter Site Name",
+    "NO_RECORD_AVAILABLE": "No Record Available",
     "NOUSER":"No user found. Please invite users first",
     "NOUSERTITLE": "No user found to invite for team"
   },

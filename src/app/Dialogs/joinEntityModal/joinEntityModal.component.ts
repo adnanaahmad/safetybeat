@@ -7,7 +7,7 @@ import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {JoinEntity} from '../../../../models/adminControl/joinEntity.model';
+import {JoinEntity} from '../../models/adminControl/joinEntity.model';
 
 @Component({
   selector: 'app-joinEntityModal',
@@ -39,15 +39,26 @@ export class JoinEntityModalComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used to close the dialog
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * this function is used to validate Join Entity form and show error if the form field is invalid
+   */
   get formValidation() {
     return this.joinEntity.joinEntityForm.controls;
   }
 
-  entityJoin({value, valid}: { value: entityCode; valid: boolean }) {
+  /**
+   *this function is used to make a new entity and checks if it already exists/ if its not found
+   * @params value
+   * @params valid
+   */
+  entityJoin({ value, valid }: { value: entityCode; valid: boolean }) {
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,

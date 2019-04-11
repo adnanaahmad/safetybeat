@@ -11,13 +11,13 @@ import {
   MatTableDataSource,
   MatPaginator
 } from '@angular/material';
-import {CreateEntityComponent} from 'src/app/pages/adminControl/components/createEntityModal/createEntity.component';
-import {JoinEntityModalComponent} from 'src/app/pages/adminControl/components/joinEntityModal/joinEntityModal.component';
-import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CreateEntityComponent} from '../../../../Dialogs/createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from '../../../../Dialogs/joinEntityModal/joinEntityModal.component';
+import {AdminControlService} from '../../services/adminControl.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AlertModalComponent} from 'src/app/pages/adminControl/components/entityCodeModal/entityCodeModal.component';
-import {InviteTeamModalComponent} from 'src/app/pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
+import {AlertModalComponent} from '../../../../Dialogs/entityCodeModal/entityCodeModal.component';
+import {InviteTeamModalComponent} from 'src/app/Dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
 import {EntityControl} from '../../../../models/adminControl/entityControl.model';
@@ -83,20 +83,32 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
+  /**
+   * this funnction is used to create Create Entity Dialog
+   */
   createEntity() {
-    this.helperService.createModal(CreateEntityComponent);
+    this.helperService.createDialog(CreateEntityComponent, {disableClose: true});
   }
 
+  /**
+   * this function is used to create Join Entity Dialog
+   */
   joinEntity() {
-    this.helperService.createModal(JoinEntityModalComponent);
+    this.helperService.createDialog(JoinEntityModalComponent, {disableClose: true});
   }
 
+  /**
+   * this function is used to create Alert Modal Dialog
+   * @params code
+   * @params name
+   */
   entityCode(code, name) {
-    this.helperService.createModal(AlertModalComponent, {
-      data: {name: name, code: code}
-    });
+    this.helperService.createDialog(AlertModalComponent, {data: {name: name, code: code}});
   }
 
+  /**
+   * this function is used to show all the existing entities
+   */
   viewAllEntities() {
     this.entityControl.empty = true;
     let data = {
@@ -117,6 +129,9 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /**
+   * this function is used to....
+   */
   creationEnable() {
     this.navService.currentRole.subscribe(res => {
       this.entityControl.entitySelectedRole = res;
@@ -163,8 +178,9 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
         entityData: entityData.entityInfo.code,
         usersData: this.entityControl.allUsersList
       };
-      this.helperService.createModal(InviteTeamModalComponent, {
-        data: {inviteTeamData}
+      this.helperService.createDialog(InviteTeamModalComponent, {
+        data: {inviteTeamData},
+        disableClose: true
       });
     } else {
       this.helperService.createSnack(this.entityControl.translated.MESSAGES.NOUSER,

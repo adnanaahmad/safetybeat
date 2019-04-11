@@ -9,7 +9,7 @@ import { QuestionCenterComponent } from './components/questionCenter/questionCen
 import { SiteCenterComponent } from './components/siteCenter/siteCenter.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { AddSiteModalComponent } from './components/addSiteModal/addSiteModal.component';
+import { AddSiteModalComponent } from '../../Dialogs/addSiteModal/addSiteModal.component';
 
 @NgModule({
   declarations: [
