@@ -1,7 +1,6 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {InviteUser, inviteUserData} from 'src/app/models/adminControl/inviteUser.model';
-import {Validators, FormBuilder, FormGroup} from '@angular/forms';
-import {Translation} from 'src/app/models/translate.model';
+import {Validators, FormBuilder} from '@angular/forms';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
@@ -21,10 +20,8 @@ export class InviteUserModalComponent implements OnInit {
     public helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    this.inviteUserModal.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-      this.inviteUserModal.translated.LOGGER.MESSAGES.CREATEENTITY);
-    this.inviteUserModal.appConstants = this.helperService.constants.appConstant;
+      this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY);
     this.inviteUserModal.roleList = this.data.role;
     this.inviteUserModal.entityID = this.data.entityId;
   }
@@ -59,11 +56,11 @@ export class InviteUserModalComponent implements OnInit {
     this.inviteUserModal.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
     });
-    if (this.inviteUserModal.email.status === 'VALID') {
+    if (this.inviteUserModal.email.status === this.helperService.appConstants.emailValid) {
       const email = {email: group.value.email};
       this.navigationService.checkEmail(email).pipe().subscribe((res) => {
         this.inviteUserModal.success = res;
-        if (this.inviteUserModal.success.responseDetails.code === '0020') {
+        if (this.inviteUserModal.success.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           group.controls.email.setErrors({exists: true});
         }
       }, err => {
@@ -92,16 +89,16 @@ export class InviteUserModalComponent implements OnInit {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.inviteUserModal.translated.LOGGER.MESSAGES.INVITEUSER_ERROR);
+        this.helperService.translated.LOGGER.MESSAGES.INVITEUSER_ERROR);
       return;
     }
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
       this.dialogRef.close();
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'User has been successfully Invited.');
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.INVITE_SUCCESS);
     }, (err) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Error inviting user.');
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.INVITE_FAILURE);
       this.dialogRef.close();
       this.helperService.logoutError(err.status);
     });

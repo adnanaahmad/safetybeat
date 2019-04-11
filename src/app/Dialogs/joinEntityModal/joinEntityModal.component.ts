@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {Translation} from 'src/app/models/translate.model';
+import {Validators, FormBuilder} from '@angular/forms';
 import {entityCode} from 'src/app/models/entity.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {MatDialogRef} from '@angular/material';
@@ -27,9 +26,8 @@ export class JoinEntityModalComponent implements OnInit {
   ) {
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
-      this.joinEntity.translated.LOGGER.MESSAGES.JOINENTITY
+      this.helperService.translated.LOGGER.MESSAGES.JOINENTITY
     );
-    this.joinEntity.appConstants = this.helperService.constants.appConstant;
   }
 
   ngOnInit() {
@@ -65,12 +63,12 @@ export class JoinEntityModalComponent implements OnInit {
       );
       this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
-        this.joinEntity.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
+        this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
       );
       return;
     }
     this.joinEntity.joinEntityData = {
-      moduleName: this.joinEntity.translated.BUTTONS.SAFETYBEAT,
+      moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,
       entityCode: value.joinCode
     };
     this.helperService.appLoggerDev(
@@ -84,7 +82,7 @@ export class JoinEntityModalComponent implements OnInit {
     this.adminServices.joinEntity(this.joinEntity.joinEntityData).subscribe(
       res => {
         this.joinEntity.entityResponse = res;
-        if (this.joinEntity.entityResponse.responseDetails.code === '0025') {
+        if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           let data = {
             moduleName: 'Safetybeat'
           };
@@ -98,24 +96,24 @@ export class JoinEntityModalComponent implements OnInit {
           });
           this.helperService.appLogger(
             this.helperService.constants.status.SUCCESS,
-            this.joinEntity.translated.MESSAGES.JOINENTITY_SUCCESS
+            this.helperService.translated.MESSAGES.JOINENTITY_SUCCESS
           );
-        } else if (this.joinEntity.entityResponse.responseDetails.code === '0027') {
+        } else if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
-            this.joinEntity.translated.MESSAGES.ALREADYJOINED_ENTITY
+            this.helperService.translated.MESSAGES.ALREADYJOINED_ENTITY
           );
-        } else if (this.joinEntity.entityResponse.responseDetails.code === '0026') {
+        } else if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
-            this.joinEntity.translated.MESSAGES.ENTITYNOTFOUND
+            this.helperService.translated.MESSAGES.ENTITYNOTFOUND
           );
         }
       },
       error => {
         this.helperService.appLogger(
           this.helperService.constants.status.ERROR,
-          this.joinEntity.translated.MESSAGES.ENTITYJOINFIAL
+          this.helperService.translated.MESSAGES.ENTITYJOINFIAL
         );
         this.helperService.logoutError(error.status);
       }

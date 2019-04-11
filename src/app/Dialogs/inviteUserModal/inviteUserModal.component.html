@@ -1,32 +1,35 @@
-<mat-card-title class="mat-dialog-title">{{inviteUserModal.translated.MESSAGES.INVITE_USER}}</mat-card-title>
+<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.INVITE_USER}}</mat-card-title>
 <div class="mat-dialog-content">
   <form [formGroup]="inviteUserModal.inviteUserForm" (ngSubmit)="inviteUser(inviteUserModal.inviteUserForm)">
     <div class="input">
       <mat-form-field full-width>
-        <input matInput type="text" [placeholder]=inviteUserModal.translated.AUTH.FIRSTNAME formControlName={{inviteUserModal.appConstants.firstName}}
-          required />
+        <input matInput type="text" [placeholder]=helperService.translated.AUTH.FIRSTNAME
+               [formControlName]=helperService.appConstants.firstName
+               required/>
         <mat-error *ngIf="formValidation.first_name.errors">
-          <span *ngIf="formValidation.first_name.errors.required">{{inviteUserModal.translated.AUTH.FIRSTNAME_REQ}}</span>
+          <span *ngIf="formValidation.first_name.errors.required">{{helperService.translated.AUTH.FIRSTNAME_REQ}}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <div class="input">
       <mat-form-field full-width>
-        <input matInput type="text" [placeholder]=inviteUserModal.translated.AUTH.LASTNAME formControlName={{inviteUserModal.appConstants.lastName}}
-          required />
+        <input matInput type="text" [placeholder]=helperService.translated.AUTH.LASTNAME
+               [formControlName]=helperService.appConstants.lastName
+               required/>
         <mat-error *ngIf="formValidation.last_name.errors">
-          <span *ngIf="formValidation.last_name.errors.required">{{inviteUserModal.translated.AUTH.LASTNAME_REQ}}</span>
+          <span *ngIf="formValidation.last_name.errors.required">{{helperService.translated.AUTH.LASTNAME_REQ}}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <div class="input">
       <mat-form-field full-width>
-        <input matInput type="email" [placeholder]=inviteUserModal.translated.AUTH.EMAIL formControlName={{inviteUserModal.appConstants.email}} required
-          (blur)="checkEmail(inviteUserModal.inviteUserForm)" />
+        <input matInput type="email" [placeholder]=helperService.translated.AUTH.EMAIL
+               [formControlName]=helperService.appConstants.email required
+               (blur)="checkEmail(inviteUserModal.inviteUserForm)"/>
         <mat-error *ngIf="formValidation.email.errors">
-          <span *ngIf="formValidation.email.errors.email">{{inviteUserModal.translated.AUTH.EMAIL_VALID}}</span>
-          <span *ngIf="formValidation.email.errors.required">{{inviteUserModal.translated.AUTH.EMAIL_REQ}}</span>
-          <span *ngIf="formValidation.email.errors?.exists">{{inviteUserModal.translated.AUTH.EMAIL_EXISTS}}</span>
+          <span *ngIf="formValidation.email.errors.email">{{helperService.translated.AUTH.EMAIL_VALID}}</span>
+          <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
+          <span *ngIf="formValidation.email.errors?.exists">{{helperService.translated.AUTH.EMAIL_EXISTS}}</span>
         </mat-error>
       </mat-form-field>
     </div>
@@ -34,22 +37,22 @@
 
 
       <mat-form-field full-width>
-        <mat-label>{{inviteUserModal.translated.AUTH.ROLE}}</mat-label>
-        <mat-select formControlName={{inviteUserModal.appConstants.role}} required>
+        <mat-label>{{helperService.translated.AUTH.ROLE}}</mat-label>
+        <mat-select [formControlName]=helperService.appConstants.role required>
           <mat-option *ngFor="let role of inviteUserModal.roleList" [value]="role.id">
             {{role.name}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="formValidation.role.errors">
-          <span *ngIf="formValidation.role.errors.required">{{inviteUserModal.translated.AUTH.ROLE_REQ}}</span>
+          <span *ngIf="formValidation.role.errors.required">{{helperService.translated.AUTH.ROLE_REQ}}</span>
         </mat-error>
       </mat-form-field>
     </div>
 
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary
-        color="primary">{{inviteUserModal.translated.BUTTONS.INVITE_USER}}</button>
-      <button mat-button mat-dialog-close>{{inviteUserModal.translated.BUTTONS.CANCEL}}</button>
+              color="primary">{{helperService.translated.BUTTONS.INVITE_USER}}</button>
+      <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
   </form>
 </div>

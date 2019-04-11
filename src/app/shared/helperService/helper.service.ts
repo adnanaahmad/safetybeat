@@ -44,6 +44,7 @@ export class HelperService {
     this.iterations = forEach;
     this.findIndex = findIndex;
     this.address = '';
+    this.displayButton = false;
   }
 
   static getPhoneNumberUtil() {
@@ -92,7 +93,7 @@ export class HelperService {
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
     this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
-    this.navigateTo(['/login']);
+    this.navigateTo([this.appConstants.paths.login]);
   }
 
   logoutError(status) {

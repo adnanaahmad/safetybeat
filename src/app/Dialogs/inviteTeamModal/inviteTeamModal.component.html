@@ -1,15 +1,15 @@
-<mat-card-title class="mat-dialog-title">{{inviteTeamModel.translated.MESSAGES.INVITETEAMTITLE}}</mat-card-title>
+<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.INVITETEAMTITLE}}</mat-card-title>
 <div mat-dialog-content>
   <mat-form-field class="example-chip-list">
     <mat-chip-list #chipList>
       <mat-chip *ngFor="let user of inviteTeamModel.users" [removable]="inviteTeamModel.removable"
-        (removed)="remove(user)">
+                (removed)="remove(user)">
         {{user.first_name}}
         <mat-icon matChipRemove *ngIf="inviteTeamModel.removable">cancel</mat-icon>
       </mat-chip>
-      <input placeholder="{{inviteTeamModel.translated.MESSAGES.INVITETEAMPLACEHOLDER}}" #userInput
-        [formControl]="inviteTeamModel.userCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="inviteTeamModel.separatorKeysCodes">
+      <input [placeholder]="helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER" #userInput
+             [formControl]="inviteTeamModel.userCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="inviteTeamModel.separatorKeysCodes">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
       <mat-option *ngFor="let user of inviteTeamModel.filteredUsers | async" [value]="user">
@@ -20,12 +20,12 @@
 
   <mat-dialog-actions>
     <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
-      [disabled]="inviteTeamModel.loading" (click)='inviteTeam()'>
-      {{ inviteTeamModel.translated.BUTTONS.INVITETEAM }}
+            [disabled]="inviteTeamModel.loading" (click)='inviteTeam()'>
+      {{ helperService.translated.BUTTONS.INVITETEAM }}
     </button>
-    <img *ngIf="inviteTeamModel.loading" [src]=inviteTeamModel.translated.MESSAGES.LOADING_URL />
+    <img *ngIf="inviteTeamModel.loading" [src]=helperService.translated.MESSAGES.LOADING_URL/>
     <button mat-button mat-dialog-close (click)='onNoClick()'>
-      {{ inviteTeamModel.translated.BUTTONS.CANCEL }}
+      {{ helperService.translated.BUTTONS.CANCEL }}
     </button>
   </mat-dialog-actions>
 </div>

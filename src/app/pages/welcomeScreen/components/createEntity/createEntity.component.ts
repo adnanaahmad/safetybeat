@@ -52,15 +52,8 @@ export class CreateEntityComponent implements OnInit {
    * @params value
    * @params valid
    */
-  entityCreation({
-                   value,
-                   valid
-                 }: {
-    value: entityData;
-    valid: boolean;
-  }): void {
-    value.entityLocation = this.helperService.address;
-    this.helperService.setAddress({}, this.gMapElement, this.formValidation.headOffice);
+  entityCreation({value, valid}: { value: entityData; valid: boolean; }): void {
+    value.headOffice = this.helperService.address;
     this.createEntityObj.loading = true;
     this.createEntityObj.entityDetails = {
       moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,

@@ -1,4 +1,4 @@
-import {Component, Inject, ViewChild, ElementRef,  OnInit} from '@angular/core';
+import {Component, Inject, ViewChild, ElementRef, OnInit} from '@angular/core';
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
@@ -52,7 +52,7 @@ export class InviteTeamModalComponent implements OnInit {
     this.inviteTeamModel.users = [];
     this.inviteTeamModel.allUsers = [];
     this.inviteTeamModel.userCtrl = new FormControl();
-    this.inviteTeamModel.translated = this.helperService.translated;
+    this.helperService.translated = this.helperService.translated;
     this.inviteTeamModel.loading = false;
   }
 
@@ -105,17 +105,17 @@ export class InviteTeamModalComponent implements OnInit {
       res => {
         let responseData = res;
         // '0029'
-        if (responseData.responseDetails.code === 101) {
+        if (responseData.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
           this.helperService.createSnack(
             responseData.responseDetails.message,
-            this.inviteTeamModel.translated.MESSAGES.INVITETEAMSUCCESS,
+            this.helperService.translated.MESSAGES.INVITETEAMSUCCESS,
             this.helperService.constants.status.SUCCESS
           );
           this.onNoClick();
         } else {
           this.helperService.createSnack(
             responseData.responseDetails.message,
-            this.inviteTeamModel.translated.MESSAGES.INVITETEAMFAIL,
+            this.helperService.translated.MESSAGES.INVITETEAMFAIL,
             this.helperService.constants.status.ERROR
           );
           this.onNoClick();

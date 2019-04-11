@@ -238,6 +238,10 @@ export interface Messages {
   CSVIMPORT_MSG: string;
   SITE_CREATED: string;
   SITE_FAILED: string;
+  INVITE_SUCCESS: string;
+  INVITE_FAILURE: string;
+  SAFETY_PLAN_REQ: string;
+  SITE_NAME_REQ: string;
 }
 
 export interface Logger {

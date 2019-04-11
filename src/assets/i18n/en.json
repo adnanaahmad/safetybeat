@@ -182,7 +182,11 @@
     "IMPORTSITE_MSG": "Site Import",
     "CSVIMPORT_MSG": "Select CSV file to import Sites",
     "SITE_CREATED": "Site has been created successfully",
-    "SITE_FAILED": "Site Creation Failed"
+    "SITE_FAILED": "Site Creation Failed",
+    "INVITE_SUCCESS": "User has been successfully Invited.",
+    "INVITE_FAILURE": "Error inviting user.",
+    "SAFETY_PLAN_REQ": "Site safety plan is required",
+    "SITE_NAME_REQ": "Site name is required"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
