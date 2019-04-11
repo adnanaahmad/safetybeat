@@ -1,7 +1,7 @@
-import {InviteTeamData, InviteTeamResponse} from 'src/app/models/inviteUser.model';
+import {InviteTeamData, InviteTeamResponse} from 'src/app/models/adminControl/inviteUser.model';
 import {Injectable} from '@angular/core';
-import {entity, joinEntity} from 'src/app/models/entity.model';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {entity, joinEntity, entityData} from 'src/app/models/entity.model';
+import {HelperService} from '../../../shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class AdminControlService {
    * this function is used to...
    * @params sitesInfo
    */
-  changeSites(sitesInfo:any){
+  changeSites(sitesInfo: any) {
     this.sites.next(sitesInfo)
   }
 
@@ -36,7 +36,7 @@ export class AdminControlService {
       this.method.post,
       this.apiRoutes.createEntity,
       data
-    ); 
+    );
   }
 
   /**

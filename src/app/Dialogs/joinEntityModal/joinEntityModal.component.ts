@@ -7,6 +7,7 @@ import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {JoinEntity} from '../../models/adminControl/joinEntity.model';
 
 @Component({
   selector: 'app-joinEntityModal',
@@ -14,12 +15,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
   styleUrls: ['./joinEntityModal.component.scss']
 })
 export class JoinEntityModalComponent implements OnInit {
-  joinEntityForm: FormGroup;
-  translated: Translation;
-  appConstants: any;
-  joinEntityData: any;
-  entityResponse: any;
-  entites: any;
+  joinEntity: JoinEntity = <JoinEntity>{};
 
   constructor(
     public dialogRef: MatDialogRef<JoinEntityModalComponent>,
@@ -29,16 +25,15 @@ export class JoinEntityModalComponent implements OnInit {
     private compiler: CompilerProvider,
     private navService: NavigationService
   ) {
-    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
-      this.translated.LOGGER.MESSAGES.JOINENTITY
+      this.joinEntity.translated.LOGGER.MESSAGES.JOINENTITY
     );
-    this.appConstants = this.helperService.constants.appConstant;
+    this.joinEntity.appConstants = this.helperService.constants.appConstant;
   }
 
   ngOnInit() {
-    this.joinEntityForm = this.formBuilder.group({
+    this.joinEntity.joinEntityForm = this.formBuilder.group({
       joinCode: ['', Validators.required]
     });
   }
@@ -53,14 +48,16 @@ export class JoinEntityModalComponent implements OnInit {
   /**
    * this function is used to validate Join Entity form and show error if the form field is invalid
    */
-  get formValidation() { return this.joinEntityForm.controls; }
+  get formValidation() {
+    return this.joinEntity.joinEntityForm.controls;
+  }
 
   /**
    *this function is used to make a new entity and checks if it already exists/ if its not found
    * @params value
    * @params valid
    */
-  entityJoin({ value, valid }: { value: entityCode; valid: boolean }) {
+  entityJoin({value, valid}: { value: entityCode; valid: boolean }) {
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,
@@ -68,12 +65,12 @@ export class JoinEntityModalComponent implements OnInit {
       );
       this.helperService.appLogger(
         this.helperService.constants.status.ERROR,
-        this.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
+        this.joinEntity.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
       );
       return;
     }
-    this.joinEntityData = {
-      moduleName: this.translated.BUTTONS.SAFETYBEAT,
+    this.joinEntity.joinEntityData = {
+      moduleName: this.joinEntity.translated.BUTTONS.SAFETYBEAT,
       entityCode: value.joinCode
     };
     this.helperService.appLoggerDev(
@@ -84,41 +81,41 @@ export class JoinEntityModalComponent implements OnInit {
       this.helperService.constants.status.INFO,
       JSON.stringify(value)
     );
-    this.adminServices.joinEntity(this.joinEntityData).subscribe(
+    this.adminServices.joinEntity(this.joinEntity.joinEntityData).subscribe(
       res => {
-        this.entityResponse = res;
-        if (this.entityResponse.responseDetails.code === '0025') {
+        this.joinEntity.entityResponse = res;
+        if (this.joinEntity.entityResponse.responseDetails.code === '0025') {
           let data = {
             moduleName: 'Safetybeat'
           };
           this.adminServices.viewEntities(data).subscribe(res => {
-            this.entites = res;
+            this.joinEntity.entities = res;
             let entityUserData = this.compiler.constructUserEntityData(
-              this.entites.data
+              this.joinEntity.entities.data
             );
             this.onNoClick();
             this.navService.changeEntites(entityUserData);
           });
           this.helperService.appLogger(
             this.helperService.constants.status.SUCCESS,
-            this.translated.MESSAGES.JOINENTITY_SUCCESS
+            this.joinEntity.translated.MESSAGES.JOINENTITY_SUCCESS
           );
-        } else if (this.entityResponse.responseDetails.code === '0027') {
+        } else if (this.joinEntity.entityResponse.responseDetails.code === '0027') {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
-            this.translated.MESSAGES.ALREADYJOINED_ENTITY
+            this.joinEntity.translated.MESSAGES.ALREADYJOINED_ENTITY
           );
-        } else if (this.entityResponse.responseDetails.code === '0026') {
+        } else if (this.joinEntity.entityResponse.responseDetails.code === '0026') {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
-            this.translated.MESSAGES.ENTITYNOTFOUND
+            this.joinEntity.translated.MESSAGES.ENTITYNOTFOUND
           );
         }
       },
       error => {
         this.helperService.appLogger(
           this.helperService.constants.status.ERROR,
-          this.translated.MESSAGES.ENTITYJOINFIAL
+          this.joinEntity.translated.MESSAGES.ENTITYJOINFIAL
         );
         this.helperService.logoutError(error.status);
       }

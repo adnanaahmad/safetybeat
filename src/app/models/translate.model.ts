@@ -229,9 +229,13 @@ export interface Messages {
   ADDSITE_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
+  NOUSER:string;
+  NOUSERTITLE:string;
   EMAIL_NOT_REGISTERED: string;
   INVALID_EMAIL: string;
   NO_RECORD_AVAILABLE: string;
+  IMPORTSITE_MSG: string;
+  CSVIMPORT_MSG: string;
 }
 
 export interface Logger {
