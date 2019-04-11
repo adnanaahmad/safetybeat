@@ -22,7 +22,7 @@ import {PhoneNumberUtil} from 'google-libphonenumber';
 export class HelperService {
   iterations: any;
   findIndex: any;
-  translation: Translation;
+  translated: Translation;
   constants: typeof ConstantService;
   displayButton: boolean = false;
 
@@ -37,7 +37,7 @@ export class HelperService {
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
       'STATUS', 'TABLEHEADINGS']).subscribe((values) => {
-      this.translation = values;
+      this.translated = values;
     });
     this.constants = ConstantService;
     this.iterations = forEach;
@@ -89,7 +89,7 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.createSnack(this.translation.MESSAGES.LOGOUT_SUCCESS, this.translation.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
+    this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
     this.navigateTo(['/login']);
   }
 
@@ -224,15 +224,11 @@ export class HelperService {
   }
 
   /**
-   * Getter for app constants and translation through helper service
+   * Getter for app constants through helper service
    */
 
   get appConstants() {
     return this.constants.appConstant;
-  }
-
-  get translated() {
-    return this.translation;
   }
 
   get appIcons() {

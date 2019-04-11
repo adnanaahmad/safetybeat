@@ -56,7 +56,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     private userService: ProfileService
   ) {
     this.initialize();
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.appIcons = this.helperService.constants.appIcons;
     this.helperService.appLogger(
       this.helperService.constants.status.SUCCESS,

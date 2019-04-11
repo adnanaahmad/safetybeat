@@ -4,8 +4,8 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Reset} from 'src/app/models/profile.model';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {PasswordRecovery} from '../../../../models/loginRegistration/passwordRecovery.model';
-import {FormErrorHandler} from '../../../../shared/FormErrorHandler/FormErrorHandler';
+import {PasswordRecovery} from 'src/app/models/loginRegistration/passwordRecovery.model';
+import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
   selector: 'app-passwordRecovery',
@@ -58,7 +58,7 @@ export class PasswordRecoveryComponent implements OnInit {
    * @params value
    * @params valid
    */
-  changePassword({ value, valid }: { value: Reset; valid: boolean }): void {
+  changePassword({value, valid}: { value: Reset; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.WARNING, valid);
       this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.ERROR, this.helperService.translated.AUTH.PASSWORD_REQ);

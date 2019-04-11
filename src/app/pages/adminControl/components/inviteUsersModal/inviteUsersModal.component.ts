@@ -19,7 +19,7 @@ export class InviteUsersModalComponent implements OnInit {
     public formBuilder: FormBuilder,
     public helperService: HelperService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;

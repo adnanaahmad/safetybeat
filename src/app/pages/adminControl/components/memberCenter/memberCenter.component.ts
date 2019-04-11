@@ -63,7 +63,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class MemberCenterComponent implements OnInit {
 
   constructor(public helperService: HelperService) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
   }
   translated: Translation;
 

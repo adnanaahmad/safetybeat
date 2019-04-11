@@ -31,7 +31,7 @@ export class InviteUserModalComponent implements OnInit {
     public helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.CREATEENTITY);
     this.appConstants = this.helperService.constants.appConstant;
     this.roleList = this.data.role

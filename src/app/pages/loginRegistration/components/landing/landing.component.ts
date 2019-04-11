@@ -35,7 +35,7 @@ export class LandingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private navService: NavigationService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
     this.devMode = this.helperService.constants.config.devMode;

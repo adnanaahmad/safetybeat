@@ -23,10 +23,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   empty: boolean = true;
   navLinks: NavItem[] = [];
   entitiesList: any;
-  entitesName: any = [];
-  abc: any;
   allEntitiesData: any;
-  joinEntityData: { moduleName: string };
   defaultList: NavItem[] = [];
   entityUserData: EntityUserData;
   selectedEntity;
@@ -44,7 +41,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     private navService: NavigationService,
     public helperService: HelperService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT

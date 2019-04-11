@@ -30,7 +30,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       this.addSiteModel.entityData = res;
       this.addSiteModel.entityId = this.addSiteModel.entityData.entityInfo.id;
     });
-    this.addSiteModel.translated = this.helperService.translation;
+    this.addSiteModel.translated = this.helperService.translated;
     this.addSiteModel.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.addSiteModel.loading = false;

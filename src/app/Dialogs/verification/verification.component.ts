@@ -21,7 +21,7 @@ export class VerificationComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public email: any,
     public dialogRef: MatDialogRef<VerificationComponent>,
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.VERIFICATION_COMPONENT);

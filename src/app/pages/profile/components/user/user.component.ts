@@ -30,7 +30,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     public userService: ProfileService,
     public helperService: HelperService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.appIcons = this.helperService.constants.appIcons;
   }
 

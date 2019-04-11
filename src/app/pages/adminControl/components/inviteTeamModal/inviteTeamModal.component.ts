@@ -34,7 +34,7 @@ export class InviteTeamModalComponent {
     this.inviteTeamModel.users = [];
     this.inviteTeamModel.allUsers = [];
     this.inviteTeamModel.userCtrl = new FormControl();
-    this.inviteTeamModel.translated = this.helperService.translation;
+    this.inviteTeamModel.translated = this.helperService.translated;
     this.inviteTeamModel.loading = false;
 
     this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData ? this.data.inviteTeamData.usersData.map(x =>

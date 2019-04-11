@@ -32,7 +32,7 @@ export class SiteCenterComponent implements OnInit {
     private navService: NavigationService,
   ) {
     this.initialize();
-    this.siteCentreModel.translated = this.helperService.translation;
+    this.siteCentreModel.translated = this.helperService.translated;
     this.siteCentreModel.appIcons = this.helperService.constants.appIcons;
     this.navService.selectedEntityData.subscribe((res) => {
       this.siteCentreModel.entityData = res;

@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     private navService: NavigationService,
     private formBuilder: FormBuilder
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;

@@ -29,7 +29,7 @@ export class JoinEntityModalComponent implements OnInit {
     private compiler: CompilerProvider,
     private navService: NavigationService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.JOINENTITY
