@@ -32,6 +32,7 @@ import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './Dialogs/addSiteModal/addSiteModal.component';
 
 import {ImportSiteModalComponent} from './pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
+import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmationModal.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -50,7 +51,8 @@ export function createTranslateLoader(http: HttpClient) {
     InviteTeamModalComponent,
     ToasterComponent,
     AddSiteModalComponent,
-    ImportSiteModalComponent
+    ImportSiteModalComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -100,7 +102,8 @@ export function createTranslateLoader(http: HttpClient) {
     InviteTeamModalComponent,
     ToasterComponent,
     AddSiteModalComponent,
-    ImportSiteModalComponent
+    ImportSiteModalComponent,
+    ConfirmationModalComponent
   ]
 })
 export class AppModule { }

@@ -21,6 +21,7 @@ import {InviteTeamModalComponent} from 'src/app/Dialogs/inviteTeamModal/inviteTe
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
 import {EntityControl} from '../../../../models/adminControl/entityControl.model';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -88,6 +89,16 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    */
   createEntity() {
     this.helperService.createDialog(CreateEntityComponent, {disableClose: true});
+  }
+
+  confirmationModal(entityId: number) {
+    debugger
+    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === 'YES') {
+        this.deleteEntity(entityId);
+      }
+    })
   }
 
   /**
@@ -188,7 +199,8 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     }
   }
 
-  deleteEntity(data:any){
-
+  deleteEntity(entityId: any) {
+    this.adminServices.deleteEntity(entityId).subscribe(res => {
+    })
   }
 }
