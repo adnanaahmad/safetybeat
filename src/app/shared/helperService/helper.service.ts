@@ -100,7 +100,8 @@ export class HelperService {
   }
 
   requestCall(method, api, data?: any) {
-    var response;
+    debugger
+    let response;
     switch (method) {
       case this.constants.apiMethod.post:
         response = this.http.post(api, data).pipe(catchError(this.handleError));
@@ -112,7 +113,7 @@ export class HelperService {
         response = this.http.put(api, data).pipe(catchError(this.handleError));
         break;
       case this.constants.apiMethod.delete:
-        response = this.http.delete(api, data).pipe(catchError(this.handleError));
+        response = this.http.delete(api).pipe(catchError(this.handleError));
         break;
       default:
         break;

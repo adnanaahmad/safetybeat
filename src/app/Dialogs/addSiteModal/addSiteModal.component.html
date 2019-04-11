@@ -35,7 +35,7 @@
       <div #gmap style="width:100%;height:250px"></div>
       <mat-slide-toggle formControlName="{{ addSiteModel.appConstants.safeZone }}">
         Safe Zone
-    </mat-slide-toggle>
+      </mat-slide-toggle>
     </div>
     <mat-dialog-actions>
       <button
@@ -44,7 +44,7 @@
         custom-btn
         btn-primary
         [disabled]="addSiteModel.loading"
-        color="primary" >
+        color="primary">
         {{ addSiteModel.translated.BUTTONS.ADD_SITE }}
       </button>
       <img *ngIf="addSiteModel.loading" [src]=addSiteModel.translated.MESSAGES.LOADING_URL />

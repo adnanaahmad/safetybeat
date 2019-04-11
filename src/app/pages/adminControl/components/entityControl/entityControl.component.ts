@@ -9,17 +9,18 @@ import {
   MatDialogConfig,
   MatDialog,
   MatTableDataSource,
-  MatPaginator, MatDialogRef
+  MatPaginator
 } from '@angular/material';
-import {CreateEntityComponent} from 'src/app/Dialogs/createEntityModal/createEntity.component';
-import {JoinEntityModalComponent} from 'src/app/Dialogs/joinEntityModal/joinEntityModal.component';
+import {CreateEntityComponent} from '../../../../Dialogs/createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from '../../../../Dialogs/joinEntityModal/joinEntityModal.component';
 import {AdminControlService} from '../../services/adminControl.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AlertModalComponent} from 'src/app/Dialogs/entityCodeModal/entityCodeModal.component';
-import {InviteTeamModalComponent} from 'src/app/pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
+import {AlertModalComponent} from '../../../../Dialogs/entityCodeModal/entityCodeModal.component';
+import {InviteTeamModalComponent} from 'src/app/Dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
+import {EntityControl} from '../../../../models/adminControl/entityControl.model';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
@@ -28,26 +29,9 @@ import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/conf
   styleUrls: ['./entityControl.component.scss']
 })
 export class EntityControlComponent implements OnInit, AfterViewInit {
-  entitySelectedRole: string;
-  dialogConfig = new MatDialogConfig();
-  displayedColumns: string[] = [
-    'name',
-    'headOffice',
-    'role',
-    'administrator',
-    'symbol'
-  ];
-  dataSource: any = [];
+
+  entityControl: EntityControl = <EntityControl>{};
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  translated: Translation;
-  appIcons: any;
-  allEntitiesData: any = [];
-  entitiesList: any = [];
-  empty: boolean = false;
-  createEntityOption: boolean = false;
-  joinOption: boolean = false;
-  allUsers: any;
-  allUsersList: any;
 
   constructor(
     public dialog: MatDialog,
@@ -57,17 +41,17 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     private userService: ProfileService
   ) {
     this.initialize();
-    this.translated = this.helperService.translation;
-    this.appIcons = this.helperService.constants.appIcons;
+    this.entityControl.translated = this.helperService.translation;
+    this.entityControl.appIcons = this.helperService.constants.appIcons;
     this.helperService.appLogger(
       this.helperService.constants.status.SUCCESS,
-      this.translated.LOGGER.MESSAGES.ENTITYCONTROL
+      this.entityControl.translated.LOGGER.MESSAGES.ENTITYCONTROL
     );
     this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getUsers();
       } else {
-        this.allUsersList = res;
+        this.entityControl.allUsersList = res;
       }
     });
   }
@@ -79,8 +63,22 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   initialize() {
-    this.empty = false;
-    this.createEntityOption = false;
+    this.entityControl.empty = false;
+    this.entityControl.createEntityOption = false;
+    this.entityControl.dialogConfig = new MatDialogConfig();
+    this.entityControl.dataSource = [];
+    this.entityControl.allEntitiesData = [];
+    this.entityControl.entitiesList = [];
+    this.entityControl.empty = false;
+    this.entityControl.createEntityOption = false;
+    this.entityControl.joinOption = false;
+    this.entityControl.displayedColumns = [
+      'name',
+      'headOffice',
+      'role',
+      'administrator',
+      'symbol'
+    ];
   }
 
   ngAfterViewInit() {
@@ -90,13 +88,16 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    * this funnction is used to create Create Entity Dialog
    */
   createEntity() {
-    this.helperService.createDialog(CreateEntityComponent)
+    this.helperService.createDialog(CreateEntityComponent, {disableClose: true});
   }
 
-  confirmationModal() {
+  confirmationModal(entityId: number) {
+    debugger
     this.helperService.createDialog(ConfirmationModalComponent);
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      console.log(res)
+      if (res === 'YES') {
+        this.deleteEntity(entityId);
+      }
     })
   }
 
@@ -104,7 +105,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    * this function is used to create Join Entity Dialog
    */
   joinEntity() {
-    this.helperService.createDialog(JoinEntityModalComponent)
+    this.helperService.createDialog(JoinEntityModalComponent, {disableClose: true});
   }
 
   /**
@@ -120,20 +121,20 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    * this function is used to show all the existing entities
    */
   viewAllEntities() {
-    this.empty = true;
+    this.entityControl.empty = true;
     let data = {
       moduleName: 'Safetybeat'
     };
     this.navService.data.subscribe(
       res => {
-        this.entitiesList = res;
-        this.allEntitiesData = this.entitiesList.entities;
-        this.empty = false;
-        this.dataSource = new MatTableDataSource(this.allEntitiesData);
-        this.dataSource.paginator = this.paginator;
+        this.entityControl.entitiesList = res;
+        this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;
+        this.entityControl.empty = false;
+        this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
+        this.entityControl.dataSource.paginator = this.paginator;
       },
       error => {
-        this.empty = false;
+        this.entityControl.empty = false;
         this.helperService.logoutError(error.status);
       }
     );
@@ -144,37 +145,37 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    */
   creationEnable() {
     this.navService.currentRole.subscribe(res => {
-      this.entitySelectedRole = res;
-      if (this.entitySelectedRole === 'Owner') {
-        this.createEntityOption = true;
+      this.entityControl.entitySelectedRole = res;
+      if (this.entityControl.entitySelectedRole === 'Owner') {
+        this.entityControl.createEntityOption = true;
       } else {
-        this.createEntityOption = false;
+        this.entityControl.createEntityOption = false;
       }
     });
   }
 
   joinEnable() {
     this.navService.currentRole.subscribe(res => {
-      this.entitySelectedRole = res;
+      this.entityControl.entitySelectedRole = res;
       if (
-        this.entitySelectedRole === 'Owner' ||
-        this.entitySelectedRole === 'TeamLead' ||
-        this.entitySelectedRole === 'EntityManager'
+        this.entityControl.entitySelectedRole === 'Owner' ||
+        this.entityControl.entitySelectedRole === 'TeamLead' ||
+        this.entityControl.entitySelectedRole === 'EntityManager'
       ) {
-        this.joinOption = true;
+        this.entityControl.joinOption = true;
       } else {
-        this.joinOption = false;
+        this.entityControl.joinOption = false;
       }
     });
   }
 
   getUsers() {
-    this.allUsers = this.userService.getAllUsers().pipe(share());
-    this.allUsers.subscribe(
+    this.entityControl.allUsers = this.userService.getAllUsers().pipe(share());
+    this.entityControl.allUsers.subscribe(
       result => {
-        this.empty = true;
-        this.allUsersList = result.data;
-        this.userService.updateUsers(this.allUsersList);
+        this.entityControl.empty = true;
+        this.entityControl.allUsersList = result.data;
+        this.userService.updateUsers(this.entityControl.allUsersList);
       },
       error => {
         this.helperService.logoutError(error.status);
@@ -183,12 +184,23 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   inviteTeam(entityData: any) {
-    let inviteTeamData = {
-      entityData: entityData.entityInfo.code,
-      usersData: this.allUsersList
-    };
-    this.helperService.createDialog(InviteTeamModalComponent, {
-      data: {inviteTeamData}
-    });
+    if (this.entityControl.allUsersList.length !== 0) {
+      let inviteTeamData = {
+        entityData: entityData.entityInfo.code,
+        usersData: this.entityControl.allUsersList
+      };
+      this.helperService.createDialog(InviteTeamModalComponent, {
+        data: {inviteTeamData},
+        disableClose: true
+      });
+    } else {
+      this.helperService.createSnack(this.entityControl.translated.MESSAGES.NOUSER,
+        this.helperService.translation.MESSAGES.NOUSERTITLE, this.helperService.translation.LOGGER.STATUS.ERROR);
+    }
+  }
+
+  deleteEntity(entityId: any) {
+    this.adminServices.deleteEntity(entityId).subscribe(res => {
+    })
   }
 }

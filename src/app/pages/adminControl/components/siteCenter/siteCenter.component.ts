@@ -9,7 +9,7 @@ import {
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AddSiteModalComponent} from 'src/app/pages/adminControl/components/addSiteModal/addSiteModal.component';
+import {AddSiteModalComponent} from 'src/app/Dialogs/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
 

@@ -17,5 +17,6 @@ export interface CreateEntity {
   roleId: number;
   entites: any;
   displaySubmitButton: boolean;
+  loading: boolean;
 }
 

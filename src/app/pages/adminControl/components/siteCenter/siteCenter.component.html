@@ -1,5 +1,5 @@
 <div class="paddingbox">
-    <mat-progress-bar mode="indeterminate" *ngIf='!siteCentreModel.empty'></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf='!siteCentreModel.empty'></mat-progress-bar>
   <div class="page-title">
     <h3>{{ siteCentreModel.translated.SITETITLE.SITE_CENTRE }}</h3>
     <p>{{ siteCentreModel.translated.SITETITLE.SITE_CENTRE_DESCRIPTION }}</p>
@@ -55,16 +55,20 @@
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>
-            <mat-icon>{{ siteCentreModel.appIcons.edit }}</mat-icon>Edit Site
+            <mat-icon>{{ siteCentreModel.appIcons.edit }}</mat-icon>
+            Edit Site
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ siteCentreModel.appIcons.viewSite }}</mat-icon>View Site
+            <mat-icon>{{ siteCentreModel.appIcons.viewSite }}</mat-icon>
+            View Site
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ siteCentreModel.appIcons.siteQuestionCenter }}</mat-icon>Site Question Control
+            <mat-icon>{{ siteCentreModel.appIcons.siteQuestionCenter }}</mat-icon>
+            Site Question Control
           </button>
           <button mat-menu-item>
-            <mat-icon>{{ siteCentreModel.appIcons.log }}</mat-icon>Log
+            <mat-icon>{{ siteCentreModel.appIcons.log }}</mat-icon>
+            Log
           </button>
         </mat-menu>
       </td>
