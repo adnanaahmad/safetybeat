@@ -178,7 +178,9 @@
     "SITE_NAME": "Enter Site Name",
     "NO_RECORD_AVAILABLE": "No Record Available",
     "NOUSER":"No user found. Please invite users first",
-    "NOUSERTITLE": "No user found to invite for team"
+    "NOUSERTITLE": "No user found to invite for team",
+    "IMPORTSITE_MSG": "Site Import",
+    "CSVIMPORT_MSG":"Select CSV file to import Sites"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
