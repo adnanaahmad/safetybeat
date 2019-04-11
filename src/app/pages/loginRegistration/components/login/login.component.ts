@@ -52,7 +52,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
     this.formErrorMatcher = new FormErrorHandler();
   }
-
+  createSampleToast(){
+    this.helperService.createSnack(this.translated.MESSAGES.LOGIN_SUCCESS,
+      this.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+  }
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
