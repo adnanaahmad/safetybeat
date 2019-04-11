@@ -13,42 +13,42 @@
               [ngClass]="settingFeatures.general ? 'settingNav' : 'abc'"
               (click)="changeSetting('general')"
               ngClass="settingFeatures.general"
-              ><mat-icon>settings</mat-icon> General</span
+            ><mat-icon>settings</mat-icon> General</span
             >
           </mat-list-item>
           <mat-list-item role="listitem">
             <span
               [ngClass]="settingFeatures.security ? 'settingNav' : 'abc'"
               (click)="changeSetting('security')"
-              ><mat-icon>security</mat-icon> Security</span
+            ><mat-icon>security</mat-icon> Security</span
             >
           </mat-list-item>
           <mat-list-item role="listitem">
             <span
               [ngClass]="settingFeatures.organization ? 'settingNav' : 'abc'"
               (click)="changeSetting('organization')"
-              ><mat-icon>business</mat-icon>Organization Info</span
+            ><mat-icon>business</mat-icon>Organization Info</span
             >
           </mat-list-item>
           <mat-list-item role="listitem">
             <span
               [ngClass]="settingFeatures.group ? 'settingNav' : 'abc'"
               (click)="changeSetting('group')"
-              ><mat-icon>group_add</mat-icon> Create Group</span
+            ><mat-icon>group_add</mat-icon> Create Group</span
             >
           </mat-list-item>
           <mat-list-item role="listitem">
             <span
               [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'"
               (click)="changeSetting('entity')"
-              ><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span
+            ><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span
             >
           </mat-list-item>
           <mat-list-item role="listitem">
             <span
               [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'"
               (click)="changeSetting('theme')"
-              ><mat-icon>brightness_medium</mat-icon> Theme Settings</span
+            ><mat-icon>brightness_medium</mat-icon> Theme Settings</span
             >
           </mat-list-item>
         </mat-list>
@@ -77,15 +77,15 @@
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>City</label>
-              <input type="text" class="showonly" placeholder="Lahore" />
+              <input type="text" class="showonly" placeholder="Lahore"/>
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Country</label>
-              <input type="text" class="showonly" placeholder="Pakistan" />
+              <input type="text" class="showonly" placeholder="Pakistan"/>
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Contact Number</label>
-              <input type="text" class="showonly" placeholder="+923157118511" />
+              <input type="text" class="showonly" placeholder="+923157118511"/>
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Billing info</label>
@@ -126,7 +126,7 @@
           <mat-list role="list" class="settings-list">
             <mat-list-item role="listitem">
               <label>Change Password</label>
-              <input type="text" class="showonly" placeholder="******" />
+              <input type="text" class="showonly" placeholder="******"/>
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Confirm Password</label>
@@ -154,7 +154,7 @@
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Contact Number</label>
-              <input type="text" class="showonly" placeholder="+923157118511" />
+              <input type="text" class="showonly" placeholder="+923157118511"/>
             </mat-list-item>
           </mat-list>
           <div class="btn-grp">
@@ -187,7 +187,7 @@
           <mat-list role="list" class="settings-list">
             <mat-list-item role="listitem">
               <label>Change Password</label>
-              <input type="text" class="showonly" placeholder="******" />
+              <input type="text" class="showonly" placeholder="******"/>
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Confirm Password</label>
@@ -215,7 +215,7 @@
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Contact Number</label>
-              <input type="text" class="showonly" placeholder="+923157118511" />
+              <input type="text" class="showonly" placeholder="+923157118511"/>
             </mat-list-item>
           </mat-list>
           <div class="btn-grp">
@@ -248,7 +248,7 @@
           <mat-list role="list" class="settings-list">
             <mat-list-item role="listitem">
               <label>Change Password</label>
-              <input type="text" class="showonly" placeholder="******" />
+              <input type="text" class="showonly" placeholder="******"/>
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Confirm Password</label>
@@ -276,7 +276,7 @@
             </mat-list-item>
             <mat-list-item role="listitem">
               <label>Contact Number</label>
-              <input type="text" class="showonly" placeholder="+923157118511" />
+              <input type="text" class="showonly" placeholder="+923157118511"/>
             </mat-list-item>
           </mat-list>
           <div class="btn-grp">
@@ -302,8 +302,8 @@
           </div>
         </div>
 
-      <!--Privacy Settings-->
-      <div *ngIf="settingFeatures.entity">
+        <!--Privacy Settings-->
+        <div *ngIf="settingFeatures.entity">
           <h3 class="setting-title">Entity Setting</h3>
           <p>Choose Entity setting for your account</p>
           <div class="text-right paddingbox">
@@ -313,7 +313,8 @@
               color="primary"
               (click)="editEntity()"
             >
-              <mat-icon>edit</mat-icon>Edit Entity
+              <mat-icon>edit</mat-icon>
+              Edit Entity
             </button>
           </div>
           <form
@@ -354,7 +355,7 @@
               <div class="form-group">
                 <mat-list-item role="listitem">
                   <label
-                    >{{ translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
+                  >{{ translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
                   </label>
                   <input
                     matInput
@@ -384,7 +385,7 @@
               </button>
             </div>
           </form>
-      </div>
+        </div>
 
         <!--Change Theme-->
         <div *ngIf="settingFeatures.theme">
@@ -395,16 +396,16 @@
               <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
                 <mat-radio-button value="{{ appTheme.lightTheme }}">{{
                   translated.STRINGS.LIGHTDEFAULT
-                }}</mat-radio-button>
+                  }}</mat-radio-button>
                 <mat-radio-button value="{{ appTheme.darkTheme }}">{{
                   translated.STRINGS.EVILDARK
-                }}</mat-radio-button>
+                  }}</mat-radio-button>
                 <mat-radio-button value="{{ appTheme.oliveLight }}">{{
                   translated.STRINGS.OLIVEGREEN
-                }}</mat-radio-button>
+                  }}</mat-radio-button>
                 <mat-radio-button value="{{ appTheme.darkForest }}">{{
                   translated.STRINGS.DARKFOREST
-                }}</mat-radio-button>
+                  }}</mat-radio-button>
               </mat-radio-group>
             </mat-list-item>
           </mat-list>
