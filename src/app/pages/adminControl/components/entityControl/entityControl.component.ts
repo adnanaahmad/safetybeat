@@ -1,26 +1,14 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  AfterViewInit
-} from '@angular/core';
-import {Translation} from 'src/app/models/translate.model';
-import {
-  MatDialogConfig,
-  MatDialog,
-  MatTableDataSource,
-  MatPaginator
-} from '@angular/material';
-import {CreateEntityComponent} from '../../../../Dialogs/createEntityModal/createEntity.component';
-import {JoinEntityModalComponent} from '../../../../Dialogs/joinEntityModal/joinEntityModal.component';
-import {AdminControlService} from '../../services/adminControl.service';
+import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
+import {CreateEntityComponent} from 'src/app/Dialogs/createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from 'src/app//Dialogs/joinEntityModal/joinEntityModal.component';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AlertModalComponent} from '../../../../Dialogs/entityCodeModal/entityCodeModal.component';
+import {AlertModalComponent} from 'src/app/Dialogs/entityCodeModal/entityCodeModal.component';
 import {InviteTeamModalComponent} from 'src/app/Dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
-import {EntityControl} from '../../../../models/adminControl/entityControl.model';
+import {EntityControl} from 'src/app//models/adminControl/entityControl.model';
 
 @Component({
   selector: 'app-entityControl',
@@ -34,17 +22,14 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialog: MatDialog,
-    public adminServices: AdminControlService,
     public helperService: HelperService,
     private navService: NavigationService,
     private userService: ProfileService
   ) {
     this.initialize();
-    this.entityControl.translated = this.helperService.translated;
-    this.entityControl.appIcons = this.helperService.constants.appIcons;
     this.helperService.appLogger(
       this.helperService.constants.status.SUCCESS,
-      this.entityControl.translated.LOGGER.MESSAGES.ENTITYCONTROL
+      this.helperService.translated.LOGGER.MESSAGES.ENTITYCONTROL
     );
     this.userService.usersData.subscribe(res => {
       if (res === 1) {
@@ -135,7 +120,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   creationEnable() {
     this.navService.currentRole.subscribe(res => {
       this.entityControl.entitySelectedRole = res;
-      if (this.entityControl.entitySelectedRole === 'Owner') {
+      if (this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.owner) {
         this.entityControl.createEntityOption = true;
       } else {
         this.entityControl.createEntityOption = false;
@@ -147,9 +132,9 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.navService.currentRole.subscribe(res => {
       this.entityControl.entitySelectedRole = res;
       if (
-        this.entityControl.entitySelectedRole === 'Owner' ||
-        this.entityControl.entitySelectedRole === 'TeamLead' ||
-        this.entityControl.entitySelectedRole === 'EntityManager'
+        this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.owner ||
+        this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
+        this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.entityManager
       ) {
         this.entityControl.joinOption = true;
       } else {
@@ -183,7 +168,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
         disableClose: true
       });
     } else {
-      this.helperService.createSnack(this.entityControl.translated.MESSAGES.NOUSER,
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.NOUSER,
         this.helperService.translated.MESSAGES.NOUSERTITLE, this.helperService.translated.LOGGER.STATUS.ERROR);
     }
   }

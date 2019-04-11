@@ -25,6 +25,7 @@ export class HelperService {
   translated: Translation;
   constants: typeof ConstantService;
   displayButton: boolean = false;
+  address: string = '';
 
   constructor(
     private http: HttpClient,
@@ -42,6 +43,7 @@ export class HelperService {
     this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
+    this.address = '';
   }
 
   static getPhoneNumberUtil() {
@@ -191,24 +193,17 @@ export class HelperService {
   /**
    * Set map location according to address in organization form
    */
-  setAddress(addrObj, gMapElement: ElementRef, formControl, address) {
+  setAddress(addrObj, gMapElement: ElementRef, formControl) {
     let onSelect: boolean = false;
     this.displayButton = true;
     if (!this.isEmpty(addrObj)) {
-      address = addrObj.formatted_address;
+      this.address = addrObj.formatted_address;
       onSelect = true;
     } else {
-      address = formControl.value;
+      this.address = formControl.value;
     }
-    this.setMap({address: address, onSelect: onSelect, gMapElement: gMapElement, formControl: formControl});
-  }
-
-  /**
-   * Set map location according to address in organization form
-   */
-  setMap({address, onSelect, gMapElement, formControl}: { address: any, onSelect: boolean, gMapElement: ElementRef, formControl }) {
     this.displayButton = onSelect;
-    this.setLocationGeocode(address, this.createMap(gMapElement)).then(res => {
+    this.setLocationGeocode(this.address, this.createMap(gMapElement)).then(res => {
       this.displayButton = true;
       return formControl.setErrors(null);
     }).catch(err => {

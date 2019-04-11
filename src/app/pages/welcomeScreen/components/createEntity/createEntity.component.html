@@ -29,7 +29,7 @@
           <mat-form-field full-width>
             <input matInput type="text" [placeholder]="helperService.translated.MESSAGES.HEADOFFICE_LOCATION"
                    appGooglePlaces
-                   (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice,createEntityObj.address)"
+                   (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice)"
                    (keyup)="helperService.setFalse($event)"
                    [formControlName]="helperService.appConstants.headOffice" required/>
             <mat-error *ngIf="formValidation.headOffice.errors">

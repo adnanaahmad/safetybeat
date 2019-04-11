@@ -103,12 +103,17 @@ export class ConstantService {
     linearForm: 'true',
     enterKey: 13,
     emailValid: 'VALID',
+    codeValidations: [100, 101, 102, 103, 104],
     paths: {
       home: '/home',
       login: '/login',
       welcomeScreen: '/welcomeScreen'
     },
-    codeValidations: [100, 101, 102, 103, 104],
+    roles: {
+      owner: 'Owner',
+      teamLead: 'TeamLead',
+      entityManager: 'EntityManager'
+    }
   };
   static appIcons = {
     skipNext: 'skip_next',

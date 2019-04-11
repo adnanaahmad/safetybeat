@@ -155,7 +155,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerObj.loading = true;
     this.registerObj.organizationData = {
       'name': orgForm.name,
-      'address': this.registerObj.address,
+      'address': this.helperService.address,
       'billingEmail': JSON.parse(this.registerObj.userEmail.data),
       'accountNo': '12344532',
       'phoneNo': '+' + this.userDetailForm.countryCode + this.userDetailForm.contactNo,

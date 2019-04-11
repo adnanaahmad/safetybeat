@@ -5,7 +5,6 @@ export interface RegistrationComp {
   organizationForm: FormGroup;
   organizationTypeForm: FormGroup;
   email: FormGroup;
-  address: string;
   organizationData: any;
   registrationData: any;
   userEmail: any;

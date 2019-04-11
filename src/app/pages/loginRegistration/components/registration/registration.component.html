@@ -39,7 +39,7 @@
                        [formControlName]="helperService.appConstants.lastName" required/>
                 <mat-error *ngIf="userDetailForm.last_name.errors">
                   <span *ngIf="userDetailForm.last_name.errors.required">{{
-                    helperService. translated.AUTH.LASTNAME_REQ
+                    helperService.translated.AUTH.LASTNAME_REQ
                     }}</span>
                 </mat-error>
               </mat-form-field>
@@ -58,7 +58,8 @@
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Phone Number"
                        [errorStateMatcher]="registerObj.formErrorMatcher"
-                       [formControlName]="helperService.appConstants.contactNo" (keypress)="numberOnly($event)" onPaste="return false"
+                       [formControlName]="helperService.appConstants.contactNo" (keypress)="numberOnly($event)"
+                       onPaste="return false"
                        autocomplete="off"/>
                 <mat-error *ngIf="userDetailForm.contactNo.errors">
                   <span
@@ -129,11 +130,12 @@
               <mat-form-field full-width>
                 <input matInput appGooglePlaces type="text" [placeholder]="helperService.translated.AUTH.ADDRESS"
                        [formControlName]="helperService.appConstants.address"
-                       (onSelect)="helperService.setAddress($event,gMapElement,orgForm.address,registerObj.address)"
+                       (onSelect)="helperService.setAddress($event,gMapElement,orgForm.address)"
                        (keyup)="helperService.setFalse($event)" required/>
                 <mat-error *ngIf="orgForm.address.errors">
                   <span *ngIf="orgForm.address.errors.required">{{helperService.translated.AUTH.ADDRESS}}</span>
-                  <span *ngIf="orgForm.address.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
+                  <span
+                    *ngIf="orgForm.address.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -145,7 +147,7 @@
                 {{helperService.translated.BUTTONS.BACK}}
               </button>
               <button matStepperNext mat-raised-button
-                      (click)="helperService.setAddress({},gMapElement,orgForm.address,registerObj.address)"
+                      (click)="helperService.setAddress({},gMapElement,orgForm.address)"
                       [disabled]="!helperService.displayButton"
                       custom-btn btn-primary color="primary">
                 {{helperService.translated.BUTTONS.NEXT}}
