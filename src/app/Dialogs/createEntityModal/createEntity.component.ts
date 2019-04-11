@@ -7,7 +7,7 @@ import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import { CreateEntity } from 'src/app/models/adminControl/createEntity.model';
+import {CreateEntity} from 'src/app/models/adminControl/createEntity.model';
 
 @Component({
   selector: 'app-createEntity',
@@ -17,6 +17,7 @@ import { CreateEntity } from 'src/app/models/adminControl/createEntity.model';
 export class CreateEntityComponent implements OnInit, AfterViewInit {
   createEntity: CreateEntity = <CreateEntity>{}
   @ViewChild('gmap') gmapElement: ElementRef;
+
   constructor(
     public formBuilder: FormBuilder,
     private zone: NgZone,
