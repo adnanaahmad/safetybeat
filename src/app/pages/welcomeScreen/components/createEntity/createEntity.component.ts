@@ -1,7 +1,7 @@
 import {Component, OnInit, NgZone, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {entityData} from '../../../../models/entity.model';
-import {AdminControlService} from '../../../adminControl/services/adminControl.service';
+import {entityData} from 'src/app/models/entity.model';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
