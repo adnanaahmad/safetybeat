@@ -16,7 +16,6 @@ export class FixedNavComponent implements OnInit {
   @Output() switchNavListDefault = new EventEmitter();
   @Input() public selectedEntity;
   translated: Translation;
-  expanded: boolean;
   appIcons: any;
   public navLinks: NavItem[] = [];
   public defaultNavLinks: NavItem[] = [
@@ -49,13 +48,11 @@ export class FixedNavComponent implements OnInit {
     }
   ];
   entitiesList: any;
-  allEntitiesData: any;
-  joinEntityData: { moduleName: string };
 
   constructor(
     public helperService: HelperService,
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.appIcons = this.helperService.constants.appIcons;
     this.navLinks = this.defaultNavLinks;
   }

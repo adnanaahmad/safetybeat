@@ -31,7 +31,7 @@ export class NavListComponent implements OnInit {
     private compiler: CompilerProvider,
     public helperService: HelperService,
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.getRoles()
   }
 

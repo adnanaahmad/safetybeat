@@ -8,7 +8,6 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ng6-toastr-notifications';
 import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import { DebugElement } from '@angular/core';
 import { NotifierModule } from 'angular-notifier';
@@ -37,7 +36,6 @@ describe('LoginComponent', () => {
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
-        ToastrModule.forRoot(),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

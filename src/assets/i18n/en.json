@@ -64,7 +64,6 @@
     "REMOVE": "Remove",
     "SITEADDRESS": "Site Address",
     "SITESAFETYPLAN": "Site Safety Plan"
-
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -144,6 +143,7 @@
     "NOT_REGISTETRED": "Email/Username is not registered",
     "INVALID_PASSWORD": "Invalid Password",
     "EMAIL_NOT_REGISTERED": "This email is not registered, add a valid email",
+    "INVALID_EMAIL": "Invalid email entered",
     "CHANGEPASSWORD_FAIL": "Change Password Unsuccessful!",
     "CHANGEPASSWORD_SUCCESS": "Change password successful!",
     "PROFIILE_INFO": "Profile Info",
@@ -174,11 +174,19 @@
     "INVITETEAMTITLE": "Invite Team",
     "INVITETEAMPLACEHOLDER": "Type user names to invite",
     "INVALIDADDRESS": "Invalid address",
-    "ADDSITE_MSG":"Enter Site Details to Add Site",
+    "ADDSITE_MSG": "Enter Site Details to Add Site",
     "SITE_NAME": "Enter Site Name",
     "NO_RECORD_AVAILABLE": "No Record Available",
+    "NOUSER": "No user found. Please invite users first",
+    "NOUSERTITLE": "No user found to invite for team",
     "IMPORTSITE_MSG": "Site Import",
-    "CSVIMPORT_MSG":"Select CSV file to import Sites"
+    "CSVIMPORT_MSG": "Select CSV file to import Sites",
+    "SITE_CREATED": "Site has been created successfully",
+    "SITE_FAILED": "Site Creation Failed",
+    "INVITE_SUCCESS": "User has been successfully Invited.",
+    "INVITE_FAILURE": "Error inviting user.",
+    "SAFETY_PLAN_REQ": "Site safety plan is required",
+    "SITE_NAME_REQ": "Site name is required"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -207,10 +215,10 @@
     "DATE_TIME": "Date/Time",
     "TIMEZONE": "Time Zone",
     "ADMINISTRATED_BY": "Administrated By",
-    "SITE_NAME":"Site Name",
-    "SITE_ADDRESS":"Site Location",
-    "SITE_SAFE_ZONE":"Safe Zone",
-    "SITE_CREATED_BY":"Created By"
+    "SITE_NAME": "Site Name",
+    "SITE_ADDRESS": "Site Location",
+    "SITE_SAFE_ZONE": "Safe Zone",
+    "SITE_CREATED_BY": "Created By"
   },
   "LOGGER": {
     "STATUS": {

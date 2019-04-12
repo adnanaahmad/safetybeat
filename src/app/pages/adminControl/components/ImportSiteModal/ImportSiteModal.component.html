@@ -17,7 +17,7 @@
       color="primary">
       {{ importSiteModal.translated.BUTTONS.IMPORT_SITE }}
     </button>
-    <img *ngIf="importSiteModal.loading" [src]=importSiteModal.translated.MESSAGES.LOADING_URL />
+    <img *ngIf="importSiteModal.loading" [src]="importSiteModal.translated.MESSAGES.LOADING_URL" />
     <button mat-button mat-dialog-close>
       {{ importSiteModal.translated.BUTTONS.CANCEL }}
     </button>

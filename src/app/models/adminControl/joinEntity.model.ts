@@ -1,8 +1,8 @@
-import {Translation} from '../translate.model';
+import {FormGroup} from '@angular/forms';
 
 export interface JoinEntity {
-  translated: Translation;
-  appConstants: any;
+  joinEntityForm: FormGroup;
   joinEntityData: any;
   entityResponse: any;
+  entities: any;
 }

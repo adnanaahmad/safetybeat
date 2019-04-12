@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {ForgotPasswordComp} from 'src/app/models/loginRegistration/forgotPassword.model';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
@@ -19,10 +19,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     public helperService: HelperService,
   ) {
-    this.forgotPassObj.translated = this.helperService.translation;
-    this.forgotPassObj.appConstants = this.helperService.constants.appConstant;
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-      this.forgotPassObj.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
+      this.helperService.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
     this.forgotPassObj.formErrorMatcher = new FormErrorHandler();
   }
 
@@ -44,14 +42,16 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.forgotPassObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
     });
-    if (this.forgotPassObj.email.status === 'VALID') {
+    if (this.forgotPassObj.email.status === this.helperService.appConstants.emailValid) {
       const email = {email: group.value.email};
       this.forgotService.checkEmail(email).pipe().subscribe((res) => {
         this.forgotPassObj.success = res;
-        if (this.forgotPassObj.success.responseDetails.code === '0021') {
+        if (this.forgotPassObj.success.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           group.controls.email.setErrors({exists: true});
         }
       });
+    } else {
+      group.controls.email.setErrors({invalid: true});
     }
   }
 
@@ -69,7 +69,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   onSubmit({value, valid}: { value: ForgotPassword; valid: boolean }): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.forgotPassObj.translated.LOGGER.MESSAGES.FORGOT_REQ);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.LOGGER.MESSAGES.FORGOT_REQ);
       return;
     }
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
@@ -77,19 +77,19 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.forgotService.forgotPassword(value).subscribe(
       data => {
         let res = data;
-        if (res.responseDetails.code !== '0005') {
-          this.helperService.createSnack(this.forgotPassObj.translated.MESSAGES.RESET_SUCCESS,
-            this.forgotPassObj.translated.MESSAGES.RESETMSG, this.helperService.constants.status.SUCCESS);
+        if (res.responseDetails.code !== this.helperService.appConstants.codeValidations[1]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS,
+            this.helperService.translated.MESSAGES.RESETMSG, this.helperService.constants.status.SUCCESS);
           this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-            this.forgotPassObj.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
-          this.helperService.navigateTo(['/login']);
+            this.helperService.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
+          this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
         }
       },
       error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
-          `${this.forgotPassObj.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        this.helperService.createSnack(this.forgotPassObj.translated.MESSAGES.RESET_SUCCESS,
-          this.forgotPassObj.translated.MESSAGES.RESETMSG, this.helperService.constants.status.ERROR);
+          `${this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS,
+          this.helperService.translated.MESSAGES.RESETMSG, this.helperService.constants.status.ERROR);
 
       }
     );

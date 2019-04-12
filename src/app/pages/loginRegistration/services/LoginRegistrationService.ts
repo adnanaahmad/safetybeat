@@ -14,9 +14,6 @@ import {resetPassword} from 'src/app/models/profile.model';
 @Injectable({providedIn: 'root'})
 export class LoginRegistrationService {
   storageKey: string;
-  selected = true;
-  reset_success: string;
-  reset_msg: string;
   private userData = new BehaviorSubject<any>(1);
   profileData = this.userData.asObservable();
   apiRoutes: any;

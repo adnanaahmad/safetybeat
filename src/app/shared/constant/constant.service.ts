@@ -77,7 +77,7 @@ export class ConstantService {
     password: 'password',
     firstName: 'first_name',
     lastName: 'last_name',
-    mobileNo: 'mobile_no',
+    countryCode: 'countryCode',
     password1: 'password1',
     password2: 'password2',
     name: 'name',
@@ -101,7 +101,20 @@ export class ConstantService {
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
     linearForm: 'true',
-    enterKey: 13
+    enterKey: 13,
+    emailValid: 'VALID',
+    yes: 'YES',
+    codeValidations: [100, 101, 102, 103, 104],
+    paths: {
+      home: '/home',
+      login: '/login',
+      welcomeScreen: '/welcomeScreen'
+    },
+    roles: {
+      owner: 'Owner',
+      teamLead: 'TeamLead',
+      entityManager: 'EntityManager'
+    }
   };
   static appIcons = {
     skipNext: 'skip_next',
@@ -158,7 +171,8 @@ export class ConstantService {
     viewSite: 'remove_red_eye',
     siteQuestionCenter: 'question_answer',
     log: 'library_books',
-    import: 'play_for_work'
+    import: 'play_for_work',
+    deleteSweep: 'delete_sweep'
   };
   static particlesIcons = [
     'more_vert',

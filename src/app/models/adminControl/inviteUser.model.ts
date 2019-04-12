@@ -1,6 +1,16 @@
-import {responseDetails} from './user.model';
+import {responseDetails} from '../user.model';
+import {FormGroup} from '@angular/forms';
 
-export interface inviteUser {
+export interface InviteUser {
+  inviteUserForm: FormGroup;
+  email: FormGroup;
+  success: any;
+  roleList: any;
+  InviteUserData: any;
+  entityID: any;
+}
+
+export interface inviteUserData {
   first_name: string;
   last_name: string;
   email: string;

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 export interface PeriodicElement {
@@ -63,9 +62,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class MemberCenterComponent implements OnInit {
 
   constructor(public helperService: HelperService) {
-    this.translated = this.helperService.translation;
   }
-  translated: Translation;
 
   displayedColumns: string[] = [
     'photos',
