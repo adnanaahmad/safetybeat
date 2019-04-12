@@ -1,7 +1,6 @@
-<div class="paddingbox midbox theme-selector">
+<div class="theme-selector">
 <mat-toolbar class="pagehead">
   <div class="user-avatar">
-    <span class="change-avatar" ng-click="changeAvatarModal()">Change Avatar</span>
     <img src="../../../../../assets/images/useravatar.jpg" />
   </div>
   <div class="user-info">
@@ -10,13 +9,13 @@
     </h3>
     <p>Production Manager - <strong>TheCompany</strong></p>
   </div>
-  <button btn-primary mat-raised-button color="primary" (click)="editAccount()">
-    <mat-icon>edit</mat-icon>{{ translated.BUTTONS.EDIT_ACCOUNT }}
+  <button routerLink="/settings" btn-primary mat-raised-button color="primary" (click)="editAccount()">
+    <mat-icon>settings</mat-icon>
   </button>
 </mat-toolbar>
-<div class="grid-container">
+<!-- <div class="grid-container">
   <mat-grid-list cols="2">
-    <mat-grid-tile>
+    <mat-grid-tile rowspan="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title class="infoTitle">About you</mat-card-title>
@@ -81,5 +80,29 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-</div>
+</div> -->
+<mat-grid-list cols="4" rowHeight="100px">
+  <mat-grid-tile colspan="2" rowspan="2">
+    <mat-card class="dashboard-card">
+      <mat-card-header class="infoTitle">
+        <mat-card-title>Activities</mat-card-title>
+        <div class="filter-results">
+          <label>Filter:</label>
+          <mat-form-field>
+            <mat-label>Favorite food</mat-label>
+            <mat-select>
+              <mat-option>Last 7 days</mat-option>
+              <mat-option>Last 30 days</mat-option>
+              <mat-option>Last 3 months</mat-option>
+              <mat-option>Last year</mat-option>
+              <mat-option>All time</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2"> some stuff </mat-grid-tile>
+  <mat-grid-tile colspan="2"> some stuff </mat-grid-tile>
+</mat-grid-list>
 </div>

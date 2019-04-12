@@ -151,19 +151,19 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * this function ..
    */
-  editAccount() {
-    this.disabled = true;
-    this.profileForm.enable();
-  }
+  // editAccount() {
+  //   this.disabled = true;
+  //   this.profileForm.enable();
+  // }
 
-  /**
-   * this function ..
-   */
-  cancelEditAccount() {
-    this.disabled = false;
-    this.profileForm.disable();
-    this.userData = this.getUserData();
-  }
+  // /**
+  //  * this function ..
+  //  */
+  // cancelEditAccount() {
+  //   this.disabled = false;
+  //   this.profileForm.disable();
+  //   this.userData = this.getUserData();
+  // }
 
   onLeaves() {
     this.profileFeatures.leaves = true;

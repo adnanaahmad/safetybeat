@@ -246,11 +246,6 @@ $theme: createTheme($primary, $secondary, $warn);
       color: #fff !important;
     }
   }
-  .infoTitle {
-    &:before {
-      background: #fff;
-    }
-  }
   .midbox:before {
     background-color: mat-color($warn);
   }

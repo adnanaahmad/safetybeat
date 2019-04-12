@@ -138,11 +138,6 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       color: #fff !important;
     }
   }
-  .infoTitle {
-    &:before {
-      background: mat-color($primary);
-    }
-  }
   .midbox:before {
     background-color: mat-color($warn);
   }
