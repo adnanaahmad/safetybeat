@@ -1,13 +1,13 @@
-import {Translation} from '../translate.model';
-import {Site, SitesInfo} from '../site.model';
+import {SitesInfo} from 'src/app/models/site.model';
+import {FormGroup} from '@angular/forms';
 
 export interface AddSite {
-  translated: Translation;
+  addSiteForm: FormGroup;
   entityData: any;
   entityId: any;
-  appConstants: any;
   addSiteResponse: any;
   sitesList: any;
   sitesData: SitesInfo[];
-  loading:boolean;
+  loading: boolean;
 }
+

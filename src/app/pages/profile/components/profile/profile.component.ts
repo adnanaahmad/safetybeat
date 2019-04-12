@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     public helperService: HelperService,
     private compiler: CompilerProvider
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
       this.translated.LOGGER.STATUS.SUCCESS,
       this.translated.LOGGER.MESSAGES.PROFILE_COMPONENT

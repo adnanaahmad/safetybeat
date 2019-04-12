@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {Translation} from 'src/app/models/translate.model';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {Site, SiteAddData, SitesInfo} from 'src/app/models/site.model';
+import {SiteAddData} from 'src/app/models/site.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
@@ -15,10 +14,8 @@ import {AddSite} from 'src/app/models/adminControl/addSite.model';
   styleUrls: ['./addSiteModal.component.scss']
 })
 export class AddSiteModalComponent implements OnInit, OnDestroy {
-
-
-  addSiteForm: FormGroup;
-  addSiteModel: AddSite = <AddSite>{};
+  @ViewChild('gmap') gMapElement: ElementRef;
+  addSiteObj: AddSite = <AddSite>{};
 
   constructor(
     public helperService: HelperService,
@@ -30,22 +27,21 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     public compiler: CompilerProvider,
   ) {
     this.navService.selectedEntityData.subscribe((res) => {
-      this.addSiteModel.entityData = res;
-      this.addSiteModel.entityId = this.addSiteModel.entityData.entityInfo.id;
+      this.addSiteObj.entityData = res;
+      this.addSiteObj.entityId = this.addSiteObj.entityData.entityInfo.id;
     });
-    this.addSiteModel.translated = this.helperService.translation;
-    this.addSiteModel.appConstants = this.helperService.constants.appConstant;
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
-    this.addSiteModel.loading = false;
+    this.addSiteObj.loading = false;
 
   }
 
   ngOnInit() {
-    this.addSiteForm = this.formBuilder.group({
+    this.helperService.createMap(this.gMapElement);
+    this.addSiteObj.addSiteForm = this.formBuilder.group({
       siteName: ['', Validators.required],
       siteSafetyPlan: ['', Validators.required],
       siteAddress: ['', Validators.required],
-      safeZone: ['', Validators.required]
+      safeZone: false
     });
   }
 
@@ -54,46 +50,44 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.helperService.hideLoggers();
   }
 
-  /**
-   *
-   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  /**
-   * this function  is used to...
-   * @params value
-   */
+  get formValidation() {
+    return this.addSiteObj.addSiteForm.controls;
+  }
+
   addSite({value}: { value: SiteAddData }) {
     let siteData = {
       name: value.siteName,
-      location: value.siteAddress,
+      location: this.helperService.address,
       safeZone: value.safeZone,
       siteSafetyPlan: value.siteSafetyPlan,
-      entity: this.addSiteModel.entityId
+      entity: this.addSiteObj.entityId
     };
     let data = {
-      'entityId': this.addSiteModel.entityId
+      'entityId': this.addSiteObj.entityId
     };
-    this.addSiteModel.loading = true;
+    this.addSiteObj.loading = true;
     this.adminServices.addSite(siteData).subscribe((res) => {
-      this.addSiteModel.addSiteResponse = res;
-      if (this.addSiteModel.addSiteResponse.responseDetails.code === '0038') {
+      this.addSiteObj.addSiteResponse = res;
+      if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.adminServices.viewSites(data).subscribe((res) => {
-          this.addSiteModel.sitesList = res;
-          this.addSiteModel.sitesData = this.compiler.constructSiteData(this.addSiteModel.sitesList);
-          this.adminServices.changeSites(this.addSiteModel.sitesData);
-          this.addSiteModel.loading = false;
+          this.addSiteObj.sitesList = res;
+          this.addSiteObj.sitesData = this.compiler.constructSiteData(this.addSiteObj.sitesList);
+          this.adminServices.changeSites(this.addSiteObj.sitesData);
+          this.addSiteObj.loading = false;
           this.onNoClick();
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, 'Site has been created successfully');
+          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
         });
-      } else if (this.addSiteModel.addSiteResponse.responseDetails.code === '0037') {
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, 'Site Creation Failed')
+      } else if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.addSiteObj.loading = false;
+        this.onNoClick();
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
     });
 
 
   }
-
 }

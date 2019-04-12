@@ -181,6 +181,7 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   }
   app-settings {
     .navigator {
+      background-color: mat-color($primary, 50);
       mat-list-item {
         span {
           &:hover,
@@ -201,32 +202,44 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   app-landing {
     background-color: mat-color($primary-pallet, 50);
     .text-wrapper {
-      background-color: #fff;
-      h1 {
-        span {
-          color: mat-color($primary-pallet, 500);
-        }
-      }
-    }
-    #particle-container {
-      .particle {
-        color: mat-color($primary-pallet, 500);
-      }
+      background-color: mat-color($primary-pallet, 500);
     }
     .top-nav {
       ul {
         li {
           a {
             &.login {
-              border: 1px solid mat-color($primary-pallet, 500);
+              border: 1px solid mat-color($primary-pallet, 50);
               &:hover {
-                background: mat-color($primary-pallet, 500);
+                background: mat-color($primary-pallet, 600);
                 color: #fff;
               }
             }
           }
         }
       }
+    }
+    .dialogue-1 {
+      background: mat-color($primary-pallet, 500);
+    }
+    .features {
+      ul {
+        li {
+          mat-icon {
+            background: mat-color($primary-pallet, 500);
+          }
+        }
+      }
+    }
+  }
+  .section-heading {
+    &:after {
+      background: mat-color($primary-pallet, 500);
+    }
+  }
+  app-toaster {
+    .toast-title {
+      // background: mat-color($primary-pallet, 500);
     }
   }
   @include amte-setTheme($light-theme);

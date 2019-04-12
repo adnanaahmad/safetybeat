@@ -7,10 +7,9 @@
     <li><a class="login" routerLink="/login">Login</a></li>
   </ul>
 </div>
-<img class="backimg" src="/assets/images/wireframe.png" />
 <div class="text-wrapper">
   <div class="content-box">
-    <img class="sb-logo" src="/assets/images/safetybeat-icon-primary.png" />
+    <img class="sb-logo" src="/assets/images/safetybeat-icon.png" />
     <h1>Welcome to <span>SafetyBeat</span></h1>
     <p>
       The only safety app that allows you to easily manage the safety of your
@@ -18,18 +17,113 @@
     </p>
     <form [formGroup]="validateForm" (ngSubmit)="validateUser(validateForm)">
       <mat-form-field>
-          <input matInput type="email" [placeholder]=translated.AUTH.EMAIL formControlName={{appConstants.email}} required
-          (blur)="checkEmail(validateForm)" />
+        <input
+          matInput
+          type="email"
+          [placeholder]="translated.AUTH.EMAIL"
+          formControlName="{{ appConstants.email }}"
+          required
+          (blur)="checkEmail(validateForm)"
+        />
         <mat-error *ngIf="formValidation.email.errors">
-          <span *ngIf="formValidation.email.errors.email">{{translated.AUTH.EMAIL_VALID}}</span>
-          <span *ngIf="formValidation.email.errors.required">{{translated.AUTH.EMAIL_REQ}}</span>
-          <span *ngIf="formValidation.email.errors?.exists">{{translated.AUTH.EMAIL_EXISTS}}</span>
+          <span *ngIf="formValidation.email.errors.email">{{
+            translated.AUTH.EMAIL_VALID
+          }}</span>
+          <span *ngIf="formValidation.email.errors.required">{{
+            translated.AUTH.EMAIL_REQ
+          }}</span>
+          <span *ngIf="formValidation.email.errors?.exists">{{
+            translated.AUTH.EMAIL_EXISTS
+          }}</span>
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="loading" btn-primary custom-btn>get Started</button>
-      <img *ngIf="loading" [src]=translated.MESSAGES.LOADING_URL />
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="loading"
+        btn-primary
+        custom-btn
+      >
+        get Started
+      </button>
+      <img *ngIf="loading" [src]="translated.MESSAGES.LOADING_URL" />
     </form>
     <p class="trial-info">Free 7-day trial. Sign Up now!</p>
   </div>
   <app-particle-container></app-particle-container>
 </div>
+
+<section class="intro">
+  <h1 class="section-heading">All-in-one Safety App for your Company</h1>
+  <p class="section-description">
+    All your safety measures now in one simple app – it now takes seconds to
+    reach out to your workers, know they are safe and know where they are.
+  </p>
+  <img src="/assets/images/intro-phone.png" />
+</section>
+<section class="dialogue-1">
+  <div class="caption-area">
+    <h2>The Safety App for Ensuring Worker Safety</h2>
+    <p>
+      Join companies around the world that use the SafetyBeat app to manage the
+      safety of their workforce in a real-time, more engaging way.
+    </p>
+    <a routerLink="#" mat-raised-button custom-btn btn-white>Learn More</a>
+  </div>
+  <div class="image-area">
+    <img src="/assets/images/dialogue-screens.png" />
+  </div>
+</section>
+<section class="features">
+  <h1 class="section-heading">Maximum Usability</h1>
+  <p class="section-description">
+    All your safety measures now in one simple app – it now takes seconds to
+    reach out to your workers, know they are safe and know where they are.
+  </p>
+  <ul>
+    <li>
+      <mat-icon>security</mat-icon>
+      <h3>Improve worker safety</h3>
+      <p>
+        Lowers Risk & improves compliance - Know where workers are and what they
+        are doing - Very efficient & affordable - Runs on any iPhone or Android
+        smartphone
+      </p>
+    </li>
+    <li role="listitem">
+      <mat-icon>location_city</mat-icon>
+      <h3>Improve site safety</h3>
+      <p>
+        Live data to know exactly who’s on site - Conduct site induction,
+        pre-start checklists and training - Provide hazard alerts - Help manage
+        site evacuation
+      </p>
+    </li>
+    <li role="listitem">
+      <mat-icon>wb_iridescent</mat-icon>
+      <h3>Insights for better decision making</h3>
+      <p>
+        Know exactly where your workers are spending their time - Compare sites,
+        teams, worker types - Know what and where the hazards are - Track
+        compliance, performance and trends
+      </p>
+    </li>
+    <li role="listitem">
+      <mat-icon>developer_board</mat-icon>
+      <h3>Quick and easy access to your dashboards</h3>
+      <p>
+        Dashboard for your team - Web based access from anywhere at anytime -
+        Establish your own rules and process flows for alerts and alarms -
+        Tailor your own documents and checklists
+      </p>
+    </li>
+    <li role="listitem">
+      <mat-icon>record_voice_over</mat-icon>
+      <h3>Worker Tracking for their safety</h3>
+      <p>
+        Know where your workers are - Know who has “Reported-in” as safe, and
+        who hasn’t.
+      </p>
+    </li>
+  </ul>
+</section>

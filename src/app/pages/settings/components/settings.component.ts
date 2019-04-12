@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   appConstants: any;
   appTheme: any;
   entitiesData: any;
-  allEntites: any;
+  allEntities: any;
   settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false};
   disabled: boolean = false;
   entityId: any;
@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     private navService: NavigationService,
     private formBuilder: FormBuilder
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
@@ -56,8 +56,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.navService.selectedEntityData.subscribe((selectedEntity) => {
-      this.allEntites = selectedEntity;
-      this.entitiesData = this.allEntites.entityInfo;
+      this.allEntities = selectedEntity;
+      this.entitiesData = this.allEntities.entityInfo;
       this.entityId = this.entitiesData.id;
       this.createdBy = this.entitiesData.createdBy;
       this.managedBy = this.entitiesData.managedBy;

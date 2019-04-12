@@ -26,10 +26,13 @@ import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserMo
 import { AlertModalComponent } from './Dialogs/entityCodeModal/entityCodeModal.component';
 import { VerificationComponent } from './Dialogs/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
-import { InviteTeamModalComponent } from './pages/adminControl/components/inviteTeamModal/inviteTeamModal.component';
+import { InviteTeamModalComponent } from './Dialogs/inviteTeamModal/inviteTeamModal.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { ToasterComponent } from './common/toaster/toaster.component';
-import { AddSiteModalComponent } from './pages/adminControl/components/addSiteModal/addSiteModal.component';
+import { AddSiteModalComponent } from './Dialogs/addSiteModal/addSiteModal.component';
+
+import {ImportSiteModalComponent} from './pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
+import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmationModal.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -47,7 +50,9 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
-    AddSiteModalComponent
+    AddSiteModalComponent,
+    ImportSiteModalComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -96,7 +101,9 @@ export function createTranslateLoader(http: HttpClient) {
     VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
-    AddSiteModalComponent
+    AddSiteModalComponent,
+    ImportSiteModalComponent,
+    ConfirmationModalComponent
   ]
 })
 export class AppModule { }

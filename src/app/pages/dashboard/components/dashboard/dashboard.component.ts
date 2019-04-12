@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public helperService: HelperService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT

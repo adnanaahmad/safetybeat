@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface responseDetails {
-  code: string;
+  code: number;
   message: string;
 }
 

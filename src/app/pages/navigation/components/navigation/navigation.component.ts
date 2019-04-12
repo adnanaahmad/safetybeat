@@ -8,6 +8,7 @@ import {EntityUserData} from 'src/app/models/userEntityData.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {SitesInfo} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-navigation',
@@ -22,10 +23,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   empty: boolean = true;
   navLinks: NavItem[] = [];
   entitiesList: any;
-  entitesName: any = [];
-  abc: any;
   allEntitiesData: any;
-  joinEntityData: { moduleName: string };
   defaultList: NavItem[] = [];
   entityUserData: EntityUserData;
   selectedEntity;
@@ -33,6 +31,8 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   moduleData = {
     moduleName: 'Safetybeat'
   };
+  private sitesList: any;
+  private sitesData: SitesInfo[];
 
   constructor(
     public core: CoreService,
@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     private navService: NavigationService,
     public helperService: HelperService
   ) {
-    this.translated = this.helperService.translation;
+    this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
@@ -169,6 +169,14 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
    */
   switchSideMenu(data: any) {
     this.Entity = data;
+    let entityData = {
+      'entityId' : this.Entity.entityInfo.id,
+    }
+    this.adminServices.viewSites(entityData).subscribe((res) => {
+      this.sitesList = res;
+      this.sitesData = this.compiler.constructSiteData(this.sitesList);
+      this.adminServices.changeSites(this.sitesData);
+    });
     this.navService.changeSelectedEntity(this.Entity);
     this.navService.changeRole(this.Entity.role);
     this.navService.changeRoleId(this.Entity.permissions.role);
