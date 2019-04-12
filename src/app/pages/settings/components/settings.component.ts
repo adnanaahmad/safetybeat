@@ -105,8 +105,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.disabled = false;
     this.entityForm.disable();
     let data = {
-      'name': value.name,
-      'code': value.code,
+       'code': value.code,
       'headOffice': value.headOffice,
       'managedBy': this.managedBy,
       'createdBy': this.createdBy
