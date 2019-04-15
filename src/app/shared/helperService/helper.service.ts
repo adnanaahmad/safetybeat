@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 import {NotifierService} from 'angular-notifier';
 import {catchError} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {throwError} from 'rxjs';
+import {BehaviorSubject, throwError} from 'rxjs';
 import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
 import {PhoneNumberUtil} from 'google-libphonenumber';
 
@@ -25,6 +25,8 @@ export class HelperService {
   translated: Translation;
   constants: typeof ConstantService;
   displayButton: boolean = false;
+  public displayLoader = new BehaviorSubject<boolean>(true);
+  loader = this.displayLoader.asObservable();
   address: string = '';
   public dialogRef: MatDialogRef<any>;
 
@@ -60,6 +62,9 @@ export class HelperService {
     });
   }
 
+  toggleLoader(res): void {
+    this.displayLoader.next(res);
+  }
   hideLoggers(): void {
     this.notifier.hideAll();
   }

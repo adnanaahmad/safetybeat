@@ -1,4 +1,4 @@
-import { User } from './user.model';
+import {User} from './user.model';
 
 export interface EntityUserData {
   // user: User;
@@ -10,16 +10,16 @@ export interface Entity {
   permissions: EntityPermissions;
   reportAccess: ReportAccess;
   administrator: Administrator;
-  active:boolean;
-  role:string;
+  active: boolean;
+  role: string;
 }
 
 export interface Administrator {
-  email:string;
-  first_name:string;
-  last_name:string;
-  username:string;
-  contactNo:string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+  contactNo: string;
 }
 
 export interface EntityInfo {

@@ -1,4 +1,5 @@
 export interface EntityControl {
+  displayLoader: boolean;
   entitySelectedRole: string;
   dialogConfig: any;
   displayedColumns: string[];
