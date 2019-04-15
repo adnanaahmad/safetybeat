@@ -242,6 +242,10 @@ export interface Messages {
   INVITE_FAILURE: string;
   SAFETY_PLAN_REQ: string;
   SITE_NAME_REQ: string;
+  ENTITY_DELETE: string;
+  ENTITY_DELETE_TITLE: string;
+  ENTITY_DELETE_FAIL: string;
+  ENTITY_DELETE_FAIL_TITLE: string;
 }
 
 export interface Logger {

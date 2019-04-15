@@ -11,6 +11,7 @@ import {share} from 'rxjs/operators';
 import {EntityControl} from 'src/app//models/adminControl/entityControl.model';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CompilerProvider} from '../../../../shared/compiler/compiler';
 
 @Component({
   selector: 'app-entityControl',
@@ -27,9 +28,11 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     public adminServices: AdminControlService,
     public helperService: HelperService,
     private navService: NavigationService,
-    private userService: ProfileService
+    private userService: ProfileService,
+    private compiler: CompilerProvider
   ) {
     this.initialize();
+    this.helperService.toggleLoader(true)
     this.helperService.appLogger(
       this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.ENTITYCONTROL
@@ -39,6 +42,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
         this.getUsers();
       } else {
         this.entityControl.allUsersList = res;
+        this.helperService.toggleLoader(false)
       }
     });
   }
@@ -50,7 +54,6 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   initialize() {
-    this.entityControl.empty = false;
     this.entityControl.createEntityOption = false;
     this.entityControl.dialogConfig = new MatDialogConfig();
     this.entityControl.dataSource = [];
@@ -82,6 +85,7 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.helperService.createDialog(ConfirmationModalComponent);
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
         this.deleteEntity(entityId);
       }
     });
@@ -107,20 +111,24 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    * this function is used to show all the existing entities
    */
   viewAllEntities() {
-    this.entityControl.empty = true;
+    this.helperService.toggleLoader(true)
+    // this.helperService.displayLoader = true;
     let data = {
       moduleName: 'Safetybeat'
     };
     this.navService.data.subscribe(
       res => {
+        if (res === 1) {
+          this.helperService.toggleLoader(true);
+          this.viewEntitiesApiCall();
+        }
         this.entityControl.entitiesList = res;
         this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;
-        this.entityControl.empty = false;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
         this.entityControl.dataSource.paginator = this.paginator;
       },
       error => {
-        this.entityControl.empty = false;
+        this.helperService.toggleLoader(false)
         this.helperService.logoutError(error.status);
       }
     );
@@ -156,15 +164,17 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   getUsers() {
+    this.helperService.toggleLoader(true)
     this.entityControl.allUsers = this.userService.getAllUsers().pipe(share());
     this.entityControl.allUsers.subscribe(
       result => {
-        this.entityControl.empty = true;
+        this.helperService.toggleLoader(false);
         this.entityControl.allUsersList = result.data;
         this.userService.updateUsers(this.entityControl.allUsersList);
       },
       error => {
         this.helperService.logoutError(error.status);
+        this.helperService.toggleLoader(false)
       }
     );
   }
@@ -185,8 +195,32 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     }
   }
 
+  viewEntitiesApiCall() {
+    this.helperService.toggleLoader(true);
+    let data = {
+      moduleName: 'Safetybeat'
+    };
+    this.adminServices.viewEntities(data).subscribe((res) => {
+      this.helperService.toggleLoader(false);
+      this.entityControl.entitiesList = res;
+      let entityUserData = this.compiler.constructUserEntityData(this.entityControl.entitiesList.data);
+      this.navService.changeEntites(entityUserData);
+    });
+  }
+
   deleteEntity(entityId: any) {
+    debugger
+    this.helperService.toggleLoader(true);
     this.adminServices.deleteEntity(entityId).subscribe(res => {
+      this.viewEntitiesApiCall();
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE,
+        this.helperService.translated.MESSAGES.ENTITY_DELETE_TITLE,
+        this.helperService.translated.STATUS.SUCCESS);
+      this.helperService.toggleLoader(false);
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL,
+        this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL_TITLE, this.helperService.translated.STATUS.ERROR);
+      this.helperService.toggleLoader(false);
     });
   }
 }
