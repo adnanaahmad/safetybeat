@@ -150,6 +150,7 @@ export interface Buttons {
   INVITETEAM: string;
   ADD_SITE: string;
   IMPORT_SITE: string;
+  SAVE: string;
 }
 
 export interface Messages {

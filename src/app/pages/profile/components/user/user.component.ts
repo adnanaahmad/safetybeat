@@ -48,8 +48,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
   /**
-   * 
+   *
    */
 
   getAllUsers() {

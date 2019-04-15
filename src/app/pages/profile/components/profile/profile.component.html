@@ -1,85 +1,111 @@
 <div class="paddingbox midbox theme-selector">
-<mat-toolbar class="pagehead">
-  <div class="user-avatar">
-    <span class="change-avatar" ng-click="changeAvatarModal()">Change Avatar</span>
-    <img src="../../../../../assets/images/useravatar.jpg" />
-  </div>
-  <div class="user-info">
-    <h3>
-      <strong>{{ username }}</strong>
-    </h3>
-    <p>Production Manager - <strong>TheCompany</strong></p>
-  </div>
-  <button btn-primary mat-raised-button color="primary" (click)="editAccount()">
-    <mat-icon>edit</mat-icon>{{ translated.BUTTONS.EDIT_ACCOUNT }}
-  </button>
-</mat-toolbar>
-<div class="grid-container">
-  <mat-grid-list cols="2">
-    <mat-grid-tile>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title class="infoTitle">About you</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content btn-grids">
-          <a mat-button mat-raised-button><mat-icon>{{ appIcons.workOff }}</mat-icon>{{ translated.BUTTONS.LEAVE }}</a>
-          <a mat-button mat-raised-button><mat-icon>{{ appIcons.workOff }}</mat-icon>{{ translated.BUTTONS.LEAVE }}</a>
-          <a mat-button mat-raised-button><mat-icon>{{ appIcons.style }}</mat-icon>{{ translated.BUTTONS.ENTRIES }}</a>
-          <a mat-button mat-raised-button><mat-icon>{{ appIcons.localActivity }}</mat-icon>{{ translated.BUTTONS.ACTIVITIES }}</a>
-          <a mat-button mat-raised-button><mat-icon>{{ appIcons.questionAnswer }}</mat-icon>{{ translated.BUTTONS.CHANGEPASSWORD }}</a>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title class="infoTitle">{{translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
-        </mat-card-header>
-        <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
-          <mat-card-content>
-            <mat-list role="list">
-              <div class="form-group">
-                <mat-list-item role="listitem">
-                  <span matLine>
-                    <strong>{{ translated.STRINGS.FIRSTNAME }}</strong>
-                    <input matInput type="text" [(ngModel)]="firstname" formControlName="{{ appConstants.firstName }}" [ngClass]="disabled ? 'active' : 'inactive'" formControlName="{{ appConstants.firstName }}" required />
-                  </span>
-                </mat-list-item>
-              </div>
-              <div class="form-group">
-                <mat-list-item role="listitem">
-                  <span matLine>
-                    <strong>{{ translated.STRINGS.LASTNAME }}</strong>
-                    <input matInput type="text" [(ngModel)]="lastname" formControlName="{{ appConstants.lastName }}" [ngClass]="disabled ? 'active' : 'inactive'" formControlName="{{ appConstants.lastName }}" required />
-                  </span>
-                </mat-list-item>
-              </div>
-              <div class="form-group">
-                <mat-list-item role="listitem">
-                  <span matLine>
-                    <strong>{{ translated.STRINGS.EMAIL }} </strong>
-                    <input matInput type="text" [(ngModel)]="email" formControlName="{{ appConstants.email }}" formControlName="{{ appConstants.email }}" [ngClass]="disabled ? 'active' : 'inactive'" required />
-                  </span>
-                </mat-list-item>
-              </div>
-              <div class="form-group">
-                <mat-list-item role="listitem">
-                  <span matLine>
-                    <strong>{{ translated.STRINGS.MOBILE }} </strong>
-                    <input matInput type="text" [(ngModel)]="contactNo" formControlName="contactNo" [ngClass]="disabled ? 'active' : 'inactive'" formControlName="contactNo" required />
-                  </span>
-                </mat-list-item>
-              </div>
-            </mat-list>
+  <mat-toolbar class="pagehead">
+    <div class="user-avatar">
+      <span class="change-avatar" ng-click="changeAvatarModal()">Change Avatar</span>
+      <img src="../../../../../assets/images/useravatar.jpg"/>
+    </div>
+    <div class="user-info">
+      <h3>
+        <strong>{{ profileModel.username }}</strong>
+      </h3>
+      <p>Production Manager - <strong>TheCompany</strong></p>
+    </div>
+    <button btn-primary mat-raised-button color="primary" (click)="editAccount()">
+      <mat-icon>edit</mat-icon>
+      {{ profileModel.translated.BUTTONS.EDIT_ACCOUNT }}
+    </button>
+  </mat-toolbar>
+  <div class="grid-container">
+    <mat-grid-list cols="2">
+      <mat-grid-tile>
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title class="infoTitle">About you</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content btn-grids">
+            <a mat-button mat-raised-button>
+              <mat-icon>{{ profileModel.appIcons.workOff }}</mat-icon>
+              {{ profileModel.translated.BUTTONS.LEAVE }}</a>
+            <a mat-button mat-raised-button>
+              <mat-icon>{{ profileModel.appIcons.workOff }}</mat-icon>
+              {{ profileModel.translated.BUTTONS.LEAVE }}</a>
+            <a mat-button mat-raised-button>
+              <mat-icon>{{ profileModel.appIcons.style }}</mat-icon>
+              {{ profileModel.translated.BUTTONS.ENTRIES }}</a>
+            <a mat-button mat-raised-button>
+              <mat-icon>{{ profileModel.appIcons.localActivity }}</mat-icon>
+              {{ profileModel.translated.BUTTONS.ACTIVITIES }}</a>
+            <a mat-button mat-raised-button>
+              <mat-icon>{{ profileModel.appIcons.questionAnswer }}</mat-icon>
+              {{ profileModel.translated.BUTTONS.CHANGEPASSWORD }}</a>
           </mat-card-content>
-          <div *ngIf="disabled" class="btn-grp">
-            <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="profileForm.pristine">
-              <mat-icon>{{ appIcons.save }}</mat-icon>{{ translated.BUTTONS.SAVE }}</button>
-            <button mat-raised-button custom-btn btn-primary color="warn" (click)="cancelEditAccount()">{{ translated.BUTTONS.CANCEL }}</button>
-          </div>
-        </form>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title class="infoTitle">{{profileModel.translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
+          </mat-card-header>
+          <form class="profile-form" [formGroup]="profileModel.profileForm"
+                (ngSubmit)="updateProfile(profileModel.profileForm)">
+            <mat-card-content>
+              <mat-list role="list">
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{ profileModel.translated.STRINGS.FIRSTNAME }}</strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.firstname"
+                           formControlName="{{ profileModel.appConstants.firstName }}"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'"
+                           formControlName="{{ profileModel.appConstants.firstName }}" required/>
+                  </span>
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{ profileModel.translated.STRINGS.LASTNAME }}</strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.lastname"
+                           formControlName="{{ profileModel.appConstants.lastName }}"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'"
+                           formControlName="{{ profileModel.appConstants.lastName }}" required/>
+                  </span>
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{ profileModel.translated.STRINGS.EMAIL }} </strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.email"
+                           formControlName="{{ profileModel.appConstants.email }}"
+                           formControlName="{{ profileModel.appConstants.email }}"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'" required/>
+                  </span>
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
+                  <span matLine>
+                    <strong>{{ profileModel.translated.STRINGS.MOBILE }} </strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.contactNo" formControlName="contactNo"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'" formControlName="contactNo"
+                           required/>
+                  </span>
+                  </mat-list-item>
+                </div>
+              </mat-list>
+            </mat-card-content>
+            <div *ngIf="profileModel.disabled" class="btn-grp">
+              <button mat-raised-button custom-btn btn-danger color="primary"
+                      [disabled]="profileModel.profileForm.pristine">
+                <mat-icon>{{ profileModel.appIcons.save }}</mat-icon>
+                {{ profileModel.translated.BUTTONS.SAVE }}</button>
+              <button mat-raised-button custom-btn btn-primary color="warn"
+                      (click)="cancelEditAccount()">{{ profileModel.translated.BUTTONS.CANCEL }}</button>
+            </div>
+          </form>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>
