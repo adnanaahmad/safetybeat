@@ -314,5 +314,17 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
+  .activity-card {
+    &:before {
+      background-color: #fff;
+    }
+  }
+  app-profile{
+    .dashboard-card{
+      .infoTitle{
+        background-color: mat-color($primary-pallet, 800);
+      }
+    }
+  }
   @include amte-setTheme($theme);
 }

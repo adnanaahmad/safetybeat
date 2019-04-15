@@ -3,8 +3,7 @@
   app-profile {
     .pagehead {
       height: auto !important;
-      margin-bottom: 50px;
-      padding: 30px 16px !important;
+      padding: 10px 16px !important;
       .user-avatar {
         width: 150px;
         position: relative;
@@ -39,15 +38,17 @@
       align-items: normal;
     }
     .dashboard-card {
+      padding: 0;
       width: 100%;
+      table {
+        width: 100%;
+      }
       .infoTitle {
         color: #fff;
-        background-color: mat-color($primary, 500);
         border-radius: 4px 4px 0 0;
-        margin-left: -16px;
-        margin-top: -16px;
-        margin-right: -16px;
-        padding: 10px;
+        padding: 10px 16px;
+        align-items: center;
+        height: 30px;
         mat-card-title {
           font-size: 16px;
           margin: 0;
@@ -63,31 +64,93 @@
           height: 3px;
           border-radius: 100px;
           float: left;
-          margin-top: 10px;
           margin-right: 8px;
           background: #fff;
         }
         .filter-results {
           float: right;
+          label {
+            padding: 10px;
+          }
+          select {
+            border: 0;
+            outline: 0 none;
+            border-radius: 2px;
+            padding: 4px;
+          }
         }
-        .mat-form-field-wrapper,
-        .mat-form-field-infix {
-          padding: 0;
-          border: 0;
-        }
-        .mat-select-value {
-          color: #fff;
-        }
-      }
-      mat-card-content {
-        text-align: left;
-        margin: 10px 0;
       }
       mat-list {
         padding-top: 0;
       }
       .mat-list-item {
         font-size: 14px;
+      }
+      .activity-card {
+        padding: 10px;
+        margin: 10px;
+        border-radius: 4px;
+        position: relative;
+        &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          width: 100%;
+          z-index: 0;
+          top: 0;
+          height: 100%;
+          opacity: 0.05;
+        }
+        .row {
+          margin: 0 0 10px;
+          position: relative;
+          z-index: 1;
+          span {
+            float: right;
+          }
+          a {
+            text-decoration: none;
+            mat-icon {
+              height: auto;
+              width: auto;
+              display: inline-block;
+              line-height: 0;
+              top: 6px;
+              position: relative;
+            }
+          }
+        }
+      }
+      .header-btn {
+        color: #fff;
+        font-size: 12px;
+        text-decoration: none;
+        padding: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        display: block;
+        width: 150px;
+        text-align: center;
+        border-radius: 4px;
+        &:hover {
+          border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+      }
+      tr.mat-row,
+      tr.mat-header-row {
+        height: 35px;
+      }
+      .mat-paginator-page-size {
+        display: none;
+      }
+      .mat-paginator-container {
+        min-height: auto;
+      }
+      &.activities {
+        mat-card-content {
+          height: 550px;
+          overflow: auto;
+        }
       }
     }
     .profile-form {
@@ -99,6 +162,9 @@
           color: inherit;
         }
       }
+    }
+    .mat-card {
+      background: transparent;
     }
   }
   @media (max-width: 768px) {
