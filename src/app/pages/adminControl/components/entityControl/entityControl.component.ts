@@ -72,6 +72,9 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.helperService.displayLoader.subscribe((res) => {
+      this.entityControl.displayLoader = res;
+    })
   }
 
   /**
@@ -112,7 +115,6 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    */
   viewAllEntities() {
     this.helperService.toggleLoader(true)
-    // this.helperService.displayLoader = true;
     let data = {
       moduleName: 'Safetybeat'
     };
@@ -209,7 +211,6 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   deleteEntity(entityId: any) {
-    debugger
     this.helperService.toggleLoader(true);
     this.adminServices.deleteEntity(entityId).subscribe(res => {
       this.viewEntitiesApiCall();
