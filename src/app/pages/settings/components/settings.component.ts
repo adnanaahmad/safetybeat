@@ -5,7 +5,10 @@ import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {EditEntity} from 'src/app/models/profile.model';
+import {changePassword, EditEntity} from 'src/app/models/profile.model';
+import {MatDialogRef} from '@angular/material';
+import {ProfileService} from '../../profile/services/profile.service';
+import {FormErrorHandler} from '../../../shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
   selector: 'app-settings',
@@ -13,6 +16,7 @@ import {EditEntity} from 'src/app/models/profile.model';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
+  public dialogRef: MatDialogRef<SettingsComponent>
   themeSelected: any;
   translated: Translation;
   entityForm: FormGroup;
@@ -26,6 +30,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   entityId: any;
   createdBy: any;
   managedBy: any;
+  changePasswordForm: FormGroup;
+  private modalService: ProfileService;
+  formErrorMatcher: any;
 
   constructor(
     public settings: SettingService,
@@ -52,6 +59,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       headOffice: ['', Validators.required]
     });
     this.entityForm.disable();
+    this.changePasswordForm = this.formBuilder.group({
+      currentPassword: ['', [Validators.required, Validators.minLength(8)]],
+      password1: ['', [Validators.required, Validators.minLength(8)]],
+      password2: ['', [Validators.required, Validators.minLength(8)]]
+    }, {validator: this.checkPasswords});
   }
 
   ngAfterViewInit() {
@@ -63,7 +75,18 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.managedBy = this.entitiesData.managedBy;
     })
   }
-
+  checkPasswords(group: FormGroup) {
+    const pass = group.controls.password1.value;
+    const confirmPass = group.controls.password2.value;
+    return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
+  }
+  clearVal() {
+    this.changePasswordForm.patchValue({
+      currentPassword: '',
+      password1 : '',
+      password2 : ''
+    });
+  }
   editEntity() {
     this.disabled = true;
     this.entityForm.enable();
@@ -78,7 +101,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     return this.entityForm.controls;
   }
 
-
+  get formValidation() { return this.changePasswordForm.controls; }
   changed() {
     this.settings.setActiveTheme(this.themeSelected);
     let self = this;
@@ -118,6 +141,36 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
     })
 
+
+  }
+  changePassword({ value, valid }: { value: changePassword; valid: boolean }): void {
+    if (!valid) {
+      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.AUTH.PASSWORD_REQ);
+      return;
+    }
+    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
+    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
+    let result = {
+      oldPassword: value.currentPassword,
+      newPassword: value.password1
+    };
+    this.settings.changePassword(result).subscribe((res) => {
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+        this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
+      this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
+        this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
+        this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
+    }, (error) => {
+      this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+        this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
+      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
+      this.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+      this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+        this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+      this.helperService.logoutError(error.status);
+    });
 
   }
 }

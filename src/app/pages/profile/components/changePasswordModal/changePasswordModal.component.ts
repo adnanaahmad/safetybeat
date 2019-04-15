@@ -44,7 +44,7 @@ export class ModalDialogComponent implements OnInit {
   }
 
   /**
-   * this function ...
+   * this function is used to match password
    * @params group
    */
   checkPasswords(group: FormGroup) {
@@ -78,8 +78,7 @@ export class ModalDialogComponent implements OnInit {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     let result = {
       oldPassword: value.currentPassword,
-      newPassword: value.password1,
-      pk: this.user_id
+      newPassword: value.password1
     };
     this.modalService.changePassword(result).subscribe((res) => {
       this.dialogRef.close();
