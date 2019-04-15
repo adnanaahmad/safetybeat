@@ -4,7 +4,7 @@
 
 <div mat-dialog-content>
   <h1 class="mat-h3">{{helperService.translated.MESSAGES.CSVIMPORT_MSG}}</h1>
-  <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm) >
+  <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)  [enctype]="importSiteModal.type">
     <div class="form-group">
         <input
           type='file'

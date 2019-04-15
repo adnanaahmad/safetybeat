@@ -124,6 +124,27 @@ export class HelperService {
     return response;
   }
 
+  requestCallWithHeaders(method, api, headers: any, data?: any) {
+    let response;
+    switch (method) {
+      case this.constants.apiMethod.post:
+        response = this.http.post(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.get:
+        response = this.http.get(api, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.put:
+        response = this.http.put(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.delete:
+        response = this.http.delete(api, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      default:
+        break;
+    }
+    return response;
+  }
+
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

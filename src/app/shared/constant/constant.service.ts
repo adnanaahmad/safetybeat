@@ -38,7 +38,7 @@ export class ConstantService {
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
     addSite: `${environment.apiUrl}/api/sites/addSite/`,
-    importSite: `${environment.apiUrl}/api/sites/importSite/`
+    importSite: `${environment.apiUrl}/api/uploadFile/importSite/`
   };
   static apiMethod = {
     get: 'get',

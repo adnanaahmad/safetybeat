@@ -6,4 +6,5 @@ export interface ImportSite {
   importSiteForm: FormGroup;
   loading: boolean;
   csvFile: File;
+  type: 'multipart/form-data';
 }
