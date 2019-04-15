@@ -1,6 +1,7 @@
+<mat-progress-bar mode="indeterminate" *ngIf="entityControl.displayLoader"></mat-progress-bar>
 <div class="paddingbox">
   <div class="page-title">
-    <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
+    <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }} -- {{entityControl.displayLoader}}</h3>
     <p>{{ helperService.translated.SITETITLE.ENTITYCONTROL_DESCRIPTION }}</p>
   </div>
   <div class="buttonRow">
