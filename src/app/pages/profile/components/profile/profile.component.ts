@@ -19,13 +19,6 @@ import {ProfileModel} from 'src/app/models/profile/profile.model';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
-  profileFeatures = {
-    general: false,
-    entities: false,
-    leaves: false,
-    profile: true,
-    changePassword: false
-  };
   profileModel: ProfileModel = <ProfileModel>{};
 
   constructor(
@@ -59,11 +52,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileModel.appIcons = this.helperService.constants.appIcons;
     this.profileModel.appConstants = this.helperService.constants.appConstant;
     this.profileModel.disabled = false;
-    this.profileModel.profileFeatures.general = false;
-    this.profileModel.profileFeatures.entities = false;
-    this.profileModel.profileFeatures.leaves = false;
-    this.profileModel.profileFeatures.profile = true;
-    this.profileModel.profileFeatures.changePassword = false;
   }
 
   ngOnDestroy() {
@@ -149,7 +137,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onLeaves() {
-    this.profileFeatures.leaves = true;
+    this.profileModel.profileFeatures.leaves = true;
   }
 
   onEntities() {

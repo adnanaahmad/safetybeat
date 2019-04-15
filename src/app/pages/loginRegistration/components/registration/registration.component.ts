@@ -29,6 +29,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   ) {
     this.initialize();
     this.route.params.subscribe((data) => {
+      debugger
       this.registerObj.userEmail = data;
     });
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
