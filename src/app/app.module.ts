@@ -20,7 +20,6 @@ import { CoreService } from './core/services/authorization/core.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CreateEntityComponent } from './Dialogs/createEntityModal/createEntity.component';
-import { ModalDialogComponent } from './pages/profile/components/changePasswordModal/changePasswordModal.component';
 import { JoinEntityModalComponent } from './Dialogs/joinEntityModal/joinEntityModal.component';
 import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserModal.component';
 import { AlertModalComponent } from './Dialogs/entityCodeModal/entityCodeModal.component';
@@ -42,7 +41,6 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ModalDialogComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
@@ -92,7 +90,6 @@ export function createTranslateLoader(http: HttpClient) {
 
   bootstrap: [AppComponent],
   entryComponents: [
-    ModalDialogComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     AlertModalComponent,
