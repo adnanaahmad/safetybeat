@@ -1,17 +1,17 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
-import {CreateEntityComponent} from 'src/app/Dialogs/createEntityModal/createEntity.component';
-import {JoinEntityModalComponent} from 'src/app//Dialogs/joinEntityModal/joinEntityModal.component';
+import {CreateEntityComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AlertModalComponent} from 'src/app/Dialogs/entityCodeModal/entityCodeModal.component';
-import {InviteTeamModalComponent} from 'src/app/Dialogs/inviteTeamModal/inviteTeamModal.component';
+import {AlertModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
+import {InviteTeamModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
-import {EntityControl} from 'src/app//models/adminControl/entityControl.model';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
+import {EntityControl} from '../../../../../../models/adminControl/entityControl.model';
+import {JoinEntityModalComponent} from '../../dialogs/joinEntityModal/joinEntityModal.component';
 
 @Component({
   selector: 'app-entityControl',
