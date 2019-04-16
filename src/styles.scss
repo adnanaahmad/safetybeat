@@ -29,6 +29,11 @@ body {
 [btn-primary] {
   color: #fff !important;
 }
+.sb-logo {
+  path {
+    fill-rule: evenodd;
+  }
+}
 mat-dialog-container {
   width: 600px !important;
   padding: 0 !important;
@@ -58,14 +63,15 @@ mat-dialog-container {
   text-align: center;
   transform: translateY(-50%);
   box-shadow: -8px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  img {
-    max-width: 100%;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
+  svg {
+    width: 70%;
+    display: block;
     margin: 0 auto;
+    height: 100%;
+    path {
+      fill: #fff;
+      fill-rule: evenodd;
+    }
   }
 }
 .page-title {
@@ -85,6 +91,7 @@ mat-dialog-container {
 }
 .topbar {
   box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.2);
+  z-index: 2;
 }
 .noflex {
   display: block !important;
@@ -115,7 +122,7 @@ mat-dialog-container {
 .paddingbox {
   padding: 16px;
 }
-.text-center{
+.text-center {
   text-align: center;
 }
 .sideLegend {
@@ -454,14 +461,6 @@ snack-bar-container {
   padding: 0 !important;
 }
 @media (max-width: 992px) {
-  .monogram {
-    width: 100px;
-    height: 100px;
-    border: 3px solid #fff;
-    img {
-      width: 46px;
-    }
-  }
   .midbox {
     width: 60% !important;
   }
@@ -528,13 +527,6 @@ snack-bar-container {
   .midbox {
     width: 70% !important;
   }
-  .monogram {
-    width: 80px;
-    height: 80px;
-    img {
-      margin: 15px;
-    }
-  }
   .loginbox {
     .subheading {
       font-size: 14px;
@@ -558,9 +550,6 @@ snack-bar-container {
   app-login,
   app-forgot-password {
     app-particle-container {
-      display: none;
-    }
-    .monogram {
       display: none;
     }
     mat-grid-tile {
