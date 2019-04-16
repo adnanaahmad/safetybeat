@@ -19,18 +19,17 @@ import { NotifierModule } from 'angular-notifier';
 import { CoreService } from './core/services/authorization/core.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { CreateEntityComponent } from './Dialogs/createEntityModal/createEntity.component';
-import { JoinEntityModalComponent } from './Dialogs/joinEntityModal/joinEntityModal.component';
+import { CreateEntityComponent } from './pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
+import { JoinEntityModalComponent } from './pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserModal.component';
-import { AlertModalComponent } from './Dialogs/entityCodeModal/entityCodeModal.component';
+import { AlertModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import { VerificationComponent } from './Dialogs/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
-import { InviteTeamModalComponent } from './Dialogs/inviteTeamModal/inviteTeamModal.component';
+import { InviteTeamModalComponent } from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { ToasterComponent } from './common/toaster/toaster.component';
-import { AddSiteModalComponent } from './Dialogs/addSiteModal/addSiteModal.component';
-
-import {ImportSiteModalComponent} from './pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
+import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
+import {ImportSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmationModal.component';
 
 
