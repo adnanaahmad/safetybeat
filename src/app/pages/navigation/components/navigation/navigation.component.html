@@ -1,6 +1,6 @@
 <div class="container">
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
-    (switchNavListDefault)="switchListDefault(Entity)" [selectedEntity]="Entity"></app-fixed-nav>
+    (switchNavListDefault)="switchListDefault(navModel.Entity)" [selectedEntity]="navModel.Entity"></app-fixed-nav>
   <!-- <mat-progress-bar mode="indeterminate" *ngIf='empty'></mat-progress-bar> -->
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
@@ -8,12 +8,12 @@
         <img src="../../../../../assets/images/logo-full.png" class="sidenav-logo" />
       </div>
       <mat-form-field class="entity-switcher">
-        <mat-select [(value)]="selectedEntity" (selectionChange)="switchSideMenu(selectedEntity)">
-          <mat-option *ngFor="let entity of entityUserData" [value]="entity">{{entity.entityInfo.name}}</mat-option>
+        <mat-select [(value)]="navModel.selectedEntity" (selectionChange)="switchSideMenu(navModel.selectedEntity)">
+          <mat-option *ngFor="let entity of navModel.entityUserData" [value]="entity">{{entity.entityInfo.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-nav-list>
-        <app-nav-list [navLinks]="navLinks" [selectedEntity]="Entity"></app-nav-list>
+        <app-nav-list [navLinks]="navModel.navLinks" [selectedEntity]="navModel.Entity"></app-nav-list>
       </mat-nav-list>
     </mat-sidenav>
     <!-- Content of rest of section -->

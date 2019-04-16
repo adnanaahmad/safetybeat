@@ -9,6 +9,7 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SitesInfo} from 'src/app/models/site.model';
+import {NavigationModel} from '../../../../models/navigation/navigation.model';
 
 @Component({
   selector: 'app-navigation',
@@ -18,19 +19,10 @@ import {SitesInfo} from 'src/app/models/site.model';
 })
 export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Output() entitySelected = new EventEmitter();
-  translated: Translation;
-  appIcons: any;
-  empty: boolean = true;
-  navLinks: NavItem[] = [];
-  entitiesList: any;
-  allEntitiesData: any;
-  defaultList: NavItem[] = [];
-  entityUserData: EntityUserData;
-  selectedEntity;
-  Entity: any;
   moduleData = {
     moduleName: 'Safetybeat'
   };
+  navModel: NavigationModel = <NavigationModel>{};
   private sitesList: any;
   private sitesData: SitesInfo[];
 
@@ -41,46 +33,54 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     private navService: NavigationService,
     public helperService: HelperService
   ) {
-    this.translated = this.helperService.translated;
+    this.initialize();
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
-      this.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
+      this.navModel.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
     );
-    this.appIcons = this.helperService.constants.appIcons;
-    this.navLinks = this.defaultList;
+
   }
 
   ngOnInit() {
   }
 
+  initialize() {
+    this.navModel.translated = this.helperService.translated;
+    this.navModel.navLinks = [];
+    this.navModel.defaultList = [];
+    this.navModel.empty = true;
+    this.navModel.appIcons = this.helperService.constants.appIcons;
+    this.navModel.navLinks = this.navModel.defaultList;
+  }
+
   ngAfterViewInit() {
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
-        this.allEntitiesData = res;
-        this.entityUserData = this.allEntitiesData.entities;
-        this.empty = false;
-        let index = this.helperService.findIndex(this.entityUserData, function (entity) {
+        this.navModel.allEntitiesData = res;
+        this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
+        this.navModel.empty = false;
+        let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
           return entity.active === true
         });
-        this.selectedEntity =
-          index !== -1 ? this.entityUserData[index] : this.entityUserData[0];
-        this.switchSideMenu(this.selectedEntity);
+        this.navModel.selectedEntity =
+          index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
+        this.switchSideMenu(this.navModel.selectedEntity);
       } else {
         this.adminServices
           .viewEntities(this.moduleData)
           .subscribe(entitesData => {
-            this.allEntitiesData = entitesData;
-            this.entityUserData = this.compiler.constructUserEntityData(
-              this.allEntitiesData.data
+            this.navModel.allEntitiesData = entitesData;
+            this.navModel.entityUserData = this.compiler.constructUserEntityData(
+              this.navModel.allEntitiesData.data
             );
-            this.navService.changeEntites(this.entityUserData);
+            this.navService.changeEntites(this.navModel.entityUserData);
           });
       }
     });
   }
 
   ngOnChanges() {
-    this.empty = false;
+    this.navModel.empty = false;
   }
 
   ngOnDestroy() {
@@ -88,10 +88,10 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   switchList() {
-    this.navLinks = [
+    this.navModel.navLinks = [
       {
         route: '/home',
-        iconName: this.appIcons.dashboard,
+        iconName: this.navModel.appIcons.dashboard,
         displayName: 'Dashboard',
         disabled: true
       },
@@ -153,14 +153,14 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
       moduleName: 'Safetybeat'
     };
     this.adminServices.viewEntities(data).subscribe((res) => {
-      this.entitiesList = res;
-      this.entityUserData = this.entitiesList.data.result;
-      this.navService.changeEntites(this.entityUserData);
+      this.navModel.entitiesList = res;
+      this.navModel.entityUserData = this.navModel.entitiesList.data.result;
+      this.navService.changeEntites(this.navModel.entityUserData);
     });
   }
 
   switchListDefault(data) {
-    this.navLinks = this.compiler.switchSideMenuDefault(data);
+    this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 
   /**
@@ -168,18 +168,18 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
    * @params data
    */
   switchSideMenu(data: any) {
-    this.Entity = data;
+    this.navModel.Entity = data;
     let entityData = {
-      'entityId' : this.Entity.entityInfo.id,
+      'entityId': this.navModel.Entity.entityInfo.id,
     }
     this.adminServices.viewSites(entityData).subscribe((res) => {
       this.sitesList = res;
       this.sitesData = this.compiler.constructSiteData(this.sitesList);
       this.adminServices.changeSites(this.sitesData);
     });
-    this.navService.changeSelectedEntity(this.Entity);
-    this.navService.changeRole(this.Entity.role);
-    this.navService.changeRoleId(this.Entity.permissions.role);
-    this.navLinks = this.compiler.switchSideMenuDefault(data);
+    this.navService.changeSelectedEntity(this.navModel.Entity);
+    this.navService.changeRole(this.navModel.Entity.role);
+    this.navService.changeRoleId(this.navModel.Entity.permissions.role);
+    this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 }
