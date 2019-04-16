@@ -37,7 +37,6 @@ export class SettingService {
   }
 
   changePassword(data) {
-    debugger;
     return this.http.put(`${ConstantService.apiRoutes.changePassword}`, data);
   }
 }

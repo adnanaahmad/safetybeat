@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     value: loginCredentials;
     valid: boolean;
   }): void {
+
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,

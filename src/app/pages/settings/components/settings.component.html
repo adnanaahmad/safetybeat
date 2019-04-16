@@ -64,39 +64,45 @@
 
           <mat-list-item role="listitem">
             <label>Current Password</label>
-              <input matInput type="password" class="showonly" placeholder="******" [(ngModel)]="currentPassword" formControlName="currentPassword"
-                     [errorStateMatcher]="formErrorMatcher"       required/>
+            <input matInput type="password"  placeholder="******"
+                   formControlName="currentPassword"
+                   [errorStateMatcher]="formErrorMatcher"/>
+            <mat-error class="text-right" *ngIf="changePasswordFormValidations.currentPassword.errors">
+              <span *ngIf="changePasswordFormValidations.currentPassword.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+            </mat-error>
           </mat-list-item>
-          <mat-error class="text-right" *ngIf="formValidation.currentPassword.errors ">
-            <span *ngIf="formValidation.currentPassword.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-            <span *ngIf="formValidation.currentPassword.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-          </mat-error>
           <mat-list-item role="listitem">
             <label>New Password</label>
-              <input matInput type="password" class="showonly" placeholder="******" [(ngModel)]="password1" formControlName="password1"
-                     [errorStateMatcher]="formErrorMatcher" required/>
+            <input matInput type="password"  placeholder="******"
+                   formControlName="password1"  [(ngModel)]="password1"
+                   [errorStateMatcher]="formErrorMatcher" required/>
 
           </mat-list-item>
-          <mat-error class="text-right" *ngIf="formValidation.password1.errors ">
-            <span *ngIf="formValidation.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-            <span *ngIf="formValidation.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+          <mat-error class="text-right" *ngIf="changePasswordFormValidations.password1.errors  ">
+            <span *ngIf="changePasswordFormValidations.password1.errors.required && (changePasswordFormValidations.password1.dirty || changePasswordFormValidations.password1.touched)">{{translated.AUTH.PASSWORD_REQ}}</span>
+            <span *ngIf="changePasswordFormValidations.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
           </mat-error>
+
           <mat-list-item role="listitem">
             <label>Confirm Password</label>
-              <input matInput type="password" class="showonly" placeholder="******" [(ngModel)]="password2" formControlName="password2"
-                     [errorStateMatcher]="formErrorMatcher"   required/>
+            <input matInput type="password"  placeholder="******"
+                   formControlName="password2"  [(ngModel)]="password2"
+                   [errorStateMatcher]="formErrorMatcher" required/>
 
           </mat-list-item>
-          <mat-error class="text-right" *ngIf="formValidation.password2.errors ">
-            <span *ngIf="formValidation.password2.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-            <span *ngIf="formValidation.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-            <span *ngIf="formValidation.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
+          <mat-error class="text-right" *ngIf="changePasswordFormValidations.password2.errors">
+            <span *ngIf="changePasswordFormValidations.password2.errors.required && (changePasswordFormValidations.password2.dirty || changePasswordFormValidations.password2.touched)">{{translated.AUTH.PASSWORD_REQ}}</span>
+            <span *ngIf="changePasswordFormValidations.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
+            <span *ngIf="changePasswordFormValidations.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
           </mat-error>
+
 
         </mat-list>
         <div class="btn-grp">
-          <button type="submit" [disabled]="!changePasswordForm.valid"  mat-raised-button custom-btn btn-primary> Save</button>
-          <button type="button" (click)="clearVal()" mat-raised-button color="warn" custom-btn btn-danger> Cancel</button>
+          <button type="submit" [disabled]="changePasswordForm.invalid || !currentPassword || !password1 || !password2 " mat-raised-button custom-btn btn-primary> Save
+          </button>
+          <button type="button" (click)="clearVal()" mat-raised-button color="warn" custom-btn btn-danger> Cancel
+          </button>
         </div>
       </form>
     </div><!-- /Security Settings-->
