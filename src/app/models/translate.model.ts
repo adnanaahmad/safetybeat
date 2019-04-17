@@ -250,6 +250,9 @@ export interface Messages {
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
   ENTITY_DELETE_FAIL_TITLE: string;
+  SITE_IMPORT_SUCCESS: string;
+  SITE_IMPORT_FAILURE: string;
+  IMPORTSITE_NOTE: string;
 }
 
 export interface Logger {
