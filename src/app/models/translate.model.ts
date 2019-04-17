@@ -76,6 +76,7 @@ export interface Auth {
   CURRENT_PASSWORD: string;
   TRIAL: string;
   OWNER: string;
+  LOGOUTSUCCESSION: string;
 }
 
 export interface Icons {
@@ -188,6 +189,8 @@ export interface Messages {
   LOGINFAIL_MSG: string;
   LOGOUT_SUCCESS: string;
   LOGOUT_MSG: string;
+  LOGOUT_FAIL_MSG: string;
+  LOGOUT_FAIL: string;
   RESET_SUCCESS: string;
   RESETMSG: string;
   USERNAME_EXISTS: string;

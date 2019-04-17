@@ -182,8 +182,13 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
   logoutUser() {
     this.navService.logoutUser().subscribe((res) => {
-      debugger
-      console.log(res);
+      this.navModel.logoutResponse = res;
+      if (this.navModel.logoutResponse.detail === this.navModel.translated.AUTH.LOGOUTSUCCESSION) {
+        this.core.logoutUser();
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG,
+        this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
     })
   }
 }
