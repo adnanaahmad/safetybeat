@@ -65,6 +65,7 @@ export class HelperService {
   toggleLoader(res): void {
     this.displayLoader.next(res);
   }
+
   hideLoggers(): void {
     this.notifier.hideAll();
   }
@@ -141,14 +142,14 @@ export class HelperService {
         `body was: ${error.message}`);
     }
     // return an observable with a user-facing error message
-    var msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
+    let msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
     return throwError({error: msg, status: error.status});
   };
 
   /**
    * It will create a map on required element with specific map configuration
-   * @param gmapElement
-   * @param mapConfig
+   * @params gmapElement
+   * @params mapConfig
    */
   createMap(gmapElement: ElementRef, mapConfig?: any) {
     mapConfig = (mapConfig) ? mapConfig : this.constants.defaultMapConfig;
@@ -157,8 +158,8 @@ export class HelperService {
 
   /**
    * Set map location according to given address and on mapProp element
-   * @param address
-   * @param mapProp
+   * @params address
+   * @params mapProp
    */
   setLocationGeocode(address, mapProp) {
     let geoCoder = new google.maps.Geocoder();
@@ -189,7 +190,7 @@ export class HelperService {
 
   /**
    * Router navigation through out the code will go through this function
-   * @param path
+   * @params path
    */
   navigateTo(path: any[]) {
     this.router.navigate(path).then(res => {
