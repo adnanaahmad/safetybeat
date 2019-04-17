@@ -20,7 +20,7 @@
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
-        <div class="product-notice">Your trial is going to expire in 2 day(s). Please go to hell or <button routerLink="">Upgrade</button></div>
+        <div class="product-notice" *ngIf="packageInfo.expired">Your trial is going to expire in 2 day(s). Please go to hell or <button routerLink="">Upgrade</button></div>
         <div class="top-btns">
           <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">
             Logout

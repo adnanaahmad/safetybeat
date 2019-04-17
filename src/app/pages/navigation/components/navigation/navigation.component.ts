@@ -1,15 +1,14 @@
 import {Component, OnInit, OnDestroy, Output, EventEmitter, OnChanges, AfterViewInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
-import {Translation} from 'src/app/models/translate.model';
-import {NavItem} from 'src/app/models/navItems.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {EntityUserData} from 'src/app/models/userEntityData.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SitesInfo} from 'src/app/models/site.model';
 import {NavigationModel} from '../../../../models/navigation/navigation.model';
+import {LoginRegistrationService} from '../../../loginRegistration/services/LoginRegistrationService';
+import {PackageInfo} from '../../../../models/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -25,13 +24,18 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   navModel: NavigationModel = <NavigationModel>{};
   private sitesList: any;
   private sitesData: SitesInfo[];
+  packageInfo: PackageInfo = {
+    days: 0,
+    expired: false,
+    package: 'None'
+  };
 
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
     private navService: NavigationService,
-    public helperService: HelperService
+    public helperService: HelperService,
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -54,13 +58,19 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   ngAfterViewInit() {
+    this.navService.packageData.subscribe(
+      (packageDataResult) => {
+        if (packageDataResult !== 1) {
+          this.packageInfo = packageDataResult;
+        }
+      });
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
         this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
         this.navModel.empty = false;
         let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
-          return entity.active === true
+          return entity.active === true;
         });
         this.navModel.selectedEntity =
           index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
@@ -171,7 +181,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.navModel.Entity = data;
     let entityData = {
       'entityId': this.navModel.Entity.entityInfo.id,
-    }
+    };
     this.adminServices.viewSites(entityData).subscribe((res) => {
       this.sitesList = res;
       this.sitesData = this.compiler.constructSiteData(this.sitesList);

@@ -1,3 +1,8 @@
+export interface UserData {
+  user: User;
+  packageInfo: PackageInfo;
+}
+
 export interface User {
   id: number;
   username: string;
@@ -5,6 +10,12 @@ export interface User {
   first_name: string;
   last_name: string;
   contactNo: string;
+}
+
+export interface PackageInfo {
+  package: string;
+  expired: boolean;
+  days: number;
 }
 
 export interface responseDetails {

@@ -31,7 +31,7 @@ const authRoutes: Routes = [
     path: 'passwordRecovery/:uid/:token',
     component: PasswordRecoveryComponent
   }, {
-    path: 'signup',
+    path: 'signup/:email',
     component: RegistrationComponent
   }
 ];
