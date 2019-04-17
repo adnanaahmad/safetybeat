@@ -41,6 +41,9 @@ mat-dialog-container {
     padding: 15px 20px;
     color: #fff;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    font-size: 16px !important;
+    font-family: inherit !important;
   }
   .mat-dialog-content {
     padding: 0 20px 20px !important;
