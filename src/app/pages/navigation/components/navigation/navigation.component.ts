@@ -48,6 +48,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.navModel.empty = true;
     this.navModel.appIcons = this.helperService.constants.appIcons;
     this.navModel.navLinks = this.navModel.defaultList;
+    this.navModel.logoutDisable = false;
   }
 
   ngAfterViewInit() {
@@ -182,6 +183,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
   logoutUser() {
     this.navService.logoutUser().subscribe((res) => {
+      this.navModel.logoutDisable = true;
       this.navModel.logoutResponse = res;
       if (this.navModel.logoutResponse.detail === this.navModel.translated.AUTH.LOGOUTSUCCESSION) {
         this.core.logoutUser();
