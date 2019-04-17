@@ -24,7 +24,7 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     public helperService: HelperService,
     private navService: NavigationService,
     private compiler: CompilerProvider,
-    public dialogRef: MatDialogRef<CreateEntityComponent>,
+    public dialogRef: MatDialogRef<CreateEntityComponent>
   ) {
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY);

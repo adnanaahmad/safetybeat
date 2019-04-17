@@ -23,7 +23,7 @@
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
         <div class="top-btns">
-          <button mat-button *ngIf="core.isAuthenticated" (click)="logoutUser()">
+          <button mat-button *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">
             Logout
           </button>
           <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important
@@ -32,12 +32,10 @@
       </mat-toolbar>
 
       <div class="page-content">
-        <!-- <mat-drawer-container class="example-container" hasBackdrop="true"> -->
         <mat-drawer #drawer mode="push" position="end">
           <mat-icon class="close-notif" (click)="drawer.toggle()">arrow_forward</mat-icon>
           <app-notificationNav></app-notificationNav>
         </mat-drawer>
-        <!-- </mat-drawer-container> -->
         <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
