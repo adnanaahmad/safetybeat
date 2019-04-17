@@ -12,7 +12,7 @@ import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordR
 const authRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'landing',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
