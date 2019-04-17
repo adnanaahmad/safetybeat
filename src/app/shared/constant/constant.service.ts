@@ -38,7 +38,7 @@ export class ConstantService {
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
     addSite: `${environment.apiUrl}/api/sites/addSite/`,
-    logout : `${environment.apiUrl}/rest-auth/logout/`
+    logout: `${environment.apiUrl}/rest-auth/logout/`
   };
   static apiMethod = {
     get: 'get',
@@ -49,7 +49,8 @@ export class ConstantService {
   static localStorageKeys = {
     token: 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
-    theme: 'sb_Theme_Selected'
+    theme: 'sb_Theme_Selected',
+    packageInfo: 'sb_Package_Info'
   };
   static toast = {
     location: 'toast-top-left',
@@ -73,6 +74,7 @@ export class ConstantService {
     darkForest: 'dark-forest'
   };
   static appConstant = {
+    key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
     userName: 'username',
     password: 'password',

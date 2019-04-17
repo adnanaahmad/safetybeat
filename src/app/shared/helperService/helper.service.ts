@@ -1,8 +1,5 @@
 import {Injectable, ElementRef} from '@angular/core';
-import {
-  forEach,
-  findIndex
-} from 'lodash';
+import {forEach, findIndex} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -15,6 +12,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject, throwError} from 'rxjs';
 import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
 import {PhoneNumberUtil} from 'google-libphonenumber';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -236,6 +234,19 @@ export class HelperService {
 
   get appIcons() {
     return this.constants.appIcons;
+  }
+
+  /**
+   * Encrypt and decrypt through Crypto JS
+   * @param data
+   * @param key
+   */
+  encrypt(data: string, key: string): string {
+    return CryptoJS.AES.encrypt(data, key).toString();
+  }
+
+  decrypt(data: string, key: string): string {
+    return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
   }
 
 }

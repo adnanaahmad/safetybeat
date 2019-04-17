@@ -7,7 +7,6 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SitesInfo} from 'src/app/models/site.model';
 import {NavigationModel} from '../../../../models/navigation/navigation.model';
-import {LoginRegistrationService} from '../../../loginRegistration/services/LoginRegistrationService';
 import {PackageInfo} from '../../../../models/user.model';
 
 @Component({
@@ -62,6 +61,9 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
       (packageDataResult) => {
         if (packageDataResult !== 1) {
           this.packageInfo = packageDataResult;
+        } else {
+          this.packageInfo = JSON.parse(this.helperService.decrypt(localStorage.getItem
+          (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
         }
       });
     this.navService.data.subscribe((res) => {
@@ -202,6 +204,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     }, (error) => {
       this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG,
         this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
-    })
+    });
   }
 }
