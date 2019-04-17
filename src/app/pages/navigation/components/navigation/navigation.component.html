@@ -22,7 +22,7 @@
       <mat-toolbar class="topbar">
         <div class="product-notice" *ngIf="packageInfo.expired">Your trial is going to expire in 2 day(s). Please go to hell or <button routerLink="">Upgrade</button></div>
         <div class="top-btns">
-          <button mat-button *ngIf="core.isAuthenticated" (click)="core.logoutUser()">
+          <button mat-button *ngIf="core.isAuthenticated" (click)="logoutUser()">
             Logout
           </button>
           <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important

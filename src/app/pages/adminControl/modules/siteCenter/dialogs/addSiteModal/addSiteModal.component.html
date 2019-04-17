@@ -31,7 +31,7 @@
             *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
         </mat-error>
       </mat-form-field>
-      <div #gmap style="width:100%;height:250px"></div>
+      <div #gmap class="site-map"></div>
       <mat-slide-toggle [formControlName]="helperService.appConstants.safeZone">
         Safe Zone
       </mat-slide-toggle>

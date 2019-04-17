@@ -3,6 +3,7 @@ import {NavItem} from '../navItems.model';
 import {EntityUserData} from '../userEntityData.model';
 
 export interface NavigationModel {
+  logoutResponse: any;
   translated: Translation;
   appIcons: any;
   empty: boolean;

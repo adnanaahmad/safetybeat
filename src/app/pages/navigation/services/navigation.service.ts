@@ -75,4 +75,7 @@ export class NavigationService {
     this.packageInfo.next(data);
   }
 
+  logoutUser(){
+    return this.http.get(ConstantService.apiRoutes.logout);
+  }
 }

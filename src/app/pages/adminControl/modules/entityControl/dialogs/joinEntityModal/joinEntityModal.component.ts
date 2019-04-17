@@ -6,7 +6,7 @@ import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {JoinEntity} from '../../models/adminControl/joinEntity.model';
+import {JoinEntity} from 'src/app/models/adminControl/joinEntity.model';
 
 @Component({
   selector: 'app-joinEntityModal',

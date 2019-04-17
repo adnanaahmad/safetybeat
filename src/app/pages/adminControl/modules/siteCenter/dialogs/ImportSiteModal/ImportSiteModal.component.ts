@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ImportSite} from '../../../../models/adminControl/importSite.model';
+import {ImportSite} from '../../../../../../models/adminControl/importSite.model';
 import {MatDialogRef} from '@angular/material';
-import {HelperService} from '../../../../shared/helperService/helper.service';
+import {HelperService} from '../../../../../../shared/helperService/helper.service';
 
 @Component({
   selector: 'app-ImportSiteModal',

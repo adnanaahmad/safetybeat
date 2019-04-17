@@ -110,11 +110,12 @@
       margin: 20px 0 0 15px;
     }
     .entity-switcher {
+      padding: 10px 0 10px 17px;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
       .mat-form-field-wrapper {
         padding-bottom: 0;
       }
-      padding: 10px 0 10px 17px;
-      font-size: 14px;
       .switch-icon {
         margin: 20px 0;
         color: #fff;
@@ -139,18 +140,18 @@
     border-radius: 100px;
     float: left;
   }
-  .user-role{
+  .user-role {
     display: block;
     float: left;
     width: 100%;
     line-height: 3;
   }
-  .entity-name{
+  .entity-name {
     float: left;
     line-height: 3;
     padding-left: 10px;
   }
-  .single-entity{
+  .single-entity {
     height: auto;
   }
 }
