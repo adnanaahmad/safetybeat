@@ -14,13 +14,13 @@ import {MatDialogRef} from '@angular/material';
 export class ImportSiteModalComponent implements OnInit {
 
   importSiteModal: ImportSite = <ImportSite>{};
-  public dialogRef: MatDialogRef<ImportSiteModalComponent>;
 
   constructor(
     public helperService: HelperService,
     public formBuilder: FormBuilder,
     private navService: NavigationService,
-    private adminServices: AdminControlService
+    private adminServices: AdminControlService,
+    public dialogRef: MatDialogRef<ImportSiteModalComponent>
   ) {
     this.initialize();
     this.navService.selectedEntityData.subscribe((res) => {

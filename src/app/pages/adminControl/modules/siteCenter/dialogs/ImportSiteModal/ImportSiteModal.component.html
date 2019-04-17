@@ -3,6 +3,7 @@
 </mat-card-title>
 
 <div mat-dialog-content>
+  <p class="site-note">{{helperService.translated.MESSAGES.IMPORTSITE_NOTE}}</p>
   <h1 class="mat-h3">{{helperService.translated.MESSAGES.CSVIMPORT_MSG}}</h1>
   <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)  [enctype]="importSiteModal.type">
     <div class="form-group">
@@ -24,7 +25,7 @@
           color="primary">
           {{ helperService.translated.BUTTONS.IMPORT_SITE }}
         </button>
-        <img *ngIf="importSiteModal.loading" [src]=helperService.translated.MESSAGES.LOADING_URL/>
+        <img *ngIf="importSiteModal.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
         <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
           {{ helperService.translated.BUTTONS.CANCEL }}
         </button>
