@@ -153,6 +153,7 @@ export interface Buttons {
 }
 
 export interface Messages {
+  INCORRECT_PASS: string;
   CHANGEPASSWORD: string;
   WELCOME: string;
   WELCOME_MSG: string;

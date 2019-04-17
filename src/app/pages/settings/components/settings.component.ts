@@ -4,12 +4,11 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, ValidationErrors} from '@angular/forms';
 import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
 import {ProfileService} from '../../profile/services/profile.service';
 import {FormErrorHandler} from '../../../shared/FormErrorHandler/FormErrorHandler';
-import {LoginResponse} from '../../../models/user.model';
 
 @Component({
   selector: 'app-settings',
@@ -38,6 +37,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   currentPassword: string;
   password1: any;
   password2: any;
+  loading: boolean = false;
+  formValidator: boolean = true;
 
   constructor(
     public settings: SettingService,
@@ -70,6 +71,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: this.checkPasswords});
+
   }
 
   ngAfterViewInit() {
@@ -80,7 +82,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.createdBy = this.entitiesData.createdBy;
       this.managedBy = this.entitiesData.managedBy;
     });
-    console.log(this.changePasswordForm)
+    console.log(this.changePasswordForm);
   }
 
   checkPasswords(group: FormGroup) {
@@ -89,13 +91,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
-  clearVal() {
-    this.changePasswordForm.patchValue({
-      currentPassword: null,
-      password1: null,
-      password2: null
-    });
-  }
 
   editEntity() {
     this.disabled = true;
@@ -113,6 +108,15 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   get changePasswordFormValidations() {
     return this.changePasswordForm.controls;
+  }
+
+  setChangePasswordForm() {
+    // this.changePasswordForm.reset()
+
+    Object.keys(this.changePasswordForm.controls).forEach(key => {
+      this.changePasswordForm.controls[key].reset();
+      this.changePasswordForm.controls[key].setErrors(null)
+    });
   }
 
   changed() {
@@ -178,13 +182,18 @@ export class SettingsComponent implements OnInit, AfterViewInit {
           this.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
         this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
           this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
-        this.clearVal();
+        this.loading = false;
+        debugger;
+        this.changePasswordForm.reset();
+        this.setChangePasswordForm()
       } else {
-        this.helperService.createSnack(this.translated.MESSAGES.MATCH_ERROR,
+        this.loading = false;
+        this.helperService.createSnack(this.translated.MESSAGES.INCORRECT_PASS,
           this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
-        this.clearVal();
+
       }
     }, (error) => {
+      this.loading = false;
       this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
@@ -192,8 +201,14 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
       this.helperService.logoutError(error.status);
-      this.clearVal();
+      this.clearValidations();
     });
+  }
 
+  clearValidations() {
+    Object.keys(this.changePasswordForm.controls).forEach(key => {
+      this.changePasswordForm.controls[key].setErrors(null);
+    });
   }
 }
+

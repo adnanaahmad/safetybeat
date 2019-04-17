@@ -80,6 +80,7 @@ export class ConstantService {
     countryCode: 'countryCode',
     password1: 'password1',
     password2: 'password2',
+    currentPassword: 'currentPassword',
     name: 'name',
     type: 'type',
     address: 'address',

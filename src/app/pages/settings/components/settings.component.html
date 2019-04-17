@@ -61,48 +61,42 @@
       <h3 class="setting-title">Security Settings</h3>
       <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword(changePasswordForm)">
         <mat-list role="list" class="settings-list">
-
           <mat-form-field role="listitem">
-            <input matInput type="password"  placeholder="Current Password"
-                   formControlName="currentPassword"
-                   [errorStateMatcher]="formErrorMatcher"/>
+            <label>Current Password</label>
+            <input matInput type="password"
+                   [formControlName]="helperService.appConstants.currentPassword"/>
             <mat-error class="text-right" *ngIf="changePasswordFormValidations.currentPassword.errors">
               <span *ngIf="changePasswordFormValidations.currentPassword.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
               <span *ngIf="changePasswordFormValidations.currentPassword.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
             </mat-error>
           </mat-form-field>
-          <mat-list-item role="listitem">
+          <mat-form-field role="listitem">
             <label>New Password</label>
-            <input matInput type="password"  placeholder="******"
-                   formControlName="password1"  [(ngModel)]="password1"
-                   [errorStateMatcher]="formErrorMatcher" required/>
-
-          </mat-list-item>
-          <mat-error class="text-right" *ngIf="changePasswordFormValidations.password1.errors  ">
-            <span *ngIf="changePasswordFormValidations.password1.errors.required && (changePasswordFormValidations.password1.dirty || changePasswordFormValidations.password1.touched)">{{translated.AUTH.PASSWORD_REQ}}</span>
-            <span *ngIf="changePasswordFormValidations.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-          </mat-error>
-
-          <mat-list-item role="listitem">
+            <input matInput type="password"
+                   [formControlName]="helperService.appConstants.password1" required/>
+            <mat-error class="text-right" *ngIf="changePasswordFormValidations.password1.errors  ">
+              <span *ngIf="changePasswordFormValidations.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+              <span *ngIf="changePasswordFormValidations.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field role="listitem">
             <label>Confirm Password</label>
-            <input matInput type="password"  placeholder="******"
-                   formControlName="password2"  [(ngModel)]="password2"
-                   [errorStateMatcher]="formErrorMatcher" required/>
-
-          </mat-list-item>
-          <mat-error class="text-right" *ngIf="changePasswordFormValidations.password2.errors">
-            <span *ngIf="changePasswordFormValidations.password2.errors.required && (changePasswordFormValidations.password2.dirty || changePasswordFormValidations.password2.touched)">{{translated.AUTH.PASSWORD_REQ}}</span>
-            <span *ngIf="changePasswordFormValidations.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
-            <span *ngIf="changePasswordFormValidations.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-          </mat-error>
-
-
+            <input matInput type="password"
+                   [formControlName]="helperService.appConstants.password2" required/>
+            <mat-error class="text-right" *ngIf="changePasswordFormValidations.password2.errors">
+              <span
+                *ngIf="changePasswordFormValidations.password2.errors.required ">{{translated.AUTH.PASSWORD_REQ}}</span>
+              <span
+                *ngIf="changePasswordFormValidations.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
+              <span
+                *ngIf="changePasswordFormValidations.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+            </mat-error>
+          </mat-form-field>
         </mat-list>
         <div class="btn-grp">
-          <button type="submit"  mat-raised-button custom-btn btn-primary> Save
+          <button type="submit" mat-raised-button custom-btn btn-primary [disabled]="!changePasswordForm.valid"> Save
           </button>
-          <button type="button" (click)="clearVal()" mat-raised-button color="warn" custom-btn btn-danger> Cancel
-          </button>
+          <img *ngIf="loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
         </div>
       </form>
     </div><!-- /Security Settings-->

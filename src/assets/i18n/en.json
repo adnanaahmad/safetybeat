@@ -186,7 +186,8 @@
     "INVITE_SUCCESS": "User has been successfully Invited.",
     "INVITE_FAILURE": "Error inviting user.",
     "SAFETY_PLAN_REQ": "Site safety plan is required",
-    "SITE_NAME_REQ": "Site name is required"
+    "SITE_NAME_REQ": "Site name is required",
+    "INCORRECT_PASS": "Incorrect password, please try again!"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
