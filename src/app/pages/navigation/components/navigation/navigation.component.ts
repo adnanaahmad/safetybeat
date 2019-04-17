@@ -1,10 +1,7 @@
 import {Component, OnInit, OnDestroy, Output, EventEmitter, OnChanges, AfterViewInit} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
-import {Translation} from 'src/app/models/translate.model';
-import {NavItem} from 'src/app/models/navItems.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {EntityUserData} from 'src/app/models/userEntityData.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
@@ -181,5 +178,17 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.navService.changeRole(this.navModel.Entity.role);
     this.navService.changeRoleId(this.navModel.Entity.permissions.role);
     this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
+  }
+
+  logoutUser() {
+    this.navService.logoutUser().subscribe((res) => {
+      this.navModel.logoutResponse = res;
+      if (this.navModel.logoutResponse.detail === this.navModel.translated.AUTH.LOGOUTSUCCESSION) {
+        this.core.logoutUser();
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG,
+        this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
+    })
   }
 }

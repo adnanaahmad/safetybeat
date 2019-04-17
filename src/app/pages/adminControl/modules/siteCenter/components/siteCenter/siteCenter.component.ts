@@ -4,9 +4,9 @@ import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@ang
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AddSiteModalComponent} from 'src/app/Dialogs/addSiteModal/addSiteModal.component';
+import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
-import {ImportSiteModalComponent} from 'src/app/pages/adminControl/components/ImportSiteModal/ImportSiteModal.component';
+import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -56,7 +56,7 @@ export class SiteCenterComponent implements OnInit {
         };
         this.adminServices.viewSites(data).subscribe((res) => {
           this.siteCentreObj.sitesList = res;
-          if (this.siteCentreObj.viewSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          if (this.siteCentreObj.sitesList.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
             this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
             this.adminServices.changeSites(this.siteCentreObj.sitesData);
             this.siteCentreObj.dataSource = new MatTableDataSource(this.siteCentreObj.sitesData);

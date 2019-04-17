@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ImportSite} from '../../../../models/adminControl/importSite.model';
-import {MatDialogRef} from '@angular/material';
-import {HelperService} from '../../../../shared/helperService/helper.service';
+import {ImportSite} from 'src/app/models/adminControl/importSite.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {NavigationService} from '../../../navigation/services/navigation.service';
-import {AdminControlService} from '../../services/adminControl.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-ImportSiteModal',
@@ -14,6 +14,7 @@ import {AdminControlService} from '../../services/adminControl.service';
 export class ImportSiteModalComponent implements OnInit {
 
   importSiteModal: ImportSite = <ImportSite>{};
+  public dialogRef: MatDialogRef<ImportSiteModalComponent>;
 
   constructor(
     public helperService: HelperService,
@@ -32,6 +33,10 @@ export class ImportSiteModalComponent implements OnInit {
     this.importSiteModal.importSiteForm = this.formBuilder.group({
       importSite: ['', Validators.required]
     });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   initialize() {
@@ -53,9 +58,19 @@ export class ImportSiteModalComponent implements OnInit {
     formData.append('entityId', entityId);
 
     this.adminServices.importSite(formData).subscribe((res) => {
-      console.log('i am called');
+      this.importSiteModal.importSiteResponse = res;
+      if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.importSiteModal.loading = false;
+        this.onNoClick();
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+          this.helperService.translated.MESSAGES.SITE_IMPORT_SUCCESS);
+      } else if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.importSiteModal.loading = false;
+        this.onNoClick();
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.SITE_IMPORT_FAILURE);
+      }
     });
-    console.log('i am done');
 
   }
 

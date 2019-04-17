@@ -38,6 +38,7 @@ export class ConstantService {
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
     addSite: `${environment.apiUrl}/api/sites/addSite/`,
+    logout : `${environment.apiUrl}/rest-auth/logout/`,
     importSite: `${environment.apiUrl}/api/uploadFile/importSite/`
   };
   static apiMethod = {

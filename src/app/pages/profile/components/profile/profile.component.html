@@ -1,57 +1,44 @@
-<div class="paddingbox midbox theme-selector">
-  <mat-toolbar class="pagehead">
-    <div class="user-avatar">
-      <span class="change-avatar" ng-click="changeAvatarModal()">Change Avatar</span>
-      <img src="../../../../../assets/images/useravatar.jpg"/>
-    </div>
-    <div class="user-info">
-      <h3>
-        <strong>{{ profileModel.username }}</strong>
-      </h3>
-      <p>Production Manager - <strong>TheCompany</strong></p>
-    </div>
-    <button btn-primary mat-raised-button color="primary" (click)="editAccount()">
-      <mat-icon>edit</mat-icon>
-      {{ profileModel.translated.BUTTONS.EDIT_ACCOUNT }}
-    </button>
-  </mat-toolbar>
-  <div class="grid-container">
-    <mat-grid-list cols="2">
-      <mat-grid-tile>
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title class="infoTitle">About you</mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content btn-grids">
-            <a mat-button mat-raised-button>
-              <mat-icon>{{ profileModel.appIcons.workOff }}</mat-icon>
-              {{ profileModel.translated.BUTTONS.LEAVE }}</a>
-            <a mat-button mat-raised-button>
-              <mat-icon>{{ profileModel.appIcons.workOff }}</mat-icon>
-              {{ profileModel.translated.BUTTONS.LEAVE }}</a>
-            <a mat-button mat-raised-button>
-              <mat-icon>{{ profileModel.appIcons.style }}</mat-icon>
-              {{ profileModel.translated.BUTTONS.ENTRIES }}</a>
-            <a mat-button mat-raised-button>
-              <mat-icon>{{ profileModel.appIcons.localActivity }}</mat-icon>
-              {{ profileModel.translated.BUTTONS.ACTIVITIES }}</a>
-            <a mat-button mat-raised-button>
-              <mat-icon>{{ profileModel.appIcons.questionAnswer }}</mat-icon>
-              {{ profileModel.translated.BUTTONS.CHANGEPASSWORD }}</a>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title class="infoTitle">{{profileModel.translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
-          </mat-card-header>
-          <form class="profile-form" [formGroup]="profileModel.profileForm"
-                (ngSubmit)="updateProfile(profileModel.profileForm)">
-            <mat-card-content>
-              <mat-list role="list">
-                <div class="form-group">
-                  <mat-list-item role="listitem">
+<div class="theme-selector">
+<mat-toolbar class="pagehead">
+  <div class="user-avatar">
+    <img src="../../../../../assets/images/useravatar.jpg" />
+  </div>
+  <div class="user-info">
+    <h3>
+      <strong>{{ username }}</strong>
+    </h3>
+    <p>Production Manager - <strong>TheCompany</strong></p>
+  </div>
+  <button routerLink="/settings" btn-primary mat-raised-button color="primary" (click)="editAccount()">
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
+<!-- <div class="grid-container">
+  <mat-grid-list cols="2">
+    <mat-grid-tile rowspan="2">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">About you</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content btn-grids">
+          <a mat-button mat-raised-button><mat-icon>{{ appIcons.workOff }}</mat-icon>{{ translated.BUTTONS.LEAVE }}</a>
+          <a mat-button mat-raised-button><mat-icon>{{ appIcons.workOff }}</mat-icon>{{ translated.BUTTONS.LEAVE }}</a>
+          <a mat-button mat-raised-button><mat-icon>{{ appIcons.style }}</mat-icon>{{ translated.BUTTONS.ENTRIES }}</a>
+          <a mat-button mat-raised-button><mat-icon>{{ appIcons.localActivity }}</mat-icon>{{ translated.BUTTONS.ACTIVITIES }}</a>
+          <a mat-button mat-raised-button><mat-icon>{{ appIcons.questionAnswer }}</mat-icon>{{ translated.BUTTONS.CHANGEPASSWORD }}</a>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title class="infoTitle">{{translated.MESSAGES.PROFIILE_INFO}}</mat-card-title>
+        </mat-card-header>
+        <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="updateProfile(profileForm)">
+          <mat-card-content>
+            <mat-list role="list">
+              <div class="form-group">
+                <mat-list-item role="listitem">
                   <span matLine>
                     <strong>{{ profileModel.translated.STRINGS.FIRSTNAME }}</strong>
                     <input matInput type="text" [(ngModel)]="profileModel.firstname"
@@ -88,21 +75,147 @@
                            [ngClass]="profileModel.disabled ? 'active' : 'inactive'" formControlName="contactNo"
                            required/>
                   </span>
-                  </mat-list-item>
-                </div>
-              </mat-list>
-            </mat-card-content>
-            <div *ngIf="profileModel.disabled" class="btn-grp">
-              <button mat-raised-button custom-btn btn-danger color="primary"
-                      [disabled]="profileModel.profileForm.pristine">
-                <mat-icon>{{ profileModel.appIcons.save }}</mat-icon>
-                {{ profileModel.translated.BUTTONS.SAVE }}</button>
-              <button mat-raised-button custom-btn btn-primary color="warn"
-                      (click)="cancelEditAccount()">{{ profileModel.translated.BUTTONS.CANCEL }}</button>
-            </div>
-          </form>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+                </mat-list-item>
+              </div>
+            </mat-list>
+          </mat-card-content>
+          <div *ngIf="disabled" class="btn-grp">
+            <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="profileForm.pristine">
+              <mat-icon>{{ appIcons.save }}</mat-icon>{{ translated.BUTTONS.SAVE }}</button>
+            <button mat-raised-button custom-btn btn-primary color="warn" (click)="cancelEditAccount()">{{ translated.BUTTONS.CANCEL }}</button>
+          </div>
+        </form>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> -->
+<div class="paddingbox">
+<mat-grid-list cols="4" rowHeight="300px" gutterSize="30px">
+  <mat-grid-tile colspan="2" rowspan="2">
+    <!-- Activites -->
+    <mat-card class="dashboard-card activities">
+      <mat-card-header class="infoTitle">
+        <mat-card-title>Activities</mat-card-title>
+        <div class="filter-results">
+          <label>Filter:</label>
+          <select>
+            <option>Most Recent</option>
+            <option>Last Day</option>
+            <option>Last Week</option>
+            <option>Last Month</option>
+            <option>Last Year</option>
+          </select>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+      </mat-card-content>
+    </mat-card><!-- /Activites -->
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <!-- Leaves -->
+    <mat-card class="dashboard-card">
+        <mat-card-header class="infoTitle">
+          <mat-card-title>Your Leaves</mat-card-title>
+          <a routerLink="" class="header-btn">Request Leave</a>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="">
+                <table mat-table [dataSource]="dataSource">
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                  </ng-container>
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </div>
+        </mat-card-content>
+      </mat-card><!-- /Leaves -->
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <!-- Entities -->
+    <mat-card class="dashboard-card">
+        <mat-card-header class="infoTitle">
+          <mat-card-title>Your Entities</mat-card-title>
+          <a routerLink="" class="header-btn">Create Entity</a>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="">
+                <table mat-table [dataSource]="dataSource">
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                  </ng-container>
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </div>
+        </mat-card-content>
+      </mat-card><!-- /Entities -->
+  </mat-grid-tile>
+</mat-grid-list>
 </div>
