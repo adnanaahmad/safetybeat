@@ -221,11 +221,6 @@ $theme: createTheme($primary, $secondary, $warn);
       color: #fff !important;
     }
   }
-  .infoTitle {
-    &:before {
-      background: mat-color($primary, 400);
-    }
-  }
   .sideLegend {
     background-color: mat-color($primary, 800) !important;
     &:after{
@@ -284,6 +279,23 @@ $theme: createTheme($primary, $secondary, $warn);
       .mat-list-item{
         border-color: mat-color($primary-pallet, 400) !important;
       }
+    }
+  }
+  .activity-card {
+    &:before {
+      background-color: #fff;
+    }
+  }
+  app-profile{
+    .dashboard-card{
+      .infoTitle{
+        background-color: mat-color($primary-pallet, 800);
+      }
+    }
+  }
+  app-importsitemodal {
+    .site-note{
+      background-color: mat-color($primary, 400);
     }
   }
   @include amte-setTheme($theme);

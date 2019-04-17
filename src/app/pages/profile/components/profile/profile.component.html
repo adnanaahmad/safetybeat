@@ -1,7 +1,6 @@
-<div class="paddingbox midbox theme-selector">
+<div class="theme-selector">
 <mat-toolbar class="pagehead">
   <div class="user-avatar">
-    <span class="change-avatar" ng-click="changeAvatarModal()">Change Avatar</span>
     <img src="../../../../../assets/images/useravatar.jpg" />
   </div>
   <div class="user-info">
@@ -10,13 +9,13 @@
     </h3>
     <p>Production Manager - <strong>TheCompany</strong></p>
   </div>
-  <button btn-primary mat-raised-button color="primary" (click)="editAccount()">
-    <mat-icon>edit</mat-icon>{{ translated.BUTTONS.EDIT_ACCOUNT }}
+  <button routerLink="/settings" btn-primary mat-raised-button color="primary" (click)="editAccount()">
+    <mat-icon>settings</mat-icon>
   </button>
 </mat-toolbar>
-<div class="grid-container">
+<!-- <div class="grid-container">
   <mat-grid-list cols="2">
-    <mat-grid-tile>
+    <mat-grid-tile rowspan="2">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title class="infoTitle">About you</mat-card-title>
@@ -41,32 +40,40 @@
               <div class="form-group">
                 <mat-list-item role="listitem">
                   <span matLine>
-                    <strong>{{ translated.STRINGS.FIRSTNAME }}</strong>
-                    <input matInput type="text" [(ngModel)]="firstname" formControlName="{{ appConstants.firstName }}" [ngClass]="disabled ? 'active' : 'inactive'" formControlName="{{ appConstants.firstName }}" required />
+                    <strong>{{ profileModel.translated.STRINGS.FIRSTNAME }}</strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.firstname"
+                           formControlName="{{ profileModel.appConstants.firstName }}"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'" required/>
                   </span>
-                </mat-list-item>
-              </div>
-              <div class="form-group">
-                <mat-list-item role="listitem">
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
                   <span matLine>
-                    <strong>{{ translated.STRINGS.LASTNAME }}</strong>
-                    <input matInput type="text" [(ngModel)]="lastname" formControlName="{{ appConstants.lastName }}" [ngClass]="disabled ? 'active' : 'inactive'" formControlName="{{ appConstants.lastName }}" required />
+                    <strong>{{ profileModel.translated.STRINGS.LASTNAME }}</strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.lastname"
+                           formControlName="{{ profileModel.appConstants.lastName }}"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'" required/>
                   </span>
-                </mat-list-item>
-              </div>
-              <div class="form-group">
-                <mat-list-item role="listitem">
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
                   <span matLine>
-                    <strong>{{ translated.STRINGS.EMAIL }} </strong>
-                    <input matInput type="text" [(ngModel)]="email" formControlName="{{ appConstants.email }}" formControlName="{{ appConstants.email }}" [ngClass]="disabled ? 'active' : 'inactive'" required />
+                    <strong>{{ profileModel.translated.STRINGS.EMAIL }} </strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.email"
+                           formControlName="{{ profileModel.appConstants.email }}"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'" required/>
                   </span>
-                </mat-list-item>
-              </div>
-              <div class="form-group">
-                <mat-list-item role="listitem">
+                  </mat-list-item>
+                </div>
+                <div class="form-group">
+                  <mat-list-item role="listitem">
                   <span matLine>
-                    <strong>{{ translated.STRINGS.MOBILE }} </strong>
-                    <input matInput type="text" [(ngModel)]="contactNo" formControlName="contactNo" [ngClass]="disabled ? 'active' : 'inactive'" formControlName="contactNo" required />
+                    <strong>{{ profileModel.translated.STRINGS.MOBILE }} </strong>
+                    <input matInput type="text" [(ngModel)]="profileModel.contactNo" formControlName="contactNo"
+                           [ngClass]="profileModel.disabled ? 'active' : 'inactive'" formControlName="contactNo"
+                           required/>
                   </span>
                 </mat-list-item>
               </div>
@@ -81,5 +88,134 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-</div>
+</div> -->
+<div class="paddingbox">
+<mat-grid-list cols="4" rowHeight="300px" gutterSize="30px">
+  <mat-grid-tile colspan="2" rowspan="2">
+    <!-- Activites -->
+    <mat-card class="dashboard-card activities">
+      <mat-card-header class="infoTitle">
+        <mat-card-title>Activities</mat-card-title>
+        <div class="filter-results">
+          <label>Filter:</label>
+          <select>
+            <option>Most Recent</option>
+            <option>Last Day</option>
+            <option>Last Week</option>
+            <option>Last Month</option>
+            <option>Last Year</option>
+          </select>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+        <div class="activity-card">
+          <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink=""><mat-icon>link</mat-icon> View Site</a></span></div>
+          <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+          <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+          <div class="row"><strong>Duration</strong><span>10 days</span></div>
+        </div>
+      </mat-card-content>
+    </mat-card><!-- /Activites -->
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <!-- Leaves -->
+    <mat-card class="dashboard-card">
+        <mat-card-header class="infoTitle">
+          <mat-card-title>Your Leaves</mat-card-title>
+          <a routerLink="" class="header-btn">Request Leave</a>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="">
+                <table mat-table [dataSource]="dataSource">
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                  </ng-container>
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </div>
+        </mat-card-content>
+      </mat-card><!-- /Leaves -->
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <!-- Entities -->
+    <mat-card class="dashboard-card">
+        <mat-card-header class="infoTitle">
+          <mat-card-title>Your Entities</mat-card-title>
+          <a routerLink="" class="header-btn">Create Entity</a>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="">
+                <table mat-table [dataSource]="dataSource">
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef> No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                  </ng-container>
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef> Weight </th>
+                    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                  </ng-container>
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </div>
+        </mat-card-content>
+      </mat-card><!-- /Entities -->
+  </mat-grid-tile>
+</mat-grid-list>
 </div>

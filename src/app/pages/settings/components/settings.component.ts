@@ -4,7 +4,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {FormGroup, FormBuilder, Validators, ValidationErrors} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
 import {ProfileService} from '../../profile/services/profile.service';
@@ -183,7 +183,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
           this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
         this.loading = false;
-        debugger;
         this.changePasswordForm.reset();
         this.setChangePasswordForm()
       } else {

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Translation } from 'src/app/models/translate.model';
-import { NavItem } from 'src/app/models/navItems.model';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {NavItem} from 'src/app/models/navItems.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {FixedNavModel} from 'src/app/models/navigation/fixedNav.model';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -9,13 +9,12 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
   styleUrls: ['./fixedNav.component.scss']
 })
 export class FixedNavComponent implements OnInit {
-  @Input()
-  navOpened: boolean;
+  @Input() navOpened: boolean;
   @Output() sidenavToggle = new EventEmitter<boolean>();
   @Output() switchNavList = new EventEmitter();
   @Output() switchNavListDefault = new EventEmitter();
   @Input() public selectedEntity;
-  translated: Translation;
+  fixedNav: FixedNavModel = <FixedNavModel>{};
   appIcons: any;
   public navLinks: NavItem[] = [];
   public defaultNavLinks: NavItem[] = [
@@ -52,16 +51,17 @@ export class FixedNavComponent implements OnInit {
   constructor(
     public helperService: HelperService,
   ) {
-    this.translated = this.helperService.translated;
-    this.appIcons = this.helperService.constants.appIcons;
+    this.fixedNav.translated = this.helperService.translated;
+    this.fixedNav.appIcons = this.helperService.constants.appIcons;
     this.navLinks = this.defaultNavLinks;
   }
+
   // Toggle the sidenav
   public toggleSideNav() {
     this.navOpened = !this.navOpened;
     this.helperService.appLoggerDev(
       this.helperService.constants.status.INFO,
-      `${this.translated.LOGGER.MESSAGES.SIDE_NAV + this.navOpened}`
+      `${this.fixedNav.translated.LOGGER.MESSAGES.SIDE_NAV + this.navOpened}`
     );
     this.sidenavToggle.emit(this.navOpened);
   }
@@ -73,5 +73,7 @@ export class FixedNavComponent implements OnInit {
     this.navLinks = this.defaultNavLinks;
     this.switchNavListDefault.emit();
   }
-  ngOnInit() { }
+
+  ngOnInit() {
+  }
 }

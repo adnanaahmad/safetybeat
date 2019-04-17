@@ -13,14 +13,15 @@
 @import "src/app/pages/settings/components/settings.component.scss";
 @import "src/app/pages/dashboard/components/dashboard/dashboard.component.scss";
 @import "src/app/core/components/pageNotFound/pageNotFound.component.scss";
-@import "src/app/pages/adminControl/components/entityControl/entityControl.component.scss";
+@import "src/app/pages/adminControl/modules/entityControl/components/entityControl/entityControl.component.scss";
 @import "src/app/pages/navigation/components/notificationNav/notificationNav.component.scss";
-@import "src/app/Dialogs/entityCodeModal/entityCodeModal.component.scss";
+@import "src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component.scss";
 @import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
 @import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
+@import "src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component.scss";
 @import "src/app/common/toaster/toaster.component.scss";
-@import "src/app/Dialogs/addSiteModal/addSiteModal.component.scss";
+@import "src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -51,4 +52,5 @@
   @include amte-welcomeScreen($primary, $accent, $warn);
   @include amte-addsite-modal($primary, $accent, $warn);
   @include amte-toaster($primary, $accent, $warn);
+  @include amte-createEntity($primary, $accent, $warn);
 }

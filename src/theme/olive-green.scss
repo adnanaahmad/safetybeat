@@ -160,11 +160,6 @@ $theme: mat-light-theme($primary, $secondary, $warn);
   .sideLegend {
     background-color: mat-color($primary, 700) !important;
   }
-  .infoTitle {
-    &:before {
-      background: mat-color($primary, 400);
-    }
-  }
   .notification-icon{
     .notifcount{
       background: mat-color($warn-pallete, 600);
@@ -234,7 +229,7 @@ $theme: mat-light-theme($primary, $secondary, $warn);
   }
   app-settings{
     .navigator{
-      background-color: mat-color($primary, 50);
+      background-color: #fff;
       mat-list-item{
         span {
           &:hover,
@@ -250,6 +245,23 @@ $theme: mat-light-theme($primary, $secondary, $warn);
       .mat-icon{
         color:mat-color($primary-pallet, 500);
       }
+    }
+  }
+  .activity-card {
+    &:before {
+      background-color: mat-color($primary, 500);
+    }
+  }
+  app-profile{
+    .dashboard-card{
+      .infoTitle{
+        background-color: mat-color($primary-pallet, 500);
+      }
+    }
+  }
+  app-importsitemodal {
+    .site-note{
+      background-color: mat-color($primary, 50);
     }
   }
   @include amte-setTheme($theme);

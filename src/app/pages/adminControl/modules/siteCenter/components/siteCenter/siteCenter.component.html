@@ -1,0 +1,85 @@
+<div class="paddingbox">
+<!--  <mat-progress-bar mode="indeterminate" *ngIf='!siteCentreObj.empty'></mat-progress-bar>-->
+  <div class="page-title">
+    <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
+    <p>{{ helperService.translated.SITETITLE.SITE_CENTRE_DESCRIPTION }}</p>
+  </div>
+  <div class="buttonRow">
+    <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="addSite()">
+      <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
+      {{ helperService.translated.BUTTONS.ADD_SITE }}
+    </button>
+    <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="importSite()">
+      <mat-icon>{{ helperService.appIcons.import }}</mat-icon>
+      {{ helperService.translated.BUTTONS.IMPORT_SITE }}
+    </button>
+  </div>
+  <table mat-table [dataSource]="siteCentreObj.dataSource" class="customTable mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ helperService.translated.TABLEHEADINGS.SITE_NAME }}
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.site.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ helperService.translated.TABLEHEADINGS.SITE_ADDRESS }}
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.site.location }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="safeZone">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ helperService.translated.TABLEHEADINGS.SITE_SAFE_ZONE }}
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.site.safeZone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdBy">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ helperService.translated.TABLEHEADINGS.SITE_CREATED_BY }}
+      </th>
+      <td mat-cell *matCellDef="let element"><strong>{{ element.createdBy.username }} </strong><br>
+        {{ element.createdBy.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <button class="btn-table" btn-primary mat-raised-button color="primary" mat-button [matMenuTriggerFor]="menu">
+          <mat-icon style="padding-right:0;">keyboard_arrow_down</mat-icon>
+          Actions
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+            Edit Site
+          </button>
+          <button mat-menu-item (click)='goToViewSite()'>
+            <mat-icon>{{ helperService.appIcons.viewSite }}</mat-icon>
+            View Site
+          </button>
+          <button mat-menu-item>
+            <mat-icon>{{ helperService.appIcons.siteQuestionCenter }}</mat-icon>
+            Site Question Control
+          </button>
+          <button mat-menu-item>
+            <mat-icon>{{ helperService.appIcons.log }}</mat-icon>
+            Log
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <div class="paddingbox text-center" *ngIf="siteCentreObj.dataSource === 0">
+    {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

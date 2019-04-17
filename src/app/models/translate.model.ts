@@ -76,6 +76,7 @@ export interface Auth {
   CURRENT_PASSWORD: string;
   TRIAL: string;
   OWNER: string;
+  LOGOUTSUCCESSION: string;
 }
 
 export interface Icons {
@@ -150,6 +151,7 @@ export interface Buttons {
   INVITETEAM: string;
   ADD_SITE: string;
   IMPORT_SITE: string;
+  SAVE: string;
 }
 
 export interface Messages {
@@ -188,6 +190,8 @@ export interface Messages {
   LOGINFAIL_MSG: string;
   LOGOUT_SUCCESS: string;
   LOGOUT_MSG: string;
+  LOGOUT_FAIL_MSG: string;
+  LOGOUT_FAIL: string;
   RESET_SUCCESS: string;
   RESETMSG: string;
   USERNAME_EXISTS: string;
@@ -243,6 +247,13 @@ export interface Messages {
   INVITE_FAILURE: string;
   SAFETY_PLAN_REQ: string;
   SITE_NAME_REQ: string;
+  ENTITY_DELETE: string;
+  ENTITY_DELETE_TITLE: string;
+  ENTITY_DELETE_FAIL: string;
+  ENTITY_DELETE_FAIL_TITLE: string;
+  SITE_IMPORT_SUCCESS: string;
+  SITE_IMPORT_FAILURE: string;
+  IMPORTSITE_NOTE: string;
 }
 
 export interface Logger {

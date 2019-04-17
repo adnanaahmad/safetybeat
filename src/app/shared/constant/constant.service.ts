@@ -37,7 +37,9 @@ export class ConstantService {
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
-    addSite: `${environment.apiUrl}/api/sites/addSite/`
+    addSite: `${environment.apiUrl}/api/sites/addSite/`,
+    logout : `${environment.apiUrl}/rest-auth/logout/`,
+    importSite: `${environment.apiUrl}/api/uploadFile/importSite/`
   };
   static apiMethod = {
     get: 'get',
@@ -102,7 +104,6 @@ export class ConstantService {
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
     linearForm: 'true',
-    enterKey: 13,
     emailValid: 'VALID',
     yes: 'YES',
     codeValidations: [100, 101, 102, 103, 104],
@@ -115,7 +116,10 @@ export class ConstantService {
       owner: 'Owner',
       teamLead: 'TeamLead',
       entityManager: 'EntityManager'
-    }
+    },
+    enterKey: 13,
+    importSite: 'importSite',
+    csvFile: 'csvFile'
   };
   static appIcons = {
     skipNext: 'skip_next',

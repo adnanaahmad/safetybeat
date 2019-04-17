@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 import {NotifierService} from 'angular-notifier';
 import {catchError} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {throwError} from 'rxjs';
+import {BehaviorSubject, throwError} from 'rxjs';
 import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
 import {PhoneNumberUtil} from 'google-libphonenumber';
 
@@ -25,6 +25,8 @@ export class HelperService {
   translated: Translation;
   constants: typeof ConstantService;
   displayButton: boolean = false;
+  public displayLoader = new BehaviorSubject<boolean>(true);
+  loader = this.displayLoader.asObservable();
   address: string = '';
   public dialogRef: MatDialogRef<any>;
 
@@ -58,6 +60,10 @@ export class HelperService {
       verticalPosition: 'bottom',
       horizontalPosition: 'right',
     });
+  }
+
+  toggleLoader(res): void {
+    this.displayLoader.next(res);
   }
 
   hideLoggers(): void {
@@ -117,6 +123,27 @@ export class HelperService {
         break;
       case this.constants.apiMethod.delete:
         response = this.http.delete(api).pipe(catchError(this.handleError));
+        break;
+      default:
+        break;
+    }
+    return response;
+  }
+
+  requestCallWithHeaders(method, api, headers: any, data?: any) {
+    let response;
+    switch (method) {
+      case this.constants.apiMethod.post:
+        response = this.http.post(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.get:
+        response = this.http.get(api, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.put:
+        response = this.http.put(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.delete:
+        response = this.http.delete(api, {headers: headers}).pipe(catchError(this.handleError));
         break;
       default:
         break;

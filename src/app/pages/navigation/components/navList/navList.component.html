@@ -1,16 +1,6 @@
-<!-- <p>
-  nav-list works!
-</p> -->
 <mat-nav-list *ngFor="let link of navLinks">
   <mat-list-item mat-button *ngIf="link.disabled" [routerLink]="link.route" routerLinkActive="active">
     <a class="nav-link" (click)="customActions(link.displayName)">{{link.displayName}}</a>
-    <!-- <a *ngIf="link.children" class="nav-link" [matMenuTriggerFor]="admin">{{link.displayName}}<mat-icon>
-        keyboard_arrow_right</mat-icon></a>
-    <mat-menu #admin="matMenu">
-      <button mat-menu-item *ngFor="let child of link.children" (click)="onItemSelected(child)"
-        routerLinkActive="active">
-        {{child.displayName}}</button>
-    </mat-menu> -->
   </mat-list-item>
 </mat-nav-list>
 <mat-nav-list class="bottom">
