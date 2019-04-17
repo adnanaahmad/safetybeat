@@ -46,7 +46,8 @@
     "ORG_NAME_EXISTS": "Organization name already exists",
     "CURRENT_PASSWORD": "Current Password",
     "TRIAL": "Trial",
-    "OWNER": "Owner"
+    "OWNER": "Owner",
+    "LOGOUTSUCCESSION": "Successfully logged out."
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -122,6 +123,8 @@
     "LOGINFAIL_MSG": "Login Unsuccessful!",
     "LOGOUT_SUCCESS": "You have been logged out successfully",
     "LOGOUT_MSG": "Logout Successful!",
+    "LOGOUT_FAIL_MSG": "You can not be logged out. Please try again.",
+    "LOGOUT_FAIL": "Logout Unsuccessful",
     "RESET_SUCCESS": "Email has been sent to you successfully",
     "RESETMSG": "Email has been sent!",
     "RESETFAIL": "Reset Password Unsuccessful!",
