@@ -95,6 +95,10 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
     this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
   }
 
+  goToViewSite() {
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite']);
+  }
+
   siteAddorImportEnable() {
     this.navService.currentRole.subscribe(res => {
       this.siteCentreObj.entitySelectedRole = res;

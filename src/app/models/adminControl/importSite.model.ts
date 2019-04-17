@@ -1,4 +1,5 @@
 import {FormGroup} from '@angular/forms';
+import {SitesInfo} from '../site.model';
 
 export interface ImportSite {
   importSiteResponse: any;
@@ -8,4 +9,6 @@ export interface ImportSite {
   loading: boolean;
   csvFile: File;
   type: 'multipart/form-data';
+  sitesList: any;
+  sitesData: SitesInfo[];
 }

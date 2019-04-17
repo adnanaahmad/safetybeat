@@ -5,6 +5,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {MatDialogRef} from '@angular/material';
+import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
 
 @Component({
   selector: 'app-ImportSiteModal',
@@ -20,7 +21,8 @@ export class ImportSiteModalComponent implements OnInit {
     public formBuilder: FormBuilder,
     private navService: NavigationService,
     private adminServices: AdminControlService,
-    public dialogRef: MatDialogRef<ImportSiteModalComponent>
+    public dialogRef: MatDialogRef<ImportSiteModalComponent>,
+    public compiler: CompilerProvider,
   ) {
     this.initialize();
     this.navService.selectedEntityData.subscribe((res) => {
@@ -56,22 +58,29 @@ export class ImportSiteModalComponent implements OnInit {
     let formData = new FormData();
     formData.append('file', blob, this.importSiteModal.csvFile.name);
     formData.append('entityId', entityId);
-
+    let data = {
+      'entityId': this.importSiteModal.entityId
+    };
     this.adminServices.importSite(formData).subscribe((res) => {
-      this.importSiteModal.importSiteResponse = res;
-      if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.importSiteModal.loading = false;
-        this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.MESSAGES.SITE_IMPORT_SUCCESS);
-      } else if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.importSiteModal.loading = false;
-        this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          this.helperService.translated.MESSAGES.SITE_IMPORT_FAILURE);
+        this.importSiteModal.importSiteResponse = res;
+        if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.adminServices.viewSites(data).subscribe((res) => {
+            this.importSiteModal.sitesList = res;
+            this.importSiteModal.sitesData = this.compiler.constructSiteData(this.importSiteModal.sitesList);
+            this.adminServices.changeSites(this.importSiteModal.sitesData);
+          });
+          this.importSiteModal.loading = false;
+          this.onNoClick();
+          this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+            this.helperService.translated.MESSAGES.SITE_IMPORT_SUCCESS);
+        } else if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.importSiteModal.loading = false;
+          this.onNoClick();
+          this.helperService.appLogger(this.helperService.constants.status.ERROR,
+            this.helperService.translated.MESSAGES.SITE_IMPORT_FAILURE);
+        }
       }
-    });
+    );
 
   }
-
 }
