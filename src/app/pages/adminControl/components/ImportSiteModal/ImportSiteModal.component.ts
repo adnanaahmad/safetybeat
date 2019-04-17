@@ -46,10 +46,11 @@ export class ImportSiteModalComponent implements OnInit {
 
   importSite({value}: { value: any }) {
     let blob = new Blob([this.importSiteModal.csvFile], {type: 'application/csv'});
+    let entityId = this.importSiteModal.entityId.toString();
     console.log(this.importSiteModal.csvFile);
     let formData = new FormData();
-    formData.append('file', blob, this.importSiteModal.csvFile.name)
-    formData.append('entityId', this.importSiteModal.entityId.toString(), this.importSiteModal.entityId.toString())
+    formData.append('file', blob, this.importSiteModal.csvFile.name);
+    formData.append('entityId', entityId);
 
     this.adminServices.importSite(formData).subscribe((res) => {
       console.log('i am called');
