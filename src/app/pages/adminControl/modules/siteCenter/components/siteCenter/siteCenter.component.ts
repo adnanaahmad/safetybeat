@@ -88,11 +88,15 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
    * this function is used to create Add Site Dialog
    */
   addSite() {
-    this.helperService.createDialog(AddSiteModalComponent);
+    this.helperService.createDialog(AddSiteModalComponent, {disableClose: true});
   }
 
   importSite() {
-    this.helperService.createDialog(ImportSiteModalComponent);
+    this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
+  }
+
+  goToViewSite() {
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite']);
   }
 
   siteAddorImportEnable() {

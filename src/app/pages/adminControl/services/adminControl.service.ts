@@ -99,5 +99,12 @@ export class AdminControlService {
     return this.http.delete(`${ConstantService.apiRoutes.editEntity}/${id}/`);
   }
 
+  importSite(data: FormData) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.importSite,
+      data
+    )
+  }
 
 }

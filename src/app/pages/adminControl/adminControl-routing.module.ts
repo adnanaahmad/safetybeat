@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {EntityControlComponent} from './modules/entityControl/components/entityControl/entityControl.component';
 
 const routes: Routes = [
     {
