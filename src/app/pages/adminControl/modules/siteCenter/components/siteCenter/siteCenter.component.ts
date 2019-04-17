@@ -43,10 +43,6 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.navService.selectedEntityData.subscribe((res) => {
-      this.siteCentreObj.entityData = res;
-      this.siteCentreObj.entityId = this.siteCentreObj.entityData.entityInfo.id;
-    });
   }
 
 
@@ -57,31 +53,8 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
         this.siteCentreObj.dataSource.paginator = this.paginator;
       } else if (res === '') {
         this.siteCentreObj.dataSource = 0;
-      } else {
-        this.viewAllSites();
       }
     });
-  }
-
-  /**
-   * this function is used to display all the sites of a particular entity
-   */
-  viewAllSites() {
-    let data = {
-      'entityId': this.siteCentreObj.entityId
-    };
-    this.adminServices.viewSites(data).subscribe((res) => {
-      this.siteCentreObj.sitesList = res;
-      if (this.siteCentreObj.sitesList.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
-        this.adminServices.changeSites(this.siteCentreObj.sitesData);
-        this.siteCentreObj.dataSource = new MatTableDataSource(this.siteCentreObj.sitesData);
-        this.siteCentreObj.dataSource.paginator = this.paginator;
-      } else {
-        this.siteCentreObj.dataSource = 0;
-      }
-    });
-    this.siteCentreObj.empty = true;
   }
 
   /**
