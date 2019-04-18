@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', Validators.required]
     });
   }
+
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
@@ -85,8 +86,11 @@ export class LoginComponent implements OnInit, OnDestroy {
           data
             ? this.loginService.setToken(this.loginObj.data.data.token)
             : this.loginService.setToken('');
-          let userData = this.compiler.constructUserData(this.loginObj.data.data.user);
-          this.loginService.updateProfileData(userData);
+          let userData = this.compiler.constructUserData(this.loginObj.data);
+          this.loginService.updateProfileData(userData.user);
+          this.navService.updatePackageInfo(userData.packageInfo);
+          localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
+          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           let entityData = {
             'moduleName': 'Safetybeat'
           };

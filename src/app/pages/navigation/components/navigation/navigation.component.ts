@@ -7,6 +7,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SitesInfo} from 'src/app/models/site.model';
 import {NavigationModel} from '../../../../models/navigation/navigation.model';
+import {PackageInfo} from '../../../../models/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -22,13 +23,19 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   navModel: NavigationModel = <NavigationModel>{};
   private sitesList: any;
   private sitesData: SitesInfo[];
+  isOwner: boolean = false;
+  packageInfo: PackageInfo = {
+    days: 0,
+    expired: false,
+    package: 'None'
+  };
 
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
     private navService: NavigationService,
-    public helperService: HelperService
+    public helperService: HelperService,
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -39,26 +46,13 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   ngOnInit() {
-  }
-
-  initialize() {
-    this.navModel.translated = this.helperService.translated;
-    this.navModel.navLinks = [];
-    this.navModel.defaultList = [];
-    this.navModel.empty = true;
-    this.navModel.appIcons = this.helperService.constants.appIcons;
-    this.navModel.navLinks = this.navModel.defaultList;
-    this.navModel.logoutDisable = false;
-  }
-
-  ngAfterViewInit() {
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
         this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
         this.navModel.empty = false;
         let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
-          return entity.active === true
+          return entity.active === true;
         });
         this.navModel.selectedEntity =
           index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
@@ -75,6 +69,34 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
           });
       }
     });
+    this.navService.packageData.subscribe(
+      (packageDataResult) => {
+        if (packageDataResult !== 1) {
+          this.packageInfo = packageDataResult;
+        } else {
+          this.navService.getPackageInfo().subscribe(res => {
+            this.packageInfo = res.data;
+            localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
+            (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+          }, error => {
+            this.packageInfo = JSON.parse(this.helperService.decrypt(localStorage.getItem
+            (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
+          });
+        }
+      });
+  }
+
+  initialize() {
+    this.navModel.translated = this.helperService.translated;
+    this.navModel.navLinks = [];
+    this.navModel.defaultList = [];
+    this.navModel.empty = true;
+    this.navModel.appIcons = this.helperService.constants.appIcons;
+    this.navModel.navLinks = this.navModel.defaultList;
+    this.navModel.logoutDisable = false;
+  }
+
+  ngAfterViewInit() {
   }
 
   ngOnChanges() {
@@ -169,6 +191,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.navModel.Entity = data;
     this.navService.changeSelectedEntity(this.navModel.Entity);
     this.navService.changeRole(this.navModel.Entity.role);
+    this.getRoleFromStorage();
     this.navService.changeRoleId(this.navModel.Entity.permissions.role);
     this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
   }
@@ -183,6 +206,12 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     }, (error) => {
       this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG,
         this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
-    })
+    });
+  }
+
+  getRoleFromStorage() {
+    let currentRole = this.helperService.decrypt(localStorage.getItem
+    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
+    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 }

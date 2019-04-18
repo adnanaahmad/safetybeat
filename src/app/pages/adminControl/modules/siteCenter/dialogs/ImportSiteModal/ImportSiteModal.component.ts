@@ -48,13 +48,11 @@ export class ImportSiteModalComponent implements OnInit {
   onFileSelected(event) {
     let reader = new FileReader();
     this.importSiteModal.csvFile = <File>event.target.files[0];
-    console.log(reader.readAsText(this.importSiteModal.csvFile));
   }
 
   importSite({value}: { value: any }) {
     let blob = new Blob([this.importSiteModal.csvFile], {type: 'application/csv'});
     let entityId = this.importSiteModal.entityId.toString();
-    console.log(this.importSiteModal.csvFile);
     let formData = new FormData();
     formData.append('file', blob, this.importSiteModal.csvFile.name);
     formData.append('entityId', entityId);
