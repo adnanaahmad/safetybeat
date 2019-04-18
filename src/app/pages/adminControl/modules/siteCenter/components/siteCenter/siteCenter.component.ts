@@ -30,20 +30,12 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
     this.initialize();
   }
 
-  getSelectedEntity() {
-    this.navService.selectedEntityData.subscribe((selectedEntity) => {
-      this.siteCentreObj.allEntities = selectedEntity;
-      this.siteCentreObj.entitiesData = this.siteCentreObj.allEntities.entityInfo;
-      return this.siteCentreObj.entitiesData.id;
-    });
-  }
 
   initialize() {
     this.siteCentreObj.empty = false;
   }
 
   ngOnInit() {
-    this.siteCentreObj.entityId = this.getSelectedEntity();
     this.viewSitesData();
     this.siteAddorImportEnable();
   }
@@ -53,8 +45,10 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
 
 
   viewSitesData() {
+    debugger
     let entityData = {
-      'entityId': this.siteCentreObj.entityId,
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
     }
     this.adminServices.viewSites(entityData).subscribe((res) => {
       this.siteCentreObj.sitesList = res;

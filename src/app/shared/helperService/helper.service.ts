@@ -263,8 +263,8 @@ export class HelperService {
 
   /**
    * Encrypt and decrypt through Crypto JS
-   * @param data
-   * @param key
+   * param data
+   * param key
    */
   encrypt(data: string, key: string): string {
     return CryptoJS.AES.encrypt(data, key).toString();
