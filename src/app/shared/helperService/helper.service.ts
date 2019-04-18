@@ -15,6 +15,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject, throwError} from 'rxjs';
 import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
 import {PhoneNumberUtil} from 'google-libphonenumber';
+import {FormErrorHandler} from '../FormErrorHandler/FormErrorHandler';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,8 @@ export class HelperService {
   loader = this.displayLoader.asObservable();
   address: string = '';
   public dialogRef: MatDialogRef<any>;
+  formErrorMatcher:any;
+
 
   constructor(
     private http: HttpClient,
@@ -48,6 +51,7 @@ export class HelperService {
     this.findIndex = findIndex;
     this.address = '';
     this.displayButton = false;
+    this.formErrorMatcher =  new FormErrorHandler();
   }
 
   static getPhoneNumberUtil() {
@@ -189,7 +193,7 @@ export class HelperService {
       geoCoder.geocode({'address': address}, function (results, status) {
         if (status.toString() === self.constants.status.OK) {
           mapProp.setCenter(results[0].geometry.location);
-          let marker = new google.maps.Marker({
+          let markqer = new google.maps.Marker({
             map: mapProp,
             position: results[0].geometry.location
           });

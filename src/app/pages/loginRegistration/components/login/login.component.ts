@@ -4,7 +4,6 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {loginCredentials} from 'src/app/models/user.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
@@ -39,14 +38,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: ['', Validators.email],
       password: ['', Validators.required]
     });
-    this.loginObj.formErrorMatcher = new FormErrorHandler();
   }
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
 
   /**
-   * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
+   * in this function loginform controls are checked whether they are valid or not and this is basically builtin functionality
    */
   get formValidation() {
     return this.loginObj.loginForm.controls;
@@ -65,6 +63,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     value: loginCredentials;
     valid: boolean;
   }): void {
+
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,
