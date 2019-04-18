@@ -151,7 +151,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @param data selected package against module
    */
   registration() {
-    debugger;
     let orgForm = this.registerObj.organizationForm.value, userForm = this.registerObj.userForm.value;
     this.registerObj.loading = true;
     this.registerObj.organizationData = {
