@@ -13,7 +13,7 @@ import {PackageInfo} from '../../../../models/user.model';
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Output() entitySelected = new EventEmitter();
@@ -23,6 +23,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   navModel: NavigationModel = <NavigationModel>{};
   private sitesList: any;
   private sitesData: SitesInfo[];
+  isOwner: boolean = false;
   packageInfo: PackageInfo = {
     days: 0,
     expired: false,
@@ -45,27 +46,10 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   ngOnInit() {
-  }
-
-  initialize() {
-    this.navModel.translated = this.helperService.translated;
-    this.navModel.navLinks = [];
-    this.navModel.defaultList = [];
-    this.navModel.empty = true;
-    this.navModel.appIcons = this.helperService.constants.appIcons;
-    this.navModel.navLinks = this.navModel.defaultList;
-  }
-
-  ngAfterViewInit() {
-    this.navService.packageData.subscribe(
-      (packageDataResult) => {
-        if (packageDataResult !== 1) {
-          this.packageInfo = packageDataResult;
-        } else {
-          this.packageInfo = JSON.parse(this.helperService.decrypt(localStorage.getItem
-          (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
-        }
-      });
+    let currentRole = this.helperService.decrypt(localStorage.getItem
+    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key); // Getting current role
+    console.log(currentRole);
+    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
@@ -89,6 +73,33 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
           });
       }
     });
+  }
+
+  initialize() {
+    this.navModel.translated = this.helperService.translated;
+    this.navModel.navLinks = [];
+    this.navModel.defaultList = [];
+    this.navModel.empty = true;
+    this.navModel.appIcons = this.helperService.constants.appIcons;
+    this.navModel.navLinks = this.navModel.defaultList;
+  }
+
+  ngAfterViewInit() {
+    this.navService.packageData.subscribe(
+      (packageDataResult) => {
+        if (packageDataResult !== 1) {
+          this.packageInfo = packageDataResult;
+        } else {
+          this.navService.getPackageInfo().subscribe(res => {
+            this.packageInfo = res.data;
+            localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
+            (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+          }, error => {
+            this.packageInfo = JSON.parse(this.helperService.decrypt(localStorage.getItem
+            (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
+          });
+        }
+      });
   }
 
   ngOnChanges() {
@@ -191,6 +202,8 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     });
     this.navService.changeSelectedEntity(this.navModel.Entity);
     this.navService.changeRole(this.navModel.Entity.role);
+    localStorage.setItem(this.helperService.constants.localStorageKeys.role, this.helperService.encrypt
+    (this.navModel.Entity.role, this.helperService.appConstants.key).toString());
     this.navService.changeRoleId(this.navModel.Entity.permissions.role);
     this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
   }

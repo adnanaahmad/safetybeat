@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NavItem } from 'src/app/models/navItems.model';
-import { Router } from '@angular/router';
-import { NavigationService } from '../../services/navigation.service';
-import { InviteUserModalComponent } from '../../../../Dialogs/inviteUserModal/inviteUserModal.component';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { Translation } from 'src/app/models/translate.model';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit, Input} from '@angular/core';
+import {NavItem} from 'src/app/models/navItems.model';
+import {Router} from '@angular/router';
+import {NavigationService} from '../../services/navigation.service';
+import {InviteUserModalComponent} from '../../../../Dialogs/inviteUserModal/inviteUserModal.component';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {Translation} from 'src/app/models/translate.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavListModel} from '../../../../models/navigation/navList.model';
 
 
@@ -19,6 +19,7 @@ export class NavListComponent implements OnInit {
   @Input() public navLinksBottom;
   @Input() public selectedEntity;
   navListModel: NavListModel = <NavListModel>{};
+
   constructor(
     public router: Router,
     public navService: NavigationService,
@@ -26,7 +27,7 @@ export class NavListComponent implements OnInit {
     public helperService: HelperService,
   ) {
     this.navListModel.translated = this.helperService.translated;
-    this.getRoles()
+    this.getRoles();
   }
 
   ngOnInit() {
@@ -43,13 +44,15 @@ export class NavListComponent implements OnInit {
       this.navListModel.roles = res;
       let self = this;
       this.helperService.iterations(this.navListModel.roles, function (obj) {
-        obj.name = self.compiler.insertSpaces(obj.name)
-      })
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.navListModel.translated.LOGGER.MESSAGES.ROLES_RECIEVED);
+        obj.name = self.compiler.insertSpaces(obj.name);
+      });
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+        this.navListModel.translated.LOGGER.MESSAGES.ROLES_RECIEVED);
     }, (err) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.navListModel.translated.LOGGER.MESSAGES.ROLES_RECIEVED_ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR,
+        this.navListModel.translated.LOGGER.MESSAGES.ROLES_RECIEVED_ERROR);
       this.helperService.logoutError(err.status);
-    })
+    });
   }
 
   onItemSelected(navLinks: NavItem) {
@@ -71,7 +74,7 @@ export class NavListComponent implements OnInit {
         this.inviteUserModal(this.selectedEntity.entityInfo.id);
         break;
       case 'Analytics Reports':
-        this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName)
+        this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName);
         break;
       default:
         break;
@@ -83,7 +86,7 @@ export class NavListComponent implements OnInit {
    * @params entityId
    */
   inviteUserModal(entityId) {
-    this.helperService.createDialog(InviteUserModalComponent, { data: { 'role': this.navListModel.roles, 'entityId': entityId } });
+    this.helperService.createDialog(InviteUserModalComponent, {data: {'role': this.navListModel.roles, 'entityId': entityId}});
   }
 
 }

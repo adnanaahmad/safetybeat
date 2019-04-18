@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.loginService.updateProfileData(userData.user);
           this.navService.updatePackageInfo(userData.packageInfo);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store data in local storage
+          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           let entityData = {
             'moduleName': 'Safetybeat'
           };

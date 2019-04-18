@@ -38,7 +38,8 @@ export class ConstantService {
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
     addSite: `${environment.apiUrl}/api/sites/addSite/`,
-    logout: `${environment.apiUrl}/rest-auth/logout/`
+    logout: `${environment.apiUrl}/rest-auth/logout/`,
+    packageInfo: `${environment.apiUrl}/packages/packageDetail/`
   };
   static apiMethod = {
     get: 'get',
@@ -50,7 +51,8 @@ export class ConstantService {
     token: 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
     theme: 'sb_Theme_Selected',
-    packageInfo: 'sb_Package_Info'
+    packageInfo: 'sb_Package_Info',
+    role: 'sb_role'
   };
   static toast = {
     location: 'toast-top-left',

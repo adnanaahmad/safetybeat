@@ -22,12 +22,18 @@
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
-        <div class="product-notice" *ngIf="packageInfo.package=='Trial'&&!packageInfo.expired">Your trial is going to expire in {{packageInfo.days}}
+        <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&!packageInfo.expired">Your trial is
+          going to
+          expire in {{packageInfo.days}}
           day(s). Please go to hell or
           <button routerLink="">Upgrade</button>
         </div>
-        <div class="product-notice" *ngIf="packageInfo.package=='Trial'&&packageInfo.expired">Your trial is expired.
+        <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">Your trial is
+          expired.
           <button routerLink="">Upgrade</button>
+        </div>
+        <div class="product-notice" *ngIf="!isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">You don't have
+          access to Safetybeat. Please contact your administrator.
         </div>
         <div class="top-btns">
           <button mat-button *ngIf="core.isAuthenticated" (click)="logoutUser()">

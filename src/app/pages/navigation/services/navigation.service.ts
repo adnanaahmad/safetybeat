@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {catchError} from 'rxjs/operators';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
+import {HelperService} from '../../../shared/helperService/helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,7 @@ export class NavigationService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    public helperService: HelperService,
     public coreServices: CoreService) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -55,6 +57,10 @@ export class NavigationService {
     return this.http.post(ConstantService.apiRoutes.getInvite, data).pipe(catchError(this.coreServices.handleError));
   }
 
+  getPackageInfo() {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.packageInfo);
+  }
+
   changeRole(role: string) {
     this.entitySelectedRole.next(role);
   }
@@ -75,7 +81,7 @@ export class NavigationService {
     this.packageInfo.next(data);
   }
 
-  logoutUser(){
+  logoutUser() {
     return this.http.get(ConstantService.apiRoutes.logout);
   }
 }
