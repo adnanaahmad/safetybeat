@@ -32,7 +32,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   managedBy: any;
   changePasswordForm: FormGroup;
   private modalService: ProfileService;
-  formErrorMatcher: any;
   data: any;
   currentPassword: string;
   password1: any;
@@ -52,7 +51,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
     this.appTheme = this.helperService.constants.appTheme;
-    this.formErrorMatcher = new FormErrorHandler();
   }
 
   ngOnInit() {
