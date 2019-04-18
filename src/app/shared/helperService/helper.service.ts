@@ -189,7 +189,7 @@ export class HelperService {
       geoCoder.geocode({'address': address}, function (results, status) {
         if (status.toString() === self.constants.status.OK) {
           mapProp.setCenter(results[0].geometry.location);
-          let marker = new google.maps.Marker({
+          let markqer = new google.maps.Marker({
             map: mapProp,
             position: results[0].geometry.location
           });
