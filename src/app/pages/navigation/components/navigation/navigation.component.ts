@@ -48,7 +48,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   ngOnInit() {
     let currentRole = this.helperService.decrypt(localStorage.getItem
     (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key); // Getting current role
-    console.log(currentRole);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
@@ -73,18 +72,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
           });
       }
     });
-  }
-
-  initialize() {
-    this.navModel.translated = this.helperService.translated;
-    this.navModel.navLinks = [];
-    this.navModel.defaultList = [];
-    this.navModel.empty = true;
-    this.navModel.appIcons = this.helperService.constants.appIcons;
-    this.navModel.navLinks = this.navModel.defaultList;
-  }
-
-  ngAfterViewInit() {
     this.navService.packageData.subscribe(
       (packageDataResult) => {
         if (packageDataResult !== 1) {
@@ -100,6 +87,18 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
           });
         }
       });
+  }
+
+  initialize() {
+    this.navModel.translated = this.helperService.translated;
+    this.navModel.navLinks = [];
+    this.navModel.defaultList = [];
+    this.navModel.empty = true;
+    this.navModel.appIcons = this.helperService.constants.appIcons;
+    this.navModel.navLinks = this.navModel.defaultList;
+  }
+
+  ngAfterViewInit() {
   }
 
   ngOnChanges() {
