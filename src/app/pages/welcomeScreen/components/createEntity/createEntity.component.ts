@@ -36,7 +36,7 @@ export class CreateEntityComponent implements OnInit {
     this.createEntityObj.createEntityForm = this.formBuilder.group({
       name: ['', Validators.required],
       headOffice: ['', Validators.required],
-      status: ['']
+      status: true
     });
   }
 
