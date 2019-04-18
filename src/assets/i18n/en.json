@@ -46,7 +46,8 @@
     "ORG_NAME_EXISTS": "Organization name already exists",
     "CURRENT_PASSWORD": "Current Password",
     "TRIAL": "Trial",
-    "OWNER": "Owner"
+    "OWNER": "Owner",
+    "LOGOUTSUCCESSION": "Successfully logged out."
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -122,6 +123,8 @@
     "LOGINFAIL_MSG": "Login Unsuccessful!",
     "LOGOUT_SUCCESS": "You have been logged out successfully",
     "LOGOUT_MSG": "Logout Successful!",
+    "LOGOUT_FAIL_MSG": "You can not be logged out. Please try again.",
+    "LOGOUT_FAIL": "Logout Unsuccessful",
     "RESET_SUCCESS": "Email has been sent to you successfully",
     "RESETMSG": "Email has been sent!",
     "RESETFAIL": "Reset Password Unsuccessful!",
@@ -187,10 +190,15 @@
     "INVITE_FAILURE": "Error inviting user.",
     "SAFETY_PLAN_REQ": "Site safety plan is required",
     "SITE_NAME_REQ": "Site name is required",
+    "INCORRECT_PASS": "Incorrect password, please try again!",
+    "SITE_NAME_REQ": "Site name is required",
     "ENTITY_DELETE": "Your entity has been deleted successfully.",
     "ENTITY_DELETE_TITLE": "Entity Deleted",
     "ENTITY_DELETE_FAIL": "Your entity has not been deleted",
-    "ENTITY_DELETE_FAIL_TITLE": "Entity Deletion Failed"
+    "ENTITY_DELETE_FAIL_TITLE": "Entity Deletion Failed",
+    "SITE_IMPORT_SUCCESS": "Sites have been import successfully",
+    "SITE_IMPORT_FAILURE": "Sites import failed",
+    "IMPORTSITE_NOTE":"Note: CSV file format should be the following: \n, Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \n    For example: \n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\""
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

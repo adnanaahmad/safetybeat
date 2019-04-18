@@ -12,7 +12,7 @@ import {NavigationModel} from '../../../../models/navigation/navigation.model';
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @Output() entitySelected = new EventEmitter();
@@ -48,6 +48,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.navModel.empty = true;
     this.navModel.appIcons = this.helperService.constants.appIcons;
     this.navModel.navLinks = this.navModel.defaultList;
+    this.navModel.logoutDisable = false;
   }
 
   ngAfterViewInit() {
@@ -182,8 +183,14 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
 
   logoutUser() {
     this.navService.logoutUser().subscribe((res) => {
-      debugger
-      console.log(res);
+      this.navModel.logoutDisable = true;
+      this.navModel.logoutResponse = res;
+      if (this.navModel.logoutResponse.detail === this.navModel.translated.AUTH.LOGOUTSUCCESSION) {
+        this.core.logoutUser();
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG,
+        this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
     })
   }
 }
