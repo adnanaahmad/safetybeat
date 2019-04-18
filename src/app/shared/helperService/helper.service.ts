@@ -12,6 +12,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject, throwError} from 'rxjs';
 import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
 import {PhoneNumberUtil} from 'google-libphonenumber';
+import {FormErrorHandler} from '../FormErrorHandler/FormErrorHandler';
 import * as CryptoJS from 'crypto-js';
 
 @Injectable({
@@ -27,6 +28,8 @@ export class HelperService {
   loader = this.displayLoader.asObservable();
   address: string = '';
   public dialogRef: MatDialogRef<any>;
+  formErrorMatcher: any;
+
 
   constructor(
     private http: HttpClient,
@@ -46,6 +49,7 @@ export class HelperService {
     this.findIndex = findIndex;
     this.address = '';
     this.displayButton = false;
+    this.formErrorMatcher = new FormErrorHandler();
   }
 
   static getPhoneNumberUtil() {
@@ -121,6 +125,27 @@ export class HelperService {
         break;
       case this.constants.apiMethod.delete:
         response = this.http.delete(api).pipe(catchError(this.handleError));
+        break;
+      default:
+        break;
+    }
+    return response;
+  }
+
+  requestCallWithHeaders(method, api, headers: any, data?: any) {
+    let response;
+    switch (method) {
+      case this.constants.apiMethod.post:
+        response = this.http.post(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.get:
+        response = this.http.get(api, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.put:
+        response = this.http.put(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.delete:
+        response = this.http.delete(api, {headers: headers}).pipe(catchError(this.handleError));
         break;
       default:
         break;

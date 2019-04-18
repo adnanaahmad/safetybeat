@@ -156,6 +156,7 @@ export interface Buttons {
 }
 
 export interface Messages {
+  INCORRECT_PASS: string;
   CHANGEPASSWORD: string;
   WELCOME: string;
   WELCOME_MSG: string;
@@ -251,6 +252,9 @@ export interface Messages {
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
   ENTITY_DELETE_FAIL_TITLE: string;
+  SITE_IMPORT_SUCCESS: string;
+  SITE_IMPORT_FAILURE: string;
+  IMPORTSITE_NOTE: string;
   TRIAL_EXPIRED: string;
   TRIAL_LEFT_1: string;
   TRIAL_LEFT_2: string;

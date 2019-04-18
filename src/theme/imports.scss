@@ -19,6 +19,7 @@
 @import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
 @import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
+@import "src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component.scss";
 @import "src/app/common/toaster/toaster.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component.scss";
 
@@ -51,4 +52,5 @@
   @include amte-welcomeScreen($primary, $accent, $warn);
   @include amte-addsite-modal($primary, $accent, $warn);
   @include amte-toaster($primary, $accent, $warn);
+  @include amte-createEntity($primary, $accent, $warn);
 }

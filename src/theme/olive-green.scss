@@ -259,5 +259,10 @@ $theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
+  app-importsitemodal {
+    .site-note{
+      background-color: mat-color($primary, 50);
+    }
+  }
   @include amte-setTheme($theme);
 }
