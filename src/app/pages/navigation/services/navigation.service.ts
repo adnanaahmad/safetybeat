@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {catchError} from 'rxjs/operators';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
+import {HelperService} from '../../../shared/helperService/helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,13 @@ export class NavigationService {
   currentRoleId = this.entitySelectedId.asObservable();
   private entitySelected = new BehaviorSubject<any>(1);
   selectedEntityData = this.entitySelected.asObservable();
+  private packageInfo = new BehaviorSubject<any>(1);
+  packageData = this.packageInfo.asObservable();
 
   constructor(
     private http: HttpClient,
     private router: Router,
+    public helperService: HelperService,
     public coreServices: CoreService) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -53,7 +57,13 @@ export class NavigationService {
     return this.http.post(ConstantService.apiRoutes.getInvite, data).pipe(catchError(this.coreServices.handleError));
   }
 
+  getPackageInfo() {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.packageInfo);
+  }
+
   changeRole(role: string) {
+    localStorage.setItem(this.helperService.constants.localStorageKeys.role, this.helperService.encrypt
+    (role, this.helperService.appConstants.key).toString());
     this.entitySelectedRole.next(role);
   }
 
@@ -65,8 +75,12 @@ export class NavigationService {
     this.entitySelectedId.next(roleId);
   }
 
-  async changeSelectedEntity(data: any) {
+  changeSelectedEntity(data: any) {
     this.entitySelected.next(data);
+  }
+
+  updatePackageInfo(data: any) {
+    this.packageInfo.next(data);
   }
 
   logoutUser() {

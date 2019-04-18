@@ -41,7 +41,7 @@
               [disabled]="addSiteObj.loading|| !helperService.displayButton" color="primary">
         {{ helperService.translated.BUTTONS.ADD_SITE }}
       </button>
-      <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL/>
+      <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
       <button mat-button mat-dialog-close>
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>

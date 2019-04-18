@@ -97,7 +97,8 @@
     "HOURS": "Hours",
     "INVITETEAM": "Invite",
     "ADD_SITE": "Add Site",
-    "IMPORT_SITE": "Import Site"
+    "IMPORT_SITE": "Import Site",
+    "UPGRADE": "Upgrade"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -190,13 +191,18 @@
     "INVITE_FAILURE": "Error inviting user.",
     "SAFETY_PLAN_REQ": "Site safety plan is required",
     "SITE_NAME_REQ": "Site name is required",
+    "INCORRECT_PASS": "Incorrect password, please try again!",
     "ENTITY_DELETE": "Your entity has been deleted successfully.",
     "ENTITY_DELETE_TITLE": "Entity Deleted",
     "ENTITY_DELETE_FAIL": "Your entity has not been deleted",
     "ENTITY_DELETE_FAIL_TITLE": "Entity Deletion Failed",
     "SITE_IMPORT_SUCCESS": "Sites have been import successfully",
-    "SITE_IMPORT_FAILURE": "Sites import failed",
-    "IMPORTSITE_NOTE":"Note: CSV file format should be the following: \n, Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \n    For example: \n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\""
+    "SITE_IMPORT_FAILURE": "Sites import failed, file format is wrong.",
+    "IMPORTSITE_NOTE": "Note:\n Only CSV file with following format would be accepted:\n  Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \n    For example: \n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\"",
+    "TRIAL_EXPIRED": "Your trial package is expired. Please ",
+    "TRIAL_LEFT_1": "Your trial is going to expire in ",
+    "TRIAL_LEFT_2": " day(s). Please ",
+    "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

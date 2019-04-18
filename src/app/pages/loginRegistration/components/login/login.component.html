@@ -22,7 +22,7 @@
         <div class="input">
           <mat-form-field full-width>
             <input matInput type="email" [placeholder]="helperService.translated.AUTH.EMAIL" [formControlName]="helperService.appConstants.email"
-              [errorStateMatcher]="loginObj.formErrorMatcher" required />
+              [errorStateMatcher]="helperService.formErrorMatcher" required />
             <mat-error *ngIf="formValidation.email.errors">
               <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
               <span *ngIf="formValidation.email.errors?.exists">{{helperService.translated.MESSAGES.NOT_REGISTETRED}}</span>
@@ -32,7 +32,7 @@
         <div class="password">
           <mat-form-field full-width>
             <input matInput type="password" [placeholder]="helperService.translated.AUTH.PASSWORD" [formControlName]="helperService.appConstants.password"
-              [errorStateMatcher]="loginObj.formErrorMatcher" required />
+              [errorStateMatcher]="helperService.formErrorMatcher" required />
             <mat-error *ngIf="formValidation.password.errors">
               <span *ngIf="formValidation.password.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
               <span *ngIf="formValidation.password.errors?.exists">{{helperService.translated.MESSAGES.INVALID_PASSWORD}}</span>

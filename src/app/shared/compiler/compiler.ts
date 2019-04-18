@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
-import { EntityUserData, Entity } from 'src/app/models/userEntityData.model';
-import { HelperService } from '../helperService/helper.service';
-import { User } from 'src/app/models/user.model';
-import { Site, SitesInfo } from '../../models/site.model';
+import {Injectable} from '@angular/core';
+import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
+import {HelperService} from '../helperService/helper.service';
+import {UserData} from 'src/app/models/user.model';
+import {Site, SitesInfo} from '../../models/site.model';
 
 @Injectable()
 export class CompilerProvider {
   newMenu: any = [];
   navList: any = [];
   appIcons: any;
+
   constructor(
     public helperService: HelperService
   ) {
     this.appIcons = this.helperService.constants.appIcons;
   }
+
   /**
    * @param event
    * To check if the input is number or not
@@ -27,9 +29,9 @@ export class CompilerProvider {
   }
 
   /**
-  * @param event
-  * To check if the input is character or not
-  */
+   * @param event
+   * To check if the input is character or not
+   */
   charactersOnly(event): boolean {
     const charCode = event.which ? event.which : event.key;
     return !(
@@ -37,22 +39,18 @@ export class CompilerProvider {
       ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122))
     );
   }
+
   constructUserData(profileApiResponse: any) {
-    let user: User = {
-      id: profileApiResponse.id,
-      username: profileApiResponse.username,
-      first_name: profileApiResponse.first_name,
-      last_name: profileApiResponse.last_name,
-      email: profileApiResponse.email,
-      contactNo: profileApiResponse.contactNo
-    };
+    let user: UserData = profileApiResponse.data;
     return user;
   }
+
   insertSpaces(string) {
     string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
-    string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2')
+    string = string.replace(/([A-Z])([A-Z][a-z])/g, '$1 $2');
     return string;
   }
+
   constructProfileData(loginApiResponse: any) {
     let profileData = {
       userid: loginApiResponse.userId,
@@ -201,12 +199,13 @@ export class CompilerProvider {
     var self = this;
     this.helperService.iterations(this.navList, function (obj) {
       if (obj.displayName == name) {
-        self.newMenu = obj.children
+        self.newMenu = obj.children;
       }
-    })
-    return this.newMenu
+    });
+    return this.newMenu;
 
   }
+
   switchSideMenuDefault(data) {
     this.navList = [
       {
@@ -318,7 +317,7 @@ export class CompilerProvider {
         ]
       }
     ];
-    return this.navList
+    return this.navList;
 
   }
 }

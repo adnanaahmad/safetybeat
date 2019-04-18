@@ -1,17 +1,12 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CoreService } from './core.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { fakeAsync, TestBed, getTestBed } from '@angular/core/testing';
-import { ToastrModule } from 'ng6-toastr-notifications';
+import { TestBed, getTestBed } from '@angular/core/testing';
 import { createTranslateLoader } from 'src/app/app.module';
-import { AppRoutingModule } from 'src/app/app-routing.module';
-import { async } from 'q';
-import { inject } from '@angular/core';
 import { ConstantService } from 'src/app/shared/constant/constant.service'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 describe('CoreService', () => {
-    let router: Router;
     let injector;
     let service: CoreService;
     let httpTestingController: HttpTestingController;
@@ -24,7 +19,6 @@ describe('CoreService', () => {
                 HttpClientTestingModule,
                 HttpClientModule,
                 RouterModule.forRoot([{ path: '', component: CoreService }]),
-                ToastrModule.forRoot(),
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,

@@ -1,6 +1,8 @@
 <div class="container">
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
-    (switchNavListDefault)="switchListDefault(navModel.Entity)" [selectedEntity]="navModel.Entity"></app-fixed-nav>
+                 (switchNavListDefault)="switchListDefault(navModel.Entity)"
+                 [disableNav]="packageInfo.expired"
+                 [selectedEntity]="navModel.Entity"></app-fixed-nav>
   <!-- <mat-progress-bar mode="indeterminate" *ngIf='empty'></mat-progress-bar> -->
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
@@ -11,7 +13,8 @@
       </div>
       <mat-form-field class="entity-switcher">
         <mat-select [(value)]="navModel.selectedEntity" (selectionChange)="switchSideMenu(navModel.selectedEntity)">
-          <mat-option *ngFor="let entity of navModel.entityUserData" [value]="entity">{{entity.entityInfo.name}}</mat-option>
+          <mat-option *ngFor="let entity of navModel.entityUserData"
+                      [value]="entity">{{entity.entityInfo.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-nav-list>
@@ -22,6 +25,14 @@
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
+        <div class="product-notice"
+             *ngIf="isOwner&&packageInfo.package=='Trial'&&!packageInfo.expired"> {{helperService.translated.MESSAGES.TRIAL_LEFT_1}}{{packageInfo.days}}{{helperService.translated.MESSAGES.TRIAL_LEFT_2}}
+          <button routerLink="">{{helperService.translated.BUTTONS.UPGRADE}}</button>
+        </div>
+        <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">{{helperService.translated.MESSAGES.TRIAL_EXPIRED}}
+          <button routerLink="">{{helperService.translated.BUTTONS.UPGRADE}}</button>
+        </div>
+        <div class="product-notice" *ngIf="!isOwner&&packageInfo.package=='Trial'&&packageInfo.expired"> {{helperService.translated.MESSAGES.TRIAL_EXP_USER}}</div>
         <div class="top-btns">
           <button mat-button *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">
             Logout
