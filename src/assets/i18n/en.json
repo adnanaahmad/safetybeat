@@ -195,8 +195,8 @@
     "ENTITY_DELETE_FAIL": "Your entity has not been deleted",
     "ENTITY_DELETE_FAIL_TITLE": "Entity Deletion Failed",
     "SITE_IMPORT_SUCCESS": "Sites have been import successfully",
-    "SITE_IMPORT_FAILURE": "Sites import failed",
-    "IMPORTSITE_NOTE":"Note: CSV file format should be the following: \n, Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \n    For example: \n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\""
+    "SITE_IMPORT_FAILURE": "Sites import failed, file format is wrong.",
+    "IMPORTSITE_NOTE":"Note:\n Only CSV file with following format would be accepted:\n  Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \n    For example: \n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\""
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
