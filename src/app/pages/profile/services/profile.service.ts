@@ -33,6 +33,7 @@ export class ProfileService {
   }
 
   changePassword(data) {
+    debugger
     return this.http.put(`${ConstantService.apiRoutes.changePassword}`, data).pipe(catchError(this.coreServices.handleError));
   }
 

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * in this function loginform controls are checked whether they are valid or not and this is basically builtin fucntionality
+   * in this function loginform controls are checked whether they are valid or not and this is basically builtin functionality
    */
   get formValidation() {
     return this.loginObj.loginForm.controls;
@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     value: loginCredentials;
     valid: boolean;
   }): void {
+
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,
