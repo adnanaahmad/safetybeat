@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -13,7 +13,7 @@ import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteC
   templateUrl: './siteCenter.component.html',
   styleUrls: ['./siteCenter.component.scss']
 })
-export class SiteCenterComponent implements OnInit {
+export class SiteCenterComponent implements OnInit, AfterViewInit {
 
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,10 +28,7 @@ export class SiteCenterComponent implements OnInit {
     private navService: NavigationService,
   ) {
     this.initialize();
-    this.navService.selectedEntityData.subscribe((res) => {
-      this.siteCentreObj.entityData = res;
-      this.siteCentreObj.entityId = this.siteCentreObj.entityData.entityInfo.id;
-    });
+
 
   }
 
@@ -41,52 +38,38 @@ export class SiteCenterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.viewAllSites();
+    this.viewSitesData();
     this.siteAddorImportEnable();
   }
 
-  /**
-   * this function is used to display all the sites of a particular entity
-   */
-  viewAllSites() {
-    this.adminServices.siteObserver.subscribe((res) => {
-      if (res === 1) {
-        let data = {
-          'entityId': this.siteCentreObj.entityId
-        };
-        this.adminServices.viewSites(data).subscribe((res) => {
-          this.siteCentreObj.sitesList = res;
-          if (this.siteCentreObj.sitesList.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-            this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
-            this.adminServices.changeSites(this.siteCentreObj.sitesData);
-            this.siteCentreObj.dataSource = new MatTableDataSource(this.siteCentreObj.sitesData);
-            this.siteCentreObj.dataSource.paginator = this.paginator;
-          } else {
-            this.siteCentreObj.dataSource = 0;
-          }
-        });
-      } else {
-        if (res === '') {
-          this.siteCentreObj.dataSource = 0;
-        } else {
-          this.siteCentreObj.dataSource = new MatTableDataSource(res);
-          this.siteCentreObj.dataSource.paginator = this.paginator;
-        }
+  ngAfterViewInit() {
+  }
 
+
+  viewSitesData() {
+    this.adminServices.siteObserver.subscribe((res) => {
+      if (res !== 1 && res !== '') {
+        this.siteCentreObj.dataSource = new MatTableDataSource(res);
+        this.siteCentreObj.dataSource.paginator = this.paginator;
+      } else if (res === '') {
+        this.siteCentreObj.dataSource = 0;
       }
     });
-    this.siteCentreObj.empty = true;
   }
 
   /**
    * this function is used to create Add Site Dialog
    */
   addSite() {
-    this.helperService.createDialog(AddSiteModalComponent);
+    this.helperService.createDialog(AddSiteModalComponent, {disableClose: true});
   }
 
   importSite() {
-    this.helperService.createDialog(ImportSiteModalComponent);
+    this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
+  }
+
+  goToViewSite() {
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite']);
   }
 
   siteAddorImportEnable() {

@@ -65,6 +65,7 @@ export class HelperService {
   toggleLoader(res): void {
     this.displayLoader.next(res);
   }
+
   hideLoggers(): void {
     this.notifier.hideAll();
   }
@@ -129,6 +130,27 @@ export class HelperService {
     return response;
   }
 
+  requestCallWithHeaders(method, api, headers: any, data?: any) {
+    let response;
+    switch (method) {
+      case this.constants.apiMethod.post:
+        response = this.http.post(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.get:
+        response = this.http.get(api, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.put:
+        response = this.http.put(api, data, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      case this.constants.apiMethod.delete:
+        response = this.http.delete(api, {headers: headers}).pipe(catchError(this.handleError));
+        break;
+      default:
+        break;
+    }
+    return response;
+  }
+
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -141,14 +163,14 @@ export class HelperService {
         `body was: ${error.message}`);
     }
     // return an observable with a user-facing error message
-    var msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
+    let msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
     return throwError({error: msg, status: error.status});
   };
 
   /**
    * It will create a map on required element with specific map configuration
-   * @param gmapElement
-   * @param mapConfig
+   * @params gmapElement
+   * @params mapConfig
    */
   createMap(gmapElement: ElementRef, mapConfig?: any) {
     mapConfig = (mapConfig) ? mapConfig : this.constants.defaultMapConfig;
@@ -157,8 +179,8 @@ export class HelperService {
 
   /**
    * Set map location according to given address and on mapProp element
-   * @param address
-   * @param mapProp
+   * @params address
+   * @params mapProp
    */
   setLocationGeocode(address, mapProp) {
     let geoCoder = new google.maps.Geocoder();
@@ -167,7 +189,7 @@ export class HelperService {
       geoCoder.geocode({'address': address}, function (results, status) {
         if (status.toString() === self.constants.status.OK) {
           mapProp.setCenter(results[0].geometry.location);
-          let marker = new google.maps.Marker({
+          let markqer = new google.maps.Marker({
             map: mapProp,
             position: results[0].geometry.location
           });
@@ -189,7 +211,7 @@ export class HelperService {
 
   /**
    * Router navigation through out the code will go through this function
-   * @param path
+   * @params path
    */
   navigateTo(path: any[]) {
     this.router.navigate(path).then(res => {

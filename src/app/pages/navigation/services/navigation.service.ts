@@ -65,11 +65,11 @@ export class NavigationService {
     this.entitySelectedId.next(roleId);
   }
 
-  changeSelectedEntity(data: any) {
+  async changeSelectedEntity(data: any) {
     this.entitySelected.next(data);
   }
 
-  logoutUser(){
+  logoutUser() {
     return this.http.get(ConstantService.apiRoutes.logout);
   }
 }
