@@ -1,6 +1,8 @@
 import {SitesInfo} from '../site.model';
 
 export interface SiteCentre {
+  entitiesData: any;
+  allEntities: any;
   siteOption: boolean;
   entitySelectedRole: string;
   dataSource: any;
