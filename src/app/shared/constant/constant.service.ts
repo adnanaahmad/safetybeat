@@ -37,7 +37,8 @@ export class ConstantService {
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
-    addSite: `${environment.apiUrl}/api/sites/addSite/`
+    addSite: `${environment.apiUrl}/api/sites/addSite/`,
+    logout : `${environment.apiUrl}/rest-auth/logout/`
   };
   static apiMethod = {
     get: 'get',
