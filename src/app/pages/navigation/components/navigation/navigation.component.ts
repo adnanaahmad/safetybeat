@@ -46,9 +46,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   ngOnInit() {
-    let currentRole = this.helperService.decrypt(localStorage.getItem
-    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key); // Getting current role
-    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
@@ -201,8 +198,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     });
     this.navService.changeSelectedEntity(this.navModel.Entity);
     this.navService.changeRole(this.navModel.Entity.role);
-    localStorage.setItem(this.helperService.constants.localStorageKeys.role, this.helperService.encrypt
-    (this.navModel.Entity.role, this.helperService.appConstants.key).toString());
+    this.getRoleFromStorage();
     this.navService.changeRoleId(this.navModel.Entity.permissions.role);
     this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
   }
@@ -217,5 +213,11 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG,
         this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
     });
+  }
+
+  getRoleFromStorage() {
+    let currentRole = this.helperService.decrypt(localStorage.getItem
+    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
+    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 }

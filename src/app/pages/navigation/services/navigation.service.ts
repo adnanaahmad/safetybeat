@@ -62,6 +62,8 @@ export class NavigationService {
   }
 
   changeRole(role: string) {
+    localStorage.setItem(this.helperService.constants.localStorageKeys.role, this.helperService.encrypt
+    (role, this.helperService.appConstants.key).toString());
     this.entitySelectedRole.next(role);
   }
 
