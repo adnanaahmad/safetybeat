@@ -1,6 +1,6 @@
 import {FormGroup} from '@angular/forms';
 
-export interface Login{
+export interface Login {
   loginForm: FormGroup;
   loading: boolean;
   data: any;
