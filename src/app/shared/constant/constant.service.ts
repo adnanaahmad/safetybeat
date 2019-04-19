@@ -53,7 +53,8 @@ export class ConstantService {
     entityUserData: 'sb_Entity_User_Data',
     theme: 'sb_Theme_Selected',
     packageInfo: 'sb_Package_Info',
-    role: 'sb_role'
+    role: 'sb_role',
+    entityId: 'sb_entityId',
   };
   static toast = {
     location: 'toast-top-left',
