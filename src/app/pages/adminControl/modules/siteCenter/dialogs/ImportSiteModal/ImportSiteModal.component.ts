@@ -48,19 +48,18 @@ export class ImportSiteModalComponent implements OnInit {
   onFileSelected(event) {
     let reader = new FileReader();
     this.importSiteModal.csvFile = <File>event.target.files[0];
-    console.log(reader.readAsText(this.importSiteModal.csvFile));
   }
 
   importSite({value}: { value: any }) {
     let blob = new Blob([this.importSiteModal.csvFile], {type: 'application/csv'});
     let entityId = this.importSiteModal.entityId.toString();
-    console.log(this.importSiteModal.csvFile);
     let formData = new FormData();
     formData.append('file', blob, this.importSiteModal.csvFile.name);
     formData.append('entityId', entityId);
     let data = {
       'entityId': this.importSiteModal.entityId
     };
+    this.importSiteModal.loading = true;
     this.adminServices.importSite(formData).subscribe((res) => {
         this.importSiteModal.importSiteResponse = res;
         if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -75,7 +74,6 @@ export class ImportSiteModalComponent implements OnInit {
             this.helperService.translated.MESSAGES.SITE_IMPORT_SUCCESS);
         } else if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.importSiteModal.loading = false;
-          this.onNoClick();
           this.helperService.appLogger(this.helperService.constants.status.ERROR,
             this.helperService.translated.MESSAGES.SITE_IMPORT_FAILURE);
         }

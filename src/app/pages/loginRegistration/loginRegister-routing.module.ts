@@ -12,7 +12,7 @@ import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordR
 const authRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'landing',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -31,7 +31,7 @@ const authRoutes: Routes = [
     path: 'passwordRecovery/:uid/:token',
     component: PasswordRecoveryComponent
   }, {
-    path: 'signup',
+    path: 'signup/:email',
     component: RegistrationComponent
   }
 ];

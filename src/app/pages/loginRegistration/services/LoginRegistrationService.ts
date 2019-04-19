@@ -1,12 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Observable, forkJoin} from 'rxjs';
-import {
-  loginCredentials,
-  LoginResponse,
-  ForgotPassword,
-  ForgotPasswordResponse
-} from 'src/app/models/user.model';
+import {loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse} from 'src/app/models/user.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {resetPassword} from 'src/app/models/profile.model';
 
@@ -14,7 +9,7 @@ import {resetPassword} from 'src/app/models/profile.model';
 @Injectable({providedIn: 'root'})
 export class LoginRegistrationService {
   storageKey: string;
-  private userData = new BehaviorSubject<any>(1);
+  public userData = new BehaviorSubject<any>(1);
   profileData = this.userData.asObservable();
   apiRoutes: any;
   method: { get: string; post: string; put: string; delete: string; };
@@ -120,6 +115,7 @@ export class LoginRegistrationService {
   }
 
   updateProfileData(data: any) {
+    debugger
     this.userData.next(data);
   }
 

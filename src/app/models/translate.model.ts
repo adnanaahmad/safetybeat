@@ -152,6 +152,7 @@ export interface Buttons {
   ADD_SITE: string;
   IMPORT_SITE: string;
   SAVE: string;
+  UPGRADE: string;
 }
 
 export interface Messages {
@@ -254,6 +255,10 @@ export interface Messages {
   SITE_IMPORT_SUCCESS: string;
   SITE_IMPORT_FAILURE: string;
   IMPORTSITE_NOTE: string;
+  TRIAL_EXPIRED: string;
+  TRIAL_LEFT_1: string;
+  TRIAL_LEFT_2: string;
+  TRIAL_EXP_USER: string
 }
 
 export interface Logger {

@@ -1,8 +1,5 @@
 import {Injectable, ElementRef} from '@angular/core';
-import {
-  forEach,
-  findIndex
-} from 'lodash';
+import {forEach, findIndex} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -16,6 +13,7 @@ import {BehaviorSubject, throwError} from 'rxjs';
 import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
 import {PhoneNumberUtil} from 'google-libphonenumber';
 import {FormErrorHandler} from '../FormErrorHandler/FormErrorHandler';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -193,7 +191,7 @@ export class HelperService {
       geoCoder.geocode({'address': address}, function (results, status) {
         if (status.toString() === self.constants.status.OK) {
           mapProp.setCenter(results[0].geometry.location);
-          let markqer = new google.maps.Marker({
+          let marker = new google.maps.Marker({
             map: mapProp,
             position: results[0].geometry.location
           });
@@ -261,6 +259,19 @@ export class HelperService {
 
   get appIcons() {
     return this.constants.appIcons;
+  }
+
+  /**
+   * Encrypt and decrypt through Crypto JS
+   * @param data
+   * @param key
+   */
+  encrypt(data: string, key: string): string {
+    return CryptoJS.AES.encrypt(data, key).toString();
+  }
+
+  decrypt(data: string, key: string): string {
+    return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
   }
 
 }

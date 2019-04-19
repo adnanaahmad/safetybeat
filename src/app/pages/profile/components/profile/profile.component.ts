@@ -31,9 +31,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private profile: ProfileService,
     private loginService: LoginRegistrationService,
-    private formBuilder: FormBuilder,
     public helperService: HelperService,
-    private compiler: CompilerProvider
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -46,6 +44,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input()
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+
   }
 
   initialize() {
@@ -60,6 +59,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.loginService.profileData.subscribe((res) => {
+      debugger
+    })
   }
 }
 
