@@ -8,6 +8,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SitesInfo} from 'src/app/models/site.model';
 import {NavigationModel} from '../../../../models/navigation/navigation.model';
 import {PackageInfo} from '../../../../models/user.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -36,6 +37,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     public compiler: CompilerProvider,
     private navService: NavigationService,
     public helperService: HelperService,
+    private router: Router
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -189,9 +191,9 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
    */
   switchSideMenu(data: any) {
     this.navModel.Entity = data;
+    localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
+      this.helperService.encrypt(JSON.stringify(this.navModel.Entity.entityInfo.id), this.helperService.appConstants.key));
     this.navService.changeSelectedEntity(this.navModel.Entity);
-    let entity = this.helperService.encrypt(JSON.stringify(this.navModel.Entity.entityInfo.id), this.helperService.appConstants.key);
-    localStorage.setItem(this.helperService.constants.localStorageKeys.entityId, entity);
     this.navService.changeRole(this.navModel.Entity.role);
     this.getRoleFromStorage();
     this.navService.changeRoleId(this.navModel.Entity.permissions.role);

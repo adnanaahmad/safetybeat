@@ -115,7 +115,8 @@ export class ConstantService {
     paths: {
       home: '/home',
       login: '/login',
-      welcomeScreen: '/welcomeScreen'
+      welcomeScreen: '/welcomeScreen',
+      viewSite: '/home/adminControl/siteCenter/viewSite'
     },
     roles: {
       owner: 'Owner',
