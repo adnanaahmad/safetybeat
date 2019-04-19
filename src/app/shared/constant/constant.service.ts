@@ -107,7 +107,7 @@ export class ConstantService {
     siteSafetyPlan: 'siteSafetyPlan',
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
-    linearForm: 'true',
+    linearForm: true,
     emailValid: 'VALID',
     yes: 'YES',
     codeValidations: [100, 101, 102, 103, 104],
