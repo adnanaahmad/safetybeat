@@ -10,7 +10,6 @@ import {FixedNavModel} from 'src/app/models/navigation/fixedNav.model';
 })
 export class FixedNavComponent implements OnInit {
   @Input() navOpened: boolean;
-  @Input() disableNav: boolean;
   @Output() sidenavToggle = new EventEmitter<boolean>();
   @Output() switchNavList = new EventEmitter();
   @Output() switchNavListDefault = new EventEmitter();
