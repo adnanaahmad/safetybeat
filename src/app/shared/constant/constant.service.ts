@@ -109,14 +109,15 @@ export class ConstantService {
     siteSafetyPlan: 'siteSafetyPlan',
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
-    linearForm: 'true',
+    linearForm: true,
     emailValid: 'VALID',
     yes: 'YES',
     codeValidations: [100, 101, 102, 103, 104],
     paths: {
       home: '/home',
       login: '/login',
-      welcomeScreen: '/welcomeScreen'
+      welcomeScreen: '/welcomeScreen',
+      viewSite: '/home/adminControl/siteCenter/viewSite'
     },
     roles: {
       owner: 'Owner',
