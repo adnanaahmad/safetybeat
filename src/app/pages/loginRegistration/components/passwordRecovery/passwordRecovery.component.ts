@@ -19,8 +19,7 @@ export class PasswordRecoveryComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private resetServices: LoginRegistrationService,
-    private router: Router,
-    private helperService: HelperService
+    public helperService: HelperService
   ) {
     this.route.params.subscribe(data => {
       this.passRecoveryObj.data = data;
