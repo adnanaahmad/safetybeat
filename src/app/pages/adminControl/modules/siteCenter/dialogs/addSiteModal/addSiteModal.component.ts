@@ -73,14 +73,9 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.adminServices.addSite(siteData).subscribe((res) => {
       this.addSiteObj.addSiteResponse = res;
       if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.adminServices.viewSites(data).subscribe((res) => {
-          this.addSiteObj.sitesList = res;
-          this.addSiteObj.sitesData = this.compiler.constructSiteData(this.addSiteObj.sitesList);
-          this.adminServices.changeSites(this.addSiteObj.sitesData);
-          this.addSiteObj.loading = false;
-          this.onNoClick();
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
-        });
+        this.addSiteObj.loading = false;
+        this.onNoClick();
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
       } else if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.addSiteObj.loading = false;
         this.onNoClick();

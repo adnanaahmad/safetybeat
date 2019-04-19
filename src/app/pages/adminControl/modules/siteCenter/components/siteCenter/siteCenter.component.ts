@@ -28,8 +28,6 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
     private navService: NavigationService,
   ) {
     this.initialize();
-
-
   }
 
 
@@ -47,13 +45,23 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
 
 
   viewSitesData() {
-    this.adminServices.siteObserver.subscribe((res) => {
-      if (res !== 1 && res !== '') {
-        this.siteCentreObj.dataSource = new MatTableDataSource(res);
-        this.siteCentreObj.dataSource.paginator = this.paginator;
-      } else if (res === '') {
-        this.siteCentreObj.dataSource = 0;
-      }
+    debugger
+    let entityData = {
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+    }
+    this.adminServices.viewSites(entityData).subscribe((res) => {
+      this.siteCentreObj.sitesList = res;
+      this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
+      this.adminServices.changeSites(this.siteCentreObj.sitesData);
+      this.adminServices.siteObserver.subscribe((res) => {
+        if (res !== 1 && res !== '') {
+          this.siteCentreObj.dataSource = new MatTableDataSource(res);
+          this.siteCentreObj.dataSource.paginator = this.paginator;
+        } else if (res === '') {
+          this.siteCentreObj.dataSource = 0;
+        }
+      });
     });
   }
 
@@ -62,10 +70,16 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
    */
   addSite() {
     this.helperService.createDialog(AddSiteModalComponent, {disableClose: true});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.viewSitesData();
+    });
   }
 
   importSite() {
     this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.viewSitesData();
+    });
   }
 
   goToViewSite() {
