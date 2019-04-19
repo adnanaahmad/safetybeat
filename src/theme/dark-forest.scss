@@ -279,6 +279,15 @@ $theme: createTheme($primary, $secondary, $warn);
       .mat-list-item {
         border-color: mat-color($primary-pallet, 400) !important;
       }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="number"],
+      textarea {
+        background-color: transparent;
+        border: 1px solid rgba(221, 221, 221, 0.24);
+        caret-color: #fff;
+      }
     }
   }
   .activity-card {
