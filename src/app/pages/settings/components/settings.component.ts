@@ -4,7 +4,7 @@ import {OverlayContainer} from '@angular/cdk/overlay';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, FormGroupDirective} from '@angular/forms';
 import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
 import {ProfileService} from '../../profile/services/profile.service';
@@ -80,7 +80,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.createdBy = this.entitiesData.createdBy;
       this.managedBy = this.entitiesData.managedBy;
     });
-    console.log(this.changePasswordForm);
   }
 
   checkPasswords(group: FormGroup) {
@@ -106,15 +105,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   get changePasswordFormValidations() {
     return this.changePasswordForm.controls;
-  }
-
-  setChangePasswordForm() {
-    // this.changePasswordForm.reset()
-
-    Object.keys(this.changePasswordForm.controls).forEach(key => {
-      this.changePasswordForm.controls[key].reset();
-      this.changePasswordForm.controls[key].setErrors(null)
-    });
   }
 
   changed() {
@@ -159,7 +149,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   }
 
-  changePassword({value, valid}: { value: changePassword; valid: boolean }): void {
+  changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective ): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.AUTH.PASSWORD_REQ);
@@ -181,8 +171,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
           this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
         this.loading = false;
+        formDirective.resetForm()
         this.changePasswordForm.reset();
-        this.setChangePasswordForm()
       } else {
         this.loading = false;
         this.helperService.createSnack(this.translated.MESSAGES.INCORRECT_PASS,

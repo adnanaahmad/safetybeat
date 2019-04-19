@@ -1,6 +1,9 @@
 @mixin amte-dashboard($primary, $accent, $warn) {
   :host,
   app-dashboard {
+    .highcharts-background {
+      fill: transparent;
+    }
     .more-button {
       position: absolute;
       top: 5px;
@@ -16,11 +19,11 @@
     }
     chart,
     .highcharts-container,
-    .highcharts-root{
-      width:100% !important;
+    .highcharts-root {
+      width: 100% !important;
     }
-    .dashboard-widgets{
-      .mat-card{
+    .dashboard-widgets {
+      .mat-card {
         width: 100%;
       }
     }

@@ -7,9 +7,35 @@
     border: 1px solid #555;
   }
   app-navigation {
+    .sb-logo {
+      svg {
+        width: 80%;
+        display: block;
+        margin: 0 auto;
+        height: auto;
+        margin-top: 20px;
+      }
+      path {
+        fill: #fff;
+      }
+    }
     app-fixed-nav {
       mat-nav-list {
         padding-top: 52px;
+      }
+    }
+    .product-notice{
+      font-size: 14px;
+      font-style: italic;
+      button{
+        background: transparent;
+        color: #fff;
+        border-radius: 100px;
+        cursor: pointer;
+        &:hover{
+          background:#fff;
+          color:#000;
+        }
       }
     }
     .container {

@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileModel.profileData = this.loginService.profileData.subscribe(
       userDataResult => {
         if (userDataResult !== 1) {
-          this.profileModel.userData = userDataResult;
+          this.profileModel.userData = userDataResult.user;
           this.profileModel.userId = this.profileModel.userData.id;
           this.profileModel.username = this.profileModel.userData.first_name + this.profileModel.userData.last_name;
           this.profileModel.firstname = this.profileModel.userData.first_name;
@@ -101,9 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           this.profile.getUser().subscribe(res => {
             this.profileModel.dataRecieved = res;
-            this.profileModel.userData = this.compiler.constructUserData(
-              this.profileModel.dataRecieved.data.user
-            );
+            this.profileModel.userData = this.compiler.constructUserData(this.profileModel.dataRecieved);
             this.profileModel.userId = this.profileModel.userData.id;
             this.profileModel.username = this.profileModel.userData.first_name + this.profileModel.userData.last_name;
             this.profileModel.firstname = this.profileModel.userData.first_name;
