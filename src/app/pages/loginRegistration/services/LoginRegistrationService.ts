@@ -9,7 +9,7 @@ import {resetPassword} from 'src/app/models/profile.model';
 @Injectable({providedIn: 'root'})
 export class LoginRegistrationService {
   storageKey: string;
-  private userData = new BehaviorSubject<any>(1);
+  public userData = new BehaviorSubject<any>(1);
   profileData = this.userData.asObservable();
   apiRoutes: any;
   method: { get: string; post: string; put: string; delete: string; };
