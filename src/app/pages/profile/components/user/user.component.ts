@@ -23,7 +23,6 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.userService.usersData.subscribe(res => {
-      debugger
       if (res === 1) {
         this.getAllUsers();
       } else {

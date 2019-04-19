@@ -115,7 +115,6 @@ export class LoginRegistrationService {
   }
 
   updateProfileData(data: any) {
-    debugger
     this.userData.next(data);
   }
 

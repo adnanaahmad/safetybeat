@@ -182,15 +182,9 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
    */
   switchSideMenu(data: any) {
     this.navModel.Entity = data;
-    let entityData = {
-      'entityId': this.navModel.Entity.entityInfo.id,
-    };
-    this.adminServices.viewSites(entityData).subscribe((res) => {
-      this.sitesList = res;
-      this.sitesData = this.compiler.constructSiteData(this.sitesList);
-      this.adminServices.changeSites(this.sitesData);
-    });
     this.navService.changeSelectedEntity(this.navModel.Entity);
+    let entity = this.helperService.encrypt(JSON.stringify(this.navModel.Entity.entityInfo.id), this.helperService.appConstants.key);
+    localStorage.setItem(this.helperService.constants.localStorageKeys.entityId, entity);
     this.navService.changeRole(this.navModel.Entity.role);
     this.getRoleFromStorage();
     this.navService.changeRoleId(this.navModel.Entity.permissions.role);

@@ -14,6 +14,7 @@ import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {NavigationService} from '../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-profile',
@@ -32,19 +33,32 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     private profile: ProfileService,
     private loginService: LoginRegistrationService,
     public helperService: HelperService,
+    private compiler: CompilerProvider,
+    private navService: NavigationService
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
+    this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.profileModel.role = res.role;
+        this.profileModel.entityName = res.entityInfo.name;
+      }
+    });
   }
 
-
-  @Input()
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-
+    this.profile.usersData.subscribe((res) => {
+      if (res !== 1) {
+        this.profileModel.profileData = res;
+      } else {
+        this.getCurrentUser();
+      }
+    });
+    this.viewAllEntities();
   }
 
   initialize() {
@@ -52,6 +66,24 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileModel.appIcons = this.helperService.constants.appIcons;
     this.profileModel.appConstants = this.helperService.constants.appConstant;
     this.profileModel.disabled = false;
+    this.profileModel.displayedColumns = [
+      'name',
+      'headOffice',
+      'role',
+      'administrator'
+    ];
+  }
+
+  viewAllEntities() {
+    this.navService.data.subscribe((res) => {
+        if (res !== 1) {
+          this.helperService.toggleLoader(false);
+          this.profileModel.entitiesList = res;
+          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+          this.profileModel.dataSource.paginator = this.paginator;
+        }
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -59,11 +91,18 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.loginService.profileData.subscribe((res) => {
-      debugger
+
+  }
+
+  getCurrentUser() {
+    this.profile.getUser().subscribe((res) => {
+      this.profileModel.dataRecieved = res;
+      let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
+      this.profile.updateUsers(userData);
     })
   }
 }
+
 
 export interface PeriodicElement {
   name: string;
