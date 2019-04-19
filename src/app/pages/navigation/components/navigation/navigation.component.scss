@@ -24,17 +24,18 @@
         padding-top: 52px;
       }
     }
-    .product-notice{
+    .product-notice {
       font-size: 14px;
       font-style: italic;
-      button{
+      button {
         background: transparent;
         color: #fff;
         border-radius: 100px;
+        border: 1px solid #fff;
         cursor: pointer;
-        &:hover{
-          background:#fff;
-          color:#000;
+        &:hover {
+          background: #fff;
+          color: #000;
         }
       }
     }
