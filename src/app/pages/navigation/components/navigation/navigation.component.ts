@@ -6,9 +6,8 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SitesInfo} from 'src/app/models/site.model';
-import {NavigationModel} from '../../../../models/navigation/navigation.model';
-import {PackageInfo} from '../../../../models/user.model';
-import {Router} from '@angular/router';
+import {NavigationModel} from 'src/app/models/navigation/navigation.model';
+import {PackageInfo} from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -37,7 +36,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     public compiler: CompilerProvider,
     private navService: NavigationService,
     public helperService: HelperService,
-    private router: Router
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
