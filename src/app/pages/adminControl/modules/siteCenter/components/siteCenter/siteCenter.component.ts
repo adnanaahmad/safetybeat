@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -13,7 +13,7 @@ import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteC
   templateUrl: './siteCenter.component.html',
   styleUrls: ['./siteCenter.component.scss']
 })
-export class SiteCenterComponent implements OnInit{
+export class SiteCenterComponent implements OnInit, OnDestroy {
 
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,6 +38,10 @@ export class SiteCenterComponent implements OnInit{
   ngOnInit() {
     this.viewSitesData();
     this.siteAddorImportEnable();
+  }
+
+  ngOnDestroy() {
+
   }
 
 
