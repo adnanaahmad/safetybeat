@@ -107,4 +107,11 @@ export class AdminControlService {
     )
   }
 
+  viewSiteInfo(id: number) {
+    return this.helperService.requestCall(
+      this.method.get,
+      `${this.apiRoutes.viewSiteInfo}${id}/`
+    )
+  }
+
 }

@@ -45,14 +45,13 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
 
 
   viewSitesData() {
-    debugger
     let entityData = {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
     }
     this.adminServices.viewSites(entityData).subscribe((res) => {
       this.siteCentreObj.sitesList = res;
-      this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
+      this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
       this.adminServices.changeSites(this.siteCentreObj.sitesData);
       this.adminServices.siteObserver.subscribe((res) => {
         if (res !== 1 && res !== '') {
@@ -82,8 +81,9 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
     });
   }
 
-  goToViewSite() {
-    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite']);
+  goToViewSite(id) {
+    console.log('site id: ', id);
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: JSON.stringify(id)}]);
   }
 
   siteAddorImportEnable() {

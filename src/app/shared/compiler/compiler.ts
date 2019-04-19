@@ -81,7 +81,11 @@ export class CompilerProvider {
     return userEntityData;
   }
 
-  constructSiteData(siteApiResponse: any): SitesInfo[] {
+  constructorSiteInfo(siteData: any): Site {
+    return siteData;
+  }
+
+  constructAllSitesData(siteApiResponse: any): SitesInfo[] {
     return siteApiResponse.data;
   }
 

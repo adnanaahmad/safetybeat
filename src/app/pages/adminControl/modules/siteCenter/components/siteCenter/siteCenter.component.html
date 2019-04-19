@@ -58,7 +58,7 @@
             <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
             Edit Site
           </button>
-          <button mat-menu-item (click)='goToViewSite()'>
+          <button mat-menu-item (click)='goToViewSite(element.site.id)'>
             <mat-icon>{{ helperService.appIcons.viewSite }}</mat-icon>
             View Site
           </button>

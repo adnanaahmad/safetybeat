@@ -40,7 +40,8 @@ export class ConstantService {
     addSite: `${environment.apiUrl}/api/sites/addSite/`,
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
-    importSite: `${environment.apiUrl}/api/uploadFile/importSite/`
+    importSite: `${environment.apiUrl}/api/uploadFile/importSite/`,
+    viewSiteInfo: `${environment.apiUrl}/api/sites/`
   };
   static apiMethod = {
     get: 'get',
