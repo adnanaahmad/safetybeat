@@ -8,6 +8,7 @@ import {FormGroup, FormBuilder, Validators, FormGroupDirective} from '@angular/f
 import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
 import {ProfileService} from '../../profile/services/profile.service';
+import {SettingsService} from '../services/settings.service';
 import {FormErrorHandler} from '../../../shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
@@ -37,14 +38,20 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   password1: any;
   password2: any;
   loading: boolean = false;
-  formValidator: boolean = true;
+  orgName: string;
+  account: number;
+  address: string;
+  email: string;
+  date: number;
+  contact: number;
 
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
     public helperService: HelperService,
     private navService: NavigationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public settingService: SettingsService
   ) {
     this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
@@ -69,7 +76,22 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: this.checkPasswords});
-
+    this.settingService.organizationData.subscribe((res) => {
+      if (res === 1) {
+        // it means page is refreshed we need to call the API
+        this.settingService.getOrganization().subscribe((res) => {
+          console.log(res);
+          this.orgName = res.data.name;
+          this.account = res.data.accountNo;
+          this.address = res.data.address;
+          this.email = res.data.billingEmail;
+          this.date = res.data.dateJoined;
+          this.contact = res.data.phoneNo;
+        });
+      } else {
+        // it means that we dont need to call API
+      }
+    });
   }
 
   ngAfterViewInit() {

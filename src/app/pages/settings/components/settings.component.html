@@ -62,41 +62,41 @@
       <form [formGroup]="changePasswordForm" #formDirective="ngForm"
             (ngSubmit)="changePassword(changePasswordForm, formDirective)">
         <mat-list role="list" class="settings-list">
-          <mat-form-field role="listitem">
+          <mat-list-item role="listitem">
             <label>Current Password</label>
             <input matInput type="password"
                    [formControlName]="helperService.appConstants.currentPassword"/>
-            <mat-error class="text-right" *ngIf="changePasswordFormValidations.currentPassword.errors">
+          </mat-list-item>
+          <mat-error class="text-right" *ngIf="changePasswordFormValidations.currentPassword.errors">
               <span
                 *ngIf="changePasswordFormValidations.currentPassword.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-              <span
-                *ngIf="changePasswordFormValidations.currentPassword.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field role="listitem">
+            <span
+              *ngIf="changePasswordFormValidations.currentPassword.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+          </mat-error>
+          <mat-list-item role="listitem">
             <label>New Password</label>
             <input matInput type="password"
                    [formControlName]="helperService.appConstants.password1" required/>
-            <mat-error class="text-right" *ngIf="changePasswordFormValidations.password1.errors  ">
+          </mat-list-item>
+          <mat-error class="text-right" *ngIf="changePasswordFormValidations.password1.errors  ">
               <span
                 *ngIf="changePasswordFormValidations.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
-              <span
-                *ngIf="changePasswordFormValidations.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field role="listitem">
+            <span
+              *ngIf="changePasswordFormValidations.password1.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+          </mat-error>
+          <mat-list-item role="listitem">
             <label>Confirm Password</label>
             <input matInput type="password"
                    [formControlName]="helperService.appConstants.password2" required/>
-            <mat-error class="text-right" *ngIf="changePasswordFormValidations.password2.errors">
+          </mat-list-item>
+          <mat-error class="text-right" *ngIf="changePasswordFormValidations.password2.errors">
               <span
                 *ngIf="changePasswordFormValidations.password2.errors.required ">{{translated.AUTH.PASSWORD_REQ}}</span>
-              <span
-                *ngIf="changePasswordFormValidations.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
-              <span
-                *ngIf="changePasswordFormValidations.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
-            </mat-error>
-          </mat-form-field>
+            <span
+              *ngIf="changePasswordFormValidations.password2.errors?.notSame">{{translated.MESSAGES.MATCH_ERROR}}</span>
+            <span
+              *ngIf="changePasswordFormValidations.password2.errors.minlength">{{translated.MESSAGES.PASSWORD_ERROR}}</span>
+          </mat-error>
         </mat-list>
         <div class="btn-grp">
           <button type="submit" mat-raised-button custom-btn btn-primary [disabled]="!changePasswordForm.valid"> Save
@@ -111,29 +111,33 @@
       <h3 class="setting-title">Organization Info</h3>
       <mat-list role="list" class="settings-list">
         <mat-list-item role="listitem">
-          <label>Change Password</label>
-          <input matInput type="text" class="showonly" placeholder="******"/>
+          <label>Name</label>
+          <input matInput type="text" [(ngModel)]="orgName" class="showonly" placeholder="Name of organization"/>
         </mat-list-item>
         <mat-list-item role="listitem">
-          <label>Confirm Password</label>
-          <input matInput type="text" class="showonly" placeholder="BlueSky Software"/>
+          <label>Account Number</label>
+          <input matInput type="text" [(ngModel)]="account" class="showonly" placeholder="******"/>
         </mat-list-item>
         <mat-list-item role="listitem">
-          <label>Security Question 1</label>
-          <input matInput type="text" class="showonly" placeholder="Where did you born?"/>
+          <label>Address</label>
+          <input matInput type="text" [(ngModel)]="address" class="showonly" placeholder="BlueSky Software"/>
         </mat-list-item>
         <mat-list-item role="listitem">
-          <label>Security Question 2</label>
-          <input matInput type="text" class="showonly" placeholder="Where did your father born?"/>
+          <label>Billing Email</label>
+          <input matInput type="text" [(ngModel)]="email" class="showonly" placeholder="Email"/>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <label>Date Joined</label>
+          <input matInput type="text" [(ngModel)]="date" class="showonly" placeholder="Joining Date"/>
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Contact Number</label>
-          <input matInput type="text" class="showonly" placeholder="+923157118511"/>
+          <input matInput type="text" [(ngModel)]="contact" class="showonly" placeholder="+923157118511"/>
         </mat-list-item>
       </mat-list>
       <div class="btn-grp">
-        <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
-        <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+        <button type="button" mat-raised-button custom-btn btn-primary>Save</button>
+        <button type="button" mat-raised-button color="warn" custom-btn btn-danger>Cancel</button>
       </div>
     </div><!-- /Organization Settings-->
 
