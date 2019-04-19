@@ -22,6 +22,7 @@
 @import "src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component.scss";
 @import "src/app/common/toaster/toaster.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component.scss";
+@import "src/app/pages/adminControl/modules/siteCenter/components/viewSite/viewSite.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -53,4 +54,5 @@
   @include amte-addsite-modal($primary, $accent, $warn);
   @include amte-toaster($primary, $accent, $warn);
   @include amte-createEntity($primary, $accent, $warn);
+  @include amte-viewSite($primary, $accent, $warn);
 }
