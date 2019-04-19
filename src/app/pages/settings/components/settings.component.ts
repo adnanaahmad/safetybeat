@@ -82,7 +82,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.createdBy = this.entitiesData.createdBy;
       this.managedBy = this.entitiesData.managedBy;
     });
-    console.log(this.changePasswordForm);
   }
 
   checkPasswords(group: FormGroup) {

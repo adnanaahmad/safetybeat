@@ -1,12 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Observable, forkJoin} from 'rxjs';
-import {
-  loginCredentials,
-  LoginResponse,
-  ForgotPassword,
-  ForgotPasswordResponse
-} from 'src/app/models/user.model';
+import {loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse} from 'src/app/models/user.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {resetPassword} from 'src/app/models/profile.model';
 
