@@ -63,11 +63,6 @@ export class ImportSiteModalComponent implements OnInit {
     this.adminServices.importSite(formData).subscribe((res) => {
         this.importSiteModal.importSiteResponse = res;
         if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.adminServices.viewSites(data).subscribe((res) => {
-            this.importSiteModal.sitesList = res;
-            this.importSiteModal.sitesData = this.compiler.constructSiteData(this.importSiteModal.sitesList);
-            this.adminServices.changeSites(this.importSiteModal.sitesData);
-          });
           this.importSiteModal.loading = false;
           this.onNoClick();
           this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
