@@ -4,7 +4,6 @@ import {ActivatedRoute} from '@angular/router';
 import {AdminControlService} from '../../../../services/adminControl.service';
 import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
 import {ViewSite} from '../../../../../../models/adminControl/viewSite.model';
-import {share} from 'rxjs/operators';
 
 @Component({
   selector: 'app-ViewSite',
