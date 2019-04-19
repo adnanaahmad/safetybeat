@@ -169,22 +169,22 @@ $theme: createTheme($primary, $secondary, $warn);
   }
   app-notificationnav {
     mat-list-item[role="listitem"] {
-      border-bottom:1px solid rgba(221, 221, 221, 0.2) !important;
+      border-bottom: 1px solid rgba(221, 221, 221, 0.2) !important;
       .unread-notif {
         background: mat-color($primary-pallet, 400);
       }
-      .read-notif{
+      .read-notif {
         background: mat-color($primary-pallet, 100);
       }
     }
   }
-  .notification-icon{
-    .notifcount{
+  .notification-icon {
+    .notifcount {
       background: mat-color($warn-pallete, 600);
     }
   }
-  mat-dialog-container{
-    mat-card-title{
+  mat-dialog-container {
+    mat-card-title {
       background-color: mat-color($primary, 700);
     }
   }
@@ -223,7 +223,7 @@ $theme: createTheme($primary, $secondary, $warn);
   }
   .sideLegend {
     background-color: mat-color($primary, 800) !important;
-    &:after{
+    &:after {
       background: mat-color($primary, 400);
     }
   }
@@ -249,21 +249,21 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
-  .customTable{
-    .mat-header-row{
+  .customTable {
+    .mat-header-row {
       background-color: mat-color($primary, 900);
     }
     .mat-header-cell,
-    .mat-cell{
+    .mat-cell {
       border-bottom-color: mat-color($primary);
     }
   }
-  app-settings{
-    .navigator{
+  app-settings {
+    .navigator {
       background-color: mat-color($primary, 400);
-      mat-list-item{
+      mat-list-item {
         span {
-          color:#fff !important;
+          color: #fff !important;
           &:hover,
           &.settingNav {
             background: mat-color($primary-pallet, 500);
@@ -275,8 +275,8 @@ $theme: createTheme($primary, $secondary, $warn);
         }
       }
     }
-    .settings-wrap{
-      .mat-list-item{
+    .settings-wrap {
+      .mat-list-item {
         border-color: mat-color($primary-pallet, 400) !important;
       }
     }
@@ -286,16 +286,22 @@ $theme: createTheme($primary, $secondary, $warn);
       background-color: #fff;
     }
   }
-  app-profile{
-    .dashboard-card{
-      .infoTitle{
-        background-color: mat-color($primary-pallet, 800);
-      }
-    }
+  .infoTitle {
+    background-color: mat-color($primary-pallet, 800);
   }
   app-importsitemodal {
-    .site-note{
+    .site-note {
       background-color: mat-color($primary, 400);
+    }
+  }
+  .siteinfo-row {
+    mat-icon {
+      background-color: mat-color($primary, 50);
+    }
+  }
+  app-viewsite {
+    .siteicon {
+      opacity: 1 !important;
     }
   }
   @include amte-setTheme($theme);
