@@ -1,4 +1,5 @@
 import {SitesInfo} from '../site.model';
+import {Subscription} from 'rxjs';
 
 export interface SiteCentre {
   entitiesData: any;
@@ -12,5 +13,6 @@ export interface SiteCentre {
   entityId: any;
   empty: boolean;
   viewSiteResponse: any;
+  subscription: Subscription;
 }
 

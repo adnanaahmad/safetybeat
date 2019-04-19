@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -30,18 +30,19 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.initialize();
   }
 
-
   initialize() {
     this.siteCentreObj.empty = false;
   }
 
   ngOnInit() {
-    this.viewSitesData();
+    this.siteCentreObj.subscription = this.navService.selectedEntityData.subscribe(() => {
+      this.viewSitesData();
+    });
     this.siteAddorImportEnable();
   }
 
   ngOnDestroy() {
-
+    this.siteCentreObj.subscription.unsubscribe();
   }
 
 
@@ -49,7 +50,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     let entityData = {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
-    }
+    };
     this.adminServices.viewSites(entityData).subscribe((res) => {
       this.siteCentreObj.sitesList = res;
       this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
@@ -83,7 +84,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
   goToViewSite() {
-    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite']);
+    this.helperService.navigateTo([this.helperService.appConstants.paths.viewSite]);
   }
 
   siteAddorImportEnable() {

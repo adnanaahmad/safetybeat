@@ -1,14 +1,11 @@
 import {
   Component,
   OnInit,
-  Input,
   OnDestroy,
   AfterViewInit,
   ViewChild
 } from '@angular/core';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {EditUser} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
@@ -41,7 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
-    this.navService.selectedEntityData.subscribe((res) => {
+    this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.role = res.role;
         this.profileModel.entityName = res.entityInfo.name;
@@ -51,7 +48,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.profile.usersData.subscribe((res) => {
+    this.profileModel.subscription = this.profile.usersData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
       } else {
@@ -75,7 +72,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   viewAllEntities() {
-    this.navService.data.subscribe((res) => {
+    this.profileModel.subscription = this.navService.data.subscribe((res) => {
         if (res !== 1) {
           this.helperService.toggleLoader(false);
           this.profileModel.entitiesList = res;
@@ -88,6 +85,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
+    this.profileModel.subscription.unsubscribe();
   }
 
   ngAfterViewInit() {

@@ -18,11 +18,11 @@ export class UserComponent implements OnInit, AfterViewInit {
     public userService: ProfileService,
     public helperService: HelperService
   ) {
-    this.intialize();
+    this.initialize();
   }
 
   ngOnInit() {
-    this.userService.usersData.subscribe(res => {
+    this.userModel.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getAllUsers();
       } else {
@@ -34,10 +34,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
+    this.userModel.subscription.unsubscribe();
   }
 
-  intialize() {
+  initialize() {
     this.userModel.translated = this.helperService.translated;
     this.userModel.appIcons = this.helperService.constants.appIcons;
     this.userModel.displayedColumns = [

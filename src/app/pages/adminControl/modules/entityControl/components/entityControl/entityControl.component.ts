@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {CreateEntityComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
@@ -9,8 +9,8 @@ import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
-import {EntityControl} from '../../../../../../models/adminControl/entityControl.model';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {EntityControl} from 'src/app/models/adminControl/entityControl.model';
 import {JoinEntityModalComponent} from '../../dialogs/joinEntityModal/joinEntityModal.component';
 
 @Component({
@@ -18,7 +18,7 @@ import {JoinEntityModalComponent} from '../../dialogs/joinEntityModal/joinEntity
   templateUrl: './entityControl.component.html',
   styleUrls: ['./entityControl.component.scss']
 })
-export class EntityControlComponent implements OnInit {
+export class EntityControlComponent implements OnInit, OnDestroy {
 
   entityControl: EntityControl = <EntityControl>{};
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,7 +37,7 @@ export class EntityControlComponent implements OnInit {
       this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.ENTITYCONTROL
     );
-    this.userService.usersData.subscribe(res => {
+    this.entityControl.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getUsers();
       } else {
@@ -51,9 +51,10 @@ export class EntityControlComponent implements OnInit {
     this.viewAllEntities();
     this.creationEnable();
     this.joinEnable();
-    this.helperService.displayLoader.subscribe((res) => {
-      this.entityControl.displayLoader = res;
-    })
+  }
+
+  ngOnDestroy() {
+    this.entityControl.subscription.unsubscribe();
   }
 
   initialize() {
@@ -112,7 +113,7 @@ export class EntityControlComponent implements OnInit {
    */
   viewAllEntities() {
     this.helperService.toggleLoader(true);
-    this.navService.data.subscribe((res) => {
+    this.entityControl.subscription = this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.helperService.toggleLoader(false);
         this.entityControl.entitiesList = res;
@@ -131,7 +132,7 @@ export class EntityControlComponent implements OnInit {
    * this function is used to....
    */
   creationEnable() {
-    this.navService.currentRole.subscribe(res => {
+    this.entityControl.subscription = this.navService.currentRole.subscribe(res => {
       this.entityControl.entitySelectedRole = res;
       if (this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.owner) {
         this.entityControl.createEntityOption = true;
@@ -142,7 +143,7 @@ export class EntityControlComponent implements OnInit {
   }
 
   joinEnable() {
-    this.navService.currentRole.subscribe(res => {
+    this.entityControl.subscription = this.navService.currentRole.subscribe(res => {
       this.entityControl.entitySelectedRole = res;
       if (
         this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.owner ||
