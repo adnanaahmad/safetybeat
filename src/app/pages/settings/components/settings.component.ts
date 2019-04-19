@@ -111,7 +111,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   setChangePasswordForm() {
-    // this.changePasswordForm.reset()
 
     Object.keys(this.changePasswordForm.controls).forEach(key => {
       this.changePasswordForm.controls[key].reset();

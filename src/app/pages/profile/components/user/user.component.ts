@@ -3,7 +3,7 @@ import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {share} from 'rxjs/operators';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {UserModel} from '../../../../models/profile/user.model';
+import {UserModel} from 'src/app/models/profile/user.model';
 
 @Component({
   selector: 'app-user',
@@ -22,9 +22,6 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
     this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getAllUsers();
@@ -34,6 +31,10 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.userModel.dataSource.paginator = this.paginator;
       }
     });
+  }
+
+  ngAfterViewInit() {
+
   }
 
   intialize() {

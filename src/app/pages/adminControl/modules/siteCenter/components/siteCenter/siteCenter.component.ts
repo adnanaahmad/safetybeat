@@ -13,7 +13,7 @@ import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteC
   templateUrl: './siteCenter.component.html',
   styleUrls: ['./siteCenter.component.scss']
 })
-export class SiteCenterComponent implements OnInit, AfterViewInit {
+export class SiteCenterComponent implements OnInit{
 
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,8 +28,6 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
     private navService: NavigationService,
   ) {
     this.initialize();
-
-
   }
 
 
@@ -40,9 +38,6 @@ export class SiteCenterComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.viewSitesData();
     this.siteAddorImportEnable();
-  }
-
-  ngAfterViewInit() {
   }
 
 

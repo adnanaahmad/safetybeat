@@ -18,7 +18,7 @@ import {JoinEntityModalComponent} from '../../dialogs/joinEntityModal/joinEntity
   templateUrl: './entityControl.component.html',
   styleUrls: ['./entityControl.component.scss']
 })
-export class EntityControlComponent implements OnInit, AfterViewInit {
+export class EntityControlComponent implements OnInit {
 
   entityControl: EntityControl = <EntityControl>{};
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -51,6 +51,9 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
     this.viewAllEntities();
     this.creationEnable();
     this.joinEnable();
+    this.helperService.displayLoader.subscribe((res) => {
+      this.entityControl.displayLoader = res;
+    })
   }
 
   initialize() {
@@ -69,12 +72,6 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
       'administrator',
       'symbol'
     ];
-  }
-
-  ngAfterViewInit() {
-    this.helperService.displayLoader.subscribe((res) => {
-      this.entityControl.displayLoader = res;
-    })
   }
 
   /**
@@ -114,29 +111,20 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
    * this function is used to show all the existing entities
    */
   viewAllEntities() {
-    this.helperService.toggleLoader(true)
-    let data = {
-      moduleName: 'Safetybeat'
-    };
-    this.navService.data.subscribe(
-      res => {
-        if (res === 1) {
-          this.helperService.toggleLoader(true);
-          this.viewEntitiesApiCall();
-        } else {
-          this.helperService.toggleLoader(false);
-          this.entityControl.displayLoader = false;
-          this.entityControl.entitiesList = res;
-          this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;
-          this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
-          this.entityControl.dataSource.paginator = this.paginator;
-        }
-      },
-      error => {
-        this.helperService.toggleLoader(false)
-        this.helperService.logoutError(error.status);
+    this.helperService.toggleLoader(true);
+    this.navService.data.subscribe((res) => {
+      if (res !== 1) {
+        this.helperService.toggleLoader(false);
+        this.entityControl.entitiesList = res;
+        this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;
+        this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
+        this.entityControl.dataSource.paginator = this.paginator;
+      } else {
+        this.viewEntitiesApiCall();
       }
-    );
+    }, (error) => {
+      this.helperService.toggleLoader(false);
+    });
   }
 
   /**
@@ -201,18 +189,15 @@ export class EntityControlComponent implements OnInit, AfterViewInit {
   }
 
   viewEntitiesApiCall() {
-    this.entityControl.displayLoader = true;
+    this.helperService.toggleLoader(true);
     let data = {
       moduleName: 'Safetybeat'
     };
     this.adminServices.viewEntities(data).subscribe((res) => {
       this.helperService.toggleLoader(false);
-      this.helperService.displayLoader.subscribe((resp) => {
-        this.entityControl.displayLoader = resp;
-        this.entityControl.entitiesList = res;
-        let entityUserData = this.compiler.constructUserEntityData(this.entityControl.entitiesList.data);
-        this.navService.changeEntites(entityUserData);
-      })
+      this.entityControl.entitiesList = res;
+      let entityUserData = this.compiler.constructUserEntityData(this.entityControl.entitiesList.data);
+      this.navService.changeEntites(entityUserData);
     });
   }
 

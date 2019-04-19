@@ -14,7 +14,7 @@ import {NavigationModel} from '../../../../models/navigation/navigation.model';
   styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
   @Output() entitySelected = new EventEmitter();
   moduleData = {
     moduleName: 'Safetybeat'
@@ -35,6 +35,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.helperService.constants.status.SUCCESS,
       this.navModel.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
     );
+    this.getSelectedEntity();
 
   }
 
@@ -51,7 +52,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     this.navModel.logoutDisable = false;
   }
 
-  ngAfterViewInit() {
+  getSelectedEntity() {
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
@@ -144,17 +145,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
         disabled: true
       }
     ];
-  }
-
-  viewAllEntities() {
-    let data = {
-      moduleName: 'Safetybeat'
-    };
-    this.adminServices.viewEntities(data).subscribe((res) => {
-      this.navModel.entitiesList = res;
-      this.navModel.entityUserData = this.navModel.entitiesList.data.result;
-      this.navService.changeEntites(this.navModel.entityUserData);
-    });
   }
 
   switchListDefault(data) {

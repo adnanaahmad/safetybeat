@@ -45,13 +45,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input()
   ngOnInit() {
-    this.profileModel.profileForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      contactNo: ['', Validators.required]
-    });
-    this.profileModel.profileForm.disable();
     this.dataSource.paginator = this.paginator;
   }
 
@@ -67,157 +60,16 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getUserData();
   }
-
-
-  checkPasswords(group: FormGroup) {
-    const pass = group.controls.password1.value;
-    const confirmPass = group.controls.password2.value;
-    return pass === confirmPass
-      ? null
-      : group.controls.password2.setErrors({notSame: true});
-  }
-
-
-  get profileDataForm() {
-    return this.profileModel.profileForm.controls;
-  }
-
-  /**
-   * this function ...
-   */
-  getUserData() {
-    this.profileModel.profileData = this.loginService.profileData.subscribe(
-      userDataResult => {
-        if (userDataResult !== 1) {
-          this.profileModel.userData = userDataResult;
-          this.profileModel.userId = this.profileModel.userData.id;
-          this.profileModel.username = this.profileModel.userData.first_name + this.profileModel.userData.last_name;
-          this.profileModel.firstname = this.profileModel.userData.first_name;
-          this.profileModel.lastname = this.profileModel.userData.last_name;
-          this.profileModel.email = this.profileModel.userData.email;
-          this.profileModel.contactNo = this.profileModel.userData.contactNo;
-        } else {
-          this.profile.getUser().subscribe(res => {
-            this.profileModel.dataRecieved = res;
-            this.profileModel.userData = this.compiler.constructUserData(
-              this.profileModel.dataRecieved.data.user
-            );
-            this.profileModel.userId = this.profileModel.userData.id;
-            this.profileModel.username = this.profileModel.userData.first_name + this.profileModel.userData.last_name;
-            this.profileModel.firstname = this.profileModel.userData.first_name;
-            this.profileModel.lastname = this.profileModel.userData.last_name;
-            this.profileModel.email = this.profileModel.userData.email;
-            this.profileModel.contactNo = this.profileModel.userData.contactNo;
-            this.loginService.updateProfileData(this.profileModel.userData);
-          });
-        }
-      }
-    );
-  }
-
-  // onCreate(feature: any) {
-  //   var self = this;
-  //   this.helperService.iterations(this.profileFeatures, function(value, key) {
-  //     if (key === feature) {
-  //       self.profileFeatures[key] = true;
-  //     } else {
-  //       self.profileFeatures[key] = false;
-  //     }
-  //   });
-  // }
-  /**
-   * this function ..
-   */
-  // editAccount() {
-  //   this.disabled = true;
-  //   this.profileForm.enable();
-  // }
-
-  // /**
-  //  * this function ..
-  //  */
-  // cancelEditAccount() {
-  //   this.disabled = false;
-  //   this.profileForm.disable();
-  //   this.userData = this.getUserData();
-  // }
-
-  onLeaves() {
-    this.profileModel.profileFeatures.leaves = true;
-  }
-
-  onEntities() {
-  }
-
-  onActivities() {
-  }
-
-  /**
-   * this function..
-   * @params value
-   * @params valid
-   */
-  updateProfile({value, valid}: { value: EditUser; valid: boolean }): void {
-    this.profileModel.disabled = false;
-    this.profileModel.profileForm.disable();
-    if (!valid) {
-      this.helperService.appLoggerDev(
-        this.profileModel.translated.LOGGER.STATUS.WARNING,
-        valid
-      );
-      this.helperService.appLogger(
-        this.profileModel.translated.LOGGER.STATUS.ERROR,
-        this.profileModel.translated.LOGGER.MESSAGES.PROFILE_CREDENTIAL_REQ
-      );
-      return;
-    }
-    this.helperService.appLoggerDev(this.profileModel.translated.LOGGER.STATUS.INFO, valid);
-    this.helperService.appLogger(
-      this.profileModel.translated.LOGGER.STATUS.INFO,
-      JSON.stringify(value)
-    );
-    value[this.profileModel.appConstants.userName] = this.profileModel.username;
-    this.profile.editUser(this.profileModel.userId, value).subscribe(
-      data => {
-        this.helperService.appLoggerDev(
-          this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          valid
-        );
-        this.helperService.appLogger(
-          this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_UPDATED
-        );
-        this.helperService.createSnack(this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
-        this.helperService.createSnack(this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
-        this.getUserData();
-      },
-      error => {
-        this.helperService.appLoggerDev(
-          this.profileModel.translated.LOGGER.STATUS.ERROR,
-          `${error.error.detail +
-          this.profileModel.translated.LOGGER.MESSAGES.STATUS +
-          error.status}`
-        );
-        this.helperService.appLoggerDev(
-          this.profileModel.translated.MESSAGES.LOGIN_FAIL,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_NOTUPDATED
-        );
-        this.helperService.logoutError(error.status);
-      }
-    );
-  }
-  
 }
+
 export interface PeriodicElement {
   name: string;
   position: number;
   weight: number;
   symbol: string;
 }
+
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
