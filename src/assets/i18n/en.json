@@ -202,7 +202,9 @@
     "TRIAL_EXPIRED": "Your trial package is expired. Please ",
     "TRIAL_LEFT_1": "Your trial is going to expire in ",
     "TRIAL_LEFT_2": " day(s). Please ",
-    "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator."
+    "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator.",
+    "SITE_IS_SAFE": " is safe.",
+    "SITE_IS_NOT_SAFE": " is not safe."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

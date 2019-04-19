@@ -42,15 +42,24 @@
       }
       mat-card-content {
         height: 100% !important;
+        overflow: auto;
       }
       .siteinfo-row {
-        display: block;
         clear: both;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         padding: 15px 10px 5px;
+        .safe-icon{
+          color:#fff;
+          &.safe{
+            background-color: green;
+          }
+          &.unsafe{
+            background-color:mat-color($warn, 400);
+          }
+        }
         mat-icon {
           box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
           border-radius: 100px;

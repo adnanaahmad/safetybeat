@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   appTheme: any;
   entitiesData: any;
   allEntities: any;
-  settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false};
+  settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false, 'permission': false};
   disabled: boolean = false;
   entityId: any;
   createdBy: any;

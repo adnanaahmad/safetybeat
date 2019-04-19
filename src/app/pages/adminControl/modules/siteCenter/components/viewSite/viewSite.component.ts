@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {AdminControlService} from '../../../../services/adminControl.service';
 import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
 import {ViewSite} from '../../../../../../models/adminControl/viewSite.model';
+import {HelperService} from '../../../../../../shared/helperService/helper.service';
 
 @Component({
   selector: 'app-ViewSite',
@@ -20,6 +21,7 @@ export class ViewSiteComponent implements OnInit {
     private route: ActivatedRoute,
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
+    public helperService: HelperService,
   ) {
     this.route.params.subscribe((site) => {
       this.viewSiteObj.siteId = site.data;

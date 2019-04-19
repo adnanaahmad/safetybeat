@@ -258,7 +258,9 @@ export interface Messages {
   TRIAL_EXPIRED: string;
   TRIAL_LEFT_1: string;
   TRIAL_LEFT_2: string;
-  TRIAL_EXP_USER: string
+  TRIAL_EXP_USER: string;
+  SITE_IS_SAFE: string;
+  SITE_IS_NOT_SAFE: string;
 }
 
 export interface Logger {
