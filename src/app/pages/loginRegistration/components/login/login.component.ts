@@ -107,7 +107,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           }, (err) => {
           });
-        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1] ||
+          data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
@@ -116,6 +117,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
+          this.helperService.createSnack(data.responseDetails.message,
+            data.responseDetails.message, this.helperService.constants.status.WARNING);
           this.loginObj.loading = false;
         }
       },
