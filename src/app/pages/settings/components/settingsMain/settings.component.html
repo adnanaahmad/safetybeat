@@ -56,10 +56,10 @@
       <mat-list role="list" class="settings-list theme-selector">
         <mat-list-item>
           <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
-            <mat-radio-button value="{{ appTheme.lightTheme }}">{{ translated.STRINGS.LIGHTDEFAULT }}</mat-radio-button>
-            <mat-radio-button value="{{ appTheme.darkTheme }}">{{ translated.STRINGS.EVILDARK }}</mat-radio-button>
-            <mat-radio-button value="{{ appTheme.oliveLight }}">{{ translated.STRINGS.OLIVEGREEN }}</mat-radio-button>
-            <mat-radio-button value="{{ appTheme.darkForest }}">{{ translated.STRINGS.DARKFOREST }}</mat-radio-button>
+            <mat-radio-button value="{{ helperService.constants.appTheme.lightTheme }}">{{ helperService.translated.STRINGS.LIGHTDEFAULT }}</mat-radio-button>
+            <mat-radio-button value="{{ helperService.constants.appTheme.darkTheme }}">{{ helperService.translated.STRINGS.EVILDARK }}</mat-radio-button>
+            <mat-radio-button value="{{ helperService.constants.appTheme.oliveLight }}">{{ helperService.translated.STRINGS.OLIVEGREEN }}</mat-radio-button>
+            <mat-radio-button value="{{ helperService.constants.appTheme.darkForest }}">{{ helperService.translated.STRINGS.DARKFOREST }}</mat-radio-button>
           </mat-radio-group>
         </mat-list-item>
       </mat-list>
