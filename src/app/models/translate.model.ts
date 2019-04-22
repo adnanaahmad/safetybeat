@@ -7,6 +7,7 @@ export interface Translation {
   SITETITLE: SiteTitle;
   STATUS: Status;
   TABLEHEADINGS: TableHeadings;
+  CONFIRMATION: Confirmation;
 }
 
 export interface Strings {
@@ -153,6 +154,7 @@ export interface Buttons {
   IMPORT_SITE: string;
   SAVE: string;
   UPGRADE: string;
+  DELETE: string;
 }
 
 export interface Messages {
@@ -258,7 +260,14 @@ export interface Messages {
   TRIAL_EXPIRED: string;
   TRIAL_LEFT_1: string;
   TRIAL_LEFT_2: string;
-  TRIAL_EXP_USER: string
+  TRIAL_EXP_USER: string;
+  SITE_IS_SAFE: string;
+  SITE_IS_NOT_SAFE: string;
+  VIEW_SITE_SUCCESS: string;
+  VIEW_SITE_FAILURE: string;
+  DELETE_SITE_SUCCESS: string;
+  DELETE_SITE_FAILURE: string;
+  EDIT_SITE_MSG: string;
 }
 
 export interface Logger {
@@ -356,4 +365,11 @@ export interface Status {
   WARNING: string;
   ERROR: string;
   CUSTOM: string;
+}
+
+export interface Confirmation {
+  ACTIVATE_USER: string;
+  DEACTIVATE_USER: string;
+  DELETE_SITE: string;
+  DELETE_ENTITY: string;
 }

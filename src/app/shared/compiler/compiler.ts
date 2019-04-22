@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
-import {UserData} from 'src/app/models/user.model';
+import {User, UserData} from 'src/app/models/user.model';
 import {Site, SitesInfo} from '../../models/site.model';
 import {Organization} from '../../models/Settings/setting.model';
 
@@ -52,13 +52,8 @@ export class CompilerProvider {
     return string;
   }
 
-  constructProfileData(loginApiResponse: any) {
-    let profileData = {
-      userid: loginApiResponse.userId,
-      orgid: loginApiResponse.orgId,
-      role: loginApiResponse.role
-    };
-
+  constructProfileData(profileApiResponse: any) {
+    let profileData: User = profileApiResponse;
     return profileData;
   }
 
@@ -82,8 +77,29 @@ export class CompilerProvider {
     return userEntityData;
   }
 
-  constructSiteData(siteApiResponse: any): SitesInfo[] {
+  constructorSiteInfo(siteData: any): Site {
+    return siteData;
+  }
+
+  constructAllSitesData(siteApiResponse: any): SitesInfo[] {
     return siteApiResponse.data;
+  }
+
+  entityUser(users) {
+    let usersArray = []
+    this.helperService.iterations(users.data, function (obj) {
+      let user = {
+        name: obj.user.first_name + obj.user.last_name,
+        email: obj.user.email,
+        contact: obj.user.contactNo,
+        photos: '',
+        accessLevel: obj.role,
+        id: obj.user.id,
+        status: obj.status
+      }
+      usersArray.push(user)
+    });
+    return usersArray;
   }
 
   constructOrganizationObject(organizationApiResponse: any): Organization {
@@ -202,9 +218,9 @@ export class CompilerProvider {
         ]
       }
     ];
-    var self = this;
+    let self = this;
     this.helperService.iterations(this.navList, function (obj) {
-      if (obj.displayName == name) {
+      if (obj.displayName === name) {
         self.newMenu = obj.children;
       }
     });

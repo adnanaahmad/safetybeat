@@ -41,7 +41,7 @@ export class HelperService {
     private notifier: NotifierService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
-      'STATUS', 'TABLEHEADINGS']).subscribe((values) => {
+      'STATUS', 'TABLEHEADINGS', 'CONFIRMATION']).subscribe((values) => {
       this.translated = values;
     });
     this.constants = ConstantService;

@@ -1,58 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {MatTableDataSource, MatPaginator} from '@angular/material';
+import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
+import {AddConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component';
+import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
+import {RemoveConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component';
+import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
-export interface PeriodicElement {
-  name: string;
-  email: string;
-  contact: number;
-  photos: string;
-  accessLevel: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    photos:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9CjkT5ZsjKVUPDmQxrbfAx3uO3khf1WV4F_hK5Id5cpcxSkav',
-    name: 'Hydrogen',
-    email: 'asad@optergy.com',
-    contact: 923157118511,
-    accessLevel: 'user'
-  },
-  {
-    photos:
-      'https://0.academia-photos.com/31849164/9465967/10547536/s200_nabeel.zubair.jpg_oh_4704ce984fd9fa186890395ba7e3a50e_oe_55ea4f26' +
-      '___gda___1443393968_e868319be1a6b839dfccc3f65287f6d7',
-    name: 'Helium',
-    email: 'sohaib@optergy.com',
-    contact: 923157118511,
-    accessLevel: 'admin'
-  },
-  {
-    photos:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9CjkT5ZsjKVUPDmQxrbfAx3uO3khf1WV4F_hK5Id5cpcxSkav',
-    name: 'Lithium',
-    email: 'asad@google.com',
-    contact: 923157118511,
-    accessLevel: 'user'
-  },
-  {
-    photos:
-      'https://0.academia-photos.com/31849164/9465967/10547536/s200_nabeel.zubair.jpg_oh_4704ce984fd9fa186890395ba7e3a50e_oe_55ea4f26' +
-      '___gda___1443393968_e868319be1a6b839dfccc3f65287f6d7',
-    name: 'Beryllium',
-    email: 'taqi@yahoo.com',
-    contact: 923157118511,
-    accessLevel: 'admin'
-  },
-  {
-    photos:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9CjkT5ZsjKVUPDmQxrbfAx3uO3khf1WV4F_hK5Id5cpcxSkav',
-    name: 'Boron',
-    email: 'sohaib@gmail.com',
-    contact: 923157118511,
-    accessLevel: 'user'
-  }
-];
 
 @Component({
   selector: 'app-memberCenter',
@@ -60,10 +18,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./memberCenter.component.scss']
 })
 export class MemberCenterComponent implements OnInit {
-
-  constructor(public helperService: HelperService) {
-  }
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  memberCenter: MemberCenter = <MemberCenter>{};
   displayedColumns: string[] = [
     'photos',
     'name',
@@ -72,8 +28,74 @@ export class MemberCenterComponent implements OnInit {
     'accessLevel',
     'symbol'
   ];
-  dataSource = ELEMENT_DATA;
+
+  constructor(public helperService: HelperService,
+              public memberService: MemberCenterService,
+              public navService: NavigationService,
+              public compiler: CompilerProvider) {
+    this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.memberCenter.entityData = res;
+        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id})
+      }
+    })
+  }
+
 
   ngOnInit() {
+
+  }
+
+
+  getAllUsers(data) {
+    this.memberService.entityUsers(data).subscribe((res) => {
+      this.memberCenter.elements = this.compiler.entityUser(res);
+      this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
+      this.memberCenter.dataSource.paginator = this.paginator;
+    })
+  }
+
+  connections(type) {
+    switch (type) {
+      case this.helperService.appConstants.connections.view:
+        this.helperService.createDialog(ViewConnectionsComponent, {});
+        break;
+      case this.helperService.appConstants.connections.add:
+        this.helperService.createDialog(AddConnectionsComponent, {});
+        break;
+      case this.helperService.appConstants.connections.remove:
+        this.helperService.createDialog(RemoveConnectionsComponent, {});
+        break;
+      default:
+        break;
+    }
+  }
+
+  accessLevel() {
+    this.helperService.createDialog(ChangeAccessLevelComponent, {});
+  }
+
+  deactivateUsers(userId) {
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DEACTIVATE_USER}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        let data = {id: userId};
+        this.memberService.deactivateUser(data).subscribe((res) => {
+          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id})
+        })
+      }
+    });
+  }
+
+  activateUsers(userId) {
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.ACTIVATE_USER}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        let data = {id: userId};
+        this.memberService.activateUser(data).subscribe((res) => {
+          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id})
+        })
+      }
+    });
   }
 }

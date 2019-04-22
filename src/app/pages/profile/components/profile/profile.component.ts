@@ -1,19 +1,17 @@
 import {
   Component,
   OnInit,
-  Input,
   OnDestroy,
   AfterViewInit,
   ViewChild
 } from '@angular/core';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {EditUser} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {NavigationService} from '../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,28 +29,33 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private profile: ProfileService,
     private loginService: LoginRegistrationService,
-    private formBuilder: FormBuilder,
     public helperService: HelperService,
-    private compiler: CompilerProvider
+    private compiler: CompilerProvider,
+    private navService: NavigationService
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
+    this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.profileModel.role = res.role;
+        this.profileModel.entityName = res.entityInfo.name;
+      }
+    });
   }
 
-
-  @Input()
   ngOnInit() {
-    this.profileModel.profileForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      contactNo: ['', Validators.required]
-    });
-    this.profileModel.profileForm.disable();
     this.dataSource.paginator = this.paginator;
+    this.profileModel.subscription = this.profile.usersData.subscribe((res) => {
+      if (res !== 1) {
+        this.profileModel.profileData = res;
+      } else {
+        this.getCurrentUser();
+      }
+    });
+    this.viewAllEntities();
   }
 
   initialize() {
@@ -60,162 +63,52 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileModel.appIcons = this.helperService.constants.appIcons;
     this.profileModel.appConstants = this.helperService.constants.appConstant;
     this.profileModel.disabled = false;
+    this.profileModel.displayedColumns = [
+      'name',
+      'headOffice',
+      'role',
+      'administrator'
+    ];
   }
 
-  ngOnDestroy() {
-    this.helperService.hideLoggers();
-  }
-
-  ngAfterViewInit() {
-    this.getUserData();
-  }
-
-
-  checkPasswords(group: FormGroup) {
-    const pass = group.controls.password1.value;
-    const confirmPass = group.controls.password2.value;
-    return pass === confirmPass
-      ? null
-      : group.controls.password2.setErrors({notSame: true});
-  }
-
-
-  get profileDataForm() {
-    return this.profileModel.profileForm.controls;
-  }
-
-  /**
-   * this function ...
-   */
-  getUserData() {
-    this.profileModel.profileData = this.loginService.profileData.subscribe(
-      userDataResult => {
-        if (userDataResult !== 1) {
-          this.profileModel.userData = userDataResult.user;
-          this.profileModel.userId = this.profileModel.userData.id;
-          this.profileModel.username = this.profileModel.userData.first_name + this.profileModel.userData.last_name;
-          this.profileModel.firstname = this.profileModel.userData.first_name;
-          this.profileModel.lastname = this.profileModel.userData.last_name;
-          this.profileModel.email = this.profileModel.userData.email;
-          this.profileModel.contactNo = this.profileModel.userData.contactNo;
-        } else {
-          this.profile.getUser().subscribe(res => {
-            this.profileModel.dataRecieved = res;
-            this.profileModel.userData = this.compiler.constructUserData(this.profileModel.dataRecieved);
-            this.profileModel.userId = this.profileModel.userData.id;
-            this.profileModel.username = this.profileModel.userData.first_name + this.profileModel.userData.last_name;
-            this.profileModel.firstname = this.profileModel.userData.first_name;
-            this.profileModel.lastname = this.profileModel.userData.last_name;
-            this.profileModel.email = this.profileModel.userData.email;
-            this.profileModel.contactNo = this.profileModel.userData.contactNo;
-            this.loginService.updateProfileData(this.profileModel.userData);
-          });
+  viewAllEntities() {
+    this.profileModel.subscription = this.navService.data.subscribe((res) => {
+        if (res !== 1) {
+          this.helperService.toggleLoader(false);
+          this.profileModel.entitiesList = res;
+          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+          this.profileModel.dataSource.paginator = this.paginator;
         }
       }
     );
   }
 
-  // onCreate(feature: any) {
-  //   var self = this;
-  //   this.helperService.iterations(this.profileFeatures, function(value, key) {
-  //     if (key === feature) {
-  //       self.profileFeatures[key] = true;
-  //     } else {
-  //       self.profileFeatures[key] = false;
-  //     }
-  //   });
-  // }
-  /**
-   * this function ..
-   */
-  // editAccount() {
-  //   this.disabled = true;
-  //   this.profileForm.enable();
-  // }
-
-  // /**
-  //  * this function ..
-  //  */
-  // cancelEditAccount() {
-  //   this.disabled = false;
-  //   this.profileForm.disable();
-  //   this.userData = this.getUserData();
-  // }
-
-  onLeaves() {
-    this.profileModel.profileFeatures.leaves = true;
+  ngOnDestroy() {
+    this.helperService.hideLoggers();
+    this.profileModel.subscription.unsubscribe();
   }
 
-  onEntities() {
+  ngAfterViewInit() {
+
   }
 
-  onActivities() {
+  getCurrentUser() {
+    this.profile.getUser().subscribe((res) => {
+      this.profileModel.dataRecieved = res;
+      let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
+      this.profile.updateUsers(userData);
+    })
   }
-
-  /**
-   * this function..
-   * @params value
-   * @params valid
-   */
-  updateProfile({value, valid}: { value: EditUser; valid: boolean }): void {
-    this.profileModel.disabled = false;
-    this.profileModel.profileForm.disable();
-    if (!valid) {
-      this.helperService.appLoggerDev(
-        this.profileModel.translated.LOGGER.STATUS.WARNING,
-        valid
-      );
-      this.helperService.appLogger(
-        this.profileModel.translated.LOGGER.STATUS.ERROR,
-        this.profileModel.translated.LOGGER.MESSAGES.PROFILE_CREDENTIAL_REQ
-      );
-      return;
-    }
-    this.helperService.appLoggerDev(this.profileModel.translated.LOGGER.STATUS.INFO, valid);
-    this.helperService.appLogger(
-      this.profileModel.translated.LOGGER.STATUS.INFO,
-      JSON.stringify(value)
-    );
-    value[this.profileModel.appConstants.userName] = this.profileModel.username;
-    this.profile.editUser(this.profileModel.userId, value).subscribe(
-      data => {
-        this.helperService.appLoggerDev(
-          this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          valid
-        );
-        this.helperService.appLogger(
-          this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_UPDATED
-        );
-        this.helperService.createSnack(this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
-        this.helperService.createSnack(this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_UPDATED, this.helperService.constants.status.SUCCESS);
-        this.getUserData();
-      },
-      error => {
-        this.helperService.appLoggerDev(
-          this.profileModel.translated.LOGGER.STATUS.ERROR,
-          `${error.error.detail +
-          this.profileModel.translated.LOGGER.MESSAGES.STATUS +
-          error.status}`
-        );
-        this.helperService.appLoggerDev(
-          this.profileModel.translated.MESSAGES.LOGIN_FAIL,
-          this.profileModel.translated.LOGGER.MESSAGES.PROFILE_NOTUPDATED
-        );
-        this.helperService.logoutError(error.status);
-      }
-    );
-  }
-  
 }
+
+
 export interface PeriodicElement {
   name: string;
   position: number;
   weight: number;
   symbol: string;
 }
+
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},

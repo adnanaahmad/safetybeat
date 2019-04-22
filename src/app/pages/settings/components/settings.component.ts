@@ -66,7 +66,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.appIcons = this.helperService.constants.appIcons;
     this.appTheme = this.helperService.constants.appTheme;
   }
-
   /**
    * handling forms validations
    */
@@ -170,6 +169,14 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   get changePasswordFormValidations() {
     return this.changePasswordForm.controls;
+  }
+
+  setChangePasswordForm() {
+
+    Object.keys(this.changePasswordForm.controls).forEach(key => {
+      this.changePasswordForm.controls[key].reset();
+      this.changePasswordForm.controls[key].setErrors(null)
+    });
   }
 
   changed() {

@@ -7,6 +7,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
+import {EditSiteModalComponent} from '../../dialogs/editSite/editSiteModal.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -25,10 +26,11 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
-    private navService: NavigationService,
+    private navService: NavigationService
   ) {
     this.initialize();
   }
+
 
   initialize() {
     this.siteCentreObj.empty = false;
@@ -53,7 +55,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     };
     this.adminServices.viewSites(entityData).subscribe((res) => {
       this.siteCentreObj.sitesList = res;
-      this.siteCentreObj.sitesData = this.compiler.constructSiteData(this.siteCentreObj.sitesList);
+      this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
       this.adminServices.changeSites(this.siteCentreObj.sitesData);
       this.adminServices.siteObserver.subscribe((res) => {
         if (res !== 1 && res !== '') {
@@ -83,8 +85,16 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     });
   }
 
-  goToViewSite() {
-    this.helperService.navigateTo([this.helperService.appConstants.paths.viewSite]);
+  editSite(siteId: number) {
+    this.helperService.createDialog(EditSiteModalComponent, {disableClose: true});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.viewSitesData();
+    });
+  }
+
+  goToViewSite(id) {
+    let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key)
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
   }
 
   siteAddorImportEnable() {

@@ -3,22 +3,39 @@
   <mat-list role="list">
     <mat-list-item role="listitem">
       <span [ngClass]="settingFeatures.general ? 'settingNav' : 'abc'" (click)="changeSetting('general')"
-            ngClass="settingFeatures.general"><mat-icon>settings</mat-icon> General</span>
+        ngClass="settingFeatures.general">
+        <mat-icon>settings</mat-icon> General
+      </span>
     </mat-list-item>
     <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.security ? 'settingNav' : 'abc'" (click)="changeSetting('security')"><mat-icon>security</mat-icon> Security</span>
+      <span [ngClass]="settingFeatures.security ? 'settingNav' : 'abc'" (click)="changeSetting('security')">
+        <mat-icon>security</mat-icon> Security
+      </span>
     </mat-list-item>
     <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.organization ? 'settingNav' : 'abc'" (click)="changeSetting('organization')"><mat-icon>business</mat-icon>Organization Info</span>
+      <span [ngClass]="settingFeatures.organization ? 'settingNav' : 'abc'" (click)="changeSetting('organization')">
+        <mat-icon>business</mat-icon>Organization Info
+      </span>
     </mat-list-item>
     <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.group ? 'settingNav' : 'abc'" (click)="changeSetting('group')"><mat-icon>group_add</mat-icon> Create Group</span>
+      <span [ngClass]="settingFeatures.group ? 'settingNav' : 'abc'" (click)="changeSetting('group')">
+        <mat-icon>group_add</mat-icon> Create Group
+      </span>
     </mat-list-item>
     <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'" (click)="changeSetting('entity')"><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span>
+      <span [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'" (click)="changeSetting('entity')">
+        <mat-icon>screen_lock_portrait</mat-icon> Entity Settings
+      </span>
     </mat-list-item>
     <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('theme')"><mat-icon>brightness_medium</mat-icon> Theme Settings</span>
+      <span [ngClass]="settingFeatures.permission ? 'settingNav' : 'abc'" (click)="changeSetting('permission')">
+        <mat-icon>how_to_reg</mat-icon> Permission Settings
+      </span>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('theme')">
+        <mat-icon>brightness_medium</mat-icon> Theme Settings
+      </span>
     </mat-list-item>
   </mat-list>
 </div><!-- /Settings navigation -->
@@ -31,23 +48,23 @@
       <mat-list role="list" class="settings-list">
         <mat-list-item role="listitem">
           <label>Name</label>
-          <input matInput type="text" class="showonly" placeholder="BlueSky Software"/>
+          <input matInput type="text" class="showonly" placeholder="BlueSky Software" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>City</label>
-          <input matInput type="text" class="showonly" placeholder="Lahore"/>
+          <input matInput type="text" class="showonly" placeholder="Lahore" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Country</label>
-          <input matInput type="text" class="showonly" placeholder="Pakistan"/>
+          <input matInput type="text" class="showonly" placeholder="Pakistan" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Contact Number</label>
-          <input matInput type="text" class="showonly" placeholder="+923157118511"/>
+          <input matInput type="text" class="showonly" placeholder="+923157118511" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Billing info</label>
-          <input matInput type="text" class="showonly" placeholder="201, 2nd floor, Siddiq Trade Centre, Lahore"/>
+          <input matInput type="text" class="showonly" placeholder="201, 2nd floor, Siddiq Trade Centre, Lahore" />
         </mat-list-item>
       </mat-list>
       <div class="btn-grp">
@@ -60,12 +77,11 @@
     <div *ngIf="settingFeatures.security">
       <h3 class="setting-title">Security Settings</h3>
       <form [formGroup]="changePasswordForm" #formDirective="ngForm"
-            (ngSubmit)="changePassword(changePasswordForm, formDirective)">
+        (ngSubmit)="changePassword(changePasswordForm, formDirective)">
         <mat-list role="list" class="settings-list">
           <mat-form-field role="listitem">
             <label>Current Password</label>
-            <input matInput type="password"
-                   [formControlName]="helperService.appConstants.currentPassword"/>
+            <input matInput type="password" [formControlName]="helperService.appConstants.currentPassword" />
             <mat-error class="text-right" *ngIf="changePasswordFormValidations.currentPassword.errors">
               <span
                 *ngIf="changePasswordFormValidations.currentPassword.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
@@ -76,8 +92,7 @@
 
           <mat-form-field role="listitem">
             <label>New Password</label>
-            <input matInput type="password"
-                   [formControlName]="helperService.appConstants.password1" required/>
+            <input matInput type="password" [formControlName]="helperService.appConstants.password1" required />
             <mat-error class="text-right" *ngIf="changePasswordFormValidations.password1.errors  ">
               <span
                 *ngIf="changePasswordFormValidations.password1.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
@@ -88,8 +103,7 @@
 
           <mat-form-field role="listitem">
             <label>Confirm Password</label>
-            <input matInput type="password"
-                   [formControlName]="helperService.appConstants.password2" required/>
+            <input matInput type="password" [formControlName]="helperService.appConstants.password2" required />
             <mat-error class="text-right" *ngIf="changePasswordFormValidations.password2.errors">
               <span
                 *ngIf="changePasswordFormValidations.password2.errors.required ">{{translated.AUTH.PASSWORD_REQ}}</span>
@@ -104,7 +118,7 @@
         <div class="btn-grp">
           <button type="submit" mat-raised-button custom-btn btn-primary [disabled]="!changePasswordForm.valid"> Save
           </button>
-          <img *ngIf="loading" [src]="helperService.translated.MESSAGES.LOADING_URL"/>
+          <img *ngIf="loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
         </div>
       </form>
     </div><!-- /Security Settings-->
@@ -157,23 +171,23 @@
       <mat-list role="list" class="settings-list">
         <mat-list-item role="listitem">
           <label>Change Password</label>
-          <input matInput type="text" class="showonly" placeholder="******"/>
+          <input matInput type="text" class="showonly" placeholder="******" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Confirm Password</label>
-          <input matInput type="text" class="showonly" placeholder="BlueSky Software"/>
+          <input matInput type="text" class="showonly" placeholder="BlueSky Software" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Security Question 1</label>
-          <input matInput type="text" class="showonly" placeholder="Where did you born?"/>
+          <input matInput type="text" class="showonly" placeholder="Where did you born?" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Security Question 2</label>
-          <input matInput type="text" class="showonly" placeholder="Where did your father born?"/>
+          <input matInput type="text" class="showonly" placeholder="Where did your father born?" />
         </mat-list-item>
         <mat-list-item role="listitem">
           <label>Contact Number</label>
-          <input matInput type="text" class="showonly" placeholder="+923157118511"/>
+          <input matInput type="text" class="showonly" placeholder="+923157118511" />
         </mat-list-item>
       </mat-list>
       <div class="btn-grp">
@@ -182,7 +196,7 @@
       </div>
     </div><!-- /Group Settings-->
 
-    <!--Privacy Settings-->
+    <!--Entity Settings-->
     <div *ngIf="settingFeatures.entity">
       <h3 class="setting-title">Entity Setting</h3>
       <div class="text-right paddingbox">
@@ -197,23 +211,23 @@
             <mat-list-item role="listitem">
               <label>{{ translated.TABLEHEADINGS.NAME }} </label>
               <input matInput type="text" placeholder="{{ entitiesData.name }}" [(ngModel)]="entitiesData.name"
-                     formControlName="{{ appConstants.name }}" [ngClass]="disabled ? 'active' : 'inactive'"
-                     formControlName="{{ appConstants.name }}" required/>
+                formControlName="{{ appConstants.name }}" [ngClass]="disabled ? 'active' : 'inactive'"
+                formControlName="{{ appConstants.name }}" required />
             </mat-list-item>
           </div>
           <div class="form-group">
             <mat-list-item role="listitem">
               <label>Entity Code</label>
               <input matInput type="text" [(ngModel)]="entitiesData.code" formControlName="{{ appConstants.code }}"
-                     [ngClass]="disabled ? 'active' : 'inactive'" formControlName="{{ appConstants.code }}" required/>
+                [ngClass]="disabled ? 'active' : 'inactive'" formControlName="{{ appConstants.code }}" required />
             </mat-list-item>
           </div>
           <div class="form-group">
             <mat-list-item role="listitem">
               <label>{{ translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</label>
               <input matInput type="text" [(ngModel)]="entitiesData.headOffice"
-                     formControlName="{{ appConstants.headOffice }}" formControlName="{{ appConstants.headOffice }}"
-                     [ngClass]="disabled ? 'active' : 'inactive'" required/>
+                formControlName="{{ appConstants.headOffice }}" formControlName="{{ appConstants.headOffice }}"
+                [ngClass]="disabled ? 'active' : 'inactive'" required />
             </mat-list-item>
           </div>
         </mat-list>
@@ -227,12 +241,55 @@
           </button>
         </div>
       </form>
-    </div><!-- /Privacy Settings-->
+    </div><!-- /Entity Settings-->
+
+    <!-- Permission Settings -->
+    <div *ngIf="settingFeatures.permission">
+      <h3 class="setting-title">Permission Settings</h3>
+      <form class="profile-form set-permission">
+        <mat-list role="list">
+          <div class="form-group">
+            <mat-list-item role="listitem">
+              <label>Select a Role</label>
+              <mat-form-field>
+                <mat-label>Choose a role to change permissions</mat-label>
+                <mat-select>
+                  <mat-option value="administrator">Administrator</mat-option>
+                  <mat-option value="moderator">Moderator</mat-option>
+                  <mat-option value="manager">Manager</mat-option>
+                  <mat-option value="chaprasi">Chaprasi</mat-option>
+                  <mat-option value="plumber">Plumber</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <section class="populated-permissions">
+                <mat-checkbox class="example-margin">Site creation</mat-checkbox>
+                <mat-checkbox class="example-margin">Site import</mat-checkbox>
+                <mat-checkbox class="example-margin">Entity Creation</mat-checkbox>
+                <mat-checkbox class="example-margin">Entity Join</mat-checkbox>
+                <mat-checkbox class="example-margin">Generate Report</mat-checkbox>
+                <mat-checkbox class="example-margin">Invite User</mat-checkbox>
+                <mat-checkbox class="example-margin">Report Hazard</mat-checkbox>
+                <mat-checkbox class="example-margin">Upload Document</mat-checkbox>
+              </section>
+            </mat-list-item>
+          </div>
+        </mat-list>
+        <div class="btn-grp">
+          <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
+            <mat-icon>{{ appIcons.save }}</mat-icon>
+            {{ translated.BUTTONS.SAVE }}
+          </button>
+          <button mat-raised-button custom-btn btn-primary color="warn">
+            {{ translated.BUTTONS.CANCEL }}
+          </button>
+        </div>
+      </form>
+    </div><!-- /Permission Settings-->
 
     <!--Change Theme-->
     <div *ngIf="settingFeatures.theme">
       <h3 class="setting-title">Change Theme</h3>
-      <mat-list role="list" class="settings-list theme-selector">
+      <mat-list role="list" class="settings-list changetheme theme-selector">
         <mat-list-item>
           <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
             <mat-radio-button value="{{ appTheme.lightTheme }}">{{ translated.STRINGS.LIGHTDEFAULT }}</mat-radio-button>

@@ -5,7 +5,7 @@
   </div>
   <table
     mat-table
-    [dataSource]="dataSource"
+    [dataSource]="memberCenter.dataSource"
     class="customTable mat-elevation-z8"
   >
     <ng-container matColumnDef="photos">
@@ -13,7 +13,7 @@
         <mat-icon>person</mat-icon>
       </th>
       <td mat-cell *matCellDef="let element">
-        <img class="table-img" src="{{ element.photos }}"/>
+        <img class="table-img" src="{{ element.photos != '' ? element.photos : helperService.appConstants.avatar}}"/>
       </td>
     </ng-container>
 
@@ -49,12 +49,7 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
       </th>
-      <td mat-cell *matCellDef="let element">
-        <button class="btn-table" btn-primary mat-raised-button color="primary">
-          <mat-icon>settings</mat-icon>
-          Settings
-        </button>
-        &nbsp;
+      <td mat-cell *matCellDef="let element">&nbsp;
         <button
           class="btn-table"
           btn-primary
@@ -67,25 +62,30 @@
           Actions
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+                  (click)="connections(helperService.appConstants.connections.view)">
             <mat-icon>linear_scale</mat-icon>
-            Connections
+            View Connections
           </button>
-          <button mat-menu-item>
-            <mat-icon>assignment</mat-icon>
-            Log
+          <button mat-menu-item
+                  (click)="connections(helperService.appConstants.connections.add)">
+            <mat-icon>linear_scale</mat-icon>
+            Add Connections
           </button>
-          <button mat-menu-item>
-            <mat-icon>build</mat-icon>
-            Edit
+          <button mat-menu-item
+                  (click)="connections(helperService.appConstants.connections.add)">
+            <mat-icon>linear_scale</mat-icon>
+            Remove Connections
           </button>
-          <button mat-menu-item>
-            <mat-icon>lock</mat-icon>
-            Reset Password
-          </button>
-          <button mat-menu-item>
+          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+                  (click)="accessLevel()">
             <mat-icon>input</mat-icon>
             Change Access Level
+          </button>
+          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+                  (click)="element.status ? deactivateUsers(element.id) : activateUsers(element.id)">
+            <mat-icon>remove_circle_outline</mat-icon>
+            {{element.status ? 'Deactivate User' : 'Activate User'}}
           </button>
         </mat-menu>
       </td>
