@@ -250,7 +250,7 @@ export class HelperService {
   }
 
   /**
-   * Getter for app constants through helper service
+   * Getter for app constants through helper services
    */
 
   get appConstants() {
