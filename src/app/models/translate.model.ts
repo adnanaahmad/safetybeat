@@ -118,6 +118,9 @@ export interface Strings {
   ACCOUNTNO: string;
   PHONENO: string;
   FAX: string;
+  PACKAGE_DESCRIPTION_1: string;
+  PACKAGE_DESCRIPTION_2: string;
+  PACKAGE_DESCRIPTION_3: string;
 }
 
 export interface Buttons {
@@ -153,6 +156,8 @@ export interface Buttons {
   IMPORT_SITE: string;
   SAVE: string;
   UPGRADE: string;
+  GETSTARTED: string;
+  LEARNMORE: string;
 }
 
 export interface Messages {
@@ -258,7 +263,12 @@ export interface Messages {
   TRIAL_EXPIRED: string;
   TRIAL_LEFT_1: string;
   TRIAL_LEFT_2: string;
-  TRIAL_EXP_USER: string
+  TRIAL_EXP_USER: string;
+  SAFETYBEAT_PRICING: string;
+  PRICING_TAGLINE: string;
+  CALLTOACTION_TITLE: string;
+  CALLTOACTION_DESCRIPTION: string;
+  FAQS_TITLE: string;
 }
 
 export interface Logger {

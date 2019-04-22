@@ -64,7 +64,10 @@
     "EXPAND": "Expand",
     "REMOVE": "Remove",
     "SITEADDRESS": "Site Address",
-    "SITESAFETYPLAN": "Site Safety Plan"
+    "SITESAFETYPLAN": "Site Safety Plan",
+    "PACKAGE_DESCRIPTION_1": "For startup business",
+    "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
+    "PACKAGE_DESCRIPTION_3": "For already established business"
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -98,7 +101,9 @@
     "INVITETEAM": "Invite",
     "ADD_SITE": "Add Site",
     "IMPORT_SITE": "Import Site",
-    "UPGRADE": "Upgrade"
+    "UPGRADE": "Upgrade",
+    "GETSTARTED": "Get Started",
+    "LEARNMORE": "Learn More"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -202,7 +207,12 @@
     "TRIAL_EXPIRED": "Your trial package is expired. Please ",
     "TRIAL_LEFT_1": "Your trial is going to expire in ",
     "TRIAL_LEFT_2": " day(s). Please ",
-    "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator."
+    "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator.",
+    "SAFETYBEAT_PRICING": "SafetyBeat Pricing",
+    "PRICING_TAGLINE": "Choose a package that best suits your business",
+    "CALLTOACTION_TITLE": "Your business needs SafetyBeat",
+    "CALLTOACTION_DESCRIPTION": "All your safety measures now in one simple app – it now takes seconds to reach out to your workers, know they are safe and know where they are.",
+    "FAQS_TITLE": "Commonly asked questions"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
