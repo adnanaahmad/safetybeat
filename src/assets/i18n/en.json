@@ -300,5 +300,11 @@
     "WARNING": "WARNING",
     "ERROR": "ERROR",
     "CUSTOM": "CUSTOM"
+  },
+  "CONFIRMATION": {
+    "ACTIVATE_USER": "Are you sure you want to Activate this user?",
+    "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
+    "DELETE_SITE": "Are you sure you want Delete this site?",
+    "DELETE_ENTITY": "Are you sure you want Delete this entity?"
   }
 }

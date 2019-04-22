@@ -76,7 +76,7 @@ export class MemberCenterComponent implements OnInit {
   }
 
   deactivateUsers(userId) {
-    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DEACTIVATE_USER}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
@@ -86,8 +86,9 @@ export class MemberCenterComponent implements OnInit {
       }
     });
   }
+
   activateUsers(userId) {
-    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.ACTIVATE_USER}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
