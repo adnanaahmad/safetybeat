@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
-import {changePassword} from '../../../../models/profile.model';
-import {HelperService} from '../../../../shared/helperService/helper.service';
-import {SettingService} from '../../../../shared/settings/setting.service';
+import {changePassword} from 'src/app/models/profile.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {SettingService} from 'src/app/shared/settings/setting.service';
 
 @Component({
   selector: 'app-security',
