@@ -44,6 +44,7 @@ export class ConstantService {
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
+    viewSiteInfo: `${environment.apiUrl}/api/sites/`
   };
   static apiMethod = {
     get: 'get',

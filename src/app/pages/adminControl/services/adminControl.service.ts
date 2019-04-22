@@ -107,4 +107,25 @@ export class AdminControlService {
     )
   }
 
+  viewSiteInfo(id: number) {
+    return this.helperService.requestCall(
+      this.method.get,
+      `${this.apiRoutes.viewSiteInfo}${id}/`
+    )
+  }
+
+  deleteSite(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.viewSiteInfo}${id}/`
+    )
+  }
+
+  editSite(id: number) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.viewSiteInfo}${id}/`
+    )
+  }
+
 }

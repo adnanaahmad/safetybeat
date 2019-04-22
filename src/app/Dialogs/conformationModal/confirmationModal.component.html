@@ -2,12 +2,12 @@
   Confirmation Alert
 </mat-card-title>
 <div mat-dialog-content>
-  <p>Are you sure to proceed on ?</p>
+  <p>Are you sure you want to delete this ?</p>
   <mat-dialog-actions>
     <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary" [mat-dialog-close]="'YES'">
       Yes
     </button>
-    <button mat-button [mat-dialog-close]="'NO'">
+    <button mat-raised-button custom-btn btn-primary color="warn" [mat-dialog-close]="'NO'">
       No
     </button>
   </mat-dialog-actions>

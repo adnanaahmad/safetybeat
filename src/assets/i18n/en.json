@@ -98,7 +98,8 @@
     "INVITETEAM": "Invite",
     "ADD_SITE": "Add Site",
     "IMPORT_SITE": "Import Site",
-    "UPGRADE": "Upgrade"
+    "UPGRADE": "Upgrade",
+    "DELETE": "Delete"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -202,7 +203,14 @@
     "TRIAL_EXPIRED": "Your trial package is expired. Please ",
     "TRIAL_LEFT_1": "Your trial is going to expire in ",
     "TRIAL_LEFT_2": " day(s). Please ",
-    "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator."
+    "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator.",
+    "SITE_IS_SAFE": " is safe.",
+    "SITE_IS_NOT_SAFE": " is not safe.",
+    "VIEW_SITE_SUCCESS": "View site success.",
+    "VIEW_SITE_FAILURE": "Site not found.",
+    "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
+    "DELETE_SITE_FAILURE": "Site deletion failed.",
+    "EDIT_SITE_MSG": "Enter Site Details to Edit Site."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
