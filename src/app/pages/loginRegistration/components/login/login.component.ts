@@ -30,6 +30,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.helperService.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
   }
 
+  /**
+   * this function is called on the initialization of the component and this function is used for making the loginForm input fields
+   * and gives validations to these input fields.
+   */
+
   ngOnInit() {
     if (this.loginService.getToken()) {
       this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
@@ -39,6 +44,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', Validators.required]
     });
   }
+
+  /**
+   * this function is used for hiding the debugging messages on the destroy of this component.
+   */
 
   ngOnDestroy() {
     this.helperService.hideLoggers();

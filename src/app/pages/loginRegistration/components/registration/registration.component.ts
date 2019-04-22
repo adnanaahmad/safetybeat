@@ -47,7 +47,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Intialize registerObj
+   * This function is used for initialize the global variables that we have made in the registerModel.
    */
   initialize() {
     this.helperService.displayButton = false;
@@ -56,22 +56,31 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * handling forms validations
+   * this function is used for handling form validations.
    */
   get userDetailForm() {
     return this.registerObj.userForm.controls;
   }
 
+  /**
+   * this function is used for handling the form validations of organization form.
+   */
+
   get orgForm() {
     return this.registerObj.organizationForm.controls;
   }
+
+  /**
+   * this function is used for checking the validations of the organization Type form.
+   */
 
   get orgTypeForm() {
     return this.registerObj.organizationTypeForm.controls;
   }
 
   /**
-   * registerOrganization function to register new user with organization info
+   * this function is used for making the userForm, organizationForm and orgType Form and we also assign the validations
+   * to these forms in it.
    */
   ngOnInit() {
     this.helperService.createMap(this.gMapElement); // By default settings of map set
@@ -96,13 +105,27 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerObj.formErrorMatcher = new FormErrorHandler();
   }
 
+  /**
+   * this function is used for hiding the debugging messages when this component is destroyed.
+   */
+
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
 
+  /**
+   * this function is used for entering the only numbers in the contact number input field.
+   * @params event
+   */
+
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
+
+  /**
+   * this function is used for entering only the characters in the input fields.
+   * @params event
+   */
 
   characterOnly(event): boolean {
     return this.compiler.charactersOnly(event);
@@ -118,6 +141,12 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
+  /**
+   * this function is used for checking whether this email already exists or not if the email exists then
+   * user would not be able to register with this email.
+   * @params group
+   */
+
   checkEmail(group) {
     this.registerObj.email = this.formBuilder.group({
       'email': [group.value.email, Validators.email]
@@ -132,6 +161,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  /**
+   * this function is used for checking the validation of the phone number that the user will add.
+   * @params group
+   */
 
   phoneNumberValid(group: FormGroup) {
     try {
@@ -149,6 +183,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * saves package against module
    * @param name name of the module
    * @param data selected package against module
+   * this function is used for registering the user against all the details that the user has entered.
    */
   registration() {
     let orgForm = this.registerObj.organizationForm.value, userForm = this.registerObj.userForm.value;

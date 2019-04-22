@@ -24,7 +24,15 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   appTheme: any;
   entitiesData: any;
   allEntities: any;
-  settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false, 'permission': false};
+  settingFeatures = {
+    'general': true,
+    'security': false,
+    'organization': false,
+    'group': false,
+    'entity': false,
+    'theme': false,
+    'permission': false
+  };
   disabled: boolean = false;
   entityId: any;
   createdBy: any;
@@ -52,6 +60,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.formErrorMatcher = new FormErrorHandler();
   }
 
+  /**
+   * this function is called when this components is initialized and this function subscribes to the activate theme
+   * and we also have made entity form and change password form.
+   */
+
   ngOnInit() {
     this.settings.getActiveTheme().subscribe(val => {
       this.themeSelected = val;
@@ -71,6 +84,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   * this function is used for subscribing the selectedEntityData and we get all the entity information and save them in
+   * our global variables to show on tabular form.
+   */
+
   ngAfterViewInit() {
     this.navService.selectedEntityData.subscribe((selectedEntity) => {
       this.allEntities = selectedEntity;
@@ -81,38 +99,54 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * this function is used for checking the new password and confirm password match.
+   * @params group
+   */
+
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
+  /**
+   * this function is used for edit entity data.
+   */
 
   editEntity() {
     this.disabled = true;
     this.entityForm.enable();
   }
 
+  /**
+   * this function is called when we click on cancel button to cancel the edit account.
+   */
+
   cancelEditAccount() {
     this.disabled = false;
     this.entityForm.disable();
   }
 
+  /**
+   * this function is used for checking the validations of entityForm.
+   */
+
   get entityDataForm() {
     return this.entityForm.controls;
   }
+
+  /**
+   * this function is used for change password form validations.
+   */
 
   get changePasswordFormValidations() {
     return this.changePasswordForm.controls;
   }
 
-  setChangePasswordForm() {
-
-    Object.keys(this.changePasswordForm.controls).forEach(key => {
-      this.changePasswordForm.controls[key].reset();
-      this.changePasswordForm.controls[key].setErrors(null)
-    });
-  }
+  /**
+   * this function is used for changing the theme.
+   */
 
   changed() {
     this.settings.setActiveTheme(this.themeSelected);
@@ -125,6 +159,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.overlay.getContainerElement().classList.add(this.themeSelected);
   }
 
+  /**
+   * this function is used for changing the mat cards in the settings.
+   * @params settings
+   */
+
   changeSetting(settings: any) {
     let self = this;
     this.helperService.iterations(this.settingFeatures, function (value, key) {
@@ -135,6 +174,12 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  /**
+   * this function is used for updating the entity data using entityForm.
+   * @params value
+   * @params valid
+   */
 
   updateEntity({value, valid}: { value: EditEntity; valid: boolean }): void {
     this.disabled = false;
@@ -153,10 +198,17 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
     });
 
-
   }
 
-  changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective ): void {
+  /**
+   * this function is used for change password api call it accepts the data in the form of old password and new password and
+   * changes the password.
+   * @params value
+   * @params valid
+   * @params formDirective
+   */
+
+  changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.AUTH.PASSWORD_REQ);
@@ -198,6 +250,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.clearValidations();
     });
   }
+
+  /**
+   * this function is used to clear the validations of the change password form when user clicks on cancel button.
+   */
 
   clearValidations() {
     Object.keys(this.changePasswordForm.controls).forEach(key => {

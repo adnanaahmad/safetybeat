@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Translation} from '../../models/translate.model';
-import {HelperService} from '../../shared/helperService/helper.service';
 
 @Component({
   selector: 'app-confirmationModal',
@@ -11,9 +10,7 @@ export class ConfirmationModalComponent implements OnInit {
 
   translated: Translation
 
-  constructor(
-    private helperService: HelperService
-  ) {
+  constructor() {
   }
 
   ngOnInit() {

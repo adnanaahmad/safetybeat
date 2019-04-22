@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {share} from 'rxjs/operators';
@@ -10,7 +10,7 @@ import {UserModel} from 'src/app/models/profile/user.model';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit, AfterViewInit {
+export class UserComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   userModel: UserModel = <UserModel>{};
 
@@ -21,22 +21,35 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.initialize();
   }
 
+  /**
+   * this function is used for subscribing to the usersData behavior subject and if the data is not
+   * there in the observable then the api will be called again.
+   */
+
   ngOnInit() {
     this.userModel.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getAllUsers();
       } else {
         this.userModel.empty = true;
-        this.userModel.dataSource = new MatTableDataSource(res);
+        this.userModel.userData = res;
+        this.userModel.dataSource = new MatTableDataSource(this.userModel.userData);
         this.userModel.dataSource.paginator = this.paginator;
       }
     });
   }
 
-  ngAfterViewInit() {
+  /**
+   * this function is used for unsubscription of all the observables that have been subscribed.
+   */
+
+  ngOnDestroy() {
     this.userModel.subscription.unsubscribe();
   }
 
+  /**
+   * this function is used for initializing the global variables.
+   */
   initialize() {
     this.userModel.translated = this.helperService.translated;
     this.userModel.appIcons = this.helperService.constants.appIcons;
@@ -53,15 +66,15 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   *
+   * this function is used for getting all the usersData who have been invited.
    */
 
   getAllUsers() {
-    this.userModel.allUsers = this.userService.getAllUsers().pipe(share());
-    this.userModel.allUsers.subscribe(
+this.userService.getAllUsers().subscribe(
       result => {
+        this.userModel.allUsers = result;
         this.userModel.empty = true;
-        this.userModel.allUsersList = result.data;
+        this.userModel.allUsersList = this.userModel.allUsers.data;
         this.userService.updateUsers(this.userModel.allUsersList);
         this.userModel.dataSource = new MatTableDataSource(this.userModel.allUsersList);
         this.userModel.dataSource.paginator = this.paginator;

@@ -26,6 +26,11 @@ export class InviteUserModalComponent implements OnInit {
     this.inviteUserModal.entityID = this.data.entityId;
   }
 
+  /**
+   * this function is called after constructor and in this function we make a form named as inviteUserForm
+   * and we assign all the input fields over here that we have to use to invite the users.
+   */
+
   ngOnInit() {
     this.inviteUserModal.inviteUserForm = this.formBuilder.group({
       first_name: ['', Validators.required],
@@ -33,12 +38,6 @@ export class InviteUserModalComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required]
     });
-  }
-
-  initialize() {
-    this.inviteUserModal.roleList = [
-      'user', 'owner', 'teamLead'
-    ];
   }
 
   /**
