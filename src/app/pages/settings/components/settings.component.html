@@ -238,7 +238,7 @@
             <mat-list-item role="listitem">
               <label>Select a Role</label>
               <mat-form-field>
-                <mat-label>Favorite food</mat-label>
+                <mat-label>Choose a role to change permissions</mat-label>
                 <mat-select>
                   <mat-option value="administrator">Administrator</mat-option>
                   <mat-option value="moderator">Moderator</mat-option>
@@ -248,16 +248,20 @@
                 </mat-select>
               </mat-form-field>
               <section class="populated-permissions">
-                <mat-checkbox class="example-margin" [(ngModel)]="entitySetting">Entity Settings</mat-checkbox>
-                <mat-checkbox class="example-margin" [(ngModel)]="sites">Add/Remove Sites</mat-checkbox>
-                <mat-checkbox class="example-margin" [(ngModel)]="members">View Members</mat-checkbox>
-                <mat-checkbox class="example-margin" [(ngModel)]="hazards">Hazard Center</mat-checkbox>
+                <mat-checkbox class="example-margin">Site creation</mat-checkbox>
+                <mat-checkbox class="example-margin">Site import</mat-checkbox>
+                <mat-checkbox class="example-margin">Entity Creation</mat-checkbox>
+                <mat-checkbox class="example-margin">Entity Join</mat-checkbox>
+                <mat-checkbox class="example-margin">Generate Report</mat-checkbox>
+                <mat-checkbox class="example-margin">Invite User</mat-checkbox>
+                <mat-checkbox class="example-margin">Report Hazard</mat-checkbox>
+                <mat-checkbox class="example-margin">Upload Document</mat-checkbox>
               </section>
             </mat-list-item>
           </div>
         </mat-list>
-        <div *ngIf="disabled" class="btn-grp">
-          <button mat-raised-button type="submit" custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
+        <div class="btn-grp">
+          <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
             <mat-icon>{{ appIcons.save }}</mat-icon>
             {{ translated.BUTTONS.SAVE }}
           </button>
@@ -271,7 +275,7 @@
     <!--Change Theme-->
     <div *ngIf="settingFeatures.theme">
       <h3 class="setting-title">Change Theme</h3>
-      <mat-list role="list" class="settings-list theme-selector">
+      <mat-list role="list" class="settings-list changetheme theme-selector">
         <mat-list-item>
           <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
             <mat-radio-button value="{{ appTheme.lightTheme }}">{{ translated.STRINGS.LIGHTDEFAULT }}</mat-radio-button>

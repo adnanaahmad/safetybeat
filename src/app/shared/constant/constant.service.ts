@@ -41,6 +41,9 @@ export class ConstantService {
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
     importSite: `${environment.apiUrl}/api/uploadFile/importSite/`,
+    entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
+    deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
+    activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`
   };
   static apiMethod = {
@@ -113,6 +116,7 @@ export class ConstantService {
     emailValid: 'VALID',
     yes: 'YES',
     codeValidations: [100, 101, 102, 103, 104],
+    avatar: './assets/images/avatar.png',
     paths: {
       home: '/home',
       login: '/login',
@@ -123,6 +127,11 @@ export class ConstantService {
       owner: 'Owner',
       teamLead: 'TeamLead',
       entityManager: 'EntityManager'
+    },
+    connections: {
+      view: 'view',
+      add: 'add',
+      remove: 'remove'
     },
     enterKey: 13,
     importSite: 'importSite',
