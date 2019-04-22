@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
-import {AdminControlService} from '../../../../services/adminControl.service';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
-import {ViewSite} from '../../../../../../models/adminControl/viewSite.model';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
-import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CompilerProvider} from 'src/app//shared/compiler/compiler';
+import {ViewSite} from 'src/app/models/adminControl/viewSite.model';
+import {HelperService} from 'src/app//shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-ViewSite',
