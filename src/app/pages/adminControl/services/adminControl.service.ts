@@ -121,4 +121,11 @@ export class AdminControlService {
     )
   }
 
+  editSite(id: number) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.viewSiteInfo}${id}/`
+    )
+  }
+
 }

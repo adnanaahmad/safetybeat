@@ -266,6 +266,7 @@ export interface Messages {
   VIEW_SITE_FAILURE: string;
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
+  EDIT_SITE_MSG: string;
 }
 
 export interface Logger {

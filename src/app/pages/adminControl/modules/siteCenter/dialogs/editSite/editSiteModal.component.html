@@ -1,8 +1,8 @@
 <mat-card-title class="mat-dialog-title">
-  {{helperService.translated.MESSAGES.ADDSITE_MSG}}
+  {{helperService.translated.MESSAGES.EDIT_SITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=addSite(addSiteObj.addSiteForm)>
+  <form [formGroup]="editSiteObj.editSiteForm" (ngSubmit)=addSite(editSiteObj.editSiteForm)>
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.SITE_NAME"
@@ -38,13 +38,14 @@
     </div>
     <mat-dialog-actions>
       <button mat-raised-button custom-btn btn-primary
-              [disabled]="addSiteObj.loading|| !helperService.displayButton" color="primary">
-        {{ helperService.translated.BUTTONS.ADD_SITE }}
+              [disabled]="editSiteObj.loading|| !helperService.displayButton" color="primary">
+        {{ helperService.translated.BUTTONS.SAVE }}
       </button>
-      <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
+      <img *ngIf="editSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
       <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>
   </form>
 </div>
+

@@ -7,6 +7,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
+import {EditSiteModalComponent} from '../../dialogs/editSite/editSiteModal.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -78,6 +79,13 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
 
   importSite() {
     this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.viewSitesData();
+    });
+  }
+
+  editSite(siteId: number) {
+    this.helperService.createDialog(EditSiteModalComponent, {disableClose: true});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.viewSitesData();
     });

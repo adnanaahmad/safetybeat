@@ -209,7 +209,8 @@
     "VIEW_SITE_SUCCESS": "View site success.",
     "VIEW_SITE_FAILURE": "Site not found.",
     "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
-    "DELETE_SITE_FAILURE": "Site deletion failed."
+    "DELETE_SITE_FAILURE": "Site deletion failed.",
+    "EDIT_SITE_MSG": "Enter Site Details to Edit Site."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

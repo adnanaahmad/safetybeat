@@ -54,7 +54,7 @@
           Actions
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="siteCentreObj.siteOption">
+          <button mat-menu-item *ngIf="siteCentreObj.siteOption" (click)='editSite(element.site.id)'>
             <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
             Edit Site
           </button>
