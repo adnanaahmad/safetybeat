@@ -182,35 +182,39 @@
           <div class="form-group">
             <mat-list-item role="listitem">
               <label>{{ translated.TABLEHEADINGS.NAME }} </label>
-              <input matInput type="text" placeholder="{{ entitiesData.name }}" [(ngModel)]="entitiesData.name"
-                     formControlName="{{ appConstants.name }}" [ngClass]="disabled ? 'active' : 'inactive'"
-                     formControlName="{{ appConstants.name }}" required/>
+              <input matInput type="text"
+                     formControlName="{{ appConstants.name }}" [ngClass]="disabled ? 'active' : 'inactive'" required/>
             </mat-list-item>
+            <mat-error class="text-right" *ngIf="entityFormValidations.errors">
+              <span
+                *ngIf="entityFormValidations.name.errors.required">{{translated.AUTH.PASSWORD_REQ}}</span>
+            </mat-error>
           </div>
           <div class="form-group">
             <mat-list-item role="listitem">
               <label>Entity Code</label>
-              <input matInput type="text" [(ngModel)]="entitiesData.code" formControlName="{{ appConstants.code }}"
-                     [ngClass]="disabled ? 'active' : 'inactive'" formControlName="{{ appConstants.code }}" required/>
+              <input matInput type="text" formControlName="{{ appConstants.code }}"
+                     [ngClass]="disabled ? 'active' : 'inactive'" required/>
             </mat-list-item>
           </div>
           <div class="form-group">
             <mat-list-item role="listitem">
               <label>{{ translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</label>
-              <input matInput type="text" [(ngModel)]="entitiesData.headOffice"
-                     formControlName="{{ appConstants.headOffice }}" formControlName="{{ appConstants.headOffice }}"
+              <input matInput type="text"
+                     formControlName="{{ appConstants.headOffice }}"
                      [ngClass]="disabled ? 'active' : 'inactive'" required/>
             </mat-list-item>
           </div>
         </mat-list>
         <div *ngIf="disabled" class="btn-grp">
-          <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
+          <button mat-raised-button custom-btn btn-danger color="primary" type="submit"
+                  [disabled]="entityForm.pristine">
             <mat-icon>{{ appIcons.save }}</mat-icon>
             {{ translated.BUTTONS.SAVE }}
           </button>
-          <button mat-raised-button custom-btn btn-primary color="warn">
-            {{ translated.BUTTONS.CANCEL }}
-          </button>
+          <!--          <button mat-raised-button custom-btn btn-primary color="warn" type="button">-->
+          <!--            {{ translated.BUTTONS.CANCEL }}-->
+          <!--          </button>-->
         </div>
       </form>
     </div><!-- /Privacy Settings-->

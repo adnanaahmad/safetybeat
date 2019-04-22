@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {SettingService} from 'src/app/shared/settings/setting.service';
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {Translation} from 'src/app/models/translate.model';
@@ -7,15 +7,15 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {FormGroup, FormBuilder, Validators, FormGroupDirective} from '@angular/forms';
 import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
-import {ProfileService} from '../../profile/services/profile.service';
 import {FormErrorHandler} from '../../../shared/FormErrorHandler/FormErrorHandler';
+import {EntityInfo} from '../../../models/userEntityData.model';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit, AfterViewInit {
+export class SettingsComponent implements OnInit {
   public dialogRef: MatDialogRef<SettingsComponent>;
   themeSelected: any;
   translated: Translation;
@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   appIcons: any;
   appConstants: any;
   appTheme: any;
-  entitiesData: any;
+  entitiesData: EntityInfo;
   allEntities: any;
   settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false};
   disabled: boolean = false;
@@ -31,14 +31,12 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   createdBy: any;
   managedBy: any;
   changePasswordForm: FormGroup;
-  private modalService: ProfileService;
   formErrorMatcher: any;
   data: any;
   currentPassword: string;
   password1: any;
   password2: any;
   loading: boolean = false;
-  formValidator: boolean = true;
 
   constructor(
     public settings: SettingService,
@@ -71,16 +69,17 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: this.checkPasswords});
-
-  }
-
-  ngAfterViewInit() {
     this.navService.selectedEntityData.subscribe((selectedEntity) => {
-      this.allEntities = selectedEntity;
-      this.entitiesData = this.allEntities.entityInfo;
-      this.entityId = this.entitiesData.id;
-      this.createdBy = this.entitiesData.createdBy;
-      this.managedBy = this.entitiesData.managedBy;
+      if (selectedEntity !== 1) {
+        this.allEntities = selectedEntity;
+        this.entitiesData = this.allEntities.entityInfo;
+        this.entityFormValidations['name'].setValue(this.entitiesData.name);
+        this.entityFormValidations['code'].setValue(this.entitiesData.code);
+        this.entityFormValidations['headOffice'].setValue(this.entitiesData.headOffice);
+        this.entityId = this.entitiesData.id;
+        this.createdBy = this.entitiesData.createdBy;
+        this.managedBy = this.entitiesData.managedBy;
+      }
     });
   }
 
@@ -96,17 +95,12 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.entityForm.enable();
   }
 
-  cancelEditAccount() {
-    this.disabled = false;
-    this.entityForm.disable();
-  }
-
-  get entityDataForm() {
-    return this.entityForm.controls;
-  }
-
   get changePasswordFormValidations() {
     return this.changePasswordForm.controls;
+  }
+
+  get entityFormValidations() {
+    return this.entityForm.controls;
   }
 
   changed() {
@@ -135,6 +129,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.disabled = false;
     this.entityForm.disable();
     let data = {
+      'name': value.name,
       'code': value.code,
       'headOffice': value.headOffice,
       'managedBy': this.managedBy,
@@ -151,7 +146,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   }
 
-  changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective ): void {
+  changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.AUTH.PASSWORD_REQ);
@@ -173,7 +168,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
           this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
         this.loading = false;
-        formDirective.resetForm()
+        formDirective.resetForm();
         this.changePasswordForm.reset();
       } else {
         this.loading = false;
