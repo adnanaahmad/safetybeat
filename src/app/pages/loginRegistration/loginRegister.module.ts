@@ -31,6 +31,7 @@ import { OrgRegistrationModalComponent } from './components/orgRegistrationModal
     ParticleContainerComponent,
     PasswordRecoveryComponent,
     LandingComponent,
+    OrgRegistrationModalComponent
   ],
   providers: [
     LoginRegistrationService,

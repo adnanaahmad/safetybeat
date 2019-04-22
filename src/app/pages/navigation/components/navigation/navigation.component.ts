@@ -98,9 +98,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.helperService.createDialog(OrgRegistrationModalComponent, {disableClose: false});
-    }, 0);
   }
 
   ngOnChanges() {
