@@ -25,7 +25,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
-    private navService: NavigationService,
+    private navService: NavigationService
   ) {
     this.initialize();
   }
@@ -84,8 +84,8 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
   goToViewSite(id) {
-    console.log('site id: ', id);
-    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: JSON.stringify(id)}]);
+    let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key)
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
   }
 
   siteAddorImportEnable() {

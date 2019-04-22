@@ -1,10 +1,12 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {AdminControlService} from '../../../../services/adminControl.service';
 import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
 import {ViewSite} from '../../../../../../models/adminControl/viewSite.model';
 import {HelperService} from '../../../../../../shared/helperService/helper.service';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-ViewSite',
@@ -16,27 +18,69 @@ export class ViewSiteComponent implements OnInit {
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   viewSiteObj: ViewSite = <ViewSite>{};
+  @ViewChild('gmap') gMapElement: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
     public helperService: HelperService,
+    private navService: NavigationService
   ) {
     this.route.params.subscribe((site) => {
-      this.viewSiteObj.siteId = site.data;
+      this.viewSiteObj.siteId = JSON.parse(this.helperService.decrypt(site.data,
+        this.helperService.appConstants.key));
     });
   }
 
   ngOnInit() {
     this.viewSiteInfo();
+    this.siteDeleteEnable();
   }
 
   viewSiteInfo() {
-    console.log((this.viewSiteObj.siteId));
     this.adminServices.viewSiteInfo(this.viewSiteObj.siteId).subscribe((res) => {
-        this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
-        console.log(this.viewSiteObj.siteInfo)
+      this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
+      this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location, this.helperService.createMap(this.gMapElement));
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.VIEW_SITE_SUCCESS);
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.VIEW_SITE_FAILURE);
+    });
+  }
+
+  siteDeleteEnable() {
+    this.navService.currentRole.subscribe(res => {
+      this.viewSiteObj.entitySelectedRole = res;
+      if (
+        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.owner ||
+        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
+        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.entityManager
+      ) {
+        this.viewSiteObj.siteOption = true;
+      } else {
+        this.viewSiteObj.siteOption = false;
+      }
+    });
+  }
+
+  confirmationModal(siteId: number) {
+    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.deleteSite(siteId);
+      }
+    });
+  }
+
+  deleteSite(siteId) {
+    this.adminServices.deleteSite(siteId).subscribe((res) => {
+      this.helperService.navigateTo(['/home/adminControl/siteCenter/']);
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.DELETE_SITE_SUCCESS);
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DELETE_SITE_FAILURE);
+
     });
   }
 

@@ -114,4 +114,11 @@ export class AdminControlService {
     )
   }
 
+  deleteSite(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.viewSiteInfo}${id}/`
+    )
+  }
+
 }

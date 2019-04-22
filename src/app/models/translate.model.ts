@@ -153,6 +153,7 @@ export interface Buttons {
   IMPORT_SITE: string;
   SAVE: string;
   UPGRADE: string;
+  DELETE: string;
 }
 
 export interface Messages {
@@ -261,6 +262,10 @@ export interface Messages {
   TRIAL_EXP_USER: string;
   SITE_IS_SAFE: string;
   SITE_IS_NOT_SAFE: string;
+  VIEW_SITE_SUCCESS: string;
+  VIEW_SITE_FAILURE: string;
+  DELETE_SITE_SUCCESS: string;
+  DELETE_SITE_FAILURE: string;
 }
 
 export interface Logger {
