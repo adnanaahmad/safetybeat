@@ -1,0 +1,47 @@
+<h3 class="setting-title">Entity Setting</h3>
+<div class="text-right paddingbox">
+  <button btn-primary mat-raised-button color="primary" (click)="editEntity()">
+    <mat-icon>edit</mat-icon>
+    Edit Entity
+  </button>
+</div>
+<form class="profile-form" [formGroup]="entityForm" (ngSubmit)="updateEntity(entityForm)">
+  <mat-list role="list">
+    <div class="form-group">
+      <mat-list-item role="listitem">
+        <label>{{ helperService.translated.TABLEHEADINGS.NAME }} </label>
+        <input matInput type="text"
+               formControlName="{{ helperService.appConstants.name }}" [ngClass]="disabled ? 'active' : 'inactive'" required/>
+      </mat-list-item>
+      <mat-error class="text-right" *ngIf="entityFormValidations.errors">
+              <span
+                *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+      </mat-error>
+    </div>
+    <div class="form-group">
+      <mat-list-item role="listitem">
+        <label>Entity Code</label>
+        <input matInput type="text" formControlName="{{ helperService.appConstants.code }}"
+               [ngClass]="disabled ? 'active' : 'inactive'" required/>
+      </mat-list-item>
+    </div>
+    <div class="form-group">
+      <mat-list-item role="listitem">
+        <label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</label>
+        <input matInput type="text"
+               formControlName="{{ helperService.appConstants.headOffice }}"
+               [ngClass]="disabled ? 'active' : 'inactive'" required/>
+      </mat-list-item>
+    </div>
+  </mat-list>
+  <div *ngIf="disabled" class="btn-grp">
+    <button mat-raised-button custom-btn btn-danger color="primary" type="submit"
+            [disabled]="entityForm.pristine">
+      <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
+      {{ helperService.translated.BUTTONS.SAVE }}
+    </button>
+    <!--          <button mat-raised-button custom-btn btn-primary color="warn" type="button">-->
+    <!--            {{ translated.BUTTONS.CANCEL }}-->
+    <!--          </button>-->
+  </div>
+</form>
