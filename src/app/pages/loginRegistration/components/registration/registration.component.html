@@ -22,7 +22,7 @@
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="helperService.translated.AUTH.FIRSTNAME"
                        (keypress)="characterOnly($event)"
-                       onPaste="return false" autocomplete="off" [errorStateMatcher]="registerObj.formErrorMatcher"
+                       onPaste="return false" autocomplete="off" [errorStateMatcher]="helperService.formErrorMatcher"
                        [formControlName]="helperService.appConstants.firstName"/>
                 <mat-error *ngIf="userDetailForm.first_name.errors">
                   <span *ngIf="userDetailForm.first_name.errors.required">{{
@@ -35,7 +35,7 @@
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="helperService.translated.AUTH.LASTNAME"
                        (keypress)="characterOnly($event)"
-                       onPaste="return false" autocomplete="off" [errorStateMatcher]="registerObj.formErrorMatcher"
+                       onPaste="return false" autocomplete="off" [errorStateMatcher]="helperService.formErrorMatcher"
                        [formControlName]="helperService.appConstants.lastName" required/>
                 <mat-error *ngIf="userDetailForm.last_name.errors">
                   <span *ngIf="userDetailForm.last_name.errors.required">{{
@@ -46,7 +46,7 @@
             </div>
             <div class="input country-code">
               <mat-form-field full-width>
-                <input matInput type="text" placeholder="Code" [errorStateMatcher]="registerObj.formErrorMatcher"
+                <input matInput type="text" placeholder="Code" [errorStateMatcher]="helperService.formErrorMatcher"
                        [formControlName]="helperService.appConstants.countryCode"
                        (keypress)="numberOnly($event)&&phoneNumberValid(registerObj.userForm)"
                        maxlength="3" onPaste="return false" autocomplete="off"/>
@@ -57,7 +57,7 @@
             <div class="input contact-number">
               <mat-form-field full-width>
                 <input matInput type="text" placeholder="Phone Number"
-                       [errorStateMatcher]="registerObj.formErrorMatcher"
+                       [errorStateMatcher]="helperService.formErrorMatcher"
                        [formControlName]="helperService.appConstants.contactNo" (keypress)="numberOnly($event)"
                        onPaste="return false"
                        autocomplete="off"/>
@@ -70,7 +70,7 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="password" [placeholder]="helperService.translated.AUTH.PASSWORD"
-                       [errorStateMatcher]="registerObj.formErrorMatcher"
+                       [errorStateMatcher]="helperService.formErrorMatcher"
                        [formControlName]="helperService.appConstants.password1" required/>
                 <mat-error *ngIf="userDetailForm.password1.errors">
                   <span *ngIf="userDetailForm.password1.errors.required">{{
@@ -86,7 +86,7 @@
               <mat-form-field full-width>
                 <input matInput type="password" [placeholder]="helperService.translated.AUTH.CONFIRM_PASSWORD"
                        [formControlName]="helperService.appConstants.password2"
-                       [errorStateMatcher]="registerObj.formErrorMatcher"
+                       [errorStateMatcher]="helperService.formErrorMatcher"
                        required/>
                 <mat-error *ngIf="userDetailForm.password2.errors ">
                   <span
@@ -117,7 +117,7 @@
             <div class="input">
               <mat-form-field full-width>
                 <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.NAME"
-                       [errorStateMatcher]="registerObj.formErrorMatcher"
+                       [errorStateMatcher]="helperService.formErrorMatcher"
                        [formControlName]="helperService.appConstants.name"/>
                 <mat-error *ngIf="orgForm.name.errors">
                   <span *ngIf="orgForm.name.errors.required">{{
