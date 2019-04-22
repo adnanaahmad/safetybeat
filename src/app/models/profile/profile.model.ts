@@ -1,7 +1,14 @@
 import {FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
+import {MatTableDataSource} from '@angular/material';
+import {Subscription} from 'rxjs';
 
 export interface ProfileModel {
+  subscription: Subscription;
+  displayedColumns: string[];
+  dataSource: MatTableDataSource<any>;
+  entityName: string;
+  role: string;
   userData: any;
   profileForm: FormGroup;
   translated: Translation;

@@ -257,7 +257,7 @@
           </div>
         </mat-list>
         <div *ngIf="disabled" class="btn-grp">
-          <button mat-raised-button custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
+          <button mat-raised-button type="submit" custom-btn btn-danger color="primary" [disabled]="entityForm.pristine">
             <mat-icon>{{ appIcons.save }}</mat-icon>
             {{ translated.BUTTONS.SAVE }}
           </button>

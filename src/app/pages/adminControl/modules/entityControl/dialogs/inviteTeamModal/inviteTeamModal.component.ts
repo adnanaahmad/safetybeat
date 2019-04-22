@@ -27,7 +27,7 @@ export class InviteTeamModalComponent implements OnInit {
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private adminServices: AdminControlService,
-    private helperService: HelperService
+    public helperService: HelperService
   ) {
     this.initialize();
     this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData
