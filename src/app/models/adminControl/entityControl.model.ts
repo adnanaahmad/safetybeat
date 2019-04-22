@@ -1,4 +1,7 @@
+import {Subscription} from 'rxjs';
+
 export interface EntityControl {
+  subscription: Subscription;
   displayLoader: boolean;
   entitySelectedRole: string;
   dialogConfig: any;

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
-import {UserData} from 'src/app/models/user.model';
+import {User, UserData} from 'src/app/models/user.model';
 import {Site, SitesInfo} from '../../models/site.model';
 
 @Injectable()
@@ -51,13 +51,8 @@ export class CompilerProvider {
     return string;
   }
 
-  constructProfileData(loginApiResponse: any) {
-    let profileData = {
-      userid: loginApiResponse.userId,
-      orgid: loginApiResponse.orgId,
-      role: loginApiResponse.role
-    };
-
+  constructProfileData(profileApiResponse: any) {
+    let profileData: User = profileApiResponse;
     return profileData;
   }
 
@@ -213,9 +208,9 @@ export class CompilerProvider {
         ]
       }
     ];
-    var self = this;
+    let self = this;
     this.helperService.iterations(this.navList, function (obj) {
-      if (obj.displayName == name) {
+      if (obj.displayName === name) {
         self.newMenu = obj.children;
       }
     });

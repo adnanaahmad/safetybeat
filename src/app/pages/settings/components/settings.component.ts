@@ -7,7 +7,6 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {FormGroup, FormBuilder, Validators, FormGroupDirective} from '@angular/forms';
 import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
-import {ProfileService} from '../../profile/services/profile.service';
 import {FormErrorHandler} from '../../../shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
@@ -31,14 +30,12 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   createdBy: any;
   managedBy: any;
   changePasswordForm: FormGroup;
-  private modalService: ProfileService;
   formErrorMatcher: any;
   data: any;
   currentPassword: string;
   password1: any;
   password2: any;
   loading: boolean = false;
-  formValidator: boolean = true;
 
   constructor(
     public settings: SettingService,
@@ -107,6 +104,14 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   get changePasswordFormValidations() {
     return this.changePasswordForm.controls;
+  }
+
+  setChangePasswordForm() {
+
+    Object.keys(this.changePasswordForm.controls).forEach(key => {
+      this.changePasswordForm.controls[key].reset();
+      this.changePasswordForm.controls[key].setErrors(null)
+    });
   }
 
   changed() {
