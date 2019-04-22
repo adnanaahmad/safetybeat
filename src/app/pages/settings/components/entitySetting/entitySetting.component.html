@@ -5,43 +5,39 @@
     Edit Entity
   </button>
 </div>
-<form class="profile-form" [formGroup]="entitySettingObj.entityForm" (ngSubmit)="updateEntity(entitySettingObj.entityForm)">
+<form class="profile-form" [formGroup]="entitySettingObj.entityForm"
+      (ngSubmit)="updateEntity(entitySettingObj.entityForm)">
   <mat-list role="list">
     <div class="form-group">
       <mat-list-item role="listitem">
         <label>{{ helperService.translated.TABLEHEADINGS.NAME }} </label>
-        <input matInput type="text"
-               formControlName="{{ helperService.appConstants.name }}" [ngClass]="entitySettingObj.disabled ? 'active' : 'inactive'" required/>
+        <input matInput type="text" formControlName="{{ helperService.appConstants.name }}" required/>
       </mat-list-item>
       <mat-error class="text-right" *ngIf="entityFormValidations.errors">
-              <span
-                *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        <span *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
       </mat-error>
     </div>
     <div class="form-group">
       <mat-list-item role="listitem">
         <label>Entity Code</label>
-        <input matInput type="text" formControlName="{{ helperService.appConstants.code }}"
-               [ngClass]="entitySettingObj.disabled ? 'active' : 'inactive'" required/>
+        <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required/>
       </mat-list-item>
     </div>
     <div class="form-group">
       <mat-list-item role="listitem">
         <label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</label>
-        <input matInput type="text"
-               formControlName="{{ helperService.appConstants.headOffice }}"
-               [ngClass]="entitySettingObj.disabled ? 'active' : 'inactive'" required/>
+        <input matInput type="text" appGooglePlaces formControlName="{{ helperService.appConstants.headOffice }}"
+               (onSelect)="helperService.setAddress($event,gMapElement,entityFormValidations.headOffice)"
+               (keyup)="helperService.setFalse($event)" required/>
       </mat-list-item>
     </div>
+    <div #gmap style="width:100%;height:400px"></div>
   </mat-list>
   <div *ngIf="entitySettingObj.disabled" class="btn-grp">
     <button mat-raised-button custom-btn btn-danger color="primary" type="submit"
-            [disabled]="entitySettingObj.entityForm.pristine">
+            [disabled]="!helperService.displayButton">
       <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
       {{ helperService.translated.BUTTONS.SAVE }}
     </button>
-    <!--          <button mat-raised-button custom-btn btn-primary color="warn" type="button">-->
-    <!--            {{ translated.BUTTONS.CANCEL }}-->
-    <!--          </button>-->
   </div>
 </form>

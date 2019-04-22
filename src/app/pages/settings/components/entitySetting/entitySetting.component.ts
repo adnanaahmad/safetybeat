@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {EditEntity} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
@@ -13,6 +13,7 @@ import {EntitySetting} from 'src/app/models/settings/entitySetting.model';
 })
 export class EntitySettingComponent implements OnInit {
   entitySettingObj: EntitySetting = <EntitySetting>{};
+  @ViewChild('gmap') gMapElement: ElementRef;
 
   constructor(private formBuilder: FormBuilder,
               public helperService: HelperService,
@@ -35,6 +36,8 @@ export class EntitySettingComponent implements OnInit {
         this.entityFormValidations['name'].setValue(this.entitySettingObj.entitiesData.name);
         this.entityFormValidations['code'].setValue(this.entitySettingObj.entitiesData.code);
         this.entityFormValidations['headOffice'].setValue(this.entitySettingObj.entitiesData.headOffice);
+        this.helperService.setLocationGeocode(this.entitySettingObj.entitiesData.headOffice,
+          this.helperService.createMap(this.gMapElement)).then();
       }
     });
   }
@@ -45,7 +48,7 @@ export class EntitySettingComponent implements OnInit {
     let data = {
       'name': value.name,
       'code': value.code,
-      'headOffice': value.headOffice,
+      'headOffice': this.helperService.address,
       'managedBy': this.entitySettingObj.entitiesData.managedBy,
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
@@ -63,6 +66,7 @@ export class EntitySettingComponent implements OnInit {
   editEntity() {
     this.entitySettingObj.disabled = true;
     this.entitySettingObj.entityForm.enable();
+    this.entityFormValidations['code'].disable();
   }
 
   get entityFormValidations() {
