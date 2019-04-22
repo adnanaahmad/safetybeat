@@ -1,10 +1,11 @@
 @mixin amte-createEntity($primary, $accent, $warn) {
   :host,
   app-importsitemodal {
-    .site-note{
+    .site-note {
       padding: 10px;
       font-size: 12px;
       border-radius: 4px;
+      white-space: pre-line;
     }
   }
 }
