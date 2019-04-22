@@ -85,6 +85,23 @@ export class CompilerProvider {
     return siteApiResponse.data;
   }
 
+  entityUser(users) {
+    let usersArray = []
+    this.helperService.iterations(users.data, function (obj) {
+      let user = {
+        name: obj.user.first_name + obj.user.last_name,
+        email: obj.user.email,
+        contact: obj.user.contactNo,
+        photos: '',
+        accessLevel: obj.role,
+        id: obj.user.id,
+        status: obj.status
+      }
+      usersArray.push(user)
+    });
+    return usersArray;
+  }
+
   switchSideMenu(data, name) {
     this.navList = [
       {

@@ -23,8 +23,16 @@ export class MemberCenterService {
   entityUsers(data) {
     return this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.createEntity,
+      this.apiRoutes.entitiesUsers,
       data
     );
+  }
+
+  deactivateUser(data) {
+    return this.helperService.requestCall(this.method.put, this.apiRoutes.deactivateUser, data)
+  }
+
+  activateUser(data) {
+    return this.helperService.requestCall(this.method.put, this.apiRoutes.activateUser, data)
   }
 }

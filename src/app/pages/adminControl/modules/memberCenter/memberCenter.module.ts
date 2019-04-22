@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { MemberCenterRoutingModule } from './memberCenter-routing.module';
+import {MemberCenterRoutingModule} from './memberCenter-routing.module';
 import {MemberCenterComponent} from './components/memberCenter/memberCenter.component';
-import {MaterialModule} from '../../../../shared/material/material.module';
+import {MaterialModule} from 'src/app/shared/material/material.module';
 
 @NgModule({
   declarations: [
-    MemberCenterComponent
+    MemberCenterComponent,
   ],
   imports: [
     CommonModule,
@@ -15,4 +15,5 @@ import {MaterialModule} from '../../../../shared/material/material.module';
     MemberCenterRoutingModule
   ]
 })
-export class MemberCenterModule { }
+export class MemberCenterModule {
+}
