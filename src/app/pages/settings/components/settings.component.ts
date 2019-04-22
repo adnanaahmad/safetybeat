@@ -280,14 +280,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
       this.helperService.logoutError(error.status);
-      this.clearValidations();
+
     });
   }
 
-  clearValidations() {
-    Object.keys(this.changePasswordForm.controls).forEach(key => {
-      this.changePasswordForm.controls[key].setErrors(null);
-    });
-  }
 }
 
