@@ -7,6 +7,7 @@ export interface Translation {
   SITETITLE: SiteTitle;
   STATUS: Status;
   TABLEHEADINGS: TableHeadings;
+  CONFIRMATION: Confirmation;
 }
 
 export interface Strings {
@@ -364,4 +365,11 @@ export interface Status {
   WARNING: string;
   ERROR: string;
   CUSTOM: string;
+}
+
+export interface Confirmation {
+  ACTIVATE_USER: string;
+  DEACTIVATE_USER: string;
+  DELETE_SITE: string;
+  DELETE_ENTITY: string;
 }

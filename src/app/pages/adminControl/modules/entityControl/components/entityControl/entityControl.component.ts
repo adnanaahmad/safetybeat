@@ -83,7 +83,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   }
 
   confirmationModal(entityId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_ENTITY}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);

@@ -64,7 +64,7 @@ export class ViewSiteComponent implements OnInit {
   }
 
   confirmationModal(siteId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent);
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_SITE}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
