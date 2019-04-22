@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {EditEntity} from '../../../../models/profile.model';
-import {HelperService} from '../../../../shared/helperService/helper.service';
-import {SettingService} from '../../../../shared/settings/setting.service';
-import {EntityInfo} from '../../../../models/userEntityData.model';
-import {NavigationService} from '../../../navigation/services/navigation.service';
+import {FormBuilder, Validators} from '@angular/forms';
+import {EditEntity} from 'src/app/models/profile.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {SettingService} from 'src/app/shared/settings/setting.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {EntitySetting} from 'src/app/models/settings/entitySetting.model';
 
 @Component({
   selector: 'app-entity-setting',
@@ -12,65 +12,60 @@ import {NavigationService} from '../../../navigation/services/navigation.service
   styleUrls: ['./entitySetting.component.scss']
 })
 export class EntitySettingComponent implements OnInit {
-  entityForm: FormGroup;
-  disabled: boolean = false;
-  createdBy: any;
-  managedBy: any;
-  entityId: any;
-  entitiesData: EntityInfo;
-  allEntities: any;
+  entitySettingObj: EntitySetting = <EntitySetting>{};
+
   constructor(private formBuilder: FormBuilder,
               public helperService: HelperService,
               private navService: NavigationService,
               public settings: SettingService) {
+
+    this.entitySettingObj.disabled = false;
   }
 
   ngOnInit() {
-    this.entityForm = this.formBuilder.group({
+    this.entitySettingObj.entityForm = this.formBuilder.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
       headOffice: ['', Validators.required]
     });
-    this.entityForm.disable();
+    this.entitySettingObj.entityForm.disable();
     this.navService.selectedEntityData.subscribe((selectedEntity) => {
       if (selectedEntity !== 1) {
-        this.allEntities = selectedEntity;
-        this.entitiesData = this.allEntities.entityInfo;
-        this.entityFormValidations['name'].setValue(this.entitiesData.name);
-        this.entityFormValidations['code'].setValue(this.entitiesData.code);
-        this.entityFormValidations['headOffice'].setValue(this.entitiesData.headOffice);
-        this.entityId = this.entitiesData.id;
-        this.createdBy = this.entitiesData.createdBy;
-        this.managedBy = this.entitiesData.managedBy;
+        this.entitySettingObj.entitiesData = selectedEntity.entityInfo;
+        this.entityFormValidations['name'].setValue(this.entitySettingObj.entitiesData.name);
+        this.entityFormValidations['code'].setValue(this.entitySettingObj.entitiesData.code);
+        this.entityFormValidations['headOffice'].setValue(this.entitySettingObj.entitiesData.headOffice);
       }
     });
   }
 
   updateEntity({value, valid}: { value: EditEntity; valid: boolean }): void {
-    this.disabled = false;
-    this.entityForm.disable();
+    this.entitySettingObj.disabled = false;
+    this.entitySettingObj.entityForm.disable();
     let data = {
       'name': value.name,
       'code': value.code,
       'headOffice': value.headOffice,
-      'managedBy': this.managedBy,
-      'createdBy': this.createdBy
+      'managedBy': this.entitySettingObj.entitiesData.managedBy,
+      'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
     if (!valid) {
-      this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, 'Invalid Entity Fields');
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_ENTITY,
+        this.helperService.translated.MESSAGES.INVALID_DATA, this.helperService.constants.status.ERROR);
       return;
     }
-    this.settings.editEntity(this.entityId, data).subscribe((res) => {
-      this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
+    this.settings.editEntity(this.entitySettingObj.entitiesData.id, data).subscribe((res) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED,
+        this.helperService.translated.MESSAGES.ENTITY_UPDATED_T, this.helperService.constants.status.SUCCESS);
     });
   }
 
   editEntity() {
-    this.disabled = true;
-    this.entityForm.enable();
+    this.entitySettingObj.disabled = true;
+    this.entitySettingObj.entityForm.enable();
   }
 
   get entityFormValidations() {
-    return this.entityForm.controls;
+    return this.entitySettingObj.entityForm.controls;
   }
 }

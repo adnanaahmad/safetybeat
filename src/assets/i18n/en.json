@@ -212,7 +212,11 @@
     "PRICING_TAGLINE": "Choose a package that best suits your business",
     "CALLTOACTION_TITLE": "Your business needs SafetyBeat",
     "CALLTOACTION_DESCRIPTION": "All your safety measures now in one simple app – it now takes seconds to reach out to your workers, know they are safe and know where they are.",
-    "FAQS_TITLE": "Commonly asked questions"
+    "FAQS_TITLE": "Commonly asked questions",
+    "ENTITY_UPDATED": "Entity has been updated Successfully",
+    "INVALID_ENTITY": "Invalid Entity fields entered",
+    "INVALID_DATA": "Invalid Data",
+    "ENTITY_UPDATED_T": "Entity Updated"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

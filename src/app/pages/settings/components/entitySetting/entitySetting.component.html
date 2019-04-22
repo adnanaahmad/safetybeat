@@ -5,13 +5,13 @@
     Edit Entity
   </button>
 </div>
-<form class="profile-form" [formGroup]="entityForm" (ngSubmit)="updateEntity(entityForm)">
+<form class="profile-form" [formGroup]="entitySettingObj.entityForm" (ngSubmit)="updateEntity(entitySettingObj.entityForm)">
   <mat-list role="list">
     <div class="form-group">
       <mat-list-item role="listitem">
         <label>{{ helperService.translated.TABLEHEADINGS.NAME }} </label>
         <input matInput type="text"
-               formControlName="{{ helperService.appConstants.name }}" [ngClass]="disabled ? 'active' : 'inactive'" required/>
+               formControlName="{{ helperService.appConstants.name }}" [ngClass]="entitySettingObj.disabled ? 'active' : 'inactive'" required/>
       </mat-list-item>
       <mat-error class="text-right" *ngIf="entityFormValidations.errors">
               <span
@@ -22,7 +22,7 @@
       <mat-list-item role="listitem">
         <label>Entity Code</label>
         <input matInput type="text" formControlName="{{ helperService.appConstants.code }}"
-               [ngClass]="disabled ? 'active' : 'inactive'" required/>
+               [ngClass]="entitySettingObj.disabled ? 'active' : 'inactive'" required/>
       </mat-list-item>
     </div>
     <div class="form-group">
@@ -30,13 +30,13 @@
         <label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</label>
         <input matInput type="text"
                formControlName="{{ helperService.appConstants.headOffice }}"
-               [ngClass]="disabled ? 'active' : 'inactive'" required/>
+               [ngClass]="entitySettingObj.disabled ? 'active' : 'inactive'" required/>
       </mat-list-item>
     </div>
   </mat-list>
-  <div *ngIf="disabled" class="btn-grp">
+  <div *ngIf="entitySettingObj.disabled" class="btn-grp">
     <button mat-raised-button custom-btn btn-danger color="primary" type="submit"
-            [disabled]="entityForm.pristine">
+            [disabled]="entitySettingObj.entityForm.pristine">
       <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
       {{ helperService.translated.BUTTONS.SAVE }}
     </button>

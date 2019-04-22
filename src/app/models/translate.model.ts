@@ -269,6 +269,10 @@ export interface Messages {
   CALLTOACTION_TITLE: string;
   CALLTOACTION_DESCRIPTION: string;
   FAQS_TITLE: string;
+  ENTITY_UPDATED: string;
+  INVALID_ENTITY: string;
+  ENTITY_UPDATED_T: string;
+  INVALID_DATA: string;
 }
 
 export interface Logger {
