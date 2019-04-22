@@ -42,6 +42,7 @@ export class ConstantService {
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
     importSite: `${environment.apiUrl}/api/uploadFile/importSite/`,
     getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
+    editOrganization: `${environment.apiUrl}/organization`
   };
   static apiMethod = {
     get: 'get',

@@ -9,7 +9,8 @@ import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
 import {ProfileService} from '../../profile/services/profile.service';
 import {SettingsService} from '../services/settings.service';
-import {FormErrorHandler} from '../../../shared/FormErrorHandler/FormErrorHandler';
+import {CompilerProvider} from '../../../shared/compiler/compiler';
+import {Organization} from '../../../models/Settings/setting.model';
 
 @Component({
   selector: 'app-settings',
@@ -26,7 +27,15 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   appTheme: any;
   entitiesData: any;
   allEntities: any;
-  settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false, 'permission': false};
+  settingFeatures = {
+    'general': true,
+    'security': false,
+    'organization': false,
+    'group': false,
+    'entity': false,
+    'theme': false,
+    'permission': false
+  };
   disabled: boolean = false;
   entityId: any;
   createdBy: any;
@@ -38,12 +47,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   password1: any;
   password2: any;
   loading: boolean = false;
-  orgName: string;
-  account: number;
-  address: string;
-  email: string;
-  date: number;
-  contact: number;
+  organizationForm: FormGroup;
+  orgID: any;
+
 
   constructor(
     public settings: SettingService,
@@ -51,7 +57,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     public helperService: HelperService,
     private navService: NavigationService,
     private formBuilder: FormBuilder,
-    public settingService: SettingsService
+    public settingService: SettingsService,
+    public compiler: CompilerProvider
   ) {
     this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
@@ -60,10 +67,18 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.appTheme = this.helperService.constants.appTheme;
   }
 
+  /**
+   * handling forms validations
+   */
+  get organizationViewForm() {
+    return this.organizationForm.controls;
+  }
+
   ngOnInit() {
     this.settings.getActiveTheme().subscribe(val => {
       this.themeSelected = val;
     });
+    this.getOrganizationInfo();
 
     this.entityForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -76,17 +91,33 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: this.checkPasswords});
+
+    this.organizationForm = this.formBuilder.group({
+      name: [''],
+      accountNo: [''],
+      address: [''],
+      billingEmail: [''],
+      dateJoined: [''],
+      phoneNo: ['']
+
+    });
+  }
+
+  getOrganizationInfo() {
     this.settingService.organizationData.subscribe((res) => {
       if (res === 1) {
         // it means page is refreshed we need to call the API
         this.settingService.getOrganization().subscribe((res) => {
           console.log(res);
-          this.orgName = res.data.name;
-          this.account = res.data.accountNo;
-          this.address = res.data.address;
-          this.email = res.data.billingEmail;
-          this.date = res.data.dateJoined;
-          this.contact = res.data.phoneNo;
+          let orgObj = this.compiler.constructOrganizationObject(res);
+          this.organizationViewForm['name'].setValue(orgObj.name);
+          this.organizationViewForm['accountNo'].setValue(orgObj.accountNo);
+          this.organizationViewForm['address'].setValue(orgObj.address);
+          this.organizationViewForm['billingEmail'].setValue(orgObj.billingEmail);
+          this.organizationViewForm['dateJoined'].setValue(orgObj.dateJoined);
+          this.organizationViewForm['phoneNo'].setValue(orgObj.phoneNo);
+          this.orgID = orgObj.id;
+          this.organizationForm.disable();
         });
       } else {
         // it means that we dont need to call API
@@ -96,11 +127,13 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.navService.selectedEntityData.subscribe((selectedEntity) => {
-      this.allEntities = selectedEntity;
-      this.entitiesData = this.allEntities.entityInfo;
-      this.entityId = this.entitiesData.id;
-      this.createdBy = this.entitiesData.createdBy;
-      this.managedBy = this.entitiesData.managedBy;
+      if (selectedEntity !== 1) {
+        this.allEntities = selectedEntity;
+        this.entitiesData = this.allEntities.entityInfo;
+        this.entityId = this.entitiesData.id;
+        this.createdBy = this.entitiesData.createdBy;
+        this.managedBy = this.entitiesData.managedBy;
+      }
     });
   }
 
@@ -116,6 +149,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.entityForm.enable();
   }
 
+  editOrgForm() {
+     this.disabled = true;
+     this.organizationForm.enable();
+  }
+
   cancelEditAccount() {
     this.disabled = false;
     this.entityForm.disable();
@@ -123,6 +161,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   get entityDataForm() {
     return this.entityForm.controls;
+  }
+
+  cancelOrgForm() {
+    this.disabled = false;
+    this.organizationForm.disable();
   }
 
   get changePasswordFormValidations() {
@@ -155,6 +198,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.disabled = false;
     this.entityForm.disable();
     let data = {
+      'name': value.name,
       'code': value.code,
       'headOffice': value.headOffice,
       'managedBy': this.managedBy,
@@ -167,11 +211,30 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.settings.editEntity(this.entityId, data).subscribe((res) => {
       this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
     });
-
-
   }
 
-  changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective ): void {
+  updateOrganization({value, valid}: { value: Organization; valid: boolean }): void {
+    this.disabled = false;
+    this.organizationForm.disable();
+    let data = {
+      'name': value.name,
+      'accountNo': value.accountNo,
+      'address': value.address,
+      'dateJoined': value.dateJoined,
+      'phoneNo': value.phoneNo,
+      'billingEmail' : value.billingEmail,
+      'type': 2
+    };
+    if (!valid) {
+      this.helperService.appLogger(this.translated.STATUS.ERROR, 'Invalid Fields');
+      return;
+    }
+    this.settingService.editOrganization(this.orgID, data).subscribe((res) => {
+      this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
+    });
+  }
+
+  changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective): void {
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.translated.AUTH.PASSWORD_REQ);
@@ -193,7 +256,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
           this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
         this.loading = false;
-        formDirective.resetForm()
+        formDirective.resetForm();
         this.changePasswordForm.reset();
       } else {
         this.loading = false;
