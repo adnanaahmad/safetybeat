@@ -10,7 +10,7 @@
 @import "src/app/pages/navigation/components/navigation/navigation.component.scss";
 @import "src/app/pages/profile/components/profile/profile.component.scss";
 @import "src/app/pages/profile/components/user/user.component.scss";
-@import "src/app/pages/settings/components/settings.component.scss";
+@import "src/app/pages/settings/components/settingsMain/settings.component.scss";
 @import "src/app/pages/dashboard/components/dashboard/dashboard.component.scss";
 @import "src/app/core/components/pageNotFound/pageNotFound.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/components/entityControl/entityControl.component.scss";
@@ -26,6 +26,7 @@
 @import "src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component.scss";
 @import "src/app/pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component.scss";
 @import "src/app/pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component.scss";
+@import "src/app/pages/loginRegistration/components/orgRegistrationModal/org-registration-modal.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -61,4 +62,5 @@
   @include amte-viewConnections($primary, $accent, $warn);
   @include amte-removeConnections($primary, $accent, $warn);
   @include amte-addConnections($primary, $accent, $warn);
+  @include amte-org-registration-modal($primary, $accent, $warn);
 }

@@ -122,8 +122,9 @@ export class ConstantService {
     paths: {
       home: '/home',
       login: '/login',
+      package: '/package',
       welcomeScreen: '/welcomeScreen',
-      viewSite: '/home/adminControl/siteCenter/viewSite'
+      viewSite: '/home/adminControl/siteCenter/viewSite',
     },
     roles: {
       owner: 'Owner',

@@ -20,6 +20,11 @@ body {
 * {
   font-family: $fontFamily;
 }
+
+// Define font-family explicitly
+.mat-card-title {
+  font-family: $fontFamily;
+}
 .app-content {
   overflow-x: hidden !important;
 }

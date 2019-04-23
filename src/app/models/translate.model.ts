@@ -119,6 +119,9 @@ export interface Strings {
   ACCOUNTNO: string;
   PHONENO: string;
   FAX: string;
+  PACKAGE_DESCRIPTION_1: string;
+  PACKAGE_DESCRIPTION_2: string;
+  PACKAGE_DESCRIPTION_3: string;
 }
 
 export interface Buttons {
@@ -154,6 +157,8 @@ export interface Buttons {
   IMPORT_SITE: string;
   SAVE: string;
   UPGRADE: string;
+  GETSTARTED: string;
+  LEARNMORE: string;
   DELETE: string;
 }
 
@@ -268,6 +273,15 @@ export interface Messages {
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
   EDIT_SITE_MSG: string;
+  SAFETYBEAT_PRICING: string;
+  PRICING_TAGLINE: string;
+  CALLTOACTION_TITLE: string;
+  CALLTOACTION_DESCRIPTION: string;
+  FAQS_TITLE: string;
+  ENTITY_UPDATED: string;
+  INVALID_ENTITY: string;
+  ENTITY_UPDATED_T: string;
+  INVALID_DATA: string;
   CHANGE_ACCESS_LEVEL: string;
   REMOVE_CONNECTIONS: string;
   VIEW_CONNECTIONS: string;
