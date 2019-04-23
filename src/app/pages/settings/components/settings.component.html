@@ -151,11 +151,21 @@
         </mat-form-field>
         <mat-form-field role="listitem">
           <label>Date Joined</label>
-          <input matInput type="text" formControlName="dateJoined" class="showonly" />
+          <input matInput type="text" [readonly]="true" formControlName="dateJoined" class="showonly" />
         </mat-form-field>
         <mat-form-field role="listitem">
           <label>Contact Number</label>
           <input matInput type="text" formControlName="phoneNo" class="showonly" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Type</mat-label>
+          <mat-select [placeholder]="helperService.translated.MESSAGES.TYPE_MSG"
+                      [formControlName]="helperService.appConstants.type"
+                      required>
+            <mat-option *ngFor="let type of registerObj.types" [value]="type.id">
+              {{ type.name }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <div class="btn-grp" *ngIf="disabled">
           <button type="submit" mat-raised-button custom-btn btn-primary  [disabled]="organizationForm.pristine">Save</button>

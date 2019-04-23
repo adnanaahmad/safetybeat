@@ -11,6 +11,8 @@ import {ProfileService} from '../../profile/services/profile.service';
 import {SettingsService} from '../services/settings.service';
 import {CompilerProvider} from '../../../shared/compiler/compiler';
 import {Organization} from '../../../models/Settings/setting.model';
+import {DatePipe} from '@angular/common';
+import {OrganizationInfo} from 'src/app/models/organizationInfo.model'
 
 @Component({
   selector: 'app-settings',
@@ -19,6 +21,7 @@ import {Organization} from '../../../models/Settings/setting.model';
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
   public dialogRef: MatDialogRef<SettingsComponent>;
+  orgObj: OrganizationInfo = <OrganizationInfo>{};
   themeSelected: any;
   translated: Translation;
   entityForm: FormGroup;
@@ -47,9 +50,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   password1: any;
   password2: any;
   loading: boolean = false;
-  organizationForm: FormGroup;
-  orgID: any;
-
 
   constructor(
     public settings: SettingService,
@@ -65,12 +65,13 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
     this.appTheme = this.helperService.constants.appTheme;
+    this.orgObj.pipe = new DatePipe('en-US');
   }
   /**
    * handling forms validations
    */
   get organizationViewForm() {
-    return this.organizationForm.controls;
+    return this.orgObj.organizationForm.controls;
   }
 
   ngOnInit() {
@@ -91,7 +92,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: this.checkPasswords});
 
-    this.organizationForm = this.formBuilder.group({
+    this.orgObj.organizationForm = this.formBuilder.group({
       name: [''],
       accountNo: [''],
       address: [''],
@@ -113,10 +114,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
           this.organizationViewForm['accountNo'].setValue(orgObj.accountNo);
           this.organizationViewForm['address'].setValue(orgObj.address);
           this.organizationViewForm['billingEmail'].setValue(orgObj.billingEmail);
-          this.organizationViewForm['dateJoined'].setValue(orgObj.dateJoined);
+          this.organizationViewForm['dateJoined'].setValue(this.orgObj.pipe.transform(orgObj.dateJoined));
           this.organizationViewForm['phoneNo'].setValue(orgObj.phoneNo);
-          this.orgID = orgObj.id;
-          this.organizationForm.disable();
+          this.orgObj.orgID = orgObj.id;
+          this.orgObj.organizationForm.disable();
         });
       } else {
         // it means that we dont need to call API
@@ -150,7 +151,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   editOrgForm() {
      this.disabled = true;
-     this.organizationForm.enable();
+     this.orgObj.organizationForm.enable();
   }
 
   cancelEditAccount() {
@@ -164,7 +165,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   cancelOrgForm() {
     this.disabled = false;
-    this.organizationForm.disable();
+    this.orgObj.organizationForm.disable();
   }
 
   get changePasswordFormValidations() {
@@ -222,7 +223,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   updateOrganization({value, valid}: { value: Organization; valid: boolean }): void {
     this.disabled = false;
-    this.organizationForm.disable();
+    this.orgObj.organizationForm.disable();
     let data = {
       'name': value.name,
       'accountNo': value.accountNo,
@@ -236,7 +237,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.helperService.appLogger(this.translated.STATUS.ERROR, 'Invalid Fields');
       return;
     }
-    this.settingService.editOrganization(this.orgID, data).subscribe((res) => {
+    this.settingService.editOrganization(this.orgObj.orgID, data).subscribe((res) => {
       this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
     });
   }
