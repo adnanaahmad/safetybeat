@@ -103,7 +103,8 @@
     "IMPORT_SITE": "Import Site",
     "UPGRADE": "Upgrade",
     "GETSTARTED": "Get Started",
-    "LEARNMORE": "Learn More"
+    "LEARNMORE": "Learn More",
+    "DELETE": "Delete"
   },
   "MESSAGES": {
     "SIGNINMESSAGE": "You need to sign in to get access",
@@ -203,7 +204,7 @@
     "ENTITY_DELETE_FAIL_TITLE": "Entity Deletion Failed",
     "SITE_IMPORT_SUCCESS": "Sites have been import successfully",
     "SITE_IMPORT_FAILURE": "Sites import failed, file format is wrong.",
-    "IMPORTSITE_NOTE": "Note:\n Only CSV file with following format would be accepted:\n  Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \n    For example: \n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\"",
+    "IMPORTSITE_NOTE": "Note: Only CSV file with following format would be accepted:\r\n  Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \r\n    For example: \r\n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\"",
     "TRIAL_EXPIRED": "Your trial package is expired. Please ",
     "TRIAL_LEFT_1": "Your trial is going to expire in ",
     "TRIAL_LEFT_2": " day(s). Please ",
@@ -216,7 +217,14 @@
     "ENTITY_UPDATED": "Entity has been updated Successfully",
     "INVALID_ENTITY": "Invalid Entity fields entered",
     "INVALID_DATA": "Invalid Data",
-    "ENTITY_UPDATED_T": "Entity Updated"
+    "ENTITY_UPDATED_T": "Entity Updated",
+    "SITE_IS_SAFE": " is safe.",
+    "SITE_IS_NOT_SAFE": " is not safe.",
+    "VIEW_SITE_SUCCESS": "View site success.",
+    "VIEW_SITE_FAILURE": "Site not found.",
+    "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
+    "DELETE_SITE_FAILURE": "Site deletion failed.",
+    "EDIT_SITE_MSG": "Enter Site Details to Edit Site."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -306,5 +314,11 @@
     "WARNING": "WARNING",
     "ERROR": "ERROR",
     "CUSTOM": "CUSTOM"
+  },
+  "CONFIRMATION": {
+    "ACTIVATE_USER": "Are you sure you want to Activate this user?",
+    "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
+    "DELETE_SITE": "Are you sure you want Delete this site?",
+    "DELETE_ENTITY": "Are you sure you want Delete this entity?"
   }
 }

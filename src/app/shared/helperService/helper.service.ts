@@ -41,7 +41,7 @@ export class HelperService {
     private notifier: NotifierService
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
-      'STATUS', 'TABLEHEADINGS']).subscribe((values) => {
+      'STATUS', 'TABLEHEADINGS', 'CONFIRMATION']).subscribe((values) => {
       this.translated = values;
     });
     this.constants = ConstantService;
@@ -250,7 +250,7 @@ export class HelperService {
   }
 
   /**
-   * Getter for app constants through helper service
+   * Getter for app constants through helper services
    */
 
   get appConstants() {

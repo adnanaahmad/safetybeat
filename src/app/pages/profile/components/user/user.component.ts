@@ -3,7 +3,7 @@ import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {share} from 'rxjs/operators';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {UserModel} from '../../../../models/profile/user.model';
+import {UserModel} from 'src/app/models/profile/user.model';
 
 @Component({
   selector: 'app-user',
@@ -18,14 +18,11 @@ export class UserComponent implements OnInit, AfterViewInit {
     public userService: ProfileService,
     public helperService: HelperService
   ) {
-    this.intialize();
+    this.initialize();
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    this.userService.usersData.subscribe(res => {
+    this.userModel.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getAllUsers();
       } else {
@@ -36,7 +33,11 @@ export class UserComponent implements OnInit, AfterViewInit {
     });
   }
 
-  intialize() {
+  ngAfterViewInit() {
+    this.userModel.subscription.unsubscribe();
+  }
+
+  initialize() {
     this.userModel.translated = this.helperService.translated;
     this.userModel.appIcons = this.helperService.constants.appIcons;
     this.userModel.displayedColumns = [

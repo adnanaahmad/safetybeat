@@ -1,27 +1,37 @@
 <h3 class="setting-title">Organization Info</h3>
-<mat-list role="list" class="settings-list">
-  <mat-list-item role="listitem">
-    <label>Change Password</label>
-    <input matInput type="text" class="showonly" placeholder="******"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>Confirm Password</label>
-    <input matInput type="text" class="showonly" placeholder="BlueSky Software"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>Security Question 1</label>
-    <input matInput type="text" class="showonly" placeholder="Where did you born?"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>Security Question 2</label>
-    <input matInput type="text" class="showonly" placeholder="Where did your father born?"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>Contact Number</label>
-    <input matInput type="text" class="showonly" placeholder="+923157118511"/>
-  </mat-list-item>
-</mat-list>
-<div class="btn-grp">
-  <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
-  <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger>Cancel</button>
+<div class="text-right paddingbox">
+  <button btn-primary mat-raised-button color="primary" (click)="editOrgForm()">
+    <mat-icon>edit</mat-icon>
+    Edit Organization Info
+  </button>
 </div>
+<form [formGroup]="organizationForm" class="settings-list" (ngSubmit)="updateOrganization(organizationForm)">
+  <mat-form-field role="listitem">
+    <label>Name</label>
+    <input matInput type="text" formControlName="name" class="showonly"/>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Account Number</label>
+    <input matInput type="text" formControlName="accountNo" class="showonly" />
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Address</label>
+    <input matInput type="text" formControlName="address" class="showonly"/>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Billing Email</label>
+    <input matInput type="text" formControlName="billingEmail" class="showonly" />
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Date Joined</label>
+    <input matInput type="text" formControlName="dateJoined" class="showonly" />
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Contact Number</label>
+    <input matInput type="text" formControlName="phoneNo" class="showonly" />
+  </mat-form-field>
+  <div class="btn-grp" *ngIf="disabled">
+    <button type="submit" mat-raised-button custom-btn btn-primary  [disabled]="organizationForm.pristine">Save</button>
+    <button type="button" mat-raised-button color="warn" custom-btn btn-danger (click)="cancelOrgForm()">Cancel</button>
+  </div>
+</form>

@@ -9,7 +9,7 @@ import {resetPassword} from 'src/app/models/profile.model';
 @Injectable({providedIn: 'root'})
 export class LoginRegistrationService {
   storageKey: string;
-  private userData = new BehaviorSubject<any>(1);
+  public userData = new BehaviorSubject<any>(1);
   profileData = this.userData.asObservable();
   apiRoutes: any;
   method: { get: string; post: string; put: string; delete: string; };
@@ -23,7 +23,7 @@ export class LoginRegistrationService {
   }
 
   /**
-   * login user api is called here and api url comes from constant service and login data that comes from
+   * login user api is called here and api url comes from constant services and login data that comes from
    * login.component.html file is passed here with the apiUrl
    * @param data \
    */

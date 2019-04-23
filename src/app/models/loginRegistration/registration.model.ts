@@ -15,7 +15,6 @@ export interface RegistrationComp {
   packages: any;
   success: any;
   data: any;
-  formErrorMatcher: any;
 }
 
 export interface Type {

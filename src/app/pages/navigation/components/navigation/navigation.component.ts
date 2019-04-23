@@ -16,7 +16,7 @@ import {OrgRegistrationModalComponent} from '../../../loginRegistration/componen
   styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
   @Output() entitySelected = new EventEmitter();
   moduleData = {
     moduleName: 'Safetybeat'
@@ -43,10 +43,24 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.helperService.constants.status.SUCCESS,
       this.navModel.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
     );
+    this.getSelectedEntity();
 
   }
 
   ngOnInit() {
+  }
+
+  initialize() {
+    this.navModel.translated = this.helperService.translated;
+    this.navModel.navLinks = [];
+    this.navModel.defaultList = [];
+    this.navModel.empty = true;
+    this.navModel.appIcons = this.helperService.constants.appIcons;
+    this.navModel.navLinks = this.navModel.defaultList;
+    this.navModel.logoutDisable = false;
+  }
+
+  getSelectedEntity() {
     this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
@@ -85,16 +99,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
           });
         }
       });
-  }
-
-  initialize() {
-    this.navModel.translated = this.helperService.translated;
-    this.navModel.navLinks = [];
-    this.navModel.defaultList = [];
-    this.navModel.empty = true;
-    this.navModel.appIcons = this.helperService.constants.appIcons;
-    this.navModel.navLinks = this.navModel.defaultList;
-    this.navModel.logoutDisable = false;
   }
 
   ngAfterViewInit() {
@@ -167,17 +171,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
         disabled: true
       }
     ];
-  }
-
-  viewAllEntities() {
-    let data = {
-      moduleName: 'Safetybeat'
-    };
-    this.adminServices.viewEntities(data).subscribe((res) => {
-      this.navModel.entitiesList = res;
-      this.navModel.entityUserData = this.navModel.entitiesList.data.result;
-      this.navService.changeEntites(this.navModel.entityUserData);
-    });
   }
 
   switchListDefault(data) {
