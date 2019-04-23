@@ -5,6 +5,7 @@ import {UserProfile} from 'src/app/models/profile.model';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
 import {catchError} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
+import {HelperService} from '../../../shared/helperService/helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,15 @@ import {BehaviorSubject} from 'rxjs';
 export class ProfileService {
   private orgUsers = new BehaviorSubject<any>(1);
   usersData = this.orgUsers.asObservable();
+  apiRoutes: any;
+  method: any;
 
   constructor(
     private http: HttpClient,
-    public coreServices: CoreService) {
+    public coreServices: CoreService,
+    public helperService: HelperService) {
+    this.apiRoutes = this.helperService.constants.apiRoutes;
+    this.method = this.helperService.constants.apiMethod;
   }
 
   getUser() {
@@ -43,4 +49,13 @@ export class ProfileService {
   updateUsers(data: any) {
     this.orgUsers.next(data);
   }
+
+  userInfo(id: number) {
+    return this.helperService.requestCall(
+      this.method.get,
+      `${this.apiRoutes.userInfo}${id}/`
+    )
+  }
+
+
 }

@@ -84,6 +84,10 @@ export class CompilerProvider {
     return siteApiResponse.data;
   }
 
+  constructUserInfo(userInfoApiResponse: any): User {
+    return userInfoApiResponse;
+  }
+
   entityUser(users) {
     let usersArray = []
     this.helperService.iterations(users.data, function (obj) {
