@@ -91,24 +91,27 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.navService.updatePackageInfo(userData.packageInfo);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
           (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
-          let entityData = {
-            'moduleName': 'Safetybeat'
-          };
-          this.adminService.viewEntities(entityData).subscribe((res) => {
-            this.loginObj.entities = res;
-            let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
-            this.navService.changeEntites(entityUserData);
-            this.helperService.appLoggerDev(
-              this.helperService.constants.status.SUCCESS,
-              this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
-            );
-            this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
-              this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-          }, (err) => {
-          });
-        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1] ||
-          data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
+          // if (userData.packageInfo.expired) {
+          //   this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
+          // } else {
+            let entityData = {
+              'moduleName': 'Safetybeat'
+            };
+            this.adminService.viewEntities(entityData).subscribe((res) => {
+              this.loginObj.entities = res;
+              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
+              this.navService.changeEntites(entityUserData);
+              this.helperService.appLoggerDev(
+                this.helperService.constants.status.SUCCESS,
+                this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
+              );
+              this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
+                this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+              this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+            }, (err) => {
+            });
+          // }
+        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message

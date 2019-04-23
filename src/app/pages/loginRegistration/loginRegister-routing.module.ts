@@ -8,6 +8,7 @@ import {RegistrationComponent} from './components/registration/registration.comp
 import {ForgotPasswordComponent} from './components/forgotPassword/forgotPassword.component';
 import {LandingComponent} from './components/landing/landing.component';
 import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordRecovery.component';
+import {OrgRegistrationModalComponent} from './components/orgRegistrationModal/org-registration-modal.component';
 
 const authRoutes: Routes = [
   {
@@ -33,6 +34,10 @@ const authRoutes: Routes = [
   }, {
     path: 'signup/:email',
     component: RegistrationComponent
+  },
+  {
+    path: 'package',
+    component: OrgRegistrationModalComponent
   }
 ];
 

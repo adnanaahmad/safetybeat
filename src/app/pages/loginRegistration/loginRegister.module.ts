@@ -14,6 +14,7 @@ import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassw
 import { ParticleContainerComponent } from './components/particleContainer/particleContainer.component';
 import { PasswordRecoveryComponent } from './components/passwordRecovery/passwordRecovery.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { OrgRegistrationModalComponent } from './components/orgRegistrationModal/org-registration-modal.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { LandingComponent } from './components/landing/landing.component';
     ParticleContainerComponent,
     PasswordRecoveryComponent,
     LandingComponent,
+    OrgRegistrationModalComponent
   ],
   providers: [
     LoginRegistrationService,
