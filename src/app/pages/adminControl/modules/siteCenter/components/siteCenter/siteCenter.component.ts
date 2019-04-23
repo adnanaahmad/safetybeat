@@ -31,6 +31,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.initialize();
   }
 
+
   initialize() {
     this.siteCentreObj.empty = false;
   }

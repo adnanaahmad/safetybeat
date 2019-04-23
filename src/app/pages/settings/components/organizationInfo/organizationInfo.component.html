@@ -1,0 +1,37 @@
+<h3 class="setting-title">Organization Info</h3>
+<div class="text-right paddingbox">
+  <button btn-primary mat-raised-button color="primary" (click)="editOrgForm()">
+    <mat-icon>edit</mat-icon>
+    Edit Organization Info
+  </button>
+</div>
+<form [formGroup]="organizationForm" class="settings-list" (ngSubmit)="updateOrganization(organizationForm)">
+  <mat-form-field role="listitem">
+    <label>Name</label>
+    <input matInput type="text" formControlName="name" class="showonly"/>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Account Number</label>
+    <input matInput type="text" formControlName="accountNo" class="showonly" />
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Address</label>
+    <input matInput type="text" formControlName="address" class="showonly"/>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Billing Email</label>
+    <input matInput type="text" formControlName="billingEmail" class="showonly" />
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Date Joined</label>
+    <input matInput type="text" formControlName="dateJoined" class="showonly" />
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Contact Number</label>
+    <input matInput type="text" formControlName="phoneNo" class="showonly" />
+  </mat-form-field>
+  <div class="btn-grp" *ngIf="disabled">
+    <button type="submit" mat-raised-button custom-btn btn-primary  [disabled]="organizationForm.pristine">Save</button>
+    <button type="button" mat-raised-button color="warn" custom-btn btn-danger (click)="cancelOrgForm()">Cancel</button>
+  </div>
+</form>

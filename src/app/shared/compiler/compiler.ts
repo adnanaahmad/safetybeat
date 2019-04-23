@@ -3,6 +3,7 @@ import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
 import {Site, SitesInfo} from '../../models/site.model';
+import {Organization} from '../../models/Settings/setting.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -103,6 +104,11 @@ export class CompilerProvider {
       usersArray.push(user)
     });
     return usersArray;
+  }
+
+  constructOrganizationObject(organizationApiResponse: any): Organization {
+    let organizationData = organizationApiResponse.data;
+    return organizationData;
   }
 
   switchSideMenu(data, name) {

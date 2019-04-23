@@ -42,6 +42,8 @@ export class ConstantService {
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
     importSite: `${environment.apiUrl}/api/uploadFile/importSite/`,
+    getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
+    editOrganization: `${environment.apiUrl}/organization`,
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
@@ -122,8 +124,9 @@ export class ConstantService {
     paths: {
       home: '/home',
       login: '/login',
+      package: '/package',
       welcomeScreen: '/welcomeScreen',
-      viewSite: '/home/adminControl/siteCenter/viewSite'
+      viewSite: '/home/adminControl/siteCenter/viewSite',
     },
     roles: {
       owner: 'Owner',
