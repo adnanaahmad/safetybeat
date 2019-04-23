@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
-import {SitesInfo} from 'src/app/models/site.model';
+import {Site, SitesInfo} from '../../models/site.model';
+import {Organization} from '../../models/Settings/setting.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -103,12 +104,41 @@ export class CompilerProvider {
   constructSiteData(siteApiResponse: any): SitesInfo[] {
     return siteApiResponse.data;
   }
+  constructorSiteInfo(siteData: any): Site {
+    return siteData;
+  }
+
+  constructAllSitesData(siteApiResponse: any): SitesInfo[] {
+    return siteApiResponse.data;
+  }
 
   /**
    * this function is used for switching the side menu according to the entity privileges given to the user.
    * @params data
    * @params name
    */
+
+  entityUser(users) {
+    let usersArray = []
+    this.helperService.iterations(users.data, function (obj) {
+      let user = {
+        name: obj.user.first_name + obj.user.last_name,
+        email: obj.user.email,
+        contact: obj.user.contactNo,
+        photos: '',
+        accessLevel: obj.role,
+        id: obj.user.id,
+        status: obj.status
+      }
+      usersArray.push(user)
+    });
+    return usersArray;
+  }
+
+  constructOrganizationObject(organizationApiResponse: any): Organization {
+    let organizationData = organizationApiResponse.data;
+    return organizationData;
+  }
 
   switchSideMenu(data, name) {
     this.navList = [

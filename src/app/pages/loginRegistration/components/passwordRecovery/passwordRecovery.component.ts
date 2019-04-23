@@ -24,8 +24,6 @@ export class PasswordRecoveryComponent implements OnInit {
     this.route.params.subscribe(data => {
       this.passRecoveryObj.data = data;
     });
-    this.passRecoveryObj.formErrorMatcher = new FormErrorHandler();
-
   }
 
   /**

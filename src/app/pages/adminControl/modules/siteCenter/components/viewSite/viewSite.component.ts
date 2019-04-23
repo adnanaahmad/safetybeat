@@ -1,5 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {ActivatedRoute} from '@angular/router';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CompilerProvider} from 'src/app//shared/compiler/compiler';
+import {ViewSite} from 'src/app/models/adminControl/viewSite.model';
+import {HelperService} from 'src/app//shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-ViewSite',
@@ -10,14 +17,78 @@ export class ViewSiteComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  viewSiteObj: ViewSite = <ViewSite>{};
+  @ViewChild('gmap') gMapElement: ElementRef;
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    public adminServices: AdminControlService,
+    public compiler: CompilerProvider,
+    public helperService: HelperService,
+    private navService: NavigationService
+  ) {
+    this.route.params.subscribe((site) => {
+      this.viewSiteObj.siteId = JSON.parse(this.helperService.decrypt(site.data,
+        this.helperService.appConstants.key));
+    });
   }
 
+
+
   ngOnInit() {
+    this.viewSiteInfo();
+    this.siteDeleteEnable();
+  }
+
+  viewSiteInfo() {
+    this.adminServices.viewSiteInfo(this.viewSiteObj.siteId).subscribe((res) => {
+      this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
+      this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location, this.helperService.createMap(this.gMapElement));
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.VIEW_SITE_SUCCESS);
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.VIEW_SITE_FAILURE);
+    });
+  }
+
+  siteDeleteEnable() {
+    this.navService.currentRole.subscribe(res => {
+      this.viewSiteObj.entitySelectedRole = res;
+      if (
+        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.owner ||
+        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
+        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.entityManager
+      ) {
+        this.viewSiteObj.siteOption = true;
+      } else {
+        this.viewSiteObj.siteOption = false;
+      }
+    });
+  }
+
+  confirmationModal(siteId: number) {
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_SITE}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.deleteSite(siteId);
+      }
+    });
+  }
+
+  deleteSite(siteId) {
+    this.adminServices.deleteSite(siteId).subscribe((res) => {
+      this.helperService.navigateTo(['/home/adminControl/siteCenter/']);
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.DELETE_SITE_SUCCESS);
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DELETE_SITE_FAILURE);
+
+    });
   }
 
 }
+
+
 
 export interface PeriodicElement {
   name: string;

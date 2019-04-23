@@ -90,9 +90,6 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteSafetyPlan: value.siteSafetyPlan,
       entity: this.addSiteObj.entityId
     };
-    let data = {
-      'entityId': this.addSiteObj.entityId
-    };
     this.addSiteObj.loading = true;
     this.adminServices.addSite(siteData).subscribe((res) => {
       this.addSiteObj.addSiteResponse = res;

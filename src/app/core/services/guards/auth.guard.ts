@@ -5,7 +5,7 @@ import { CoreService } from 'src/app/core/services/authorization/core.service';
 @Injectable()
 /**
  * injectable is used to get the services og thr coreService because without this we can not get the functionalities of any
- * other service
+ * other services
  */
 export class AuthGuard implements CanActivate {
     constructor(

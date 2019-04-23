@@ -8,6 +8,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Login} from 'src/app/models/loginRegistration/login.model';
+import {ProfileService} from '../../../profile/services/profile.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private compiler: CompilerProvider,
     private adminService: AdminControlService,
     private navService: NavigationService,
+    private profile: ProfileService
   ) {
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
@@ -96,7 +98,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             ? this.loginService.setToken(this.loginObj.data.data.token)
             : this.loginService.setToken('');
           let userData = this.compiler.constructUserData(this.loginObj.data);
-          this.loginService.updateProfileData(userData.user);
+          this.profile.updateCurrenUser(userData.user);
           this.navService.updatePackageInfo(userData.packageInfo);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
           (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
@@ -116,7 +118,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           }, (err) => {
           });
-        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1] ||
+          data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
@@ -125,6 +128,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
+          this.helperService.createSnack(data.responseDetails.message,
+            data.responseDetails.message, this.helperService.constants.status.WARNING);
           this.loginObj.loading = false;
         }
       },

@@ -14,6 +14,6 @@ export interface joinEntity {
   entityCode: string;
 }
 
-export interface entityCode{
+export interface entityCode  {
   joinCode: string;
 }

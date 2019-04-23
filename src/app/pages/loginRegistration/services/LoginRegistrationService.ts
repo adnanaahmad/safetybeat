@@ -23,7 +23,7 @@ export class LoginRegistrationService {
   }
 
   /**
-   * login user api is called here and api url comes from constant service and login data that comes from
+   * login user api is called here and api url comes from constant services and login data that comes from
    * login.component.html file is passed here with the apiUrl
    * @param data \
    */

@@ -101,8 +101,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerObj.organizationTypeForm = this.formBuilder.group({
       type: ['', Validators.required]
     });
-
-    this.registerObj.formErrorMatcher = new FormErrorHandler();
   }
 
   /**

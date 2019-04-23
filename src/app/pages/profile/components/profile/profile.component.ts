@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.profileModel.subscription = this.profile.usersData.subscribe((res) => {
+    this.profileModel.subscription = this.profile.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
@@ -116,7 +116,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.profile.updateUsers(userData);
+      this.profile.updateCurrenUser(userData);
     })
   }
 }

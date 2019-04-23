@@ -7,6 +7,10 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {FormGroup, FormBuilder, Validators, FormGroupDirective} from '@angular/forms';
 import {changePassword, EditEntity} from 'src/app/models/profile.model';
 import {MatDialogRef} from '@angular/material';
+import {ProfileService} from '../../profile/services/profile.service';
+import {SettingsService} from '../services/settings.service';
+import {CompilerProvider} from '../../../shared/compiler/compiler';
+import {Organization} from '../../../models/Settings/setting.model';
 import {FormErrorHandler} from '../../../shared/FormErrorHandler/FormErrorHandler';
 
 @Component({
@@ -44,20 +48,31 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   password1: any;
   password2: any;
   loading: boolean = false;
+  organizationForm: FormGroup;
+  orgID: any;
+
 
   constructor(
     public settings: SettingService,
     public overlay: OverlayContainer,
     public helperService: HelperService,
     private navService: NavigationService,
-    private formBuilder: FormBuilder
-  ) {
+    private formBuilder: FormBuilder,
+    public settingService: SettingsService,
+    public compiler: CompilerProvider,
+    private modalService: ProfileService
+) {
     this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
     this.appConstants = this.helperService.constants.appConstant;
     this.appIcons = this.helperService.constants.appIcons;
     this.appTheme = this.helperService.constants.appTheme;
-    this.formErrorMatcher = new FormErrorHandler();
+  }
+  /**
+   * handling forms validations
+   */
+  get organizationViewForm() {
+    return this.organizationForm.controls;
   }
 
   /**
@@ -69,6 +84,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.settings.getActiveTheme().subscribe(val => {
       this.themeSelected = val;
     });
+    this.getOrganizationInfo();
 
     this.entityForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -82,6 +98,37 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       password2: ['', [Validators.required, Validators.minLength(8)]]
     }, {validator: this.checkPasswords});
 
+    this.organizationForm = this.formBuilder.group({
+      name: [''],
+      accountNo: [''],
+      address: [''],
+      billingEmail: [''],
+      dateJoined: [''],
+      phoneNo: ['']
+
+    });
+  }
+
+  getOrganizationInfo() {
+    this.settingService.organizationData.subscribe((res) => {
+      if (res === 1) {
+        // it means page is refreshed we need to call the API
+        this.settingService.getOrganization().subscribe((res) => {
+          console.log(res);
+          let orgObj = this.compiler.constructOrganizationObject(res);
+          this.organizationViewForm['name'].setValue(orgObj.name);
+          this.organizationViewForm['accountNo'].setValue(orgObj.accountNo);
+          this.organizationViewForm['address'].setValue(orgObj.address);
+          this.organizationViewForm['billingEmail'].setValue(orgObj.billingEmail);
+          this.organizationViewForm['dateJoined'].setValue(orgObj.dateJoined);
+          this.organizationViewForm['phoneNo'].setValue(orgObj.phoneNo);
+          this.orgID = orgObj.id;
+          this.organizationForm.disable();
+        });
+      } else {
+        // it means that we dont need to call API
+      }
+    });
   }
 
   /**
@@ -91,11 +138,13 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.navService.selectedEntityData.subscribe((selectedEntity) => {
-      this.allEntities = selectedEntity;
-      this.entitiesData = this.allEntities.entityInfo;
-      this.entityId = this.entitiesData.id;
-      this.createdBy = this.entitiesData.createdBy;
-      this.managedBy = this.entitiesData.managedBy;
+      if (selectedEntity !== 1) {
+        this.allEntities = selectedEntity;
+        this.entitiesData = this.allEntities.entityInfo;
+        this.entityId = this.entitiesData.id;
+        this.createdBy = this.entitiesData.createdBy;
+        this.managedBy = this.entitiesData.managedBy;
+      }
     });
   }
 
@@ -123,6 +172,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
    * this function is called when we click on cancel button to cancel the edit account.
    */
 
+  editOrgForm() {
+     this.disabled = true;
+     this.organizationForm.enable();
+  }
+
   cancelEditAccount() {
     this.disabled = false;
     this.entityForm.disable();
@@ -134,6 +188,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   get entityDataForm() {
     return this.entityForm.controls;
+  }
+
+  cancelOrgForm() {
+    this.disabled = false;
+    this.organizationForm.disable();
   }
 
   /**
@@ -185,6 +244,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.disabled = false;
     this.entityForm.disable();
     let data = {
+      'name': value.name,
       'code': value.code,
       'headOffice': value.headOffice,
       'managedBy': this.managedBy,
@@ -197,7 +257,27 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.settings.editEntity(this.entityId, data).subscribe((res) => {
       this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
     });
+  }
 
+  updateOrganization({value, valid}: { value: Organization; valid: boolean }): void {
+    this.disabled = false;
+    this.organizationForm.disable();
+    let data = {
+      'name': value.name,
+      'accountNo': value.accountNo,
+      'address': value.address,
+      'dateJoined': value.dateJoined,
+      'phoneNo': value.phoneNo,
+      'billingEmail' : value.billingEmail,
+      'type': 2
+    };
+    if (!valid) {
+      this.helperService.appLogger(this.translated.STATUS.ERROR, 'Invalid Fields');
+      return;
+    }
+    this.settingService.editOrganization(this.orgID, data).subscribe((res) => {
+      this.helperService.createSnack('Entity has been updated Successfully', 'Entity Updated', this.helperService.constants.status.SUCCESS);
+    });
   }
 
   /**
@@ -230,7 +310,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.helperService.createSnack(this.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
           this.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
         this.loading = false;
-        formDirective.resetForm()
+        formDirective.resetForm();
         this.changePasswordForm.reset();
       } else {
         this.loading = false;
@@ -247,7 +327,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       this.helperService.appLoggerDev(this.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
       this.helperService.logoutError(error.status);
-      this.clearValidations();
+
     });
   }
 

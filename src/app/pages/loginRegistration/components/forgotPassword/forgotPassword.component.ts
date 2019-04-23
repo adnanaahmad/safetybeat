@@ -21,7 +21,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   ) {
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
-    this.forgotPassObj.formErrorMatcher = new FormErrorHandler();
   }
 
   /**

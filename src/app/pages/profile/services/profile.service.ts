@@ -11,6 +11,8 @@ import {BehaviorSubject} from 'rxjs';
 export class ProfileService {
   private orgUsers = new BehaviorSubject<any>(1);
   usersData = this.orgUsers.asObservable();
+  private currentUser = new BehaviorSubject<any>(1);
+  currentUserData = this.currentUser.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -41,4 +43,8 @@ export class ProfileService {
   updateUsers(data: any) {
     this.orgUsers.next(data);
   }
+
+  updateCurrenUser(data: any) {
+    this.currentUser.next(data);
+  };
 }
