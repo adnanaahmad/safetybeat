@@ -4,7 +4,7 @@ import {EditEntity} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SettingService} from 'src/app/shared/settings/setting.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {EntitySetting} from 'src/app/models/settings/entitySetting.model';
+import {EntitySetting} from 'src/app/models/Settings/entitySetting.model';
 
 @Component({
   selector: 'app-entity-setting',

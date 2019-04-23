@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Organization} from 'src/app/models/settings/setting.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SettingsService} from 'src/app/pages/settings/services/settings.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {Organization} from 'src/app/models/Settings/setting.model';
 
 @Component({
   selector: 'app-organization-info',
