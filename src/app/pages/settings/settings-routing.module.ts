@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SettingsComponent } from './components/settings.component';
+import { SettingsComponent } from './components/settingsMain/settings.component';
 
 const routes: Routes = [
   { path: '', component: SettingsComponent },
