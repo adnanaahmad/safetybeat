@@ -23,6 +23,9 @@
 @import "src/app/common/toaster/toaster.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/components/viewSite/viewSite.component.scss";
+@import "src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component.scss";
+@import "src/app/pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component.scss";
+@import "src/app/pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -55,4 +58,7 @@
   @include amte-toaster($primary, $accent, $warn);
   @include amte-createEntity($primary, $accent, $warn);
   @include amte-viewSite($primary, $accent, $warn);
+  @include amte-viewConnections($primary, $accent, $warn);
+  @include amte-removeConnections($primary, $accent, $warn);
+  @include amte-addConnections($primary, $accent, $warn);
 }

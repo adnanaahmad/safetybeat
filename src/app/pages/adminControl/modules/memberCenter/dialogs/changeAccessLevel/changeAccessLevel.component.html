@@ -1,3 +1,27 @@
-<p>
-  change-access-level works!
-</p>
+<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.INVITE_USER}}</mat-card-title>
+<div class="mat-dialog-content">
+  <h4>Choose role for this user</h4>
+  <mat-form-field>
+    <mat-label>Roles</mat-label>
+    <mat-select>
+      <mat-option value="Paratha Role">Paratha Role</mat-option>
+      <mat-option value="Cream Role">Cream Role</mat-option>
+      <mat-option value="Chicken Role">Chicken Cheese Role</mat-option>
+      <mat-option value="Rock Role">Rock & Role</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <h4>Select team</h4>
+  <mat-form-field>
+    <mat-label>Teams</mat-label>
+    <mat-select>
+      <mat-option value="Football Team">Football Team</mat-option>
+      <mat-option value="Cricket Team">Cricket Team</mat-option>
+      <mat-option value="SafetyBeat Team">SafetyBeat Team</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-dialog-actions>
+    <button mat-raised-button cdkFocusInitial custom-btn btn-primary
+      color="primary">{{helperService.translated.BUTTONS.SAVE}}</button>
+    <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+  </mat-dialog-actions>
+</div>

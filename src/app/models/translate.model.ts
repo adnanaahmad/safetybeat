@@ -268,6 +268,10 @@ export interface Messages {
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
   EDIT_SITE_MSG: string;
+  CHANGE_ACCESS_LEVEL: string;
+  REMOVE_CONNECTIONS: string;
+  VIEW_CONNECTIONS: string;
+  ADD_CONNECTIONS: string;
 }
 
 export interface Logger {
