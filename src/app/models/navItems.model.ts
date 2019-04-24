@@ -4,5 +4,5 @@ export interface NavItem {
     iconName?: string;
     route?: string;
     children?: NavItem[];
-    toolTip?:string;
-  }
+    toolTip?: string;
+}

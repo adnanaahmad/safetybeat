@@ -107,6 +107,7 @@
     "DELETE": "Delete"
   },
   "MESSAGES": {
+    "ORG_DETAILS": "Organization Details Updated.",
     "SIGNINMESSAGE": "You need to sign in to get access",
     "OR": "OR",
     "ORGSIGNUP": "Organization Info",
@@ -260,7 +261,8 @@
     "SITE_NAME": "Site Name",
     "SITE_ADDRESS": "Site Location",
     "SITE_SAFE_ZONE": "Safe Zone",
-    "SITE_CREATED_BY": "Created By"
+    "SITE_CREATED_BY": "Created By",
+    "MANAGED_BY": "Managed By"
   },
   "LOGGER": {
     "STATUS": {
@@ -308,7 +310,8 @@
       "INVITEUSER_ERROR": "User details are required to Invite a user",
       "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again.",
       "ROLES_RECIEVED": "Roles recieved",
-      "ROLES_RECIEVED_ERROR": "Error recieving roles"
+      "ROLES_RECIEVED_ERROR": "Error recieving roles",
+      "ORG_SUCCESS": "Organization Data Edited."
     }
   },
   "STATUS": {

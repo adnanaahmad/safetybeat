@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { MaterialModule } from './shared/material/material.module';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AppComponent} from './app.component';
+import {MaterialModule} from './shared/material/material.module';
 import {
   TranslateModule,
   TranslateLoader,
@@ -89,7 +89,7 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: TokenInterceptorService,
       multi: true
     },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
         duration: 10000,
@@ -117,4 +117,5 @@ export function createTranslateLoader(http: HttpClient) {
     EditSiteModalComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+}

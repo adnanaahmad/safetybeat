@@ -30,6 +30,10 @@ export class CreateEntityComponent implements OnInit {
     );
   }
 
+  /**
+   * this function is used to make the createEntityForm
+   */
+
   ngOnInit() {
     this.helperService.createMap(this.gMapElement);
     this.createEntityObj.loading = false;
@@ -48,7 +52,7 @@ export class CreateEntityComponent implements OnInit {
   }
 
   /**
-   * this function...
+   * this function is used for creating entity after passing data of the entity that we want to add.
    * @params value
    * @params valid
    */

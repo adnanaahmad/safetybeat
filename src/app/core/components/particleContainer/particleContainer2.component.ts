@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 
@@ -7,7 +7,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
   templateUrl: './particleContainer2.component.html',
   styleUrls: ['./particleContainer2.component.scss']
 })
-export class ParticleContainerComponent2 implements OnInit {
+export class ParticleContainerComponent2 implements OnInit, OnDestroy {
   translated: Translation;
   particlesIcons: any;
 
@@ -22,6 +22,10 @@ export class ParticleContainerComponent2 implements OnInit {
   ngOnInit() {
 
   }
+
+  /**
+   * this function is called when the component is destroyed and in this function debugger messages are being hidden.
+   */
 
   ngOnDestroy() {
     this.helperService.hideLoggers();

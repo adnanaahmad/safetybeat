@@ -1,12 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NavItem} from 'src/app/models/navItems.model';
 import {Router} from '@angular/router';
-import {NavigationService} from '../../services/navigation.service';
-import {InviteUserModalComponent} from '../../../../Dialogs/inviteUserModal/inviteUserModal.component';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {NavListModel} from '../../../../models/navigation/navList.model';
+import {NavListModel} from 'src/app/models/navigation/navList.model';
 
 
 @Component({
@@ -37,7 +36,7 @@ export class NavListComponent implements OnInit {
   }
 
   /**
-   * this function ...
+   * this function is used for getting all the roles from the db using api call.
    */
   getRoles() {
     this.navService.getRoles().subscribe((res) => {
@@ -55,17 +54,11 @@ export class NavListComponent implements OnInit {
     });
   }
 
-  onItemSelected(navLinks: NavItem) {
-    if (!navLinks.children || !navLinks.children.length) {
-      this.router.navigate([navLinks.route]);
-    }
-    if (navLinks.children && navLinks.children.length) {
-      this.navListModel.expanded = !this.navListModel.expanded;
-    }
-  }
-
   /**
-   * this function ...
+   * this function is used for invite users and analytics reports that if the user click on
+   * invite users menu item then the modal dialog will be opened and if the user has
+   * clicked on the analytics reports then the menu will be switched and only the reporting
+   * components will be listed down.
    * @params displayName
    */
   customActions(displayName) {
@@ -82,7 +75,8 @@ export class NavListComponent implements OnInit {
   }
 
   /**
-   * this function ...
+   * this function is used for creating the modal dialog of invite user and with this modal we also attach the all roles and
+   * entity id of the selected entity.
    * @params entityId
    */
   inviteUserModal(entityId) {

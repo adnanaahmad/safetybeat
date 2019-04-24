@@ -39,6 +39,9 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * this function is used to get the role of the user in the current entity.
+   */
   ngAfterViewInit() {
     this.navService.currentRoleId.subscribe((res) => {
       this.createEntity.roleId = res;

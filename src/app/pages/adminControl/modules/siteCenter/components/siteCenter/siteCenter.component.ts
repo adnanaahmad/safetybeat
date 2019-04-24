@@ -32,9 +32,17 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
 
+  /**
+   * this function is used to initialize the global variables that we have made in the models.
+   */
   initialize() {
     this.siteCentreObj.empty = false;
   }
+
+  /**
+   * in this function we have subscribed the selectedEntity observable so that whenever the selectedEntity is changed,
+   * we should get the changed entity id.
+   */
 
   ngOnInit() {
     this.siteCentreObj.subscription = this.navService.selectedEntityData.subscribe(() => {
@@ -43,9 +51,17 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.siteAddorImportEnable();
   }
 
+  /**
+   * this function is used for unsubscription of the subscribed observables.
+   */
+
   ngOnDestroy() {
     this.siteCentreObj.subscription.unsubscribe();
   }
+
+  /**
+   * this function is used to view all the sites data against the particular entity id.
+   */
 
 
   viewSitesData() {
@@ -69,7 +85,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function is used to create Add Site Dialog
+   * this function is used to create Add Site Dialog and when the dialog is closed we again call the view all sites api.
    */
   addSite() {
     this.helperService.createDialog(AddSiteModalComponent, {disableClose: true});
@@ -77,6 +93,11 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       this.viewSitesData();
     });
   }
+
+  /**
+   * this function is used to create import sites modal dialog in which the user would be able to import the csv files.
+   * and after closing of this modal viewAllSites api calls so that we can see the updated list of sites.
+   */
 
   importSite() {
     this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
@@ -90,11 +111,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.viewSitesData();
     });
-  }
-
-  goToViewSite(id) {
-    let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key)
-    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
   }
 
   siteAddorImportEnable() {
@@ -111,5 +127,13 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       }
     });
   }
+  /**
+   * this function is called when the user clicks on the view site button and then this function navigates the users
+   * to the view site component in which all the details of the particular site is shown.
+   */
 
+  goToViewSite(id) {
+    let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key)
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
+  }
 }

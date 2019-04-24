@@ -3,6 +3,7 @@ import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@ang
 import {CreateEntityComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {EntityCodeModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import {InviteTeamModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
@@ -10,8 +11,7 @@ import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/conf
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {EntityControl} from 'src/app/models/adminControl/entityControl.model';
-import {JoinEntityModalComponent} from '../../dialogs/joinEntityModal/joinEntityModal.component';
-import { EntityCodeModalComponent } from '../../dialogs/entityCodeModal/entityCodeModal.component';
+import {JoinEntityModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -47,15 +47,28 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * this function is used to calling the functions that we need to be called on the
+   * initialization of the component.
+   */
   ngOnInit() {
     this.viewAllEntities();
     this.creationEnable();
     this.joinEnable();
   }
 
+  /**
+   * this function is used for unsubscription of the observables that we have subscribed using behavior subjects.
+   * and this unsubscription will be called when the component will be destroyed.
+   */
   ngOnDestroy() {
     this.entityControl.subscription.unsubscribe();
   }
+
+  /**
+   * this function is used for initialization of all the global varibales that we have made in the model
+   * file.
+   */
 
   initialize() {
     this.entityControl.createEntityOption = false;
@@ -70,20 +83,29 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       'name',
       'headOffice',
       'role',
+      'managedBy',
       'administrator',
       'symbol'
     ];
   }
 
   /**
-   * this funnction is used to create Create Entity Dialog
+   * this funnction is used to create createEntity Dialog and also we have assigned this disableClose true
+   * so that the user would not be able to close the dialog until he/she clicks on the cancel button.
    */
   createEntity() {
     this.helperService.createDialog(CreateEntityComponent, {disableClose: true});
   }
 
+  /**
+   * this function is used for creating confirmation modal dialog in which the user will confirm while he/she
+   * wants to proceed for the selected functionality or not by clicking on yes/no buttons.
+   * @params entityId
+   */
+
   confirmationModal(entityId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_ENTITY}});
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_ENTITY}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
@@ -100,7 +122,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function is used to create Alert Modal Dialog
+   * this function is used to create entityCode Modal Dialog in which the entity code will be
+   * shown on the modal dialog.
    * @params code
    * @params name
    */
@@ -129,7 +152,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function is used to....
+   * this function is used to enable the create entity button on the basis of role
+   * because in our case, owner will be allowed to create the entity.
    */
   creationEnable() {
     this.entityControl.subscription = this.navService.currentRole.subscribe(res => {
@@ -141,6 +165,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  /**
+   * this function is used to enable the join entity button on the basis of roles because the owner,teamlead and
+   * entity manager are allowed to join the entity and the user will not be able to join the entity of others.
+   */
 
   joinEnable() {
     this.entityControl.subscription = this.navService.currentRole.subscribe(res => {
@@ -156,6 +185,10 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  /**
+   * this function is used for getting all the users who are being invited to that particular entity.
+   */
 
   getUsers() {
     this.helperService.toggleLoader(true)
@@ -173,6 +206,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   *  this function will be used when we will make the teams of the users and in that team we will add the users.
+   * @params entityData
+   */
+
   inviteTeam(entityData: any) {
     if (this.entityControl.allUsersList.length !== 0) {
       let inviteTeamData = {
@@ -189,6 +227,10 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * this function is used to get the entities info regarding the user from the api call.
+   */
+
   viewEntitiesApiCall() {
     this.helperService.toggleLoader(true);
     let data = {
@@ -201,6 +243,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       this.navService.changeEntites(entityUserData);
     });
   }
+
+  /**
+   * this function is used for deleting the entities using their entity ids.
+   * @params entityId
+   */
 
   deleteEntity(entityId: any) {
     this.helperService.toggleLoader(true);

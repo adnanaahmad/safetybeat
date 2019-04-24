@@ -33,6 +33,8 @@ export class ViewSiteComponent implements OnInit {
     });
   }
 
+
+
   ngOnInit() {
     this.viewSiteInfo();
     this.siteDeleteEnable();
@@ -85,6 +87,7 @@ export class ViewSiteComponent implements OnInit {
   }
 
 }
+
 
 
 export interface PeriodicElement {

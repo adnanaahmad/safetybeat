@@ -20,4 +20,7 @@ export class SettingsService {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
       `${this.helperService.constants.apiRoutes.editOrganization}/${id}/`, data);
   }
+  getTypes(): any {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.companyTypes);
+  }
 }
