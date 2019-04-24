@@ -3,7 +3,7 @@ import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
 import {Site, SitesInfo} from '../../models/site.model';
-import {Organization} from '../../models/Settings/setting.model';
+import {Organization} from '../../models/Settings/organizationInfo.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -86,7 +86,7 @@ export class CompilerProvider {
   }
 
   entityUser(users) {
-    let usersArray = []
+    let usersArray = [];
     this.helperService.iterations(users.data, function (obj) {
       let user = {
         name: obj.user.first_name + obj.user.last_name,
@@ -96,14 +96,14 @@ export class CompilerProvider {
         accessLevel: obj.role,
         id: obj.user.id,
         status: obj.status
-      }
-      usersArray.push(user)
+      };
+      usersArray.push(user);
     });
     return usersArray;
   }
 
   constructOrganizationObject(organizationApiResponse: any): Organization {
-    let organizationData = organizationApiResponse.data;
+    let organizationData: Organization = organizationApiResponse.data;
     return organizationData;
   }
 

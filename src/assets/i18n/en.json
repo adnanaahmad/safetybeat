@@ -107,6 +107,7 @@
     "DELETE": "Delete"
   },
   "MESSAGES": {
+    "ORG_DETAILS": "Organization Details Updated.",
     "SIGNINMESSAGE": "You need to sign in to get access",
     "OR": "OR",
     "ORGSIGNUP": "Organization Info",
@@ -304,7 +305,8 @@
       "INVITEUSER_ERROR": "User details are required to Invite a user",
       "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again.",
       "ROLES_RECIEVED": "Roles recieved",
-      "ROLES_RECIEVED_ERROR": "Error recieving roles"
+      "ROLES_RECIEVED_ERROR": "Error recieving roles",
+      "ORG_SUCCESS": "Organization Data Edited."
     }
   },
   "STATUS": {
