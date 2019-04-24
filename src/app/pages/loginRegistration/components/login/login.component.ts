@@ -8,6 +8,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Login} from 'src/app/models/loginRegistration/login.model';
+import {ProfileService} from '../../../profile/services/profile.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -25,10 +26,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     private compiler: CompilerProvider,
     private adminService: AdminControlService,
     private navService: NavigationService,
+    private profile: ProfileService
   ) {
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
   }
+
+  /**
+   * this function is called on the initialization of the component and this function is used for making the loginForm input fields
+   * and gives validations to these input fields.
+   */
 
   ngOnInit() {
     if (this.loginService.getToken()) {
@@ -39,6 +46,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', Validators.required]
     });
   }
+
+  /**
+   * this function is used for hiding the debugging messages on the destroy of this component.
+   */
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
@@ -87,13 +98,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             ? this.loginService.setToken(this.loginObj.data.data.token)
             : this.loginService.setToken('');
           let userData = this.compiler.constructUserData(this.loginObj.data);
-          this.loginService.updateProfileData(userData.user);
+          this.profile.updateCurrenUser(userData.user);
           this.navService.updatePackageInfo(userData.packageInfo);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
-          // if (userData.packageInfo.expired) {
-          //   this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
-          // } else {
+          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString());
             let entityData = {
               'moduleName': 'Safetybeat'
             };

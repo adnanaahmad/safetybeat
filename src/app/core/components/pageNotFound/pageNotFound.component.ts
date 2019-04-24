@@ -19,6 +19,11 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
   }
+
+  /**
+   * this function is called when the component is destroyed and in this function the class that we have given to the background
+   * is removed so that this doesn't affect the other's components backgrounds. in the constructor we have assigned the class.
+   */
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.background);
   }

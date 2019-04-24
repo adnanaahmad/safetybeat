@@ -373,6 +373,7 @@ export interface TableHeadings {
   SITE_ADDRESS: string;
   SITE_SAFE_ZONE: string;
   SITE_CREATED_BY: string;
+  MANAGED_BY: string;
 }
 
 export interface Status {

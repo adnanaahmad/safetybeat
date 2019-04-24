@@ -257,7 +257,8 @@
     "SITE_NAME": "Site Name",
     "SITE_ADDRESS": "Site Location",
     "SITE_SAFE_ZONE": "Safe Zone",
-    "SITE_CREATED_BY": "Created By"
+    "SITE_CREATED_BY": "Created By",
+    "MANAGED_BY": "Managed By"
   },
   "LOGGER": {
     "STATUS": {

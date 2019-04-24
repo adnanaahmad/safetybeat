@@ -16,11 +16,12 @@ export class WelcomeScreenService {
   ) {
   }
 
+  /**
+   * this api function is used to return the response when we create a new entity.
+   * @params data
+   */
+
   createEntity(data: entity) {
     return this.http.post(ConstantService.apiRoutes.createEntity, data).pipe(catchError(this.coreServices.handleError));
-  }
-
-  viewEntities(data: object) {
-    return this.http.post(ConstantService.apiRoutes.viewAllEntities, data).pipe(catchError(this.coreServices.handleError));
   }
 }

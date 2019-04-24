@@ -28,6 +28,10 @@ export class VerificationComponent implements OnInit, OnDestroy {
     this.mailData = this.email.email;
   }
 
+  /**
+   * this function is used for checking the validation of the verification form.
+   */
+
   get formValidation() {
     return this.verifyForm.controls;
   }
@@ -48,10 +52,20 @@ export class VerificationComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+  /**
+   * this function is used for removing the class that we have assigned to this component
+   * in the constructor and also we hide the debugging messages on the destroy of component.
+   */
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.modalClass);
     this.helperService.hideLoggers();
   }
+
+  /**
+   * this function is used for tapping password of 6 length that user gets from his/her email.
+   * @params $event
+   * @params value
+   */
 
   keyTab($event, value) {
     if (this.code === '') {
@@ -72,6 +86,11 @@ export class VerificationComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * this function is called when the user enters the 6 digits long password that he/she gets from his/her
+   * email and after verification user goes to the sign up page.
+   * @params data
+   */
   validateUser(data: any) {
     this.loginRegService.verifyCode(data).subscribe(res => {
       this.validationData = res;
@@ -85,6 +104,11 @@ export class VerificationComponent implements OnInit, OnDestroy {
       this.helperService.appLogger(this.translated.LOGGER.STATUS.ERROR, 'You have not been verifiesd');
     });
   }
+
+  /**
+   * this function is used to resend the verification password if the user doesn't get the password on his/her
+   * email or when the user's entered password is not valid and expired.
+   */
 
   resendVerification() {
     let emailData = {
