@@ -8,7 +8,6 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SitesInfo} from 'src/app/models/site.model';
 import {NavigationModel} from 'src/app/models/navigation/navigation.model';
 import {PackageInfo} from 'src/app/models/user.model';
-import {OrgRegistrationModalComponent} from '../../../loginRegistration/components/orgRegistrationModal/org-registration-modal.component';
 
 @Component({
   selector: 'app-navigation',
@@ -99,9 +98,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
           });
         }
       });
-  }
-
-  ngAfterViewInit() {
   }
 
   ngOnChanges() {

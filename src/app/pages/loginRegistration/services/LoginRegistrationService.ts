@@ -34,6 +34,10 @@ export class LoginRegistrationService {
     return this.Login$;
   }
 
+  getPackagesData() {
+    return this.helperService.requestCall(this.method.get, this.apiRoutes.packages);
+  }
+
   /**
    * in this function all the api calls related to organization registration data are called over here
    * and fork join is used when you have a group of observables and only care about the final emitted value of each.
@@ -43,10 +47,6 @@ export class LoginRegistrationService {
     const modules = 'Safetybeat';
     const packages = this.helperService.requestCall(this.method.get, this.apiRoutes.packages);
     return forkJoin([companyTypes, modules, packages]);
-  }
-
-  checkUserName(username: object) {
-    return this.helperService.requestCall(this.method.post, this.apiRoutes.checkUsername, username);
   }
 
   checkEmail(email: object) {
@@ -101,10 +101,6 @@ export class LoginRegistrationService {
    */
   setToken(token: string) {
     localStorage.setItem(this.storageKey, token);
-  }
-
-  setEntityData(data) {
-    localStorage.setItem(this.helperService.constants.localStorageKeys.entityUserData, data);
   }
 
   /**

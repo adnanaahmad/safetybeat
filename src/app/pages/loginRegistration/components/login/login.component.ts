@@ -16,6 +16,7 @@ import {Login} from 'src/app/models/loginRegistration/login.model';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginObj: Login = <Login>{};
+  num: number = 23;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -91,9 +92,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.navService.updatePackageInfo(userData.packageInfo);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
           (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
-          // if (userData.packageInfo.expired) {
-          //   this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
-          // } else {
+          if (userData.packageInfo.expired) {
+            this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
+          } else {
             let entityData = {
               'moduleName': 'Safetybeat'
             };
@@ -110,7 +111,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
             }, (err) => {
             });
-          // }
+          }
         } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
