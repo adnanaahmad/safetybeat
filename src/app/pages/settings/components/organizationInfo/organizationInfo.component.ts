@@ -105,6 +105,4 @@ export class OrganizationInfoComponent implements OnInit {
         this.helperService.translated.LOGGER.MESSAGES.ORG_SUCCESS, this.helperService.constants.status.SUCCESS);
     });
   }
-
-
 }
