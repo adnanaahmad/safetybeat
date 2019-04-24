@@ -225,7 +225,9 @@
     "VIEW_SITE_FAILURE": "Site not found.",
     "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
     "DELETE_SITE_FAILURE": "Site deletion failed.",
-    "EDIT_SITE_MSG": "Enter Site Details to Edit Site."
+    "EDIT_SITE_MSG": "Enter Site Details to Edit Site.",
+    "VERIFY_ERR": "You have not been verified",
+    "VERIFIED": "You have been verified"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

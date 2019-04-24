@@ -283,6 +283,8 @@ export interface Messages {
   INVALID_ENTITY: string;
   ENTITY_UPDATED_T: string;
   INVALID_DATA: string;
+  VERIFY_ERR: string;
+  VERIFIED: string;
 }
 
 export interface Logger {
