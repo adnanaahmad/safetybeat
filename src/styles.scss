@@ -23,13 +23,17 @@ body {
 
 // Define font-family explicitly
 .mat-card-title {
-  font-family: $fontFamily;
+  font-family: $fontFamily !important;
+  line-height: inherit;
 }
 .app-content {
   overflow-x: hidden !important;
 }
 .paragraph {
   line-height: 1.7;
+}
+.full-width {
+  width: 100%;
 }
 [btn-primary] {
   color: #fff !important;

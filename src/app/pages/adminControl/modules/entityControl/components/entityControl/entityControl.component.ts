@@ -3,7 +3,6 @@ import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@ang
 import {CreateEntityComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AlertModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import {InviteTeamModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {share} from 'rxjs/operators';
@@ -12,6 +11,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {EntityControl} from 'src/app/models/adminControl/entityControl.model';
 import {JoinEntityModalComponent} from '../../dialogs/joinEntityModal/joinEntityModal.component';
+import { EntityCodeModalComponent } from '../../dialogs/entityCodeModal/entityCodeModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -105,7 +105,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * @params name
    */
   entityCode(code, name) {
-    this.helperService.createDialog(AlertModalComponent, {data: {name: name, code: code}});
+    this.helperService.createDialog(EntityCodeModalComponent, {data: {name: name, code: code}});
   }
 
   /**

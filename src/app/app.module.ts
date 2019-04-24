@@ -22,7 +22,6 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CreateEntityComponent } from './pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import { JoinEntityModalComponent } from './pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserModal.component';
-import { AlertModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import { VerificationComponent } from './Dialogs/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
 import { InviteTeamModalComponent } from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
@@ -36,6 +35,7 @@ import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCente
 import {AddConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component';
 import {RemoveConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component';
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
+import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -47,7 +47,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
-    AlertModalComponent,
+    EntityCodeModalComponent,
     InviteUserModalComponent,
     VerificationComponent,
     InviteTeamModalComponent,
@@ -101,7 +101,7 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     CreateEntityComponent,
     JoinEntityModalComponent,
-    AlertModalComponent,
+    EntityCodeModalComponent,
     InviteUserModalComponent,
     CreateEntityComponent,
     VerificationComponent,
