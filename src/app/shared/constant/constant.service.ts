@@ -118,6 +118,8 @@ export class ConstantService {
     emailValid: 'VALID',
     yes: 'YES',
     codeValidations: [100, 101, 102, 103, 104],
+    dateJoined: 'dateJoined',
+    phoneNo: 'phoneNo',
     avatar: './assets/images/avatar.png',
     paths: {
       home: '/home',

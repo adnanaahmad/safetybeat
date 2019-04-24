@@ -245,6 +245,7 @@
     "ENTITY_ID": "Entity Id",
     "ENTITY_NAME": "Entity Name",
     "ENTITY_HEADOFFICE": "Entity Head Office",
+    "ENTITY_CODE": "Entity Code",
     "ENTITY_STATUS": "Entity Status",
     "ACTIONS": "Actions",
     "NAME": "Name",

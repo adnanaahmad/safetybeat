@@ -360,6 +360,7 @@ export interface TableHeadings {
   ENTITY_ID: string;
   ENTITY_NAME: string;
   ENTITY_HEADOFFICE: string;
+  ENTITY_CODE: string;
   ENTITY_STATUS: string;
   ACTIONS: string;
   NAME: string;
