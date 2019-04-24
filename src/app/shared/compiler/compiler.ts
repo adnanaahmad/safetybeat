@@ -85,6 +85,7 @@ export class CompilerProvider {
         permissions: entity.permissions,
         reportAccess: entity.reportAccess,
         administrator: entity.administrator,
+        managedBy: entity.managedBy,
         active: entity.active,
         role: entity.role
       };

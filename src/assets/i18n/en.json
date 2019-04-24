@@ -64,7 +64,10 @@
     "EXPAND": "Expand",
     "REMOVE": "Remove",
     "SITEADDRESS": "Site Address",
-    "SITESAFETYPLAN": "Site Safety Plan"
+    "SITESAFETYPLAN": "Site Safety Plan",
+    "PACKAGE_DESCRIPTION_1": "For startup business",
+    "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
+    "PACKAGE_DESCRIPTION_3": "For already established business"
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -99,6 +102,8 @@
     "ADD_SITE": "Add Site",
     "IMPORT_SITE": "Import Site",
     "UPGRADE": "Upgrade",
+    "GETSTARTED": "Get Started",
+    "LEARNMORE": "Learn More",
     "DELETE": "Delete"
   },
   "MESSAGES": {
@@ -204,6 +209,15 @@
     "TRIAL_LEFT_1": "Your trial is going to expire in ",
     "TRIAL_LEFT_2": " day(s). Please ",
     "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator.",
+    "SAFETYBEAT_PRICING": "SafetyBeat Pricing",
+    "PRICING_TAGLINE": "Choose a package that best suits your business",
+    "CALLTOACTION_TITLE": "Your business needs SafetyBeat",
+    "CALLTOACTION_DESCRIPTION": "All your safety measures now in one simple app – it now takes seconds to reach out to your workers, know they are safe and know where they are.",
+    "FAQS_TITLE": "Commonly asked questions",
+    "ENTITY_UPDATED": "Entity has been updated Successfully",
+    "INVALID_ENTITY": "Invalid Entity fields entered",
+    "INVALID_DATA": "Invalid Data",
+    "ENTITY_UPDATED_T": "Entity Updated",
     "SITE_IS_SAFE": " is safe.",
     "SITE_IS_NOT_SAFE": " is not safe.",
     "VIEW_SITE_SUCCESS": "View site success.",
@@ -242,7 +256,8 @@
     "SITE_NAME": "Site Name",
     "SITE_ADDRESS": "Site Location",
     "SITE_SAFE_ZONE": "Safe Zone",
-    "SITE_CREATED_BY": "Created By"
+    "SITE_CREATED_BY": "Created By",
+    "MANAGED_BY": "Managed By"
   },
   "LOGGER": {
     "STATUS": {

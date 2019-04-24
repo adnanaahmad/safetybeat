@@ -83,6 +83,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       'name',
       'headOffice',
       'role',
+      'managedBy',
       'administrator',
       'symbol'
     ];
@@ -103,7 +104,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
 
   confirmationModal(entityId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_ENTITY}});
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_ENTITY}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
@@ -140,6 +142,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
         this.entityControl.entitiesList = res;
         this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
+        console.log(this.entityControl.dataSource, 'dataSource');
         this.entityControl.dataSource.paginator = this.paginator;
       } else {
         this.viewEntitiesApiCall();
@@ -238,6 +241,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       this.helperService.toggleLoader(false);
       this.entityControl.entitiesList = res;
       let entityUserData = this.compiler.constructUserEntityData(this.entityControl.entitiesList.data);
+      console.log('api call data', entityUserData);
       this.navService.changeEntites(entityUserData);
     });
   }

@@ -1,0 +1,106 @@
+@mixin amte-org-registration-modal($primary, $accent, $warn) {
+  :host,
+  app-org-registration-modal {
+    .topnav {
+      text-align: right;
+      padding: 20px;
+      background: mat-color($primary, 900);
+      color: #fff;
+      box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      position: relative;
+      border-bottom: 1px solid mat-color($primary, 600);
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
+    .legend-header {
+      text-align: center;
+      padding: 6rem 2rem;
+      background-color: mat-color($primary, 500);
+      color: #fff;
+      mat-card-title {
+        font-size: 2rem;
+      }
+    }
+    .paddingbox {
+      padding: 16px 100px;
+    }
+    .packages-wrapper {
+      margin-top: -70px;
+      .package-box {
+        background-color: #fff;
+        box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        .mat-figure {
+          display: block;
+          padding: 2rem;
+        }
+        .package-label {
+          margin: 0;
+          text-align: center;
+        }
+        .package-price {
+          text-align: center;
+          margin: 1rem 0;
+          color: mat-color($primary, 500);
+          font-size: 3rem;
+          span {
+            font-size: 1rem;
+          }
+        }
+        p {
+          text-align: center;
+          font-size: 12px;
+        }
+        [custom-btn] {
+          display: block;
+          width: 150px;
+          margin: 0 auto;
+        }
+        .package-features {
+          margin-bottom: 20px;
+          .mat-list-item:nth-child(even) {
+            background-color: mat-color($primary, 50);
+            border-radius: 4px;
+          }
+          .mat-icon {
+            margin-left: auto;
+            opacity: 0.4;
+          }
+        }
+      }
+    }
+    .call-to-action {
+      background: mat-color($primary, 500);
+      padding: 4rem 10rem;
+      text-align: center;
+      color: #fff;
+      margin: 4rem 0;
+      p {
+        line-height: 1.7;
+      }
+      a {
+        color: #fff;
+        display: flex;
+        margin: 0 auto;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
+        text-decoration: none;
+      }
+    }
+    .faqs {
+      margin-bottom: 50px;
+      h1 {
+        text-align: center;
+        margin-top: 0;
+      }
+      mat-panel-title {
+        font-weight: 600;
+      }
+    }
+  }
+}

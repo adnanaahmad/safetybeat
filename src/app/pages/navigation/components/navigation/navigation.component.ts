@@ -5,7 +5,6 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {SitesInfo} from 'src/app/models/site.model';
 import {NavigationModel} from 'src/app/models/navigation/navigation.model';
 import {PackageInfo} from 'src/app/models/user.model';
 
@@ -21,8 +20,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
     moduleName: 'Safetybeat'
   };
   navModel: NavigationModel = <NavigationModel>{};
-  private sitesList: any;
-  private sitesData: SitesInfo[];
   isOwner: boolean = false;
   packageInfo: PackageInfo = {
     days: 0,
