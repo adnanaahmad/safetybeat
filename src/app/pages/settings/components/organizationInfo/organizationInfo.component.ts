@@ -47,7 +47,6 @@ export class OrganizationInfoComponent implements OnInit {
   getOrganizationTypes() {
     this.settingService.getTypes().subscribe((res) => {
       this.orgObj.types = res;
-      console.log(this.orgObj.types);
     });
   }
 
@@ -56,7 +55,6 @@ export class OrganizationInfoComponent implements OnInit {
       if (res === 1) {
         this.settingService.getOrganization().subscribe((res) => {
           let orgObject = this.compiler.constructOrganizationObject(res);
-          console.log(res);
           this.organizationViewForm['name'].setValue(orgObject.name);
           this.organizationViewForm['accountNo'].setValue(orgObject.accountNo);
           this.organizationViewForm['address'].setValue(orgObject.address);

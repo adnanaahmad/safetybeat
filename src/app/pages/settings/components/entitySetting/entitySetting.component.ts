@@ -110,7 +110,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       'managedBy': value.managedBy,
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
-    console.log(data);
     if (!valid) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_ENTITY,
         this.helperService.translated.MESSAGES.INVALID_DATA, this.helperService.constants.status.ERROR);

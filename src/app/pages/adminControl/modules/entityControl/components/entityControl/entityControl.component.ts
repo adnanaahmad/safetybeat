@@ -142,7 +142,6 @@ export class EntityControlComponent implements OnInit, OnDestroy {
         this.entityControl.entitiesList = res;
         this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
-        console.log(this.entityControl.dataSource, 'dataSource');
         this.entityControl.dataSource.paginator = this.paginator;
       } else {
         this.viewEntitiesApiCall();
@@ -241,7 +240,6 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       this.helperService.toggleLoader(false);
       this.entityControl.entitiesList = res;
       let entityUserData = this.compiler.constructUserEntityData(this.entityControl.entitiesList.data);
-      console.log('api call data', entityUserData);
       this.navService.changeEntites(entityUserData);
     });
   }
