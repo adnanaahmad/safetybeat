@@ -30,7 +30,6 @@ import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmationModal.component';
-import { EditSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/editSite/editSiteModal.component';
 import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {AddConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component';
 import {RemoveConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component';
@@ -59,7 +58,6 @@ export function createTranslateLoader(http: HttpClient) {
     AddConnectionsComponent,
     RemoveConnectionsComponent,
     ChangeAccessLevelComponent,
-    EditSiteModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -113,8 +111,7 @@ export function createTranslateLoader(http: HttpClient) {
     ViewConnectionsComponent,
     AddConnectionsComponent,
     RemoveConnectionsComponent,
-    ChangeAccessLevelComponent,
-    EditSiteModalComponent
+    ChangeAccessLevelComponent
   ]
 })
 export class AppModule {

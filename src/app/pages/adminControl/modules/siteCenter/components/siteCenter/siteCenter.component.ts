@@ -7,7 +7,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
-import {EditSiteModalComponent} from '../../dialogs/editSite/editSiteModal.component';
+import {SitesInfo} from '../../../../../../models/site.model';
 
 @Component({
   selector: 'app-siteCenter',
@@ -19,7 +19,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   siteCentreObj: SiteCentre = <SiteCentre>{};
-  displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'symbol'];
+  displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'siteSafetyManager', 'symbol'];
 
   constructor(
     public dialog: MatDialog,
@@ -88,7 +88,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * this function is used to create Add Site Dialog and when the dialog is closed we again call the view all sites api.
    */
   addSite() {
-    this.helperService.createDialog(AddSiteModalComponent, {disableClose: true});
+    this.helperService.createDialog(AddSiteModalComponent, {disableClose: true, data: {Modal: true, siteId: ''}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.viewSitesData();
     });
@@ -106,8 +106,11 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     });
   }
 
-  editSite(siteId: number) {
-    this.helperService.createDialog(EditSiteModalComponent, {disableClose: true});
+  editSite(siteInfo: SitesInfo) {
+    this.helperService.createDialog(AddSiteModalComponent, {
+      disableClose: true,
+      data: {Modal: false, site: siteInfo.site, createdBy: siteInfo.createdBy, siteSafetyManager: siteInfo.siteSafetyManager}
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.viewSitesData();
     });

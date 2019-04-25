@@ -4,6 +4,7 @@ import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
 import {catchError} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
+import {HelperService} from '../../../shared/helperService/helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,17 @@ import {BehaviorSubject} from 'rxjs';
 export class ProfileService {
   private orgUsers = new BehaviorSubject<any>(1);
   usersData = this.orgUsers.asObservable();
+  apiRoutes: any;
+  method: any;
   private currentUser = new BehaviorSubject<any>(1);
   currentUserData = this.currentUser.asObservable();
 
   constructor(
     private http: HttpClient,
-    public coreServices: CoreService) {
+    public coreServices: CoreService,
+    public helperService: HelperService) {
+    this.apiRoutes = this.helperService.constants.apiRoutes;
+    this.method = this.helperService.constants.apiMethod;
   }
 
   /**
@@ -47,4 +53,13 @@ export class ProfileService {
   updateCurrenUser(data: any) {
     this.currentUser.next(data);
   };
+
+  userInfo(id: number) {
+    return this.helperService.requestCall(
+      this.method.get,
+      `${this.apiRoutes.userInfo}${id}/`
+    )
+  }
+
+
 }

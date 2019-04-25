@@ -64,10 +64,11 @@
     "EXPAND": "Expand",
     "REMOVE": "Remove",
     "SITEADDRESS": "Site Address",
-    "SITESAFETYPLAN": "Site Safety Plan",
     "PACKAGE_DESCRIPTION_1": "For startup business",
     "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
-    "PACKAGE_DESCRIPTION_3": "For already established business"
+    "PACKAGE_DESCRIPTION_3": "For already established business",
+    "SITESAFETYPLAN": "Site Safety Plan",
+    "SITESAFETYMANAGER": "Site Safety Manager"
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -226,6 +227,10 @@
     "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
     "DELETE_SITE_FAILURE": "Site deletion failed.",
     "EDIT_SITE_MSG": "Enter Site Details to Edit Site.",
+    "SAFETY_MANAGER_REQ": "Site Safety Manager is Required",
+    "USER_NOT_FOUND": "User not found",
+    "SITE_EDIT_SUCCESS": "Site edit successfully.",
+    "SITE_EDIT_FAILURE": "Site edit fail."
     "CHANGE_ACCESS_LEVEL": "Change Access Level",
     "VIEW_CONNECTIONS": "View Connections",
     "REMOVE_CONNECTIONS": "Remove Connections",
@@ -262,7 +267,8 @@
     "SITE_ADDRESS": "Site Location",
     "SITE_SAFE_ZONE": "Safe Zone",
     "SITE_CREATED_BY": "Created By",
-    "MANAGED_BY": "Managed By"
+    "MANAGED_BY": "Managed By",
+    "SITE_SAFETY_MANAGER": "Site Safety Manager"
   },
   "LOGGER": {
     "STATUS": {

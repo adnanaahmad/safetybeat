@@ -1,8 +1,11 @@
-<mat-card-title class="mat-dialog-title">
+<mat-card-title class="mat-dialog-title" *ngIf="addSiteObj.modalType">
   {{helperService.translated.MESSAGES.ADDSITE_MSG}}
 </mat-card-title>
+<mat-card-title class="mat-dialog-title" *ngIf="!addSiteObj.modalType">
+  {{helperService.translated.MESSAGES.EDIT_SITE_MSG}}
+</mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=addSite(addSiteObj.addSiteForm)>
+  <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=siteFormSubmit(addSiteObj.addSiteForm)>
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.SITE_NAME"
@@ -32,14 +35,32 @@
         </mat-error>
       </mat-form-field>
       <div #gmap class="site-map"></div>
+      <mat-form-field full-width *ngIf="!addSiteObj.modalType">
+        <mat-label>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</mat-label>
+        <mat-select [(value)]="addSiteObj.siteSafetyManager.id"
+                    [formControlName]="helperService.appConstants.siteSafetyManager" >
+          <mat-option *ngFor="let user of addSiteObj.entityUsers" [value]="user.id">
+            {{user.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formValidation.siteSafetyManager.errors">
+          <span
+            *ngIf="formValidation.siteSafetyManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
       <mat-slide-toggle [formControlName]="helperService.appConstants.safeZone">
         Safe Zone
       </mat-slide-toggle>
     </div>
     <mat-dialog-actions>
       <button mat-raised-button custom-btn btn-primary
-              [disabled]="addSiteObj.loading|| !helperService.displayButton" color="primary">
+              [disabled]="addSiteObj.loading|| !helperService.displayButton" color="primary"
+              *ngIf="addSiteObj.modalType">
         {{ helperService.translated.BUTTONS.ADD_SITE }}
+      </button>
+      <button mat-raised-button custom-btn btn-primary
+              [disabled]="addSiteObj.loading" color="primary" *ngIf="!addSiteObj.modalType">
+        {{ helperService.translated.BUTTONS.SAVE }}
       </button>
       <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
       <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>

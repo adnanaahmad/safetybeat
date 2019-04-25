@@ -105,6 +105,7 @@ export class CompilerProvider {
   constructSiteData(siteApiResponse: any): SitesInfo[] {
     return siteApiResponse.data;
   }
+
   constructorSiteInfo(siteData: any): Site {
     return siteData;
   }
@@ -119,11 +120,15 @@ export class CompilerProvider {
    * @params name
    */
 
+  constructUserInfo(userInfoApiResponse: any): User {
+    return userInfoApiResponse;
+  }
+
   entityUser(users) {
     let usersArray = [];
     this.helperService.iterations(users.data, function (obj) {
       let user = {
-        name: obj.user.first_name + obj.user.last_name,
+        name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,
         contact: obj.user.contactNo,
         photos: '',
