@@ -284,6 +284,8 @@ export interface Messages {
   INVALID_ENTITY: string;
   ENTITY_UPDATED_T: string;
   INVALID_DATA: string;
+  VERIFY_ERR: string;
+  VERIFIED: string;
   CHANGE_ACCESS_LEVEL: string;
   REMOVE_CONNECTIONS: string;
   VIEW_CONNECTIONS: string;
@@ -367,6 +369,7 @@ export interface TableHeadings {
   ENTITY_ID: string;
   ENTITY_NAME: string;
   ENTITY_HEADOFFICE: string;
+  ENTITY_CODE: string;
   ENTITY_STATUS: string;
   ACTIONS: string;
   NAME: string;

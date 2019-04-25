@@ -34,7 +34,7 @@ export class SecurityComponent implements OnInit {
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
-    return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
+    return pass === confirmPass ? group.controls.password2.setErrors({notSame: null}) : group.controls.password2.setErrors({notSame: true});
   }
 
   changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective): void {
