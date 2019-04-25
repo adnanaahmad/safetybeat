@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ActivatedRoute} from '@angular/router';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -7,6 +7,7 @@ import {ViewSite} from 'src/app/models/adminControl/viewSite.model';
 import {HelperService} from 'src/app//shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import {ProfileService} from '../../../../../profile/services/profile.service';
 
 @Component({
   selector: 'app-ViewSite',
@@ -25,7 +26,8 @@ export class ViewSiteComponent implements OnInit {
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
     public helperService: HelperService,
-    private navService: NavigationService
+    private navService: NavigationService,
+    public  profileService: ProfileService
   ) {
     this.route.params.subscribe((site) => {
       this.viewSiteObj.siteId = JSON.parse(this.helperService.decrypt(site.data,
@@ -43,6 +45,7 @@ export class ViewSiteComponent implements OnInit {
   viewSiteInfo() {
     this.adminServices.viewSiteInfo(this.viewSiteObj.siteId).subscribe((res) => {
       this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
+      this.viewUser(this.viewSiteObj.siteInfo.siteSafetyManager);
       this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location, this.helperService.createMap(this.gMapElement));
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.VIEW_SITE_SUCCESS);
     }, (error) => {
@@ -84,6 +87,16 @@ export class ViewSiteComponent implements OnInit {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DELETE_SITE_FAILURE);
 
     });
+  }
+
+  viewUser(userId) {
+    this.profileService.userInfo(userId).subscribe((res) => {
+      this.viewSiteObj.siteSafetyManager = this.compiler.constructUserInfo(res);
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.USERDETAILS_MSG);
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.USER_NOT_FOUND);
+
+    })
   }
 
 }

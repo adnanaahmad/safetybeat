@@ -27,6 +27,7 @@ export interface Strings {
   USERINFO: string;
   SITEADDRESS: string;
   SITESAFETYPLAN: string;
+  SITESAFETYMANAGER: string;
 }
 
 export interface Auth {
@@ -283,6 +284,10 @@ export interface Messages {
   INVALID_ENTITY: string;
   ENTITY_UPDATED_T: string;
   INVALID_DATA: string;
+  SAFETY_MANAGER_REQ: string;
+  USER_NOT_FOUND: string;
+  SITE_EDIT_SUCCESS: string;
+  SITE_EDIT_FAILURE: string;
 }
 
 export interface Logger {
@@ -374,6 +379,7 @@ export interface TableHeadings {
   SITE_SAFE_ZONE: string;
   SITE_CREATED_BY: string;
   MANAGED_BY: string;
+  SITE_SAFETY_MANAGER: string;
 }
 
 export interface Status {

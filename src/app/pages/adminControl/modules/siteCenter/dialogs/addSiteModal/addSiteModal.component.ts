@@ -1,12 +1,13 @@
-import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {SiteAddData} from 'src/app/models/site.model';
-import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
+import {ProfileService} from '../../../../../profile/services/profile.service';
+import {MemberCenterService} from '../../../memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-addSiteModal',
@@ -17,22 +18,23 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   @ViewChild('gmap') gMapElement: ElementRef;
   addSiteObj: AddSite = <AddSite>{};
 
+
   constructor(
     public helperService: HelperService,
     public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddSiteModalComponent>,
     private render: Renderer2,
     private adminServices: AdminControlService,
-    private navService: NavigationService,
     public compiler: CompilerProvider,
+    @Inject(MAT_DIALOG_DATA) public data,
+    private memberService: MemberCenterService
   ) {
-    this.navService.selectedEntityData.subscribe((res) => {
-      this.addSiteObj.entityData = res;
-      this.addSiteObj.entityId = this.addSiteObj.entityData.entityInfo.id;
-    });
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.addSiteObj.loading = false;
-
+    this.addSiteObj.modalType = data.Modal;
+    this.addSiteObj.site = data.site;
+    this.addSiteObj.siteSafetyManager = data.siteSafetyManager;
+    this.addSiteObj.createdBy = data.createdBy;
   }
 
   /**
@@ -47,8 +49,13 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteName: ['', Validators.required],
       siteSafetyPlan: ['', Validators.required],
       siteAddress: ['', Validators.required],
-      safeZone: false
+      safeZone: false,
+      siteSafetyManager: ['', Validators.required],
     });
+    if (this.addSiteObj.modalType === false) {
+      this.viewSiteInfo();
+      this.getAllUsers();
+    }
   }
 
   /**
@@ -82,13 +89,81 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    * @params value
    */
 
-  addSite({value}: { value: SiteAddData }) {
+  siteFormSubmit({value}: { value: SiteAddData }) {
+    if (this.addSiteObj.modalType === false) {
+      this.editSite(value);
+    } else {
+      this.addSite(value);
+    }
+  }
+
+  /**
+   * this function is called to assign the values of site fields in the modal when user clicks on edit the site
+   */
+
+  viewSiteInfo() {
+    this.addSiteObj.addSiteForm = this.formBuilder.group({
+      siteName: this.addSiteObj.site.name,
+      siteSafetyPlan: this.addSiteObj.site.siteSafetyPlan,
+      siteAddress: this.addSiteObj.site.location,
+      safeZone: this.addSiteObj.site.safeZone,
+      siteSafetyManager: this.addSiteObj.siteSafetyManager.id
+    });
+    this.helperService.address = this.addSiteObj.site.location;
+    this.helperService.setLocationGeocode(this.addSiteObj.site.location, this.helperService.createMap(this.gMapElement));
+  }
+
+  /**
+   * this function is to call the api for getting all the users of entity
+   */
+
+  getAllUsers() {
+    let data = {
+      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key))
+    }
+    this.memberService.entityUsers(data).subscribe((res) => {
+      this.addSiteObj.entityUsers = this.compiler.entityUser(res);
+    });
+  }
+
+  /**
+   * this function is to call the api of edit site when user makes some changes and clicks on save button
+   */
+
+  editSite(value) {
     let siteData = {
       name: value.siteName,
       location: this.helperService.address,
       safeZone: value.safeZone,
       siteSafetyPlan: value.siteSafetyPlan,
-      entity: this.addSiteObj.entityId
+      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+      createdBy: this.addSiteObj.site.createdBy,
+      siteSafetyManager: this.addSiteObj.site.siteSafetyManager
+    };
+    this.adminServices.editSite(this.addSiteObj.site.id, siteData).subscribe((res) => {
+      this.addSiteObj.loading = false;
+      this.onNoClick();
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
+    }, (error) => {
+      this.addSiteObj.loading = false;
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
+    });
+  }
+
+  /**
+   * this function is to call the api of add site when user makes some changes and clicks on add button
+   */
+
+  addSite(value) {
+    let siteData = {
+      name: value.siteName,
+      location: this.helperService.address,
+      safeZone: value.safeZone,
+      siteSafetyPlan: value.siteSafetyPlan,
+      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
     };
     this.addSiteObj.loading = true;
     this.adminServices.addSite(siteData).subscribe((res) => {
@@ -103,7 +178,6 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
     });
-
-
   }
+
 }
