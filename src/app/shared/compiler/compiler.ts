@@ -4,6 +4,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
 import {Site, SitesInfo} from 'src/app/models/site.model';
 import {Organization} from 'src/app/models/Settings/setting.model';
+import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -15,6 +16,10 @@ export class CompilerProvider {
     public helperService: HelperService
   ) {
     this.appIcons = this.helperService.constants.appIcons;
+  }
+
+  static constructPackageDetail(packageApiReponse: any): Packages[] {
+    return packageApiReponse.data;
   }
 
   /**

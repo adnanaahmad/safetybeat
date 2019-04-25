@@ -9,64 +9,19 @@
 <div class="paddingbox packages-wrapper">
   <mat-grid-list cols="3" rowHeight="530px" gutterSize="20">
     <mat-grid-tile class="package-box" *ngFor="let package of packages">
-      <h4 class="package-label">{{package.packageName}}</h4>
-      <h1 class="package-price">{{package.cost|currency:'USD'}} <span>/ month</span></h1>
+      <h4 class="package-label">{{package.package.packageName}}</h4>
+      <h1 class="package-price">{{package.package.cost|currency:'USD'}} <span>/ month</span></h1>
       <p>{{helperService.translated.STRINGS.PACKAGE_DESCRIPTION_1}}</p>
       <mat-list class="package-features" role="list">
-        <mat-list-item role="listitem">Item 1
+        <mat-list-item role="listitem" *ngFor="let feature of package.featuresAdded">{{feature.name}}
           <mat-icon color="primary">done</mat-icon>
         </mat-list-item>
-        <mat-list-item role="listitem">Item 2
-          <mat-icon color="primary">done</mat-icon>
-        </mat-list-item>
-        <mat-list-item role="listitem">Item 3
-          <mat-icon color="primary">done</mat-icon>
-        </mat-list-item>
-        <mat-list-item role="listitem">Item 1
-          <mat-icon color="warn">clear</mat-icon>
-        </mat-list-item>
-        <mat-list-item role="listitem">Item 2
+        <mat-list-item role="listitem" *ngFor="let feature of package.featuresNotAdded">{{feature.name}}
           <mat-icon color="warn">clear</mat-icon>
         </mat-list-item>
       </mat-list>
       <a routerLink="#" mat-raised-button custom-btn btn-primary class="package-button">Get Started</a>
     </mat-grid-tile>
-    <!--    <mat-grid-tile class="package-box">-->
-    <!--      <h4 class="package-label">Professional</h4>-->
-    <!--      <h1 class="package-price">$30 <span>/ month</span></h1>-->
-    <!--      <p>{{helperService.translated.STRINGS.PACKAGE_DESCRIPTION_2}}</p>-->
-    <!--      <mat-list class="package-features" role="list">-->
-    <!--        <mat-list-item role="listitem">Item 1 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 2 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 3 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 1 <mat-icon color="primary">clear</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 2 <mat-icon color="warn">clear</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--      </mat-list>-->
-    <!--      <a routerLink="#" mat-raised-button custom-btn btn-primary class="package-button">Get Started</a>-->
-    <!--    </mat-grid-tile>-->
-    <!--    <mat-grid-tile class="package-box">-->
-    <!--      <h4 class="package-label">Enterprise</h4>-->
-    <!--      <h1 class="package-price">$50 <span>/ month</span></h1>-->
-    <!--      <p>{{helperService.translated.STRINGS.PACKAGE_DESCRIPTION_3}}</p>-->
-    <!--      <mat-list class="package-features" role="list">-->
-    <!--        <mat-list-item role="listitem">Item 1 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 2 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 3 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 1 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--        <mat-list-item role="listitem">Item 2 <mat-icon color="primary">done</mat-icon>-->
-    <!--        </mat-list-item>-->
-    <!--      </mat-list>-->
-    <!--      <a routerLink="#" mat-raised-button custom-btn btn-primary class="package-button">Get Started</a>-->
-    <!--    </mat-grid-tile>-->
   </mat-grid-list>
 </div>
 

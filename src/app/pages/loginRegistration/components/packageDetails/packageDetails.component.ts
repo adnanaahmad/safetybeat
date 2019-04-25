@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
+import {CompilerProvider} from '../../../../shared/compiler/compiler';
 
 @Component({
   selector: 'app-org-registration-modal',
@@ -18,7 +19,11 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loginRegisterService.getPackagesData().subscribe((res) => {
-      this.packages = this.helperService.sortBy(res, ['cost']);
+      this.packages = CompilerProvider.constructPackageDetail(res);
+      console.log(CompilerProvider.constructPackageDetail(res));
+      this.packages = this.helperService.sortBy(this.packages, function (pkg) {
+        return pkg.package.cost;
+      });
       this.packages.splice(0, 1);
     });
   }
