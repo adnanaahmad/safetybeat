@@ -1,12 +1,13 @@
 import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {SiteAddData} from 'src/app/models/site.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
 import {ProfileService} from '../../../../../profile/services/profile.service';
+import {MemberCenterService} from '../../../memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-addSiteModal',
@@ -26,7 +27,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     private adminServices: AdminControlService,
     public compiler: CompilerProvider,
     @Inject(MAT_DIALOG_DATA) public data,
-    public  profileService: ProfileService
+    private memberService: MemberCenterService
   ) {
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.addSiteObj.loading = false;
@@ -47,6 +48,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     });
     if (this.addSiteObj.modalType === false) {
       this.viewSiteInfo();
+      this.getAllUsers();
     }
   }
 
@@ -94,8 +96,18 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteSafetyPlan: this.addSiteObj.site.siteSafetyPlan,
       siteAddress: this.addSiteObj.site.location,
       safeZone: this.addSiteObj.site.safeZone,
-      siteSafetyManager: this.addSiteObj.siteSafetyManager.first_name + ' ' + this.addSiteObj.siteSafetyManager.last_name
+      siteSafetyManager: this.addSiteObj.siteSafetyManager.id
     });
     this.helperService.setLocationGeocode(this.addSiteObj.site.location, this.helperService.createMap(this.gMapElement));
+  }
+
+  getAllUsers() {
+    let data = {
+      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key))
+    }
+    this.memberService.entityUsers(data).subscribe((res) => {
+      this.addSiteObj.entityUsers = this.compiler.entityUser(res);
+    });
   }
 }

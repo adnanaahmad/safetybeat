@@ -5,7 +5,7 @@
   {{helperService.translated.MESSAGES.EDIT_SITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=addSite(addSiteObj.addSiteForm)>
+  <form [formGroup]="addSiteObj.addSiteForm">
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.SITE_NAME"
@@ -37,9 +37,10 @@
       <div #gmap class="site-map"></div>
       <mat-form-field full-width *ngIf="!addSiteObj.modalType">
         <mat-label>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</mat-label>
-        <mat-select [formControlName]=helperService.appConstants.siteSafetyManager>
-          <mat-option *ngFor="let role of inviteUserModal.roleList" [value]="role.id">
-            {{role.name}}
+        <mat-select [(value)]="addSiteObj.siteSafetyManager.id"
+                    [formControlName]="helperService.appConstants.siteSafetyManager" >
+          <mat-option *ngFor="let user of addSiteObj.entityUsers" [value]="user.id">
+            {{user.name}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="formValidation.siteSafetyManager.errors">
@@ -53,7 +54,8 @@
     </div>
     <mat-dialog-actions>
       <button mat-raised-button custom-btn btn-primary
-              [disabled]="addSiteObj.loading|| !helperService.displayButton" color="primary" *ngIf="addSiteObj.modalType">
+              [disabled]="addSiteObj.loading|| !helperService.displayButton" color="primary"
+              *ngIf="addSiteObj.modalType">
         {{ helperService.translated.BUTTONS.ADD_SITE }}
       </button>
       <button mat-raised-button custom-btn btn-primary color="primary" *ngIf="!addSiteObj.modalType">
