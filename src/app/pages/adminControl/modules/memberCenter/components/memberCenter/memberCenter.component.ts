@@ -5,9 +5,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
-import {AddConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component';
 import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
-import {RemoveConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
@@ -32,7 +30,8 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   constructor(public helperService: HelperService,
               public memberService: MemberCenterService,
               public navService: NavigationService,
-              public compiler: CompilerProvider) {}
+              public compiler: CompilerProvider) {
+  }
 
 
   ngOnInit() {
@@ -65,10 +64,30 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.helperService.createDialog(ViewConnectionsComponent, {});
         break;
       case this.helperService.appConstants.connections.add:
-        this.helperService.createDialog(AddConnectionsComponent, {});
+        // this.helperService.createDialog(AddConnectionsComponent, {});
+        this.helperService.createDialog(ConfirmationModalComponent, {
+          data: {
+            message: this.helperService.translated.CONFIRMATION.ADD_CONNECTION
+          }
+        });
+        this.helperService.dialogRef.afterClosed().subscribe(res => {
+          if (res === this.helperService.appConstants.yes) {
+            debugger;
+          }
+        });
         break;
       case this.helperService.appConstants.connections.remove:
-        this.helperService.createDialog(RemoveConnectionsComponent, {});
+        // this.helperService.createDialog(RemoveConnectionsComponent, {});
+        this.helperService.createDialog(ConfirmationModalComponent, {
+          data: {
+            message: this.helperService.translated.CONFIRMATION.REMOVE_CONNECTION
+          }
+        });
+        this.helperService.dialogRef.afterClosed().subscribe(res => {
+          if (res === this.helperService.appConstants.yes) {
+            debugger;
+          }
+        });
         break;
       default:
         break;
@@ -80,7 +99,11 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   }
 
   deactivateUsers(userId) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DEACTIVATE_USER}});
+    this.helperService.createDialog(ConfirmationModalComponent, {
+      data: {
+        message: this.helperService.translated.CONFIRMATION.DEACTIVATE_USER
+      }
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
@@ -92,7 +115,11 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   }
 
   activateUsers(userId) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.ACTIVATE_USER}});
+    this.helperService.createDialog(ConfirmationModalComponent, {
+      data: {
+        message: this.helperService.translated.CONFIRMATION.ACTIVATE_USER
+      }
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};

@@ -335,6 +335,8 @@
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
-    "DELETE_ENTITY": "Are you sure you want Delete this entity?"
+    "DELETE_ENTITY": "Are you sure you want Delete this entity?",
+    "ADD_CONNECTION":"Are you sure you want to Add this user to your Connections.",
+    "REMOVE_CONNECTION":"Are you sure you want to Remove this user from your Connections."
   }
 }
