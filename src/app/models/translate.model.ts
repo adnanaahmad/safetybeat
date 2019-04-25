@@ -164,6 +164,7 @@ export interface Buttons {
 }
 
 export interface Messages {
+  ORG_DETAILS: string;
   INCORRECT_PASS: string;
   CHANGEPASSWORD: string;
   WELCOME: string;
@@ -339,6 +340,8 @@ export interface LoggerMessage {
   ENTITYNOTCREATED: string;
   ROLES_RECIEVED: string;
   ROLES_RECIEVED_ERROR: string;
+  ORG_SUCCESS: string;
+
 }
 
 export interface SiteTitle {
@@ -373,6 +376,7 @@ export interface TableHeadings {
   SITE_ADDRESS: string;
   SITE_SAFE_ZONE: string;
   SITE_CREATED_BY: string;
+  MANAGED_BY: string;
   SITE_SAFETY_MANAGER: string;
 }
 

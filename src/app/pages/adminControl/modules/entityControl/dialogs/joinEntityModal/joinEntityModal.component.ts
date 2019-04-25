@@ -30,6 +30,11 @@ export class JoinEntityModalComponent implements OnInit {
     );
   }
 
+  /**
+   * this function is used for creating joinEntityForm and we also assign the formControlNames and their validations
+   * over here.
+   */
+
   ngOnInit() {
     this.joinEntity.joinEntityForm = this.formBuilder.group({
       joinCode: ['', Validators.required]
@@ -51,7 +56,7 @@ export class JoinEntityModalComponent implements OnInit {
   }
 
   /**
-   *this function is used to make a new entity and checks if it already exists/ if its not found
+   *this function is used to join the entity using join entity code.
    * @params value
    * @params valid
    */

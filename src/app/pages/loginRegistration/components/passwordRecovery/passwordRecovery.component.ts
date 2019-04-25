@@ -26,6 +26,11 @@ export class PasswordRecoveryComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used for making the resetPasswordForma and in this function we also declare the validations
+   * to the input fields
+   */
+
   ngOnInit() {
     this.passRecoveryObj.resetPasswordForm = this.formBuilder.group({
       password1: ['', [Validators.required, Validators.minLength(8)]],
@@ -44,14 +49,17 @@ export class PasswordRecoveryComponent implements OnInit {
   }
 
   /**
-   *  Getter for resetPassword form
+   *  Getter for resetPassword form validations
    */
   get formValidation() {
     return this.passRecoveryObj.resetPasswordForm.controls;
   }
 
   /**
-   *  this function
+   *  this function is used for changing the password in this function new password and confirm password
+   *  fields are passed and then we check the validity of the both password whether they are same or not and
+   *  then we pass this data to the api call and if the data is valid then api call return success reponse and password
+   *  is changed successfully otherwise we will get an error message.
    * @params value
    * @params valid
    */

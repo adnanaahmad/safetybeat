@@ -31,24 +31,47 @@ export class ImportSiteModalComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is called on the initialization of the component and this function is used to create importSiteForm input
+   * fields and also attach the validations with this form.
+   */
+
   ngOnInit() {
     this.importSiteModal.importSiteForm = this.formBuilder.group({
       importSite: ['', Validators.required]
     });
   }
 
+  /**
+   * this function is used to close the modal dialog on clicking on the cancel button.
+   */
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  /**
+   * this function is used to give the initial values to the global variables that we have made in the models.
+   */
 
   initialize() {
     this.importSiteModal.csvFile = null;
   }
 
+  /**
+   * this function is used to read the csv file on selection from the pc storage.
+   * @params event
+   */
+
   onFileSelected(event) {
     let reader = new FileReader();
     this.importSiteModal.csvFile = <File>event.target.files[0];
   }
+
+  /**
+   * this function is used to importing site and send that file data in the api and get responses from the api call
+   * @params value
+   */
 
   importSite({value}: { value: any }) {
     let blob = new Blob([this.importSiteModal.csvFile], {type: 'application/csv'});

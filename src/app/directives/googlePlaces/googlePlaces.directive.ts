@@ -12,6 +12,12 @@ export class GooglePlacesDirective implements OnInit {
     this.element = elRef.nativeElement;
   }
 
+  /**
+   * this function is used to format the address that we select from the google
+   * based search.
+   * @params place
+   */
+
   getFormattedAddress(place) {
     let location_obj = {};
     for (let i in place.address_components) {
@@ -31,6 +37,10 @@ export class GooglePlacesDirective implements OnInit {
     }
     return location_obj;
   }
+
+  /**
+   * this function is used for emitting the formatted address where we have to use this google based search.
+   */
 
   ngOnInit() {
     const autocomplete = new google.maps.places.Autocomplete(this.element);

@@ -37,6 +37,12 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.addSiteObj.createdBy = data.createdBy;
   }
 
+  /**
+   * this function is called on the initialization of this component and is used to create the map from where user can see the
+   * entered address on the map and in this function we also have created the addSiteForm in which all the input fields are declared
+   * here that we need in the addSiteForm.
+   */
+
   ngOnInit() {
     this.helperService.createMap(this.gMapElement);
     this.addSiteObj.addSiteForm = this.formBuilder.group({
@@ -52,18 +58,36 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * this function is called when the component is destroyed and it removes the assigned body class to this particular
+   * component so that this would not affect the other components and this function is also used for hiding the debugging messages.
+   */
+
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.helperService.hideLoggers();
   }
 
+  /**
+   * this function is used to close the dialog when the user clicks on the cancel button.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * this function is used to check the form validation of the addSiteForm whether the data entered is valid or not and whether the
+   * user has entered the data or not.
+   */
+
   get formValidation() {
     return this.addSiteObj.addSiteForm.controls;
   }
+
+  /**
+   * this function is used to add the site in the sites list of the particular entity.
+   * @params value
+   */
 
   addSite({value}: { value: SiteAddData }) {
     let siteData = {

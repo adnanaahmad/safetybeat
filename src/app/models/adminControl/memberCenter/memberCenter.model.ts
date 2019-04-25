@@ -1,4 +1,7 @@
+import {Subscription} from 'rxjs';
+
 export interface MemberCenter {
+  subscription: Subscription;
   displayLoader: boolean;
   dialogConfig: any;
   displayedColumns: string[];
