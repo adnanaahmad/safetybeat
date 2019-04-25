@@ -230,7 +230,7 @@
     "SAFETY_MANAGER_REQ": "Site Safety Manager is Required",
     "USER_NOT_FOUND": "User not found",
     "SITE_EDIT_SUCCESS": "Site edit successfully.",
-    "SITE_EDIT_FAILURE": "Site edit fail."
+    "SITE_EDIT_FAILURE": "Site edit fail.",
     "CHANGE_ACCESS_LEVEL": "Change Access Level",
     "VIEW_CONNECTIONS": "View Connections",
     "REMOVE_CONNECTIONS": "Remove Connections",
@@ -332,6 +332,8 @@
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
-    "DELETE_ENTITY": "Are you sure you want Delete this entity?"
+    "DELETE_ENTITY": "Are you sure you want Delete this entity?",
+    "ADD_CONNECTION":"Are you sure you want to Add this user to your Connections.",
+    "REMOVE_CONNECTION":"Are you sure you want to Remove this user from your Connections."
   }
 }

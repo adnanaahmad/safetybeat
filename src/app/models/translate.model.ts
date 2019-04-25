@@ -400,4 +400,6 @@ export interface Confirmation {
   DEACTIVATE_USER: string;
   DELETE_SITE: string;
   DELETE_ENTITY: string;
+  ADD_CONNECTION: string;
+  REMOVE_CONNECTION: string
 }
