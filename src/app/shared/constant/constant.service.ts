@@ -8,6 +8,10 @@ export class ConstantService {
   constructor() {
   }
 
+  /**
+   * all the apiRoutes are declared here.
+   */
+
   static apiRoutes = {
     login: `${environment.apiUrl}/login/`,
     signup: `${environment.apiUrl}/registration/`,
@@ -17,6 +21,7 @@ export class ConstantService {
     passwordReset: `${environment.apiUrl}/users/resetPassword/`,
     organization: `${environment.apiUrl}/organization/`,
     user: `${environment.apiUrl}/users/viewUser/`,
+    userInfo: `${environment.apiUrl}/users/`,
     checkUsername: `${environment.apiUrl}/users/checkUsername/`,
     checkEmail: `${environment.apiUrl}/users/checkEmail/`,
     checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
@@ -48,12 +53,18 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`
   };
+  /**
+   * all the api methods are declared here.
+   */
   static apiMethod = {
     get: 'get',
     post: 'post',
     put: 'put',
     delete: 'delete'
   };
+  /**
+   * all the storage keys are declared here.
+   */
   static localStorageKeys = {
     token: 'sb_User_Token',
     entityUserData: 'sb_Entity_User_Data',
@@ -62,11 +73,17 @@ export class ConstantService {
     role: 'sb_role',
     entityId: 'sb_entityId',
   };
+  /**
+   * settings for the toaster is declared here.
+   */
   static toast = {
     location: 'toast-top-left',
     time: 1500,
     time1: 3000
   };
+  /**
+   * theme configuration is declared here.
+   */
   static config = {
     devMode: true,
     theme: {
@@ -77,12 +94,19 @@ export class ConstantService {
       addSiteClass: 'addsite-modal'
     }
   };
+  /**
+   * all the themes are declared here.
+   */
+
   static appTheme = {
     lightTheme: 'light-theme',
     darkTheme: 'dark-theme',
     oliveLight: 'olive-green',
     darkForest: 'dark-forest'
   };
+  /**
+   * all the constants are declared here.
+   */
   static appConstant = {
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -110,10 +134,12 @@ export class ConstantService {
     joinCode: 'joinCode',
     role: 'role',
     code: 'code',
+    managedBy: 'managedBy',
     siteName: 'siteName',
     siteSafetyPlan: 'siteSafetyPlan',
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
+    siteSafetyManager: 'siteSafetyManager',
     linearForm: true,
     emailValid: 'VALID',
     yes: 'YES',
@@ -142,6 +168,9 @@ export class ConstantService {
     importSite: 'importSite',
     csvFile: 'csvFile'
   };
+  /**
+   * all the material icon names are declared here.
+   */
   static appIcons = {
     skipNext: 'skip_next',
     group: 'group',
@@ -200,6 +229,9 @@ export class ConstantService {
     import: 'play_for_work',
     deleteSweep: 'delete_sweep'
   };
+  /**
+   * all the particle container icon names are declared here.
+   */
   static particlesIcons = [
     'more_vert',
     'data_usage',
@@ -222,6 +254,9 @@ export class ConstantService {
     'wifi_tethering',
     'blur_on'
   ];
+  /**
+   * status of the snackbar and toaster are declared here.
+   */
   static status = {
     CUSTOM: 'custom',
     DEFAULT: 'default',
@@ -231,6 +266,9 @@ export class ConstantService {
     ERROR: 'error',
     OK: 'OK'
   };
+  /**
+   * default map configuration is declared here.
+   */
   static defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},

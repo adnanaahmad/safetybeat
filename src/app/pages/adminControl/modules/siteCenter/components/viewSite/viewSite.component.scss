@@ -112,7 +112,7 @@
       }
       .activity-card {
         padding: 10px;
-        margin: 10px;
+        margin: 10px 0;
         border-radius: 4px;
         position: relative;
         &:before {
@@ -125,6 +125,9 @@
           top: 0;
           height: 100%;
           opacity: 0.05;
+        }
+        &:last-child{
+          margin-bottom: 60px;
         }
         .row {
           margin: 0 0 10px;

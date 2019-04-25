@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-changeAccessLevel',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChangeAccessLevelComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public helperService: HelperService
+  ) { }
 
   ngOnInit() {
   }

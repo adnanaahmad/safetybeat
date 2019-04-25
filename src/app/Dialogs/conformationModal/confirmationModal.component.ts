@@ -12,7 +12,6 @@ export class ConfirmationModalComponent implements OnInit {
 
   translated: Translation
   message: string;
-
   constructor(
     private helperService: HelperService,
     @Inject(MAT_DIALOG_DATA) public data

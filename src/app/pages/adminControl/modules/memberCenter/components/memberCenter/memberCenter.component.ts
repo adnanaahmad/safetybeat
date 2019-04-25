@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -17,7 +17,7 @@ import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/conf
   templateUrl: './memberCenter.component.html',
   styleUrls: ['./memberCenter.component.scss']
 })
-export class MemberCenterComponent implements OnInit {
+export class MemberCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   memberCenter: MemberCenter = <MemberCenter>{};
   displayedColumns: string[] = [
@@ -32,18 +32,21 @@ export class MemberCenterComponent implements OnInit {
   constructor(public helperService: HelperService,
               public memberService: MemberCenterService,
               public navService: NavigationService,
-              public compiler: CompilerProvider) {
-    this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.memberCenter.entityData = res;
-        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id})
-      }
-    })
-  }
+              public compiler: CompilerProvider) {}
 
 
   ngOnInit() {
+    this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.memberCenter.entityData = res;
+        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+      }
+    });
 
+  }
+
+  ngOnDestroy() {
+    this.memberCenter.subscription.unsubscribe();
   }
 
 
