@@ -79,14 +79,14 @@
         margin: 0 0 10px;
         display: block;
       }
-      .mat-form-field-underline{
+      .mat-form-field-underline {
         display: none;
       }
-      .mat-form-field-infix{
+      .mat-form-field-infix {
         display: flex;
         align-items: center;
       }
-      .mat-form-field-wrapper{
+      .mat-form-field-wrapper {
         padding-bottom: 0;
       }
       label {
@@ -95,7 +95,8 @@
       mat-form-field {
         width: 100%;
       }
-      input {
+      input,
+      mat-select {
         border: 1px solid #ddd;
         padding: 10px;
         border-radius: 4px;
@@ -108,6 +109,12 @@
     }
     .setting-title {
       margin: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 0 20px;
+      [edit-btn] {
+        margin-left: auto;
+      }
     }
     .theme-selector {
       .mat-radio-button {

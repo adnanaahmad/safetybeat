@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-removeConnections',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RemoveConnectionsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public helperService: HelperService
+  ) { }
 
   ngOnInit() {
   }

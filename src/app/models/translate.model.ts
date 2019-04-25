@@ -284,6 +284,10 @@ export interface Messages {
   INVALID_ENTITY: string;
   ENTITY_UPDATED_T: string;
   INVALID_DATA: string;
+  CHANGE_ACCESS_LEVEL: string;
+  REMOVE_CONNECTIONS: string;
+  VIEW_CONNECTIONS: string;
+  ADD_CONNECTIONS: string;
   SAFETY_MANAGER_REQ: string;
   USER_NOT_FOUND: string;
   SITE_EDIT_SUCCESS: string;
