@@ -7,16 +7,15 @@
 @import "./theme/olive-green.scss";
 @import "./theme/dark-forest.scss";
 
-// Variable definitions
+// Define font-family
 $fontFamily: "Montserrat", sans-serif;
 html,
 body {
   height: 100%;
   display: block;
   width: 100%;
-}
-body {
   margin: 0;
+  font-family: $fontFamily;
 }
 * {
   font-family: $fontFamily;
@@ -24,7 +23,8 @@ body {
 
 // Define font-family explicitly
 .mat-card-title {
-  font-family: $fontFamily;
+  font-family: $fontFamily !important;
+  line-height: inherit;
 }
 .app-content {
   overflow-x: hidden !important;
@@ -32,8 +32,26 @@ body {
 .paragraph {
   line-height: 1.7;
 }
+.full-width {
+  width: 100%;
+}
 [btn-primary] {
   color: #fff !important;
+}
+.mat-input-element:disabled {
+  cursor: not-allowed;
+}
+[edit-btn] {
+  width: 30px;
+  min-width: 25px !important;
+  padding: 0 !important;
+  height: 25px;
+  mat-icon {
+    font-size: 1rem;
+    height: auto;
+    width: auto;
+    display: block;
+  }
 }
 .sb-logo {
   path {
@@ -41,8 +59,11 @@ body {
   }
 }
 mat-dialog-container {
-  width: 600px !important;
   padding: 0 !important;
+  .mat-dialog-content,
+  .mat-dialog-title {
+    width: 600px;
+  }
   mat-card-title {
     padding: 15px 20px;
     color: #fff;
