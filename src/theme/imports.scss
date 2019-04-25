@@ -18,6 +18,7 @@
 @import "src/app/pages/profile/components/user/user.component.scss";
 
 @import "src/app/pages/settings/components/settingsMain/settings.component.scss";
+@import "src/app/pages/settings/components/organizationInfo/organizationInfo.component.scss";
 @import "src/app/pages/dashboard/components/dashboard/dashboard.component.scss";
 @import "src/app/core/components/pageNotFound/pageNotFound.component.scss";
 
@@ -57,6 +58,7 @@
   @include amte-profile($primary, $accent, $warn);
   @include amte-user($primary, $accent, $warn);
   @include amte-settings($primary, $accent, $warn);
+  @include amte-organization-info($primary, $accent, $warn);
   @include amte-dashboard($primary, $accent, $warn);
   @include amte-notfound($primary, $accent, $warn);
   @include amte-entityControl($primary, $accent, $warn);

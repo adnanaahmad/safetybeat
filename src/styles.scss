@@ -38,14 +38,32 @@ body {
 [btn-primary] {
   color: #fff !important;
 }
+.mat-input-element:disabled {
+  cursor: not-allowed;
+}
+[edit-btn] {
+  width: 30px;
+  min-width: 25px !important;
+  padding: 0 !important;
+  height: 25px;
+  mat-icon {
+    font-size: 1rem;
+    height: auto;
+    width: auto;
+    display: block;
+  }
+}
 .sb-logo {
   path {
     fill-rule: evenodd;
   }
 }
 mat-dialog-container {
-  // width: 600px !important;
   padding: 0 !important;
+  .mat-dialog-content,
+  .mat-dialog-title {
+    width: 600px;
+  }
   mat-card-title {
     padding: 15px 20px;
     color: #fff;

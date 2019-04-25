@@ -1,6 +1,13 @@
 @mixin amte-entityCodeModal($primary, $accent, $warn) {
   :host,
   app-entityCodeModal {
+    .mat-dialog-content,
+    .mat-dialog-title {
+      width: auto;
+    }
+    mat-dialog-actions {
+      justify-content: center;
+    }
     @keyframes animate {
       0% {
         background-position: -500%;
