@@ -286,6 +286,8 @@ export interface Messages {
   INVALID_DATA: string;
   SAFETY_MANAGER_REQ: string;
   USER_NOT_FOUND: string;
+  SITE_EDIT_SUCCESS: string;
+  SITE_EDIT_FAILURE: string;
 }
 
 export interface Logger {

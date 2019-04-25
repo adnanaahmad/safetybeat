@@ -228,7 +228,9 @@
     "DELETE_SITE_FAILURE": "Site deletion failed.",
     "EDIT_SITE_MSG": "Enter Site Details to Edit Site.",
     "SAFETY_MANAGER_REQ": "Site Safety Manager is Required",
-    "USER_NOT_FOUND": "User not found"
+    "USER_NOT_FOUND": "User not found",
+    "SITE_EDIT_SUCCESS": "Site edit successfully.",
+    "SITE_EDIT_FAILURE": "Site edit fail."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

@@ -5,7 +5,7 @@
   {{helperService.translated.MESSAGES.EDIT_SITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="addSiteObj.addSiteForm">
+  <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=siteFormSubmit(addSiteObj.addSiteForm)>
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.SITE_NAME"
@@ -58,7 +58,8 @@
               *ngIf="addSiteObj.modalType">
         {{ helperService.translated.BUTTONS.ADD_SITE }}
       </button>
-      <button mat-raised-button custom-btn btn-primary color="primary" *ngIf="!addSiteObj.modalType">
+      <button mat-raised-button custom-btn btn-primary
+              [disabled]="addSiteObj.loading" color="primary" *ngIf="!addSiteObj.modalType">
         {{ helperService.translated.BUTTONS.SAVE }}
       </button>
       <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>

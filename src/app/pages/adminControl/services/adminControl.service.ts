@@ -138,10 +138,11 @@ export class AdminControlService {
     )
   }
 
-  editSite(id: number) {
+  editSite(id: number, data) {
     return this.helperService.requestCall(
       this.method.put,
-      `${this.apiRoutes.viewSiteInfo}${id}/`
+      `${this.apiRoutes.viewSiteInfo}${id}/`,
+      data
     )
   }
 

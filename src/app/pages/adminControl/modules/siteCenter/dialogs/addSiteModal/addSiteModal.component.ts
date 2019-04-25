@@ -89,7 +89,74 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    * @params value
    */
 
-  addSite({value}: { value: SiteAddData }) {
+  siteFormSubmit({value}: { value: SiteAddData }) {
+    if (this.addSiteObj.modalType === false) {
+      this.editSite(value);
+    } else {
+      this.addSite(value);
+    }
+  }
+
+  /**
+   * this function is called to assign the values of site fields in the modal when user clicks on edit the site
+   */
+
+  viewSiteInfo() {
+    this.addSiteObj.addSiteForm = this.formBuilder.group({
+      siteName: this.addSiteObj.site.name,
+      siteSafetyPlan: this.addSiteObj.site.siteSafetyPlan,
+      siteAddress: this.addSiteObj.site.location,
+      safeZone: this.addSiteObj.site.safeZone,
+      siteSafetyManager: this.addSiteObj.siteSafetyManager.id
+    });
+    this.helperService.address = this.addSiteObj.site.location;
+    this.helperService.setLocationGeocode(this.addSiteObj.site.location, this.helperService.createMap(this.gMapElement));
+  }
+
+  /**
+   * this function is to call the api for getting all the users of entity
+   */
+
+  getAllUsers() {
+    let data = {
+      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key))
+    }
+    this.memberService.entityUsers(data).subscribe((res) => {
+      this.addSiteObj.entityUsers = this.compiler.entityUser(res);
+    });
+  }
+
+  /**
+   * this function is to call the api of edit site when user makes some changes and clicks on save button
+   */
+
+  editSite(value) {
+    let siteData = {
+      name: value.siteName,
+      location: this.helperService.address,
+      safeZone: value.safeZone,
+      siteSafetyPlan: value.siteSafetyPlan,
+      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+      createdBy: this.addSiteObj.site.createdBy,
+      siteSafetyManager: this.addSiteObj.site.siteSafetyManager
+    };
+    this.adminServices.editSite(this.addSiteObj.site.id, siteData).subscribe((res) => {
+      this.addSiteObj.loading = false;
+      this.onNoClick();
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
+    }, (error) => {
+      this.addSiteObj.loading = false;
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
+    });
+  }
+
+  /**
+   * this function is to call the api of add site when user makes some changes and clicks on add button
+   */
+
+  addSite(value) {
     let siteData = {
       name: value.siteName,
       location: this.helperService.address,
@@ -111,27 +178,6 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
     });
-
   }
 
-  viewSiteInfo() {
-    this.addSiteObj.addSiteForm = this.formBuilder.group({
-      siteName: this.addSiteObj.site.name,
-      siteSafetyPlan: this.addSiteObj.site.siteSafetyPlan,
-      siteAddress: this.addSiteObj.site.location,
-      safeZone: this.addSiteObj.site.safeZone,
-      siteSafetyManager: this.addSiteObj.siteSafetyManager.id
-    });
-    this.helperService.setLocationGeocode(this.addSiteObj.site.location, this.helperService.createMap(this.gMapElement));
-  }
-
-  getAllUsers() {
-    let data = {
-      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
-    }
-    this.memberService.entityUsers(data).subscribe((res) => {
-      this.addSiteObj.entityUsers = this.compiler.entityUser(res);
-    });
-  }
 }
