@@ -4,6 +4,7 @@ import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
 import {Site, SitesInfo} from '../../models/site.model';
 import {Organization} from '../../models/Settings/organizationInfo.model';
+import {GeneralInfo} from '../../models/general.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -144,6 +145,11 @@ export class CompilerProvider {
   constructOrganizationObject(organizationApiResponse: any): Organization {
     let organizationData: Organization = organizationApiResponse.data;
     return organizationData;
+  }
+
+  constructGeneralInfoObject(generalApiResponse: any): GeneralInfo {
+    let generalData: GeneralInfo = generalApiResponse.data;
+    return generalData;
   }
 
   switchSideMenu(data, name) {

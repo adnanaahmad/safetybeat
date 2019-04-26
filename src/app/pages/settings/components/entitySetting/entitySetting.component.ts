@@ -111,14 +111,12 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
     if (!valid) {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_ENTITY,
-        this.helperService.translated.MESSAGES.INVALID_DATA, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_ENTITY, this.helperService.constants.status.ERROR);
       return;
     }
     this.settings.editEntity(this.entitySettingObj.entitiesData.id, data).subscribe((res) => {
       this.viewEntitiesApiCall();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED,
-        this.helperService.translated.MESSAGES.ENTITY_UPDATED_T, this.helperService.constants.status.SUCCESS);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED, this.helperService.constants.status.SUCCESS);
     });
   }
 

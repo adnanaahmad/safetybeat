@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
               );
               this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
-                this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+                this.helperService.constants.status.SUCCESS);
               this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
             }, (err) => {
             });
@@ -128,16 +128,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
-          this.helperService.createSnack(data.responseDetails.message,
-            data.responseDetails.message, this.helperService.constants.status.WARNING);
+          this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
           this.loginObj.loading = false;
         }
       },
       error => {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loginObj.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_FAIL,
-          this.helperService.translated.MESSAGES.LOGINFAIL_MSG, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_FAIL, this.helperService.constants.status.ERROR);
       }
     );
   }
