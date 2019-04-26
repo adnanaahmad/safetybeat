@@ -2,9 +2,9 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-import {NavigationService} from '../../../navigation/services/navigation.service';
-import {CoreService} from '../../../../core/services/authorization/core.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {CoreService} from 'src/app/core/services/authorization/core.service';
 
 @Component({
   selector: 'app-org-registration-modal',
