@@ -1,14 +1,10 @@
 <h3 class="setting-title">General Account Settings
-<button btn-primary mat-raised-button edit-btn color="primary" (click)="editGeneralForm()" >
-  <mat-icon>edit</mat-icon>
-</button>
+  <button btn-primary mat-raised-button edit-btn color="primary" (click)="editGeneralForm()">
+    <mat-icon>edit</mat-icon>
+  </button>
 </h3>
 <form [formGroup]="generalObj.generalForm" class="settings-list"
       (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
-  <mat-form-field role="listitem">
-    <label>User Name</label>
-    <input matInput type="text" formControlName="username" class="showonly" required/>
-  </mat-form-field>
   <mat-form-field role="listitem">
     <label>First Name</label>
     <input matInput type="text" formControlName="first_name" class="showonly" required/>
@@ -38,10 +34,13 @@
       <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>
     </mat-error>
   </mat-form-field>
-<div class="btn-grp">
-  <button type="submit" mat-raised-button *ngIf="generalObj.enabled" custom-btn btn-primary
-          [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save</button>
-  <button type="button" mat-raised-button *ngIf="generalObj.enabled" (click)="cancelForm()"  color="warn" custom-btn btn-danger> Cancel</button>
-</div>
+  <div class="btn-grp">
+    <button type="submit" mat-raised-button *ngIf="generalObj.enabled" custom-btn btn-primary
+            [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
+    </button>
+    <button type="button" mat-raised-button *ngIf="generalObj.enabled" (click)="cancelForm()" color="warn" custom-btn
+            btn-danger> Cancel
+    </button>
+  </div>
 
 </form>

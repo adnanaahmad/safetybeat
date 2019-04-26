@@ -25,7 +25,6 @@ export class GeneralComponent implements OnInit {
 
   ngOnInit() {
     this.generalObj.generalForm = this.formBuilder.group({
-      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -52,7 +51,6 @@ export class GeneralComponent implements OnInit {
           this.generalObj.resultData = this.compiler.constructGeneralInfoObject(res);
           this.generalObj.userData = this.compiler.constructProfileData(this.generalObj.resultData.user);
           this.profile.updateCurrenUser(this.generalObj.userData);
-          this.generalViewForm['username'].setValue(this.generalObj.userData.username);
           this.generalViewForm['email'].setValue(this.generalObj.userData.email);
           this.generalViewForm['first_name'].setValue(this.generalObj.userData.first_name);
           this.generalViewForm['last_name'].setValue(this.generalObj.userData.last_name);
@@ -74,7 +72,7 @@ export class GeneralComponent implements OnInit {
     this.generalObj.enabled = false;
     this.generalObj.generalForm.disable();
     let data = {
-      'username': value.username,
+      'username': this.generalObj.userData.username,
       'first_name': value.first_name,
       'last_name': value.last_name,
       'contactNo': value.contactNo,

@@ -133,6 +133,8 @@ export class ConstantService {
     status: 'status',
     joinCode: 'joinCode',
     role: 'role',
+    sites: 'sites',
+    entities: 'entities',
     code: 'code',
     managedBy: 'managedBy',
     siteName: 'siteName',
@@ -157,7 +159,8 @@ export class ConstantService {
     roles: {
       owner: 'Owner',
       teamLead: 'TeamLead',
-      entityManager: 'EntityManager'
+      entityManager: 'EntityManager',
+      siteSafetyManager: 'SiteSafetyManager'
     },
     connections: {
       view: 'view',

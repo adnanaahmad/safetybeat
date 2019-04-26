@@ -1,14 +1,12 @@
 import {NgModule} from '@angular/core';
-import {
-  Routes,
-  RouterModule,
-} from '@angular/router';
+import {Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot,} from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
 import {RegistrationComponent} from './components/registration/registration.component';
 import {ForgotPasswordComponent} from './components/forgotPassword/forgotPassword.component';
 import {LandingComponent} from './components/landing/landing.component';
 import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordRecovery.component';
-import {OrgRegistrationModalComponent} from './components/orgRegistrationModal/org-registration-modal.component';
+import {PackageDetailsComponent} from './components/packageDetails/packageDetails.component';
+import {AuthGuard} from '../../core/services/guards/auth.guard';
 
 const authRoutes: Routes = [
   {
@@ -37,7 +35,9 @@ const authRoutes: Routes = [
   },
   {
     path: 'package',
-    component: OrgRegistrationModalComponent
+    component: PackageDetailsComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: ['canDeactivatePackageDetails']
   }
 ];
 
@@ -45,17 +45,17 @@ const authRoutes: Routes = [
   imports: [RouterModule.forChild(authRoutes)],
   exports: [RouterModule],
   providers: [
-    // {
-    //   provide: 'canDeactivateVerification',
-    //   useValue: (
-    //     component: VerificationComponent,
-    //     currentRoute: ActivatedRouteSnapshot,
-    //     currentState: RouterStateSnapshot,
-    //     nextState: RouterStateSnapshot
-    //   ) => {
-    //     return false;
-    //   }
-    // }
+    {
+      provide: 'canDeactivatePackageDetails',
+      useValue: (
+        component: PackageDetailsComponent,
+        currentRoute: ActivatedRouteSnapshot,
+        currentState: RouterStateSnapshot,
+        nextState: RouterStateSnapshot
+      ) => {
+        return (nextState.url === '/login');
+      }
+    }
   ]
 })
 export class LoginRegisterRoutingModule {
