@@ -193,6 +193,12 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
         color: mat-color($primary-pallet, 500);
       }
     }
+    .settings-wrap {
+      input,
+      mat-select {
+        background-color: #fff;
+      }
+    }
   }
   app-landing {
     background-color: mat-color($primary-pallet, 50);
@@ -237,18 +243,18 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       background-color: mat-color($primary, 500);
     }
   }
-  .infoTitle{
+  .infoTitle {
     background-color: mat-color($primary-pallet, 500);
   }
   app-importsitemodal {
-    .site-note{
+    .site-note {
       background-color: mat-color($primary, 50);
     }
   }
-  .siteinfo-row{
-    mat-icon{
-        background-color: #fff;
+  .siteinfo-row {
+    mat-icon {
+      background-color: #fff;
     }
-}
+  }
   @include amte-setTheme($light-theme);
 }

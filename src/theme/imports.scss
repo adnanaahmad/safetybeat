@@ -35,6 +35,7 @@
 @import "src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component.scss";
+@import "src/app/pages/adminControl/modules/memberCenter/components/memberCenter/memberCenter.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -72,4 +73,5 @@
   @include amte-viewConnections($primary, $accent, $warn);
   @include amte-org-registration-modal($primary, $accent, $warn);
   @include amte-ImportSiteModal($primary, $accent, $warn);
+  @include amte-memberCenter($primary, $accent, $warn);
 }
