@@ -48,9 +48,12 @@ export interface Auth {
   BILLING_EMAIL: string;
   FAX: string;
   ROLE: string;
+  SITE: string;
   USERNAME_REQ: string;
   PASSWORD_REQ: string;
   ROLE_REQ: string;
+  SITE_REQ: string;
+  ENTITY_REQ: string;
   FIRSTNAME_REQ: string;
   LASTNAME_REQ: string;
   EMAIL_VALID: string;

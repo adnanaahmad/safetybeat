@@ -9,7 +9,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { createTranslateLoader } from 'src/app/app.module';
 import { NavListComponent } from '../navList/navList.component';
 import { FixedNavComponent } from '../fixedNav/fixedNav.component';
-import { ToastrModule } from 'ng6-toastr-notifications';
 import { NotifierModule } from 'angular-notifier';
 
 describe('NavigationComponent', () => {
@@ -26,7 +25,6 @@ describe('NavigationComponent', () => {
         HttpClientModule,
         ReactiveFormsModule,
         MaterialModule,
-        ToastrModule.forRoot(),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
