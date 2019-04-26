@@ -3,7 +3,6 @@
 @import "src/app/pages/loginRegistration/components/registration/registration.component.scss";
 @import "src/app/pages/loginRegistration/components/login/login.component.scss";
 @import "src/app/pages/loginRegistration/components/forgotPassword/forgotPassword.component.scss";
-@import "src/app/pages/loginRegistration/components/orgRegistrationModal/org-registration-modal.component.scss";
 @import "src/app/pages/loginRegistration/components/passwordRecovery/passwordRecovery.component.scss";
 @import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
 
@@ -35,6 +34,7 @@
 @import "src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component.scss";
+@import "src/app/pages/loginRegistration/components/packageDetails/packageDetails.component.scss";
 @import "src/app/pages/adminControl/modules/memberCenter/components/memberCenter/memberCenter.component.scss";
 
 @mixin amte-setTheme($theme) {

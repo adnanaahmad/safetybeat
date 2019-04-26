@@ -34,7 +34,7 @@ export class SecurityComponent implements OnInit {
   checkPasswords(group: FormGroup) {
     const pass = group.controls.password1.value;
     const confirmPass = group.controls.password2.value;
-    return pass === confirmPass ? group.controls.password2.setErrors({notSame: null}) : group.controls.password2.setErrors({notSame: true});
+    return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
   changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective): void {
@@ -76,13 +76,6 @@ export class SecurityComponent implements OnInit {
       this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
       this.helperService.logoutError(error.status);
-      this.clearValidations();
-    });
-  }
-
-  clearValidations() {
-    Object.keys(this.changePasswordForm.controls).forEach(key => {
-      this.changePasswordForm.controls[key].setErrors(null);
     });
   }
 
