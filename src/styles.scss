@@ -206,6 +206,7 @@ mat-dialog-container {
 }
 .mat-dialog-content {
   overflow: unset !important;
+  max-height: initial !important;
 }
 .notifier__notification-button {
   opacity: 1 !important;

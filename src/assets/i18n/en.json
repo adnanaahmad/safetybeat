@@ -230,7 +230,7 @@
     "SAFETY_MANAGER_REQ": "Site Safety Manager is Required",
     "USER_NOT_FOUND": "User not found",
     "SITE_EDIT_SUCCESS": "Site edit successfully.",
-    "SITE_EDIT_FAILURE": "Site edit fail."
+    "SITE_EDIT_FAILURE": "Site edit fail.",
     "CHANGE_ACCESS_LEVEL": "Change Access Level",
     "VIEW_CONNECTIONS": "View Connections",
     "REMOVE_CONNECTIONS": "Remove Connections",
@@ -249,10 +249,10 @@
     "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites"
   },
   "TABLEHEADINGS": {
-    "ENTITY_ID": "Entity Id",
-    "ENTITY_NAME": "Entity Name",
-    "ENTITY_HEADOFFICE": "Entity Head Office",
-    "ENTITY_STATUS": "Entity Status",
+    "ENTITY_ID": "Id",
+    "ENTITY_NAME": "Name",
+    "ENTITY_HEADOFFICE": "Head Office",
+    "ENTITY_STATUS": "Status",
     "ACTIONS": "Actions",
     "NAME": "Name",
     "EMAIL": "E-mail",
