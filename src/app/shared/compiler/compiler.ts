@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
-import {HelperService} from '../helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
-import {Site, SitesInfo} from '../../models/site.model';
-import {Organization} from '../../models/Settings/setting.model';
+import {Site, SitesInfo} from 'src/app/models/site.model';
+import {Organization} from 'src/app//models/Settings/organizationInfo.model';
+import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -17,8 +18,12 @@ export class CompilerProvider {
     this.appIcons = this.helperService.constants.appIcons;
   }
 
+  static constructPackageDetail(packageApiReponse: any): Packages[] {
+    return packageApiReponse.data;
+  }
+
   /**
-   * @param event
+   * @params event
    * To check if the input is number or not
    */
   numberOnly(event): boolean {
@@ -30,7 +35,7 @@ export class CompilerProvider {
   }
 
   /**
-   * @param event
+   * @params event
    * To check if the input is character or not
    */
   charactersOnly(event): boolean {
@@ -41,10 +46,20 @@ export class CompilerProvider {
     );
   }
 
+  /**
+   * this function is used to construct the usersData according to the model.
+   * @params profileApiResponse
+   */
+
   constructUserData(profileApiResponse: any) {
     let user: UserData = profileApiResponse.data;
     return user;
   }
+
+  /**
+   * this function is used to insert the spaces.
+   * @params string
+   */
 
   insertSpaces(string) {
     string = string.replace(/([a-z])([A-Z])/g, '$1 $2');
@@ -52,10 +67,20 @@ export class CompilerProvider {
     return string;
   }
 
+  /**
+   * this function is used to return the profile data after constructing according to the User Model.
+   * @params profileApiResponse
+   */
+
   constructProfileData(profileApiResponse: any) {
     let profileData: User = profileApiResponse;
     return profileData;
   }
+
+  /**
+   * this function is used to return the entity data after constructing the entity data according to the entity Model.
+   * @params loginApiResponse
+   */
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
     let allEntities: Entity[] = [];
@@ -65,16 +90,25 @@ export class CompilerProvider {
         permissions: entity.permissions,
         reportAccess: entity.reportAccess,
         administrator: entity.administrator,
+        managedBy: entity.managedBy,
         active: entity.active,
         role: entity.role
       };
       allEntities.push(data);
     });
     let userEntityData: EntityUserData = {
-      // user: loginApiResponse.user,
       entities: allEntities
     };
     return userEntityData;
+  }
+
+  /**
+   * this function is used to return the sitesData after constructing the sitesData according to the SitesInfo.
+   * @params siteApiResponse
+   */
+
+  constructSiteData(siteApiResponse: any): SitesInfo[] {
+    return siteApiResponse.data;
   }
 
   constructorSiteInfo(siteData: any): Site {
@@ -85,25 +119,35 @@ export class CompilerProvider {
     return siteApiResponse.data;
   }
 
+  /**
+   * this function is used for switching the side menu according to the entity privileges given to the user.
+   * @params data
+   * @params name
+   */
+
+  constructUserInfo(userInfoApiResponse: any): User {
+    return userInfoApiResponse;
+  }
+
   entityUser(users) {
-    let usersArray = []
+    let usersArray = [];
     this.helperService.iterations(users.data, function (obj) {
       let user = {
-        name: obj.user.first_name + obj.user.last_name,
+        name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,
         contact: obj.user.contactNo,
         photos: '',
         accessLevel: obj.role,
         id: obj.user.id,
         status: obj.status
-      }
-      usersArray.push(user)
+      };
+      usersArray.push(user);
     });
     return usersArray;
   }
 
   constructOrganizationObject(organizationApiResponse: any): Organization {
-    let organizationData = organizationApiResponse.data;
+    let organizationData: Organization = organizationApiResponse.data;
     return organizationData;
   }
 
@@ -225,8 +269,12 @@ export class CompilerProvider {
       }
     });
     return this.newMenu;
-
   }
+
+  /**
+   * this function returns the default side menu
+   * @params data
+   */
 
   switchSideMenuDefault(data) {
     this.navList = [

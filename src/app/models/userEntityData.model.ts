@@ -10,6 +10,7 @@ export interface Entity {
   permissions: EntityPermissions;
   reportAccess: ReportAccess;
   administrator: Administrator;
+  managedBy: Administrator;
   active: boolean;
   role: string;
 }

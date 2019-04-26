@@ -42,6 +42,11 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     this.changeSelection(this.inviteUserModal.selectedRole);
   }
 
+  /**
+   * this function is called after constructor and in this function we make a form named as inviteUserForm
+   * and we assign all the input fields over here that we have to use to invite the users.
+   */
+
   ngOnInit() {
     this.initialize();
     this.inviteUserModal.subscription = this.navService.selectedEntityData.subscribe(res => {

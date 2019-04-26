@@ -1,0 +1,9 @@
+@mixin amte-organization-info($primary, $accent, $warn) {
+  :host,
+  app-organization-info {
+    .site-map {
+      height: 300px;
+      width: 100%;
+    }
+  }
+}

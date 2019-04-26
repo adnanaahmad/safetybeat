@@ -56,7 +56,9 @@ export class FixedNavComponent implements OnInit {
     this.navLinks = this.defaultNavLinks;
   }
 
-  // Toggle the sidenav
+  /**
+   * this function is used for toggling the sideNav bar to open or to close.
+   */
   public toggleSideNav() {
     this.navOpened = !this.navOpened;
     this.helperService.appLoggerDev(
@@ -67,7 +69,8 @@ export class FixedNavComponent implements OnInit {
   }
 
   /**
-   * this function...
+   * this function is used for switching the nav bar menu according to the role of the user in that
+   * particular entity.
    */
   public switchNavListMenuDefault() {
     this.navLinks = this.defaultNavLinks;

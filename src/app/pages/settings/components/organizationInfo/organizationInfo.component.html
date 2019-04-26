@@ -1,0 +1,70 @@
+<h3 class="setting-title">Organization Info
+  <button btn-primary mat-raised-button edit-btn color="primary" (click)="editOrgForm()">
+    <mat-icon>edit</mat-icon>
+  </button>
+</h3>
+<form [formGroup]="orgObj.organizationForm" class="settings-list"
+      (ngSubmit)="updateOrganization(orgObj.organizationForm)">
+  <mat-form-field role="listitem">
+    <label>Name</label>
+    <input matInput type="text" [formControlName]="helperService.appConstants.name" class="showonly" required/>
+    <mat-error class="text-right" *ngIf="organizationViewForm.name.errors">
+      <span>Field is Required</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Account Number</label>
+    <input matInput type="text" [formControlName]="helperService.appConstants.accountNo" class="showonly" required/>
+    <mat-error class="text-right" *ngIf="organizationViewForm.accountNo.errors">
+      <span>Field is Required</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Address</label>
+    <input matInput type="text" appGooglePlaces [formControlName]="helperService.appConstants.address" class="showonly"
+           (onSelect)="helperService.setAddress($event,gMapElement,organizationViewForm.address)"
+           (keyup)="helperService.setFalse($event)"
+           required/>
+    <mat-error class="text-right" *ngIf="organizationViewForm.address.errors">
+      <span>Field is Required</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-card>
+    <div #gmap class="site-map"></div>
+  </mat-card>
+  <mat-form-field role="listitem">
+    <label>Billing Email</label>
+    <input matInput type="text" [formControlName]="helperService.appConstants.billingEmail" class="showonly" required/>
+    <mat-error class="text-right" *ngIf="organizationViewForm.billingEmail.errors">
+      <span *ngIf="organizationViewForm.billingEmail.errors.required">Field is Required</span>
+      <span *ngIf="organizationViewForm.billingEmail.errors.email">Enter Valid Email</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Date Joined</label>
+    <input matInput type="text" [readonly]="true" [formControlName]="helperService.appConstants.dateJoined"
+           class="showonly"/>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Contact Number</label>
+    <input matInput type="text" [formControlName]="helperService.appConstants.phoneNo" class="showonly" required/>
+    <mat-error class="text-right" *ngIf="organizationViewForm.phoneNo.errors">
+      <span>Field is Required</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <label>Type</label>
+    <mat-select [formControlName]="helperService.appConstants.type" required>
+      <mat-option *ngFor="let type of orgObj.types" [value]="type.id">
+        {{ type.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="btn-grp" *ngIf="orgObj.enabled">
+    <button type="submit" mat-raised-button custom-btn btn-primary
+            [disabled]="orgObj.organizationForm.pristine || !orgObj.organizationForm.valid || !helperService.displayButton">
+      Save
+    </button>
+    <button type="button" mat-raised-button color="warn" custom-btn btn-danger (click)="cancelOrgForm()">Cancel</button>
+  </div>
+</form>

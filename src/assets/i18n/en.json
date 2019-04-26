@@ -66,7 +66,11 @@
     "EXPAND": "Expand",
     "REMOVE": "Remove",
     "SITEADDRESS": "Site Address",
-    "SITESAFETYPLAN": "Site Safety Plan"
+    "PACKAGE_DESCRIPTION_1": "For startup business",
+    "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
+    "PACKAGE_DESCRIPTION_3": "For already established business",
+    "SITESAFETYPLAN": "Site Safety Plan",
+    "SITESAFETYMANAGER": "Site Safety Manager"
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -101,9 +105,12 @@
     "ADD_SITE": "Add Site",
     "IMPORT_SITE": "Import Site",
     "UPGRADE": "Upgrade",
+    "GETSTARTED": "Get Started",
+    "LEARNMORE": "Learn More",
     "DELETE": "Delete"
   },
   "MESSAGES": {
+    "ORG_DETAILS": "Organization Details Updated.",
     "SIGNINMESSAGE": "You need to sign in to get access",
     "OR": "OR",
     "ORGSIGNUP": "Organization Info",
@@ -206,13 +213,32 @@
     "TRIAL_LEFT_1": "Your trial is going to expire in ",
     "TRIAL_LEFT_2": " day(s). Please ",
     "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator.",
+    "SAFETYBEAT_PRICING": "SafetyBeat Pricing",
+    "PRICING_TAGLINE": "Choose a package that best suits your business",
+    "CALLTOACTION_TITLE": "Your business needs SafetyBeat",
+    "CALLTOACTION_DESCRIPTION": "All your safety measures now in one simple app – it now takes seconds to reach out to your workers, know they are safe and know where they are.",
+    "FAQS_TITLE": "Commonly asked questions",
+    "ENTITY_UPDATED": "Entity has been updated Successfully",
+    "INVALID_ENTITY": "Invalid Entity fields entered",
+    "INVALID_DATA": "Invalid Data",
+    "ENTITY_UPDATED_T": "Entity Updated",
     "SITE_IS_SAFE": " is safe.",
     "SITE_IS_NOT_SAFE": " is not safe.",
     "VIEW_SITE_SUCCESS": "View site success.",
     "VIEW_SITE_FAILURE": "Site not found.",
     "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
     "DELETE_SITE_FAILURE": "Site deletion failed.",
-    "EDIT_SITE_MSG": "Enter Site Details to Edit Site."
+    "EDIT_SITE_MSG": "Enter Site Details to Edit Site.",
+    "VERIFY_ERR": "You have not been verified",
+    "VERIFIED": "You have been verified",
+    "SAFETY_MANAGER_REQ": "Site Safety Manager is Required",
+    "USER_NOT_FOUND": "User not found",
+    "SITE_EDIT_SUCCESS": "Site edit successfully.",
+    "SITE_EDIT_FAILURE": "Site edit fail.",
+    "CHANGE_ACCESS_LEVEL": "Change Access Level",
+    "VIEW_CONNECTIONS": "View Connections",
+    "REMOVE_CONNECTIONS": "Remove Connections",
+    "ADD_CONNECTIONS": "Add Connections"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -230,6 +256,7 @@
     "ENTITY_ID": "Entity Id",
     "ENTITY_NAME": "Entity Name",
     "ENTITY_HEADOFFICE": "Entity Head Office",
+    "ENTITY_CODE": "Entity Code",
     "ENTITY_STATUS": "Entity Status",
     "ACTIONS": "Actions",
     "NAME": "Name",
@@ -244,7 +271,9 @@
     "SITE_NAME": "Site Name",
     "SITE_ADDRESS": "Site Location",
     "SITE_SAFE_ZONE": "Safe Zone",
-    "SITE_CREATED_BY": "Created By"
+    "SITE_CREATED_BY": "Created By",
+    "MANAGED_BY": "Managed By",
+    "SITE_SAFETY_MANAGER": "Site Safety Manager"
   },
   "LOGGER": {
     "STATUS": {
@@ -292,7 +321,8 @@
       "INVITEUSER_ERROR": "User details are required to Invite a user",
       "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again.",
       "ROLES_RECIEVED": "Roles recieved",
-      "ROLES_RECIEVED_ERROR": "Error recieving roles"
+      "ROLES_RECIEVED_ERROR": "Error recieving roles",
+      "ORG_SUCCESS": "Organization Data Edited."
     }
   },
   "STATUS": {
@@ -307,6 +337,8 @@
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
-    "DELETE_ENTITY": "Are you sure you want Delete this entity?"
+    "DELETE_ENTITY": "Are you sure you want Delete this entity?",
+    "ADD_CONNECTION":"Are you sure you want to Add this user to your Connections.",
+    "REMOVE_CONNECTION":"Are you sure you want to Remove this user from your Connections."
   }
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RemoveConnectionsComponent } from './removeConnections.component';
+import { OrganizationInfoComponent } from './organizationInfo.component';
 
-describe('RemoveConnectionsComponent', () => {
-  let component: RemoveConnectionsComponent;
-  let fixture: ComponentFixture<RemoveConnectionsComponent>;
+describe('OrganizationInfoComponent', () => {
+  let component: OrganizationInfoComponent;
+  let fixture: ComponentFixture<OrganizationInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RemoveConnectionsComponent ]
+      declarations: [ OrganizationInfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RemoveConnectionsComponent);
+    fixture = TestBed.createComponent(OrganizationInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

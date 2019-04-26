@@ -1,10 +1,37 @@
 @mixin amte-entityCodeModal($primary, $accent, $warn) {
   :host,
   app-entityCodeModal {
-    display: none;
+    .mat-dialog-content,
+    .mat-dialog-title {
+      width: auto;
+    }
+    mat-dialog-actions {
+      justify-content: center;
+    }
+    @keyframes animate {
+      0% {
+        background-position: -500%;
+      }
+      100% {
+        background-position: 500%;
+      }
+    }
     .entity-code {
       font-size: 30px;
       font-weight: 600;
+      font-size: 1.6rem;
+      text-align: center;
+      display: block;
+      letter-spacing: 12px;
+      color: mat-color($primary, 500);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(90deg, mat-color($primary, 500), #fff, mat-color($primary, 500));
+      background-repeat: no-repeat;
+      background-size: 80%;
+      animation: animate 3s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: rgba(0, 0, 0, 0.25);
     }
   }
 }

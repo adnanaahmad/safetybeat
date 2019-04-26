@@ -1,0 +1,110 @@
+<div class="topnav">
+  <button (click)="logoutUser()" [disabled]="logoutDisable">Logout</button>
+</div>
+<div class="legend-header">
+  <mat-card-title class="mat-dialog-title mdc-typography">{{helperService.translated.MESSAGES.SAFETYBEAT_PRICING}}
+  </mat-card-title>
+  <p class="subheading">{{helperService.translated.MESSAGES.PRICING_TAGLINE}}</p>
+</div>
+<div class="paddingbox packages-wrapper">
+  <mat-grid-list cols="3" rowHeight="530px" gutterSize="20">
+    <mat-grid-tile class="package-box" *ngFor="let package of packages">
+      <h4 class="package-label">{{package.package.packageName}}</h4>
+      <h1 class="package-price">{{package.package.cost|currency:'USD'}} <span>/ month</span></h1>
+      <p>{{helperService.translated.STRINGS.PACKAGE_DESCRIPTION_1}}</p>
+      <mat-list class="package-features" role="list">
+        <mat-list-item role="listitem" *ngFor="let feature of package.features">{{feature.name}}
+          <mat-icon color="primary" *ngIf="feature.featureExist">done</mat-icon>
+          <mat-icon color="warn" *ngIf="!feature.featureExist">clear</mat-icon>
+        </mat-list-item>
+      </mat-list>
+      <a routerLink="#" mat-raised-button custom-btn btn-primary class="package-button">Get Started</a>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!-- Call to action -->
+<div class="call-to-action">
+  <h1>{{helperService.translated.MESSAGES.CALLTOACTION_TITLE}}</h1>
+  <p>{{helperService.translated.MESSAGES.CALLTOACTION_DESCRIPTION}}</p>
+  <a routerLink="#">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+    Learn More
+  </a>
+</div>
+<!-- /Call to action -->
+
+<!--FAQs-->
+<div class="paddingbox">
+  <div class="faqs">
+    <h1>{{helperService.translated.MESSAGES.FAQS_TITLE}}</h1>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Lorem Ipsum is simply dummy text of the printing
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            It was popularised in the 1960s with the release
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Lorem Ipsum is simply dummy text of the printing
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Lorem Ipsum is simply dummy text of the printing
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum</p>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Lorem Ipsum is simply dummy text of the printing
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+          electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+          PageMaker including versions of Lorem Ipsum</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+<!--/FAQs-->

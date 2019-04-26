@@ -23,11 +23,21 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.helperService.translated.LOGGER.MESSAGES.FORGOT_COMPONENT);
   }
 
+  /**
+   * this function is called when this components initializes and in this function forgotpasswordForm is made and we give the
+   * validations to our input fields.
+   */
+
   ngOnInit() {
     this.forgotPassObj.forgotPassForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
+
+  /**
+   * this function is called when the component is destroyed and this function will
+   * hide all the debugging messages on the destroy of this component.
+   */
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
@@ -89,7 +99,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
           `${this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS,
           this.helperService.translated.MESSAGES.RESETMSG, this.helperService.constants.status.ERROR);
-
       }
     );
 

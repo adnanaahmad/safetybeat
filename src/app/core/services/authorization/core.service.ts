@@ -77,7 +77,12 @@ export class CoreService {
     return false;
   }
 
-  // this handleError function need to be removed
+  /**
+   * this function is used for handling errors when the api call doesn't return any response due to
+   * no internet or when the backend is stopped
+   * and the this function returns an error and logs out the user.
+   * @params error
+   */
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

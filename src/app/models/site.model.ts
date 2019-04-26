@@ -7,12 +7,14 @@ export interface Site {
   safeZone: boolean,
   siteSafetyPlan: string,
   createdBy: number,
-  entity: number
+  entity: number,
+  siteSafetyManager: number
 }
 
 export interface SitesInfo {
   site: Site,
   createdBy: User
+  siteSafetyManager: User
 }
 
 export interface SiteAddData {

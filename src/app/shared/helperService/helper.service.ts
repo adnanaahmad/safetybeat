@@ -1,5 +1,5 @@
 import {Injectable, ElementRef} from '@angular/core';
-import {forEach, findIndex, remove} from 'lodash';
+import {forEach, findIndex, remove, sortBy} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -22,6 +22,7 @@ export class HelperService {
   iterations: any;
   findIndex: any;
   remove: any;
+  sortBy: any;
   translated: Translation;
   constants: typeof ConstantService;
   displayButton: boolean = false;
@@ -49,15 +50,25 @@ export class HelperService {
     this.iterations = forEach;
     this.findIndex = findIndex;
     this.remove = remove;
+    this.sortBy = sortBy;
     this.address = '';
     this.displayButton = false;
     this.formErrorMatcher = new FormErrorHandler();
   }
 
+  /**
+   * this function is used to return the validity of the phone number.
+   */
   static getPhoneNumberUtil() {
     return PhoneNumberUtil.getInstance();
   }
 
+  /**
+   * this function is used for creating snack
+   * @params message
+   * @params title
+   * @params type
+   */
   createSnack(message, title, type) {
     this.snackBar.openFromComponent(ToasterComponent, {
       data: {message: message, title: title, type: type},
@@ -66,23 +77,50 @@ export class HelperService {
     });
   }
 
+  /**
+   * this function is used to enable and disable the loader.
+   * @params res
+   */
+
   toggleLoader(res): void {
     this.displayLoader.next(res);
   }
+
+  /**
+   * this function is used to hide the debugging messages.
+   */
 
   hideLoggers(): void {
     this.notifier.hideAll();
   }
 
+  /**
+   * this function is used for showing the debugging messages for the users.
+   * @params type
+   * @params message
+   */
+
   appLogger(type: string, message: any): void {
     this.notifier.notify(type, message);
   }
+
+  /**
+   * this function is used for showing the debugging messages for the developer.
+   * @params type
+   * @params message
+   */
 
   appLoggerDev(type: string, message: any): void {
     if (this.constants.config.devMode) {
       this.notifier.notify(type, message);
     }
   }
+
+  /**
+   * this function is used for creating the modal dialog.
+   * @params component
+   * @params params
+   */
 
   createDialog(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
@@ -93,10 +131,18 @@ export class HelperService {
     this.dialogRef = this.dialog.open(component, dialogConfig);
   }
 
+  /**
+   * this function is used for removing the token.
+   */
+
   removeToken() {
     localStorage.removeItem(this.constants.localStorageKeys.entityUserData);
     localStorage.removeItem(this.constants.localStorageKeys.token);
   }
+
+  /**
+   * this function is used for logging out the user.
+   */
 
   logoutUser() {
     this.removeToken();
@@ -107,11 +153,24 @@ export class HelperService {
     this.navigateTo([this.appConstants.paths.login]);
   }
 
+  /**
+   * this function is used when any of the error occurs in the api response. and then it logs out the user.
+   * @params status
+   */
+
   logoutError(status) {
     if (status === 401 || status === 0) {
       this.logoutUser();
     }
   }
+
+  /**
+   * this function is a generic function used for making api calls and when we have to call any api
+   * we give the api method, api router and if we have to send data we insert that also and call the api.
+   * @params method
+   * @params api
+   * @params data
+   */
 
   requestCall(method, api, data?: any) {
     let response;
@@ -134,26 +193,10 @@ export class HelperService {
     return response;
   }
 
-  requestCallWithHeaders(method, api, headers: any, data?: any) {
-    let response;
-    switch (method) {
-      case this.constants.apiMethod.post:
-        response = this.http.post(api, data, {headers: headers}).pipe(catchError(this.handleError));
-        break;
-      case this.constants.apiMethod.get:
-        response = this.http.get(api, {headers: headers}).pipe(catchError(this.handleError));
-        break;
-      case this.constants.apiMethod.put:
-        response = this.http.put(api, data, {headers: headers}).pipe(catchError(this.handleError));
-        break;
-      case this.constants.apiMethod.delete:
-        response = this.http.delete(api, {headers: headers}).pipe(catchError(this.handleError));
-        break;
-      default:
-        break;
-    }
-    return response;
-  }
+  /**
+   * this function is used to handle the error that we get when we call any api.
+   * @params error
+   */
 
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -245,6 +288,10 @@ export class HelperService {
     });
   }
 
+  /**
+   * this function is used to enable and disable any button according to the condition.
+   * @params event
+   */
   setFalse(event) {
     if (event.which !== this.constants.appConstant.enterKey) {
       this.displayButton = false;
@@ -259,18 +306,27 @@ export class HelperService {
     return this.constants.appConstant;
   }
 
+  /**
+   * this function returns the appIcons from constantService.
+   */
   get appIcons() {
     return this.constants.appIcons;
   }
 
   /**
-   * Encrypt and decrypt through Crypto JS
+   * Encrypt through Crypto JS
    * param data
    * param key
    */
   encrypt(data: string, key: string): string {
     return CryptoJS.AES.encrypt(data, key).toString();
   }
+
+  /**
+   * this function is used for descrpting the data using crypto JS.
+   * @params data
+   * @params key
+   */
 
   decrypt(data: string, key: string): string {
     return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);

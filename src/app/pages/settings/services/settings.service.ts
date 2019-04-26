@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from '../../../shared/helperService/helper.service';
 import {BehaviorSubject} from 'rxjs';
-import {ConstantService} from '../../../shared/constant/constant.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +19,8 @@ export class SettingsService {
   editOrganization(id, data) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
       `${this.helperService.constants.apiRoutes.editOrganization}/${id}/`, data);
+  }
+  getTypes(): any {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.companyTypes);
   }
 }

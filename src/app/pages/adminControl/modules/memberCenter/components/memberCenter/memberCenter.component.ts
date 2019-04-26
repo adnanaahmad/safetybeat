@@ -1,13 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
-import {AddConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component';
 import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
-import {RemoveConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
@@ -17,7 +15,7 @@ import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/conf
   templateUrl: './memberCenter.component.html',
   styleUrls: ['./memberCenter.component.scss']
 })
-export class MemberCenterComponent implements OnInit {
+export class MemberCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   memberCenter: MemberCenter = <MemberCenter>{};
   displayedColumns: string[] = [
@@ -33,23 +31,28 @@ export class MemberCenterComponent implements OnInit {
               public memberService: MemberCenterService,
               public navService: NavigationService,
               public compiler: CompilerProvider) {
-    this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.memberCenter.entityData = res;
-        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id})
-      }
-    })
   }
 
 
   ngOnInit() {
+    this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.memberCenter.entityData = res;
+        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+      }
+    });
 
+  }
+
+  ngOnDestroy() {
+    this.memberCenter.subscription.unsubscribe();
   }
 
 
   getAllUsers(data) {
     this.memberService.entityUsers(data).subscribe((res) => {
       this.memberCenter.elements = this.compiler.entityUser(res);
+      console.log(res)
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
     })
@@ -61,10 +64,30 @@ export class MemberCenterComponent implements OnInit {
         this.helperService.createDialog(ViewConnectionsComponent, {});
         break;
       case this.helperService.appConstants.connections.add:
-        this.helperService.createDialog(AddConnectionsComponent, {});
+        // this.helperService.createDialog(AddConnectionsComponent, {});
+        this.helperService.createDialog(ConfirmationModalComponent, {
+          data: {
+            message: this.helperService.translated.CONFIRMATION.ADD_CONNECTION
+          }
+        });
+        this.helperService.dialogRef.afterClosed().subscribe(res => {
+          if (res === this.helperService.appConstants.yes) {
+            debugger;
+          }
+        });
         break;
       case this.helperService.appConstants.connections.remove:
-        this.helperService.createDialog(RemoveConnectionsComponent, {});
+        // this.helperService.createDialog(RemoveConnectionsComponent, {});
+        this.helperService.createDialog(ConfirmationModalComponent, {
+          data: {
+            message: this.helperService.translated.CONFIRMATION.REMOVE_CONNECTION
+          }
+        });
+        this.helperService.dialogRef.afterClosed().subscribe(res => {
+          if (res === this.helperService.appConstants.yes) {
+            debugger;
+          }
+        });
         break;
       default:
         break;
@@ -76,7 +99,11 @@ export class MemberCenterComponent implements OnInit {
   }
 
   deactivateUsers(userId) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DEACTIVATE_USER}});
+    this.helperService.createDialog(ConfirmationModalComponent, {
+      data: {
+        message: this.helperService.translated.CONFIRMATION.DEACTIVATE_USER
+      }
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
@@ -88,7 +115,11 @@ export class MemberCenterComponent implements OnInit {
   }
 
   activateUsers(userId) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.ACTIVATE_USER}});
+    this.helperService.createDialog(ConfirmationModalComponent, {
+      data: {
+        message: this.helperService.translated.CONFIRMATION.ACTIVATE_USER
+      }
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};

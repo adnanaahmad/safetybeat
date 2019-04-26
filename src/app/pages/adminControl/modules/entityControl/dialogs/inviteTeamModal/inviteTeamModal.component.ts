@@ -46,6 +46,10 @@ export class InviteTeamModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * this function is used to give the initial values to the global variables that we are getting from
+   * model.
+   */
   initialize() {
     this.inviteTeamModel.removable = true;
     this.inviteTeamModel.separatorKeysCodes = [ENTER, COMMA];
@@ -56,12 +60,25 @@ export class InviteTeamModalComponent implements OnInit {
     this.inviteTeamModel.loading = false;
   }
 
-  remove(fruit: any): void {
-    const index = this.inviteTeamModel.users.indexOf(fruit);
+  /**
+   * this function is used in the material chips form when we select the multiple or single user to be invited and we want
+   * him/her to remove from the list then we will use this function.
+   * @params user
+   */
+
+  remove(user: any): void {
+    const index = this.inviteTeamModel.users.indexOf(user);
     if (index >= 0) {
       this.inviteTeamModel.users.splice(index, 1);
     }
   }
+
+  /**
+   * this function is called when we select any of the users from the list then the first_name of that user
+   * is shown in the input field and when nothing is selected then this function sets the value of null and
+   * input fields remain empty.
+   * @params event
+   */
 
   selected(event: MatAutocompleteSelectedEvent): void {
     let index = this.helperService.findIndex(
@@ -77,6 +94,11 @@ export class InviteTeamModalComponent implements OnInit {
     this.inviteTeamModel.userCtrl.setValue(null);
   }
 
+  /**
+   *this function is used for filtering out the users from the list using search bar.
+   * @params value
+   */
+
   private _filter(value: any): any[] {
     const filterValue =
       value && value.first_name
@@ -87,9 +109,18 @@ export class InviteTeamModalComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used for closing the modal dialog.
+   */
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  /**
+   * this function is used when we select the users to invite and then hit on invite button then all the data of the users
+   * is sent to the api and then api makes them added in the particular team.
+   */
 
   inviteTeam() {
     let userEmails: any = [];

@@ -5,7 +5,6 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {SitesInfo} from 'src/app/models/site.model';
 import {NavigationModel} from 'src/app/models/navigation/navigation.model';
 import {PackageInfo} from 'src/app/models/user.model';
 
@@ -21,8 +20,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
     moduleName: 'Safetybeat'
   };
   navModel: NavigationModel = <NavigationModel>{};
-  private sitesList: any;
-  private sitesData: SitesInfo[];
   isOwner: boolean = false;
   packageInfo: PackageInfo = {
     days: 0,
@@ -49,6 +46,9 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit() {
   }
 
+  /**
+   * this function is used for initializing the initial values of the global variables declared in the model.
+   */
   initialize() {
     this.navModel.translated = this.helperService.translated;
     this.navModel.navLinks = [];
@@ -58,6 +58,11 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
     this.navModel.navLinks = this.navModel.defaultList;
     this.navModel.logoutDisable = false;
   }
+
+  /**
+   * this function is used for getting the selectedEntity and its data and if the user
+   * has not activated any entity then this function returns the first entity as selected from the entities list.
+   */
 
   getSelectedEntity() {
     this.navService.data.subscribe((res) => {
@@ -100,16 +105,26 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
       });
   }
 
-  ngAfterViewInit() {
-  }
+  /**
+   * this function is used for showing the loader on the page if the data is changed then it shows the loader
+   * until this doesn't get the api response.
+   */
 
   ngOnChanges() {
     this.navModel.empty = false;
   }
 
+  /**
+   * this function is used for hiding the debugging messages on the destroying of this component.
+   */
+
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }
+
+  /**
+   * this function is used to change the reports menu. when the user clicks on analytics report.
+   */
 
   switchList() {
     this.navModel.navLinks = [
@@ -172,12 +187,19 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
     ];
   }
 
+  /**
+   * this function takes the data against the user and shows the menu according to user privileges.
+   * @params data
+   */
+
   switchListDefault(data) {
     this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 
   /**
-   * thuiguyg
+   * this function is used for switching the side menu when the selected entity is changed
+   * and when the selected entity is changed then selected entity and role of the user is changed using
+   * behavior subjects and also changes in the components where these observables are subscribed.
    * @params data
    */
   switchSideMenu(data: any) {
@@ -191,6 +213,11 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
     this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
   }
 
+  /**
+   * this function is used for logging out the user from dashboard and expires the token and also
+   * removed the token from the table.
+   */
+
   logoutUser() {
     this.navService.logoutUser().subscribe((res) => {
       this.navModel.logoutDisable = true;
@@ -203,6 +230,10 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
         this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
     });
   }
+
+  /**
+   * this function is used for getting the role of the user in the selected entity and is gotten from the local storage.
+   */
 
   getRoleFromStorage() {
     let currentRole = this.helperService.decrypt(localStorage.getItem
