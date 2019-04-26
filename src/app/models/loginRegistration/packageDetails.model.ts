@@ -1,7 +1,6 @@
 export interface Packages {
   package: PackageDetail;
-  featuresAdded: Feature[];
-  featuresNotAdded: Feature[];
+  features: Feature[]
 }
 
 export interface PackageDetail {
@@ -14,4 +13,5 @@ export interface PackageDetail {
 export interface Feature {
   id: number;
   name: string;
+  featureExist: boolean;
 }

@@ -16,7 +16,6 @@ import {Login} from 'src/app/models/loginRegistration/login.model';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginObj: Login = <Login>{};
-  num: number = 23;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -32,13 +31,28 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.loginService.getToken()) {
-      this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-    }
+    this.navService.packageData.subscribe(
+      (packageDataResult) => {
+        debugger;
+        if (packageDataResult !== 1) {
+          this.changeRoutes(packageDataResult.expired);
+        } else {
+          this.navService.getPackageInfo().subscribe(res => {
+            this.changeRoutes(res.data.expired);
+          });
+        }
+      });
     this.loginObj.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required]
     });
+  }
+
+  changeRoutes(expired: boolean) {
+    if (this.loginService.getToken()) {
+      (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
+        this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+    }
   }
 
   ngOnDestroy() {
@@ -58,14 +72,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * the data we get then a token is assigned and we save it in the localstorage and then navigate to the dashboard page
    * and loading is used to disable the sign up button when the loader is in progress
    */
-  onSubmit({
-             value,
-             valid
-           }: {
-    value: loginCredentials;
-    valid: boolean;
-  }): void {
-
+  onSubmit({value, valid}: { value: loginCredentials; valid: boolean; }): void {
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,

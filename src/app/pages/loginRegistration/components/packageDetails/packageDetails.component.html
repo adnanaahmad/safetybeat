@@ -1,5 +1,5 @@
 <div class="topnav">
-  <a routerLink="/Logout">Logout</a>
+  <button (click)="logoutUser()" [disabled]="logoutDisable">Logout</button>
 </div>
 <div class="legend-header">
   <mat-card-title class="mat-dialog-title mdc-typography">{{helperService.translated.MESSAGES.SAFETYBEAT_PRICING}}
@@ -13,11 +13,9 @@
       <h1 class="package-price">{{package.package.cost|currency:'USD'}} <span>/ month</span></h1>
       <p>{{helperService.translated.STRINGS.PACKAGE_DESCRIPTION_1}}</p>
       <mat-list class="package-features" role="list">
-        <mat-list-item role="listitem" *ngFor="let feature of package.featuresAdded">{{feature.name}}
-          <mat-icon color="primary">done</mat-icon>
-        </mat-list-item>
-        <mat-list-item role="listitem" *ngFor="let feature of package.featuresNotAdded">{{feature.name}}
-          <mat-icon color="warn">clear</mat-icon>
+        <mat-list-item role="listitem" *ngFor="let feature of package.features">{{feature.name}}
+          <mat-icon color="primary" *ngIf="feature.featureExist">done</mat-icon>
+          <mat-icon color="warn" *ngIf="!feature.featureExist">clear</mat-icon>
         </mat-list-item>
       </mat-list>
       <a routerLink="#" mat-raised-button custom-btn btn-primary class="package-button">Get Started</a>
