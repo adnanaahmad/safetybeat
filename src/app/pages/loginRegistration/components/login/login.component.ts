@@ -60,10 +60,11 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
 
   changeRoutes(expired: boolean) {
-    if (this.loginService.getToken()) {
-      (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
-        this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-    }
+    this.helperService.navigateTo([this.helperService.appConstants.paths.home])
+    // if (this.loginService.getToken()) {
+    //   (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
+    //     this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+    // }
   }
 
   ngOnDestroy() {
@@ -110,9 +111,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.navService.updatePackageInfo(userData.packageInfo);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
           (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
-          if (userData.packageInfo.expired) {
-            this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
-          } else {
+          // if (userData.packageInfo.expired) {
+          //   this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
+          // } else {
             let entityData = {
               'moduleName': 'Safetybeat'
             };
@@ -129,7 +130,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
             }, (err) => {
             });
-          }
+          // }
         } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
