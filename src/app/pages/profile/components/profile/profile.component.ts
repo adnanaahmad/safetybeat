@@ -19,7 +19,7 @@ import {NavigationService} from '../../../navigation/services/navigation.service
   styleUrls: ['./profile.component.scss']
 })
 
-export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -46,17 +46,27 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  /**
+   * this function is called when this component initialize and in this function we have subscribed
+   * to the behavior subject of the profile data.
+   */
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.profileModel.subscription = this.profile.usersData.subscribe((res) => {
+    this.profileModel.subscription = this.profile.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
+        this.profileModel.username = this.profileModel.profileData.username;
+        this.profileModel.email = this.profileModel.profileData.email;
       } else {
         this.getCurrentUser();
       }
     });
     this.viewAllEntities();
   }
+
+  /**
+   * this function is used for initializing the global variables that have been declared in the profileModel.
+   */
 
   initialize() {
     this.profileModel.translated = this.helperService.translated;
@@ -71,6 +81,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     ];
   }
 
+  /**
+   * this function is used to return all the entities while subscribing to the behavior subject of the
+   * viewALLEntities.
+   */
+
   viewAllEntities() {
     this.profileModel.subscription = this.navService.data.subscribe((res) => {
         if (res !== 1) {
@@ -83,25 +98,32 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  /**
+   * this function is used for hiding all the debugging messages and also used for unsubscribing the
+   * observables.
+   */
+
   ngOnDestroy() {
     this.helperService.hideLoggers();
     this.profileModel.subscription.unsubscribe();
   }
 
-  ngAfterViewInit() {
-
-  }
+  /**
+   * this function is used for getting the data for current user to show on the profile page.
+   */
 
   getCurrentUser() {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.profile.updateUsers(userData);
+      this.profile.updateCurrenUser(userData);
     })
   }
 }
 
-
+/**
+ * below code is mocked data will be replaced when we will have data to change this.
+ */
 export interface PeriodicElement {
   name: string;
   position: number;

@@ -6,10 +6,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   templateUrl: './entityCodeModal.component.html',
   styleUrls: ['./entityCodeModal.component.scss']
 })
-export class AlertModalComponent implements OnInit {
+export class EntityCodeModalComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<AlertModalComponent>,
+    public dialogRef: MatDialogRef<EntityCodeModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }

@@ -76,13 +76,6 @@ export class SecurityComponent implements OnInit {
       this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
       this.helperService.logoutError(error.status);
-      this.clearValidations();
-    });
-  }
-
-  clearValidations() {
-    Object.keys(this.changePasswordForm.controls).forEach(key => {
-      this.changePasswordForm.controls[key].setErrors(null);
     });
   }
 

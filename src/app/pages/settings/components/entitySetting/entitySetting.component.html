@@ -19,8 +19,19 @@
     </div>
     <div class="form-group">
       <mat-list-item role="listitem">
-        <label>Entity Code</label>
+        <label>{{ helperService.translated.TABLEHEADINGS.ENTITY_CODE }}</label>
         <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required/>
+      </mat-list-item>
+    </div>
+    <div class="form-group" *ngIf="entitySettingObj.allUsersList">
+      <mat-list-item role="listitem">
+        <mat-form-field>
+          <mat-select [(value)]="entitySettingObj.entityManagedBy.id" [formControlName]="helperService.appConstants.managedBy" required>
+            <mat-option *ngFor="let user of entitySettingObj.allUsersList" [value]="user.id">
+              {{user.username}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </mat-list-item>
     </div>
     <div class="form-group">
@@ -35,9 +46,12 @@
   </mat-list>
   <div *ngIf="entitySettingObj.disabled" class="btn-grp">
     <button mat-raised-button custom-btn btn-danger color="primary" type="submit"
-            [disabled]="!helperService.displayButton">
+            [disabled]="entitySettingObj.entityForm.pristine" >
       <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
       {{ helperService.translated.BUTTONS.SAVE }}
+    </button>
+    <button mat-raised-button color="warn" type="button" (click)="cancelEditEntity()">
+      {{helperService.translated.BUTTONS.CANCEL}}
     </button>
   </div>
 </form>

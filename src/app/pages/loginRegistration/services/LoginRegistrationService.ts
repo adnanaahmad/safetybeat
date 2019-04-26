@@ -49,13 +49,40 @@ export class LoginRegistrationService {
     return forkJoin([companyTypes, modules, packages]);
   }
 
+  /**
+   * this function is used for checking the username whether it already exits or not but this api is no more usable due
+   * to change in the scenario.
+   * @params username
+   */
+  checkUserName(username: object) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.checkUsername, username);
+  }
+
+  /**
+   * this function is used for checking the validity of email whether the email is already registered or not. if the email
+   * is not registered then user would not be able to sign up with the same email. For checking the validity of email, this api is
+   * called.
+   * @params email
+   */
   checkEmail(email: object) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.checkEmail, email);
   }
 
+  /**
+   * this function is used for checking the validity of organization name whether the entered name of organization
+   * already exists or not. this api is used for that.
+   * @params OrgName
+   */
+
   checkOrgName(OrgName: object) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.checkOrgName, OrgName);
   }
+
+  /**
+   * this function is used for checking the validity of billing email whether it exits already or not. but no need of
+   * this now.
+   * @params OrgBillingEmail
+   */
 
   checkOrgBillingEmail(OrgBillingEmail: object) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.checkBilling, OrgBillingEmail);
@@ -83,13 +110,29 @@ export class LoginRegistrationService {
     return this.ForgotPassword$;
   }
 
+  /**
+   * this function is used for resetting the password of the user.
+   * @params data
+   */
+
   resetPassword(data: resetPassword) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.forgotPassword, data);
   }
 
+  /**
+   * this function is used for sending the email again if the user didn't get the email for the first time
+   * @params data
+   */
+
   resendemail(data) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.resendverification, data);
   }
+
+  /**
+   * this api function is used for changing the email of the user if he/she has enetered the incorrect email
+   * for the first time.
+   * @params data
+   */
 
   changeEmail(data) {
     return this.helperService.requestCall(this.method.put, this.apiRoutes.changeEmail, data);
@@ -110,13 +153,28 @@ export class LoginRegistrationService {
     return localStorage.getItem(this.storageKey);
   }
 
+  /**
+   * this function is used for updating the profile data whenever the getting userData api is called.
+   * @params data
+   */
+
   updateProfileData(data: any) {
     this.userData.next(data);
   }
 
+  /**
+   * this function is used for checking the validity of the user whether the user is registered or valid or not.
+   * @params data
+   */
+
   validateUser(data: any) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.validateUser, data);
   }
+
+  /**
+   * this function is used for verifying the code that user gets after validating his/her email.
+   * @params data
+   */
 
   verifyCode(data: any) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.verifyCode, data);
