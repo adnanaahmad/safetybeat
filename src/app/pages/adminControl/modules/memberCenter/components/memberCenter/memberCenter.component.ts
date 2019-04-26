@@ -58,6 +58,10 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     })
   }
 
+  viewProfile(element) {
+    debugger
+  }
+
   connections(type) {
     switch (type) {
       case this.helperService.appConstants.connections.view:
