@@ -31,8 +31,6 @@ import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/d
 import {ImportSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmationModal.component';
 import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
-import {AddConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/addConnections/addConnections.component';
-import {RemoveConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/removeConnections/removeConnections.component';
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 
@@ -55,8 +53,6 @@ export function createTranslateLoader(http: HttpClient) {
     ImportSiteModalComponent,
     ConfirmationModalComponent,
     ViewConnectionsComponent,
-    AddConnectionsComponent,
-    RemoveConnectionsComponent,
     ChangeAccessLevelComponent,
   ],
   imports: [
@@ -109,8 +105,6 @@ export function createTranslateLoader(http: HttpClient) {
     ImportSiteModalComponent,
     ConfirmationModalComponent,
     ViewConnectionsComponent,
-    AddConnectionsComponent,
-    RemoveConnectionsComponent,
     ChangeAccessLevelComponent
   ]
 })

@@ -284,6 +284,8 @@ export interface Messages {
   INVALID_ENTITY: string;
   ENTITY_UPDATED_T: string;
   INVALID_DATA: string;
+  VERIFY_ERR: string;
+  VERIFIED: string;
   CHANGE_ACCESS_LEVEL: string;
   REMOVE_CONNECTIONS: string;
   VIEW_CONNECTIONS: string;
@@ -400,4 +402,6 @@ export interface Confirmation {
   DEACTIVATE_USER: string;
   DELETE_SITE: string;
   DELETE_ENTITY: string;
+  ADD_CONNECTION: string;
+  REMOVE_CONNECTION: string
 }
