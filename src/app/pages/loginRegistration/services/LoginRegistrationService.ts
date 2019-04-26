@@ -34,6 +34,10 @@ export class LoginRegistrationService {
     return this.Login$;
   }
 
+  getPackagesData() {
+    return this.helperService.requestCall(this.method.get, this.apiRoutes.packages);
+  }
+
   /**
    * in this function all the api calls related to organization registration data are called over here
    * and fork join is used when you have a group of observables and only care about the final emitted value of each.

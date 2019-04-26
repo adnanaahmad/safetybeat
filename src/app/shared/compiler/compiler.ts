@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
-import {HelperService} from '../helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
-import {Site, SitesInfo} from '../../models/site.model';
-import {Organization} from '../../models/Settings/organizationInfo.model';
+import {Site, SitesInfo} from 'src/app/models/site.model';
+import {Organization} from 'src/app//models/Settings/organizationInfo.model';
+import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -15,6 +16,10 @@ export class CompilerProvider {
     public helperService: HelperService
   ) {
     this.appIcons = this.helperService.constants.appIcons;
+  }
+
+  static constructPackageDetail(packageApiReponse: any): Packages[] {
+    return packageApiReponse.data;
   }
 
   /**
