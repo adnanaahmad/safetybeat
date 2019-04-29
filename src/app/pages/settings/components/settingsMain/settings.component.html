@@ -18,6 +18,9 @@
       <span [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'" (click)="changeSetting('entity')"><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span>
     </mat-list-item>
     <mat-list-item role="listitem">
+      <span [ngClass]="settingFeatures.permission ? 'settingNav' : 'abc'" (click)="changeSetting('permission')"><mat-icon>perm_data_setting</mat-icon> Permission Settings</span>
+    </mat-list-item>
+    <mat-list-item role="listitem">
       <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('theme')"><mat-icon>brightness_medium</mat-icon> Theme Settings</span>
     </mat-list-item>
   </mat-list>
@@ -49,6 +52,11 @@
     <div *ngIf="settingFeatures.entity">
       <app-entity-setting></app-entity-setting>
     </div><!-- /Privacy Settings-->
+
+    <!-- Permission Settings -->
+    <div *ngIf="settingFeatures.permission">
+      <app-permission></app-permission>
+    </div>
 
     <!--Change Theme-->
     <div *ngIf="settingFeatures.theme">

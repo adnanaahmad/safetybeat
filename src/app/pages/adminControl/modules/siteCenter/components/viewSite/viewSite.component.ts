@@ -7,7 +7,7 @@ import {ViewSite} from 'src/app/models/adminControl/viewSite.model';
 import {HelperService} from 'src/app//shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
-import {ProfileService} from '../../../../../profile/services/profile.service';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 
 @Component({
   selector: 'app-ViewSite',

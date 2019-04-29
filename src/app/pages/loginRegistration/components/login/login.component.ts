@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.navService.packageData.subscribe(
       (packageDataResult) => {
-        if (packageDataResult !== -1) {
+        if (packageDataResult !== 1) {
           this.changeRoutes(packageDataResult.expired);
         } else {
           let self = this;
@@ -90,6 +90,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({value, valid}: { value: loginCredentials; valid: boolean; }): void {
+    localStorage.clear();
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,
