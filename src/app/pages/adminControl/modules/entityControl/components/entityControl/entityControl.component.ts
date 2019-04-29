@@ -138,6 +138,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     this.helperService.toggleLoader(true);
     this.entityControl.subscription = this.navService.data.subscribe((res) => {
       if (res !== 1) {
+        debugger
         this.helperService.toggleLoader(false);
         this.entityControl.entitiesList = res;
         this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;

@@ -83,6 +83,7 @@ export class CompilerProvider {
    */
 
   constructUserEntityData(loginApiResponse: any): EntityUserData {
+    debugger
     let allEntities: Entity[] = [];
     this.helperService.iterations(loginApiResponse, function (entity) {
       let data: Entity = {
@@ -96,6 +97,11 @@ export class CompilerProvider {
       };
       allEntities.push(data);
     });
+    let managedBy: any[] = [];
+    this.helperService.iterations(allEntities, function (entity) {
+      managedBy.push(entity.managedBy)
+    })
+    console.log(managedBy, 'this is the managedby');
     let userEntityData: EntityUserData = {
       entities: allEntities
     };
