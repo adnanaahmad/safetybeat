@@ -7,28 +7,46 @@
       (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
   <mat-form-field role="listitem">
     <label>First Name</label>
-    <input matInput type="text" formControlName="first_name" class="showonly" required/>
+    <input matInput type="text" formControlName="first_name" class="showonly" required (keypress)="characterOnly($event)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
       <span>Field is Required</span>
     </mat-error>
   </mat-form-field>
   <mat-form-field role="listitem">
     <label>Last Name</label>
-    <input matInput type="text" formControlName="last_name" class="showonly" required/>
+    <input matInput type="text" formControlName="last_name" class="showonly" required (keypress)="characterOnly($event)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
       <span>Field is Required</span>
     </mat-error>
   </mat-form-field>
+  <div class="input country-code">
+    <mat-form-field full-width>
+      <label>Contact Number</label>
+      <input matInput type="text"
+             [formControlName]="helperService.appConstants.countryCode"
+             (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)"
+             maxlength="3" onPaste="return false" autocomplete="off"/>
+      <mat-error *ngIf="generalViewForm.countryCode.errors">
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+<div class="input contact-number">
   <mat-form-field role="listitem">
-    <label>Contact Number</label>
-    <input matInput type="text" formControlName="contactNo" class="showonly" required/>
+    <input style="width: 77%;float: right;margin-left: 240px;" matInput type="text" class="showonly" required
+           [formControlName]="helperService.appConstants.contactNo" (keypress)="numberOnly($event)"
+           onPaste="return false"
+           autocomplete="off"/>
     <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
-      <span>Field is Required</span>
+      <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+      <span *ngIf="generalViewForm.contactNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
     </mat-error>
   </mat-form-field>
+</div>
   <mat-form-field role="listitem">
     <label>Email</label>
-    <input matInput type="text" formControlName="email" class="showonly" required/>
+    <input matInput type="text" formControlName="email" class="showonly" required
+           (blur)="checkEmail(generalObj.generalForm)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.email.errors">
       <span *ngIf="generalViewForm.email.errors.required">Field is Required</span>
       <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>

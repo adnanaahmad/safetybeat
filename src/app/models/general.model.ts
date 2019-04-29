@@ -6,12 +6,15 @@ export interface GeneralModel {
   resultData: any;
   enabled: boolean,
   generalForm: FormGroup,
-  id: number
+  id: number,
+  email: any,
+  success: any
 }
 export interface GeneralInfo {
   username: string,
   email: string,
   first_name: string,
   last_name: string,
-  contactNo: number
+  contactNo: number,
+  countryCode: number
 }
