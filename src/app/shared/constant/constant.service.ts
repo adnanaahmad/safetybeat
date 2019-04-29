@@ -108,6 +108,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
     userName: 'username',

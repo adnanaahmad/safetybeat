@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import {loginCredentials} from 'src/app/models/user.model';
+import {loginCredentials, PackageInfo} from 'src/app/models/user.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -40,12 +40,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.navService.packageData.subscribe(
       (packageDataResult) => {
-        debugger;
-        if (packageDataResult !== 1) {
+        if (packageDataResult !== -1) {
           this.changeRoutes(packageDataResult.expired);
         } else {
+          let self = this;
           this.navService.getPackageInfo().subscribe(res => {
-            this.changeRoutes(res.data.expired);
+            let packageData = res.data;
+            let index = this.helperService.findIndex(packageData, function (packageVal: PackageInfo) {
+              return packageVal.module === self.helperService.appConstants.moduleName;
+            });
+            this.navService.updatePackageInfo(packageData[index]);
+            this.changeRoutes(packageData[index].expired);
           });
         }
       });
@@ -60,11 +65,11 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
 
   changeRoutes(expired: boolean) {
-    this.helperService.navigateTo([this.helperService.appConstants.paths.home])
-    // if (this.loginService.getToken()) {
-    //   (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
-    //     this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-    // }
+    debugger;
+    if (this.loginService.getToken()) {
+      (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
+        this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+    }
   }
 
   ngOnDestroy() {
@@ -108,29 +113,30 @@ export class LoginComponent implements OnInit, OnDestroy {
             : this.loginService.setToken('');
           let userData = this.compiler.constructUserData(this.loginObj.data);
           this.profile.updateCurrenUser(userData.user);
-          this.navService.updatePackageInfo(userData.packageInfo);
+          let self = this;
+          let index = this.helperService.findIndex(userData.packageInfo, function (packageVal: PackageInfo) {
+            return packageVal.module === self.helperService.appConstants.moduleName;
+          });
+          this.navService.updatePackageInfo(userData.packageInfo[index]);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
           (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
-          // if (userData.packageInfo.expired) {
-          //   this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
-          // } else {
-            let entityData = {
-              'moduleName': 'Safetybeat'
-            };
-            this.adminService.viewEntities(entityData).subscribe((res) => {
-              this.loginObj.entities = res;
-              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
-              this.navService.changeEntites(entityUserData);
-              this.helperService.appLoggerDev(
-                this.helperService.constants.status.SUCCESS,
-                this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
-              );
-              this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
-                this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-              this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-            }, (err) => {
-            });
-          // }
+          let entityData = {
+              'moduleName': this.helperService.appConstants.moduleName
+            }
+          ;
+          this.adminService.viewEntities(entityData).subscribe((res) => {
+            this.loginObj.entities = res;
+            let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
+            this.navService.changeEntites(entityUserData);
+            this.helperService.appLoggerDev(
+              this.helperService.constants.status.SUCCESS,
+              this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
+            );
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
+              this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+          }, (err) => {
+          });
         } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
