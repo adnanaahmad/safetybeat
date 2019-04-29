@@ -1,13 +1,12 @@
 import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {SiteAddData} from 'src/app/models/site.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
-import {ProfileService} from '../../../../../profile/services/profile.service';
-import {MemberCenterService} from '../../../memberCenter/services/member-center.service';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-addSiteModal',
@@ -23,11 +22,11 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddSiteModalComponent>,
+    public compiler: CompilerProvider,
     private render: Renderer2,
     private adminServices: AdminControlService,
-    public compiler: CompilerProvider,
-    @Inject(MAT_DIALOG_DATA) public data,
-    private memberService: MemberCenterService
+    private memberService: MemberCenterService,
+    @Inject(MAT_DIALOG_DATA) public data
   ) {
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.addSiteObj.loading = false;
@@ -128,21 +127,34 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function is to call the api of edit site when user makes some changes and clicks on save button
+   * this function is used to generate site's data according to the edit or add site function
+   * @params value
+   * @params editSite
    */
 
-  editSite(value) {
-    let siteData = {
+  generateSiteDate(value, editSite) {
+    let siteData: any = {
       name: value.siteName,
       location: this.helperService.address,
       safeZone: value.safeZone,
       siteSafetyPlan: value.siteSafetyPlan,
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
-      createdBy: this.addSiteObj.site.createdBy,
-      siteSafetyManager: this.addSiteObj.site.siteSafetyManager
-    };
-    this.adminServices.editSite(this.addSiteObj.site.id, siteData).subscribe((res) => {
+    }
+    if (editSite) {
+      siteData.createdBy = this.addSiteObj.site.createdBy;
+      siteData.siteSafetyManager = value.siteSafetyManager;
+    }
+    return siteData;
+  }
+
+  /**
+   * this function is to call the api of edit site when user makes some changes and clicks on save button
+   */
+
+  editSite(value) {
+    this.addSiteObj.loading = true;
+    this.adminServices.editSite(this.addSiteObj.site.id, this.generateSiteDate(value, true)).subscribe((res) => {
       this.addSiteObj.loading = false;
       this.onNoClick();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
@@ -157,16 +169,8 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    */
 
   addSite(value) {
-    let siteData = {
-      name: value.siteName,
-      location: this.helperService.address,
-      safeZone: value.safeZone,
-      siteSafetyPlan: value.siteSafetyPlan,
-      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
-    };
     this.addSiteObj.loading = true;
-    this.adminServices.addSite(siteData).subscribe((res) => {
+    this.adminServices.addSite(this.generateSiteDate(value, false)).subscribe((res) => {
       this.addSiteObj.addSiteResponse = res;
       if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;

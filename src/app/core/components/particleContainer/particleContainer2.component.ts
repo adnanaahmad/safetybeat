@@ -3,11 +3,11 @@ import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: 'app-particle2-container',
+  selector: 'app-particle2Container',
   templateUrl: './particleContainer2.component.html',
   styleUrls: ['./particleContainer2.component.scss']
 })
-export class ParticleContainerComponent implements OnInit, OnDestroy {
+export class ParticleContainer2Component implements OnInit, OnDestroy {
   translated: Translation;
   particlesIcons: any;
 

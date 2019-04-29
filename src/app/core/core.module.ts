@@ -3,14 +3,15 @@ import {CommonModule} from '@angular/common';
 
 import {CoreRoutingModule} from './core-routing.module';
 import {PageNotFoundComponent} from './components/pageNotFound/pageNotFound.component';
-import {ParticleContainerComponent} from './components/particleContainer/particleContainer2.component';
 import {MaterialModule} from '../shared/material/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppModule} from '../app.module';
+import {ParticleContainer2Component} from './components/particleContainer/particleContainer2.component';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
-    ParticleContainerComponent
+    ParticleContainer2Component
   ],
   imports: [
     CommonModule,
@@ -21,7 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   ],
   exports: [
     PageNotFoundComponent,
-    ParticleContainerComponent
+    ParticleContainer2Component
   ],
 })
 export class CoreModule {

@@ -117,10 +117,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             'moduleName': 'Safetybeat'
           };
           this.adminService.viewEntities(entityData).subscribe((res) => {
-            debugger
             this.loginObj.entities = res;
             let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
-            console.log(entityUserData, 'this is the entity user data');
             this.navService.changeEntites(entityUserData);
             this.helperService.appLoggerDev(
               this.helperService.constants.status.SUCCESS,

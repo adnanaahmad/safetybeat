@@ -7,7 +7,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
-import {SitesInfo} from '../../../../../../models/site.model';
+import {SitesInfo} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-siteCenter',
@@ -106,6 +106,12 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * this function is used to create edit site modal dialog in which the user would be able to edit site.
+   * and after closing of this modal viewAllSites api calls so that we can see the updated list of sites.
+   * @param: siteInfo
+   */
+
   editSite(siteInfo: SitesInfo) {
     this.helperService.createDialog(AddSiteModalComponent, {
       disableClose: true,
@@ -115,6 +121,10 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       this.viewSitesData();
     });
   }
+
+  /**
+   * this function allows specific user to have permission to add or import site
+   */
 
   siteAddorImportEnable() {
     this.navService.currentRole.subscribe(res => {
@@ -130,6 +140,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   /**
    * this function is called when the user clicks on the view site button and then this function navigates the users
    * to the view site component in which all the details of the particular site is shown.

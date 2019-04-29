@@ -35,7 +35,7 @@ export class ConstantService {
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
-    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
+    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
