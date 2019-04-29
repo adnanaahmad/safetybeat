@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.navService.packageData.subscribe(
       (packageDataResult) => {
-        debugger;
         if (packageDataResult !== 1) {
           this.changeRoutes(packageDataResult.expired);
         } else {
