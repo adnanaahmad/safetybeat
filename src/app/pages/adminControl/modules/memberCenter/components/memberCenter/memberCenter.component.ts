@@ -52,14 +52,12 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   getAllUsers(data) {
     this.memberService.entityUsers(data).subscribe((res) => {
       this.memberCenter.elements = this.compiler.entityUser(res);
-      console.log(res)
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
     })
   }
 
   viewProfile(element) {
-    debugger
   }
 
   connections(type) {
@@ -76,7 +74,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         });
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
-            debugger;
           }
         });
         break;
@@ -89,7 +86,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         });
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
-            debugger;
           }
         });
         break;

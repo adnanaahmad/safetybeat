@@ -12,7 +12,15 @@ import {MatDialogRef} from '@angular/material';
 export class SettingsComponent implements OnInit {
   public dialogRef: MatDialogRef<SettingsComponent>;
   themeSelected: any;
-  settingFeatures = {'general': true, 'security': false, 'organization': false, 'group': false, 'entity': false, 'theme': false};
+  settingFeatures = {
+    'general': true,
+    'security': false,
+    'organization': false,
+    'group': false,
+    'entity': false,
+    'theme': false,
+    'permission': false
+  };
 
   constructor(
     public settings: SettingService,

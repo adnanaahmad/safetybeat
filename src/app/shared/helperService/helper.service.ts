@@ -1,5 +1,5 @@
 import {Injectable, ElementRef} from '@angular/core';
-import {forEach, findIndex, sortBy} from 'lodash';
+import {forEach, findIndex, remove, sortBy} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -21,6 +21,7 @@ import * as CryptoJS from 'crypto-js';
 export class HelperService {
   iterations: any;
   findIndex: any;
+  remove: any;
   sortBy: any;
   translated: Translation;
   constants: typeof ConstantService;
@@ -48,6 +49,7 @@ export class HelperService {
     this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
+    this.remove = remove;
     this.sortBy = sortBy;
     this.address = '';
     this.displayButton = false;

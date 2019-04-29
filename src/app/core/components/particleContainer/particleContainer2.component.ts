@@ -7,7 +7,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
   templateUrl: './particleContainer2.component.html',
   styleUrls: ['./particleContainer2.component.scss']
 })
-export class ParticleContainerComponent2 implements OnInit, OnDestroy {
+export class ParticleContainer2Component implements OnInit, OnDestroy {
   translated: Translation;
   particlesIcons: any;
 

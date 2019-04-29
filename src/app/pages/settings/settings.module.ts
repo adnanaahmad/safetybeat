@@ -14,9 +14,10 @@ import { SecurityComponent } from './components/security/security.component';
 import { OrganizationInfoComponent } from './components/organizationInfo/organizationInfo.component';
 import { GroupSettingComponent } from './components/groupSetting/groupSetting.component';
 import { EntitySettingComponent } from './components/entitySetting/entitySetting.component';
+import { PermissionComponent } from './components/permission/permission.component';
 
 @NgModule({
-  declarations: [SettingsComponent, GeneralComponent, SecurityComponent, OrganizationInfoComponent, GroupSettingComponent, EntitySettingComponent],
+  declarations: [SettingsComponent, GeneralComponent, SecurityComponent, OrganizationInfoComponent, GroupSettingComponent, EntitySettingComponent, PermissionComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,
