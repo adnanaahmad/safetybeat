@@ -57,9 +57,9 @@
   @include amte-entityCodeModal($primary, $accent, $warn);
   @include amte-createEntityModal($primary, $accent, $warn);
   @include amte-welcomeScreen($primary, $accent, $warn);
+  @include amte-createEntity($primary, $accent, $warn);
   @include amte-addsite-modal($primary, $accent, $warn);
   @include amte-toaster($primary, $accent, $warn);
-  @include amte-createEntity($primary, $accent, $warn);
   @include amte-viewSite($primary, $accent, $warn);
   @include amte-viewConnections($primary, $accent, $warn);
   @include amte-org-registration-modal($primary, $accent, $warn);
