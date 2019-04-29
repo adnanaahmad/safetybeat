@@ -24,7 +24,8 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
   packageInfo: PackageInfo = {
     days: 0,
     expired: false,
-    package: 'None'
+    package: 'None',
+    module: this.helperService.appConstants.moduleName
   };
 
   constructor(
