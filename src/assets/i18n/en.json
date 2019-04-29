@@ -17,9 +17,11 @@
     "BILLING_EMAIL": "Billing Email",
     "FAX": "Fax",
     "ROLE": "Role",
+    "SITE": "Site",
     "USERNAME_REQ": "Please enter username.",
     "PASSWORD_REQ": "Please enter valid password.",
     "ROLE_REQ": "Please select user role.",
+    "SITE_REQ": "Please select site.",
     "FIRSTNAME_REQ": "Please enter first name.",
     "LASTNAME_REQ": "Please enter last name.",
     "EMAIL_VALID": "Please enter a valid email address.",
@@ -227,6 +229,8 @@
     "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
     "DELETE_SITE_FAILURE": "Site deletion failed.",
     "EDIT_SITE_MSG": "Enter Site Details to Edit Site.",
+    "VERIFY_ERR": "You have not been verified",
+    "VERIFIED": "You have been verified",
     "SAFETY_MANAGER_REQ": "Site Safety Manager is Required",
     "USER_NOT_FOUND": "User not found",
     "SITE_EDIT_SUCCESS": "Site edit successfully.",
@@ -252,6 +256,7 @@
     "ENTITY_ID": "Entity Id",
     "ENTITY_NAME": "Entity Name",
     "ENTITY_HEADOFFICE": "Entity Head Office",
+    "ENTITY_CODE": "Entity Code",
     "ENTITY_STATUS": "Entity Status",
     "ACTIONS": "Actions",
     "NAME": "Name",
@@ -332,6 +337,8 @@
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
-    "DELETE_ENTITY": "Are you sure you want Delete this entity?"
+    "DELETE_ENTITY": "Are you sure you want Delete this entity?",
+    "ADD_CONNECTION":"Are you sure you want to Add this user to your Connections.",
+    "REMOVE_CONNECTION":"Are you sure you want to Remove this user from your Connections."
   }
 }

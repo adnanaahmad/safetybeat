@@ -38,9 +38,16 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    if (this.loginService.getToken()) {
-      this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-    }
+    this.navService.packageData.subscribe(
+      (packageDataResult) => {
+        if (packageDataResult !== 1) {
+          this.changeRoutes(packageDataResult.expired);
+        } else {
+          this.navService.getPackageInfo().subscribe(res => {
+            this.changeRoutes(res.data.expired);
+          });
+        }
+      });
     this.loginObj.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required]
@@ -50,6 +57,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   /**
    * this function is used for hiding the debugging messages on the destroy of this component.
    */
+
+  changeRoutes(expired: boolean) {
+    this.helperService.navigateTo([this.helperService.appConstants.paths.home])
+    // if (this.loginService.getToken()) {
+    //   (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
+    //     this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+    // }
+  }
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
@@ -68,14 +83,8 @@ export class LoginComponent implements OnInit, OnDestroy {
    * the data we get then a token is assigned and we save it in the localstorage and then navigate to the dashboard page
    * and loading is used to disable the sign up button when the loader is in progress
    */
-  onSubmit({
-             value,
-             valid
-           }: {
-    value: loginCredentials;
-    valid: boolean;
-  }): void {
-
+  onSubmit({value, valid}: { value: loginCredentials; valid: boolean; }): void {
+    localStorage.clear();
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,
@@ -101,23 +110,26 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.profile.updateCurrenUser(userData.user);
           this.navService.updatePackageInfo(userData.packageInfo);
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString());
-            let entityData = {
-              'moduleName': 'Safetybeat'
-            };
-            this.adminService.viewEntities(entityData).subscribe((res) => {
-              this.loginObj.entities = res;
-              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
-              this.navService.changeEntites(entityUserData);
-              this.helperService.appLoggerDev(
-                this.helperService.constants.status.SUCCESS,
-                this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
-              );
-              this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
-                this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
-              this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-            }, (err) => {
-            });
+          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+          // if (userData.packageInfo.expired) {
+          //   this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
+          // } else {
+          let entityData = {
+            'moduleName': 'Safetybeat'
+          };
+          this.adminService.viewEntities(entityData).subscribe((res) => {
+            this.loginObj.entities = res;
+            let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
+            this.navService.changeEntites(entityUserData);
+            this.helperService.appLoggerDev(
+              this.helperService.constants.status.SUCCESS,
+              this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
+            );
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
+              this.helperService.translated.MESSAGES.LOGIN_MSG, this.helperService.constants.status.SUCCESS);
+            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+          }, (err) => {
+          });
           // }
         } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(

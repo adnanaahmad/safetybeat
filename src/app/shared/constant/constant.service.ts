@@ -133,6 +133,8 @@ export class ConstantService {
     status: 'status',
     joinCode: 'joinCode',
     role: 'role',
+    sites: 'sites',
+    entities: 'entities',
     code: 'code',
     managedBy: 'managedBy',
     siteName: 'siteName',
@@ -144,6 +146,8 @@ export class ConstantService {
     emailValid: 'VALID',
     yes: 'YES',
     codeValidations: [100, 101, 102, 103, 104],
+    dateJoined: 'dateJoined',
+    phoneNo: 'phoneNo',
     avatar: './assets/images/avatar.png',
     paths: {
       home: '/home',
@@ -155,7 +159,8 @@ export class ConstantService {
     roles: {
       owner: 'Owner',
       teamLead: 'TeamLead',
-      entityManager: 'EntityManager'
+      entityManager: 'EntityManager',
+      siteSafetyManager: 'SiteSafetyManager'
     },
     connections: {
       view: 'view',

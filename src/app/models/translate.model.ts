@@ -48,9 +48,12 @@ export interface Auth {
   BILLING_EMAIL: string;
   FAX: string;
   ROLE: string;
+  SITE: string;
   USERNAME_REQ: string;
   PASSWORD_REQ: string;
   ROLE_REQ: string;
+  SITE_REQ: string;
+  ENTITY_REQ: string;
   FIRSTNAME_REQ: string;
   LASTNAME_REQ: string;
   EMAIL_VALID: string;
@@ -284,6 +287,8 @@ export interface Messages {
   INVALID_ENTITY: string;
   ENTITY_UPDATED_T: string;
   INVALID_DATA: string;
+  VERIFY_ERR: string;
+  VERIFIED: string;
   CHANGE_ACCESS_LEVEL: string;
   REMOVE_CONNECTIONS: string;
   VIEW_CONNECTIONS: string;
@@ -367,6 +372,7 @@ export interface TableHeadings {
   ENTITY_ID: string;
   ENTITY_NAME: string;
   ENTITY_HEADOFFICE: string;
+  ENTITY_CODE: string;
   ENTITY_STATUS: string;
   ACTIONS: string;
   NAME: string;
@@ -400,4 +406,6 @@ export interface Confirmation {
   DEACTIVATE_USER: string;
   DELETE_SITE: string;
   DELETE_ENTITY: string;
+  ADD_CONNECTION: string;
+  REMOVE_CONNECTION: string
 }
