@@ -72,7 +72,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         });
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
-            debugger;
           }
         });
         break;
@@ -85,7 +84,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         });
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
-            debugger;
           }
         });
         break;

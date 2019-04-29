@@ -65,7 +65,6 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
 
   changeRoutes(expired: boolean) {
-    debugger;
     if (this.loginService.getToken()) {
       (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
         this.helperService.navigateTo([this.helperService.appConstants.paths.home]);

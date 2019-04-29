@@ -19,7 +19,8 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private loginRegisterService: LoginRegistrationService,
               private navService: NavigationService,
-              public coreService: CoreService,
+              private coreService: CoreService,
+              private loginService: LoginRegistrationService,
               public helperService: HelperService) {
   }
 
@@ -47,5 +48,20 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  updatePackage(packageId) {
+    let data = {
+      'packageId': packageId
+    };
+    this.loginService.updatePackage(data).subscribe((res) => {
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+        }
+      }, (error) => {
+        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
+          error);
+      }
+    );
   }
 }
