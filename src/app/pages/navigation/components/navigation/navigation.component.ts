@@ -95,7 +95,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
           this.packageInfo = packageDataResult;
         } else {
           this.navService.getPackageInfo().subscribe(res => {
-            this.packageInfo = res.data;
+            this.packageInfo = res.data[0];
             localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
             (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           }, error => {
