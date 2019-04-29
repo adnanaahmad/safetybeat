@@ -11,7 +11,7 @@ import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
-import {NavigationService} from '../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-profile',
