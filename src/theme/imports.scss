@@ -5,27 +5,20 @@
 @import "src/app/pages/loginRegistration/components/forgotPassword/forgotPassword.component.scss";
 @import "src/app/pages/loginRegistration/components/passwordRecovery/passwordRecovery.component.scss";
 @import "src/app/pages/loginRegistration/components/landing/landing.component.scss";
-
 @import "src/app/Dialogs/verification/verification.component.scss";
-
 @import "src/app/pages/navigation/components/fixedNav/fixedNav.component.scss";
 @import "src/app/pages/navigation/components/navList/navList.component.scss";
 @import "src/app/pages/navigation/components/navigation/navigation.component.scss";
 @import "src/app/pages/navigation/components/notificationNav/notificationNav.component.scss";
-
 @import "src/app/pages/profile/components/profile/profile.component.scss";
 @import "src/app/pages/profile/components/user/user.component.scss";
-
 @import "src/app/pages/settings/components/settingsMain/settings.component.scss";
 @import "src/app/pages/settings/components/organizationInfo/organizationInfo.component.scss";
 @import "src/app/pages/dashboard/components/dashboard/dashboard.component.scss";
 @import "src/app/core/components/pageNotFound/pageNotFound.component.scss";
-
 @import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
-
 @import "src/app/common/toaster/toaster.component.scss";
-
 @import "src/app/pages/adminControl/modules/entityControl/components/entityControl/entityControl.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component.scss";
@@ -62,10 +55,11 @@
   @include amte-entityControl($primary, $accent, $warn);
   @include amte-passwordRecovery($primary, $accent, $warn);
   @include amte-entityCodeModal($primary, $accent, $warn);
+  @include amte-createEntityModal($primary, $accent, $warn);
   @include amte-welcomeScreen($primary, $accent, $warn);
+  @include amte-createEntity($primary, $accent, $warn);
   @include amte-addsite-modal($primary, $accent, $warn);
   @include amte-toaster($primary, $accent, $warn);
-  @include amte-createEntity($primary, $accent, $warn);
   @include amte-viewSite($primary, $accent, $warn);
   @include amte-viewConnections($primary, $accent, $warn);
   @include amte-org-registration-modal($primary, $accent, $warn);

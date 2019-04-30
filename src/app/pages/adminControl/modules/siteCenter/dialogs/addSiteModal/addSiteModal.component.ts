@@ -143,7 +143,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     }
     if (editSite) {
       siteData.createdBy = this.addSiteObj.site.createdBy;
-      siteData.siteSafetyManager = this.addSiteObj.site.siteSafetyManager;
+      siteData.siteSafetyManager = value.siteSafetyManager;
     }
     return siteData;
   }

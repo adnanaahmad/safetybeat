@@ -3,7 +3,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {RegistrationComp} from 'src/app/models/loginRegistration/registration.model';
 
@@ -233,5 +232,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status);
     });
+  }
+  rand(){
+
   }
 }

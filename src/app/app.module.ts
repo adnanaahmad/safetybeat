@@ -11,28 +11,29 @@ import {
   TranslateLoader,
   TranslateService
 } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AuthGuard } from './core/services/guards/auth.guard';
-import { TokenInterceptorService } from './core/services/interceptors/tokenInterceptor';
-import { NotifierModule } from 'angular-notifier';
-import { CoreService } from './core/services/authorization/core.service';
-import { CookieService } from 'ngx-cookie-service';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { CreateEntityComponent } from './pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
-import { JoinEntityModalComponent } from './pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
-import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserModal.component';
-import { VerificationComponent } from './Dialogs/verification/verification.component';
-import { CompilerProvider } from './shared/compiler/compiler';
-import { InviteTeamModalComponent } from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
-import { ToasterComponent } from './common/toaster/toaster.component';
-import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
+import {HttpClient} from '@angular/common/http';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AuthGuard} from './core/services/guards/auth.guard';
+import {TokenInterceptorService} from './core/services/interceptors/tokenInterceptor';
+import {NotifierModule} from 'angular-notifier';
+import {CoreService} from './core/services/authorization/core.service';
+import {CookieService} from 'ngx-cookie-service';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {CreateEntityComponent} from './pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
+import {JoinEntityModalComponent} from './pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
+import {InviteUserModalComponent} from './Dialogs/inviteUserModal/inviteUserModal.component';
+import {VerificationComponent} from './Dialogs/verification/verification.component';
+import {CompilerProvider} from './shared/compiler/compiler';
+import {InviteTeamModalComponent} from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material';
+import {ToasterComponent} from './common/toaster/toaster.component';
+import {AddSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmationModal.component';
 import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
-import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
+import {EntityCodeModalComponent} from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
+import {ParticleContainer2Component} from './core/components/particleContainer/particleContainer2.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -53,7 +54,7 @@ export function createTranslateLoader(http: HttpClient) {
     ImportSiteModalComponent,
     ConfirmationModalComponent,
     ViewConnectionsComponent,
-    ChangeAccessLevelComponent,
+    ChangeAccessLevelComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -92,6 +93,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
 
   bootstrap: [AppComponent],
+  exports: [
+  ],
   entryComponents: [
     CreateEntityComponent,
     JoinEntityModalComponent,

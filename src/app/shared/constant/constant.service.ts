@@ -35,7 +35,7 @@ export class ConstantService {
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
-    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization`,
+    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
@@ -45,6 +45,7 @@ export class ConstantService {
     addSite: `${environment.apiUrl}/api/sites/addSite/`,
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
+    updatePackage: `${environment.apiUrl}/packages/updatePackage/`,
     importSite: `${environment.apiUrl}/api/uploadFile/importSite/`,
     getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
     editOrganization: `${environment.apiUrl}/organization`,
@@ -108,6 +109,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
     userName: 'username',
