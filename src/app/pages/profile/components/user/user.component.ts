@@ -37,6 +37,10 @@ export class UserComponent implements OnInit, OnDestroy {
         this.getAllUsers();
       }
     });
+    this.userService.getUser().subscribe(res => {
+      this.userModel.user = res;
+      this.userModel.userId = this.userModel.user.data.user.id;
+    });
   }
 
   /**
