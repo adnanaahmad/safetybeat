@@ -148,6 +148,16 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.helperService.createSnack(data.responseDetails.message,
             data.responseDetails.message, this.helperService.constants.status.WARNING);
           this.loginObj.loading = false;
+        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
+          this.helperService.appLogger(this.helperService.constants.status.ERROR,
+            data.responseDetails.message);
+          this.helperService.appLoggerDev(
+            this.helperService.constants.status.ERROR,
+            data.responseDetails.message
+          );
+          this.helperService.createSnack(data.responseDetails.message,
+            data.responseDetails.message, this.helperService.constants.status.WARNING);
+          this.loginObj.loading = false;
         }
       },
       error => {
