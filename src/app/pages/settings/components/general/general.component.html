@@ -1,27 +1,64 @@
-<h3 class="setting-title">General Account Settings</h3>
-<mat-list role="list" class="settings-list">
-  <mat-list-item role="listitem">
-    <label>Name</label>
-    <input matInput type="text" class="showonly" placeholder="BlueSky Software"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>City</label>
-    <input matInput type="text" class="showonly" placeholder="Lahore"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>Country</label>
-    <input matInput type="text" class="showonly" placeholder="Pakistan"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>Contact Number</label>
-    <input matInput type="text" class="showonly" placeholder="+923157118511"/>
-  </mat-list-item>
-  <mat-list-item role="listitem">
-    <label>Billing info</label>
-    <input matInput type="text" class="showonly" placeholder="201, 2nd floor, Siddiq Trade Centre, Lahore"/>
-  </mat-list-item>
-</mat-list>
-<div class="btn-grp">
-  <button type="button" mat-raised-button routerLink="" custom-btn btn-primary>Save</button>
-  <button type="button" mat-raised-button routerLink="" color="warn" custom-btn btn-danger> Cancel</button>
+<h3 class="setting-title">General Account Settings
+  <button btn-primary mat-raised-button edit-btn color="primary" (click)="editGeneralForm()">
+    <mat-icon>edit</mat-icon>
+  </button>
+</h3>
+<form [formGroup]="generalObj.generalForm" class="settings-list"
+      (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
+  <mat-form-field role="listitem">
+    <label>First Name</label>
+    <input matInput type="text" formControlName="first_name" class="showonly" required (keypress)="characterOnly($event)"/>
+    <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
+      <span>Field is Required</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field role="listitem">
+    <label>Last Name</label>
+    <input matInput type="text" formControlName="last_name" class="showonly" required (keypress)="characterOnly($event)"/>
+    <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
+      <span>Field is Required</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="input country-code">
+    <mat-form-field full-width>
+      <label>Contact Number</label>
+      <input matInput type="text"
+             [formControlName]="helperService.appConstants.countryCode"
+             (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)"
+             maxlength="3" onPaste="return false" autocomplete="off"/>
+      <mat-error *ngIf="generalViewForm.countryCode.errors">
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+<div class="input contact-number">
+  <mat-form-field role="listitem">
+    <input style="width: 77%;float: right;margin-left: 240px;" matInput type="text" class="showonly" required
+           [formControlName]="helperService.appConstants.contactNo" (keypress)="numberOnly($event)"
+           onPaste="return false"
+           autocomplete="off"/>
+    <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
+      <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+      <span *ngIf="generalViewForm.contactNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+    </mat-error>
+  </mat-form-field>
 </div>
+  <mat-form-field role="listitem">
+    <label>Email</label>
+    <input matInput type="text" formControlName="email" class="showonly" required
+           (blur)="checkEmail(generalObj.generalForm)"/>
+    <mat-error class="text-right" *ngIf="generalViewForm.email.errors">
+      <span *ngIf="generalViewForm.email.errors.required">Field is Required</span>
+      <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="btn-grp">
+    <button type="submit" mat-raised-button *ngIf="generalObj.enabled" custom-btn btn-primary
+            [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
+    </button>
+    <button type="button" mat-raised-button *ngIf="generalObj.enabled" (click)="cancelForm()" color="warn" custom-btn
+            btn-danger> Cancel
+    </button>
+  </div>
+
+</form>

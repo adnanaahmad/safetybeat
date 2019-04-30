@@ -57,20 +57,20 @@ export class SecurityComponent implements OnInit {
         this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
           this.helperService.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
-          this.helperService.translated.LOGGER.MESSAGES.PASSWORD_CHANGE, this.helperService.constants.status.SUCCESS);
+          this.helperService.constants.status.SUCCESS);
         this.loading = false;
         formDirective.resetForm();
         this.changePasswordForm.reset();
       } else {
         this.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.INCORRECT_PASS,
-          this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
+           this.helperService.constants.status.ERROR);
 
       }
     }, (error) => {
       this.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-        this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS, this.helperService.constants.status.ERROR);
+         this.helperService.constants.status.ERROR);
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
       this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,

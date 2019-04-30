@@ -36,8 +36,7 @@ export class CoreService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.helperService.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS,
-      this.translated.MESSAGES.LOGOUT_MSG, this.helperService.constants.status.WARNING);
+    this.helperService.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.helperService.constants.status.WARNING);
     this.router.navigate(['/login']);
   }
 
