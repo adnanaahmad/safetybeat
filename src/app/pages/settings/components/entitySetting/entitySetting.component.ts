@@ -104,7 +104,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     let data = {
       'name': value.name,
       'code': value.code,
-      'headOffice': value.headOffice,
+      'headOffice': this.helperService.address,
       'managedBy': this.entitySettingObj.entitiesData.managedBy,
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
