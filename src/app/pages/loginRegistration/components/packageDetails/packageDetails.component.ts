@@ -43,7 +43,7 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG,
-        this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG, this.helperService.translated.STATUS.ERROR);
+        this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG);
     });
   }
 

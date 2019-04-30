@@ -167,6 +167,8 @@ export interface Buttons {
 }
 
 export interface Messages {
+  GENERAL_UPDATED: string;
+  GENERAL_FAIL: string;
   ORG_DETAILS: string;
   INCORRECT_PASS: string;
   CHANGEPASSWORD: string;

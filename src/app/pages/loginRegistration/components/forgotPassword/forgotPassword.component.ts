@@ -87,8 +87,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       data => {
         let res = data;
         if (res.responseDetails.code !== this.helperService.appConstants.codeValidations[1]) {
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS,
-            this.helperService.translated.MESSAGES.RESETMSG, this.helperService.constants.status.SUCCESS);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS, this.helperService.constants.status.SUCCESS);
           this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
             this.helperService.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
           this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
@@ -97,8 +96,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
           `${this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS,
-          this.helperService.translated.MESSAGES.RESETMSG, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS, this.helperService.constants.status.ERROR);
       }
     );
 
