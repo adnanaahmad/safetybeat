@@ -222,8 +222,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
         disableClose: true
       });
     } else {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.NOUSER,
-        this.helperService.translated.MESSAGES.NOUSERTITLE, this.helperService.translated.LOGGER.STATUS.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.NOUSER, this.helperService.translated.LOGGER.STATUS.ERROR);
     }
   }
 
@@ -253,13 +252,10 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     this.helperService.toggleLoader(true);
     this.adminServices.deleteEntity(entityId).subscribe(res => {
       this.viewEntitiesApiCall();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE,
-        this.helperService.translated.MESSAGES.ENTITY_DELETE_TITLE,
-        this.helperService.translated.STATUS.SUCCESS);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE, this.helperService.translated.STATUS.SUCCESS);
       this.helperService.toggleLoader(false);
     }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL,
-        this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL_TITLE, this.helperService.translated.STATUS.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL, this.helperService.translated.STATUS.ERROR);
       this.helperService.toggleLoader(false);
     });
   }

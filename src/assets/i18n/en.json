@@ -121,7 +121,7 @@
     "MATCH_ERROR": "Password not match.",
     "RESET_MSG": "Reset Your Password",
     "EMAIL_MSG": "Please enter a valid email address",
-    "ORGANIZATION_MSG": "Orginazation Details",
+    "ORGANIZATION_MSG": "Organization Details",
     "TYPE_MSG": "Please Select type.",
     "MODULE_MSG": "Select Module(s)",
     "MODULESELECT_MSG": "Please Select atleast one Module.",
@@ -239,7 +239,9 @@
     "CHANGE_ACCESS_LEVEL": "Change Access Level",
     "VIEW_CONNECTIONS": "View Connections",
     "REMOVE_CONNECTIONS": "Remove Connections",
-    "ADD_CONNECTIONS": "Add Connections"
+    "ADD_CONNECTIONS": "Add Connections",
+    "GENERAL_UPDATED": "General Information Update.",
+    "GENERAL_FAIL": "Updation Failed."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",

@@ -139,14 +139,12 @@ export class InviteTeamModalComponent implements OnInit {
         if (responseData.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
           this.helperService.createSnack(
             responseData.responseDetails.message,
-            this.helperService.translated.MESSAGES.INVITETEAMSUCCESS,
             this.helperService.constants.status.SUCCESS
           );
           this.onNoClick();
         } else {
           this.helperService.createSnack(
             responseData.responseDetails.message,
-            this.helperService.translated.MESSAGES.INVITETEAMFAIL,
             this.helperService.constants.status.ERROR
           );
           this.onNoClick();
