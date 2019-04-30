@@ -52,7 +52,6 @@ export class GeneralComponent implements OnInit {
     this.settings.generalData.subscribe((res) => {
       if (res === 1) {
         this.profile.getUser().subscribe((res) => {
-          console.log(res);
           this.generalObj.resultData = this.compiler.constructGeneralInfoObject(res);
           this.generalObj.userData = this.compiler.constructProfileData(this.generalObj.resultData.user);
           this.profile.updateCurrenUser(this.generalObj.userData);
@@ -99,7 +98,6 @@ export class GeneralComponent implements OnInit {
     if (this.generalObj.email.status === this.helperService.appConstants.emailValid) {
       const email = {email: group.value.email};
       this.navService.checkEmail(email).pipe().subscribe((res) => {
-        console.log(res);
         this.generalObj.success = res;
         if (this.generalObj.success.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           group.controls.email.setErrors({exists: true});
@@ -121,7 +119,6 @@ export class GeneralComponent implements OnInit {
       'contactNo': value.countryCode + '-' + value.contactNo,
       'email': this.generalObj.userData.email
     };
-    console.log(data);
     if (!valid) {
       this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
       return;
