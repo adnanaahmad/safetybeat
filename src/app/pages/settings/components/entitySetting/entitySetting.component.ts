@@ -92,7 +92,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.adminServices.viewEntities(data).subscribe((res) => {
       this.helperService.toggleLoader(false);
       this.entitySettingObj.entitiesList = res;
-      console.log(this.entitySettingObj.entitiesList, 'these are the entities lists');
       let entityUserData = this.compiler.constructUserEntityData(this.entitySettingObj.entitiesList.data);
       this.navService.changeEntites(entityUserData);
     });
