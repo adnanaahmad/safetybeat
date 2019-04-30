@@ -179,4 +179,8 @@ export class LoginRegistrationService {
   verifyCode(data: any) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.verifyCode, data);
   }
+
+  updatePackage(data: any) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.updatePackage, data);
+  }
 }

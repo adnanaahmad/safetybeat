@@ -218,6 +218,7 @@ export interface Messages {
   ANONYMOUS: string;
   SAFETYBEAT: string;
   NOTFOUND_HEADING: string;
+  NOT_FOUND_CODE: string;
   NOTFOUND_DESCRIPTION: string;
   ALREADY_ACCOUNT: string;
   PROFIILE_INFO: string;

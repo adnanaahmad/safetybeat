@@ -1,6 +1,6 @@
 export interface UserData {
   user: User;
-  packageInfo: PackageInfo;
+  packageInfo: PackageInfo[];
 }
 
 export interface User {
@@ -14,6 +14,7 @@ export interface User {
 
 export interface PackageInfo {
   package: string;
+  module: string;
   expired: boolean;
   days: number;
 }

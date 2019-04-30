@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'entityCreation',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: CreateEntityComponent
   }
 ];
