@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ConstantService} from 'src/app/shared/constant/constant.service';

@@ -49,8 +49,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.entitySettingObj.entityForm = this.formBuilder.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
-      headOffice: ['', Validators.required],
-      managedBy: ['', Validators.required]
+      headOffice: ['', Validators.required]
     });
     this.entitySettingObj.entityForm.disable();
     this.entitySettingObj.subscription = this.navService.selectedEntityData.subscribe((selectedEntity) => {
@@ -60,8 +59,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
         this.entityFormValidations['name'].setValue(this.entitySettingObj.entitiesData.name);
         this.entityFormValidations['code'].setValue(this.entitySettingObj.entitiesData.code);
         this.entityFormValidations['headOffice'].setValue(this.entitySettingObj.entitiesData.headOffice);
-        this.entityFormValidations['managedBy'].setValue(this.entitySettingObj.entityManagedBy.id);
-        this.entitySettingObj.selectedUser = this.entitySettingObj.entityManagedBy;
         this.helperService.setLocationGeocode(this.entitySettingObj.entitiesData.headOffice,
           this.helperService.createMap(this.gMapElement)).then();
       }
@@ -95,6 +92,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.adminServices.viewEntities(data).subscribe((res) => {
       this.helperService.toggleLoader(false);
       this.entitySettingObj.entitiesList = res;
+      console.log(this.entitySettingObj.entitiesList, 'these are the entities lists');
       let entityUserData = this.compiler.constructUserEntityData(this.entitySettingObj.entitiesList.data);
       this.navService.changeEntites(entityUserData);
     });
@@ -107,7 +105,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       'name': value.name,
       'code': value.code,
       'headOffice': value.headOffice,
-      'managedBy': value.managedBy,
+      'managedBy': this.entitySettingObj.entitiesData.managedBy,
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
     if (!valid) {

@@ -1,4 +1,4 @@
-@mixin amte-entityCodeModal($primary, $accent, $warn) {
+@mixin amte-createEntity($primary, $accent, $warn) {
     :host,
     app-createEntity {
       .mat-tab-body-content {
@@ -63,4 +63,3 @@
       }
     }
   }
-  

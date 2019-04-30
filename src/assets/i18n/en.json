@@ -164,6 +164,7 @@
     "ANONYMOUS": "SafetyBeat",
     "CHANGEPASSWORD": "Change Password",
     "NOTFOUND_HEADING": "Nothing found",
+    "NOT_FOUND_CODE": "404",
     "NOTFOUND_DESCRIPTION": "The page you are looking for is not here, or maybe broken",
     "ALREADY_ACCOUNT": "Already Have an Account?",
     "ENTITYNAME_REQ": "Entity Name is Required.",

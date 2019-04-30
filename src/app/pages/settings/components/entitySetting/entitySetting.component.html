@@ -2,7 +2,6 @@
 <div class="text-right paddingbox">
   <button btn-primary mat-raised-button color="primary" (click)="editEntity()">
     <mat-icon>edit</mat-icon>
-    Edit Entity
   </button>
 </div>
 <form class="profile-form" [formGroup]="entitySettingObj.entityForm"
@@ -21,17 +20,6 @@
       <mat-list-item role="listitem">
         <label>{{ helperService.translated.TABLEHEADINGS.ENTITY_CODE }}</label>
         <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required/>
-      </mat-list-item>
-    </div>
-    <div class="form-group" *ngIf="entitySettingObj.allUsersList">
-      <mat-list-item role="listitem">
-        <mat-form-field>
-          <mat-select [(value)]="entitySettingObj.entityManagedBy.id" [formControlName]="helperService.appConstants.managedBy" required>
-            <mat-option *ngFor="let user of entitySettingObj.allUsersList" [value]="user.id">
-              {{user.username}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
       </mat-list-item>
     </div>
     <div class="form-group">
