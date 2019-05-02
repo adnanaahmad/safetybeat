@@ -167,6 +167,8 @@ export interface Buttons {
 }
 
 export interface Messages {
+  GENERAL_UPDATED: string;
+  GENERAL_FAIL: string;
   ORG_DETAILS: string;
   INCORRECT_PASS: string;
   CHANGEPASSWORD: string;
@@ -218,10 +220,12 @@ export interface Messages {
   ANONYMOUS: string;
   SAFETYBEAT: string;
   NOTFOUND_HEADING: string;
+  NOT_FOUND_CODE: string;
   NOTFOUND_DESCRIPTION: string;
   ALREADY_ACCOUNT: string;
   PROFIILE_INFO: string;
   ORGSIGNUP: string;
+  ORG_NAME: string;
   ORGSIGNUPMESSAGE: string;
   ENTITYNAME_REQ: string;
   OFFICELOCATION_REQ: string;

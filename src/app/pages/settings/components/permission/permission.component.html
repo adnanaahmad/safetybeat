@@ -1,0 +1,40 @@
+<h3 class="setting-title">Permission Settings</h3>
+<form class="profile-form set-permission">
+  <mat-list role="list">
+    <div class="form-group">
+      <mat-list-item role="listitem">
+        <label>Select a Role</label>
+        <mat-form-field>
+          <mat-select>
+            <mat-option value="administrator">Administrator</mat-option>
+            <mat-option value="moderator">Moderator</mat-option>
+            <mat-option value="manager">Manager</mat-option>
+            <mat-option value="chaprasi">Chaprasi</mat-option>
+            <mat-option value="plumber">Plumber</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <hr>
+        <section class="populated-permissions">
+          <mat-checkbox class="example-margin">Site creation</mat-checkbox>
+          <mat-checkbox class="example-margin">Site import</mat-checkbox>
+          <mat-checkbox class="example-margin">Entity Creation</mat-checkbox>
+          <mat-checkbox class="example-margin">Entity Join</mat-checkbox>
+          <mat-checkbox class="example-margin">Generate Report</mat-checkbox>
+          <mat-checkbox class="example-margin">Invite User</mat-checkbox>
+          <mat-checkbox class="example-margin">Report Hazard</mat-checkbox>
+          <mat-checkbox class="example-margin">Upload Document</mat-checkbox>
+        </section>
+      </mat-list-item>
+    </div>
+  </mat-list>
+  <div class="btn-grp">
+    <button mat-raised-button custom-btn btn-danger color="primary">
+      <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
+      {{ helperService.translated.BUTTONS.SAVE }}
+    </button>
+    <button mat-raised-button custom-btn btn-primary color="warn">
+      {{ helperService.translated.BUTTONS.CANCEL }}
+    </button>
+  </div>
+</form>

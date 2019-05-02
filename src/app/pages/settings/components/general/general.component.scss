@@ -1,0 +1,30 @@
+@mixin amte-general-settings($primary, $accent, $warn) {
+  :host,
+  app-general {
+    .country-code {
+      .code-input {
+        position: relative;
+        &:before {
+          content: "+";
+          display: block;
+          position: absolute;
+          top: 10px;
+          left: 10px;
+        }
+        input {
+          padding-right: 0;
+          border-right: 0;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          width: 27px;
+          padding-left: 20px;
+        }
+      }
+      .number-input {
+        width: 400px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import {Injectable, ElementRef} from '@angular/core';
+import {Injectable, ElementRef, NgZone} from '@angular/core';
 import {forEach, findIndex, remove, sortBy} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
@@ -40,7 +40,8 @@ export class HelperService {
     public dialog: MatDialog,
     private cookies: CookieService,
     private router: Router,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private ngZone: NgZone
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
       'STATUS', 'TABLEHEADINGS', 'CONFIRMATION']).subscribe((values) => {
@@ -69,9 +70,9 @@ export class HelperService {
    * @params title
    * @params type
    */
-  createSnack(message, title, type) {
+  createSnack(message, type) {
     this.snackBar.openFromComponent(ToasterComponent, {
-      data: {message: message, title: title, type: type},
+      data: {message: message, type: type},
       verticalPosition: 'bottom',
       horizontalPosition: 'right',
     });
@@ -149,7 +150,7 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
+    this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS,  this.constants.status.WARNING);
     this.navigateTo([this.appConstants.paths.login]);
   }
 
@@ -232,21 +233,22 @@ export class HelperService {
   setLocationGeocode(address, mapProp) {
     let geoCoder = new google.maps.Geocoder();
     let self = this;
-    let promise = new Promise((resolve, reject) => {
-      geoCoder.geocode({'address': address}, function (results, status) {
-        if (status.toString() === self.constants.status.OK) {
-          mapProp.setCenter(results[0].geometry.location);
-          let marker = new google.maps.Marker({
-            map: mapProp,
-            position: results[0].geometry.location
-          });
-          resolve(true);
-        } else {
-          reject(false);
-        }
+    return new Promise((resolve, reject) => {
+      this.ngZone.run(() => {
+        geoCoder.geocode({'address': address}, function (results, status) {
+          if (status.toString() === self.constants.status.OK) {
+            mapProp.setCenter(results[0].geometry.location);
+            let marker = new google.maps.Marker({
+              map: mapProp,
+              position: results[0].geometry.location
+            });
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        });
       });
     });
-    return promise;
   }
 
   /**

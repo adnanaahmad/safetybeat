@@ -2,9 +2,9 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-import {NavigationService} from '../../../navigation/services/navigation.service';
-import {CoreService} from '../../../../core/services/authorization/core.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {CoreService} from 'src/app/core/services/authorization/core.service';
 
 @Component({
   selector: 'app-org-registration-modal',
@@ -19,7 +19,8 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private loginRegisterService: LoginRegistrationService,
               private navService: NavigationService,
-              public coreService: CoreService,
+              private coreService: CoreService,
+              private loginService: LoginRegistrationService,
               public helperService: HelperService) {
   }
 
@@ -42,10 +43,25 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG,
-        this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG, this.helperService.translated.STATUS.ERROR);
+        this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG);
     });
   }
 
   ngOnDestroy() {
+  }
+
+  updatePackage(packageId) {
+    let data = {
+      'packageId': packageId
+    };
+    this.loginService.updatePackage(data).subscribe((res) => {
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+        }
+      }, (error) => {
+        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
+          error);
+      }
+    );
   }
 }

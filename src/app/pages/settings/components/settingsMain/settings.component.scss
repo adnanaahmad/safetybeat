@@ -79,6 +79,9 @@
       .mat-list-item-content {
         padding: 0;
       }
+      label:not(.mat-radio-label) {
+        width: 200px;
+      }
       label:not(.mat-radio-label),
       input {
         width: 100%;

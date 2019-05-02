@@ -114,14 +114,15 @@
     "SIGNINMESSAGE": "You need to sign in to get access",
     "OR": "OR",
     "ORGSIGNUP": "Organization Info",
+    "ORG_NAME": "Organization Name",
     "SIGNUPMESSAGE": "If you are not already registered, create an account",
-    "ORGSIGNUPMESSAGE": "Please enter your organization details and select package",
+    "ORGSIGNUPMESSAGE": "Please enter your organization details",
     "RESETMESSAGE": "Lost your password? Don't worry, reset it here",
     "PASSWORD_ERROR": "Password must be at least 8 characters.",
     "MATCH_ERROR": "Password not match.",
     "RESET_MSG": "Reset Your Password",
     "EMAIL_MSG": "Please enter a valid email address",
-    "ORGANIZATION_MSG": "Orginazation Details",
+    "ORGANIZATION_MSG": "Organization Details",
     "TYPE_MSG": "Please Select type.",
     "MODULE_MSG": "Select Module(s)",
     "MODULESELECT_MSG": "Please Select atleast one Module.",
@@ -164,6 +165,7 @@
     "ANONYMOUS": "SafetyBeat",
     "CHANGEPASSWORD": "Change Password",
     "NOTFOUND_HEADING": "Nothing found",
+    "NOT_FOUND_CODE": "404",
     "NOTFOUND_DESCRIPTION": "The page you are looking for is not here, or maybe broken",
     "ALREADY_ACCOUNT": "Already Have an Account?",
     "ENTITYNAME_REQ": "Entity Name is Required.",
@@ -238,7 +240,9 @@
     "CHANGE_ACCESS_LEVEL": "Change Access Level",
     "VIEW_CONNECTIONS": "View Connections",
     "REMOVE_CONNECTIONS": "Remove Connections",
-    "ADD_CONNECTIONS": "Add Connections"
+    "ADD_CONNECTIONS": "Add Connections",
+    "GENERAL_UPDATED": "General Information Update.",
+    "GENERAL_FAIL": "Updation Failed."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -337,7 +341,7 @@
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
-    "ADD_CONNECTION":"Are you sure you want to Add this user to your Connections.",
-    "REMOVE_CONNECTION":"Are you sure you want to Remove this user from your Connections."
+    "ADD_CONNECTION": "Are you sure you want to Add this user to your Connections.",
+    "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections."
   }
 }
