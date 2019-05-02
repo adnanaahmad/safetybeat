@@ -275,7 +275,7 @@ export class HelperService {
     let onSelect: boolean = false;
     this.displayButton = true;
     if (!this.isEmpty(addrObj)) {
-      this.address = addrObj.formatted_address;
+      this.address = addrObj;
       onSelect = true;
     } else {
       this.address = formControl.value;

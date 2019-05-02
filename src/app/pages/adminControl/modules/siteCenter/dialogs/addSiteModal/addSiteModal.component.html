@@ -25,6 +25,7 @@
       </mat-form-field>
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.STRINGS.SITEADDRESS" appGooglePlaces
+
                (onSelect)="helperService.setAddress($event,gMapElement,formValidation.siteAddress)"
                (keyup)="helperService.setFalse($event)"
                [formControlName]="helperService.appConstants.siteAddress" required/>
