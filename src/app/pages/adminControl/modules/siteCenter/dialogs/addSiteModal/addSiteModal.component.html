@@ -23,10 +23,12 @@
             *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>
         </mat-error>
       </mat-form-field>
+
+
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.STRINGS.SITEADDRESS" appGooglePlaces
                (onSelect)="helperService.setAddress($event,gMapElement,formValidation.siteAddress)"
-               [formControlName]="helperService.appConstants.siteAddress" required/>
+               [formControlName]="helperService.appConstants.siteAddress"  required/>
         <mat-error *ngIf="formValidation.siteAddress.errors">
           <span
             *ngIf="formValidation.siteAddress.errors.required">{{helperService.translated.MESSAGES.OFFICELOCATION_REQ}}</span>
@@ -34,6 +36,8 @@
             *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
         </mat-error>
       </mat-form-field>
+
+
       <div #gmap class="site-map"></div>
       <mat-form-field full-width *ngIf="!addSiteObj.modalType">
         <mat-label>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</mat-label>

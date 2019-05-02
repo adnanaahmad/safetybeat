@@ -45,13 +45,31 @@
     <input matInput type="text" [readonly]="true" [formControlName]="helperService.appConstants.dateJoined"
            class="showonly"/>
   </mat-form-field>
-  <mat-form-field role="listitem">
-    <label>Contact Number</label>
-    <input matInput type="text" [formControlName]="helperService.appConstants.phoneNo" class="showonly" required/>
-    <mat-error class="text-right" *ngIf="organizationViewForm.phoneNo.errors">
-      <span>Field is Required</span>
-    </mat-error>
-  </mat-form-field>
+
+
+  <div class="input country-code">
+    <mat-form-field full-width>
+      <label>Contact Number</label>
+      <input matInput type="text"
+             [formControlName]="helperService.appConstants.countryCode"
+             (keypress)="numberOnly($event)&&phoneNumberValid(orgObj.organizationForm)"
+             maxlength="3" onPaste="return false" autocomplete="off"/>
+      <mat-error *ngIf="organizationViewForm.countryCode.errors">
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="input contact-number">
+    <mat-form-field role="listitem">
+      <input style="width: 77%;float: right;margin-left: 240px;"
+             matInput type="text" [formControlName]="helperService.appConstants.phoneNo" class="showonly" (keypress)="numberOnly($event)"
+             autocomplete="off" required/>
+      <mat-error class="text-right" *ngIf="organizationViewForm.phoneNo.errors">
+        <span *ngIf="organizationViewForm.phoneNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+        <span *ngIf="organizationViewForm.phoneNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
   <mat-form-field>
     <label>Type</label>
     <mat-select [formControlName]="helperService.appConstants.type" required>

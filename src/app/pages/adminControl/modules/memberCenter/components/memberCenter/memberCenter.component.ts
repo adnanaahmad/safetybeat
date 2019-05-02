@@ -8,6 +8,7 @@ import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCente
 import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import {ProfileService} from '../../../../../profile/services/profile.service';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   constructor(public helperService: HelperService,
               public memberService: MemberCenterService,
               public navService: NavigationService,
-              public compiler: CompilerProvider) {
+              public compiler: CompilerProvider,
+              public userService: ProfileService) {
   }
 
 
@@ -40,6 +42,10 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.memberCenter.entityData = res;
         this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
       }
+    });
+    this.userService.getUser().subscribe(res => {
+      this.memberCenter.user = res;
+      this.memberCenter.userId = this.memberCenter.user.data.user.id;
     });
 
   }

@@ -52,7 +52,6 @@ export class GeneralComponent implements OnInit {
     this.settings.generalData.subscribe((res) => {
       if (res === 1) {
         this.profile.getUser().subscribe((res) => {
-          console.log(res);
           this.generalObj.resultData = this.compiler.constructGeneralInfoObject(res);
           this.generalObj.userData = this.compiler.constructProfileData(this.generalObj.resultData.user);
           this.profile.updateCurrenUser(this.generalObj.userData);
