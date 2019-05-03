@@ -7,7 +7,7 @@
   <mat-form-field role="listitem">
     <label>First Name</label>
     <input matInput type="text" formControlName="first_name" class="showonly" required
-      (keypress)="characterOnly($event)" />
+           (keypress)="characterOnly($event)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
       <span>Field is Required</span>
     </mat-error>
@@ -15,7 +15,7 @@
   <mat-form-field role="listitem">
     <label>Last Name</label>
     <input matInput type="text" formControlName="last_name" class="showonly" required
-      (keypress)="characterOnly($event)" />
+           (keypress)="characterOnly($event)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
       <span>Field is Required</span>
     </mat-error>
@@ -24,16 +24,19 @@
     <mat-form-field full-width>
       <label>Contact Number</label>
       <div class="code-input">
-        <input matInput type="text" class="showonly" required [formControlName]="helperService.appConstants.contactNo"
-          maxlength="2" (keypress)="numberOnly($event)" onPaste="return false" autocomplete="off" />
+        <input class="" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
+               maxlength="3" (keypress)="numberOnly($event)"
+               onPaste="return false"
+               autocomplete="off"/>
       </div>
-      <input class="number-input" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
-        (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)" onPaste="return false"
-        autocomplete="off" />
+      <input matInput type="text" class="showonly number-input" required
+             [formControlName]="helperService.appConstants.contactNo"
+             (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)"
+             onPaste="return false" autocomplete="off"/>
       <mat-error *ngIf="generalViewForm.countryCode.errors">
         <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
           <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-          <span *ngIf="generalViewForm.contactNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+          <span *ngIf="generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
         </mat-error>
       </mat-error>
     </mat-form-field>
@@ -41,7 +44,7 @@
   <mat-form-field role="listitem">
     <label>Email</label>
     <input matInput type="text" formControlName="email" class="showonly" required
-      (blur)="checkEmail(generalObj.generalForm)" />
+           (blur)="checkEmail(generalObj.generalForm)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.email.errors">
       <span *ngIf="generalViewForm.email.errors.required">Field is Required</span>
       <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>
@@ -49,10 +52,10 @@
   </mat-form-field>
   <div class="btn-grp">
     <button type="submit" mat-raised-button *ngIf="generalObj.enabled" custom-btn btn-primary
-      [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
+            [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
     </button>
     <button type="button" mat-raised-button *ngIf="generalObj.enabled" (click)="cancelForm()" color="warn" custom-btn
-      btn-danger> Cancel
+            btn-danger> Cancel
     </button>
   </div>
 
