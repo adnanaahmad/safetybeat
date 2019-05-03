@@ -34,6 +34,7 @@ import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCente
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {EntityCodeModalComponent} from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import {ParticleContainer2Component} from './core/components/particleContainer/particleContainer2.component';
+import { AddHazardComponent } from './pages/adminControl/modules/hazardCenter/dialogs/add-hazard/add-hazard.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -54,7 +55,8 @@ export function createTranslateLoader(http: HttpClient) {
     ImportSiteModalComponent,
     ConfirmationModalComponent,
     ViewConnectionsComponent,
-    ChangeAccessLevelComponent
+    ChangeAccessLevelComponent,
+    AddHazardComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -108,7 +110,8 @@ export function createTranslateLoader(http: HttpClient) {
     ImportSiteModalComponent,
     ConfirmationModalComponent,
     ViewConnectionsComponent,
-    ChangeAccessLevelComponent
+    ChangeAccessLevelComponent,
+    AddHazardComponent
   ]
 })
 export class AppModule {

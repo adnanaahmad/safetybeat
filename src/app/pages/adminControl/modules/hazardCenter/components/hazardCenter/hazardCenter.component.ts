@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {ProfileService} from '../../../../../profile/services/profile.service';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {HelperService} from '../../../../../../shared/helperService/helper.service';
 import {HazardModel} from '../../../../../../models/hazard.model';
+import {AddHazardComponent} from '../../dialogs/add-hazard/add-hazard.component';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -13,13 +13,16 @@ export class HazardCenterComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   hazard: HazardModel = <HazardModel>{};
 
-  constructor(
-    public userService: ProfileService,
+  constructor(public dialog: MatDialog,
     public helperService: HelperService
   ) {
   }
 
   ngOnInit() {
+    this.initialize();
+  }
+
+  initialize() {
     this.hazard.displayedColumns = [
       'Site',
       'Title',
@@ -36,4 +39,8 @@ export class HazardCenterComponent implements OnInit {
   }
 
 
+  addHazard() {
+    let dialogRef = this.helperService.createDialog(AddHazardComponent, {disableClose: false,  width: '250px'});
+
+  }
 }
