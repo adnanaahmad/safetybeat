@@ -41,13 +41,8 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ userModel.translated.TABLEHEADINGS.ACTIONS }}
       </th>
-      <td mat-cell *matCellDef="let element">
-        <button class="btn-table" btn-primary mat-raised-button color="primary">
-          <mat-icon>{{ userModel.appIcons.settings }}</mat-icon
-          >Settings
-        </button>
-        &nbsp;
-        <button
+      <td mat-cell *matCellDef="let element" >
+        &nbsp;<button *ngIf="element.id !== userModel.userId"
           class="btn-table"
           btn-primary
           mat-raised-button

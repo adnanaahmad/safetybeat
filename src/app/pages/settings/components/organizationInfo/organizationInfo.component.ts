@@ -6,6 +6,9 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {Organization, OrganizationInfo} from '../../../../models/Settings/organizationInfo.model';
 import {DatePipe} from '@angular/common';
 
+
+const phoneNumberUtil = HelperService.getPhoneNumberUtil();
+
 @Component({
   selector: 'app-organization-info',
   templateUrl: './organizationInfo.component.html',
@@ -30,9 +33,10 @@ export class OrganizationInfoComponent implements OnInit {
       address: ['', Validators.required],
       billingEmail: ['', [Validators.required, Validators.email]],
       dateJoined: ['', Validators.required],
+      countryCode: ['', Validators.required],
       phoneNo: ['', Validators.required],
       type: ['', Validators.required]
-    });
+    }, {validator: this.phoneNumberValid.bind(this)});
     this.getOrganizationInfo();
     this.getOrganizationTypes();
   }
@@ -49,6 +53,20 @@ export class OrganizationInfoComponent implements OnInit {
       this.orgObj.types = res;
     });
   }
+  numberOnly(event): boolean {
+    return this.compiler.numberOnly(event);
+  }
+  phoneNumberValid(group: FormGroup) {
+    try {
+      const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
+        '+' + group.value.countryCode  + group.value.phoneNo, undefined
+      );
+      return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.phoneNo.setErrors(null) :
+        group.controls.phoneNo.setErrors({inValid: true});
+    } catch (e) {
+      return group.controls.phoneNo.setErrors({inValid: true});
+    }
+  }
 
   getOrganizationInfo() {
     this.settingService.organizationData.subscribe((res) => {
@@ -60,7 +78,9 @@ export class OrganizationInfoComponent implements OnInit {
           this.organizationViewForm['address'].setValue(orgObject.address);
           this.organizationViewForm['billingEmail'].setValue(orgObject.billingEmail);
           this.organizationViewForm['dateJoined'].setValue(this.orgObj.pipe.transform(orgObject.dateJoined));
-          this.organizationViewForm['phoneNo'].setValue(orgObject.phoneNo);
+          let contact = (orgObject.phoneNo).split('-', 2);
+          this.organizationViewForm['countryCode'].setValue(contact[0]);
+          this.organizationViewForm['phoneNo'].setValue(contact[1]);
           this.organizationViewForm['type'].setValue(orgObject.type);
           this.helperService.setLocationGeocode(orgObject.address,
             this.helperService.createMap(this.gMapElement)).then();

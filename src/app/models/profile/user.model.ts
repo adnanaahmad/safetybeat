@@ -2,6 +2,7 @@ import {Translation} from '../translate.model';
 import {Subscription} from 'rxjs';
 
 export interface UserModel {
+  user: any;
   userData: any;
   subscription: Subscription;
   translated: Translation;
@@ -11,4 +12,5 @@ export interface UserModel {
   allUsersList: any;
   dataSource: any;
   empty: boolean;
+  userId: number;
 }

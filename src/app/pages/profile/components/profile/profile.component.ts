@@ -41,9 +41,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
     this.route.params.subscribe((data) => {
-      debugger
       let data1 = JSON.parse(data.data);
-      debugger
     });
     this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
