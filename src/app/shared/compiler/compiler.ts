@@ -100,7 +100,7 @@ export class CompilerProvider {
     let managedBy: any[] = [];
     this.helperService.iterations(allEntities, function (entity) {
       managedBy.push(entity.managedBy)
-    })
+    });
     let userEntityData: EntityUserData = {
       entities: allEntities
     };

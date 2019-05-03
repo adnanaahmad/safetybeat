@@ -17,7 +17,8 @@
         <input matInput type="text" [placeholder]="helperService.translated.MESSAGES.HEADOFFICE_LOCATION"
                appGooglePlaces
                (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice)"
-               [formControlName]="helperService.appConstants.headOffice" required/>
+               [formControlName]="helperService.appConstants.headOffice"
+               (keyup)="helperService.setFalse($event)" required/>
         <mat-error *ngIf="formValidation.headOffice.errors">
           <span *ngIf="formValidation.headOffice.errors.required">{{
             helperService.translated.MESSAGES.OFFICELOCATION_REQ
