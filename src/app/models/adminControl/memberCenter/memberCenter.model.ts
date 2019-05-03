@@ -7,6 +7,8 @@ export interface MemberCenter {
   displayedColumns: string[];
   dataSource: any;
   entityData: any;
+  user: any;
+  userId: number;
   elements: Array<PeriodicElement>;
 }
 

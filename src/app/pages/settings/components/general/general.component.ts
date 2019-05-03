@@ -60,6 +60,7 @@ export class GeneralComponent implements OnInit {
           this.generalViewForm['last_name'].setValue(this.generalObj.userData.last_name);
           let contact = (this.generalObj.userData.contactNo).split('-', 2);
           this.generalViewForm['contactNo'].setValue(contact[1]);
+          contact[0] = contact[0].replace('+', '');
           this.generalViewForm['countryCode'].setValue(contact[0]);
         });
       }
