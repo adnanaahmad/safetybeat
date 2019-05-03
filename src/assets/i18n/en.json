@@ -242,7 +242,9 @@
     "REMOVE_CONNECTIONS": "Remove Connections",
     "ADD_CONNECTIONS": "Add Connections",
     "GENERAL_UPDATED": "General Information Update.",
-    "GENERAL_FAIL": "Updation Failed."
+    "GENERAL_FAIL": "Updation Failed.",
+    "ADD_CONNECTION_SUCCESS": "Connection has been added successfully.",
+    "ADD_CONNECTION_FAILURE": "Connection has not been added"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
