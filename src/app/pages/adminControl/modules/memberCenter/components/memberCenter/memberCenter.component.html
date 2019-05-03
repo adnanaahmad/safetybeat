@@ -63,22 +63,31 @@
           Actions
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.entityManager"
                   (click)="viewProfile(element)">
             <mat-icon>linear_scale</mat-icon>
             View Profile
           </button>
-          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.entityManager"
                   (click)="connections(helperService.appConstants.connections.view)">
             <mat-icon>linear_scale</mat-icon>
             View Connections
           </button>
-          <button mat-menu-item
-                  (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
+          <button
+            *ngIf="!element.pendingConnection || !element.acceptedConnection || memberCenter.entityData.role !== helperService.appConstants.roles.owner "
+            mat-menu-item
+            (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
             <mat-icon>linear_scale</mat-icon>
             Add Connections
           </button>
-          <button mat-menu-item
+
+          <button *ngIf="element.pendingConnection || element.acceptedConnection" mat-menu-item
+                  (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
+            <mat-icon>linear_scale</mat-icon>
+            Cancel Request
+          </button>
+
+          <button *ngIf="element.acceptedConnection" mat-menu-item
                   (click)="connections(helperService.appConstants.connections.remove)">
             <mat-icon>linear_scale</mat-icon>
             Remove Connections
