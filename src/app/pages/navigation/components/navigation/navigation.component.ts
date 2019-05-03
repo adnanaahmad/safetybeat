@@ -227,8 +227,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
         this.core.logoutUser();
       }
     }, (error) => {
-      this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG,
-        this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
+      this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
     });
   }
 

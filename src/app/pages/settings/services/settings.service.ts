@@ -8,6 +8,8 @@ import {BehaviorSubject} from 'rxjs';
 export class SettingsService {
   private orgData = new BehaviorSubject<any>(1);
   organizationData = this.orgData.asObservable();
+  private genData = new BehaviorSubject<any>(1);
+  generalData = this.genData.asObservable();
   constructor(public helperService: HelperService) {
 
   }
@@ -22,5 +24,10 @@ export class SettingsService {
   }
   getTypes(): any {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.companyTypes);
+  }
+
+  editProfile(id, data) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
+      `${this.helperService.constants.apiRoutes.editProfile}/${id}/`, data);
   }
 }

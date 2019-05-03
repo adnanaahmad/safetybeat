@@ -153,6 +153,7 @@ export class ConstantService {
     avatar: './assets/images/avatar.png',
     paths: {
       home: '/home',
+      profile: '/home/profile',
       login: '/login',
       package: '/package',
       welcomeScreen: '/welcomeScreen',
