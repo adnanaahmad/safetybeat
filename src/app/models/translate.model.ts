@@ -300,6 +300,8 @@ export interface Messages {
   USER_NOT_FOUND: string;
   SITE_EDIT_SUCCESS: string;
   SITE_EDIT_FAILURE: string;
+  ADD_CONNECTION_SUCCESS: string;
+  ADD_CONNECTION_FAILURE: string;
 }
 
 export interface Logger {

@@ -75,7 +75,7 @@ export class GeneralComponent implements OnInit {
   phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-        '+' + group.value.countryCode  + group.value.contactNo, undefined
+        '+' + group.value.countryCode + group.value.contactNo, undefined
       );
       return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null) :
         group.controls.contactNo.setErrors({inValid: true});
@@ -87,6 +87,7 @@ export class GeneralComponent implements OnInit {
   characterOnly(event): boolean {
     return this.compiler.charactersOnly(event);
   }
+
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
