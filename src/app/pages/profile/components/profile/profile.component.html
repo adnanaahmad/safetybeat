@@ -5,20 +5,17 @@
     </div>
     <div class="user-info" *ngIf="profileModel.profileData">
       <h3>
-        <strong>{{ profileModel.username }}</strong>
+        <strong matTooltipPosition="after" matTooltip="{{profileModel.email}}" aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.username }}</strong>
       </h3>
-      <p>
-        <strong>{{profileModel.email}}</strong>
-      </p>
       <p>{{profileModel.role}} <strong>{{profileModel.entityName}}</strong></p>
     </div>
-    <button routerLink="/home/settings" btn-primary mat-raised-button color="primary">
+    <button class="settings-btn" routerLink="/home/settings" btn-primary mat-raised-button color="primary">
       <mat-icon>settings</mat-icon>
     </button>
   </mat-toolbar>
   <div class="paddingbox">
     <mat-grid-list cols="4" rowHeight="300px" gutterSize="30px">
-      <mat-grid-tile colspan="2" rowspan="2">
+      <mat-grid-tile colspan="2">
         <!-- Activites -->
         <mat-card class="dashboard-card activities mat-elevation-z8">
           <mat-card-header class="infoTitle">
@@ -102,6 +99,52 @@
           </mat-card-content>
         </mat-card><!-- /Activites -->
       </mat-grid-tile>
+
+      <mat-grid-tile colspan="2">
+        <!-- Connections -->
+        <mat-card class="dashboard-card activities mat-elevation-z8">
+          <mat-card-header class="infoTitle">
+            <mat-card-title>Connections</mat-card-title>
+            <div class="filter-results">
+              <label>Filter:</label>
+              <select>
+                <option>Most Recent</option>
+                <option>Last Day</option>
+                <option>Last Week</option>
+                <option>Last Month</option>
+                <option>Last Year</option>
+              </select>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <table class="customTable" mat-table [dataSource]="dataSource">
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No.</th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+              <!-- Weight Column -->
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef> Weight</th>
+                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+              </ng-container>
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Symbol</th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </mat-card-content>
+        </mat-card><!-- /Connections -->
+      </mat-grid-tile>
+
       <mat-grid-tile colspan="2">
         <!-- Leaves -->
         <mat-card class="dashboard-card">
