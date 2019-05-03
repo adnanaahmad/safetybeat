@@ -70,9 +70,9 @@ export class HelperService {
    * @params title
    * @params type
    */
-  createSnack(message, title, type) {
+  createSnack(message, type) {
     this.snackBar.openFromComponent(ToasterComponent, {
-      data: {message: message, title: title, type: type},
+      data: {message: message, type: type},
       verticalPosition: 'bottom',
       horizontalPosition: 'right',
     });
@@ -150,7 +150,7 @@ export class HelperService {
     sessionStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
-    this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.translated.MESSAGES.LOGOUT_MSG, this.constants.status.WARNING);
+    this.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.constants.status.WARNING);
     this.navigateTo([this.appConstants.paths.login]);
   }
 
@@ -211,8 +211,8 @@ export class HelperService {
         `body was: ${error.message}`);
     }
     // return an observable with a user-facing error message
-    let msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
-    return throwError({error: msg, status: error.status});
+    // let msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
+    return throwError({error: error.message, status: error.status});
   };
 
   /**

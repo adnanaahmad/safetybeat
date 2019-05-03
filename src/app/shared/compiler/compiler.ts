@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
-import {Site, SitesInfo} from 'src/app/models/site.model';
-import {Organization} from 'src/app//models/Settings/organizationInfo.model';
+import {Site, SitesInfo} from '../../models/site.model';
+import {Organization} from '../../models/Settings/organizationInfo.model';
+import {GeneralInfo} from '../../models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 
 @Injectable()
@@ -100,7 +101,6 @@ export class CompilerProvider {
     this.helperService.iterations(allEntities, function (entity) {
       managedBy.push(entity.managedBy)
     })
-    console.log(managedBy, 'this is the managedby');
     let userEntityData: EntityUserData = {
       entities: allEntities
     };
@@ -154,6 +154,11 @@ export class CompilerProvider {
   constructOrganizationObject(organizationApiResponse: any): Organization {
     let organizationData: Organization = organizationApiResponse.data;
     return organizationData;
+  }
+
+  constructGeneralInfoObject(generalApiResponse: any): GeneralInfo {
+    let generalData: GeneralInfo = generalApiResponse.data;
+    return generalData;
   }
 
   switchSideMenu(data, name) {

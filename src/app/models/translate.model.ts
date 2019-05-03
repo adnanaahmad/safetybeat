@@ -167,6 +167,8 @@ export interface Buttons {
 }
 
 export interface Messages {
+  GENERAL_UPDATED: string;
+  GENERAL_FAIL: string;
   ORG_DETAILS: string;
   INCORRECT_PASS: string;
   CHANGEPASSWORD: string;
@@ -298,6 +300,8 @@ export interface Messages {
   USER_NOT_FOUND: string;
   SITE_EDIT_SUCCESS: string;
   SITE_EDIT_FAILURE: string;
+  ADD_CONNECTION_SUCCESS: string;
+  ADD_CONNECTION_FAILURE: string;
 }
 
 export interface Logger {

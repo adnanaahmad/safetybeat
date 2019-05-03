@@ -92,7 +92,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.adminServices.viewEntities(data).subscribe((res) => {
       this.helperService.toggleLoader(false);
       this.entitySettingObj.entitiesList = res;
-      console.log(this.entitySettingObj.entitiesList, 'these are the entities lists');
       let entityUserData = this.compiler.constructUserEntityData(this.entitySettingObj.entitiesList.data);
       this.navService.changeEntites(entityUserData);
     });
@@ -109,14 +108,12 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
     if (!valid) {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_ENTITY,
-        this.helperService.translated.MESSAGES.INVALID_DATA, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_ENTITY, this.helperService.constants.status.ERROR);
       return;
     }
     this.settings.editEntity(this.entitySettingObj.entitiesData.id, data).subscribe((res) => {
       this.viewEntitiesApiCall();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED,
-        this.helperService.translated.MESSAGES.ENTITY_UPDATED_T, this.helperService.constants.status.SUCCESS);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED, this.helperService.constants.status.SUCCESS);
     });
   }
 
