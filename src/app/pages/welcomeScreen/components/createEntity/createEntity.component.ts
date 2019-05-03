@@ -62,8 +62,7 @@ export class CreateEntityComponent implements OnInit {
     this.createEntityObj.entityDetails = {
       moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
-      active: true,
-      roleId: 2
+      active: true
     };
     let data = {
       moduleName: 'Safetybeat'
