@@ -33,7 +33,6 @@ import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmati
 import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {EntityCodeModalComponent} from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
-import {ParticleContainer2Component} from './core/components/particleContainer/particleContainer2.component';
 import { AddHazardComponent } from './pages/adminControl/modules/hazardCenter/dialogs/add-hazard/add-hazard.component';
 
 

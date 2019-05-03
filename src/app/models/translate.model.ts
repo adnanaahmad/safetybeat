@@ -225,6 +225,7 @@ export interface Messages {
   ALREADY_ACCOUNT: string;
   PROFIILE_INFO: string;
   ORGSIGNUP: string;
+  ORG_NAME: string;
   ORGSIGNUPMESSAGE: string;
   ENTITYNAME_REQ: string;
   OFFICELOCATION_REQ: string;
@@ -300,6 +301,8 @@ export interface Messages {
   USER_NOT_FOUND: string;
   SITE_EDIT_SUCCESS: string;
   SITE_EDIT_FAILURE: string;
+  ADD_CONNECTION_SUCCESS: string;
+  ADD_CONNECTION_FAILURE: string;
 }
 
 export interface Logger {
@@ -375,7 +378,6 @@ export interface TableHeadings {
   ENTITY_ID: string;
   ENTITY_NAME: string;
   ENTITY_HEADOFFICE: string;
-  ENTITY_CODE: string;
   ENTITY_STATUS: string;
   ACTIONS: string;
   NAME: string;

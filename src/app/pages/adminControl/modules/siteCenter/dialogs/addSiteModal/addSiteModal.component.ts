@@ -43,6 +43,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
+    this.helperService.displayButton = false;
     this.helperService.createMap(this.gMapElement);
     this.addSiteObj.addSiteForm = this.formBuilder.group({
       siteName: ['', Validators.required],
@@ -120,7 +121,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     let data = {
       entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
-    }
+    };
     this.memberService.entityUsers(data).subscribe((res) => {
       this.addSiteObj.entityUsers = this.compiler.entityUser(res);
     });
@@ -140,7 +141,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteSafetyPlan: value.siteSafetyPlan,
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
-    }
+    };
     if (editSite) {
       siteData.createdBy = this.addSiteObj.site.createdBy;
       siteData.siteSafetyManager = value.siteSafetyManager;

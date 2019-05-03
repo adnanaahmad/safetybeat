@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
@@ -41,6 +41,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userModel.userId = this.userModel.user.data.user.id;
     });
   }
+
 
   /**
    * this function is used for unsubscription of all the observables that have been subscribed.

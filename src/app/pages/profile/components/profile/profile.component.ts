@@ -12,6 +12,7 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private profile: ProfileService,
+    private route: ActivatedRoute,
     private loginService: LoginRegistrationService,
     public helperService: HelperService,
     private compiler: CompilerProvider,
@@ -38,6 +40,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
+    this.route.params.subscribe((data) => {
+      let data1 = JSON.parse(data.data);
+    });
     this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.role = res.role;

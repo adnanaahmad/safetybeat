@@ -64,15 +64,15 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   }
 
   viewProfile(element) {
+    this.helperService.navigateWithData([this.helperService.appConstants.paths.profile, {data: JSON.stringify(element)}], {skipLocationChange: true});
   }
 
-  connections(type) {
+  connections(type, params?: any) {
     switch (type) {
       case this.helperService.appConstants.connections.view:
         this.helperService.createDialog(ViewConnectionsComponent, {});
         break;
       case this.helperService.appConstants.connections.add:
-        // this.helperService.createDialog(AddConnectionsComponent, {});
         this.helperService.createDialog(ConfirmationModalComponent, {
           data: {
             message: this.helperService.translated.CONFIRMATION.ADD_CONNECTION
@@ -80,6 +80,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         });
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
+            this.addConnections(params.userId);
           }
         });
         break;
@@ -134,5 +135,28 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         })
       }
     });
+  }
+
+
+  addConnections(sentToUserId: number) {
+    let connectionAddingData = {
+      'receivedBy': sentToUserId
+    };
+
+    this.memberService.addConnection(connectionAddingData).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_FAILURE,
+          res.responseDetails.message);
+      }
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_FAILURE,
+        this.helperService.constants.status.ERROR);
+    })
+
   }
 }

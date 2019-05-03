@@ -3,49 +3,44 @@
     <mat-icon>edit</mat-icon>
   </button>
 </h3>
-<form [formGroup]="generalObj.generalForm" class="settings-list"
-      (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
+<form [formGroup]="generalObj.generalForm" class="settings-list" (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
   <mat-form-field role="listitem">
     <label>First Name</label>
-    <input matInput type="text" formControlName="first_name" class="showonly" required (keypress)="characterOnly($event)"/>
+    <input matInput type="text" formControlName="first_name" class="showonly" required
+           (keypress)="characterOnly($event)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
       <span>Field is Required</span>
     </mat-error>
   </mat-form-field>
   <mat-form-field role="listitem">
     <label>Last Name</label>
-    <input matInput type="text" formControlName="last_name" class="showonly" required (keypress)="characterOnly($event)"/>
+    <input matInput type="text" formControlName="last_name" class="showonly" required
+           (keypress)="characterOnly($event)"/>
     <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
       <span>Field is Required</span>
     </mat-error>
   </mat-form-field>
-
-
   <div class="input country-code">
     <mat-form-field full-width>
       <label>Contact Number</label>
-      <input matInput type="text"
-             [formControlName]="helperService.appConstants.countryCode"
+      <div class="code-input">
+        <input class="" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
+               maxlength="3" (keypress)="numberOnly($event)"
+               onPaste="return false"
+               autocomplete="off"/>
+      </div>
+      <input matInput type="text" class="showonly number-input" required
+             [formControlName]="helperService.appConstants.contactNo"
              (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)"
-             maxlength="3" onPaste="return false" autocomplete="off"/>
+             onPaste="return false" autocomplete="off"/>
       <mat-error *ngIf="generalViewForm.countryCode.errors">
+        <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
+          <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+          <span *ngIf="generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+        </mat-error>
       </mat-error>
     </mat-form-field>
   </div>
-<div class="input contact-number">
-  <mat-form-field role="listitem">
-    <input style="width: 77%;float: right;margin-left: 240px;" matInput type="text" class="showonly" required
-           [formControlName]="helperService.appConstants.contactNo" (keypress)="numberOnly($event)"
-           onPaste="return false"
-           autocomplete="off"/>
-    <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
-      <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-      <span *ngIf="generalViewForm.contactNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-    </mat-error>
-  </mat-form-field>
-</div>
-
-
   <mat-form-field role="listitem">
     <label>Email</label>
     <input matInput type="text" formControlName="email" class="showonly" required

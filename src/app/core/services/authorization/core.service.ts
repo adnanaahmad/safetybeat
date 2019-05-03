@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Router} from '@angular/router';
 import {Translation} from 'src/app/models/translate.model';
 import {CookieService} from 'ngx-cookie-service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -16,7 +15,6 @@ export class CoreService {
   translated: Translation;
 
   constructor(
-    private router: Router,
     public helperService: HelperService,
     private translate: TranslateService,
     private cookies: CookieService
@@ -34,10 +32,11 @@ export class CoreService {
   logoutUser() {
     this.removeToken();
     sessionStorage.clear();
+    localStorage.clear();
     this.cookies.delete('sessionid');
     this.cookies.deleteAll();
     this.helperService.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.helperService.constants.status.WARNING);
-    this.router.navigate(['/login']);
+    this.helperService.navigateTo([this.helperService.appConstants.paths.login]);
   }
 
   /**

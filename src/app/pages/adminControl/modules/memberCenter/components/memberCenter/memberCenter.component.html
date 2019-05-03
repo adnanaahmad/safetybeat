@@ -74,7 +74,7 @@
             View Connections
           </button>
           <button mat-menu-item
-                  (click)="connections(helperService.appConstants.connections.add)">
+                  (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
             <mat-icon>linear_scale</mat-icon>
             Add Connections
           </button>

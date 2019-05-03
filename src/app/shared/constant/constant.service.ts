@@ -52,7 +52,8 @@ export class ConstantService {
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
-    viewSiteInfo: `${environment.apiUrl}/api/sites/`
+    viewSiteInfo: `${environment.apiUrl}/api/sites/`,
+    connectionAdding: `${environment.apiUrl}/api/connections/`
   };
   /**
    * all the api methods are declared here.
@@ -153,6 +154,7 @@ export class ConstantService {
     avatar: './assets/images/avatar.png',
     paths: {
       home: '/home',
+      profile: '/home/profile',
       login: '/login',
       package: '/package',
       welcomeScreen: '/welcomeScreen',
