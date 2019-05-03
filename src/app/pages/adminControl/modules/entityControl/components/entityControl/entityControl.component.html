@@ -10,7 +10,7 @@
       {{ helperService.translated.BUTTONS.JOIN_ENTITY }}
     </button>
     <button btn-primary mat-raised-button color="primary" *ngIf="entityControl.createEntityOption"
-            (click)="createEntity()">
+      (click)="createEntity()">
       <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
       {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
     </button>
@@ -83,7 +83,7 @@
             Payment History
           </button>
           <button mat-menu-item *ngIf="entityControl.createEntityOption"
-                  (click)="confirmationModal(element.entityInfo.id)">
+            (click)="confirmationModal(element.entityInfo.id)">
             <mat-icon>{{ helperService.constants.appIcons.deleteSweep }}</mat-icon>
             Delete Entity
           </button>

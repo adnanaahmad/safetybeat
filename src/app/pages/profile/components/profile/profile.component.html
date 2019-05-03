@@ -1,7 +1,7 @@
 <div class="theme-selector">
   <mat-toolbar class="pagehead">
     <div class="user-avatar">
-      <img src="../../../../../assets/images/useravatar.jpg"/>
+      <img src="../../../../../assets/images/useravatar.jpg" />
     </div>
     <div class="user-info" *ngIf="profileModel.profileData">
       <h3>
@@ -20,7 +20,7 @@
     <mat-grid-list cols="4" rowHeight="300px" gutterSize="30px">
       <mat-grid-tile colspan="2" rowspan="2">
         <!-- Activites -->
-        <mat-card class="dashboard-card activities">
+        <mat-card class="dashboard-card activities mat-elevation-z8">
           <mat-card-header class="infoTitle">
             <mat-card-title>Activities</mat-card-title>
             <div class="filter-results">
@@ -75,6 +75,30 @@
               <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
               <div class="row"><strong>Duration</strong><span>10 days</span></div>
             </div>
+            <div class="activity-card">
+              <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
+                    <mat-icon>link</mat-icon> View Site
+                  </a></span></div>
+              <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+              <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+              <div class="row"><strong>Duration</strong><span>10 days</span></div>
+            </div>
+            <div class="activity-card">
+              <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
+                    <mat-icon>link</mat-icon> View Site
+                  </a></span></div>
+              <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+              <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+              <div class="row"><strong>Duration</strong><span>10 days</span></div>
+            </div>
+            <div class="activity-card">
+              <div class="row"><strong>Last Company</strong><span><a routerLink="">
+                    <mat-icon>link</mat-icon> View Site
+                  </a></span></div>
+              <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+              <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+              <div class="row"><strong>Duration</strong><span>10 days</span></div>
+            </div>
           </mat-card-content>
         </mat-card><!-- /Activites -->
       </mat-grid-tile>
@@ -87,7 +111,7 @@
           </mat-card-header>
           <mat-card-content>
             <div class="">
-              <table mat-table [dataSource]="dataSource">
+              <table class="customTable" mat-table [dataSource]="dataSource">
                 <!-- Position Column -->
                 <ng-container matColumnDef="position">
                   <th mat-header-cell *matHeaderCellDef> No.</th>
@@ -125,7 +149,7 @@
           </mat-card-header>
           <mat-card-content>
             <div class="">
-              <table mat-table [dataSource]="profileModel.dataSource">
+              <table class="customTable" mat-table [dataSource]="profileModel.dataSource">
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef>
                     {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
@@ -150,7 +174,7 @@
                   <th mat-header-cell *matHeaderCellDef>
                     {{ helperService.translated.TABLEHEADINGS.ADMINISTRATED_BY }}
                   </th>
-                  <td mat-cell *matCellDef="let element"><strong>{{ element.administrator.username }} </strong><br>
+                  <td mat-cell *matCellDef="let element">{{ element.administrator.username }}<br>
                     {{ element.administrator.email }}</td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="profileModel.displayedColumns"></tr>

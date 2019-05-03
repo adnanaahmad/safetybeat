@@ -246,6 +246,12 @@ $theme: mat-light-theme($primary, $secondary, $warn);
         color:mat-color($primary-pallet, 500);
       }
     }
+    .settings-wrap {
+      input,
+      mat-select {
+        background-color: #fff;
+      }
+    }
   }
   .activity-card {
     &:before {

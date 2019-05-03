@@ -8,7 +8,8 @@
       <p>{{viewSiteObj.siteInfo.location}}</p>
     </div>
     <div class="buttonRow" *ngIf="viewSiteObj.siteOption">
-      <button mat-raised-button custom-btn btn-primary color="warn" (click)="confirmationModal(viewSiteObj.siteInfo.id)" >
+      <button mat-raised-button custom-btn btn-primary color="warn"
+        (click)="confirmationModal(viewSiteObj.siteInfo.id)">
         <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
         {{ helperService.translated.BUTTONS.DELETE }}
       </button>
@@ -122,8 +123,10 @@
                 <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">check</mat-icon>
                 <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">clear</mat-icon>
                 <strong>Safe Zone</strong>
-                <p  *ngIf="viewSiteObj.siteInfo.safeZone">{{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
-                <p *ngIf="!viewSiteObj.siteInfo.safeZone">{{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
+                <p *ngIf="viewSiteObj.siteInfo.safeZone">
+                  {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
+                <p *ngIf="!viewSiteObj.siteInfo.safeZone">
+                  {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
               </div>
             </div>
           </mat-card-content>
@@ -134,26 +137,41 @@
       <mat-grid-tile colspan="2">
         <mat-card class="dashboard-card activities">
           <mat-card-header class="infoTitle">
-            <mat-card-title>Site Information</mat-card-title>
+            <mat-card-title>Site Hazards</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div *ngIf="viewSiteObj.siteInfo">
-              <div class="siteinfo-row">
-                <mat-icon>place</mat-icon>
-                <strong>Location</strong>
-                <p>{{viewSiteObj.siteInfo.location}}</p>
+              <div class="activity-card">
+                <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
+                      <mat-icon>link</mat-icon> View Site
+                    </a></span></div>
+                <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+                <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+                <div class="row"><strong>Duration</strong><span>10 days</span></div>
               </div>
-              <div class="siteinfo-row">
-                <mat-icon>security</mat-icon>
-                <strong>Site Safety Plan</strong>
-                <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
+              <div class="activity-card">
+                <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
+                      <mat-icon>link</mat-icon> View Site
+                    </a></span></div>
+                <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+                <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+                <div class="row"><strong>Duration</strong><span>10 days</span></div>
               </div>
-              <div class="siteinfo-row">
-                <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">check</mat-icon>
-                <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">clear</mat-icon>
-                <strong>Safe Zone</strong>
-                <p  *ngIf="viewSiteObj.siteInfo.safeZone">{{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
-                <p *ngIf="!viewSiteObj.siteInfo.safeZone">{{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
+              <div class="activity-card">
+                <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
+                      <mat-icon>link</mat-icon> View Site
+                    </a></span></div>
+                <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+                <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+                <div class="row"><strong>Duration</strong><span>10 days</span></div>
+              </div>
+              <div class="activity-card">
+                <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
+                      <mat-icon>link</mat-icon> View Site
+                    </a></span></div>
+                <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+                <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+                <div class="row"><strong>Duration</strong><span>10 days</span></div>
               </div>
             </div>
           </mat-card-content>

@@ -1,6 +1,7 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CREATEENTITY_MSG}}</mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="createEntity.createEntityForm" (ngSubmit)="entityCreation(createEntity.createEntityForm)">
+  <form [formGroup]="createEntity.createEntityForm" (ngSubmit)="entityCreation(createEntity.createEntityForm)"
+        (keydown.enter)="$event.preventDefault()">
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.MESSAGES.ENTITYNAME"
@@ -36,7 +37,7 @@
       </button>
       <img *ngIf="createEntity.loading"
            [src]="helperService.translated.MESSAGES.LOADING_URL"/>
-      <button mat-button mat-dialog-close>
+      <button mat-button mat-dialog-close type="button">
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>
