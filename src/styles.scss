@@ -182,7 +182,7 @@ mat-dialog-container {
   .mat-form-field-underline {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  width: 70%;
+  width: 60%;
   margin: 100px auto;
   box-shadow: 0 0px 60px -20px #0000007a !important;
   border-radius: 10px !important;
@@ -206,6 +206,7 @@ mat-dialog-container {
 }
 .mat-dialog-content {
   overflow: unset !important;
+  max-height: initial !important;
 }
 .notifier__notification-button {
   opacity: 1 !important;
@@ -230,7 +231,6 @@ mat-dialog-container {
     font-size: 20px;
   }
   div.button {
-    margin: 20px 0;
     span.or {
       padding: 16px;
     }
@@ -421,6 +421,10 @@ hr.forheading {
 }
 .customTable {
   width: 100%;
+  td,
+  th {
+    padding: 6px !important;
+  }
   .table-img {
     width: 60px;
     height: 60px;

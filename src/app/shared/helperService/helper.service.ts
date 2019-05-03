@@ -126,7 +126,7 @@ export class HelperService {
   createDialog(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = params && params.disableClose ? params.disableClose : false;
-    dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;
+    dialogConfig.autoFocus =  false;
     dialogConfig.closeOnNavigation = params && params.closeOnNavigation ? params.closeOnNavigation : false;
     dialogConfig.data = params && params.data ? params.data : null;
     this.dialogRef = this.dialog.open(component, dialogConfig);
@@ -275,7 +275,7 @@ export class HelperService {
     let onSelect: boolean = false;
     this.displayButton = true;
     if (!this.isEmpty(addrObj)) {
-      this.address = addrObj.formatted_address;
+      this.address = addrObj;
       onSelect = true;
     } else {
       this.address = formControl.value;
