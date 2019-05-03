@@ -126,7 +126,7 @@ export class HelperService {
   createDialog(component, params?: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = params && params.disableClose ? params.disableClose : false;
-    dialogConfig.autoFocus = params && params.autoFocus ? params.autoFocus : true;
+    dialogConfig.autoFocus =  false;
     dialogConfig.closeOnNavigation = params && params.closeOnNavigation ? params.closeOnNavigation : false;
     dialogConfig.data = params && params.data ? params.data : null;
     this.dialogRef = this.dialog.open(component, dialogConfig);
