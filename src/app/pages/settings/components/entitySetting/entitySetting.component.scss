@@ -1,0 +1,10 @@
+@mixin amte-entity-setting($primary, $accent, $warn) {
+    :host,
+    app-entity-setting {
+      .site-map {
+        height: 300px;
+        width: 100%;
+      }
+    }
+  }
+  

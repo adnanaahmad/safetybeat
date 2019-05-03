@@ -90,7 +90,7 @@ export class OrganizationInfoComponent implements OnInit {
     let data = {
       'name': value.name,
       'accountNo': value.accountNo,
-      'address': value.address,
+      'address': this.helperService.address,
       'dateJoined': value.dateJoined,
       'phoneNo': value.phoneNo,
       'billingEmail': value.billingEmail,

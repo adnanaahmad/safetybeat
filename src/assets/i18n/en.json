@@ -114,8 +114,9 @@
     "SIGNINMESSAGE": "You need to sign in to get access",
     "OR": "OR",
     "ORGSIGNUP": "Organization Info",
+    "ORG_NAME": "Organization Name",
     "SIGNUPMESSAGE": "If you are not already registered, create an account",
-    "ORGSIGNUPMESSAGE": "Please enter your organization details and select package",
+    "ORGSIGNUPMESSAGE": "Please enter your organization details",
     "RESETMESSAGE": "Lost your password? Don't worry, reset it here",
     "PASSWORD_ERROR": "Password must be at least 8 characters.",
     "MATCH_ERROR": "Password not match.",
@@ -241,7 +242,9 @@
     "REMOVE_CONNECTIONS": "Remove Connections",
     "ADD_CONNECTIONS": "Add Connections",
     "GENERAL_UPDATED": "General Information Update.",
-    "GENERAL_FAIL": "Updation Failed."
+    "GENERAL_FAIL": "Updation Failed.",
+    "ADD_CONNECTION_SUCCESS": "Connection has been added successfully.",
+    "ADD_CONNECTION_FAILURE": "Connection has not been added"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -256,11 +259,10 @@
     "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites"
   },
   "TABLEHEADINGS": {
-    "ENTITY_ID": "Entity Id",
-    "ENTITY_NAME": "Entity Name",
-    "ENTITY_HEADOFFICE": "Entity Head Office",
-    "ENTITY_CODE": "Entity Code",
-    "ENTITY_STATUS": "Entity Status",
+    "ENTITY_ID": "Id",
+    "ENTITY_NAME": "Name",
+    "ENTITY_HEADOFFICE": "Head Office",
+    "ENTITY_STATUS": "Status",
     "ACTIONS": "Actions",
     "NAME": "Name",
     "EMAIL": "E-mail",
@@ -341,7 +343,7 @@
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
-    "ADD_CONNECTION":"Are you sure you want to Add this user to your Connections.",
-    "REMOVE_CONNECTION":"Are you sure you want to Remove this user from your Connections."
+    "ADD_CONNECTION": "Are you sure you want to Add this user to your Connections.",
+    "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections."
   }
 }

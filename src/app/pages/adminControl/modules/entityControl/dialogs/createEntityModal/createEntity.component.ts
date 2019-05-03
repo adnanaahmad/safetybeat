@@ -75,8 +75,7 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     this.createEntity.entityDetails = {
       moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,
       entityData: value,
-      active: true,
-      roleId: this.createEntity.roleId
+      active: true
     };
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
