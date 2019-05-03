@@ -5,7 +5,7 @@
   {{helperService.translated.MESSAGES.EDIT_SITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=siteFormSubmit(addSiteObj.addSiteForm)>
+  <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=siteFormSubmit(addSiteObj.addSiteForm)  (keydown.enter)="$event.preventDefault()">
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.SITE_NAME"
