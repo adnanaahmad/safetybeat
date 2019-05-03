@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class MemberCenterService {
   method: any;
 
   constructor(
-    public helperService: HelperService
+    public helperService: HelperService,
+    private http: HttpClient
   ) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.method = this.helperService.constants.apiMethod;
@@ -26,6 +28,15 @@ export class MemberCenterService {
       this.apiRoutes.entitiesUsers,
       data
     );
+  }
+
+  /**
+   * this function is used for adding members of the entities as connections
+   * @params data
+   */
+
+  addConnection(data) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.connectionAdding, data);
   }
 
   deactivateUser(data) {
