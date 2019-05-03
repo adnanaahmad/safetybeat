@@ -9,7 +9,7 @@
     <div class="form-group">
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.TABLEHEADINGS.SITE_NAME"
-               [formControlName]="helperService.appConstants.siteName" required/>
+          [formControlName]="helperService.appConstants.siteName" required />
         <mat-error *ngIf="formValidation.siteName.errors">
           <span
             *ngIf="formValidation.siteName.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>
@@ -17,7 +17,7 @@
       </mat-form-field>
       <mat-form-field full-width>
         <input matInput type="text" [placeholder]="helperService.translated.STRINGS.SITESAFETYPLAN"
-               [formControlName]="helperService.appConstants.siteSafetyPlan" required/>
+          [formControlName]="helperService.appConstants.siteSafetyPlan" required />
         <mat-error *ngIf="formValidation.siteSafetyPlan.errors">
           <span
             *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>
@@ -36,11 +36,10 @@
             *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
         </mat-error>
       </mat-form-field>
-      <div #gmap class="site-map"></div>
       <mat-form-field full-width *ngIf="!addSiteObj.modalType">
         <mat-label>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</mat-label>
         <mat-select [(value)]="addSiteObj.siteSafetyManager.id"
-                    [formControlName]="helperService.appConstants.siteSafetyManager" >
+          [formControlName]="helperService.appConstants.siteSafetyManager">
           <mat-option *ngFor="let user of addSiteObj.entityUsers" [value]="user.id">
             {{user.name}}
           </mat-option>
@@ -50,18 +49,18 @@
             *ngIf="formValidation.siteSafetyManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
         </mat-error>
       </mat-form-field>
+      <div #gmap class="site-map"></div>
       <mat-slide-toggle [formControlName]="helperService.appConstants.safeZone">
         Safe Zone
       </mat-slide-toggle>
     </div>
     <mat-dialog-actions>
-      <button mat-raised-button custom-btn btn-primary
-              [disabled]="addSiteObj.loading|| !helperService.displayButton" color="primary"
-              *ngIf="addSiteObj.modalType">
+      <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading|| !helperService.displayButton"
+        color="primary" *ngIf="addSiteObj.modalType">
         {{ helperService.translated.BUTTONS.ADD_SITE }}
       </button>
-      <button mat-raised-button custom-btn btn-primary
-              [disabled]="addSiteObj.loading" color="primary" *ngIf="!addSiteObj.modalType">
+      <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading" color="primary"
+        *ngIf="!addSiteObj.modalType">
         {{ helperService.translated.BUTTONS.SAVE }}
       </button>
       <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
