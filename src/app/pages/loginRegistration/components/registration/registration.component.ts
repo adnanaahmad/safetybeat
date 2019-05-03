@@ -190,7 +190,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'address': this.helperService.address,
       'billingEmail': this.registerObj.userEmail.email,
       'accountNo': '12344532',
-      'phoneNo': '+' + userForm.countryCode + userForm.contactNo,
+      'phoneNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
       'type': this.registerObj.organizationTypeForm.value.type
     };
     this.registerObj.registerData = {
@@ -232,8 +232,5 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.BACKEND_ERROR);
       this.helperService.logoutError(error.status);
     });
-  }
-  rand(){
-
   }
 }
