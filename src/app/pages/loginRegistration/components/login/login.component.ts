@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       (packageDataResult) => {
         if (packageDataResult !== 1) {
           this.changeRoutes(packageDataResult.expired);
-        } else {
+        } else if (this.loginService.getToken()) {
           let self = this;
           this.navService.getPackageInfo().subscribe(res => {
             let packageData = res.data;
