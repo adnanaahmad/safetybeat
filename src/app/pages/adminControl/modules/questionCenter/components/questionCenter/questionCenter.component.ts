@@ -1,15 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-questionCenter',
   templateUrl: './questionCenter.component.html',
-  styleUrls: ['./questionCenter.component.scss']
+  styleUrls: ['./questionCenter.component.scss'],
 })
-export class QuestionCenterComponent implements OnInit {
+export class QuestionCenterComponent {
+  todo = [
+    'Is a site specific induction required for this site?',
+    'Do you know how to safely exit the site in the event of an emergency?',
+    'Have you completed the site safety induction?',
+    'Are there any high risk activities you will engage in?'
+  ];
 
-  constructor() { }
+  done = [
+    'Have you signed the SWMS for all high risk work you will undertake?',
+    'Are you wearing all PPE required for this site?',
+    'Do you have the appropriate equipment, training and tools to safely perform the tasks on site?',
+    'Do you feel that the environment is safe to work in?'
+  ];
 
-  ngOnInit() {
+  abc = [
+    'Have you ensured the correct safety measures are in place?',
+    'Is the visibility in the work area adequate?',
+    'Are there members of the public and/or other trades in your work area?'
+  ];
+
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
-
 }

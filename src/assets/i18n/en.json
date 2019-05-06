@@ -96,6 +96,7 @@
     "SAFETYBEAT": "Safetybeat",
     "FIELDCOMMUNICATION": "Field Communication",
     "JOIN_ENTITY": "JOIN ENTITY",
+    "ADD_QUESTION": "ADD QUESTION",
     "CREATE_ENTITY": "CREATE ENTITY",
     "INVITE_USER": "INVITE",
     "SKIP": "SKIP",
@@ -258,7 +259,8 @@
     "SETTINGS_TITLE": "Settings",
     "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages",
     "SITE_CENTRE": "Site Centre",
-    "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites"
+    "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites",
+    "QUESTION_CENTER": "Question Center"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
