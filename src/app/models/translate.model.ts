@@ -307,6 +307,7 @@ export interface Messages {
   ADD_CONNECTION_FAILURE: string;
   REMOVE_CONNECTION_SUCCESS: string;
   REMOVE_CONNECTION_FAILURE: string;
+  ANALYTICS_REPORTS: string;
 }
 
 export interface Logger {
