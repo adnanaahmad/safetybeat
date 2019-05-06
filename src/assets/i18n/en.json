@@ -248,7 +248,8 @@
     "ADD_CONNECTION_SUCCESS": "Connection has been added successfully.",
     "ADD_CONNECTION_FAILURE": "Connection has not been added",
     "REMOVE_CONNECTION_SUCCESS": "Connection has been removed successfully.",
-    "REMOVE_CONNECTION_FAILURE": "Connection has not been removed"
+    "REMOVE_CONNECTION_FAILURE": "Connection has not been removed",
+    "ANALYTICS_REPORTS": "Analytics Reports"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
