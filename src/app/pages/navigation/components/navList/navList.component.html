@@ -3,6 +3,36 @@
     <a class="nav-link" (click)="customActions(link.displayName)">{{link.displayName}}</a>
   </mat-list-item>
 </mat-nav-list>
+
+<mat-accordion class="nav-accordion">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Analytics Reports
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+      <mat-list-item mat-button>
+        <a class="nav-link">link</a>
+      </mat-list-item>
+      <mat-list-item mat-button>
+        <a class="nav-link">link</a>
+      </mat-list-item>
+      <mat-list-item mat-button>
+        <a class="nav-link">link</a>
+      </mat-list-item>
+      <mat-list-item mat-button>
+        <a class="nav-link">link</a>
+      </mat-list-item>
+      <mat-list-item mat-button>
+        <a class="nav-link">link</a>
+      </mat-list-item>
+      <mat-list-item mat-button>
+        <a class="nav-link">link</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-expansion-panel>
+</mat-accordion>
 <mat-nav-list class="bottom">
   <mat-list-item *ngFor="let link of navLinksBottom" mat-button [routerLink]="link.route" routerLinkActive="active">
     <a class="nav-link">{{ link.displayName }}</a>
