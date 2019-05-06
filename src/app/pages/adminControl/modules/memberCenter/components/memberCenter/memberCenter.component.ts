@@ -8,7 +8,7 @@ import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCente
 import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
-import {ProfileService} from '../../../../../profile/services/profile.service';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 
 
 @Component({
