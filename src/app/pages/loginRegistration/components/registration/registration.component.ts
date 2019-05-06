@@ -199,7 +199,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'last_name': userForm.last_name,
       'password1': userForm.password1,
       'password2': userForm.password2,
-      'contactNo': '+' + userForm.countryCode + userForm.contactNo,
+      'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
       'organization': this.registerObj.organizationData,
       'invitation': false,
       'module': 'Safetybeat',
