@@ -41,7 +41,6 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges() {
-    debugger;
     this.getUsers();
   }
 
@@ -53,7 +52,6 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
       }
     });
     this.userService.getUser().subscribe(res => {
-      debugger;
       this.memberCenter.user = res;
       this.memberCenter.userId = this.memberCenter.user.data.user.id;
     });
