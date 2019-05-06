@@ -62,25 +62,8 @@ export class NavListComponent implements OnInit {
    * @params displayName
    */
   customActions(displayName) {
-    switch (displayName) {
-      case 'Invite Users':
-        this.inviteUserModal(this.selectedEntity.entityInfo.id);
-        break;
-      case 'Analytics Reports':
-        this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName);
-        break;
-      default:
-        break;
+    if (displayName === 'Analytics Reports') {
+      this.navLinks = this.compiler.switchSideMenu(this.selectedEntity, displayName);
     }
   }
-
-  /**
-   * this function is used for creating the modal dialog of invite user and with this modal we also attach the all roles and
-   * entity id of the selected entity.
-   * @params entityId
-   */
-  inviteUserModal(entityId) {
-    this.helperService.createDialog(InviteUserModalComponent, {data: {'role': this.navListModel.roles, 'entityId': entityId}});
-  }
-
 }
