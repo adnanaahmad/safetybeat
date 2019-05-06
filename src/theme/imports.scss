@@ -30,6 +30,7 @@
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component.scss";
 @import "src/app/pages/loginRegistration/components/packageDetails/packageDetails.component.scss";
 @import "src/app/pages/adminControl/modules/memberCenter/components/memberCenter/memberCenter.component.scss";
+@import "src/app/pages/adminControl/modules/questionCenter/components/questionCenter/questionCenter.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -70,4 +71,5 @@
   @include amte-org-registration-modal($primary, $accent, $warn);
   @include amte-ImportSiteModal($primary, $accent, $warn);
   @include amte-memberCenter($primary, $accent, $warn);
+  @include amte-questionCenter($primary, $accent, $warn);
 }

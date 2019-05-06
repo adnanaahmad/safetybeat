@@ -34,6 +34,7 @@ import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCente
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {EntityCodeModalComponent} from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import { AddHazardComponent } from './pages/adminControl/modules/hazardCenter/dialogs/add-hazard/add-hazard.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -55,7 +56,7 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmationModalComponent,
     ViewConnectionsComponent,
     ChangeAccessLevelComponent,
-    AddHazardComponent
+    AddHazardComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -72,7 +73,8 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AppRoutingModule,
-    NotifierModule
+    NotifierModule,
+    DragDropModule
   ],
   providers: [
     TranslateService,

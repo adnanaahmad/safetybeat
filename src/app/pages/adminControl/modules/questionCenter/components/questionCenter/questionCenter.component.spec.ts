@@ -1,5 +1,6 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { QuestionCenterComponent } from './questionCenter.component';
 
 describe('QuestionCenterComponent', () => {
@@ -8,9 +9,12 @@ describe('QuestionCenterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuestionCenterComponent ]
-    })
-    .compileComponents();
+      declarations: [ QuestionCenterComponent ],
+      imports: [
+        NoopAnimationsModule,
+        DragDropModule,
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +23,7 @@ describe('QuestionCenterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should compile', () => {
     expect(component).toBeTruthy();
   });
 });

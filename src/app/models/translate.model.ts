@@ -151,6 +151,7 @@ export interface Buttons {
   ACTIVITIES: string;
   PROFIILE_INFO: string;
   JOIN_ENTITY: string;
+  ADD_QUESTION: string;
   CREATE_ENTITY: string;
   SKIP: string;
   MAP: string;
@@ -372,6 +373,7 @@ export interface SiteTitle {
   SETTINGS_DESCRIPTION: string;
   SITE_CENTRE: string;
   SITE_CENTRE_DESCRIPTION: string;
+  QUESTION_CENTER: string;
 }
 
 export interface TableHeadings {
