@@ -122,7 +122,7 @@
     "RESETMESSAGE": "Lost your password? Don't worry, reset it here",
     "PASSWORD_ERROR": "Password must be at least 8 characters.",
     "MATCH_ERROR": "Password not match.",
-    "RESET_MSG": "Reset Your Password",
+    "RESET_MSG": "Reset Password",
     "EMAIL_MSG": "Please enter a valid email address",
     "ORGANIZATION_MSG": "Organization Details",
     "TYPE_MSG": "Please Select type.",
