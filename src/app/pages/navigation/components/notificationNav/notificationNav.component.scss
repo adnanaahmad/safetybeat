@@ -4,6 +4,12 @@
     padding: 0 20px;
     width: 320px;
     display: block;
+    .mat-tab-label {
+      height: 30px;
+      .mat-tab-label-content {
+        font-size: 12px;
+      }
+    }
     mat-list-item[role="listitem"] {
       height: auto;
       border-bottom: 1px solid #ddd;

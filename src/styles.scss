@@ -41,6 +41,20 @@ body {
 .mat-input-element:disabled {
   cursor: not-allowed;
 }
+.settings-btn {
+  width: 40px;
+  padding: 0px !important;
+  display: block;
+  max-width: none;
+  min-width: auto !important;
+  height: 30px;
+  line-height: 1.4 !important;
+  mat-icon {
+    width: auto;
+    height: auto;
+    font-size: 18px;
+  }
+}
 [edit-btn] {
   width: 30px;
   min-width: 25px !important;
