@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -8,7 +8,7 @@ import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCente
 import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
-import {ProfileService} from '../../../../../profile/services/profile.service';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import {ProfileService} from '../../../../../profile/services/profile.service';
   templateUrl: './memberCenter.component.html',
   styleUrls: ['./memberCenter.component.scss']
 })
-export class MemberCenterComponent implements OnInit, OnDestroy {
+export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   memberCenter: MemberCenter = <MemberCenter>{};
   displayedColumns: string[] = [
@@ -37,6 +37,14 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.getUsers();
+  }
+
+  ngOnChanges() {
+    this.getUsers();
+  }
+
+  getUsers() {
     this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.memberCenter.entityData = res;
@@ -47,7 +55,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       this.memberCenter.user = res;
       this.memberCenter.userId = this.memberCenter.user.data.user.id;
     });
-
   }
 
   ngOnDestroy() {
@@ -58,13 +65,15 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   getAllUsers(data) {
     this.memberService.entityUsers(data).subscribe((res) => {
       this.memberCenter.elements = this.compiler.entityUser(res);
+      console.log(this.memberCenter.elements, 'this is the data that i need');
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
-    })
+    });
   }
 
   viewProfile(element) {
-    this.helperService.navigateWithData([this.helperService.appConstants.paths.profile, {data: JSON.stringify(element)}], {skipLocationChange: true});
+    this.helperService.navigateWithData([this.helperService.appConstants.paths.profile,
+      {data: JSON.stringify(element)}], {skipLocationChange: true});
   }
 
   connections(type, params?: any) {
@@ -73,19 +82,10 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.helperService.createDialog(ViewConnectionsComponent, {});
         break;
       case this.helperService.appConstants.connections.add:
-        this.helperService.createDialog(ConfirmationModalComponent, {
-          data: {
-            message: this.helperService.translated.CONFIRMATION.ADD_CONNECTION
-          }
-        });
-        this.helperService.dialogRef.afterClosed().subscribe(res => {
-          if (res === this.helperService.appConstants.yes) {
-            this.addConnections(params.userId);
-          }
-        });
+        this.addConnections(params.userId);
+        this.getUsers();
         break;
       case this.helperService.appConstants.connections.remove:
-        // this.helperService.createDialog(RemoveConnectionsComponent, {});
         this.helperService.createDialog(ConfirmationModalComponent, {
           data: {
             message: this.helperService.translated.CONFIRMATION.REMOVE_CONNECTION
@@ -93,6 +93,8 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         });
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
+            this.removeConnections(params.userId);
+            this.getUsers();
           }
         });
         break;
@@ -115,8 +117,8 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
         this.memberService.deactivateUser(data).subscribe((res) => {
-          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id})
-        })
+          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+        });
       }
     });
   }
@@ -131,19 +133,15 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
         this.memberService.activateUser(data).subscribe((res) => {
-          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id})
-        })
+          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+        });
       }
     });
   }
 
 
   addConnections(sentToUserId: number) {
-    let connectionAddingData = {
-      'receivedBy': sentToUserId
-    };
-
-    this.memberService.addConnection(connectionAddingData).subscribe((res) => {
+    this.memberService.addConnection({receivedBy: sentToUserId}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
@@ -156,7 +154,25 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_FAILURE,
         this.helperService.constants.status.ERROR);
-    })
+    });
+
+  }
+
+  removeConnections(sentToUserId: number) {
+    this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+          res.responseDetails.message);
+      }
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+        this.helperService.constants.status.ERROR);
+    });
 
   }
 }

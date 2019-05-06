@@ -39,11 +39,15 @@ export class MemberCenterService {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.connectionAdding, data);
   }
 
+  removeConnection(data) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.removeConnection, data);
+  }
+
   deactivateUser(data) {
-    return this.helperService.requestCall(this.method.put, this.apiRoutes.deactivateUser, data)
+    return this.helperService.requestCall(this.method.put, this.apiRoutes.deactivateUser, data);
   }
 
   activateUser(data) {
-    return this.helperService.requestCall(this.method.put, this.apiRoutes.activateUser, data)
+    return this.helperService.requestCall(this.method.put, this.apiRoutes.activateUser, data);
   }
 }

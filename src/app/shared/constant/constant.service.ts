@@ -53,7 +53,8 @@ export class ConstantService {
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
-    connectionAdding: `${environment.apiUrl}/api/connections/`
+    connectionAdding: `${environment.apiUrl}/api/connections/`,
+    removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
   };
   /**
    * all the api methods are declared here.

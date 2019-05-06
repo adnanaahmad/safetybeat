@@ -135,6 +135,7 @@ export class CompilerProvider {
   }
 
   entityUser(users) {
+    debugger;
     let usersArray = [];
     this.helperService.iterations(users.data, function (obj) {
       let user = {
@@ -144,7 +145,9 @@ export class CompilerProvider {
         photos: '',
         accessLevel: obj.role,
         id: obj.user.id,
-        status: obj.status
+        status: obj.status,
+        pendingConnection: obj.pendingConnection,
+        acceptedConnection: obj.acceptedConnection
       };
       usersArray.push(user);
     });

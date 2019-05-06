@@ -51,7 +51,7 @@
       </th>
       <td mat-cell *matCellDef="let element">&nbsp;
         <button
-          *ngIf="element.accessLevel!== helperService.appConstants.roles.owner && element.id !== memberCenter.userId"
+          *ngIf="element.id !== memberCenter.userId"
           class="btn-table"
           btn-primary
           mat-raised-button
@@ -63,7 +63,7 @@
           Actions
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.entityManager"
                   (click)="viewProfile(element)">
             <mat-icon>linear_scale</mat-icon>
             View Profile
@@ -73,13 +73,22 @@
             <mat-icon>linear_scale</mat-icon>
             View Connections
           </button>
-          <button mat-menu-item
-                  (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
+          <button
+            *ngIf="!element.pendingConnection && !element.acceptedConnection || memberCenter.entityData.role !== helperService.appConstants.roles.owner "
+            mat-menu-item
+            (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
             <mat-icon>linear_scale</mat-icon>
             Add Connections
           </button>
-          <button mat-menu-item
-                  (click)="connections(helperService.appConstants.connections.remove)">
+
+          <button *ngIf="element.pendingConnection && !element.acceptedConnection" mat-menu-item
+                  (click)="connections(helperService.appConstants.connections.remove, {'userId':element.id})">
+            <mat-icon>linear_scale</mat-icon>
+            Cancel Request
+          </button>
+
+          <button *ngIf="element.acceptedConnection && !element.pendingConnection" mat-menu-item
+                  (click)="connections(helperService.appConstants.connections.remove, {'userId':element.id})">
             <mat-icon>linear_scale</mat-icon>
             Remove Connections
           </button>

@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * and loading is used to disable the sign up button when the loader is in progress
    */
   onSubmit({value, valid}: { value: loginCredentials; valid: boolean; }): void {
+    localStorage.clear();
     if (!valid) {
       this.helperService.appLoggerDev(
         this.helperService.constants.status.WARNING,
