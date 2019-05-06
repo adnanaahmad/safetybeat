@@ -235,7 +235,10 @@ export class ConstantService {
     siteQuestionCenter: 'question_answer',
     log: 'library_books',
     import: 'play_for_work',
-    deleteSweep: 'delete_sweep'
+    deleteSweep: 'delete_sweep',
+    arrowRight: 'keyboard_arrow_right',
+    arrowLeft: 'keyboard_arrow_left',
+    warning: 'warning'
   };
   /**
    * all the particle container icon names are declared here.
