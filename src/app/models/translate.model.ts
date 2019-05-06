@@ -156,7 +156,7 @@ export interface Buttons {
   SKIP: string;
   MAP: string;
   HOURS: string;
-  INVITE_USER: string;
+  INVITE: string;
   INVITETEAM: string;
   ADD_SITE: string;
   IMPORT_SITE: string;
@@ -165,6 +165,7 @@ export interface Buttons {
   GETSTARTED: string;
   LEARNMORE: string;
   DELETE: string;
+  INVITE_USER: string;
 }
 
 export interface Messages {

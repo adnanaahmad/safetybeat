@@ -135,7 +135,6 @@ export class CompilerProvider {
   }
 
   entityUser(users) {
-    debugger;
     let usersArray = [];
     this.helperService.iterations(users.data, function (obj) {
       let user = {
@@ -332,10 +331,6 @@ export class CompilerProvider {
         displayName: 'Hazard Center',
         route: '/home/adminControl/hazardCenter',
         disabled: data.permissions.hazardCentre
-      },
-      {
-        displayName: 'Invite Users',
-        disabled: data.permissions.inviteUsers
       },
       {
         route: '/home/documents',
