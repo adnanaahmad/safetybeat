@@ -43,7 +43,7 @@
               <img src="../../../../../assets/images/useravatar.jpg">
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink="">
+              <button mat-menu-item routerLink="/home/profile">
                 <mat-icon>person</mat-icon> View Profile
               </button>
               <button mat-menu-item *ngIf="core.isAuthenticated" (click)="logoutUser()"
