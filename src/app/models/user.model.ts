@@ -10,6 +10,7 @@ export interface User {
   first_name: string;
   last_name: string;
   contactNo: string;
+  profileImage: Blob;
 }
 
 export interface PackageInfo {

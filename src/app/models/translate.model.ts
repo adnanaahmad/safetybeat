@@ -307,6 +307,9 @@ export interface Messages {
   ADD_CONNECTION_FAILURE: string;
   REMOVE_CONNECTION_SUCCESS: string;
   REMOVE_CONNECTION_FAILURE: string;
+  PIC_UPLOADED_SUCCESS: string;
+  PIC_UPLOADED_FAILURE: string;
+  PIC_EXCEEDS_LIMIT: string;
   ANALYTICS_REPORTS: string;
 }
 
@@ -368,15 +371,11 @@ export interface LoggerMessage {
 
 export interface SiteTitle {
   MEMBERCENTER_TITLE: string;
-  MEMBERCENTER_DESCRIPTION: string;
   ENTITYCONTROL_TITLE: string;
-  ENTITYCONTROL_DESCRIPTION: string;
   USERS_TITLE: string;
-  USERS_DESCRIPTION: string;
   SETTINGS_TITLE: string;
   SETTINGS_DESCRIPTION: string;
   SITE_CENTRE: string;
-  SITE_CENTRE_DESCRIPTION: string;
   QUESTION_CENTER: string;
 }
 

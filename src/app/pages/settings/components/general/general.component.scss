@@ -4,12 +4,11 @@
     .country-code {
       .code-input {
         position: relative;
+        float: left;
         &:before {
           content: "+";
           display: block;
           position: absolute;
-          top: 10px;
-          left: 10px;
         }
         input {
           padding-right: 0;
@@ -17,13 +16,16 @@
           border-top-right-radius: 0;
           border-bottom-right-radius: 0;
           width: 27px;
-          padding-left: 20px;
+          padding-left: 10px;
+          border-right: 1px solid rgba(0, 0, 0, 0.34);
         }
       }
       .number-input {
         width: 400px;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+        float: left;
+        padding-left: 8px;
       }
     }
   }

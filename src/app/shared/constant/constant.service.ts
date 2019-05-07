@@ -38,6 +38,7 @@ export class ConstantService {
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
+    profilePic: `${environment.apiUrl}/users/uploadProfileImage/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
@@ -174,7 +175,8 @@ export class ConstantService {
     },
     enterKey: 13,
     importSite: 'importSite',
-    csvFile: 'csvFile'
+    csvFile: 'csvFile',
+    profileImage: 'profileImage'
   };
   /**
    * all the material icon names are declared here.
@@ -283,6 +285,7 @@ export class ConstantService {
   static defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
-    zoomControl: true
+    gestureHandling: 'none',
+    zoomControl: false
   };
 }
