@@ -46,12 +46,12 @@
           opacity: 0;
           visibility: hidden;
           cursor: pointer;
-          input{
+          input {
             opacity: 0;
             width: 100%;
             position: absolute;
             height: 100%;
-            cursor:pointer;
+            cursor: pointer;
           }
         }
         &:hover .change-avatar {
@@ -190,11 +190,9 @@
       .mat-paginator-container {
         min-height: auto;
       }
-      &.activities {
-        mat-card-content {
-          height: 250px;
-          overflow: auto;
-        }
+      mat-card-content {
+        height: 250px;
+        overflow: auto;
       }
     }
     .profile-form {
