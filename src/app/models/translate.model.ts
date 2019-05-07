@@ -303,6 +303,8 @@ export interface Messages {
   SITE_EDIT_FAILURE: string;
   ADD_CONNECTION_SUCCESS: string;
   ADD_CONNECTION_FAILURE: string;
+  PIC_UPLOADED_SUCCESS: string;
+  PIC_UPLOADED_FAILURE: string;
 }
 
 export interface Logger {

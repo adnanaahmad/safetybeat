@@ -269,6 +269,16 @@ export class HelperService {
   }
 
   /**
+   * Router navigation through out the code will go through this function
+   * @params path
+   */
+  navigateWithData(path: any[], skip: any) {
+    this.router.navigate(path, skip).then(res => {
+    }).catch(err => {
+    });
+  }
+
+  /**
    * Set map location according to address in organization form
    */
   setAddress(addrObj, gMapElement: ElementRef, formControl) {

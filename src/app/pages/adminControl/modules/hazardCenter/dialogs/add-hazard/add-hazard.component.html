@@ -1,0 +1,12 @@
+<p>
+  add-hazard works!
+</p>
+<form formGroup="addHazardForm">
+  <mat-form-field >
+    <label>Add Hazard</label>
+    <input matInput type="text" formControlName="add" required>
+    <mat-error class="text-right" *ngIf="addHazardControls.add.errors">
+      <span>Field is Required</span>
+    </mat-error>
+  </mat-form-field>
+</form>

@@ -61,5 +61,13 @@ export class ProfileService {
     )
   }
 
+  profilePicUpdate(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.profilePic,
+      data
+    )
+  }
+
 
 }

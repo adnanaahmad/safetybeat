@@ -51,7 +51,7 @@
       </th>
       <td mat-cell *matCellDef="let element">&nbsp;
         <button
-          *ngIf="element.accessLevel!== helperService.appConstants.roles.owner"
+          *ngIf="element.accessLevel!== helperService.appConstants.roles.owner && element.id !== memberCenter.userId"
           class="btn-table"
           btn-primary
           mat-raised-button

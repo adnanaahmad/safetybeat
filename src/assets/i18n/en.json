@@ -244,7 +244,9 @@
     "GENERAL_UPDATED": "General Information Update.",
     "GENERAL_FAIL": "Updation Failed.",
     "ADD_CONNECTION_SUCCESS": "Connection has been added successfully.",
-    "ADD_CONNECTION_FAILURE": "Connection has not been added"
+    "ADD_CONNECTION_FAILURE": "Connection has not been added",
+    "PIC_UPLOADED_SUCCESS":"Picture Upload Success.",
+    "PIC_UPLOADED_FAILURE":"Picture Upload Failed."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
