@@ -24,6 +24,8 @@ export class NavigationService {
   selectedEntityData = this.entitySelected.asObservable();
   private packageInfo = new BehaviorSubject<any>(1);
   packageData = this.packageInfo.asObservable();
+  private currentUser = new BehaviorSubject<any>(1);
+  currentUserData = this.currentUser.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -143,4 +145,8 @@ export class NavigationService {
   logoutUser() {
     return this.http.get(ConstantService.apiRoutes.logout);
   }
+
+  updateCurrentUser(data: any) {
+    this.currentUser.next(data);
+  };
 }

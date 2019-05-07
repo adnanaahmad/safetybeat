@@ -11,9 +11,6 @@
       bottom: 0;
       width: 100%;
     }
-    mat-nav-list:last-child {
-      margin-top: 10em !important;
-    }
     mat-list-item {
       .nav-link {
         .mat-icon {
@@ -23,6 +20,25 @@
       }
       &:hover {
         background: rgba(255, 255, 255, 0.07) !important;
+      }
+    }
+    .nav-accordion {
+      mat-expansion-panel {
+        background: transparent;
+        box-shadow: none !important;
+        mat-expansion-panel-header {
+          padding: 0 16px;
+        }
+        .mat-expansion-panel-header-title {
+          color: #fff;
+          font-size: 14px;
+        }
+        .mat-expansion-indicator::after {
+          color: #fff;
+        }
+        .mat-expansion-panel-body {
+          padding: 0;
+        }
       }
     }
   }

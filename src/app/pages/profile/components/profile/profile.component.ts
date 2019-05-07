@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.profileModel.subscription = this.profile.currentUserData.subscribe((res) => {
+    this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
@@ -124,19 +124,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   uploadProfileImage(event) {
     this.profileModel.imageFile = <File>event.target.files[0];
-    console.log(this.profileModel.imageFile);
     let blob = new Blob([this.profileModel.imageFile], {type: 'application/image'});
     let formData = new FormData();
     formData.append('profileImage', blob, this.profileModel.imageFile.name);
     this.profileService.profilePicUpdate(formData).subscribe((res) => {
       let userData = this.compiler.constructProfileData(res.data);
-      this.profile.updateCurrenUser(userData);
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+      this.navService.updateCurrentUser(userData);
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
           this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.appLogger(this.helperService.constants.status.ERROR,
           this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
+          this.helperService.constants.status.WARNING);
+
       }
     });
   }
@@ -149,7 +152,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.profile.updateCurrenUser(userData);
+      this.navService.updateCurrentUser(userData);
     })
   }
 }

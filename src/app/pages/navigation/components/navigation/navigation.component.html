@@ -28,8 +28,6 @@
         <div class="product-notice" *ngIf="!isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_EXP_USER}}</div>
         <div class="top-btns">
-          <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important
-            <span class="notifcount">90+</span></mat-icon>
           <mat-form-field class="entity-switcher">
             <mat-select [(value)]="navModel.selectedEntity" (selectionChange)="switchSideMenu(navModel.selectedEntity)">
               <mat-option *ngFor="let entity of navModel.entityUserData" [value]="entity">{{entity.entityInfo.name}}
@@ -37,16 +35,25 @@
             </mat-select>
           </mat-form-field>
 
-          <div class="profile-menu">
-            <button mat-button [matMenuTriggerFor]="menu">
-              <img src="../../../../../assets/images/useravatar.jpg">
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item routerLink=""><mat-icon>person</mat-icon> View Profile</button>
-              <button mat-menu-item><mat-icon>power_settings_new</mat-icon> Logout</button>
-            </mat-menu>
-          </div>
-
+          
+          <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important
+            <span class="notifcount">90+</span></mat-icon>
+            <div class="profile-menu" *ngIf="profileModel.profileImage">
+                <button mat-button [matMenuTriggerFor]="menu">
+                  <img src="{{serverUrl}}{{profileModel.profileImage}}">
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="showModel(true)">
+                    <mat-icon>person</mat-icon> Edit Profile
+                  </button>
+                  <button mat-menu-item routerLink="showModel(false)">
+                    <mat-icon>lock</mat-icon>Change Password
+                  </button>
+                  <button mat-menu-item *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">
+                    <mat-icon>power_settings_new</mat-icon> Logout
+                  </button>
+                </mat-menu>
+              </div>
           <!-- <button matTooltip="Info about the action"
           aria-label="Button that displays a tooltip when focused or hovered over" mat-button *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">
             <mat-icon>power_settings_new</mat-icon>
