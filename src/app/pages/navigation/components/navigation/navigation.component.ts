@@ -7,6 +7,8 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationModel} from 'src/app/models/navigation/navigation.model';
 import {PackageInfo} from 'src/app/models/user.model';
+import {GeneralComponent} from '../../../settings/components/general/general.component';
+import {SecurityComponent} from '../../../settings/components/security/security.component';
 
 @Component({
   selector: 'app-navigation',
@@ -243,6 +245,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   showModel(isProfile) {
-
+    let modal = (isProfile) ? GeneralComponent : SecurityComponent;
+    this.helperService.createDialog(modal, {disableClose: true});
   }
 }
