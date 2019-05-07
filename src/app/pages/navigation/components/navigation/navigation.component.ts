@@ -241,4 +241,8 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges {
     (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
+
+  showModel(isProfile) {
+
+  }
 }

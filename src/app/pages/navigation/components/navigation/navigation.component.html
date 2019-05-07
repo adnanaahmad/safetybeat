@@ -43,10 +43,13 @@
                   <img src="../../../../../assets/images/useravatar.jpg">
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item routerLink="">
-                    <mat-icon>person</mat-icon> View Profile
+                  <button mat-menu-item (click)="showModel(true)">
+                    <mat-icon>person</mat-icon> Edit Profile
                   </button>
-                  <button mat-menu-item>
+                  <button mat-menu-item routerLink="showModel(false)">
+                    <mat-icon>lock</mat-icon>Change Password
+                  </button>
+                  <button mat-menu-item *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">
                     <mat-icon>power_settings_new</mat-icon> Logout
                   </button>
                 </mat-menu>
