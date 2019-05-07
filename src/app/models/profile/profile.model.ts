@@ -27,6 +27,7 @@ export interface ProfileModel {
   entitiesList: any;
   email: any;
   profileFeatures: ProfileFeatures;
+  receivedData: any;
 }
 
 

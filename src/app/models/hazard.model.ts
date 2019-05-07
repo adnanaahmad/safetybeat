@@ -8,3 +8,9 @@ export interface HazardModel {
  export interface AddHazardModel {
    addHazardForm: FormGroup;
 }
+
+export interface NewHazard {
+  title: string,
+  risk: number,
+  description: string
+}

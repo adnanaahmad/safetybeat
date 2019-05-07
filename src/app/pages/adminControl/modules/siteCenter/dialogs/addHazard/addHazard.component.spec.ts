@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddHazardComponent } from './add-hazard.component';
+import { AddHazardComponent } from './addHazard.component';
 
 describe('AddHazardComponent', () => {
   let component: AddHazardComponent;
