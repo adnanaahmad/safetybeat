@@ -43,6 +43,9 @@
                   <img src="../../../../../assets/images/useravatar.jpg">
                 </button>
                 <mat-menu #menu="matMenu">
+                  <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
+                    <mat-icon>person</mat-icon> View Profile
+                  </button>
                   <button mat-menu-item (click)="showModel(true)">
                     <mat-icon>person</mat-icon> Edit Profile
                   </button>
