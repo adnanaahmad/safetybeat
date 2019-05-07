@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             ? this.loginService.setToken(this.loginObj.data.data.token)
             : this.loginService.setToken('');
           let userData = this.compiler.constructUserData(this.loginObj.data);
-          this.profile.updateCurrenUser(userData.user);
+          this.navService.updateCurrentUser(userData.user);
           let self = this;
           let index = this.helperService.findIndex(userData.packageInfo, function (packageVal: PackageInfo) {
             return packageVal.module === self.helperService.appConstants.moduleName;

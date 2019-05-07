@@ -4,6 +4,8 @@ import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
 
 export interface ProfileModel {
+  imageFile: File;
+  profileImage: Blob;
   subscription: Subscription;
   displayedColumns: string[];
   dataSource: MatTableDataSource<any>;

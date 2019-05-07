@@ -53,7 +53,7 @@ const authRoutes: Routes = [
         currentState: RouterStateSnapshot,
         nextState: RouterStateSnapshot
       ) => {
-        return (nextState.url === '/login') || (nextState.url === '/home/dashboard');
+        return (nextState.url === '/login');
       }
     }
   ]

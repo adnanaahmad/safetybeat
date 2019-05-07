@@ -66,7 +66,6 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
   getAllUsers(data) {
     this.memberService.entityUsers(data).subscribe((res) => {
       this.memberCenter.elements = this.compiler.entityUser(res);
-      console.log(this.memberCenter.elements, 'this is the data that i need');
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
     });
