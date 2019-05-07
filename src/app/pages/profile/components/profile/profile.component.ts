@@ -62,6 +62,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
+        debugger;
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
         this.profileModel.email = this.profileModel.profileData.email;

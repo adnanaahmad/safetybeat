@@ -57,7 +57,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
         this.profileModel.username = this.profileModel.profileData.username;
         this.profileModel.email = this.profileModel.profileData.email;
         this.profileModel.profileImage = this.profileModel.profileData.profileImage;
-        console.log(res)
       } else {
         this.getCurrentUser();
       }
