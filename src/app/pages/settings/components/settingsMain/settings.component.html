@@ -2,13 +2,6 @@
 <div class="navigator">
   <mat-list role="list">
     <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.general ? 'settingNav' : 'abc'" (click)="changeSetting('general')"
-            ngClass="settingFeatures.general"><mat-icon>settings</mat-icon> General</span>
-    </mat-list-item>
-    <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.security ? 'settingNav' : 'abc'" (click)="changeSetting('security')"><mat-icon>security</mat-icon> Security</span>
-    </mat-list-item>
-    <mat-list-item role="listitem">
       <span [ngClass]="settingFeatures.organization ? 'settingNav' : 'abc'" (click)="changeSetting('organization')"><mat-icon>business</mat-icon>Organization Info</span>
     </mat-list-item>
     <mat-list-item role="listitem">
@@ -28,16 +21,6 @@
 
 <div class="settings-wrap  theme-selector">
   <div class="flexbox">
-    <!--General Settings-->
-    <div *ngIf="settingFeatures.general">
-      <app-general></app-general>
-    </div>
-
-    <!--Security Settings-->
-    <div *ngIf="settingFeatures.security">
-      <app-security></app-security>
-    </div><!-- /Security Settings-->
-
     <!--Organization Settings-->
     <div *ngIf="settingFeatures.organization">
       <app-organization-info></app-organization-info>
