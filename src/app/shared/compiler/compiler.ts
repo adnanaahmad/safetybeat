@@ -144,7 +144,9 @@ export class CompilerProvider {
         photos: '',
         accessLevel: obj.role,
         id: obj.user.id,
-        status: obj.status
+        status: obj.status,
+        pendingConnection: obj.pendingConnection,
+        acceptedConnection: obj.acceptedConnection
       };
       usersArray.push(user);
     });
@@ -329,10 +331,6 @@ export class CompilerProvider {
         displayName: 'Hazard Center',
         route: '/home/adminControl/hazardCenter',
         disabled: data.permissions.hazardCentre
-      },
-      {
-        displayName: 'Invite Users',
-        disabled: data.permissions.inviteUsers
       },
       {
         route: '/home/documents',

@@ -54,7 +54,8 @@ export class ConstantService {
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
-    connectionAdding: `${environment.apiUrl}/api/connections/`
+    connectionAdding: `${environment.apiUrl}/api/connections/`,
+    removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
   };
   /**
    * all the api methods are declared here.
@@ -236,7 +237,10 @@ export class ConstantService {
     siteQuestionCenter: 'question_answer',
     log: 'library_books',
     import: 'play_for_work',
-    deleteSweep: 'delete_sweep'
+    deleteSweep: 'delete_sweep',
+    arrowRight: 'keyboard_arrow_right',
+    arrowLeft: 'keyboard_arrow_left',
+    warning: 'warning'
   };
   /**
    * all the particle container icon names are declared here.

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { QuestionCenterRoutingModule } from './questionCenter-routing.module';
 import {QuestionCenterComponent} from './components/questionCenter/questionCenter.component';
 import {MaterialModule} from '../../../../shared/material/material.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {MaterialModule} from '../../../../shared/material/material.module';
   imports: [
     CommonModule,
     MaterialModule,
-    QuestionCenterRoutingModule
+    QuestionCenterRoutingModule,
+    DragDropModule
   ]
 })
 export class QuestionCenterModule { }

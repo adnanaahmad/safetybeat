@@ -1,6 +1,9 @@
 @mixin amte-profile($primary, $accent, $warn) {
   :host,
   app-profile {
+    .settings-btn {
+      margin-left: auto;
+    }
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
@@ -57,7 +60,7 @@
         }
       }
       .user-info {
-        padding: 30px;
+        padding: 0 30px;
         width: 100%;
         text-transform: capitalize;
         p {
@@ -189,7 +192,7 @@
       }
       &.activities {
         mat-card-content {
-          height: 550px;
+          height: 250px;
           overflow: auto;
         }
       }
@@ -206,6 +209,14 @@
     }
     .mat-card {
       background: transparent;
+    }
+    .customTable {
+      .mat-header-row {
+        background-color: transparent;
+        .mat-header-cell {
+          color: inherit;
+        }
+      }
     }
   }
   @media (max-width: 768px) {

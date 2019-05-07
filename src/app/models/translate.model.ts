@@ -151,11 +151,12 @@ export interface Buttons {
   ACTIVITIES: string;
   PROFIILE_INFO: string;
   JOIN_ENTITY: string;
+  ADD_QUESTION: string;
   CREATE_ENTITY: string;
   SKIP: string;
   MAP: string;
   HOURS: string;
-  INVITE_USER: string;
+  INVITE: string;
   INVITETEAM: string;
   ADD_SITE: string;
   IMPORT_SITE: string;
@@ -164,6 +165,7 @@ export interface Buttons {
   GETSTARTED: string;
   LEARNMORE: string;
   DELETE: string;
+  INVITE_USER: string;
 }
 
 export interface Messages {
@@ -303,6 +305,8 @@ export interface Messages {
   SITE_EDIT_FAILURE: string;
   ADD_CONNECTION_SUCCESS: string;
   ADD_CONNECTION_FAILURE: string;
+  REMOVE_CONNECTION_SUCCESS: string;
+  REMOVE_CONNECTION_FAILURE: string;
   PIC_UPLOADED_SUCCESS: string;
   PIC_UPLOADED_FAILURE: string;
 }
@@ -374,6 +378,7 @@ export interface SiteTitle {
   SETTINGS_DESCRIPTION: string;
   SITE_CENTRE: string;
   SITE_CENTRE_DESCRIPTION: string;
+  QUESTION_CENTER: string;
 }
 
 export interface TableHeadings {
