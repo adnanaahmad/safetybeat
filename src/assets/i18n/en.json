@@ -252,17 +252,13 @@
     "ANALYTICS_REPORTS": "Analytics Reports"
   },
   "SITETITLE": {
-    "MEMBERCENTER_TITLE": "Member Center",
-    "MEMBERCENTER_DESCRIPTION": "Add, remove or review members",
-    "ENTITYCONTROL_TITLE": "Entity Control Center",
-    "ENTITYCONTROL_DESCRIPTION": "Create, remove or edit entities",
+    "MEMBERCENTER_TITLE": "Member Centre",
+    "ENTITYCONTROL_TITLE": "Entity Control Centre",
     "USERS_TITLE": "All Users",
-    "USERS_DESCRIPTION": "Add, remove or review users",
     "SETTINGS_TITLE": "Settings",
     "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages",
     "SITE_CENTRE": "Site Centre",
-    "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites",
-    "QUESTION_CENTER": "Question Center"
+    "QUESTION_CENTER": "Question Centre"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
