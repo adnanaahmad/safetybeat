@@ -1,0 +1,12 @@
+@mixin amte-add-hazard($primary, $accent, $warn) {
+  :host,
+  app-add-hazard {
+    .multiple-inputs {
+      mat-form-field {
+        width: 48%;
+        margin: 1%;
+      }
+    }
+
+  }
+}
