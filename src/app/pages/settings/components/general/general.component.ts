@@ -6,6 +6,7 @@ import {GeneralInfo, GeneralModel} from '../../../../models/general.model';
 import {ProfileService} from '../../../profile/services/profile.service';
 import {SettingsService} from '../../services/settings.service';
 import {NavigationService} from '../../../navigation/services/navigation.service';
+import {MatDialogRef} from '@angular/material';
 
 const phoneNumberUtil = HelperService.getPhoneNumberUtil();
 
@@ -22,6 +23,7 @@ export class GeneralComponent implements OnInit {
               private settings: SettingsService,
               public compiler: CompilerProvider,
               public profile: ProfileService,
+              public dialogRef: MatDialogRef<GeneralComponent>,
               private navService: NavigationService) {
     this.generalObj.enabled = false;
   }
@@ -35,17 +37,11 @@ export class GeneralComponent implements OnInit {
       countryCode: ['', Validators.required]
     }, {validator: this.phoneNumberValid.bind(this)});
     this.setGeneralForm();
-    this.generalObj.generalForm.disable();
+    this.generalViewForm['email'].disable();
   }
 
   get generalViewForm() {
     return this.generalObj.generalForm.controls;
-  }
-
-  editGeneralForm() {
-    this.generalObj.enabled = true;
-    this.generalObj.generalForm.enable();
-    this.generalViewForm['email'].disable();
   }
 
   setGeneralForm() {
@@ -65,12 +61,6 @@ export class GeneralComponent implements OnInit {
         });
       }
     });
-  }
-
-  cancelForm() {
-    this.setGeneralForm();
-    this.generalObj.enabled = false;
-    this.generalObj.generalForm.disable();
   }
 
   phoneNumberValid(group: FormGroup) {
@@ -125,6 +115,7 @@ export class GeneralComponent implements OnInit {
       this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
       return;
     }
+    this.dialogRef.close();
     this.settings.editProfile(this.generalObj.userData.id, data).subscribe((res) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GENERAL_UPDATED, this.helperService.constants.status.SUCCESS);
       }, (error) => {
