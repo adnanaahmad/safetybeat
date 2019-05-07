@@ -50,7 +50,7 @@ export class GeneralComponent implements OnInit {
         this.profile.getUser().subscribe((res) => {
           this.generalObj.resultData = this.compiler.constructGeneralInfoObject(res);
           this.generalObj.userData = this.compiler.constructProfileData(this.generalObj.resultData.user);
-          this.profile.updateCurrenUser(this.generalObj.userData);
+          this.navService.updateCurrentUser(this.generalObj.userData);
           this.generalViewForm['email'].setValue(this.generalObj.userData.email);
           this.generalViewForm['first_name'].setValue(this.generalObj.userData.first_name);
           this.generalViewForm['last_name'].setValue(this.generalObj.userData.last_name);

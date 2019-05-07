@@ -13,6 +13,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {ActivatedRoute} from '@angular/router';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  serverUrl = environment.serverUrl;
 
 
   constructor(
@@ -33,16 +35,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private loginService: LoginRegistrationService,
     public helperService: HelperService,
     private compiler: CompilerProvider,
-    private navService: NavigationService
+    private navService: NavigationService,
+    public  profileService: ProfileService
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
-    this.route.params.subscribe((data) => {
-      let data1 = JSON.parse(data.data);
-    });
+    // this.route.params.subscribe((data) => {
+    //   let data1 = JSON.parse(data.data);
+    // });
     this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.role = res.role;
@@ -57,11 +60,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.profileModel.subscription = this.profile.currentUserData.subscribe((res) => {
+    debugger
+    this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
         this.profileModel.email = this.profileModel.profileData.email;
+        this.profileModel.profileImage = this.profileModel.profileData.profileImage;
       } else {
         this.getCurrentUser();
       }
@@ -114,6 +119,33 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * this function is used to read the image file on selection from the pc storage.
+   * @params event
+   */
+
+  uploadProfileImage(event) {
+    this.profileModel.imageFile = <File>event.target.files[0];
+    let blob = new Blob([this.profileModel.imageFile], {type: 'application/image'});
+    let formData = new FormData();
+    formData.append('profileImage', blob, this.profileModel.imageFile.name);
+    this.profileService.profilePicUpdate(formData).subscribe((res) => {
+      let userData = this.compiler.constructProfileData(res.data);
+      this.navService.updateCurrentUser(userData);
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+          this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
+          this.helperService.constants.status.WARNING);
+
+      }
+    });
+  }
+
+  /**
    * this function is used for getting the data for current user to show on the profile page.
    */
 
@@ -121,7 +153,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.profile.updateCurrenUser(userData);
+      this.navService.updateCurrentUser(userData);
     })
   }
 }

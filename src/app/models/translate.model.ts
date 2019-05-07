@@ -307,6 +307,9 @@ export interface Messages {
   ADD_CONNECTION_FAILURE: string;
   REMOVE_CONNECTION_SUCCESS: string;
   REMOVE_CONNECTION_FAILURE: string;
+  PIC_UPLOADED_SUCCESS: string;
+  PIC_UPLOADED_FAILURE: string;
+  PIC_EXCEEDS_LIMIT: string;
   ANALYTICS_REPORTS: string;
 }
 

@@ -249,7 +249,10 @@
     "ADD_CONNECTION_FAILURE": "Connection has not been added",
     "REMOVE_CONNECTION_SUCCESS": "Connection has been removed successfully.",
     "REMOVE_CONNECTION_FAILURE": "Connection has not been removed",
-    "ANALYTICS_REPORTS": "Analytics Reports"
+    "ANALYTICS_REPORTS": "Analytics Reports",
+    "PIC_UPLOADED_SUCCESS":"Picture Upload Success.",
+    "PIC_UPLOADED_FAILURE":"Picture Upload Failed.",
+    "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
