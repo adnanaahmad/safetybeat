@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {HazardModel, NewHazard} from '../../../../../../models/hazard.model';
-import {HazardDetailsComponent} from '../../dialogs/hazardDetails/hazardDetails.component';
-import {AdminControlService} from '../../../../services/adminControl.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {HazardModel, NewHazard} from 'src/app/models/hazard.model';
+import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -21,7 +21,7 @@ export class HazardCenterComponent implements OnInit {
     public helperService: HelperService,
     private navService: NavigationService,
     private compiler: CompilerProvider,
-    public adminControlService: AdminControlService) {
+    private adminControlService: AdminControlService) {
   }
 
   ngOnInit() {
