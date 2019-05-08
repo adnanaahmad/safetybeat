@@ -40,7 +40,7 @@
             <span class="notifcount">90+</span></mat-icon>
             <div class="profile-menu">
                 <button mat-button [matMenuTriggerFor]="menu">
-                  <img src="{{serverUrl}}{{profileModel.profileImage}}">
+                  <img src="{{ profileModel.profileImage != null ? serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
                 </button>
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
