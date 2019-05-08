@@ -31,10 +31,8 @@ export class HazardCenterComponent implements OnInit {
   initialize() {
     this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
-        let data = res.entityInfo;
-        this.hazardTable.entityId = data.id;
         let entityId = {
-          'entityId': this.hazardTable.entityId
+          'entityId': res.entityInfo.id
         };
         this.getHazardList(entityId);
       }
@@ -44,15 +42,13 @@ export class HazardCenterComponent implements OnInit {
   openDialog(data) {
     this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
-      width: '250px',
       data: {data: data}
     });
   }
 
   getHazardList(entityId) {
     this.adminControlService.allHazards(entityId).subscribe((res) => {
-      let temp = this.compiler.constructHazardArray(res);
-      this.hazardTable.dataSource = new MatTableDataSource(temp);
+      this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
       this.hazardTable.dataSource.paginator = this.paginator;
     });
   }

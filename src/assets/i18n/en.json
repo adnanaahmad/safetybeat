@@ -252,7 +252,9 @@
     "ANALYTICS_REPORTS": "Analytics Reports",
     "PIC_UPLOADED_SUCCESS":"Picture Upload Success.",
     "PIC_UPLOADED_FAILURE":"Picture Upload Failed.",
-    "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit."
+    "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit.",
+    "HAZARD_ADDED": "Hazard Added",
+    "HAZARD_NOT_ADDED": "Hazard could not be added"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

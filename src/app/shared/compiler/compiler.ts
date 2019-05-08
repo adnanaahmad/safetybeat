@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
-import {Site, SitesInfo} from '../../models/site.model';
-import {Organization} from '../../models/Settings/organizationInfo.model';
-import {GeneralInfo} from '../../models/general.model';
+import {Site, SitesInfo} from 'src/app/models/site.model';
+import {Organization} from 'src/app/models/Settings/organizationInfo.model';
+import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
-import {Hazard, NewHazard} from '../../models/hazard.model';
+import {Hazard} from 'src/app/models/hazard.model';
 
 @Injectable()
 export class CompilerProvider {
