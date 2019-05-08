@@ -126,6 +126,16 @@ export interface Strings {
   PACKAGE_DESCRIPTION_1: string;
   PACKAGE_DESCRIPTION_2: string;
   PACKAGE_DESCRIPTION_3: string;
+  QUESTION_NAME: string;
+  QUESTION_WARNING: string;
+  SELECT_QUESTION_TYPE: string;
+  SAFE_QUESTION: string;
+  SAFE_QUESTION_YES: string;
+  SAFE_QUESTION_NO: string;
+  SAFE_QUESTION_BOTH: string;
+  CAN_PROCEED_QUESTION: string;
+  CAN_PROCEED_QUESTION_YES: string;
+  CAN_PROCEED_QUESTION_NO: string;
 }
 
 export interface Buttons {
@@ -250,6 +260,7 @@ export interface Messages {
   ORGTYPEMESSAGE: string;
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
+  ADDQUESTION_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
   NOUSER: string;
@@ -265,6 +276,7 @@ export interface Messages {
   INVITE_FAILURE: string;
   SAFETY_PLAN_REQ: string;
   SITE_NAME_REQ: string;
+  QUESTION_DESCRIPTION_REQ: string;
   ENTITY_DELETE: string;
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
@@ -299,6 +311,7 @@ export interface Messages {
   VIEW_CONNECTIONS: string;
   ADD_CONNECTIONS: string;
   SAFETY_MANAGER_REQ: string;
+  QUESTION_TYPE_REQ: string;
   USER_NOT_FOUND: string;
   SITE_EDIT_SUCCESS: string;
   SITE_EDIT_FAILURE: string;
@@ -306,6 +319,8 @@ export interface Messages {
   ADD_CONNECTION_FAILURE: string;
   REMOVE_CONNECTION_SUCCESS: string;
   REMOVE_CONNECTION_FAILURE: string;
+  QUESTION_CREATED: string;
+  QUESTION_CREATION_FAILURE: string;
 }
 
 export interface Logger {
@@ -359,9 +374,11 @@ export interface LoggerMessage {
   INVITEUSER_ERROR: string;
   ENTITYNOTCREATED: string;
   ROLES_RECIEVED: string;
+  QUESTION_TYPES_RECEIVED: string;
+  QUESTION_TYPES_RECEIVED_ERROR: string;
   ROLES_RECIEVED_ERROR: string;
   ORG_SUCCESS: string;
-
+  QUESTION_DATA_REQ: string;
 }
 
 export interface SiteTitle {

@@ -70,7 +70,17 @@
     "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
     "PACKAGE_DESCRIPTION_3": "For already established business",
     "SITESAFETYPLAN": "Site Safety Plan",
-    "SITESAFETYMANAGER": "Site Safety Manager"
+    "SITESAFETYMANAGER": "Site Safety Manager",
+    "QUESTION_NAME": "Question Description",
+    "QUESTION_WARNING": "Question Warning",
+    "SELECT_QUESTION_TYPE": "Select Type",
+    "SAFE_QUESTION": "Which answer is safe?",
+    "SAFE_QUESTION_YES": "Yes",
+    "SAFE_QUESTION_NO": "No",
+    "SAFE_QUESTION_BOTH": "Both",
+    "CAN_PROCEED_QUESTION": "If incorrect answer, can proceed?",
+    "CAN_PROCEED_QUESTION_YES": "Yes",
+    "CAN_PROCEED_QUESTION_NO": "No"
   },
   "BUTTONS": {
     "LOGIN": "LOGIN",
@@ -247,7 +257,11 @@
     "ADD_CONNECTION_SUCCESS": "Connection has been added successfully.",
     "ADD_CONNECTION_FAILURE": "Connection has not been added",
     "REMOVE_CONNECTION_SUCCESS": "Connection has been removed successfully.",
-    "REMOVE_CONNECTION_FAILURE": "Connection has not been removed"
+    "REMOVE_CONNECTION_FAILURE": "Connection has not been removed",
+    "ADDQUESTION_MSG": "Add Question",
+    "QUESTION_TYPE_REQ": "Question Type required",
+    "QUESTION_CREATED": "Question created successfully",
+    "QUESTION_CREATION_FAILURE": "Question not created"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Center",
@@ -331,7 +345,10 @@
       "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again.",
       "ROLES_RECIEVED": "Roles recieved",
       "ROLES_RECIEVED_ERROR": "Error recieving roles",
-      "ORG_SUCCESS": "Organization Data Edited."
+      "ORG_SUCCESS": "Organization Data Edited.",
+      "QUESTION_TYPES_RECEIVED": "Question Types received",
+      "QUESTION_TYPES_RECEIVED_ERROR": "Error receiving Question Types",
+      "QUESTION_DATA_REQ": "Question data is required"
     }
   },
   "STATUS": {

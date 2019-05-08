@@ -1,0 +1,62 @@
+<mat-card-title class="mat-dialog-title">
+  {{helperService.translated.MESSAGES.ADDQUESTION_MSG}}
+</mat-card-title>
+<div mat-dialog-content>
+  <form [formGroup]="QuestionObj.addQuestionForm" (ngSubmit)=questionFormSubmit(QuestionObj.addQuestionForm)
+        (keydown.enter)="$event.preventDefault()">
+    <div class="form-group">
+      <mat-form-field full-width>
+        <input matTooltip="bahano" matTooltipPosition="below" matInput type="text" [placeholder]="helperService.translated.STRINGS.QUESTION_NAME"
+               [formControlName]="helperService.appConstants.questionDescription" required/>
+        <mat-error *ngIf="formValidation.questionDescription.errors">
+          <span
+            *ngIf="formValidation.questionDescription.errors.required">{{helperService.translated.MESSAGES.QUESTION_DESCRIPTION_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field full-width>
+        <textarea matTooltip="Warning messages to users if they answer the question incorrectly" matTooltipPosition="below" maxlength="500" rows="6" cols="6" matInput [placeholder]="helperService.translated.STRINGS.QUESTION_WARNING"
+                  [formControlName]="helperService.appConstants.questionWarning">
+          </textarea>
+      </mat-form-field>
+      <mat-form-field full-width>
+        <mat-label>{{helperService.translated.STRINGS.SELECT_QUESTION_TYPE}}</mat-label>
+        <mat-select [(value)]="QuestionObj.selectedType" [formControlName]="helperService.appConstants.questionType"
+                    (selectionChange)="changeSelection(QuestionObj.selectedType)">
+          <mat-option *ngFor="let obj of QuestionObj.questionTypes"
+                      [value]="obj">{{obj.type}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formValidation.questionType.errors">
+          <span
+            *ngIf="formValidation.questionType.errors.required">{{helperService.translated.MESSAGES.QUESTION_TYPE_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-radio-group *ngIf="QuestionObj.openEnded"
+        [formControlName]="helperService.appConstants.safeQuestion">{{helperService.translated.STRINGS.SAFE_QUESTION}}
+        <mat-radio-button
+          value="{{ helperService.appConstants.safeQuestionYes }}">{{helperService.translated.STRINGS.SAFE_QUESTION_YES}}</mat-radio-button>
+        <mat-radio-button
+          value="{{ helperService.appConstants.safeQuestionNo }}">{{helperService.translated.STRINGS.SAFE_QUESTION_NO}}</mat-radio-button>
+        <mat-radio-button
+          value="{{ helperService.appConstants.safeQuestionBoth }}">{{helperService.translated.STRINGS.SAFE_QUESTION_BOTH}}</mat-radio-button>
+      </mat-radio-group>
+      <br>
+      <mat-radio-group
+        [formControlName]="helperService.appConstants.canProceed">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION}}
+        <mat-radio-button
+          value="{{ helperService.appConstants.canProceedQuestionYes }}">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_YES}}</mat-radio-button>
+        <mat-radio-button
+          value="{{ helperService.appConstants.canProceedQuestionNo }}">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_NO}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-dialog-actions>
+      <button mat-raised-button custom-btn btn-primary [disabled]="QuestionObj.loading"
+              color="primary">
+        {{ helperService.translated.BUTTONS.ADD_QUESTION }}
+      </button>
+      <img *ngIf="QuestionObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
+      <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
+        {{ helperService.translated.BUTTONS.CANCEL }}
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

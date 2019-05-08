@@ -55,6 +55,8 @@ export class ConstantService {
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
+    getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
+    addQuestion: `${environment.apiUrl}/api/questions/`,
   };
   /**
    * all the api methods are declared here.
@@ -153,6 +155,16 @@ export class ConstantService {
     dateJoined: 'dateJoined',
     phoneNo: 'phoneNo',
     avatar: './assets/images/avatar.png',
+    questionDescription: 'questionDescription',
+    questionWarning: 'questionWarning',
+    questionType: 'questionType',
+    safeQuestionYes: 'Yes',
+    safeQuestionNo: 'No',
+    safeQuestionBoth: 'Both',
+    canProceedQuestionYes: 'Yes',
+    canProceedQuestionNo: 'No',
+    safeQuestion: 'safeQuestion',
+    canProceed: 'canProceed',
     paths: {
       home: '/home',
       profile: '/home/profile',
@@ -166,6 +178,10 @@ export class ConstantService {
       teamLead: 'TeamLead',
       entityManager: 'EntityManager',
       siteSafetyManager: 'SiteSafetyManager'
+    },
+    questionTypeValues: {
+      openEnded: 'OpenEnded',
+      closeEnded: 'CloseEnded'
     },
     connections: {
       view: 'view',

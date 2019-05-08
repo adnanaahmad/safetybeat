@@ -33,8 +33,9 @@ import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmati
 import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {EntityCodeModalComponent} from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
-import { AddHazardComponent } from './pages/adminControl/modules/hazardCenter/dialogs/add-hazard/add-hazard.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import {AddHazardComponent} from './pages/adminControl/modules/hazardCenter/dialogs/add-hazard/add-hazard.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {AddQuestionComponent} from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -57,6 +58,7 @@ export function createTranslateLoader(http: HttpClient) {
     ViewConnectionsComponent,
     ChangeAccessLevelComponent,
     AddHazardComponent,
+    AddQuestionComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -96,8 +98,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
 
   bootstrap: [AppComponent],
-  exports: [
-  ],
+  exports: [],
   entryComponents: [
     CreateEntityComponent,
     JoinEntityModalComponent,
@@ -112,7 +113,8 @@ export function createTranslateLoader(http: HttpClient) {
     ConfirmationModalComponent,
     ViewConnectionsComponent,
     ChangeAccessLevelComponent,
-    AddHazardComponent
+    AddHazardComponent,
+    AddQuestionComponent
   ]
 })
 export class AppModule {
