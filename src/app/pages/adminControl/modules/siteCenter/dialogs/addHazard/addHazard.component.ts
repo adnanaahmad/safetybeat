@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {MAT_DIALOG_DATA} from '@angular/material';
-import {AddHazardModel, NewHazard} from '../../../../../../models/hazard.model';
-import {AdminControlService} from '../../../../services/adminControl.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {AddHazardModel, NewHazard} from 'src/app/models/hazard.model';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 
 @Component({
   selector: 'app-addHazard',
@@ -18,7 +18,8 @@ export class AddHazardComponent implements OnInit {
   constructor(public formBuilder: FormBuilder,
               public helperService: HelperService,
               public service: AdminControlService,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<AddHazardComponent>) { }
 
   ngOnInit() {
     this.addHazardForm = this.formBuilder.group({
@@ -58,11 +59,17 @@ export class AddHazardComponent implements OnInit {
     }
     this.service.addNewHazard(formData).subscribe((res) => {
         this.helperService.createSnack('Hazard Added', this.helperService.constants.status.SUCCESS);
+        this.onNoClick();
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ADDED, this.helperService.constants.status.SUCCESS);
+
       }, (error) => {
-        this.helperService.createSnack('Hazard could not be added',
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
           this.helperService.constants.status.ERROR);
       }
     );
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

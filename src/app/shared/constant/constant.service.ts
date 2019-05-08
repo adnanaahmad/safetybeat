@@ -58,7 +58,7 @@ export class ConstantService {
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
     addHazard: `${environment.apiUrl}/api/hazard/`,
     hazardList: `${environment.apiUrl}/api/riskType/`,
-    allHazards: `${environment.apiUrl}/api/hazard/`
+    allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
   };
   /**
    * all the api methods are declared here.

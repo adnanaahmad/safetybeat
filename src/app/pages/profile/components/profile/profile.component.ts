@@ -44,14 +44,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
     // this.route.params.subscribe((data) => {
-    //   let data1 = JSON.parse(data.data);
+    //   this.profileModel.receivedData = JSON.parse(data.data);
+    //   if (!this.profileModel.receivedData) {
+        this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+          if (res !== 1) {
+            this.profileModel.role = res.role;
+            this.profileModel.entityName = res.entityInfo.name;
+          }
+        });
+    //   } else {
+    //     this.profileModel.role = this.profileModel.receivedData.accessLevel;
+    //   }
     // });
-    this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.profileModel.role = res.role;
-        this.profileModel.entityName = res.entityInfo.name;
-      }
-    });
   }
 
   /**

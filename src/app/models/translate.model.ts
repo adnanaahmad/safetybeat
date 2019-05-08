@@ -311,6 +311,8 @@ export interface Messages {
   PIC_UPLOADED_FAILURE: string;
   PIC_EXCEEDS_LIMIT: string;
   ANALYTICS_REPORTS: string;
+  HAZARD_ADDED: string;
+  HAZARD_NOT_ADDED: string;
 }
 
 export interface Logger {
