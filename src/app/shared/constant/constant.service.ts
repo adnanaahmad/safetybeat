@@ -59,6 +59,9 @@ export class ConstantService {
     hazardList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
+    getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
+    addQuestion: `${environment.apiUrl}/api/questions/`,
+    getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
   };
   /**
    * all the api methods are declared here.
@@ -157,6 +160,19 @@ export class ConstantService {
     dateJoined: 'dateJoined',
     phoneNo: 'phoneNo',
     avatar: './assets/images/avatar.png',
+    questionDescription: 'questionDescription',
+    questionWarning: 'questionWarning',
+    questionType: 'questionType',
+    safeQuestionYes: 'Y',
+    safeQuestionNo: 'N',
+    safeQuestionBoth: 'B',
+    canProceedQuestionYes: 'Yes',
+    canProceedQuestionNo: 'No',
+    parentYes: 'Yes',
+    parentNo: 'No',
+    safeQuestion: 'safeQuestion',
+    canProceed: 'canProceed',
+    parent: 'parent',
     paths: {
       home: '/home',
       profile: '/home/profile',
@@ -170,6 +186,10 @@ export class ConstantService {
       teamLead: 'TeamLead',
       entityManager: 'EntityManager',
       siteSafetyManager: 'SiteSafetyManager'
+    },
+    questionTypeValues: {
+      openEnded: 'OpenEnded',
+      closeEnded: 'CloseEnded'
     },
     connections: {
       view: 'view',

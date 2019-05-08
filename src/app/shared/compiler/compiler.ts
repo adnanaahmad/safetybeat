@@ -166,6 +166,25 @@ export class CompilerProvider {
     return usersArray;
   }
 
+  allQuestionsOfEntity(users) {
+    let usersArray = [];
+    this.helperService.iterations(users.data, function (obj) {
+      let user = {
+        name: obj.user.first_name + ' ' + obj.user.last_name,
+        email: obj.user.email,
+        contact: obj.user.contactNo,
+        photos: '',
+        accessLevel: obj.role,
+        id: obj.user.id,
+        status: obj.status,
+        pendingConnection: obj.pendingConnection,
+        acceptedConnection: obj.acceptedConnection
+      };
+      usersArray.push(user);
+    });
+    return usersArray;
+  }
+
   constructOrganizationObject(organizationApiResponse: any): Organization {
     let organizationData: Organization = organizationApiResponse.data;
     return organizationData;
