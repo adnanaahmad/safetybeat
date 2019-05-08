@@ -38,6 +38,7 @@ import { HazardDetailsComponent } from './pages/adminControl/modules/hazardCente
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { GeneralComponent } from './pages/settings/components/general/general.component';
 import { SecurityComponent } from './pages/settings/components/security/security.component';
+import { EditHazardComponent } from './edit-hazard/edit-hazard.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -62,7 +63,8 @@ export function createTranslateLoader(http: HttpClient) {
     AddHazardComponent,
     HazardDetailsComponent,
     GeneralComponent,
-    SecurityComponent
+    SecurityComponent,
+    EditHazardComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
     this.route.params.subscribe((data) => {
       this.profileModel.receivedData = JSON.parse(data.data);
-      console.log(this.profileModel.receivedData);
       if (!this.profileModel.receivedData) {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
