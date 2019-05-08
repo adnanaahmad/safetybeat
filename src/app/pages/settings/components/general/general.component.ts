@@ -100,7 +100,6 @@ export class GeneralComponent implements OnInit {
     }
   }
 
-  // need to make changes to the parameter Organization
   updateGeneralInfo({value, valid}: { value: GeneralInfo; valid: boolean }): void {
     this.generalObj.enabled = false;
     this.generalObj.generalForm.disable();
