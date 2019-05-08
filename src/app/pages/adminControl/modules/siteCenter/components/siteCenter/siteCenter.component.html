@@ -1,7 +1,6 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
-    <p>{{ helperService.translated.SITETITLE.SITE_CENTRE_DESCRIPTION }}</p>
   </div>
   <div class="buttonRow">
     <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="addSite()">
@@ -80,6 +79,10 @@
           <button mat-menu-item (click)="openDialog(element.site.id)">
             <mat-icon>whatshot</mat-icon>
             Add Hazard
+          </button>
+          <button mat-menu-item *ngIf="siteCentreObj.siteOption"  (click)="confirmationModal(element.site.id)">
+            <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
+            Delete
           </button>
         </mat-menu>
       </td>

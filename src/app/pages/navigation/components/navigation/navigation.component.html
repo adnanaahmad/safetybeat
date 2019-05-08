@@ -38,15 +38,18 @@
           
           <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important
             <span class="notifcount">90+</span></mat-icon>
-            <div class="profile-menu" *ngIf="profileModel.profileImage">
+            <div class="profile-menu">
                 <button mat-button [matMenuTriggerFor]="menu">
-                  <img src="{{serverUrl}}{{profileModel.profileImage}}">
+                  <img src="{{ profileModel.profileImage != null ? serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="showModel(true)">
-                    <mat-icon>person</mat-icon> Edit Profile
+                  <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
+                    <mat-icon>person</mat-icon> View Profile
                   </button>
-                  <button mat-menu-item routerLink="showModel(false)">
+                  <button mat-menu-item (click)="showModel(true)">
+                    <mat-icon>edit</mat-icon> Edit Profile
+                  </button>
+                  <button mat-menu-item (click)="showModel(false)">
                     <mat-icon>lock</mat-icon>Change Password
                   </button>
                   <button mat-menu-item *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">

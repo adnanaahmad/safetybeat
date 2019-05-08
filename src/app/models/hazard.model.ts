@@ -13,6 +13,6 @@ export interface AddHazardModel {
 
 export interface NewHazard {
   title: string,
-  risk: number,
+  risk: string,
   description: string
 }

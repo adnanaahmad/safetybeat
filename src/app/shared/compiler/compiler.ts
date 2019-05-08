@@ -141,7 +141,7 @@ export class CompilerProvider {
         name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,
         contact: obj.user.contactNo,
-        photos: '',
+        profileImage: obj.user.profileImage,
         accessLevel: obj.role,
         id: obj.user.id,
         status: obj.status,
@@ -308,27 +308,27 @@ export class CompilerProvider {
         disabled: data.permissions.entityControl
       },
       {
-        displayName: 'Member Center',
+        displayName: 'Member Centre',
         route: '/home/adminControl/memberCenter',
         disabled: data.permissions.myTeam
       },
       {
-        displayName: 'Site Center',
+        displayName: 'Site Centre',
         route: '/home/adminControl/siteCenter',
         disabled: data.permissions.siteCentre
       },
       {
-        displayName: 'Question Center',
+        displayName: 'Question Centre',
         route: '/home/adminControl/questionCenter',
         disabled: data.permissions.questionCentre
       },
       {
-        displayName: 'Permission Center',
+        displayName: 'Permission Centre',
         route: '/home/adminControl/permissionCenter',
         disabled: data.permissions.permissionCentre
       },
       {
-        displayName: 'Hazard Center',
+        displayName: 'Hazard Centre',
         route: '/home/adminControl/hazardCenter',
         disabled: data.permissions.hazardCentre
       },

@@ -7,13 +7,6 @@
       </h3>
       <p>{{viewSiteObj.siteInfo.location}}</p>
     </div>
-    <div class="buttonRow" *ngIf="viewSiteObj.siteOption">
-      <button mat-raised-button custom-btn btn-primary color="warn"
-        (click)="confirmationModal(viewSiteObj.siteInfo.id)">
-        <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
-        {{ helperService.translated.BUTTONS.DELETE }}
-      </button>
-    </div>
   </mat-toolbar>
   <div class="paddingbox">
     <mat-grid-list cols="4" rowHeight="340px" gutterSize="30px">
@@ -104,11 +97,6 @@
           </mat-card-header>
           <mat-card-content>
             <div *ngIf="viewSiteObj.siteInfo">
-              <div class="siteinfo-row">
-                <mat-icon>place</mat-icon>
-                <strong>Location</strong>
-                <p>{{viewSiteObj.siteInfo.location}}</p>
-              </div>
               <div class="siteinfo-row">
                 <mat-icon>security</mat-icon>
                 <strong>Site Safety Plan</strong>

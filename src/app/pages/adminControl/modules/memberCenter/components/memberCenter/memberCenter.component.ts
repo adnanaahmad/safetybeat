@@ -10,6 +10,7 @@ import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/mem
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {InviteUserModalComponent} from '../../../../../../Dialogs/inviteUserModal/inviteUserModal.component';
+import {environment} from '../../../../../../../environments/environment';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
     'accessLevel',
     'symbol'
   ];
+  serverUrl = environment.serverUrl;
 
   constructor(public helperService: HelperService,
               public memberService: MemberCenterService,
