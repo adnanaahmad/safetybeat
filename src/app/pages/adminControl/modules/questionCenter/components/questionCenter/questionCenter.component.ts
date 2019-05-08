@@ -76,11 +76,12 @@ export class QuestionCenterComponent implements OnInit {
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
         this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED);
     }, (err) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+        this.helperService.constants.status.ERROR);
       this.helperService.appLogger(this.helperService.constants.status.ERROR,
         this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED_ERROR);
     });
-    this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
-      this.helperService.constants.status.ERROR);
+
   }
 
   addQuestion() {
