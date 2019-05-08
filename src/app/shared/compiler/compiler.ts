@@ -130,7 +130,8 @@ export class CompilerProvider {
     this.helperService.iterations(hazardResponse.data, function (hazard) {
       let obj: Hazard = {
         hazard: hazard.hazard,
-        site: hazard.site
+        site: hazard.site,
+        user: hazard.user
       }
       hazardArray.push(obj);
     })

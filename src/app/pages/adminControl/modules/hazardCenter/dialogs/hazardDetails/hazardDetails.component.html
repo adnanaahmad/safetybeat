@@ -5,42 +5,49 @@
 <div mat-dialog-content>
   <form [formGroup]="hazardDetailForm"   >
     <div class="form-group">
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder="Risk"
-               formControlName="risk" required />
-<!--        <mat-error *ngIf="formValidation.siteName.errors">-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteName.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>-->
-<!--        </mat-error>-->
-      </mat-form-field>
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder="Resolved By"
-               formControlName="resolvedBy" required />
-<!--        <mat-error *ngIf="formValidation.siteSafetyPlan.errors">-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>-->
-<!--        </mat-error>-->
-      </mat-form-field>
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder="Added By"
-               formControlName="addedBy" required/>
-<!--        <mat-error *ngIf="formValidation.siteAddress.errors">-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteAddress.errors.required">{{helperService.translated.MESSAGES.OFFICELOCATION_REQ}}</span>-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>-->
-<!--        </mat-error>-->
-      </mat-form-field>
+      <div full-width>
+        <mat-icon>place</mat-icon>
+        <strong>Site</strong>
+        <p>{{data1.site.name}}</p>
+      </div><hr>
+      <div full-width>
+        <mat-icon>warning</mat-icon>
+        <strong>Risk</strong>
+        <p>{{data1.hazard.title}}</p>
+      </div><hr>
+      <div full-width>
+        <mat-icon>check_circle</mat-icon>
+        <strong>Resolved</strong>
+        <p>{{data1.hazard.resolved}}</p>
+      </div><hr>
+      <div full-width>
+        <mat-icon>schedule</mat-icon>
+        <strong>Date/Time</strong>
+        <p>{{data1.hazard.dateTime | date}}</p>
+      </div><hr>
+      <div full-width>
+        <mat-icon>person</mat-icon>
+        <strong>Resolved By</strong>
+        <p>{{data1.hazard.resolvedBy}}</p>
+      </div><hr>
+      <div full-width>
+        <mat-icon>person</mat-icon>
+        <strong>Added By</strong>
+        <p>{{data1.hazard.addedBy}}</p>
+      </div><hr>
+      <div full-width>
+        <mat-icon>description</mat-icon>
+        <strong>Description</strong>
+        <p>{{data1.hazard.description}}</p>
+      </div><hr>
     <mat-dialog-actions>
       <button mat-raised-button custom-btn btn-primary
-              color="primary" >
+              color="primary" mat-dialog-close>
         Done
-      </button>
-      <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
-        {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
 
     </mat-dialog-actions>
     </div>
   </form>
 </div>
+

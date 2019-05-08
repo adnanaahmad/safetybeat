@@ -6,6 +6,7 @@ import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardC
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {EditHazardComponent} from '../../dialogs/editHazard/editHazard.component';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -39,7 +40,7 @@ export class HazardCenterComponent implements OnInit {
     });
   }
 
-  openDialog(data) {
+  openDetailsDialog(data) {
     this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
       data: {data: data}
@@ -50,6 +51,13 @@ export class HazardCenterComponent implements OnInit {
     this.adminControlService.allHazards(entityId).subscribe((res) => {
       this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
       this.hazardTable.dataSource.paginator = this.paginator;
+    });
+  }
+
+  openEditDialog(element: any) {
+    this.helperService.createDialog(EditHazardComponent, {
+      disableClose: true,
+      data: {data: element}
     });
   }
 }

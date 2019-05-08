@@ -1,5 +1,6 @@
 import {FormGroup} from '@angular/forms';
 import {Site} from './site.model';
+import {User} from './user.model';
 
 export interface HazardModel {
   entityId: number;
@@ -11,7 +12,8 @@ export interface HazardModel {
 }
 export interface Hazard {
   hazard: NewHazard;
-  site: Site
+  site: Site;
+  user: User;
 }
 export interface NewHazard {
   addedBy: any
