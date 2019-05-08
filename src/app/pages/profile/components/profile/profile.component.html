@@ -1,7 +1,8 @@
 <div class="theme-selector">
   <mat-toolbar class="pagehead">
     <div class="user-avatar" *ngIf="profileModel.profileImage">
-      <img src="{{serverUrl}}{{profileModel.profileImage}}"/>
+      <img src="{{serverUrl}}{{profileModel.profileImage}}" *ngIf="profileModel.profileImage"/>
+      <img src="/src/assets/images/avatar.png" *ngIf="!profileModel.profileImage"/>
       <span class="change-avatar">
         <input
           type='file'

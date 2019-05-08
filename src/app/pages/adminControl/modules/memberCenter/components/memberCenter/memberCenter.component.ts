@@ -56,6 +56,10 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
       this.memberCenter.user = res;
       this.memberCenter.userId = this.memberCenter.user.data.user.id;
     });
+    this.navService.selectedEntityData.subscribe((res) => {
+      this.memberCenter.currentRole = res.role ;
+    });
+
   }
 
   ngOnDestroy() {
@@ -74,6 +78,8 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
   viewProfile(element) {
     this.helperService.navigateWithData([this.helperService.appConstants.paths.profile,
       {data: JSON.stringify(element)}], {skipLocationChange: true});
+    this.helperService.navigateWithData([this.helperService.appConstants.paths.profile, {data: JSON.stringify(element)}],
+      {skipLocationChange: true});
   }
 
   connections(type, params?: any) {

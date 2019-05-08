@@ -74,7 +74,7 @@
             <mat-icon>linear_scale</mat-icon>
             View Profile
           </button>
-          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+          <button mat-menu-item *ngIf="memberCenter.currentRole === helperService.appConstants.roles.owner"
                   (click)="connections(helperService.appConstants.connections.view)">
             <mat-icon>linear_scale</mat-icon>
             View Connections
@@ -98,12 +98,12 @@
             <mat-icon>linear_scale</mat-icon>
             Remove Connections
           </button>
-          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+          <button mat-menu-item *ngIf="element.role === helperService.appConstants.roles.owner"
                   (click)="accessLevel()">
             <mat-icon>input</mat-icon>
             Change Access Level
           </button>
-          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.owner"
+          <button mat-menu-item *ngIf="memberCenter.currentRole === helperService.appConstants.roles.owner"
                   (click)="element.status ? deactivateUsers(element.id) : activateUsers(element.id)">
             <mat-icon>remove_circle_outline</mat-icon>
             {{element.status ? 'Deactivate User' : 'Activate User'}}

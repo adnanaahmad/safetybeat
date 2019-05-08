@@ -8,6 +8,7 @@ import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCent
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {SitesInfo} from 'src/app/models/site.model';
+import {AddHazardComponent} from '../../dialogs/addHazard/addHazard.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -149,5 +150,9 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   goToViewSite(id) {
     let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key)
     this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
+  }
+
+  openDialog(id: any) {
+    let dialogRef = this.helperService.createDialog(AddHazardComponent, {disableClose: true,  width: '250px', data: {id: id}});
   }
 }
