@@ -122,7 +122,7 @@
     "RESETMESSAGE": "Lost your password? Don't worry, reset it here",
     "PASSWORD_ERROR": "Password must be at least 8 characters.",
     "MATCH_ERROR": "Password not match.",
-    "RESET_MSG": "Reset Your Password",
+    "RESET_MSG": "Reset Password",
     "EMAIL_MSG": "Please enter a valid email address",
     "ORGANIZATION_MSG": "Organization Details",
     "TYPE_MSG": "Please Select type.",
@@ -255,17 +255,14 @@
     "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit."
   },
   "SITETITLE": {
-    "MEMBERCENTER_TITLE": "Member Center",
-    "MEMBERCENTER_DESCRIPTION": "Add, remove or review members",
-    "ENTITYCONTROL_TITLE": "Entity Control Center",
-    "ENTITYCONTROL_DESCRIPTION": "Create, remove or edit entities",
+    "MEMBERCENTER_TITLE": "Member Centre",
+    "ENTITYCONTROL_TITLE": "Entity Control Centre",
     "USERS_TITLE": "All Users",
-    "USERS_DESCRIPTION": "Add, remove or review users",
     "SETTINGS_TITLE": "Settings",
     "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages",
     "SITE_CENTRE": "Site Centre",
-    "SITE_CENTRE_DESCRIPTION": "Add, remove or edit Sites",
-    "QUESTION_CENTER": "Question Center"
+    "QUESTION_CENTER": "Question Centre",
+    "HAZARD_CENTER": "Hazard Centre"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",

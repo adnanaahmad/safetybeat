@@ -54,10 +54,10 @@ export class ConstantService {
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
+    connectionAdding: `${environment.apiUrl}/api/connections/`,
     addHazard: `${environment.apiUrl}/api/hazard/`,
     hazardList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
-    connectionAdding: `${environment.apiUrl}/api/connections/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
   };
   /**
@@ -288,6 +288,7 @@ export class ConstantService {
   static defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
-    zoomControl: true
+    gestureHandling: 'none',
+    zoomControl: false
   };
 }

@@ -7,9 +7,11 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationModel} from 'src/app/models/navigation/navigation.model';
 import {PackageInfo} from 'src/app/models/user.model';
-import {ProfileModel} from '../../../../models/profile/profile.model';
-import {ProfileService} from '../../../profile/services/profile.service';
-import {environment} from '../../../../../environments/environment';
+import {GeneralComponent} from 'src/app/pages/settings/components/general/general.component';
+import {SecurityComponent} from 'src/app/pages/settings/components/security/security.component';
+import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-navigation',
@@ -18,7 +20,7 @@ import {environment} from '../../../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
-  profileModel: ProfileModel = <ProfileModel>{}
+  profileModel: ProfileModel = <ProfileModel>{};
   @Output() entitySelected = new EventEmitter();
   moduleData = {
     moduleName: 'Safetybeat'
@@ -51,6 +53,10 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
   }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
@@ -61,9 +67,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
         this.getCurrentUser();
       }
     });
-  }
-
-  ngAfterViewInit(): void {
   }
 
   /**
@@ -147,7 +150,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
       this.navService.updateCurrentUser(userData);
-    })
+    });
   }
 
 
@@ -269,8 +272,11 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
-
+  /**
+   * this function is used for displaying model on basis of selection
+   */
   showModel(isProfile) {
-
+    let modal = (isProfile) ? GeneralComponent : SecurityComponent;
+    this.helperService.createDialog(modal, {disableClose: true});
   }
 }

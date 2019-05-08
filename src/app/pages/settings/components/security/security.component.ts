@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/f
 import {changePassword} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {SettingService} from 'src/app/shared/settings/setting.service';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-security',
@@ -16,6 +17,7 @@ export class SecurityComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               public settings: SettingService,
+              public dialogRef: MatDialogRef<SecurityComponent>,
               public helperService: HelperService) {
   }
 
@@ -64,13 +66,13 @@ export class SecurityComponent implements OnInit {
       } else {
         this.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.INCORRECT_PASS,
-           this.helperService.constants.status.ERROR);
+          this.helperService.constants.status.ERROR);
 
       }
     }, (error) => {
       this.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-         this.helperService.constants.status.ERROR);
+        this.helperService.constants.status.ERROR);
       this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
       this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,

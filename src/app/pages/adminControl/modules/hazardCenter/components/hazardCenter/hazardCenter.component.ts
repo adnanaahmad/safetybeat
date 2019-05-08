@@ -32,7 +32,6 @@ export class HazardCenterComponent implements OnInit {
     this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         let data = res.entityInfo;
-        console.log(data.id);
         this.hazardTable.entityId = data.id;
         let entityId = {
           'entityId': this.hazardTable.entityId
