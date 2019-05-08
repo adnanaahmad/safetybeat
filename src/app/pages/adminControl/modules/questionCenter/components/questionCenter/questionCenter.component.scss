@@ -4,7 +4,7 @@
     .page-title {
       margin: 20px 0;
     }
-    .mat-grid-tile{
+    .mat-grid-tile {
       overflow: unset;
     }
     .container {
@@ -65,6 +65,29 @@
 
     .cdk-drag-placeholder {
       opacity: 0;
+    }
+    .question-table {
+      thead {
+        background: mat-color($primary-pallet, 500);
+        color: #fff;
+      }
+      th,
+      td {
+        padding: 10px;
+        font-size: 14px;
+      }
+      [custom-btn] {
+        width: 20px;
+        height: 20px;
+        padding: 0 !important;
+        min-width: auto;
+        line-height: 0 !important;
+        mat-icon {
+          height: auto;
+          width: auto;
+          font-size: 16px;
+        }
+      }
     }
   }
 }
