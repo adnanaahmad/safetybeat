@@ -70,7 +70,18 @@
     "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
     "PACKAGE_DESCRIPTION_3": "For already established business",
     "SITESAFETYPLAN": "Site Safety Plan",
-    "SITESAFETYMANAGER": "Site Safety Manager"
+    "SITESAFETYMANAGER": "Site Safety Manager",
+    "QUESTION_NAME": "Question Description",
+    "QUESTION_WARNING": "Question Warning",
+    "SELECT_QUESTION_TYPE": "Select Question Type",
+    "SAFE_QUESTION": "Which answer is safe?",
+    "PARENT": "",
+    "SAFE_QUESTION_YES": "Yes",
+    "SAFE_QUESTION_NO": "No",
+    "SAFE_QUESTION_BOTH": "Both",
+    "CAN_PROCEED_QUESTION": "If incorrect answer, can proceed?",
+    "CAN_PROCEED_QUESTION_YES": "Yes",
+    "CAN_PROCEED_QUESTION_NO": "No"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -249,11 +260,18 @@
     "ADD_CONNECTION_FAILURE": "Connection has not been added",
     "REMOVE_CONNECTION_SUCCESS": "Connection has been removed successfully.",
     "REMOVE_CONNECTION_FAILURE": "Connection has not been removed",
+    "ADDQUESTION_MSG": "Add Question",
+    "QUESTION_CREATED": "Question created successfully",
+    "QUESTION_CREATION_FAILURE": "Question not created",
     "ANALYTICS_REPORTS": "Analytics Reports",
     "PIC_UPLOADED_SUCCESS":"Picture Upload Success.",
     "PIC_UPLOADED_FAILURE":"Picture Upload Failed.",
-    "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit."
-  },
+    "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit.",
+    "HAZARD_ADDED": "Hazard Added",
+    "HAZARD_NOT_ADDED": "Hazard could not be added",
+    "ALL_QUESTION_SUCCESS": "All questions of entity received",
+    "ALL_QUESTION_FAILURE": "No questions for the entity exists"
+},
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
     "ENTITYCONTROL_TITLE": "Entity Control Centre",
@@ -333,7 +351,10 @@
       "ENTITYNOTCREATED": "Entity is not created. Check your internet connection or try again.",
       "ROLES_RECIEVED": "Roles recieved",
       "ROLES_RECIEVED_ERROR": "Error recieving roles",
-      "ORG_SUCCESS": "Organization Data Edited."
+      "ORG_SUCCESS": "Organization Data Edited.",
+      "QUESTION_DATA_REQ": "Question data is required",
+      "ALL_QUESTION_RECEIVED": "All Questions of Entity received",
+      "ALL_QUESTION_RECEIVED_ERROR": "No Questions of Entity exits"
     }
   },
   "STATUS": {

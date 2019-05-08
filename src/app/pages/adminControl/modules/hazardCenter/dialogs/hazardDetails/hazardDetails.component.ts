@@ -21,13 +21,12 @@ export class HazardDetailsComponent implements OnInit {
       resolvedBy: ['', Validators.required],
       addedBy: ['', Validators.required]
     });
-    this.hazardDetailsControl['risk'].setValue(this.data.risk);
-    this.hazardDetailsControl['resolvedBy'].setValue(this.data.resolvedBy);
-    this.hazardDetailsControl['addedBy'].setValue(this.data.name);
+    this.hazardDetailsControl['risk'].setValue(this.data.data.title);
+    this.hazardDetailsControl['resolvedBy'].setValue(this.data.data.resolvedBy);
+    this.hazardDetailsControl['addedBy'].setValue(this.data.data.addedBy);
 
   }
-  get hazardDetailsControl()
-  {
+  get hazardDetailsControl() {
     return this.hazardDetailForm.controls;
   }
 

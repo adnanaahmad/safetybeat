@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
-import {Site, SitesInfo} from '../../models/site.model';
-import {Organization} from '../../models/Settings/organizationInfo.model';
-import {GeneralInfo} from '../../models/general.model';
+import {Site, SitesInfo} from 'src/app/models/site.model';
+import {Organization} from 'src/app/models/Settings/organizationInfo.model';
+import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
+import {Hazard} from 'src/app/models/hazard.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -124,6 +125,18 @@ export class CompilerProvider {
     return siteApiResponse.data;
   }
 
+  constructHazardArray(hazardResponse: any): Hazard[] {
+    let hazardArray: Hazard[] = [];
+    this.helperService.iterations(hazardResponse.data, function (hazard) {
+      let obj: Hazard = {
+        hazard: hazard.hazard,
+        site: hazard.site
+      }
+      hazardArray.push(obj);
+    })
+    return hazardArray;
+  }
+
   /**
    * this function is used for switching the side menu according to the entity privileges given to the user.
    * @params data
@@ -135,6 +148,25 @@ export class CompilerProvider {
   }
 
   entityUser(users) {
+    let usersArray = [];
+    this.helperService.iterations(users.data, function (obj) {
+      let user = {
+        name: obj.user.first_name + ' ' + obj.user.last_name,
+        email: obj.user.email,
+        contact: obj.user.contactNo,
+        profileImage: obj.user.profileImage,
+        accessLevel: obj.role,
+        id: obj.user.id,
+        status: obj.status,
+        pendingConnection: obj.pendingConnection,
+        acceptedConnection: obj.acceptedConnection
+      };
+      usersArray.push(user);
+    });
+    return usersArray;
+  }
+
+  allQuestionsOfEntity(users) {
     let usersArray = [];
     this.helperService.iterations(users.data, function (obj) {
       let user = {
