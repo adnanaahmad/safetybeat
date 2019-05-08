@@ -1,8 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {HazardModel} from '../../../../../../models/hazard.model';
-import {AddHazardComponent} from '../../dialogs/add-hazard/add-hazard.component';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {HazardModel, NewHazard} from 'src/app/models/hazard.model';
+import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -11,11 +14,14 @@ import {AddHazardComponent} from '../../dialogs/add-hazard/add-hazard.component'
 })
 export class HazardCenterComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  hazard: HazardModel = <HazardModel>{};
+  hazardTable: HazardModel = <HazardModel>{};
+  displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'actions'];
 
-  constructor(public dialog: MatDialog,
-    public helperService: HelperService
-  ) {
+  constructor(
+    public helperService: HelperService,
+    private navService: NavigationService,
+    private compiler: CompilerProvider,
+    private adminControlService: AdminControlService) {
   }
 
   ngOnInit() {
@@ -23,24 +29,27 @@ export class HazardCenterComponent implements OnInit {
   }
 
   initialize() {
-    this.hazard.displayedColumns = [
-      'Site',
-      'Title',
-      'Risk',
-      'Resolved',
-      'Date_Time',
-      'Resolved_by',
-      'Added_by',
-      'Actions'
-    ];
-    this.hazard.dataSource = [{site: 'Blue sky', title: 'BSS', risk: 'N/A', resolved: 'H', date: '3Nov', resolved_by: 'Tehreem',
-      added_by: 'Tehreem123'}];
-
+    this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        let entityId = {
+          'entityId': res.entityInfo.id
+        };
+        this.getHazardList(entityId);
+      }
+    });
   }
 
+  openDialog(data) {
+    this.helperService.createDialog(HazardDetailsComponent, {
+      disableClose: true,
+      data: {data: data}
+    });
+  }
 
-  addHazard() {
-    let dialogRef = this.helperService.createDialog(AddHazardComponent, {disableClose: false,  width: '250px'});
-
+  getHazardList(entityId) {
+    this.adminControlService.allHazards(entityId).subscribe((res) => {
+      this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
+      this.hazardTable.dataSource.paginator = this.paginator;
+    });
   }
 }

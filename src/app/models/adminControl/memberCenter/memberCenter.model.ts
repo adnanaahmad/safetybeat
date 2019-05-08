@@ -9,6 +9,7 @@ export interface MemberCenter {
   entityData: any;
   user: any;
   userId: number;
+  currentRole: string,
   elements: Array<PeriodicElement>;
 }
 

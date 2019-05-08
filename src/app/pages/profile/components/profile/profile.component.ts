@@ -43,15 +43,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
-    // this.route.params.subscribe((data) => {
-    //   let data1 = JSON.parse(data.data);
-    // });
-    this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.profileModel.role = res.role;
-        this.profileModel.entityName = res.entityInfo.name;
+    this.route.params.subscribe((data) => {
+      this.profileModel.receivedData = JSON.parse(data.data);
+      if (!this.profileModel.receivedData) {
+        this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+          if (res !== 1) {
+            this.profileModel.role = res.role;
+            this.profileModel.entityName = res.entityInfo.name;
+          }
+        });
+      } else {
+        this.profileModel.role = this.profileModel.receivedData.accessLevel;
       }
     });
+
   }
 
   /**
@@ -62,10 +67,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
+        if (!this.profileModel.receivedData) {
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
         this.profileModel.email = this.profileModel.profileData.email;
-        this.profileModel.profileImage = this.profileModel.profileData.profileImage;
+        } else {
+          this.profileModel.profileData = this.profileModel.receivedData;
+          this.profileModel.username = this.profileModel.receivedData.name;
+          this.profileModel.email = this.profileModel.receivedData.email;
+        }
       } else {
         this.getCurrentUser();
       }

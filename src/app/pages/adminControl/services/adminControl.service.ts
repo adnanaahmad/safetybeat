@@ -146,4 +146,18 @@ export class AdminControlService {
     )
   }
 
+  addNewHazard(data) {
+
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      `${this.helperService.constants.apiRoutes.addHazard}`, data); }
+
+  getHazards() {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
+      `${this.helperService.constants.apiRoutes.hazardList}`);
+  }
+
+  allHazards(entityId) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      `${this.helperService.constants.apiRoutes.allHazards}`, entityId);
+  }
 }

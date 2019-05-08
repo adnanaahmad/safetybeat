@@ -328,7 +328,8 @@ export interface Messages {
   ANALYTICS_REPORTS: string;
   ALL_QUESTION_SUCCESS: string;
   ALL_QUESTION_FAILURE: string;
-
+  HAZARD_ADDED: string;
+  HAZARD_NOT_ADDED: string;
 }
 
 export interface Logger {
@@ -399,6 +400,7 @@ export interface SiteTitle {
   SETTINGS_DESCRIPTION: string;
   SITE_CENTRE: string;
   QUESTION_CENTER: string;
+  HAZARD_CENTER: string;
 }
 
 export interface TableHeadings {

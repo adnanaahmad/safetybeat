@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -6,6 +6,7 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
 import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
+// tslint:disable-next-line:max-line-length
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
@@ -56,6 +57,10 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
       this.memberCenter.user = res;
       this.memberCenter.userId = this.memberCenter.user.data.user.id;
     });
+    this.navService.selectedEntityData.subscribe((res) => {
+      this.memberCenter.currentRole = res.role ;
+    });
+
   }
 
   ngOnDestroy() {

@@ -171,6 +171,7 @@ mat-dialog-container {
 }
 .sideLegend {
   padding: 0 !important;
+  border-radius: 0 !important;
   &:after {
     content: "";
     display: block;
@@ -438,7 +439,7 @@ hr.forheading {
   width: 100%;
   td,
   th {
-    padding: 6px !important;
+    padding: 10px !important;
   }
   .table-img {
     width: 60px;
