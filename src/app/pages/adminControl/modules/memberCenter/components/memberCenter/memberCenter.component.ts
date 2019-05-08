@@ -78,8 +78,6 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   viewProfile(element) {
-    this.helperService.navigateWithData([this.helperService.appConstants.paths.profile,
-      {data: JSON.stringify(element)}], {skipLocationChange: true});
     this.helperService.navigateWithData([this.helperService.appConstants.paths.profile, {data: JSON.stringify(element)}],
       {skipLocationChange: true});
   }

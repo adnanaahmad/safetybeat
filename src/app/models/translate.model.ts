@@ -377,6 +377,7 @@ export interface SiteTitle {
   SETTINGS_DESCRIPTION: string;
   SITE_CENTRE: string;
   QUESTION_CENTER: string;
+  HAZARD_CENTER: string;
 }
 
 export interface TableHeadings {

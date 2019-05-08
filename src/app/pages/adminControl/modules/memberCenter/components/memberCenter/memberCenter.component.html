@@ -68,7 +68,7 @@
           Actions
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="memberCenter.entityData.role === helperService.appConstants.roles.entityManager"
+          <button mat-menu-item *ngIf="memberCenter.currentRole === helperService.appConstants.roles.owner"
                   (click)="viewProfile(element)">
             <mat-icon>linear_scale</mat-icon>
             View Profile

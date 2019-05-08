@@ -61,13 +61,8 @@ export class FixedNavComponent implements OnInit {
   ];
   public navLinksBottom: NavItem[] = [
     {
-      route: '/home/profile',
-      iconName: this.helperService.constants.appIcons.person,
-      toolTip: 'Profile'
-    },
-    {
       route: '/home',
-      iconName: this.helperService.constants.appIcons.help,
+      iconName: this.helperService.constants.appIcons.questionAnswer,
       toolTip: 'Support Center'
     },
     {

@@ -52,14 +52,6 @@ export class AddHazardComponent implements OnInit {
     formData.append('description', value.description);
     formData.append('site', this.data.id);
     formData.append('risk', value.risk);
-
-    // let data = {
-    //     //   title: value.title,
-    //     //   risk: value.risk,
-    //     //   description: value.description,
-    //     //   site: this.data.id,
-    //     //   image: blob
-    //     // };
     if (!valid) {
       this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
       return;

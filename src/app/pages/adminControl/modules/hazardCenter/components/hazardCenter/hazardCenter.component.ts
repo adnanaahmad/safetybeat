@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator, MatTableDataSource} from '@angular/material';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {HazardModel} from '../../../../../../models/hazard.model';
-import {HazardDetailsComponent} from '../../dialogs/hazardDetails/hazardDetails.component';
-import {AdminControlService} from '../../../../services/adminControl.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { HelperService } from '../../../../../../shared/helperService/helper.service';
+import { HazardModel } from '../../../../../../models/hazard.model';
+import { HazardDetailsComponent } from '../../dialogs/hazardDetails/hazardDetails.component';
+import { AdminControlService } from '../../../../services/adminControl.service';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -43,13 +43,12 @@ export class HazardCenterComponent implements OnInit {
     let dialogRef = this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
       width: '250px',
-      data: {name: 'Tehreem', resolvedBy: 'khadija', risk: 'fire'}
+      data: { name: 'Tehreem', resolvedBy: 'khadija', risk: 'fire' }
     });
   }
 
   getHazardList() {
     this.service.allHazards().subscribe((res) => {
-      console.log(res);
       this.hazard.dataSource = res;
     });
   }
