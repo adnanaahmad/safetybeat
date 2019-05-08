@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AddHazardModel, NewHazard} from '../../../../../../models/hazard.model';
 import {AdminControlService} from '../../../../services/adminControl.service';
 
@@ -18,7 +18,8 @@ export class AddHazardComponent implements OnInit {
   constructor(public formBuilder: FormBuilder,
               public helperService: HelperService,
               public service: AdminControlService,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<AddHazardComponent>) { }
 
   ngOnInit() {
     this.addHazardForm = this.formBuilder.group({
@@ -52,12 +53,17 @@ export class AddHazardComponent implements OnInit {
       return;
     }
     this.service.addNewHazard(data).subscribe((res) => {
+        this.onNoClick();
         this.helperService.createSnack('Hazard Added', this.helperService.constants.status.SUCCESS);
+
       }, (error) => {
         this.helperService.createSnack('Hazard could not be added',
           this.helperService.constants.status.ERROR);
       }
     );
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

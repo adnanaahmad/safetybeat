@@ -1,0 +1,70 @@
+@mixin amte-questionCenter($primary, $accent, $warn) {
+  :host,
+  app-questionCenter {
+    .page-title {
+      margin: 20px 0;
+    }
+    .mat-grid-tile{
+      overflow: unset;
+    }
+    .container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 5px;
+      display: inline-block;
+      vertical-align: top;
+      h4 {
+        background: mat-color($primary-pallet, 500);
+        margin: 0;
+        padding: 10px;
+        border-radius: 4px 4px 0 0;
+        color: #fff;
+      }
+    }
+
+    .list {
+      border: solid 1px #ccc;
+      min-height: 60px;
+      background: white;
+      border-radius: 4px;
+      display: block;
+      overflow: hidden;
+    }
+
+    .list-item {
+      padding: 20px 10px;
+      border-bottom: solid 1px #ccc;
+      box-sizing: border-box;
+      cursor: move;
+      background: white;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .list-item:last-child {
+      border: none;
+    }
+
+    /* Highlight the list item that is being dragged. */
+    .cdk-drag-preview,
+    .cdk-drag-placeholder {
+      border-radius: 4px;
+      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Animate items as they're being sorted. */
+    .cdk-drop-dragging .cdk-drag {
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    /* Animate an item that has been dropped. */
+    .cdk-drag-animating {
+      transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .cdk-drag-placeholder {
+      opacity: 0;
+    }
+  }
+}

@@ -1,22 +1,66 @@
 @mixin amte-profile($primary, $accent, $warn) {
   :host,
   app-profile {
+    .settings-btn {
+      margin-left: auto;
+    }
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
       .user-avatar {
-        width: 150px;
+        width: 100px;
         position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.4);
+        border-radius: 100px;
+        height: 80px;
+        border: 2px solid #fff;
         img {
           max-width: 100%;
           border-radius: 100px;
           overflow: hidden;
-          box-shadow: 0 0 10px 0px #00000075;
-          border: 2px solid #fff;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
+          margin: 0 auto;
+          right: 0;
+        }
+        .change-avatar {
+          position: absolute;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.6);
+          top: 0;
+          z-index: 0;
+          font-size: 12px;
+          color: #fff;
+          height: 100%;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          white-space: normal;
+          text-align: center;
+          line-height: 1.5;
+          opacity: 0;
+          visibility: hidden;
+          cursor: pointer;
+          input{
+            opacity: 0;
+            width: 100%;
+            position: absolute;
+            height: 100%;
+            cursor:pointer;
+          }
+        }
+        &:hover .change-avatar {
+          opacity: 1;
+          visibility: visible;
         }
       }
       .user-info {
-        padding: 30px;
+        padding: 0 30px;
         width: 100%;
         text-transform: capitalize;
         p {
@@ -148,7 +192,7 @@
       }
       &.activities {
         mat-card-content {
-          height: 550px;
+          height: 250px;
           overflow: auto;
         }
       }
@@ -165,6 +209,14 @@
     }
     .mat-card {
       background: transparent;
+    }
+    .customTable {
+      .mat-header-row {
+        background-color: transparent;
+        .mat-header-cell {
+          color: inherit;
+        }
+      }
     }
   }
   @media (max-width: 768px) {

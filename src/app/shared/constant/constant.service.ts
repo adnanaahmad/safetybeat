@@ -38,6 +38,7 @@ export class ConstantService {
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
+    profilePic: `${environment.apiUrl}/users/uploadProfileImage/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
@@ -53,10 +54,11 @@ export class ConstantService {
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
-    connectionAdding: `${environment.apiUrl}/api/connections/`,
     addHazard: `${environment.apiUrl}/api/hazard/`,
     hazardList: `${environment.apiUrl}/api/riskType/`,
-    allHazards: `${environment.apiUrl}/api/hazard/`
+    allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
+    connectionAdding: `${environment.apiUrl}/api/connections/`,
+    removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
   };
   /**
    * all the api methods are declared here.
@@ -176,7 +178,8 @@ export class ConstantService {
     },
     enterKey: 13,
     importSite: 'importSite',
-    csvFile: 'csvFile'
+    csvFile: 'csvFile',
+    profileImage: 'profileImage'
   };
   /**
    * all the material icon names are declared here.
@@ -237,7 +240,10 @@ export class ConstantService {
     siteQuestionCenter: 'question_answer',
     log: 'library_books',
     import: 'play_for_work',
-    deleteSweep: 'delete_sweep'
+    deleteSweep: 'delete_sweep',
+    arrowRight: 'keyboard_arrow_right',
+    arrowLeft: 'keyboard_arrow_left',
+    warning: 'warning'
   };
   /**
    * all the particle container icon names are declared here.

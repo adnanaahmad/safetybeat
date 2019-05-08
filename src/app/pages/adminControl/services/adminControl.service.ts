@@ -156,8 +156,8 @@ export class AdminControlService {
       `${this.helperService.constants.apiRoutes.hazardList}`);
   }
 
-  allHazards() {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
-      `${this.helperService.constants.apiRoutes.allHazards}`);
+  allHazards(entityId) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      `${this.helperService.constants.apiRoutes.allHazards}`, entityId);
   }
 }

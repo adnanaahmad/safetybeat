@@ -33,8 +33,9 @@ import {ConfirmationModalComponent} from './Dialogs/conformationModal/confirmati
 import {ViewConnectionsComponent} from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {EntityCodeModalComponent} from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
-import { AddHazardComponent } from './pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HazardDetailsComponent } from './pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
+import {AddHazardComponent} from './pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -74,7 +75,8 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     AppRoutingModule,
-    NotifierModule
+    NotifierModule,
+    DragDropModule
   ],
   providers: [
     TranslateService,
