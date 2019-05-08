@@ -14,8 +14,6 @@ export class ProfileService {
   usersData = this.orgUsers.asObservable();
   apiRoutes: any;
   method: any;
-  private currentUser = new BehaviorSubject<any>(1);
-  currentUserData = this.currentUser.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -50,14 +48,18 @@ export class ProfileService {
     this.orgUsers.next(data);
   }
 
-  updateCurrenUser(data: any) {
-    this.currentUser.next(data);
-  };
-
   userInfo(id: number) {
     return this.helperService.requestCall(
       this.method.get,
       `${this.apiRoutes.userInfo}${id}/`
+    )
+  }
+
+  profilePicUpdate(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.profilePic,
+      data
     )
   }
 

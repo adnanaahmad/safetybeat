@@ -4,12 +4,13 @@ import {Translation} from '../translate.model';
 
 export class QuestionCenter {
   addQuestionForm: FormGroup;
-  questionTypes: any;
   loading: boolean;
   translated: Translation;
-  selectedType: any;
-  openEnded: boolean;
   addQuestionResponse: any;
+  canProceed: boolean;
+  canSafe: string;
+  allQuestions: any;
+  parent: boolean;
 }
 
 

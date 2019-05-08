@@ -130,6 +130,7 @@ export interface Strings {
   QUESTION_WARNING: string;
   SELECT_QUESTION_TYPE: string;
   SAFE_QUESTION: string;
+  PARENT: string;
   SAFE_QUESTION_YES: string;
   SAFE_QUESTION_NO: string;
   SAFE_QUESTION_BOTH: string;
@@ -166,7 +167,7 @@ export interface Buttons {
   SKIP: string;
   MAP: string;
   HOURS: string;
-  INVITE_USER: string;
+  INVITE: string;
   INVITETEAM: string;
   ADD_SITE: string;
   IMPORT_SITE: string;
@@ -175,6 +176,7 @@ export interface Buttons {
   GETSTARTED: string;
   LEARNMORE: string;
   DELETE: string;
+  INVITE_USER: string;
 }
 
 export interface Messages {
@@ -311,7 +313,6 @@ export interface Messages {
   VIEW_CONNECTIONS: string;
   ADD_CONNECTIONS: string;
   SAFETY_MANAGER_REQ: string;
-  QUESTION_TYPE_REQ: string;
   USER_NOT_FOUND: string;
   SITE_EDIT_SUCCESS: string;
   SITE_EDIT_FAILURE: string;
@@ -321,6 +322,13 @@ export interface Messages {
   REMOVE_CONNECTION_FAILURE: string;
   QUESTION_CREATED: string;
   QUESTION_CREATION_FAILURE: string;
+  PIC_UPLOADED_SUCCESS: string;
+  PIC_UPLOADED_FAILURE: string;
+  PIC_EXCEEDS_LIMIT: string;
+  ANALYTICS_REPORTS: string;
+  ALL_QUESTION_SUCCESS: string;
+  ALL_QUESTION_FAILURE: string;
+
 }
 
 export interface Logger {
@@ -379,19 +387,17 @@ export interface LoggerMessage {
   ROLES_RECIEVED_ERROR: string;
   ORG_SUCCESS: string;
   QUESTION_DATA_REQ: string;
+  ALL_QUESTION_RECEIVED: string;
+  ALL_QUESTION_RECEIVED_ERROR: string;
 }
 
 export interface SiteTitle {
   MEMBERCENTER_TITLE: string;
-  MEMBERCENTER_DESCRIPTION: string;
   ENTITYCONTROL_TITLE: string;
-  ENTITYCONTROL_DESCRIPTION: string;
   USERS_TITLE: string;
-  USERS_DESCRIPTION: string;
   SETTINGS_TITLE: string;
   SETTINGS_DESCRIPTION: string;
   SITE_CENTRE: string;
-  SITE_CENTRE_DESCRIPTION: string;
   QUESTION_CENTER: string;
 }
 

@@ -9,6 +9,7 @@ import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/membe
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {InviteUserModalComponent} from '../../../../../../Dialogs/inviteUserModal/inviteUserModal.component';
 
 
 @Component({
@@ -65,7 +66,6 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
   getAllUsers(data) {
     this.memberService.entityUsers(data).subscribe((res) => {
       this.memberCenter.elements = this.compiler.entityUser(res);
-      console.log(this.memberCenter.elements, 'this is the data that i need');
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
     });
@@ -174,5 +174,18 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
         this.helperService.constants.status.ERROR);
     });
 
+  }
+
+  /**
+   * this function is used for creating the modal dialog of invite user and with this modal we also attach the all roles and
+   * entity id of the selected entity.
+   * @params entityId
+   */
+  inviteUser() {
+    this.navService.getRoles().subscribe((roles) => {
+      this.navService.selectedEntityData.subscribe(selectedEntity => {
+        this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': selectedEntity.entityInfo.id}});
+      });
+    });
   }
 }

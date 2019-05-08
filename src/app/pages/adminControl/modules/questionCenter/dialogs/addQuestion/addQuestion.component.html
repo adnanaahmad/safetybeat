@@ -18,43 +18,40 @@
                   [formControlName]="helperService.appConstants.questionWarning">
           </textarea>
       </mat-form-field>
-      <mat-form-field full-width>
-        <mat-label>{{helperService.translated.STRINGS.SELECT_QUESTION_TYPE}}</mat-label>
-        <mat-select [(value)]="QuestionObj.selectedType" [formControlName]="helperService.appConstants.questionType"
-                    (selectionChange)="changeSelection(QuestionObj.selectedType)">
-          <mat-option *ngFor="let obj of QuestionObj.questionTypes"
-                      [value]="obj">{{obj.type}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="formValidation.questionType.errors">
-          <span
-            *ngIf="formValidation.questionType.errors.required">{{helperService.translated.MESSAGES.QUESTION_TYPE_REQ}}</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-radio-group *ngIf="QuestionObj.openEnded"
-        [formControlName]="helperService.appConstants.safeQuestion">{{helperService.translated.STRINGS.SAFE_QUESTION}}
-        <mat-radio-button
-          value="{{ helperService.appConstants.safeQuestionYes }}">{{helperService.translated.STRINGS.SAFE_QUESTION_YES}}</mat-radio-button>
-        <mat-radio-button
-          value="{{ helperService.appConstants.safeQuestionNo }}">{{helperService.translated.STRINGS.SAFE_QUESTION_NO}}</mat-radio-button>
-        <mat-radio-button
-          value="{{ helperService.appConstants.safeQuestionBoth }}">{{helperService.translated.STRINGS.SAFE_QUESTION_BOTH}}</mat-radio-button>
+      <mat-radio-group (change)="QuestionObj.canProceed=!QuestionObj.canProceed"
+                       [formControlName]="helperService.appConstants.canProceed">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION}}
+        <mat-radio-button [checked]=QuestionObj.canProceed
+                          [value]="helperService.appConstants.canProceedQuestionYes">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_YES}}
+        </mat-radio-button>
+        <mat-radio-button [value]="helperService.appConstants.canProceedQuestionNo">
+          {{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_NO}}</mat-radio-button>
       </mat-radio-group>
       <br>
-      <mat-radio-group
-        [formControlName]="helperService.appConstants.canProceed">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION}}
+      <mat-radio-group (change)="QuestionObj.parent=!QuestionObj.parent"
+                       [formControlName]="helperService.appConstants.parent">{{helperService.translated.STRINGS.SELECT_QUESTION_TYPE}}
+        <mat-radio-button [checked]=QuestionObj.parent
+                          [value]="helperService.appConstants.parentYes">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_YES}}</mat-radio-button>
         <mat-radio-button
-          value="{{ helperService.appConstants.canProceedQuestionYes }}">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_YES}}</mat-radio-button>
+          [value]="helperService.appConstants.parentNo">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_NO}}</mat-radio-button>
+      </mat-radio-group>
+      <br>
+      <mat-radio-group (change)="changeSafeOption($event)"
+        [formControlName]="helperService.appConstants.safeQuestion">{{helperService.translated.STRINGS.SAFE_QUESTION}}
+        <mat-radio-button [checked]="true"
+          [value]="helperService.appConstants.safeQuestionYes">{{helperService.translated.STRINGS.SAFE_QUESTION_YES}}</mat-radio-button>
         <mat-radio-button
-          value="{{ helperService.appConstants.canProceedQuestionNo }}">{{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_NO}}</mat-radio-button>
+          [value]="helperService.appConstants.safeQuestionNo">{{helperService.translated.STRINGS.SAFE_QUESTION_NO}}</mat-radio-button>
+        <mat-radio-button
+          [value]=" helperService.appConstants.safeQuestionBoth">{{helperService.translated.STRINGS.SAFE_QUESTION_BOTH}}</mat-radio-button>
       </mat-radio-group>
     </div>
     <mat-dialog-actions>
-      <button mat-raised-button custom-btn btn-primary [disabled]="QuestionObj.loading"
+      <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="QuestionObj.loading"
               color="primary">
         {{ helperService.translated.BUTTONS.ADD_QUESTION }}
       </button>
       <img *ngIf="QuestionObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
-      <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
+      <button  mat-button mat-dialog-close>
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>

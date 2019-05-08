@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {AddQuestionComponent} from '../../dialogs/addQuestion/addQuestion.component';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {AddQuestionComponent} from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
 import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
-import {QuestionCenterService} from '../../services/questionCenter.service';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
+import {QuestionCenterService} from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 
 @Component({
@@ -44,7 +44,7 @@ export class QuestionCenterComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.questionTypes();
+    this.getAllquestions();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -58,22 +58,32 @@ export class QuestionCenterComponent implements OnInit {
     }
   }
 
-  questionTypes() {
-    this.questionCenterService.getQuestionTypes().subscribe((res) => {
-      this.QuestionObj.questionTypes = res;
-      let self = this;
-      this.helperService.iterations(this.QuestionObj.questionTypes, function (obj) {
-        obj.type = self.compiler.insertSpaces(obj.type);
-      });
+
+  getAllquestions() {
+    debugger;
+    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
+
+    this.questionCenterService.getAllQuestions({'entityId': entityId}).subscribe((res) => {
+      this.QuestionObj.allQuestions = res;
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+          res.responseDetails.message);
+      }
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-        this.QuestionObj.translated.LOGGER.MESSAGES.QUESTION_TYPES_RECEIVED);
+        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED);
     }, (err) => {
       this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.QuestionObj.translated.LOGGER.MESSAGES.QUESTION_TYPES_RECEIVED_ERROR);
+        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED_ERROR);
     });
+    this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+      this.helperService.constants.status.ERROR);
   }
 
   addQuestion() {
-    this.helperService.createDialog(AddQuestionComponent, {data: {'questionTypes': this.QuestionObj.questionTypes }});
+    this.helperService.createDialog(AddQuestionComponent, {disableClose: true});
   }
 }

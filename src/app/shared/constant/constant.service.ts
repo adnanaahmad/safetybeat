@@ -38,6 +38,7 @@ export class ConstantService {
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
+    profilePic: `${environment.apiUrl}/users/uploadProfileImage/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
@@ -57,6 +58,7 @@ export class ConstantService {
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
     getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
     addQuestion: `${environment.apiUrl}/api/questions/`,
+    getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
   };
   /**
    * all the api methods are declared here.
@@ -158,13 +160,16 @@ export class ConstantService {
     questionDescription: 'questionDescription',
     questionWarning: 'questionWarning',
     questionType: 'questionType',
-    safeQuestionYes: 'Yes',
-    safeQuestionNo: 'No',
-    safeQuestionBoth: 'Both',
+    safeQuestionYes: 'Y',
+    safeQuestionNo: 'N',
+    safeQuestionBoth: 'B',
     canProceedQuestionYes: 'Yes',
     canProceedQuestionNo: 'No',
+    parentYes: 'Yes',
+    parentNo: 'No',
     safeQuestion: 'safeQuestion',
     canProceed: 'canProceed',
+    parent: 'parent',
     paths: {
       home: '/home',
       profile: '/home/profile',
@@ -190,7 +195,8 @@ export class ConstantService {
     },
     enterKey: 13,
     importSite: 'importSite',
-    csvFile: 'csvFile'
+    csvFile: 'csvFile',
+    profileImage: 'profileImage'
   };
   /**
    * all the material icon names are declared here.
@@ -251,7 +257,10 @@ export class ConstantService {
     siteQuestionCenter: 'question_answer',
     log: 'library_books',
     import: 'play_for_work',
-    deleteSweep: 'delete_sweep'
+    deleteSweep: 'delete_sweep',
+    arrowRight: 'keyboard_arrow_right',
+    arrowLeft: 'keyboard_arrow_left',
+    warning: 'warning'
   };
   /**
    * all the particle container icon names are declared here.
@@ -296,6 +305,7 @@ export class ConstantService {
   static defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
-    zoomControl: true
+    gestureHandling: 'none',
+    zoomControl: false
   };
 }

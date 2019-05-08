@@ -13,9 +13,7 @@ export class SettingsComponent implements OnInit {
   public dialogRef: MatDialogRef<SettingsComponent>;
   themeSelected: any;
   settingFeatures = {
-    'general': true,
-    'security': false,
-    'organization': false,
+    'organization': true,
     'group': false,
     'entity': false,
     'theme': false,
