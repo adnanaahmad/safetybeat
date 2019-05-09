@@ -268,6 +268,10 @@ export class ConstantService {
     permIdentity: 'perm_identity',
     clear: 'clear',
     security: 'security',
+    place: 'place',
+    check_circle: 'check_circle',
+    schedule: 'schedule',
+    description: 'description'
   };
   /**
    * all the particle container icon names are declared here.

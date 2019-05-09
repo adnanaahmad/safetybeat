@@ -82,8 +82,15 @@
     "CAN_PROCEED_QUESTION": "If incorrect answer, can proceed?",
     "CAN_PROCEED_QUESTION_YES": "Yes",
     "CAN_PROCEED_QUESTION_NO": "No",
-    "SITESAFETYPLAN": "Safe Zone",
-    "SITEINFORMATION": "Site Information"
+    "SAFEZONE": "Safe Zone",
+    "SITEINFORMATION": "Site Information",
+    "SITE" : "Site",
+    "RISK": "Risk",
+    "RESOLVED": "Resolved",
+    "DATE_TIME": "Date/Time",
+    "RESOLVED_BY": "Resolved By",
+    "ADDED_BY": "Added By",
+    "DESCRIPTION": "Description"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -272,8 +279,10 @@
     "HAZARD_ADDED": "Hazard Added",
     "HAZARD_NOT_ADDED": "Hazard could not be added",
     "ALL_QUESTION_SUCCESS": "All questions of entity received",
-    "ALL_QUESTION_FAILURE": "No questions for the entity exists"
-},
+    "ALL_QUESTION_FAILURE": "No questions for the entity exists",
+    "HAZARD_NOT_ADDED": "Hazard could not be added",
+    "HAZARD_LIST_FAIL":"Hazard List could not be added."
+  },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
     "ENTITYCONTROL_TITLE": "Entity Control Centre",
