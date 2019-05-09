@@ -4,6 +4,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AddHazardModel, NewHazard} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {SiteAddData} from '../../../../../../models/site.model';
 
 @Component({
   selector: 'app-addHazard',
@@ -11,9 +12,8 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
   styleUrls: ['./addHazard.component.scss']
 })
 export class AddHazardComponent implements OnInit {
-  private addHazardForm: FormGroup;
   hazardObj: AddHazardModel = <AddHazardModel>{};
-  risks: string[];
+
 
   constructor(public formBuilder: FormBuilder,
               public helperService: HelperService,
@@ -22,24 +22,33 @@ export class AddHazardComponent implements OnInit {
               public dialogRef: MatDialogRef<AddHazardComponent>) { }
 
   ngOnInit() {
-    this.addHazardForm = this.formBuilder.group({
+    this.hazardObj.addHazardForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       risk: ['']
     });
+    this.hazardObj.formType = this.data.type;
     this.service.getHazards().subscribe((res) => {
-      this.risks = res;
+        this.hazardObj.risks = res;
       }, (error) => {
-        this.addHazardForm.disable();
-        this.helperService.createSnack('Hazard list could not be added',
+        this.hazardObj.addHazardForm.disable();
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_LIST_FAIL,
           this.helperService.constants.status.ERROR);
       }
     );
   }
 
   get addHazardControls() {
-    return this.addHazardForm.controls;
+    return this.hazardObj.addHazardForm.controls;
   }
+
+  // siteFormSubmit({value}: { value: SiteAddData }) {
+  //   if (this.hazardObj.formType === 'edit') {
+  //     this.editSite(value);
+  //   } else {
+  //     this.addHazard(value);
+  //   }
+  // }
 
   addHazard({value, valid}: { value: NewHazard; valid: boolean }): void {
     let data = {

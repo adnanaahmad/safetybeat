@@ -131,7 +131,8 @@ export class CompilerProvider {
       let obj: Hazard = {
         hazard: hazard.hazard,
         site: hazard.site,
-        user: hazard.user
+        user: hazard.user,
+        risk: hazard.risk
       }
       hazardArray.push(obj);
     })

@@ -313,6 +313,7 @@ export interface Messages {
   ANALYTICS_REPORTS: string;
   HAZARD_ADDED: string;
   HAZARD_NOT_ADDED: string;
+  HAZARD_LIST_FAIL: string
 }
 
 export interface Logger {

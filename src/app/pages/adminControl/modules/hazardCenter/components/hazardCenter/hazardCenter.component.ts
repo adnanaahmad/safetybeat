@@ -6,7 +6,7 @@ import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardC
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {EditHazardComponent} from '../../dialogs/editHazard/editHazard.component';
+import {AddHazardComponent} from '../../../siteCenter/dialogs/addHazard/addHazard.component';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -49,15 +49,20 @@ export class HazardCenterComponent implements OnInit {
 
   getHazardList(entityId) {
     this.adminControlService.allHazards(entityId).subscribe((res) => {
-      this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
-      this.hazardTable.dataSource.paginator = this.paginator;
+      console.log(res);
+      if (res !== 1 && res !== '') {
+        this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
+        this.hazardTable.dataSource.paginator = this.paginator;
+      }  else if (res === '') {
+        this.hazardTable.dataSource = 0;
+      }
     });
   }
 
   openEditDialog(element: any) {
-    this.helperService.createDialog(EditHazardComponent, {
+    this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
-      data: {data: element}
+      data: {data: element, type: 'edit'}
     });
   }
 }

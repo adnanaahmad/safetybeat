@@ -153,6 +153,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
   openDialog(id: any) {
-    let dialogRef = this.helperService.createDialog(AddHazardComponent, {disableClose: true,  width: '250px', data: {id: id}});
+    this.helperService.createDialog(AddHazardComponent, {disableClose: true, data: {id: id, type: 'add'}});
   }
 }

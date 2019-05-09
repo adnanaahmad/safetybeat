@@ -9,11 +9,14 @@ export interface HazardModel {
 }
  export interface AddHazardModel {
    addHazardForm: FormGroup;
+   risks: string[];
+   formType: string
 }
 export interface Hazard {
   hazard: NewHazard;
   site: Site;
   user: User;
+  risk: RiskType;
 }
 export interface NewHazard {
   addedBy: any
@@ -25,4 +28,8 @@ export interface NewHazard {
   risk: any
   site: any
   title: string
+}
+export interface RiskType {
+  id: number
+  name: string
 }
