@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {AdminControlService} from '../../../../services/adminControl.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 
 @Component({
   selector: 'app-viewConnections',
