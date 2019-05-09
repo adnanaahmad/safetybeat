@@ -297,6 +297,9 @@ $theme: createTheme($primary, $secondary, $warn);
     }
   }
   app-settings {
+    .settings-parent {
+      background: transparent !important;
+    }
     .navigator {
       mat-list-item {
         span {
@@ -311,18 +314,6 @@ $theme: createTheme($primary, $secondary, $warn);
     .settings-wrap {
       .mat-list-item {
         border-color: mat-color($primary-pallet, 400) !important;
-      }
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      input[type="number"],
-      textarea {
-        background-color: transparent;
-        border: 1px solid rgba(221, 221, 221, 0.24);
-        caret-color: #fff;
-      }
-      mat-select {
-        background-color: transparent;
       }
     }
   }
