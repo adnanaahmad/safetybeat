@@ -200,7 +200,6 @@ export class EntityControlComponent implements OnInit, OnDestroy {
         this.userService.updateUsers(this.entityControl.allUsersList);
       },
       error => {
-        this.helperService.logoutError(error.status);
         this.helperService.toggleLoader(false)
       }
     );

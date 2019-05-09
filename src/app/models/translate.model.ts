@@ -28,6 +28,8 @@ export interface Strings {
   SITEADDRESS: string;
   SITESAFETYPLAN: string;
   SITESAFETYMANAGER: string;
+  SAFEZONE: string;
+  SITEINFORMATION: string;
 }
 
 export interface Auth {
@@ -126,6 +128,17 @@ export interface Strings {
   PACKAGE_DESCRIPTION_1: string;
   PACKAGE_DESCRIPTION_2: string;
   PACKAGE_DESCRIPTION_3: string;
+  QUESTION_NAME: string;
+  QUESTION_WARNING: string;
+  SELECT_QUESTION_TYPE: string;
+  SAFE_QUESTION: string;
+  PARENT: string;
+  SAFE_QUESTION_YES: string;
+  SAFE_QUESTION_NO: string;
+  SAFE_QUESTION_BOTH: string;
+  CAN_PROCEED_QUESTION: string;
+  CAN_PROCEED_QUESTION_YES: string;
+  CAN_PROCEED_QUESTION_NO: string;
 }
 
 export interface Buttons {
@@ -251,6 +264,7 @@ export interface Messages {
   ORGTYPEMESSAGE: string;
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
+  ADDQUESTION_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
   NOUSER: string;
@@ -266,6 +280,7 @@ export interface Messages {
   INVITE_FAILURE: string;
   SAFETY_PLAN_REQ: string;
   SITE_NAME_REQ: string;
+  QUESTION_DESCRIPTION_REQ: string;
   ENTITY_DELETE: string;
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
@@ -307,10 +322,14 @@ export interface Messages {
   ADD_CONNECTION_FAILURE: string;
   REMOVE_CONNECTION_SUCCESS: string;
   REMOVE_CONNECTION_FAILURE: string;
+  QUESTION_CREATED: string;
+  QUESTION_CREATION_FAILURE: string;
   PIC_UPLOADED_SUCCESS: string;
   PIC_UPLOADED_FAILURE: string;
   PIC_EXCEEDS_LIMIT: string;
   ANALYTICS_REPORTS: string;
+  ALL_QUESTION_SUCCESS: string;
+  ALL_QUESTION_FAILURE: string;
   HAZARD_ADDED: string;
   HAZARD_NOT_ADDED: string;
   HAZARD_LIST_FAIL: string
@@ -367,9 +386,13 @@ export interface LoggerMessage {
   INVITEUSER_ERROR: string;
   ENTITYNOTCREATED: string;
   ROLES_RECIEVED: string;
+  QUESTION_TYPES_RECEIVED: string;
+  QUESTION_TYPES_RECEIVED_ERROR: string;
   ROLES_RECIEVED_ERROR: string;
   ORG_SUCCESS: string;
-
+  QUESTION_DATA_REQ: string;
+  ALL_QUESTION_RECEIVED: string;
+  ALL_QUESTION_RECEIVED_ERROR: string;
 }
 
 export interface SiteTitle {

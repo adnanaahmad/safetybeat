@@ -9,6 +9,7 @@ import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {SitesInfo} from 'src/app/models/site.model';
 import {AddHazardComponent} from '../../dialogs/addHazard/addHazard.component';
+import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -154,5 +155,26 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
 
   openDialog(id: any) {
     this.helperService.createDialog(AddHazardComponent, {disableClose: true, data: {id: id, type: 'add'}});
+  }
+
+  confirmationModal(siteId: number) {
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_SITE}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.deleteSite(siteId);
+      }
+    });
+  }
+
+  deleteSite(siteId) {
+    this.adminServices.deleteSite(siteId).subscribe((res) => {
+      this.viewSitesData();
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.DELETE_SITE_SUCCESS);
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DELETE_SITE_FAILURE);
+
+    });
   }
 }

@@ -7,13 +7,6 @@
       </h3>
       <p>{{viewSiteObj.siteInfo.location}}</p>
     </div>
-    <div class="buttonRow" *ngIf="viewSiteObj.siteOption">
-      <button mat-raised-button custom-btn btn-primary color="warn"
-        (click)="confirmationModal(viewSiteObj.siteInfo.id)">
-        <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
-        {{ helperService.translated.BUTTONS.DELETE }}
-      </button>
-    </div>
   </mat-toolbar>
   <div class="paddingbox">
     <mat-grid-list cols="4" rowHeight="340px" gutterSize="30px">
@@ -100,33 +93,28 @@
       <mat-grid-tile colspan="2">
         <mat-card class="dashboard-card activities">
           <mat-card-header class="infoTitle">
-            <mat-card-title>Site Information</mat-card-title>
+            <mat-card-title>{{helperService.translated.STRINGS.SITEINFORMATION}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div *ngIf="viewSiteObj.siteInfo">
-              <div class="siteinfo-row">
-                <mat-icon>place</mat-icon>
-                <strong>Location</strong>
-                <p>{{viewSiteObj.siteInfo.location}}</p>
-              </div>
-              <div class="siteinfo-row">
-                <mat-icon>security</mat-icon>
-                <strong>Site Safety Plan</strong>
-                <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
-              </div>
               <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
-                <mat-icon>perm_identity</mat-icon>
-                <strong>Site Safety Manager</strong>
+                <mat-icon>{{helperService.appIcons.permIdentity}}</mat-icon>
+                <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
                 <p>{{viewSiteObj.siteSafetyManager.first_name}} {{viewSiteObj.siteSafetyManager.last_name}}</p>
               </div>
               <div class="siteinfo-row">
-                <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">check</mat-icon>
-                <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">clear</mat-icon>
-                <strong>Safe Zone</strong>
+                <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.check}}</mat-icon>
+                <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.clear}}</mat-icon>
+                <strong>{{helperService.translated.STRINGS.SAFEZONE}}</strong>
                 <p *ngIf="viewSiteObj.siteInfo.safeZone">
                   {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
                 <p *ngIf="!viewSiteObj.siteInfo.safeZone">
                   {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
+              </div>
+              <div class="siteinfo-row">
+                <mat-icon>{{helperService.appIcons.security}}</mat-icon>
+                <strong>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</strong>
+                <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
               </div>
             </div>
           </mat-card-content>

@@ -11,7 +11,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AdminControlService {
   apiRoutes: any;
-  inviteTeamResponse$: Observable<InviteTeamResponse>
+  inviteTeamResponse$: Observable<InviteTeamResponse>;
   method: any;
   private sites = new BehaviorSubject<any>(1);
   siteObserver = this.sites.asObservable();
@@ -27,7 +27,7 @@ export class AdminControlService {
    * @params sitesInfo
    */
   changeSites(sitesInfo: any) {
-    this.sites.next(sitesInfo)
+    this.sites.next(sitesInfo);
   }
 
   /**
@@ -87,7 +87,7 @@ export class AdminControlService {
       this.method.post,
       this.apiRoutes.addSite,
       data
-    )
+    );
   }
 
   /**
@@ -106,7 +106,7 @@ export class AdminControlService {
    */
 
   deleteEntity(id) {
-    return this.http.delete(`${ConstantService.apiRoutes.editEntity}/${id}/`);
+    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.importSite}/${id}/`);
   }
 
   /**
@@ -121,21 +121,21 @@ export class AdminControlService {
       this.method.post,
       this.apiRoutes.importSite,
       data
-    )
+    );
   }
 
   viewSiteInfo(id: number) {
     return this.helperService.requestCall(
       this.method.get,
       `${this.apiRoutes.viewSiteInfo}${id}/`
-    )
+    );
   }
 
   deleteSite(id: number) {
     return this.helperService.requestCall(
       this.method.delete,
       `${this.apiRoutes.viewSiteInfo}${id}/`
-    )
+    );
   }
 
   editSite(id: number, data) {
@@ -143,13 +143,13 @@ export class AdminControlService {
       this.method.put,
       `${this.apiRoutes.viewSiteInfo}${id}/`,
       data
-    )
+    );
   }
 
   addNewHazard(data) {
-
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      `${this.helperService.constants.apiRoutes.addHazard}`, data); }
+      `${this.helperService.constants.apiRoutes.addHazard}`, data);
+  }
 
   getHazards() {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get,

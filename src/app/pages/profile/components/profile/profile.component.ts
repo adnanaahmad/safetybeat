@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  AfterViewInit,
   ViewChild
 } from '@angular/core';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
@@ -44,19 +43,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
     this.route.params.subscribe((data) => {
-      this.profileModel.receivedData = JSON.parse(data.data);
-      if (!this.profileModel.receivedData) {
+      if (!helperService.isEmpty(data)) {
+        this.profileModel.receivedData = JSON.parse(data.data);
+        this.profileModel.role = this.profileModel.receivedData.accessLevel;
+      } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
           }
         });
-      } else {
-        this.profileModel.role = this.profileModel.receivedData.accessLevel;
       }
     });
-
   }
 
   /**
@@ -68,13 +66,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (!this.profileModel.receivedData) {
-        this.profileModel.profileData = res;
-        this.profileModel.username = this.profileModel.profileData.username;
-        this.profileModel.email = this.profileModel.profileData.email;
+          this.profileModel.profileData = res;
+          this.profileModel.username = this.profileModel.profileData.username;
+          this.profileModel.email = this.profileModel.profileData.email;
+          this.profileModel.profileImage = this.profileModel.profileData.profileImage;
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
           this.profileModel.email = this.profileModel.receivedData.email;
+          this.profileModel.profileImage = this.profileModel.profileData.profileImage;
         }
       } else {
         this.getCurrentUser();
@@ -134,7 +134,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   uploadProfileImage(event) {
     this.profileModel.imageFile = <File>event.target.files[0];
-    let blob = new Blob([this.profileModel.imageFile], {type: 'application/image'});
+    let blob = new Blob([this.profileModel.imageFile], {type: 'image/*'});
     let formData = new FormData();
     formData.append('profileImage', blob, this.profileModel.imageFile.name);
     this.profileService.profilePicUpdate(formData).subscribe((res) => {
@@ -163,7 +163,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
       this.navService.updateCurrentUser(userData);
-    })
+    });
   }
 }
 

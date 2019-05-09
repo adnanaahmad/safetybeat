@@ -7,6 +7,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddHazardComponent} from '../../../siteCenter/dialogs/addHazard/addHazard.component';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -16,7 +17,9 @@ import {AddHazardComponent} from '../../../siteCenter/dialogs/addHazard/addHazar
 export class HazardCenterComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   hazardTable: HazardModel = <HazardModel>{};
-  displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'actions'];
+  displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
+  serverUrl = environment.serverUrl;
+
 
   constructor(
     public helperService: HelperService,
