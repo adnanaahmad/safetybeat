@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/f
 import {changePassword} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialogRef} from '@angular/material';
-import {SettingsService} from '../../services/settings.service';
+import {SettingsService} from 'src/app/pages/settings/services/settings.service';
 
 @Component({
   selector: 'app-security',
