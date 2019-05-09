@@ -135,7 +135,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   uploadProfileImage(event) {
     this.profileModel.imageFile = <File>event.target.files[0];
-    let blob = new Blob([this.profileModel.imageFile], {type: 'application/image'});
+    let blob = new Blob([this.profileModel.imageFile], {type: 'image/*'});
     let formData = new FormData();
     formData.append('profileImage', blob, this.profileModel.imageFile.name);
     this.profileService.profilePicUpdate(formData).subscribe((res) => {

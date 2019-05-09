@@ -97,11 +97,6 @@
           </mat-card-header>
           <mat-card-content>
             <div *ngIf="viewSiteObj.siteInfo">
-              <div class="siteinfo-row">
-                <mat-icon>security</mat-icon>
-                <strong>Site Safety Plan</strong>
-                <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
-              </div>
               <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
                 <mat-icon>perm_identity</mat-icon>
                 <strong>Site Safety Manager</strong>
@@ -115,6 +110,11 @@
                   {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
                 <p *ngIf="!viewSiteObj.siteInfo.safeZone">
                   {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
+              </div>
+              <div class="siteinfo-row">
+                <mat-icon>security</mat-icon>
+                <strong>Site Safety Plan</strong>
+                <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
               </div>
             </div>
           </mat-card-content>

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {AddQuestionComponent} from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
-import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
 import {QuestionCenterService} from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
 
 
 @Component({
