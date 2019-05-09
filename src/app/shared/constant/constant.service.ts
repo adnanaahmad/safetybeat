@@ -264,7 +264,10 @@ export class ConstantService {
     deleteSweep: 'delete_sweep',
     arrowRight: 'keyboard_arrow_right',
     arrowLeft: 'keyboard_arrow_left',
-    warning: 'warning'
+    warning: 'warning',
+    permIdentity: 'perm_identity',
+    clear: 'clear',
+    security: 'security',
   };
   /**
    * all the particle container icon names are declared here.

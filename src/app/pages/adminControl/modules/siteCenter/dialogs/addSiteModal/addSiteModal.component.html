@@ -16,8 +16,9 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field full-width>
-        <input matInput type="text" [placeholder]="helperService.translated.STRINGS.SITESAFETYPLAN"
-          [formControlName]="helperService.appConstants.siteSafetyPlan" required />
+        <textarea matTooltip="Add Safety Plan here." matTooltipPosition="below" maxlength="2000" rows="6" cols="6" matInput [placeholder]="helperService.translated.STRINGS.SITESAFETYPLAN"
+                  [formControlName]="helperService.appConstants.siteSafetyPlan" required >
+          </textarea>
         <mat-error *ngIf="formValidation.siteSafetyPlan.errors">
           <span
             *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>
