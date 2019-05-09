@@ -19,7 +19,6 @@ export class ViewConnectionsComponent implements OnInit {
 
   ngOnInit() {
     this.adminService.allConnections().subscribe(res => {
-      console.log(res);
       this.connections = res.data;
     });
   }
