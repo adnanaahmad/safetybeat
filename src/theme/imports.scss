@@ -28,6 +28,7 @@
 @import "src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component.scss";
+@import "src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component.scss";
 @import "src/app/pages/loginRegistration/components/packageDetails/packageDetails.component.scss";
 @import "src/app/pages/adminControl/modules/memberCenter/components/memberCenter/memberCenter.component.scss";
 @import "src/app/pages/adminControl/modules/questionCenter/components/questionCenter/questionCenter.component.scss";
@@ -71,6 +72,7 @@
   @include amte-viewConnections($primary, $accent, $warn);
   @include amte-org-registration-modal($primary, $accent, $warn);
   @include amte-ImportSiteModal($primary, $accent, $warn);
+  @include amte-addHazard($primary, $accent, $warn);
   @include amte-memberCenter($primary, $accent, $warn);
   @include amte-questionCenter($primary, $accent, $warn);
   @include amte-addQuestion($primary, $accent, $warn);

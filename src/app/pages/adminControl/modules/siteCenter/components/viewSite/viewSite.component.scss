@@ -41,6 +41,9 @@
     .dashboard-card {
       padding: 0;
       width: 100%;
+      .flexbox {
+        height: 100%;
+      }
       table {
         width: 100%;
       }
@@ -50,11 +53,12 @@
       }
       .siteinfo-row {
         clear: both;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        padding: 15px 10px 5px;
+        padding: 10px;
+        margin: 2px;
+        background: mat-color($primary, 50);
         .safe-icon {
           color: #fff;
           &.safe {
@@ -67,12 +71,17 @@
         mat-icon {
           box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
           border-radius: 100px;
-          margin: 0 10px 0 0;
           padding: 5px;
+          font-size: 40px;
+          width: auto;
+          height: auto;
           color: mat-color($primary, 500);
         }
+        strong {
+          width: 100%;
+        }
         p {
-          margin: 10px 0;
+          margin: 0;
           flex-basis: 100%;
         }
       }
@@ -110,19 +119,8 @@
       .activity-card {
         padding: 10px;
         margin: 10px 0;
-        border-radius: 4px;
         position: relative;
-        &:before {
-          content: "";
-          position: absolute;
-          left: 0;
-          right: 0;
-          width: 100%;
-          z-index: 0;
-          top: 0;
-          height: 100%;
-          opacity: 0.05;
-        }
+        background-color: mat-color($primary, 50);
         .row {
           margin: 0 0 10px;
           position: relative;

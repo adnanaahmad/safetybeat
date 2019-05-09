@@ -49,7 +49,8 @@
     "CURRENT_PASSWORD": "Current Password",
     "TRIAL": "Trial",
     "OWNER": "Owner",
-    "LOGOUTSUCCESSION": "Successfully logged out."
+    "LOGOUTSUCCESSION": "Successfully logged out.",
+    "REQUIRED_FIELD": "Field is Required"
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -82,7 +83,7 @@
     "CAN_PROCEED_QUESTION": "If incorrect answer, can proceed?",
     "CAN_PROCEED_QUESTION_YES": "Yes",
     "CAN_PROCEED_QUESTION_NO": "No",
-    "SITESAFETYPLAN": "Safe Zone",
+    "SAFEZONE": "Safe Zone",
     "SITEINFORMATION": "Site Information"
   },
   "BUTTONS": {

@@ -306,7 +306,7 @@ $theme: createTheme($primary, $secondary, $warn);
           color: #fff !important;
           &:hover,
           &.settingNav {
-            border-color: mat-color($primary-pallet, 500);
+            border-color: mat-color($primary-pallet, 50);
           }
         }
       }
