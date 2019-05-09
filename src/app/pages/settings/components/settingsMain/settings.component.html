@@ -8,6 +8,11 @@
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
+        <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('allUsers')">
+          <mat-icon>{{helperService.appIcons.group}}</mat-icon> All Users
+        </span>
+      </mat-list-item>
+      <mat-list-item role="listitem">
         <span [ngClass]="settingFeatures.group ? 'settingNav' : 'abc'" (click)="changeSetting('group')">
           <mat-icon>group_add</mat-icon> Create Group
         </span>
@@ -26,7 +31,7 @@
         <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('theme')">
           <mat-icon>brightness_medium</mat-icon> Theme Settings
         </span>
-      </mat-list-item>
+    </mat-list-item>
     </mat-list>
   </div><!-- /Settings navigation -->
 
@@ -50,6 +55,11 @@
       <!-- Permission Settings -->
       <div *ngIf="settingFeatures.permission">
         <app-permission></app-permission>
+      </div>
+
+      <!-- Permission Settings -->
+      <div *ngIf="settingFeatures.allUsers">
+       <app-user></app-user>
       </div>
 
       <!--Change Theme-->

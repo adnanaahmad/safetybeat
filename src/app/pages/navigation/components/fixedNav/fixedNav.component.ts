@@ -23,11 +23,11 @@ export class FixedNavComponent implements OnInit {
       iconName: this.helperService.constants.appIcons.dashboard,
       toolTip: 'Dashboard'
     },
-    {
-      route: '/home/profile/user',
-      iconName: this.helperService.constants.appIcons.supervisedUserCircle,
-      toolTip: 'Users'
-    },
+    // {
+    //   route: '/home/profile/user',
+    //   iconName: this.helperService.constants.appIcons.supervisedUserCircle,
+    //   toolTip: 'Users'
+    // },
     {
       route: '/home/adminControl/entityControl',
       iconName: this.helperService.constants.appIcons.log,
