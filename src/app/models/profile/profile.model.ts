@@ -30,6 +30,7 @@ export interface ProfileModel {
   email: any;
   profileFeatures: ProfileFeatures;
   receivedData: any;
+  currentUserProfile: boolean;
 }
 
 

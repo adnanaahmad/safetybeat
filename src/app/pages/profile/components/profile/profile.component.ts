@@ -12,7 +12,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {ActivatedRoute} from '@angular/router';
-import {environment} from '../../../../../environments/environment';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -46,11 +46,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (!helperService.isEmpty(data)) {
         this.profileModel.receivedData = JSON.parse(data.data);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
+        this.profileModel.currentUserProfile = false;
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
+            this.profileModel.currentUserProfile = true;
+            this.ngOnInit();
           }
         });
       }
@@ -65,7 +68,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
-        if (!this.profileModel.receivedData) {
+        if (this.profileModel.currentUserProfile) {
           this.profileModel.profileData = res;
           this.profileModel.username = this.profileModel.profileData.username;
           this.profileModel.email = this.profileModel.profileData.email;
@@ -91,6 +94,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileModel.translated = this.helperService.translated;
     this.profileModel.appIcons = this.helperService.constants.appIcons;
     this.profileModel.appConstants = this.helperService.constants.appConstant;
+    this.profileModel.currentUserProfile = true;
     this.profileModel.disabled = false;
     this.profileModel.displayedColumns = [
       'name',
@@ -106,15 +110,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
 
   viewAllEntities() {
-    this.profileModel.subscription = this.navService.data.subscribe((res) => {
-        if (res !== 1) {
-          this.helperService.toggleLoader(false);
-          this.profileModel.entitiesList = res;
-          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-          this.profileModel.dataSource.paginator = this.paginator;
+    if (this.profileModel.currentUserProfile) {
+      this.profileModel.subscription = this.navService.data.subscribe((res) => {
+          if (res !== 1) {
+            this.helperService.toggleLoader(false);
+            this.profileModel.entitiesList = res;
+            this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+            this.profileModel.dataSource.paginator = this.paginator;
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   /**
