@@ -8,7 +8,6 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Login} from 'src/app/models/loginRegistration/login.model';
-import {ProfileService} from '../../../profile/services/profile.service';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -25,8 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private compiler: CompilerProvider,
     private adminService: AdminControlService,
-    private navService: NavigationService,
-    private profile: ProfileService
+    private navService: NavigationService
   ) {
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);

@@ -2,12 +2,12 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {FormBuilder, Validators} from '@angular/forms';
 import {EditEntity} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {SettingService} from 'src/app/shared/settings/setting.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {EntitySetting} from 'src/app/models/Settings/entitySetting.model';
 import {ProfileService} from '../../../profile/services/profile.service';
 import {AdminControlService} from '../../../adminControl/services/adminControl.service';
 import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {SettingsService} from '../../services/settings.service';
 
 @Component({
   selector: 'app-entity-setting',
@@ -24,7 +24,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
               private profile: ProfileService,
               private adminServices: AdminControlService,
               private compiler: CompilerProvider,
-              public settings: SettingService) {
+              public settings: SettingsService) {
 
     this.entitySettingObj.disabled = false;
   }
@@ -80,7 +80,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
         this.profile.updateUsers(this.entitySettingObj.allUsersList);
       },
       error => {
-        this.helperService.logoutError(error.status);
       }
     );
   }

@@ -230,7 +230,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.registerObj.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.BACKEND_ERROR);
-      this.helperService.logoutError(error.status);
     });
   }
 }

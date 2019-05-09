@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {changePassword} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {SettingService} from 'src/app/shared/settings/setting.service';
 import {MatDialogRef} from '@angular/material';
+import {SettingsService} from '../../services/settings.service';
 
 @Component({
   selector: 'app-security',
@@ -16,7 +16,7 @@ export class SecurityComponent implements OnInit {
   loading: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
-              public settings: SettingService,
+              public settings: SettingsService,
               public dialogRef: MatDialogRef<SecurityComponent>,
               public helperService: HelperService) {
   }
@@ -63,11 +63,11 @@ export class SecurityComponent implements OnInit {
         this.loading = false;
         formDirective.resetForm();
         this.changePasswordForm.reset();
+        this.dialogRef.close();
       } else {
         this.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.INCORRECT_PASS,
           this.helperService.constants.status.ERROR);
-
       }
     }, (error) => {
       this.loading = false;
@@ -77,7 +77,6 @@ export class SecurityComponent implements OnInit {
       this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
         this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
-      this.helperService.logoutError(error.status);
     });
   }
 

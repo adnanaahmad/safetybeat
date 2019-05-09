@@ -115,7 +115,6 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
         this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.ERROR,
           this.helperService.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
         this.createEntity.loading = false;
-        this.helperService.logoutError(error.status);
       })
     );
   }

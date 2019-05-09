@@ -120,7 +120,6 @@ export class JoinEntityModalComponent implements OnInit {
           this.helperService.constants.status.ERROR,
           this.helperService.translated.MESSAGES.ENTITYJOINFIAL
         );
-        this.helperService.logoutError(error.status);
       }
     );
   }

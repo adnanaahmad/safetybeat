@@ -1,11 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {ConstantService} from 'src/app/shared/constant/constant.service';
-import {catchError} from 'rxjs/operators';
-import {CoreService} from 'src/app/core/services/authorization/core.service';
-import {HelperService} from '../../../shared/helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +24,8 @@ export class NavigationService {
   currentUserData = this.currentUser.asObservable();
 
   constructor(
-    private http: HttpClient,
     private router: Router,
-    public helperService: HelperService,
-    public coreServices: CoreService) {
+    public helperService: HelperService) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl.next(event.urlAfterRedirects);
@@ -61,7 +55,8 @@ export class NavigationService {
    */
 
   checkEmail(email: object) {
-    return this.http.post(ConstantService.apiRoutes.checkEmail, email).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.checkEmail, email);
   }
 
   /**
@@ -69,7 +64,7 @@ export class NavigationService {
    */
 
   getRoles() {
-    return this.http.get(ConstantService.apiRoutes.getRoles).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.getRoles);
   }
 
   /**
@@ -78,7 +73,8 @@ export class NavigationService {
    */
 
   inviteUser(data) {
-    return this.http.post(ConstantService.apiRoutes.getInvite, data).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.getInvite, data);
   }
 
   /**
@@ -143,7 +139,7 @@ export class NavigationService {
    */
 
   logoutUser() {
-    return this.http.get(ConstantService.apiRoutes.logout);
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.logout);
   }
 
   updateCurrentUser(data: any) {
