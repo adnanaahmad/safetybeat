@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {AddQuestionData, QuestionCenter} from 'src/app/models/adminCOntrol/questionCenter.model';
+import {AddQuestionData, QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';

@@ -153,7 +153,7 @@ export class InviteTeamModalComponent implements OnInit {
       },
       error => {
         this.inviteTeamModel.loading = false;
-        this.helperService.handleError(error);
+        this.helperService.handleError(error, this);
       }
     );
   }

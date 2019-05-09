@@ -179,16 +179,16 @@ export class HelperService {
     let response;
     switch (method) {
       case this.constants.apiMethod.post:
-        response = this.http.post(api, data).pipe(catchError(this.handleError));
+        response = this.http.post(api, data).pipe(catchError(err => this.handleError(err, this)));
         break;
       case this.constants.apiMethod.get:
-        response = this.http.get(api).pipe(catchError(this.handleError));
+        response = this.http.get(api).pipe(catchError(err => this.handleError(err, this)));
         break;
       case this.constants.apiMethod.put:
-        response = this.http.put(api, data).pipe(catchError(this.handleError));
+        response = this.http.put(api, data).pipe(catchError(err => this.handleError(err, this)));
         break;
       case this.constants.apiMethod.delete:
-        response = this.http.delete(api).pipe(catchError(this.handleError));
+        response = this.http.delete(api).pipe(catchError(err => this.handleError(err, this)));
         break;
       default:
         break;
@@ -201,7 +201,8 @@ export class HelperService {
    * @params error
    */
 
-  handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse, self) {
+    self.logoutError(error.status);
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);

@@ -60,7 +60,6 @@ export class QuestionCenterComponent implements OnInit {
 
 
   getAllquestions() {
-    debugger;
     let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
 

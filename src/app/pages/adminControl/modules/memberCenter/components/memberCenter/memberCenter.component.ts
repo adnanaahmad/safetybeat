@@ -6,7 +6,6 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
 import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
-// tslint:disable-next-line:max-line-length
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
@@ -60,7 +59,7 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
       this.memberCenter.userId = this.memberCenter.user.data.user.id;
     });
     this.navService.selectedEntityData.subscribe((res) => {
-      this.memberCenter.currentRole = res.role ;
+      this.memberCenter.currentRole = res.role;
     });
 
   }

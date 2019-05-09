@@ -111,7 +111,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
         this.userService.updateUsers(this.inviteUserModal.allUsersList);
       },
       error => {
-        this.helperService.logoutError(error.status);
       }
     );
   }
