@@ -80,6 +80,10 @@
             <mat-icon>whatshot</mat-icon>
             Add Hazard
           </button>
+          <button mat-menu-item *ngIf="siteCentreObj.siteOption"  (click)="confirmationModal(element.site.id)">
+            <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
+            Delete
+          </button>
         </mat-menu>
       </td>
     </ng-container>

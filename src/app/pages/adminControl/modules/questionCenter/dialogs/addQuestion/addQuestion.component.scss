@@ -1,0 +1,9 @@
+@mixin amte-addQuestion($primary, $accent, $warn) {
+  :host,
+  app-addQuestion {
+    mat-radio-button{
+      margin-right: 10px;
+      margin-bottom: 20px;
+    }
+  }
+}

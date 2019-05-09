@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {Component, OnInit} from '@angular/core';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {AddQuestionComponent} from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
+import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
+import {QuestionCenterService} from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+
 
 @Component({
   selector: 'app-questionCenter',
   templateUrl: './questionCenter.component.html',
   styleUrls: ['./questionCenter.component.scss'],
 })
-export class QuestionCenterComponent {
+export class QuestionCenterComponent implements OnInit {
+
   todo = [
     'Is a site specific induction required for this site?',
     'Do you know how to safely exit the site in the event of an emergency?',
@@ -26,7 +33,19 @@ export class QuestionCenterComponent {
     'Is the visibility in the work area adequate?',
     'Are there members of the public and/or other trades in your work area?'
   ];
+  QuestionObj: QuestionCenter = <QuestionCenter>{};
 
+  constructor(
+    public helperService: HelperService,
+    private questionCenterService: QuestionCenterService,
+    private compiler: CompilerProvider,
+  ) {
+    this.QuestionObj.translated = this.helperService.translated;
+  }
+
+  ngOnInit() {
+    this.getAllquestions();
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -37,5 +56,34 @@ export class QuestionCenterComponent {
         event.previousIndex,
         event.currentIndex);
     }
+  }
+
+
+  getAllquestions() {
+    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
+
+    this.questionCenterService.getAllQuestions({'entityId': entityId}).subscribe((res) => {
+      this.QuestionObj.allQuestions = res;
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+          res.responseDetails.message);
+      }
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED);
+    }, (err) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+        this.helperService.constants.status.ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR,
+        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED_ERROR);
+    });
+
+  }
+
+  addQuestion() {
+    this.helperService.createDialog(AddQuestionComponent, {disableClose: true});
   }
 }
