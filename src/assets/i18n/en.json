@@ -81,7 +81,9 @@
     "SAFE_QUESTION_BOTH": "Both",
     "CAN_PROCEED_QUESTION": "If incorrect answer, can proceed?",
     "CAN_PROCEED_QUESTION_YES": "Yes",
-    "CAN_PROCEED_QUESTION_NO": "No"
+    "CAN_PROCEED_QUESTION_NO": "No",
+    "SITESAFETYPLAN": "Safe Zone",
+    "SITEINFORMATION": "Site Information"
   },
   "BUTTONS": {
     "LOGIN": "Login",
