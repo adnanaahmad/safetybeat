@@ -38,32 +38,6 @@ export class AddHazardComponent implements OnInit {
         this.helperService.constants.status.ERROR);
     }
     );
-    this.fileInputTextDiv = document.getElementById('file_input_text_div');
-    this.fileInput = document.getElementById('file_input_file');
-    this.fileInputText = document.getElementById('file_input_text');
-    this.fileInput.addEventListener('change', this.changeInputText);
-    this.fileInput.addEventListener('change', this.changeState);
-  }
-  changeInputText() {
-    var str = this.fileInput.value;
-    var i;
-    if (str.lastIndexOf('\\')) {
-      i = str.lastIndexOf('\\') + 1;
-    } else if (str.lastIndexOf('/')) {
-      i = str.lastIndexOf('/') + 1;
-    }
-    this.fileInputText.value = str.slice(i, str.length);
-  }
-  changeState() {
-    if (this.fileInputText.value.length != 0) {
-      if (!this.fileInputTextDiv.classList.contains("is-focused")) {
-        this.fileInputTextDiv.classList.add('is-focused');
-      }
-    } else {
-      if (this.fileInputTextDiv.classList.contains("is-focused")) {
-        this.fileInputTextDiv.classList.remove('is-focused');
-      }
-    }
   }
   get addHazardControls() {
     return this.addHazardForm.controls;
