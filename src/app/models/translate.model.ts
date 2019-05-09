@@ -28,6 +28,8 @@ export interface Strings {
   SITEADDRESS: string;
   SITESAFETYPLAN: string;
   SITESAFETYMANAGER: string;
+  SAFEZONE: string;
+  SITEINFORMATION: string;
 }
 
 export interface Auth {
