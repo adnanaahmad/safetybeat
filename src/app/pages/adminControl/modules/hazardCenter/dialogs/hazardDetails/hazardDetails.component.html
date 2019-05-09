@@ -6,38 +6,38 @@
   <form [formGroup]="hazardDetailForm"   >
     <div class="form-group">
       <div full-width>
-        <mat-icon>place</mat-icon>
-        <strong>Site</strong>
+        <mat-icon>{{helperService.appIcons.place}}</mat-icon>
+        <strong>{{helperService.translated.STRINGS.SITE}}</strong>
         <p>{{data1.site.name}}</p>
       </div><hr>
       <div full-width>
-        <mat-icon>warning</mat-icon>
-        <strong>Risk</strong>
+        <mat-icon>{{helperService.appIcons.warning}}</mat-icon>
+        <strong>{{helperService.translated.STRINGS.RISK}}</strong>
         <p>{{data1.risk.name}}</p>
       </div><hr>
       <div full-width>
-        <mat-icon>check_circle</mat-icon>
-        <strong>Resolved</strong>
+        <mat-icon>{{helperService.appIcons.check_circle}}</mat-icon>
+        <strong>{{helperService.translated.STRINGS.RESOLVED}}</strong>
         <p>{{data1.hazard.resolved}}</p>
       </div><hr>
       <div full-width>
-        <mat-icon>schedule</mat-icon>
-        <strong>Date/Time</strong>
+        <mat-icon>{{helperService.appIcons.schedule}}</mat-icon>
+        <strong>{{helperService.translated.STRINGS.DATE_TIME}}</strong>
         <p>{{data1.hazard.dateTime | date}}</p>
       </div><hr>
       <div full-width>
-        <mat-icon>person</mat-icon>
-        <strong>Resolved By</strong>
+        <mat-icon>{{helperService.appIcons.person}}</mat-icon>
+        <strong>{{helperService.translated.STRINGS.RESOLVED_BY}}</strong>
         <p>{{data1.hazard.resolvedBy}}</p>
       </div><hr>
       <div full-width>
-        <mat-icon>person</mat-icon>
-        <strong>Added By</strong>
+        <mat-icon>{{helperService.appIcons.person}}</mat-icon>
+        <strong>{{helperService.translated.STRINGS.ADDED_BY}}</strong>
         <p>{{data1.hazard.addedBy}}</p>
       </div><hr>
       <div full-width>
-        <mat-icon>description</mat-icon>
-        <strong>Description</strong>
+        <mat-icon>{{helperService.appIcons.description}}</mat-icon>
+        <strong>{{helperService.translated.STRINGS.DESCRIPTION}}</strong>
         <p>{{data1.hazard.description}}</p>
       </div><hr>
     <mat-dialog-actions>

@@ -30,6 +30,13 @@ export interface Strings {
   SITESAFETYMANAGER: string;
   SAFEZONE: string;
   SITEINFORMATION: string;
+  SITE: string;
+  RISK: string;
+  RESOLVED: string;
+  DATE_TIME: string;
+  RESOLVED_BY: string;
+  ADDED_BY: string;
+  DESCRIPTION: string;
 }
 
 export interface Auth {

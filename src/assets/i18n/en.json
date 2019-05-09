@@ -83,7 +83,14 @@
     "CAN_PROCEED_QUESTION_YES": "Yes",
     "CAN_PROCEED_QUESTION_NO": "No",
     "SAFEZONE": "Safe Zone",
-    "SITEINFORMATION": "Site Information"
+    "SITEINFORMATION": "Site Information",
+    "SITE" : "Site",
+    "RISK": "Risk",
+    "RESOLVED": "Resolved",
+    "DATE_TIME": "Date/Time",
+    "RESOLVED_BY": "Resolved By",
+    "ADDED_BY": "Added By",
+    "DESCRIPTION": "Description"
   },
   "BUTTONS": {
     "LOGIN": "Login",
