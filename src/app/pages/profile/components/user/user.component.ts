@@ -84,7 +84,6 @@ export class UserComponent implements OnInit, OnDestroy {
         this.userModel.dataSource.paginator = this.paginator;
       },
       error => {
-        this.helperService.logoutError(error.status);
       }
     );
   }

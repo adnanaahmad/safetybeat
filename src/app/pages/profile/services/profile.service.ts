@@ -28,7 +28,7 @@ export class ProfileService {
    */
 
   getUser() {
-    return this.http.get(`${ConstantService.apiRoutes.user}`).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.user);
   }
 
   /**
@@ -36,7 +36,8 @@ export class ProfileService {
    */
 
   getAllUsers() {
-    return this.http.get(`${ConstantService.apiRoutes.allUsersOfOrganization}`).pipe(catchError(this.coreServices.handleError));
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
+      this.helperService.constants.apiRoutes.allUsersOfOrganization);
   }
 
   /**
@@ -52,7 +53,7 @@ export class ProfileService {
     return this.helperService.requestCall(
       this.method.get,
       `${this.apiRoutes.userInfo}${id}/`
-    )
+    );
   }
 
   profilePicUpdate(data: any) {
@@ -60,7 +61,7 @@ export class ProfileService {
       this.method.post,
       this.apiRoutes.profilePic,
       data
-    )
+    );
   }
 
 

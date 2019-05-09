@@ -16,13 +16,14 @@ export interface Hazard {
   site: Site
 }
 export interface NewHazard {
-  title: string,
-  risk: string,
-  addedBy: any
-  dateTime: any
-  description: string
-  id: number
-  resolved: boolean
-  resolvedBy: string
-  site: any
+  title: string;
+  risk: string;
+  addedBy: any;
+  dateTime: any;
+  description: string;
+  id: number;
+  resolved: boolean;
+  resolvedBy: string;
+  site: any;
+  image: File;
 }
