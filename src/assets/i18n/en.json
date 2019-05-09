@@ -281,7 +281,9 @@
     "ALL_QUESTION_SUCCESS": "All questions of entity received",
     "ALL_QUESTION_FAILURE": "No questions for the entity exists",
     "HAZARD_NOT_ADDED": "Hazard could not be added",
-    "HAZARD_LIST_FAIL":"Hazard List could not be added."
+    "HAZARD_LIST_FAIL":"Hazard List could not be added.",
+    "HAZARD_EDITED": "Hazard Edited Successfully",
+    "HAZARD_EDIT_FAIL": "Hazard could not be edited."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

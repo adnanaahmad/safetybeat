@@ -151,6 +151,11 @@ export class AdminControlService {
       `${this.helperService.constants.apiRoutes.addHazard}`, data);
   }
 
+  editHazard(id, data) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      `${this.helperService.constants.apiRoutes.addHazard}${id}`, data);
+  }
+
   getHazards() {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
       `${this.helperService.constants.apiRoutes.hazardList}`);
