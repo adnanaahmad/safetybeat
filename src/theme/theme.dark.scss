@@ -297,18 +297,16 @@ $theme: createTheme($primary, $secondary, $warn);
     }
   }
   app-settings {
+    .settings-parent {
+      background: transparent !important;
+    }
     .navigator {
-      background-color: mat-color($primary, 400);
       mat-list-item {
         span {
           color: #fff !important;
           &:hover,
           &.settingNav {
-            background: mat-color($primary-pallet, 500);
-            color: #fff;
-            .mat-icon {
-              color: #fff;
-            }
+            border-color: mat-color($primary-pallet, 500);
           }
         }
       }
@@ -316,18 +314,6 @@ $theme: createTheme($primary, $secondary, $warn);
     .settings-wrap {
       .mat-list-item {
         border-color: mat-color($primary-pallet, 400) !important;
-      }
-      input[type="text"],
-      input[type="email"],
-      input[type="password"],
-      input[type="number"],
-      textarea {
-        background-color: transparent;
-        border: 1px solid rgba(221, 221, 221, 0.24);
-        caret-color: #fff;
-      }
-      mat-select {
-        background-color: transparent;
       }
     }
   }

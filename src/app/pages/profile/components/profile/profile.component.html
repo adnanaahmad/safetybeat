@@ -1,29 +1,23 @@
 <div class="theme-selector">
   <mat-toolbar class="pagehead">
-    <div class="user-avatar" >
-      <img src="{{ profileModel.profileImage != null ? serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
+    <div class="user-avatar">
+      <img
+        src="{{ profileModel.profileImage != null ? serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
       <span class="change-avatar">
-        <input
-          type='file'
-          name="{{helperService.appConstants.profileImage}}"
-          id="{{helperService.appConstants.profileImage}}"
-          accept='image/*'
-          (change)=uploadProfileImage($event)
-        />
-        Change Profile Picture</span>
+        <input type='file' name="{{helperService.appConstants.profileImage}}"
+          id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />
+        Change Picture</span>
     </div>
     <div class="user-info" *ngIf="profileModel.profileData">
       <h3>
-        <strong matTooltipPosition="after" matTooltip="{{profileModel.email}}" aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.username }}</strong>
+        <strong matTooltipPosition="after" matTooltip="{{profileModel.email}}"
+          aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.username }}</strong>
       </h3>
       <p>{{profileModel.role}} <strong>{{profileModel.entityName}}</strong></p>
     </div>
-    <button class="settings-btn" routerLink="/home/settings" btn-primary mat-raised-button color="primary">
-      <mat-icon>settings</mat-icon>
-    </button>
   </mat-toolbar>
   <div class="paddingbox">
-    <mat-grid-list cols="4" rowHeight="220px" gutterSize="30px">
+    <mat-grid-list cols="4" rowHeight="250px" gutterSize="30px">
       <mat-grid-tile colspan="2">
         <!-- Activites -->
         <mat-card class="dashboard-card activities mat-elevation-z8">
