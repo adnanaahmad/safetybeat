@@ -205,12 +205,12 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
-      {
-        route: '/home/profile/user',
-        iconName: this.appIcons.group,
-        displayName: 'Users',
-        disabled: data.permissions.allUsers
-      },
+      // {
+      //   route: '/home/profile/user',
+      //   iconName: this.appIcons.group,
+      //   displayName: 'Users',
+      //   disabled: data.permissions.allUsers
+      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',
@@ -330,12 +330,12 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
-      {
-        route: '/home/profile/user',
-        iconName: this.appIcons.group,
-        displayName: 'Users',
-        disabled: data.permissions.allUsers
-      },
+      // {
+      //   route: '/home/profile/user',
+      //   iconName: this.appIcons.group,
+      //   displayName: 'Users',
+      //   disabled: data.permissions.allUsers
+      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',

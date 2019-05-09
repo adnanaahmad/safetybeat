@@ -62,6 +62,7 @@ export class ConstantService {
     getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
+    viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
   };
   /**
    * all the api methods are declared here.

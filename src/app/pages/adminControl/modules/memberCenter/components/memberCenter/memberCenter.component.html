@@ -3,7 +3,9 @@
     <h3>{{ helperService.translated.SITETITLE.MEMBERCENTER_TITLE }}</h3>
   </div>
   <div class="buttonRow">
-    <button btn-primary mat-raised-button color="primary" (click)="inviteUser()">
+    <button btn-primary mat-raised-button color="primary"
+            *ngIf="memberCenter.currentRole===helperService.appConstants.roles.entityManager||memberCenter.currentRole===helperService.appConstants.roles.owner"
+            (click)="inviteUser()">
       <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
       {{ helperService.translated.BUTTONS.INVITE_USER}}
     </button>
