@@ -199,7 +199,8 @@ export class ConstantService {
     enterKey: 13,
     importSite: 'importSite',
     csvFile: 'csvFile',
-    profileImage: 'profileImage'
+    profileImage: 'profileImage',
+    noHazard: './assets/images/no-hazard.png'
   };
   /**
    * all the material icon names are declared here.

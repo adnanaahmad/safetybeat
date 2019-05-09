@@ -176,16 +176,11 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
   }
   app-settings {
     .navigator {
-      background-color: #fff;
       mat-list-item {
         span {
           &:hover,
           &.settingNav {
-            background: mat-color($primary-pallet, 500);
-            color: #fff;
-            .mat-icon {
-              color: #fff;
-            }
+            border-color: mat-color($primary-pallet, 500);
           }
         }
       }
