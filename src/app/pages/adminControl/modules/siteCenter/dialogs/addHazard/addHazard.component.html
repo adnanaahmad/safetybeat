@@ -8,15 +8,15 @@
   <form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="addHazard(hazardObj.addHazardForm)">
     <div class="form-group">
       <mat-form-field full-width>
-        <input matInput type="text" formControlName="title"  placeholder="Title" required/>
+        <input matInput type="text" formControlName="title" placeholder="Title" required />
         <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-          <span>Field is Required</span>
+          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>
       </mat-form-field>
-      <mat-form-field full-width >
-        <input matInput type="text" formControlName="description" required placeholder="Description"/>
+      <mat-form-field full-width>
+        <input matInput type="text" formControlName="description" required placeholder="Description" />
         <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
-          <span>Field is Required</span>
+          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field full-width>

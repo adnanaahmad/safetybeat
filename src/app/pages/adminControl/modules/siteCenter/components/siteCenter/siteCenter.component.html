@@ -46,7 +46,8 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ helperService.translated.TABLEHEADINGS.SITE_SAFETY_MANAGER }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.siteSafetyManager.first_name }} {{ element.siteSafetyManager.last_name }}<br>
+      <td mat-cell *matCellDef="let element">{{ element.siteSafetyManager.first_name }}
+        {{ element.siteSafetyManager.last_name }}<br>
         {{ element.siteSafetyManager.email }} </td>
     </ng-container>
 
@@ -77,10 +78,10 @@
             Log
           </button>
           <button mat-menu-item (click)="openDialog(element.site.id)">
-            <mat-icon>whatshot</mat-icon>
+            <mat-icon>{{ helperService.appIcons.warning }}</mat-icon>
             Add Hazard
           </button>
-          <button mat-menu-item *ngIf="siteCentreObj.siteOption"  (click)="confirmationModal(element.site.id)">
+          <button mat-menu-item *ngIf="siteCentreObj.siteOption" (click)="confirmationModal(element.site.id)">
             <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
             Delete
           </button>

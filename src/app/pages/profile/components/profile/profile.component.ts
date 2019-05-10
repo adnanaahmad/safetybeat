@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  serverUrl = environment.serverUrl;
 
 
   constructor(
@@ -37,6 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public  profileService: ProfileService
   ) {
+    this.profileModel.serverUrl = this.helperService.appConstants.serverUrl;
     this.initialize();
     this.helperService.appLoggerDev(
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,

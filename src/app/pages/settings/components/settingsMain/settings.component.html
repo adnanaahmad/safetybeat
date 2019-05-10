@@ -8,7 +8,7 @@
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('allUsers')">
+        <span [ngClass]="settingFeatures.allUsers ? 'settingNav' : 'abc'" (click)="changeSetting('allUsers')">
           <mat-icon>{{helperService.appIcons.group}}</mat-icon> All Users
         </span>
       </mat-list-item>

@@ -91,6 +91,7 @@ export interface Auth {
   TRIAL: string;
   OWNER: string;
   LOGOUTSUCCESSION: string;
+  REQUIRED_FIELD: string;
 }
 
 export interface Icons {

@@ -1,0 +1,9 @@
+@mixin amte-hazardCenter($primary, $accent, $warn) {
+  :host,
+  app-hazardCenter {
+    .customTable td,
+    .customTable th {
+      padding: 0 10px !important;
+    }
+  }
+}
