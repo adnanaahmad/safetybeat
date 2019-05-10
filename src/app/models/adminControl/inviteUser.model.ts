@@ -4,6 +4,8 @@ import {SitesInfo} from '../site.model';
 import {Subscription} from 'rxjs';
 
 export interface InviteUser {
+  elements: any;
+  dataSource: any;
   selectedSite: any;
   allUsersList: any;
   allUsers: any;
