@@ -9,13 +9,15 @@ export interface HazardModel {
 }
 
 export interface AddHazardModel {
-  modalType: boolean;
+  editModal: boolean;
   image: File;
   addHazardForm: FormGroup;
 }
 export interface Hazard {
   hazard: NewHazard;
-  site: Site
+  site: Site;
+  user: User;
+  risk: RiskType;
 }
 export interface NewHazard {
   title: string;
@@ -28,4 +30,8 @@ export interface NewHazard {
   resolvedBy: string;
   site: any;
   image: File;
+}
+export interface RiskType {
+  id: number
+  name: string
 }

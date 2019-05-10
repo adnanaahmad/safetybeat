@@ -33,14 +33,7 @@ export class HazardCenterComponent implements OnInit {
   }
 
   initialize() {
-    this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        let entityId = {
-          'entityId': res.entityInfo.id
-        };
-        this.getHazardList(entityId);
-      }
-    });
+    this.getHazardList();
   }
 
   openDetailsDialog(data) {
@@ -50,21 +43,29 @@ export class HazardCenterComponent implements OnInit {
     });
   }
 
-  getHazardList(entityId) {
-    this.adminControlService.allHazards(entityId).subscribe((res) => {
+  getHazardList() {
+    let entityData = {
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+    };
+    this.adminControlService.allHazards(entityData).subscribe((res) => {
       if (res !== 1 && res !== '') {
         this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
         this.hazardTable.dataSource.paginator = this.paginator;
-      }  else if (res === '') {
+      } else if (res === '') {
         this.hazardTable.dataSource = 0;
       }
     });
   }
 
-  editHazard(hazardInfo: Hazard) {
+  editHazard(hazard: Hazard) {
+    console.log(hazard);
     this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
-      data: {Modal: false, hazard: hazardInfo}
+      data: {Modal: true, hazardInfo: hazard}
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.getHazardList();
     });
   }
 }
