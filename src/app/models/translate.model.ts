@@ -30,6 +30,13 @@ export interface Strings {
   SITESAFETYMANAGER: string;
   SAFEZONE: string;
   SITEINFORMATION: string;
+  SITE: string;
+  RISK: string;
+  RESOLVED: string;
+  DATE_TIME: string;
+  RESOLVED_BY: string;
+  ADDED_BY: string;
+  DESCRIPTION: string;
 }
 
 export interface Auth {
@@ -333,6 +340,7 @@ export interface Messages {
   ALL_QUESTION_FAILURE: string;
   HAZARD_ADDED: string;
   HAZARD_NOT_ADDED: string;
+  HAZARD_LIST_FAIL: string
 }
 
 export interface Logger {

@@ -3,44 +3,59 @@
 </mat-card-title>
 
 <div mat-dialog-content>
-  <form [formGroup]="hazardDetailForm"   >
-    <div class="form-group">
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder="Risk"
-               formControlName="risk" required />
-<!--        <mat-error *ngIf="formValidation.siteName.errors">-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteName.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>-->
-<!--        </mat-error>-->
-      </mat-form-field>
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder="Resolved By"
-               formControlName="resolvedBy" required />
-<!--        <mat-error *ngIf="formValidation.siteSafetyPlan.errors">-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>-->
-<!--        </mat-error>-->
-      </mat-form-field>
-      <mat-form-field full-width>
-        <input matInput type="text" placeholder="Added By"
-               formControlName="addedBy" required/>
-<!--        <mat-error *ngIf="formValidation.siteAddress.errors">-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteAddress.errors.required">{{helperService.translated.MESSAGES.OFFICELOCATION_REQ}}</span>-->
-<!--          <span-->
-<!--            *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>-->
-<!--        </mat-error>-->
-      </mat-form-field>
-    <mat-dialog-actions>
-      <button mat-raised-button custom-btn btn-primary
-              color="primary" >
-        Done
-      </button>
-      <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
-        {{ helperService.translated.BUTTONS.CANCEL }}
-      </button>
+  <form [formGroup]="hazardDetailForm">
 
+    <mat-list>
+      <h3 mat-subheader>{{helperService.translated.STRINGS.SITE}}</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>{{helperService.appIcons.place}}</mat-icon>
+        <p mat-line> {{data1.site.name}} </p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader>{{helperService.translated.STRINGS.RISK}}</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>{{helperService.appIcons.warning}}</mat-icon>
+        <p mat-line>{{data1.risk.name}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader>{{helperService.translated.STRINGS.RESOLVED}}</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>{{helperService.appIcons.check_circle}}</mat-icon>
+        <p mat-line>{{data1.hazard.resolved}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader>{{helperService.translated.STRINGS.DATE_TIME}}</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>{{helperService.appIcons.schedule}}</mat-icon>
+        <p mat-line>{{data1.hazard.dateTime | date}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader>{{helperService.translated.STRINGS.RESOLVED_BY}}</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
+        <p mat-line>{{data1.hazard.resolvedBy}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader>{{helperService.translated.STRINGS.ADDED_BY}}</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
+        <p mat-line>{{data1.hazard.addedBy}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <h3 mat-subheader>{{helperService.translated.STRINGS.DESCRIPTION}}</h3>
+      <mat-list-item>
+        <mat-icon mat-list-icon>{{helperService.appIcons.description}}</mat-icon>
+        <p mat-line>{{data1.hazard.description}}</p>
+      </mat-list-item>
+    </mat-list>
+    <mat-dialog-actions>
+      <button mat-raised-button custom-btn btn-primary color="primary" mat-dialog-close>Ok</button>
     </mat-dialog-actions>
-    </div>
   </form>
 </div>

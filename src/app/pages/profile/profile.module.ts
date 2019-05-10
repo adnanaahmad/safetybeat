@@ -23,6 +23,9 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     HttpClientModule,
   ],
+  exports: [
+    UserComponent
+  ],
   providers: [
     ProfileService,
     CompilerProvider,

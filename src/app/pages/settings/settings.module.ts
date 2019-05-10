@@ -13,6 +13,7 @@ import {OrganizationInfoComponent} from './components/organizationInfo/organizat
 import {GroupSettingComponent} from './components/groupSetting/groupSetting.component';
 import {EntitySettingComponent} from './components/entitySetting/entitySetting.component';
 import {PermissionComponent} from './components/permission/permission.component';
+import {ProfileModule} from 'src/app/pages/profile/profile.module';
 
 @NgModule({
   declarations: [SettingsComponent, OrganizationInfoComponent, GroupSettingComponent, EntitySettingComponent, PermissionComponent],
@@ -22,6 +23,7 @@ import {PermissionComponent} from './components/permission/permission.component'
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    ProfileModule,
   ],
   providers: [
     CompilerProvider,

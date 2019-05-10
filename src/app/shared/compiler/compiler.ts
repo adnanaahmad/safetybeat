@@ -130,7 +130,9 @@ export class CompilerProvider {
     this.helperService.iterations(hazardResponse.data, function (hazard) {
       let obj: Hazard = {
         hazard: hazard.hazard,
-        site: hazard.site
+        site: hazard.site,
+        user: hazard.user,
+        risk: hazard.risk
       }
       hazardArray.push(obj);
     })
@@ -203,12 +205,12 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
-      {
-        route: '/home/profile/user',
-        iconName: this.appIcons.group,
-        displayName: 'Users',
-        disabled: data.permissions.allUsers
-      },
+      // {
+      //   route: '/home/profile/user',
+      //   iconName: this.appIcons.group,
+      //   displayName: 'Users',
+      //   disabled: data.permissions.allUsers
+      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',
@@ -328,12 +330,12 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
-      {
-        route: '/home/profile/user',
-        iconName: this.appIcons.group,
-        displayName: 'Users',
-        disabled: data.permissions.allUsers
-      },
+      // {
+      //   route: '/home/profile/user',
+      //   iconName: this.appIcons.group,
+      //   displayName: 'Users',
+      //   disabled: data.permissions.allUsers
+      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',

@@ -38,7 +38,6 @@ import {HazardDetailsComponent} from './pages/adminControl/modules/hazardCenter/
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {GeneralComponent} from './pages/settings/components/general/general.component';
 import {SecurityComponent} from './pages/settings/components/security/security.component';
-import {EditHazardComponent} from './edit-hazard/edit-hazard.component';
 import {AddQuestionComponent} from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -64,7 +63,6 @@ export function createTranslateLoader(http: HttpClient) {
     HazardDetailsComponent,
     GeneralComponent,
     SecurityComponent,
-    EditHazardComponent,
     AddQuestionComponent
   ],
   imports: [

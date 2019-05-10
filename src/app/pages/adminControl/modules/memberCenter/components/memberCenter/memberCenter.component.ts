@@ -29,13 +29,13 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
     'accessLevel',
     'symbol'
   ];
-  serverUrl = environment.serverUrl;
 
   constructor(public helperService: HelperService,
               public memberService: MemberCenterService,
               public navService: NavigationService,
               public compiler: CompilerProvider,
               public userService: ProfileService) {
+                this.memberCenter.serverUrl = this.helperService.appConstants.serverUrl;
   }
 
 

@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, Validators} from '@angular/forms';
 
@@ -10,6 +10,8 @@ import {FormBuilder, Validators} from '@angular/forms';
 })
 export class HazardDetailsComponent implements OnInit {
   hazardDetailForm: any;
+  data1: any;
+
 
   constructor(public helperService: HelperService,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -21,13 +23,8 @@ export class HazardDetailsComponent implements OnInit {
       resolvedBy: ['', Validators.required],
       addedBy: ['', Validators.required]
     });
-    this.hazardDetailsControl['risk'].setValue(this.data.data.title);
-    this.hazardDetailsControl['resolvedBy'].setValue(this.data.data.resolvedBy);
-    this.hazardDetailsControl['addedBy'].setValue(this.data.data.addedBy);
+    this.data1 = this.data.data;
+  }
 
-  }
-  get hazardDetailsControl() {
-    return this.hazardDetailForm.controls;
-  }
 
 }

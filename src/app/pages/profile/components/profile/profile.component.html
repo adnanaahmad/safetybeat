@@ -2,7 +2,7 @@
   <mat-toolbar class="pagehead">
     <div class="user-avatar">
       <img
-        src="{{ profileModel.profileImage != null ? serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
+        src="{{ profileModel.profileImage != null ? profileModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
       <span class="change-avatar">
         <input type='file' name="{{helperService.appConstants.profileImage}}"
           id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />

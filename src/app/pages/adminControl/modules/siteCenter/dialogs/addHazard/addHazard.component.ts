@@ -11,12 +11,8 @@ import { AdminControlService } from 'src/app/pages/adminControl/services/adminCo
   styleUrls: ['./addHazard.component.scss']
 })
 export class AddHazardComponent implements OnInit {
-  private addHazardForm: FormGroup;
   hazardObj: AddHazardModel = <AddHazardModel>{};
-  risks: string[];
-  fileInputTextDiv: any;
-  fileInput: any;
-  fileInputText: any;
+
 
   constructor(public formBuilder: FormBuilder,
     public helperService: HelperService,
@@ -25,22 +21,23 @@ export class AddHazardComponent implements OnInit {
     public dialogRef: MatDialogRef<AddHazardComponent>) { }
 
   ngOnInit() {
-    this.addHazardForm = this.formBuilder.group({
+    this.hazardObj.addHazardForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
       risk: ['']
     });
+    this.hazardObj.formType = this.data.type;
     this.service.getHazards().subscribe((res) => {
-      this.risks = res;
-    }, (error) => {
-      this.addHazardForm.disable();
-      this.helperService.createSnack('Hazard list could not be added',
-        this.helperService.constants.status.ERROR);
-    }
+        this.hazardObj.risks = res;
+      }, (error) => {
+        this.hazardObj.addHazardForm.disable();
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_LIST_FAIL,
+          this.helperService.constants.status.ERROR);
+      }
     );
   }
   get addHazardControls() {
-    return this.addHazardForm.controls;
+    return this.hazardObj.addHazardForm.controls;
   }
 
   onFileSelected(event) {

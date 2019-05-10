@@ -3,8 +3,6 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {ConstantService} from 'src/app/shared/constant/constant.service';
-import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +14,7 @@ export class AdminControlService {
   private sites = new BehaviorSubject<any>(1);
   siteObserver = this.sites.asObservable();
 
-  constructor(public helperService: HelperService,
-              private http: HttpClient) {
+  constructor(public helperService: HelperService) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.method = this.helperService.constants.apiMethod;
   }
@@ -159,5 +156,10 @@ export class AdminControlService {
   allHazards(entityId) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       `${this.helperService.constants.apiRoutes.allHazards}`, entityId);
+  }
+
+  allConnections() {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
+      this.helperService.constants.apiRoutes.viewAllConnections);
   }
 }

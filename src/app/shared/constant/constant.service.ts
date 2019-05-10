@@ -62,6 +62,7 @@ export class ConstantService {
     getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
+    viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
   };
   /**
    * all the api methods are declared here.
@@ -118,6 +119,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    serverUrl: 'http://192.168.69.19/',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -268,6 +270,10 @@ export class ConstantService {
     permIdentity: 'perm_identity',
     clear: 'clear',
     security: 'security',
+    place: 'place',
+    check_circle: 'check_circle',
+    schedule: 'schedule',
+    description: 'description'
   };
   /**
    * all the particle container icon names are declared here.

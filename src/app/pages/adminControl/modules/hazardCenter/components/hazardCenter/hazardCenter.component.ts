@@ -6,6 +6,7 @@ import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardC
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {AddHazardComponent} from '../../../siteCenter/dialogs/addHazard/addHazard.component';
 import {environment} from 'src/environments/environment';
 
 @Component({
@@ -17,7 +18,6 @@ export class HazardCenterComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   hazardTable: HazardModel = <HazardModel>{};
   displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
-  serverUrl = environment.serverUrl;
 
 
   constructor(
@@ -25,6 +25,7 @@ export class HazardCenterComponent implements OnInit {
     private navService: NavigationService,
     private compiler: CompilerProvider,
     private adminControlService: AdminControlService) {
+      this.hazardTable.serverUrl = this.helperService.appConstants.serverUrl;
   }
 
   ngOnInit() {
@@ -42,7 +43,7 @@ export class HazardCenterComponent implements OnInit {
     });
   }
 
-  openDialog(data) {
+  openDetailsDialog(data) {
     this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
       data: {data: data}
@@ -51,8 +52,20 @@ export class HazardCenterComponent implements OnInit {
 
   getHazardList(entityId) {
     this.adminControlService.allHazards(entityId).subscribe((res) => {
-      this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
-      this.hazardTable.dataSource.paginator = this.paginator;
+      console.log(res);
+      if (res !== 1 && res !== '') {
+        this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
+        this.hazardTable.dataSource.paginator = this.paginator;
+      }  else if (res === '') {
+        this.hazardTable.dataSource = 0;
+      }
+    });
+  }
+
+  openEditDialog(element: any) {
+    this.helperService.createDialog(AddHazardComponent, {
+      disableClose: true,
+      data: {data: element, type: 'edit'}
     });
   }
 }
