@@ -55,13 +55,14 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
-    addHazard: `${environment.apiUrl}/api/hazard/`,
-    hazardList: `${environment.apiUrl}/api/riskType/`,
+    viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
+    riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
     getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
+    viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
   };
   /**
    * all the api methods are declared here.
@@ -199,7 +200,8 @@ export class ConstantService {
     enterKey: 13,
     importSite: 'importSite',
     csvFile: 'csvFile',
-    profileImage: 'profileImage'
+    profileImage: 'profileImage',
+    noHazard: './assets/images/no-hazard.png'
   };
   /**
    * all the material icon names are declared here.
@@ -267,6 +269,10 @@ export class ConstantService {
     permIdentity: 'perm_identity',
     clear: 'clear',
     security: 'security',
+    place: 'place',
+    check_circle: 'check_circle',
+    schedule: 'schedule',
+    description: 'description'
   };
   /**
    * all the particle container icon names are declared here.

@@ -90,11 +90,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    */
 
   siteFormSubmit({value}: { value: SiteAddData }) {
-    if (this.addSiteObj.modalType === false) {
-      this.editSite(value);
-    } else {
-      this.addSite(value);
-    }
+    this.addSiteObj.modalType ? this.addSite(value) : this.editSite(value);
   }
 
   /**
@@ -133,7 +129,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    * @params editSite
    */
 
-  generateSiteDate(value, editSite) {
+  generateSiteData(value, editSite) {
     let siteData: any = {
       name: value.siteName,
       location: this.helperService.address,
@@ -155,7 +151,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
 
   editSite(value) {
     this.addSiteObj.loading = true;
-    this.adminServices.editSite(this.addSiteObj.site.id, this.generateSiteDate(value, true)).subscribe((res) => {
+    this.adminServices.editSite(this.addSiteObj.site.id, this.generateSiteData(value, true)).subscribe((res) => {
       this.addSiteObj.loading = false;
       this.onNoClick();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
@@ -171,7 +167,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
 
   addSite(value) {
     this.addSiteObj.loading = true;
-    this.adminServices.addSite(this.generateSiteDate(value, false)).subscribe((res) => {
+    this.adminServices.addSite(this.generateSiteData(value, false)).subscribe((res) => {
       this.addSiteObj.addSiteResponse = res;
       if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;

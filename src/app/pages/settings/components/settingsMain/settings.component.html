@@ -1,59 +1,85 @@
-<!-- Settings navigation -->
-<div class="navigator">
-  <mat-list role="list">
-    <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.organization ? 'settingNav' : 'abc'" (click)="changeSetting('organization')"><mat-icon>business</mat-icon>Organization Info</span>
+<div class="settings-parent">
+  <!-- Settings navigation -->
+  <div class="navigator">
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <span [ngClass]="settingFeatures.organization ? 'settingNav' : 'abc'" (click)="changeSetting('organization')">
+          <mat-icon>business</mat-icon>Organization Info
+        </span>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('allUsers')">
+          <mat-icon>{{helperService.appIcons.group}}</mat-icon> All Users
+        </span>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span [ngClass]="settingFeatures.group ? 'settingNav' : 'abc'" (click)="changeSetting('group')">
+          <mat-icon>group_add</mat-icon> Create Group
+        </span>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'" (click)="changeSetting('entity')">
+          <mat-icon>screen_lock_portrait</mat-icon> Entity Settings
+        </span>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span [ngClass]="settingFeatures.permission ? 'settingNav' : 'abc'" (click)="changeSetting('permission')">
+          <mat-icon>perm_data_setting</mat-icon> Permission Settings
+        </span>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('theme')">
+          <mat-icon>brightness_medium</mat-icon> Theme Settings
+        </span>
     </mat-list-item>
-    <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.group ? 'settingNav' : 'abc'" (click)="changeSetting('group')"><mat-icon>group_add</mat-icon> Create Group</span>
-    </mat-list-item>
-    <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'" (click)="changeSetting('entity')"><mat-icon>screen_lock_portrait</mat-icon> Entity Settings</span>
-    </mat-list-item>
-    <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.permission ? 'settingNav' : 'abc'" (click)="changeSetting('permission')"><mat-icon>perm_data_setting</mat-icon> Permission Settings</span>
-    </mat-list-item>
-    <mat-list-item role="listitem">
-      <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('theme')"><mat-icon>brightness_medium</mat-icon> Theme Settings</span>
-    </mat-list-item>
-  </mat-list>
-</div><!-- /Settings navigation -->
+    </mat-list>
+  </div><!-- /Settings navigation -->
 
-<div class="settings-wrap  theme-selector">
-  <div class="flexbox">
-    <!--Organization Settings-->
-    <div *ngIf="settingFeatures.organization">
-      <app-organization-info></app-organization-info>
-    </div><!-- /Organization Settings-->
+  <div class="settings-wrap theme-selector">
+    <div class="flexbox">
+      <!--Organization Settings-->
+      <div *ngIf="settingFeatures.organization">
+        <app-organization-info></app-organization-info>
+      </div><!-- /Organization Settings-->
 
-    <!--Group Settings-->
-    <div *ngIf="settingFeatures.group">
-      <app-group-setting></app-group-setting>
-    </div><!-- /Group Settings-->
+      <!--Group Settings-->
+      <div *ngIf="settingFeatures.group">
+        <app-group-setting></app-group-setting>
+      </div><!-- /Group Settings-->
 
-    <!--Privacy Settings-->
-    <div *ngIf="settingFeatures.entity">
-      <app-entity-setting></app-entity-setting>
-    </div><!-- /Privacy Settings-->
+      <!--Privacy Settings-->
+      <div *ngIf="settingFeatures.entity">
+        <app-entity-setting></app-entity-setting>
+      </div><!-- /Privacy Settings-->
 
-    <!-- Permission Settings -->
-    <div *ngIf="settingFeatures.permission">
-      <app-permission></app-permission>
+      <!-- Permission Settings -->
+      <div *ngIf="settingFeatures.permission">
+        <app-permission></app-permission>
+      </div>
+
+      <!-- Permission Settings -->
+      <div *ngIf="settingFeatures.allUsers">
+       <app-user></app-user>
+      </div>
+
+      <!--Change Theme-->
+      <div *ngIf="settingFeatures.theme">
+        <h3 class="setting-title">Change Theme</h3>
+        <mat-list role="list" class="settings-list theme-selector">
+          <mat-list-item>
+            <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
+              <mat-radio-button value="{{ helperService.constants.appTheme.lightTheme }}">
+                {{ helperService.translated.STRINGS.LIGHTDEFAULT }}</mat-radio-button>
+              <mat-radio-button value="{{ helperService.constants.appTheme.darkTheme }}">
+                {{ helperService.translated.STRINGS.EVILDARK }}</mat-radio-button>
+              <mat-radio-button value="{{ helperService.constants.appTheme.oliveLight }}">
+                {{ helperService.translated.STRINGS.OLIVEGREEN }}</mat-radio-button>
+              <mat-radio-button value="{{ helperService.constants.appTheme.darkForest }}">
+                {{ helperService.translated.STRINGS.DARKFOREST }}</mat-radio-button>
+            </mat-radio-group>
+          </mat-list-item>
+        </mat-list>
+      </div><!-- /Change Theme-->
     </div>
-
-    <!--Change Theme-->
-    <div *ngIf="settingFeatures.theme">
-      <h3 class="setting-title">Change Theme</h3>
-      <mat-list role="list" class="settings-list theme-selector">
-        <mat-list-item>
-          <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">
-            <mat-radio-button value="{{ helperService.constants.appTheme.lightTheme }}">{{ helperService.translated.STRINGS.LIGHTDEFAULT }}</mat-radio-button>
-            <mat-radio-button value="{{ helperService.constants.appTheme.darkTheme }}">{{ helperService.translated.STRINGS.EVILDARK }}</mat-radio-button>
-            <mat-radio-button value="{{ helperService.constants.appTheme.oliveLight }}">{{ helperService.translated.STRINGS.OLIVEGREEN }}</mat-radio-button>
-            <mat-radio-button value="{{ helperService.constants.appTheme.darkForest }}">{{ helperService.translated.STRINGS.DARKFOREST }}</mat-radio-button>
-          </mat-radio-group>
-        </mat-list-item>
-      </mat-list>
-    </div><!-- /Change Theme-->
   </div>
 </div>

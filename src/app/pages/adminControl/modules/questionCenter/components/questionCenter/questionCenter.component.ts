@@ -65,7 +65,6 @@ export class QuestionCenterComponent implements OnInit {
 
     this.questionCenterService.getAllQuestions({'entityId': entityId}).subscribe((res) => {
       this.QuestionObj.allQuestions = res.data;
-      console.log(res.data);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);

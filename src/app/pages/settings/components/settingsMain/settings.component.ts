@@ -17,7 +17,8 @@ export class SettingsComponent implements OnInit {
     'group': false,
     'entity': false,
     'theme': false,
-    'permission': false
+    'permission': false,
+    'allUsers': false
   };
 
   constructor(

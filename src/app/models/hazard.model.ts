@@ -1,5 +1,6 @@
 import {FormGroup} from '@angular/forms';
 import {Site} from './site.model';
+import {User} from './user.model';
 
 export interface HazardModel {
   entityId: number;
@@ -8,8 +9,7 @@ export interface HazardModel {
 }
 
 export interface AddHazardModel {
-  blob: Blob;
-  imageName: string;
+  modalType: boolean;
   image: File;
   addHazardForm: FormGroup;
 }

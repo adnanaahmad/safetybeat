@@ -13,7 +13,7 @@
         color: mat-color($primary, 500);
       }
       .user-info {
-        padding: 30px;
+        padding: 5px 30px;
         width: 100%;
         text-transform: capitalize;
         p {
@@ -45,7 +45,7 @@
         width: 100%;
       }
       mat-card-content {
-        height: 100% !important;
+        height: 200px;
         overflow: auto;
       }
       .siteinfo-row {
@@ -74,10 +74,6 @@
         p {
           margin: 10px 0;
           flex-basis: 100%;
-        }
-        &:last-child {
-          border: 0;
-          margin-bottom: 60px;
         }
       }
       .infoTitle {
@@ -126,9 +122,6 @@
           top: 0;
           height: 100%;
           opacity: 0.05;
-        }
-        &:last-child {
-          margin-bottom: 60px;
         }
         .row {
           margin: 0 0 10px;

@@ -153,8 +153,11 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
   }
 
-  openDialog(id: any) {
-    let dialogRef = this.helperService.createDialog(AddHazardComponent, {disableClose: true,  width: '250px', data: {id: id}});
+  addHazard(id: any) {
+    this.helperService.createDialog(AddHazardComponent, {
+      disableClose: true,
+      data: {Modal: true, siteId: id}
+    });
   }
 
   confirmationModal(siteId: number) {

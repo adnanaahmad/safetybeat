@@ -1,12 +1,10 @@
 @mixin amte-ImportSiteModal($primary, $accent, $warn) {
-    :host,
-    app-ImportSiteModal {
-      .site-note {
-        padding: 10px;
-        font-size: 12px;
-        border-radius: 4px;
-        white-space: pre-line;
+  :host,
+  app-ImportSiteModal {
+    mat-card-title {
+      mat-icon {
+        float: right;
       }
     }
   }
-  
+}
