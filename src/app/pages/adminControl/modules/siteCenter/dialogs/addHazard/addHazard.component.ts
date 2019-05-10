@@ -19,7 +19,8 @@ export class AddHazardComponent implements OnInit {
               public helperService: HelperService,
               public service: AdminControlService,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              public dialogRef: MatDialogRef<AddHazardComponent>) { }
+              public dialogRef: MatDialogRef<AddHazardComponent>) {
+  }
 
   ngOnInit() {
     this.addHazardForm = this.formBuilder.group({
@@ -28,13 +29,17 @@ export class AddHazardComponent implements OnInit {
       risk: ['']
     });
     this.service.getHazards().subscribe((res) => {
-      this.risks = res;
+        this.risks = res;
       }, (error) => {
         this.addHazardForm.disable();
         this.helperService.createSnack('Hazard list could not be added',
           this.helperService.constants.status.ERROR);
       }
     );
+    this.hazardObj.image = null;
+    this.hazardObj.imageName = null;
+    this.hazardObj.blob = null;
+
   }
 
   get addHazardControls() {
@@ -42,13 +47,17 @@ export class AddHazardComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    this.hazardObj.image = <File>event.target.files[0];
+    if (<File>event.target.files[0]) {
+      this.hazardObj.image = <File>event.target.files[0];
+      this.hazardObj.blob = new Blob([this.hazardObj.image], {type: 'image/*'});
+      this.hazardObj.imageName = this.hazardObj.image.name;
+    }
   }
 
   addHazard({value, valid}: { value: NewHazard; valid: boolean }): void {
-    let blob = new Blob([this.hazardObj.image], {type: 'application/image'});
     let formData = new FormData();
-    formData.append('image', blob, this.hazardObj.image.name);
+    // let blob = new Blob([this.hazardObj.image], {type: 'image/*'});
+    formData.append('image', this.hazardObj.blob, this.hazardObj.imageName);
     formData.append('title', value.title);
     formData.append('description', value.description);
     formData.append('site', this.data.id);
@@ -68,6 +77,7 @@ export class AddHazardComponent implements OnInit {
       }
     );
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }

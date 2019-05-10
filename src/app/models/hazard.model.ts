@@ -8,6 +8,8 @@ export interface HazardModel {
 }
 
 export interface AddHazardModel {
+  blob: Blob;
+  imageName: string;
   image: File;
   addHazardForm: FormGroup;
 }

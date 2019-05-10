@@ -64,7 +64,8 @@ export class QuestionCenterComponent implements OnInit {
       this.helperService.appConstants.key));
 
     this.questionCenterService.getAllQuestions({'entityId': entityId}).subscribe((res) => {
-      this.QuestionObj.allQuestions = res;
+      this.QuestionObj.allQuestions = res.data;
+      console.log(res.data);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
@@ -72,13 +73,9 @@ export class QuestionCenterComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
       }
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED);
     }, (err) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
         this.helperService.constants.status.ERROR);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED_ERROR);
     });
 
   }
