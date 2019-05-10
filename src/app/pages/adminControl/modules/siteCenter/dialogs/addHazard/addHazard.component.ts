@@ -45,9 +45,11 @@ export class AddHazardComponent implements OnInit {
   }
 
   addHazard({ value, valid }: { value: NewHazard; valid: boolean }): void {
-    let blob = new Blob([this.hazardObj.image], { type: 'application/image' });
     let formData = new FormData();
-    formData.append('image', blob, this.hazardObj.image.name);
+    if(this.hazardObj.image){
+     let blob = new Blob([this.hazardObj.image], { type: 'application/image' });
+     formData.append('image', blob, this.hazardObj.image.name);
+    }
     formData.append('title', value.title);
     formData.append('description', value.description);
     formData.append('site', this.data.id);
