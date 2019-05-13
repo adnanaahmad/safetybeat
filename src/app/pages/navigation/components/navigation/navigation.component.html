@@ -65,7 +65,7 @@
       </mat-toolbar>
 
       <div class="page-content">
-        <mat-drawer #drawer mode="push" position="end">
+        <mat-drawer autoFocus="false" #drawer mode="push" position="end">
           <mat-icon class="close-notif" (click)="drawer.toggle()">arrow_forward</mat-icon>
           <app-notificationNav></app-notificationNav>
         </mat-drawer>

@@ -340,7 +340,10 @@ export interface Messages {
   ALL_QUESTION_FAILURE: string;
   HAZARD_ADDED: string;
   HAZARD_NOT_ADDED: string;
-  HAZARD_LIST_FAIL: string
+  HAZARD_LIST_FAIL: string;
+  ADD_HAZARD: string;
+  EDIT_HAZARD: string;
+  SITE_HAZARD_DETAIL: string;
 }
 
 export interface Logger {

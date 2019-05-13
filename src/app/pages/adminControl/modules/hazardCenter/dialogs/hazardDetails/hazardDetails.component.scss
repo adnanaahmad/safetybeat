@@ -1,22 +1,39 @@
 @mixin amte-hazard-details($primary, $accent, $warn) {
   :host,
   app-hazard-details {
-    mat-list {
-      mat-icon {
-        box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
-        border-radius: 100px;
-        padding: 5px;
-        font-size: 40px;
-        width: auto;
-        height: auto;
-        background-color: #fff;
-        color: mat-color($primary-pallet, 500);
-      }
-      .mat-subheader {
-        height: 0;
-      }
-      mat-list-item {
-        height: 40px;
+    .hazard-detail-grid {
+      mat-card {
+        text-align: center;
+        width: 100%;
+        box-shadow: none !important;
+        border: 1px solid mat-color($primary-pallet, 50);
+        .mat-subheader {
+          justify-content: center;
+          margin: 0;
+          padding: 10px 0 0;
+          font-size: 12px;
+          opacity: 0.5;
+        }
+        mat-icon {
+          box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
+          border-radius: 100px;
+          padding: 5px;
+          font-size: 24px;
+          background-color: #fff;
+          color: mat-color($primary-pallet, 500);
+          position: absolute;
+          top: -23px;
+          left: 0;
+          right: 0;
+          width: 30px;
+          height: 30px;
+          line-height: 1.2;
+          margin: 0 auto;
+        }
+        p {
+          margin: 5px 0;
+          font-size: 14px;
+        }
       }
     }
   }

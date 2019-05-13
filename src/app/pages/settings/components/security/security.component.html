@@ -1,43 +1,41 @@
+<mat-card-title class="mat-dialog-title">
+  Site Hazard Details
+</mat-card-title>
 <div class="mat-dialog-content">
   <form [formGroup]="changePasswordForm" #formDirective="ngForm"
-        (ngSubmit)="changePassword(changePasswordForm, formDirective)">
+    (ngSubmit)="changePassword(changePasswordForm, formDirective)">
     <mat-list role="list" class="settings-list">
-      <div class="input">
-        <label class="mat-h4 selected-entity">Current Password</label>
+      <div class="form-group">
         <mat-form-field full-width>
           <input matInput type="password" autocomplete="password"
-                 [formControlName]="helperService.appConstants.currentPassword" required/>
+            [formControlName]="helperService.appConstants.currentPassword" required placeholder="Current Password" />
           <mat-error class="text-right" *ngIf="changePasswordFormValidations.currentPassword.errors">
-        <span
-          *ngIf="changePasswordFormValidations.currentPassword.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            <span
+              *ngIf="changePasswordFormValidations.currentPassword.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             <span
               *ngIf="changePasswordFormValidations.currentPassword.errors.minlength">{{helperService.translated.MESSAGES.PASSWORD_ERROR}}</span>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="input">
-        <label class="mat-h4 selected-entity">New Password</label>
+      <div class="form-group">
         <mat-form-field full-width>
-          <input matInput type="password" autocomplete="password"
-                 [formControlName]="helperService.appConstants.password1"
-                 required/>
+          <input matInput type="password" autocomplete="password" placeholder="New Password"
+            [formControlName]="helperService.appConstants.password1" required />
           <mat-error class="text-right" *ngIf="changePasswordFormValidations.password1.errors  ">
-        <span
-          *ngIf="changePasswordFormValidations.password1.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            <span
+              *ngIf="changePasswordFormValidations.password1.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             <span
               *ngIf="changePasswordFormValidations.password1.errors.minlength">{{helperService.translated.MESSAGES.PASSWORD_ERROR}}</span>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="input">
-        <label class="mat-h4 selected-entity">Confirm Password</label>
+      <div class="form-group">
         <mat-form-field full-width>
-          <input matInput type="password" autocomplete="password"
-                 [formControlName]="helperService.appConstants.password2"
-                 required/>
+          <input matInput type="password" autocomplete="password" placeholder="Confirm Password"
+            [formControlName]="helperService.appConstants.password2" required />
           <mat-error class="text-right" *ngIf="changePasswordFormValidations.password2.errors">
-        <span
-          *ngIf="changePasswordFormValidations.password2.errors.required ">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            <span
+              *ngIf="changePasswordFormValidations.password2.errors.required ">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             <span
               *ngIf="changePasswordFormValidations.password2.errors?.notSame">{{helperService.translated.MESSAGES.MATCH_ERROR}}</span>
             <span
@@ -47,10 +45,11 @@
       </div>
     </mat-list>
     <mat-dialog-actions>
-      <button type="submit" mat-raised-button custom-btn btn-primary [disabled]="!changePasswordForm.valid"> Save
+      <button type="submit" mat-raised-button custom-btn btn-primary [disabled]="!changePasswordForm.valid">
+        {{helperService.translated.BUTTONS.SAVE}}
       </button>
-      <img *ngIf="loading" [src]="helperService.translated.MESSAGES.LOADING_URL"/>
-      <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+      <img *ngIf="loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+      <button mat-button custom-btn btn-danger mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
   </form>
 </div>
