@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ import {HttpClient} from '@angular/common/http';
 export class MemberCenterService {
   apiRoutes: any;
   method: any;
+  private allentityUsers = new BehaviorSubject<any>(1);
+  entityUserObserver = this.allentityUsers.asObservable();
 
   constructor(
     public helperService: HelperService,
@@ -49,5 +52,9 @@ export class MemberCenterService {
 
   activateUser(data) {
     return this.helperService.requestCall(this.method.put, this.apiRoutes.activateUser, data);
+  }
+
+  changeEntityUsers(usersInfo: any) {
+    this.allentityUsers.next(usersInfo);
   }
 }

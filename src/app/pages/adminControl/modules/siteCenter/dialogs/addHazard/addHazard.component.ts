@@ -4,7 +4,6 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AddHazardModel, Hazard, NewHazard, RiskType} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-addHazard',
@@ -15,7 +14,7 @@ export class AddHazardComponent implements OnInit {
   hazardObj: AddHazardModel = <AddHazardModel>{};
   hazardInfo: Hazard = <Hazard>{};
   risks: string[];
-  serverUrl = environment.serverUrl;
+  private serverUrl: string;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -26,6 +25,7 @@ export class AddHazardComponent implements OnInit {
   ) {
     this.hazardObj.editModal = data.Modal;
     this.hazardInfo = data.hazardInfo;
+    this.serverUrl = this.helperService.appConstants.serverUrl;
   }
 
   ngOnInit() {

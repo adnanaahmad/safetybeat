@@ -33,7 +33,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     package: 'None',
     module: this.helperService.appConstants.moduleName
   };
-  serverUrl = environment.serverUrl;
 
   constructor(
     public core: CoreService,
@@ -43,6 +42,7 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
     public helperService: HelperService,
     private profile: ProfileService,
   ) {
+    this.navModel.serverUrl = this.helperService.appConstants.serverUrl;
     this.initialize();
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,

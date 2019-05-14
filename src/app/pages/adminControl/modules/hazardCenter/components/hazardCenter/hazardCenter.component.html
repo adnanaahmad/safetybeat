@@ -36,7 +36,8 @@
         Image
       </th>
       <td mat-cell *matCellDef="let element">
-        <img src="{{ element.hazard.image ? serverUrl+element.hazard.image : helperService.appConstants.noHazard}}" />
+        <img class="table-img"
+          src="{{ element.hazard.image ? hazardTable.serverUrl+element.hazard.image : helperService.appConstants.noHazard}}" />
       </td>
     </ng-container>
 

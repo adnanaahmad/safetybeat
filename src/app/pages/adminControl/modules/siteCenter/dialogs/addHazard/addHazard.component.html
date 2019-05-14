@@ -1,7 +1,7 @@
-<mat-card-title class="mat-dialog-title" *ngIf="hazardObj.modalType">
+<mat-card-title class="mat-dialog-title" *ngIf="!hazardObj.editModal">
   Add Hazard
 </mat-card-title>
-<mat-card-title class="mat-dialog-title" *ngIf="!hazardObj.modalType">
+<mat-card-title class="mat-dialog-title" *ngIf="hazardObj.editModal">
   Edit Hazard
 </mat-card-title>
 <div mat-dialog-content>
@@ -10,13 +10,13 @@
       <mat-form-field full-width>
         <input matInput type="text" formControlName="title" placeholder="Title" required/>
         <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-          <span>Field is Required</span>
+          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field full-width>
         <input matInput type="text" formControlName="description" required placeholder="Description"/>
         <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
-          <span>Field is Required</span>
+          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field full-width *ngIf="risks">
@@ -26,6 +26,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <img class="table-img"
+           src="{{ hazardInfo.hazard.image ? serverUrl+hazardInfo.hazard.image : helperService.appConstants.noHazard}}" />
       <div class="form-group">
         <input
           type='file'

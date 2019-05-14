@@ -49,7 +49,8 @@
     "CURRENT_PASSWORD": "Current Password",
     "TRIAL": "Trial",
     "OWNER": "Owner",
-    "LOGOUTSUCCESSION": "Successfully logged out."
+    "LOGOUTSUCCESSION": "Successfully logged out.",
+    "REQUIRED_FIELD": "Field is Required"
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -277,7 +278,6 @@
     "PIC_UPLOADED_FAILURE":"Picture Upload Failed.",
     "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit.",
     "HAZARD_ADDED": "Hazard Added",
-    "HAZARD_NOT_ADDED": "Hazard could not be added",
     "ALL_QUESTION_SUCCESS": "All questions of entity received",
     "ALL_QUESTION_FAILURE": "No questions for the entity exists",
     "HAZARD_LIST_FAIL":"Hazard List could not be added.",

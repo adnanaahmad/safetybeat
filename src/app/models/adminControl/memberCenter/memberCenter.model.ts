@@ -1,6 +1,7 @@
 import {Subscription} from 'rxjs';
 
 export interface MemberCenter {
+  serverUrl: string;
   subscription: Subscription;
   displayLoader: boolean;
   dialogConfig: any;

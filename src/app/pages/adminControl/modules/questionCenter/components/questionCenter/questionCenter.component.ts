@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {AddQuestionComponent} from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
-import {QuestionCenterService} from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
+import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { AddQuestionComponent } from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
+import { QuestionCenterService } from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { QuestionCenter } from 'src/app/models/adminControl/questionCenter.model';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class QuestionCenterComponent implements OnInit {
     'Is a site specific induction required for this site?',
     'Do you know how to safely exit the site in the event of an emergency?',
     'Have you completed the site safety induction?',
-    'Are there any high risk activities you will engage in?'
+    'Are there any high risk activities you will engage in?',
   ];
 
   done = [
@@ -63,8 +63,8 @@ export class QuestionCenterComponent implements OnInit {
     let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
 
-    this.questionCenterService.getAllQuestions({'entityId': entityId}).subscribe((res) => {
-      this.QuestionObj.allQuestions = res.data;
+    this.questionCenterService.getAllQuestions({ 'entityId': entityId }).subscribe((res) => {
+      this.QuestionObj.allQuestions = res;
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
@@ -72,14 +72,18 @@ export class QuestionCenterComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
       }
+      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED);
     }, (err) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
         this.helperService.constants.status.ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR,
+        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED_ERROR);
     });
 
   }
 
   addQuestion() {
-    this.helperService.createDialog(AddQuestionComponent, {disableClose: true});
+    this.helperService.createDialog(AddQuestionComponent, { disableClose: true });
   }
 }
