@@ -187,6 +187,7 @@ export interface Buttons {
   LEARNMORE: string;
   DELETE: string;
   INVITE_USER: string;
+  ADD_DOCUMENT: string;
 }
 
 export interface Messages {
@@ -415,6 +416,7 @@ export interface SiteTitle {
   SITE_CENTRE: string;
   QUESTION_CENTER: string;
   HAZARD_CENTER: string;
+  DOCUMENTS: string;
 }
 
 export interface TableHeadings {
