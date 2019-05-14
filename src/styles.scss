@@ -8,14 +8,14 @@
 @import "./theme/dark-forest.scss";
 
 // Define font-family
-$fontFamily: "Montserrat", sans-serif;
+$fontFamily: "Roboto", sans-serif;
 html,
 body {
   height: 100%;
   display: block;
   width: 100%;
   margin: 0;
-  // font-family: $fontFamily;
+  font-family: $fontFamily;
 }
 * {
   // font-family: $fontFamily;
@@ -557,6 +557,11 @@ snack-bar-container {
       position: relative;
       left: 0 !important;
       top: 0 !important;
+      height: auto !important;
+      .mat-figure {
+        display: block;
+        position: relative;
+      }
       .highcharts-container,
       .highcharts-root {
         height: auto !important;
