@@ -521,6 +521,9 @@ snack-bar-container {
   top: -4px;
   position: relative;
 }
+input:-internal-autofill-selected {
+  background-color: transparent;
+}
 @media (max-width: 992px) {
   .midbox {
     width: 60% !important;

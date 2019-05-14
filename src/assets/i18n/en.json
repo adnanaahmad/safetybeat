@@ -96,7 +96,7 @@
   "BUTTONS": {
     "LOGIN": "Login",
     "REGISTER": "Sign Up",
-    "FORGOTPASSWORD": "Forogt Password?",
+    "FORGOTPASSWORD": "Forgot Password?",
     "CANCEL": "Cancel",
     "RESET": "Reset Password",
     "NEXT": "Next",
@@ -131,7 +131,8 @@
     "LEARNMORE": "Learn More",
     "DELETE": "Delete",
     "INVITE_USER": "Invite User",
-    "ADD_DOCUMENT": "New Document"
+    "ADD_DOCUMENT": "New Document",
+    "UPLOAD_FILE": "Upload File"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",

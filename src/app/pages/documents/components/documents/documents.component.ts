@@ -15,10 +15,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 4, name: 'HisDocument', weight: 9.0122, symbol: 'Be' },
   { position: 5, name: 'TheirDocument', weight: 10.811, symbol: 'B' },
   { position: 6, name: 'NoOnesDocument', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Weird Document', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Empty Document', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Document', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Blah Blah', weight: 20.1797, symbol: 'Ne' },
 ];
 
 @Component({

@@ -2,26 +2,22 @@
 <div class="mat-dialog-content">
   <form [formGroup]="generalObj.generalForm" class="settings-list"
     (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
-    <div class="input">
-      <label class="mat-h4 selected-entity"><strong>First Name</strong></label>
-      <mat-form-field full-width>
-        <input matInput type="text" formControlName="first_name" class="showonly" required
-          (keypress)="characterOnly($event)" />
-        <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
-          <span>Field is Required</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="input">
-      <label class="mat-h4 selected-entity">Last Name</label>
-      <mat-form-field full-width>
-        <input matInput type="text" formControlName="last_name" class="showonly" required
-          (keypress)="characterOnly($event)" />
-        <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
-          <span>Field is Required</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="outline" full-width>
+      <mat-label>First name</mat-label>
+      <input matInput type="text" formControlName="first_name" class="showonly" required
+        (keypress)="characterOnly($event)" />
+      <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
+        <span>Field is Required</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" full-width>
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" formControlName="last_name" class="showonly" required
+        (keypress)="characterOnly($event)" />
+      <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
+        <span>Field is Required</span>
+      </mat-error>
+    </mat-form-field>
     <div class="input country-code">
       <label class="mat-h4 selected-entity">Contact Number</label>
       <mat-form-field full-width>
@@ -42,8 +38,8 @@
       </mat-form-field>
     </div>
     <div class="input">
-      <label class="mat-h4 selected-entity">Email</label>
-      <mat-form-field full-width>
+      <mat-form-field appearance="outline" full-width>
+        <mat-label>Email</mat-label>
         <input matInput type="text" formControlName="email" class="showonly" required
           (blur)="checkEmail(generalObj.generalForm)" />
         <mat-error class="text-right" *ngIf="generalViewForm.email.errors">

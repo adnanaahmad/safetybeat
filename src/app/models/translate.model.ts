@@ -188,6 +188,7 @@ export interface Buttons {
   DELETE: string;
   INVITE_USER: string;
   ADD_DOCUMENT: string;
+  UPLOAD_FILE: string;
 }
 
 export interface Messages {
