@@ -1,6 +1,7 @@
 @mixin amte-profile($primary, $accent, $warn) {
   :host,
   app-profile {
+    $boxShadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.18);
     .settings-btn {
       margin-left: auto;
     }
@@ -13,7 +14,7 @@
         overflow: hidden;
         box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.4);
         border-radius: 100px;
-        height: 80px;
+        height: 100px;
         border: 2px solid #fff;
         img {
           max-width: 100%;
@@ -42,6 +43,7 @@
           align-items: center;
           white-space: normal;
           text-align: center;
+          justify-content: center;
           line-height: 1.5;
           opacity: 0;
           visibility: hidden;
@@ -134,7 +136,7 @@
         padding: 10px;
         margin: 10px 0;
         position: relative;
-        background-color: mat-color($primary, 50);
+        box-shadow: $boxShadow;
         .row {
           margin: 0 0 10px;
           position: relative;

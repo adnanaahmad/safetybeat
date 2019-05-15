@@ -85,7 +85,6 @@ export class AddHazardComponent implements OnInit {
 
 
   generateHazardData(value, editHazard) {
-    console.log(editHazard)
     let formData = new FormData();
     formData.append('title', value.title);
     formData.append('description', value.description);

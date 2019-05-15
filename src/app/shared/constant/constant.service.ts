@@ -63,7 +63,8 @@ export class ConstantService {
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
-    viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments`
+    viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
+    uploadDocuments: `${environment.apiUrl}/api/documents/`
   };
   /**
    * all the api methods are declared here.
@@ -274,7 +275,10 @@ export class ConstantService {
     place: 'place',
     check_circle: 'check_circle',
     schedule: 'schedule',
-    description: 'description'
+    description: 'description',
+    email: 'email',
+    vpnKey: 'vpn_key',
+    deleteForever: 'delete_forever'
   };
   /**
    * all the particle container icon names are declared here.

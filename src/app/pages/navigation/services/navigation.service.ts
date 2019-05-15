@@ -153,4 +153,12 @@ export class NavigationService {
       data
     );
   }
+
+  uploadDocuments(data: object) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.uploadDocuments,
+      data
+    );
+  }
 }

@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
-import {NavigationService} from '../../services/navigation.service';
-import {SiteCentre} from '../../../../models/adminControl/siteCentre.model';
-import {Documents} from '../../../../models/navigation/documents.model';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {DocumentObj, Documents} from 'src/app/models/navigation/documents.model';
+import {CompilerProvider} from 'src/app//shared/compiler/compiler';
 
 
 @Component({
@@ -16,7 +15,8 @@ export class DocumentsComponent implements OnInit {
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['file', 'uploadedBy', 'actions'];
-  documentsObj: Documents = <Documents>{};
+  documentsObj: DocumentObj = <DocumentObj>{};
+  documentsData: Documents = <Documents>{};
 
   constructor(
     public dialog: MatDialog,
@@ -31,21 +31,34 @@ export class DocumentsComponent implements OnInit {
     this.allDocumentsData()
   }
 
+  uploadDocuments(event) {
+    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key))
+    this.documentsObj.file = <File>event.target.files[0];
+    let blob = new Blob([this.documentsObj.file]);
+    let formData = new FormData();
+    formData.append('file', blob, this.documentsObj.file.name);
+    formData.append('entity', entityId);
+    this.navService.uploadDocuments(formData).subscribe((res) => {
+      console.log(res)
+    });
+  }
+
   allDocumentsData() {
     let entityData = {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
     };
     this.navService.viewAllDocuments(entityData).subscribe((res) => {
-    console.log(res);
-    //   this.documentsObj.docList = res;
-    //   this.documentsObj.docData = this.compiler.constructAllSitesData(this.documentsObj.docList);
-    //   if (res) {
-    //     this.documentsObj.dataSource = new MatTableDataSource(res);
-    //     this.documentsObj.dataSource.paginator = this.paginator;
-    //   } else if (res === '') {
-    //     this.documentsObj.dataSource = 0;
-    //   }
+      this.documentsData.docResponse = res;
+      if (this.documentsData.docResponse.data) {
+        this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
+        console.log(this.documentsData.docList);
+        this.documentsData.dataSource = new MatTableDataSource(this.documentsData.docList);
+        this.documentsData.dataSource.paginator = this.paginator;
+      } else if (this.documentsData.docResponse.data === '') {
+        this.documentsData.dataSource = 0;
+      }
     });
   }
 

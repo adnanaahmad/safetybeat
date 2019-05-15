@@ -188,6 +188,8 @@ export interface Buttons {
   DELETE: string;
   INVITE_USER: string;
   ADD_DOCUMENT: string;
+  UPLOAD_FILE: string;
+  VIEWPROFILE: string;
 }
 
 export interface Messages {
@@ -347,6 +349,7 @@ export interface Messages {
   ADD_HAZARD: string;
   EDIT_HAZARD: string;
   SITE_HAZARD_DETAIL: string;
+  EDITPROFILE: string;
 }
 
 export interface Logger {

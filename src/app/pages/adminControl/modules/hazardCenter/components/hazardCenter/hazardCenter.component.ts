@@ -59,7 +59,6 @@ export class HazardCenterComponent implements OnInit {
   }
 
   editHazard(hazard: Hazard) {
-    console.log(hazard);
     this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
       data: {Modal: true, hazardInfo: hazard}
