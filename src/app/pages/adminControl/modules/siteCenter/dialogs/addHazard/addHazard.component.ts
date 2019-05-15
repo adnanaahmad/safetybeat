@@ -15,6 +15,7 @@ export class AddHazardComponent implements OnInit {
   hazardInfo: Hazard = <Hazard>{};
   risks: string[];
   private serverUrl: string;
+  private url: string;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -26,6 +27,8 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.editModal = data.Modal;
     this.hazardInfo = data.hazardInfo;
     this.serverUrl = this.helperService.appConstants.serverUrl;
+    this.url = helperService.appConstants.noHazard
+
   }
 
   ngOnInit() {
@@ -41,6 +44,9 @@ export class AddHazardComponent implements OnInit {
   }
 
   viewHazardInfo() {
+    if (this.hazardInfo.hazard.image) {
+      this.url = this.serverUrl + this.hazardInfo.hazard.image;
+    }
     this.hazardObj.addHazardForm = this.formBuilder.group({
       title: this.hazardInfo.hazard.title,
       description: this.hazardInfo.hazard.description,
@@ -68,8 +74,13 @@ export class AddHazardComponent implements OnInit {
     return this.hazardObj.addHazardForm.controls;
   }
 
-  onFileSelected(event) {
-    this.hazardObj.image = <File>event.target.files[0];
+  onFileSelected(file: FileList) {
+    this.hazardObj.image = file.item(0);
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.url = event.target.result;
+    }
+    reader.readAsDataURL(this.hazardObj.image);
   }
 
 

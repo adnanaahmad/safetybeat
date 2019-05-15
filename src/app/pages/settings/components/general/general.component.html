@@ -1,12 +1,12 @@
 <mat-card-title class="mat-dialog-title"> Edit Profile</mat-card-title>
 <div class="mat-dialog-content">
   <form [formGroup]="generalObj.generalForm" class="settings-list"
-        (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
+    (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
     <div class="input">
       <label class="mat-h4 selected-entity"><strong>First Name</strong></label>
       <mat-form-field full-width>
         <input matInput type="text" formControlName="first_name" class="showonly" required
-               (keypress)="characterOnly($event)"/>
+          (keypress)="characterOnly($event)" />
         <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
           <span>Field is Required</span>
         </mat-error>
@@ -16,7 +16,7 @@
       <label class="mat-h4 selected-entity">Last Name</label>
       <mat-form-field full-width>
         <input matInput type="text" formControlName="last_name" class="showonly" required
-               (keypress)="characterOnly($event)"/>
+          (keypress)="characterOnly($event)" />
         <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
           <span>Field is Required</span>
         </mat-error>
@@ -26,19 +26,16 @@
       <label class="mat-h4 selected-entity">Contact Number</label>
       <mat-form-field full-width>
         <div class="code-input">
-          <input class="" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
-                 maxlength="3" (keypress)="numberOnly($event)"
-                 onPaste="return false"
-                 autocomplete="off"/>
+          <input class="" matInput type="text" [formControlName]="helperService.appConstants.countryCode" maxlength="3"
+            (keypress)="numberOnly($event)" onPaste="return false" autocomplete="off" />
         </div>
         <input matInput type="text" class="showonly number-input" required
-               [formControlName]="helperService.appConstants.contactNo"
-               (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)"
-               onPaste="return false" autocomplete="off"/>
+          [formControlName]="helperService.appConstants.contactNo"
+          (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)" onPaste="return false"
+          autocomplete="off" />
         <mat-error *ngIf="generalViewForm.countryCode.errors">
           <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
-              <span
-                *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+            <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
             <span *ngIf="generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
           </mat-error>
         </mat-error>
@@ -48,7 +45,7 @@
       <label class="mat-h4 selected-entity">Email</label>
       <mat-form-field full-width>
         <input matInput type="text" formControlName="email" class="showonly" required
-               (blur)="checkEmail(generalObj.generalForm)"/>
+          (blur)="checkEmail(generalObj.generalForm)" />
         <mat-error class="text-right" *ngIf="generalViewForm.email.errors">
           <span *ngIf="generalViewForm.email.errors.required">Field is Required</span>
           <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>
@@ -57,7 +54,7 @@
     </div>
     <mat-dialog-actions>
       <button type="submit" mat-raised-button custom-btn btn-primary
-              [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
+        [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
       </button>
       <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>

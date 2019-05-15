@@ -305,6 +305,14 @@ $theme: createTheme($primary, $secondary, $warn);
 
   // Styling for native elements
 
+  .mat-form-field-appearance-outline {
+    &.mat-focused {
+      .mat-form-field-outline-thick {
+        color: #fff !important;
+      }
+    }
+  }
+
   .mat-input-element {
     caret-color: #fff !important;
   }

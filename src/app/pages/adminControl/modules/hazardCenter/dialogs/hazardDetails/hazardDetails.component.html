@@ -1,61 +1,66 @@
 <mat-card-title class="mat-dialog-title">
-  Site Hazard Details
+  {{helperService.translated.MESSAGES.SITE_HAZARD_DETAIL}}
 </mat-card-title>
 
 <div mat-dialog-content>
   <form [formGroup]="hazardDetailForm">
 
-    <mat-list>
-      <h3 mat-subheader>{{helperService.translated.STRINGS.SITE}}</h3>
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{helperService.appIcons.place}}</mat-icon>
-        <p mat-line> {{data1.site.name}} </p>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <h3 mat-subheader>{{helperService.translated.STRINGS.RISK}}</h3>
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{helperService.appIcons.warning}}</mat-icon>
-        <p mat-line>{{data1.risk.name}}</p>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <h3 mat-subheader>{{helperService.translated.STRINGS.RESOLVED}}</h3>
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{helperService.appIcons.check_circle}}</mat-icon>
-        <p mat-line>{{data1.hazard.resolved}}</p>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <h3 mat-subheader>{{helperService.translated.STRINGS.DATE_TIME}}</h3>
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{helperService.appIcons.schedule}}</mat-icon>
-        <p mat-line>{{data1.hazard.dateTime | date}}</p>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <h3 mat-subheader>{{helperService.translated.STRINGS.RESOLVED_BY}}</h3>
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
-        <p mat-line>{{data1.hazard.resolvedBy}}</p>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <h3 mat-subheader>{{helperService.translated.STRINGS.ADDED_BY}}</h3>
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
-        <p mat-line>{{data1.hazard.addedBy}}</p>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <h3 mat-subheader>{{helperService.translated.STRINGS.DESCRIPTION}}</h3>
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{helperService.appIcons.description}}</mat-icon>
-        <p mat-line>{{data1.hazard.description}}</p>
-      </mat-list-item>
-    </mat-list>
+    <div class="hazard-thumbnail">
+      <img src="../../../../../../../assets/images/no-hazard.png">
+    </div>
+    <mat-grid-list class="hazard-detail-grid" cols="3" gutterSize="10px" rowHeight="130px">
+      <mat-grid-tile>
+        <mat-card>
+          <mat-icon mat-list-icon>{{helperService.appIcons.place}}</mat-icon>
+          <h4 mat-subheader>{{helperService.translated.STRINGS.SITE}}</h4>
+          <p mat-line> {{data1.site.name}} </p>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card>
+          <mat-icon mat-list-icon>{{helperService.appIcons.warning}}</mat-icon>
+          <h4 mat-subheader>{{helperService.translated.STRINGS.RISK}}</h4>
+          <p mat-line>{{data1.risk.name}}</p>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card>
+          <mat-icon mat-list-icon>{{helperService.appIcons.check_circle}}</mat-icon>
+          <h4 mat-subheader>{{helperService.translated.STRINGS.RESOLVED}}</h4>
+          <p mat-line>{{data1.hazard.resolved}}</p>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card>
+          <mat-icon mat-list-icon>{{helperService.appIcons.schedule}}</mat-icon>
+          <h4 mat-subheader>{{helperService.translated.STRINGS.DATE_TIME}}</h4>
+          <p mat-line>{{data1.hazard.dateTime | date}}</p>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card>
+          <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
+          <h4 mat-subheader>{{helperService.translated.STRINGS.RESOLVED_BY}}</h4>
+          <p mat-line>{{data1.hazard.resolvedBy}} Asad Khan</p>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card>
+          <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
+          <h4 mat-subheader>{{helperService.translated.STRINGS.ADDED_BY}}</h4>
+          <p mat-line>{{data1.hazard.addedBy}}</p>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile full-width>
+        <mat-card>
+          <mat-icon mat-list-icon>{{helperService.appIcons.description}}</mat-icon>
+          <h4 mat-subheader>{{helperService.translated.STRINGS.DESCRIPTION}}</h4>
+          <p mat-line>{{data1.hazard.description}}</p>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
     <mat-dialog-actions>
-      <button mat-raised-button custom-btn btn-primary color="primary" mat-dialog-close>Ok</button>
+      <button mat-raised-button custom-btn btn-primary color="primary" mat-dialog-close>OK</button>
     </mat-dialog-actions>
   </form>
 </div>
