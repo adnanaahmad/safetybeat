@@ -8,11 +8,11 @@ export interface HazardModel {
   dataSource: any;
   displayedColumns: string[];
 }
- export interface AddHazardModel {
-   addHazardForm: FormGroup;
-   risks: string[];
-   formType: string;
+
+export interface AddHazardModel {
+  editModal: boolean;
   image: File;
+  addHazardForm: FormGroup;
 }
 export interface Hazard {
   hazard: NewHazard;
