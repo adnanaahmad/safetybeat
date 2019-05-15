@@ -276,7 +276,14 @@ export class ConstantService {
     description: 'description',
     email: 'email',
     vpnKey: 'vpn_key',
-    deleteForever: 'delete_forever'
+    deleteForever: 'delete_forever',
+    lock: 'lock',
+    powerSettings: 'power_settings_new',
+    keyboardArrowDown: 'keyboard_arrow_down',
+    business: 'business',
+    screenLock: 'screen_lock_portrait',
+    permSettings: 'perm_data_setting',
+    themeSettings: 'brightness_medium'
   };
   /**
    * all the particle container icon names are declared here.

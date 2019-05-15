@@ -7,9 +7,7 @@
         <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
         <input matInput type="text" [formControlName]="helperService.appConstants.name" required />
         <mat-error *ngIf="formValidation.name.errors">
-          <span *ngIf="formValidation.name.errors.required">{{
-            helperService.translated.MESSAGES.ENTITYNAME_REQ
-            }}</span>
+          <span *ngIf="formValidation.name.errors.required">{{helperService.translated.MESSAGES.ENTITYNAME_REQ}}</span>
         </mat-error>
       </mat-form-field>
     </div>
@@ -20,9 +18,8 @@
           (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice)"
           [formControlName]="helperService.appConstants.headOffice" (keyup)="helperService.setFalse($event)" required />
         <mat-error *ngIf="formValidation.headOffice.errors">
-          <span *ngIf="formValidation.headOffice.errors.required">{{
-            helperService.translated.MESSAGES.OFFICELOCATION_REQ
-            }}</span>
+          <span
+            *ngIf="formValidation.headOffice.errors.required">{{helperService.translated.MESSAGES.OFFICELOCATION_REQ}}</span>
           <span
             *ngIf="formValidation.headOffice.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
         </mat-error>

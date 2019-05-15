@@ -36,7 +36,7 @@
           </mat-form-field>
 
 
-          <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important
+          <mat-icon class="notification-icon" (click)="drawer.toggle()">{{helperService.appIcons.notificationImportant}}
             <span class="notifcount">90+</span></mat-icon>
           <div class="profile-menu">
             <button mat-button [matMenuTriggerFor]="menu">
@@ -45,17 +45,17 @@
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
-                <mat-icon>person</mat-icon> {{helperService.translated.BUTTONS.VIEWPROFILE}}
+                <mat-icon>{{helperService.appIcons.person}}</mat-icon> {{helperService.translated.BUTTONS.VIEWPROFILE}}
               </button>
               <button mat-menu-item (click)="showModel(true)">
-                <mat-icon>edit</mat-icon> {{helperService.translated.MESSAGES.EDITPROFILE}}
+                <mat-icon>{{helperService.appIcons.edit}}</mat-icon> {{helperService.translated.MESSAGES.EDITPROFILE}}
               </button>
               <button mat-menu-item (click)="showModel(false)">
-                <mat-icon>lock</mat-icon>{{helperService.translated.BUTTONS.CHANGE_PASSWORD}}
+                <mat-icon>{{helperService.appIcons.lock}}</mat-icon>{{helperService.translated.BUTTONS.CHANGE_PASSWORD}}
               </button>
               <button mat-menu-item *ngIf="core.isAuthenticated" (click)="logoutUser()"
                 [disabled]="navModel.logoutDisable">
-                <mat-icon>power_settings_new</mat-icon> Logout
+                <mat-icon>{{helperService.appIcons.powerSettings}}</mat-icon> Logout
               </button>
             </mat-menu>
           </div>
@@ -68,7 +68,7 @@
 
       <div class="page-content">
         <mat-drawer autoFocus="false" #drawer mode="push" position="end">
-          <mat-icon class="close-notif" (click)="drawer.toggle()">arrow_forward</mat-icon>
+          <mat-icon class="close-notif" (click)="drawer.toggle()">{{helperService.appIcons.arrowForward}}</mat-icon>
           <app-notificationNav></app-notificationNav>
         </mat-drawer>
         <router-outlet></router-outlet>
