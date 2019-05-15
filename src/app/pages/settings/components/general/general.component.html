@@ -1,4 +1,4 @@
-<mat-card-title class="mat-dialog-title"> Edit Profile</mat-card-title>
+<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.EDITPROFILE}}</mat-card-title>
 <div class="mat-dialog-content">
   <form [formGroup]="generalObj.generalForm" class="settings-list"
     (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
