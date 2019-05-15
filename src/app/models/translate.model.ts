@@ -187,6 +187,9 @@ export interface Buttons {
   LEARNMORE: string;
   DELETE: string;
   INVITE_USER: string;
+  ADD_DOCUMENT: string;
+  UPLOAD_FILE: string;
+  VIEWPROFILE: string;
 }
 
 export interface Messages {
@@ -340,7 +343,11 @@ export interface Messages {
   ALL_QUESTION_FAILURE: string;
   HAZARD_ADDED: string;
   HAZARD_NOT_ADDED: string;
-  HAZARD_LIST_FAIL: string
+  HAZARD_LIST_FAIL: string;
+  ADD_HAZARD: string;
+  EDIT_HAZARD: string;
+  SITE_HAZARD_DETAIL: string;
+  EDITPROFILE: string;
 }
 
 export interface Logger {
@@ -412,6 +419,7 @@ export interface SiteTitle {
   SITE_CENTRE: string;
   QUESTION_CENTER: string;
   HAZARD_CENTER: string;
+  DOCUMENTS: string;
 }
 
 export interface TableHeadings {

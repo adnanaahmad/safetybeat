@@ -1,48 +1,48 @@
 <mat-card-title class="mat-dialog-title" *ngIf="hazardObj.formType === 'add' ">
-  Add Hazard
+  {{ helperService.translated.MESSAGES.ADD_HAZARD }}
 </mat-card-title>
 <mat-card-title class="mat-dialog-title" *ngIf="hazardObj.formType === 'edit'">
-  Edit Hazard
+  {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
 </mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="addHazard(hazardObj.addHazardForm)">
+    <div class="form-group change-picture">
+      <span>Change Picture</span>
+      <img src="../../../../../../../assets/images/no-hazard.png">
+      <input type='file' name="{{helperService.appConstants.importSite}}" id="{{helperService.appConstants.importSite}}"
+        accept='image/*' (change)=onFileSelected($event) />
+      <mat-icon class="remove-picture">{{ helperService.appIcons.deleteForever }}</mat-icon>
+    </div>
     <div class="form-group">
-      <mat-form-field full-width>
-        <input matInput type="text" formControlName="title" placeholder="Title" required />
+      <mat-form-field full-width appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="title" required />
         <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
           <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>
       </mat-form-field>
-      <mat-form-field full-width>
-        <input matInput type="text" formControlName="description" required placeholder="Description" />
+      <mat-form-field full-width appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput type="text" formControlName="description" required />
         <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
           <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>
       </mat-form-field>
-      <mat-form-field full-width>
-          <mat-select formControlName="risk" placeholder="Select Risk" name="risk" required>
-            <mat-option *ngFor="let risk of hazardObj.risks" [value]="risk.id">
-              {{risk.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="form-group">
-          <input
-            type='file'
-            name="{{helperService.appConstants.importSite}}"
-            id="{{helperService.appConstants.importSite}}"
-            accept='image/*'
-            (change) = onFileSelected($event)
-          />
-        </div>
+      <mat-form-field full-width appearance="outline">
+        <mat-label>Select Risk</mat-label>
+        <mat-select formControlName="risk" name="risk" required>
+          <mat-option *ngFor="let risk of hazardObj.risks" [value]="risk.id">
+            {{risk.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-dialog-actions>
-        <button mat-raised-button custom-btn btn-primary color="primary"  [disabled]="!hazardObj.addHazardForm.valid">
-          Save
+        <button mat-raised-button custom-btn btn-primary color="primary" [disabled]="!hazardObj.addHazardForm.valid">
+          {{helperService.translated.BUTTONS.SAVE}}
         </button>
         <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
           {{ helperService.translated.BUTTONS.CANCEL }}
         </button>
-
       </mat-dialog-actions>
     </div>
   </form>

@@ -1,12 +1,14 @@
 <div class="theme-selector">
   <mat-toolbar class="pagehead">
-    <div class="user-avatar">
-      <img
-        src="{{ profileModel.profileImage != null ? profileModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
-      <span class="change-avatar">
-        <input type='file' name="{{helperService.appConstants.profileImage}}"
-          id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />
-        Change Picture</span>
+    <div>
+      <div class="user-avatar">
+        <img
+          src="{{ profileModel.profileImage != null ? profileModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
+        <span class="change-avatar">
+          <input type='file' name="{{helperService.appConstants.profileImage}}"
+            id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />
+          Change Picture</span>
+      </div>
     </div>
     <div class="user-info" *ngIf="profileModel.profileData">
       <h3>

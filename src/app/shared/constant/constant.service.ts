@@ -273,7 +273,10 @@ export class ConstantService {
     place: 'place',
     check_circle: 'check_circle',
     schedule: 'schedule',
-    description: 'description'
+    description: 'description',
+    email: 'email',
+    vpnKey: 'vpn_key',
+    deleteForever: 'delete_forever'
   };
   /**
    * all the particle container icon names are declared here.

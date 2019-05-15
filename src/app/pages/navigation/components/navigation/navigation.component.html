@@ -38,30 +38,36 @@
 
           <mat-icon class="notification-icon" (click)="drawer.toggle()">notification_important
             <span class="notifcount">90+</span></mat-icon>
-            <div class="profile-menu">
-                <button mat-button [matMenuTriggerFor]="menu">
-                  <img src="{{ profileModel.profileImage != null ? navModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
-                    <mat-icon>person</mat-icon> View Profile
-                  </button>
-                  <button mat-menu-item (click)="showModel(true)">
-                    <mat-icon>edit</mat-icon> Edit Profile
-                  </button>
-                  <button mat-menu-item (click)="showModel(false)">
-                    <mat-icon>lock</mat-icon>Change Password
-                  </button>
-                  <button mat-menu-item *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">
-                    <mat-icon>power_settings_new</mat-icon> Logout
-                  </button>
-                </mat-menu>
-              </div>
+          <div class="profile-menu">
+            <button mat-button [matMenuTriggerFor]="menu">
+              <img
+                src="{{ profileModel.profileImage != null ? navModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
+                <mat-icon>person</mat-icon> {{helperService.translated.BUTTONS.VIEWPROFILE}}
+              </button>
+              <button mat-menu-item (click)="showModel(true)">
+                <mat-icon>edit</mat-icon> {{helperService.translated.MESSAGES.EDITPROFILE}}
+              </button>
+              <button mat-menu-item (click)="showModel(false)">
+                <mat-icon>lock</mat-icon>{{helperService.translated.BUTTONS.CHANGE_PASSWORD}}
+              </button>
+              <button mat-menu-item *ngIf="core.isAuthenticated" (click)="logoutUser()"
+                [disabled]="navModel.logoutDisable">
+                <mat-icon>power_settings_new</mat-icon> Logout
+              </button>
+            </mat-menu>
+          </div>
+          <!-- <button matTooltip="Info about the action"
+          aria-label="Button that displays a tooltip when focused or hovered over" mat-button *ngIf="core.isAuthenticated" (click)="logoutUser()" [disabled]="navModel.logoutDisable">
+            <mat-icon>power_settings_new</mat-icon>
+          </button> -->
         </div>
       </mat-toolbar>
 
       <div class="page-content">
-        <mat-drawer #drawer mode="push" position="end">
+        <mat-drawer autoFocus="false" #drawer mode="push" position="end">
           <mat-icon class="close-notif" (click)="drawer.toggle()">arrow_forward</mat-icon>
           <app-notificationNav></app-notificationNav>
         </mat-drawer>
