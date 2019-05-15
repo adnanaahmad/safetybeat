@@ -145,4 +145,12 @@ export class NavigationService {
   updateCurrentUser(data: any) {
     this.currentUser.next(data);
   };
+
+  viewAllDocuments(data: object) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.viewAllDocuments,
+      data
+    );
+  }
 }
