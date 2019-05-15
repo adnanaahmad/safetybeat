@@ -248,10 +248,10 @@ export class CompilerProvider {
         route: '/home/adminControl/hazardCenter',
         disabled: data.permissions.hazardCenter
       },
-      {
-        displayName: 'Invite Users',
-        disabled: data.permissions.inviteUsers
-      },
+      // {
+      //   displayName: 'Invite Users',
+      //   disabled: data.permissions.inviteUsers
+      // },
       {
         route: '/home/documents',
         iconName: this.appIcons.insertDriveFile,

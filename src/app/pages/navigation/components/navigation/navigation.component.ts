@@ -11,7 +11,6 @@ import {GeneralComponent} from 'src/app/pages/settings/components/general/genera
 import {SecurityComponent} from 'src/app/pages/settings/components/security/security.component';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
-import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-navigation',
@@ -19,7 +18,7 @@ import {environment} from 'src/environments/environment';
   styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
   profileModel: ProfileModel = <ProfileModel>{};
   @Output() entitySelected = new EventEmitter();
   moduleData = {
@@ -132,10 +131,6 @@ export class NavigationComponent implements OnInit, OnDestroy, OnChanges, AfterV
    * this function is used for showing the loader on the page if the data is changed then it shows the loader
    * until this doesn't get the api response.
    */
-
-  ngOnChanges() {
-    this.navModel.empty = false;
-  }
 
   /**
    * this function is used for hiding the debugging messages on the destroying of this component.

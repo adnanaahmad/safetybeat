@@ -2,7 +2,7 @@ import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import {InviteUser, inviteUserData} from 'src/app/models/adminControl/inviteUser.model';
 import {Validators, FormBuilder} from '@angular/forms';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource} from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {AdminControlService} from '../../pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from '../../shared/compiler/compiler';
@@ -112,7 +112,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
         this.inviteUserModal.allUsersList = result.data;
         this.userService.updateUsers(this.inviteUserModal.allUsersList);
       },
-      error => {
+      (error) => {
       }
     );
   }
