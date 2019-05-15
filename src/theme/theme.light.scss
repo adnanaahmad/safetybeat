@@ -251,5 +251,12 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       background-color: #fff;
     }
   }
+  app-viewSite {
+    .dashboard-card {
+      .activity-card {
+        background-color: #fff;
+      }
+    }
+  }
   @include amte-setTheme($light-theme);
 }

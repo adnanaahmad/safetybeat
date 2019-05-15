@@ -1,6 +1,7 @@
 @mixin amte-addHazard($primary, $accent, $warn) {
   :host,
   app-addHazard {
+    $boxShadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
     .multiple-inputs {
       mat-form-field {
         width: 48%;
@@ -10,8 +11,7 @@
     .change-picture {
       max-width: 130px;
       margin: 10px auto;
-      border-radius: 4px;
-      overflow: hidden;
+      border-radius: 100px;
       position: relative;
       span {
         position: absolute;
@@ -33,17 +33,38 @@
         visibility: hidden;
         cursor: pointer;
         justify-content: center;
+        border-radius: 100px;
+      }
+      .remove-picture {
+        z-index: 2;
+        position: absolute;
+        right: 0;
+        background: mat-color($warn);
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        line-height: 1.4;
+        top: 20px;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        border-radius: 100px;
+        box-shadow: $boxShadow;
       }
       &:hover {
         span {
           opacity: 1;
           visibility: visible;
         }
+        .remove-picture {
+          opacity: 1;
+          visibility: visible;
+        }
       }
       img {
         max-width: 100%;
-        border-radius: 4px;
-        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 100px;
+        box-shadow: $boxShadow;
       }
       input {
         position: absolute;

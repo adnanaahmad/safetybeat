@@ -96,7 +96,7 @@
   "BUTTONS": {
     "LOGIN": "Login",
     "REGISTER": "Sign Up",
-    "FORGOTPASSWORD": "Forogt Password?",
+    "FORGOTPASSWORD": "Forgot Password?",
     "CANCEL": "Cancel",
     "RESET": "Reset Password",
     "NEXT": "Next",
@@ -131,7 +131,9 @@
     "LEARNMORE": "Learn More",
     "DELETE": "Delete",
     "INVITE_USER": "Invite User",
-    "ADD_DOCUMENT": "New Document"
+    "ADD_DOCUMENT": "New Document",
+    "UPLOAD_FILE": "Upload File",
+    "VIEWPROFILE": "View Profile"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -285,7 +287,8 @@
     "HAZARD_LIST_FAIL": "Hazard List could not be added.",
     "ADD_HAZARD": "Add Hazard",
     "EDIT_HAZARD": "Edit Hazard",
-    "SITE_HAZARD_DETAIL": "Site Hazard Details"
+    "SITE_HAZARD_DETAIL": "Site Hazard Details",
+    "EDITPROFILE": "Edit Profile"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
