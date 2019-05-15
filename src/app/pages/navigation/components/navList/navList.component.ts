@@ -2,7 +2,6 @@ import {Component, OnInit, Input} from '@angular/core';
 import {NavItem} from 'src/app/models/navItems.model';
 import {Router} from '@angular/router';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavListModel} from 'src/app/models/navigation/navList.model';
