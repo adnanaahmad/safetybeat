@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NavItem } from 'src/app/models/navItems.model';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { FixedNavModel } from 'src/app/models/navigation/fixedNav.model';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {NavItem} from 'src/app/models/navItems.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {FixedNavModel} from 'src/app/models/navigation/fixedNav.model';
 
 @Component({
   selector: 'app-fixed-nav',

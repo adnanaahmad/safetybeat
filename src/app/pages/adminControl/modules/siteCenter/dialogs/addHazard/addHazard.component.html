@@ -1,16 +1,16 @@
-<mat-card-title class="mat-dialog-title" *ngIf="hazardObj.formType === 'add' ">
+<mat-card-title class="mat-dialog-title" *ngIf="!hazardObj.editModal">
   {{ helperService.translated.MESSAGES.ADD_HAZARD }}
 </mat-card-title>
-<mat-card-title class="mat-dialog-title" *ngIf="hazardObj.formType === 'edit'">
+<mat-card-title class="mat-dialog-title" *ngIf="hazardObj.editModal">
   {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="addHazard(hazardObj.addHazardForm)">
+  <form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="hazardFormSubmit(hazardObj.addHazardForm)">
     <div class="form-group change-picture">
       <span>Change Picture</span>
-      <img src="../../../../../../../assets/images/no-hazard.png">
-      <input type='file' name="{{helperService.appConstants.importSite}}" id="{{helperService.appConstants.importSite}}"
-        accept='image/*' (change)=onFileSelected($event) />
+      <img [src]="url">
+      <input type='file'
+        accept='image/*' (change)=onFileSelected($event.target.files) />
       <mat-icon class="remove-picture">{{ helperService.appIcons.deleteForever }}</mat-icon>
     </div>
     <div class="form-group">
@@ -31,7 +31,7 @@
       <mat-form-field full-width appearance="outline">
         <mat-label>Select Risk</mat-label>
         <mat-select formControlName="risk" name="risk" required>
-          <mat-option *ngFor="let risk of hazardObj.risks" [value]="risk.id">
+          <mat-option *ngFor="let risk of risks" [value]="risk.id">
             {{risk.name}}
           </mat-option>
         </mat-select>

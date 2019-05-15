@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {HazardModel, NewHazard} from 'src/app/models/hazard.model';
+import {Hazard, HazardModel} from 'src/app/models/hazard.model';
 import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -33,14 +33,7 @@ export class HazardCenterComponent implements OnInit {
   }
 
   initialize() {
-    this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        let entityId = {
-          'entityId': res.entityInfo.id
-        };
-        this.getHazardList(entityId);
-      }
-    });
+    this.getHazardList();
   }
 
   openDetailsDialog(data) {
@@ -50,22 +43,28 @@ export class HazardCenterComponent implements OnInit {
     });
   }
 
-  getHazardList(entityId) {
-    this.adminControlService.allHazards(entityId).subscribe((res) => {
-      console.log(res);
+  getHazardList() {
+    let entityData = {
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+    };
+    this.adminControlService.allHazards(entityData).subscribe((res) => {
       if (res !== 1 && res !== '') {
         this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
         this.hazardTable.dataSource.paginator = this.paginator;
-      }  else if (res === '') {
+      } else if (res === '') {
         this.hazardTable.dataSource = 0;
       }
     });
   }
 
-  openEditDialog(element: any) {
+  editHazard(hazard: Hazard) {
     this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
-      data: {data: element, type: 'edit'}
+      data: {Modal: true, hazardInfo: hazard}
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.getHazardList();
     });
   }
 }

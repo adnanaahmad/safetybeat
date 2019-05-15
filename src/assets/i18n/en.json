@@ -288,7 +288,9 @@
     "ADD_HAZARD": "Add Hazard",
     "EDIT_HAZARD": "Edit Hazard",
     "SITE_HAZARD_DETAIL": "Site Hazard Details",
-    "EDITPROFILE": "Edit Profile"
+    "SITE_HAZARD_DETAIL": "Site Hazard Details",
+    "HAZARD_EDIT_SUCCESS": "Hazard edited Successfully",
+    "HAZARD_EDIT_FAILURE": "Hazard edit failed"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
