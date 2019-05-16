@@ -133,6 +133,8 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     let siteData: any = {
       name: value.siteName,
       location: this.helperService.address,
+      longitude: this.helperService.longitude,
+      latitude: this.helperService.latitude,
       safeZone: value.safeZone,
       siteSafetyPlan: value.siteSafetyPlan,
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),

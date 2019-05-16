@@ -59,9 +59,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  // ngOnChanges() {
-  //   this.getUsers();
-  // }
   ngOnDestroy() {
     this.memberCenter.subscription.unsubscribe();
   }
@@ -89,6 +86,10 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
     this.helperService.navigateWithData([this.helperService.appConstants.paths.profile,
       {data: JSON.stringify(element)}], {skipLocationChange: true});
   }
+
+  /**
+   * this function is used for calling  the functions on the basis of adding removing connections
+   */
 
   connections(type, params?: any) {
     switch (type) {
@@ -121,6 +122,12 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
     this.helperService.createDialog(ChangeAccessLevelComponent, {});
   }
 
+  /**
+   * this function is used for deactivating the users
+   * userId  id of the selected user.
+   * @params userId
+   */
+
   deactivateUsers(userId) {
     this.helperService.createDialog(ConfirmationModalComponent, {
       data: {
@@ -139,6 +146,12 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
+
+  /**
+   * this function is used for activating the users
+   * userId  id of the selected user.
+   * @params userId
+   */
 
   activateUsers(userId) {
     this.helperService.createDialog(ConfirmationModalComponent, {
@@ -159,6 +172,11 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  /**
+   * this function is used for adding connections
+   * receivedBy  id of the selected user.
+   * @params receivedBy
+   */
 
   addConnections(sentToUserId: number) {
     this.memberService.addConnection({receivedBy: sentToUserId}).subscribe((res) => {
@@ -177,6 +195,12 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
   }
+
+  /**
+   * this function is used for removing connections
+   * receivedBy  id of the selected user to remove.
+   * @params receivedBy
+   */
 
   removeConnections(sentToUserId: number) {
     this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
@@ -203,9 +227,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   inviteUser() {
     this.navService.getRoles().subscribe((roles) => {
-      let entityId =  JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-          this.helperService.appConstants.key))
-        this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': entityId}});
+      let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key));
+      this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': entityId}});
     });
   }
 }
