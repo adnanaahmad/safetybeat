@@ -1,6 +1,7 @@
 @mixin amte-viewSite($primary, $accent, $warn) {
   :host,
   app-viewSite {
+    $boxShadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.18);
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
@@ -57,8 +58,6 @@
         flex-wrap: wrap;
         align-items: center;
         padding: 10px;
-        margin: 2px;
-        background: mat-color($primary, 50);
         .safe-icon {
           color: #fff;
           &.safe {
@@ -69,7 +68,7 @@
           }
         }
         mat-icon {
-          box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.2);
+          box-shadow: $boxShadow;
           border-radius: 100px;
           padding: 5px;
           font-size: 40px;
@@ -120,6 +119,7 @@
         padding: 10px;
         margin: 10px 0;
         position: relative;
+        box-shadow: $boxShadow;
         .row {
           margin: 0 0 10px;
           position: relative;

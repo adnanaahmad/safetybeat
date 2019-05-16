@@ -131,9 +131,10 @@
     "LEARNMORE": "Learn More",
     "DELETE": "Delete",
     "INVITE_USER": "Invite User",
-    "ADD_DOCUMENT": "New Document",
+    "UPLOAD_DOCUMENT": "Upload Document",
     "UPLOAD_FILE": "Upload File",
-    "VIEWPROFILE": "View Profile"
+    "VIEWPROFILE": "View Profile",
+    "CREATE_FOLDER": "Create Folder"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -288,7 +289,12 @@
     "ADD_HAZARD": "Add Hazard",
     "EDIT_HAZARD": "Edit Hazard",
     "SITE_HAZARD_DETAIL": "Site Hazard Details",
-    "SITE_HAZARD_DETAIL": "Site Hazard Details",
+    "EDITPROFILE": "Edit Profile",
+    "ENTITYCODE_FOR": "Entity Code for",
+    "CREATEGROUP": "Create Group",
+    "ENTITY_SETTINGS": "Entity Settings",
+    "PERMISSION_SETTINGS": "Permission Settings",
+    "THEME_SETTINGS": "Theme Settings",
     "HAZARD_EDIT_SUCCESS": "Hazard edited Successfully",
     "HAZARD_EDIT_FAILURE": "Hazard edit failed"
   },
@@ -323,7 +329,14 @@
     "SITE_SAFE_ZONE": "Safe Zone",
     "SITE_CREATED_BY": "Created By",
     "MANAGED_BY": "Managed By",
-    "SITE_SAFETY_MANAGER": "Site Safety Manager"
+    "SITE_SAFETY_MANAGER": "Site Safety Manager",
+    "NOTIFICATIONS": "Notifications",
+    "ENTITYCODE": "Entity Code",
+    "REGISTER_TEAM": "Register Team",
+    "PAYMENT_HISTORY": "Payment History",
+    "DELETE_ENTITY": "Delete Entity",
+    "TITLE": "Title",
+    "HAZARD_DETAILS": "View Hazard Details"
   },
   "LOGGER": {
     "STATUS": {
