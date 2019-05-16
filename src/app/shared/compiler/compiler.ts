@@ -95,7 +95,8 @@ export class CompilerProvider {
         administrator: entity.administrator,
         managedBy: entity.managedBy,
         active: entity.active,
-        role: entity.role
+        role: entity.role,
+        manDown: entity.mandown
       };
       allEntities.push(data);
     });
@@ -127,7 +128,7 @@ export class CompilerProvider {
   }
 
   constructAllDocumentsData(documentsApiResponse: any): DocumentObj[] {
-    debugger
+    debugger;
     console.log(documentsApiResponse);
     return documentsApiResponse.data.documents;
   }
@@ -140,9 +141,9 @@ export class CompilerProvider {
         site: hazard.site,
         user: hazard.user,
         risk: hazard.risk,
-      }
+      };
       hazardArray.push(obj);
-    })
+    });
     return hazardArray;
   }
 

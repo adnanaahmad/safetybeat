@@ -30,6 +30,8 @@ export class HelperService {
   public displayLoader = new BehaviorSubject<boolean>(true);
   loader = this.displayLoader.asObservable();
   address: string = '';
+  longitude: number;
+  latitude: number;
   public dialogRef: MatDialogRef<any>;
   formErrorMatcher: any;
 
@@ -55,6 +57,8 @@ export class HelperService {
     this.remove = remove;
     this.sortBy = sortBy;
     this.address = '';
+    this.latitude = 0;
+    this.longitude = 0;
     this.displayButton = false;
     this.formErrorMatcher = new FormErrorHandler();
   }
@@ -241,6 +245,8 @@ export class HelperService {
         geoCoder.geocode({'address': address}, function (results, status) {
           if (status.toString() === self.constants.status.OK) {
             mapProp.setCenter(results[0].geometry.location);
+            self.latitude = results[0].geometry.location.lat();
+            self.longitude = results[0].geometry.location.lng();
             let marker = new google.maps.Marker({
               map: mapProp,
               position: results[0].geometry.location
