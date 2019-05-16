@@ -52,7 +52,7 @@
           {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openEditDialog(element)">
+          <button mat-menu-item (click)="editHazard(element)">
             <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>Edit
           </button>
           <button mat-menu-item (click)="openDetailsDialog(element)">

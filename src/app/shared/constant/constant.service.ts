@@ -55,14 +55,16 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
-    addHazard: `${environment.apiUrl}/api/hazard/`,
-    hazardList: `${environment.apiUrl}/api/riskType/`,
+    viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
+    riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
     getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
+    viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
+    uploadDocuments: `${environment.apiUrl}/api/documents/`
   };
   /**
    * all the api methods are declared here.
@@ -285,7 +287,9 @@ export class ConstantService {
     permSettings: 'perm_data_setting',
     themeSettings: 'brightness_medium',
     clock: 'access_time',
-    cloudDownload: 'cloud_download'
+    cloudDownload: 'cloud_download',
+    folder: 'folder',
+    createFolder: 'create_new_folder'
   };
   /**
    * all the particle container icon names are declared here.

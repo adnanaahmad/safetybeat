@@ -133,7 +133,8 @@
     "INVITE_USER": "Invite User",
     "UPLOAD_DOCUMENT": "Upload Document",
     "UPLOAD_FILE": "Upload File",
-    "VIEWPROFILE": "View Profile"
+    "VIEWPROFILE": "View Profile",
+    "CREATE_FOLDER": "Create Folder"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -293,7 +294,9 @@
     "CREATEGROUP": "Create Group",
     "ENTITY_SETTINGS": "Entity Settings",
     "PERMISSION_SETTINGS": "Permission Settings",
-    "THEME_SETTINGS": "Theme Settings"
+    "THEME_SETTINGS": "Theme Settings",
+    "HAZARD_EDIT_SUCCESS": "Hazard edited Successfully",
+    "HAZARD_EDIT_FAILURE": "Hazard edit failed"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

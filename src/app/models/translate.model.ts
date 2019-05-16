@@ -190,6 +190,7 @@ export interface Buttons {
   UPLOAD_DOCUMENT: string;
   UPLOAD_FILE: string;
   VIEWPROFILE: string;
+  CREATE_FOLDER: string;
 }
 
 export interface Messages {
@@ -344,6 +345,8 @@ export interface Messages {
   HAZARD_ADDED: string;
   HAZARD_NOT_ADDED: string;
   HAZARD_LIST_FAIL: string;
+  HAZARD_EDIT_SUCCESS: string;
+  HAZARD_EDIT_FAILURE: string;
   ADD_HAZARD: string;
   EDIT_HAZARD: string;
   SITE_HAZARD_DETAIL: string;

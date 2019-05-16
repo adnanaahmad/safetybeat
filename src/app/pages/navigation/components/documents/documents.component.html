@@ -7,6 +7,10 @@
       <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
       {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
     </button>
+    <button btn-primary mat-raised-button color="primary">
+      <mat-icon>{{ helperService.appIcons.createFolder }}</mat-icon>
+      {{ helperService.translated.BUTTONS.CREATE_FOLDER }}
+    </button>
   </div>
   <mat-tab-group class="documents-tab">
     <mat-tab label="All">
@@ -238,14 +242,17 @@
         </div>
       </mat-card><!-- /Document Row -->
     </mat-tab>
-    <mat-tab label="Pinned">
+    <mat-tab label="Folders">
       <!-- Document Row -->
       <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
+        <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
         <div class="document-data">
-          <span class="document-title">Sample Document</span>
+          <span class="document-title">Folder name</span>
           <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
+            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
+          </span>
+          <span class="d-count">
+            <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
           </span>
         </div>
         <div class="document-options">
@@ -256,11 +263,14 @@
       </mat-card><!-- /Document Row -->
       <!-- Document Row -->
       <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
+        <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
         <div class="document-data">
-          <span class="document-title">Sample Document</span>
+          <span class="document-title">Folder name</span>
           <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
+            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
+          </span>
+          <span class="d-count">
+            <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
           </span>
         </div>
         <div class="document-options">
@@ -271,11 +281,14 @@
       </mat-card><!-- /Document Row -->
       <!-- Document Row -->
       <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
+        <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
         <div class="document-data">
-          <span class="document-title">Sample Document</span>
+          <span class="document-title">Folder name</span>
           <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
+            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
+          </span>
+          <span class="d-count">
+            <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
           </span>
         </div>
         <div class="document-options">
@@ -286,11 +299,14 @@
       </mat-card><!-- /Document Row -->
       <!-- Document Row -->
       <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
+        <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
         <div class="document-data">
-          <span class="document-title">Sample Document</span>
+          <span class="document-title">Folder name</span>
           <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
+            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
+          </span>
+          <span class="d-count">
+            <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
           </span>
         </div>
         <div class="document-options">
