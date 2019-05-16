@@ -283,7 +283,9 @@ export class ConstantService {
     business: 'business',
     screenLock: 'screen_lock_portrait',
     permSettings: 'perm_data_setting',
-    themeSettings: 'brightness_medium'
+    themeSettings: 'brightness_medium',
+    clock: 'access_time',
+    cloudDownload: 'cloud_download'
   };
   /**
    * all the particle container icon names are declared here.
