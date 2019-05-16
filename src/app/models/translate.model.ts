@@ -187,9 +187,10 @@ export interface Buttons {
   LEARNMORE: string;
   DELETE: string;
   INVITE_USER: string;
-  ADD_DOCUMENT: string;
+  UPLOAD_DOCUMENT: string;
   UPLOAD_FILE: string;
   VIEWPROFILE: string;
+  CREATE_FOLDER: string;
 }
 
 export interface Messages {
@@ -350,6 +351,11 @@ export interface Messages {
   EDIT_HAZARD: string;
   SITE_HAZARD_DETAIL: string;
   EDITPROFILE: string;
+  ENTITYCODE_FOR: string;
+  CREATEGROUP: string;
+  ENTITY_SETTINGS: string;
+  PERMISSION_SETTINGS: string;
+  THEME_SETTINGS: string;
 }
 
 export interface Logger {
@@ -445,6 +451,13 @@ export interface TableHeadings {
   SITE_CREATED_BY: string;
   MANAGED_BY: string;
   SITE_SAFETY_MANAGER: string;
+  NOTIFICATIONS: string;
+  ENTITYCODE: string;
+  REGISTER_TEAM: string;
+  PAYMENT_HISTORY: string;
+  DELETE_ENTITY: string;
+  TITLE: string;
+  HAZARD_DETAILS: string;
 }
 
 export interface Status {

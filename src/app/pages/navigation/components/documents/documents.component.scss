@@ -1,17 +1,65 @@
 @mixin amte-documents($primary, $accent, $warn) {
   :host,
   app-documents {
-    .buttonRow {
-      button {
-        input[type="file"] {
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          opacity: 0;
-          cursor: pointer;
+    .paddingbox {
+      padding: 1rem 5rem;
+    }
+    .documents-tab {
+      .document-row {
+        display: flex;
+        margin: 10px 1px;
+        align-items: center;
+        .document-type {
+          font-size: 30px;
+          color: #ffffff;
+          width: auto;
+          height: auto;
+          padding: 6px;
+          background: mat-color($primary);
+          border-radius: 4px;
+          margin-right: 10px;
+        }
+        .document-data {
+          .document-title {
+            display: block;
+            padding: 0 0 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: mat-color($primary);
+          }
+          span {
+            display: inline-flex;
+            align-items: center;
+            font-size: 12px;
+            mat-icon {
+              font-size: 14px;
+              height: auto;
+              width: auto;
+              margin-right: 5px;
+              font-weight: bold;
+              opacity: 0.4;
+            }
+            &.d-count {
+              margin-left: 10px;
+            }
+          }
+        }
+        .document-options {
+          margin-left: auto;
+          mat-icon {
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            height: auto;
+            width: auto;
+            background: #fff;
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+            margin: 0 7px;
+            border-radius: 100px;
+            &:hover {
+              opacity: 0.7;
+            }
+          }
         }
       }
     }
