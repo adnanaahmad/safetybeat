@@ -13,6 +13,7 @@ export interface Entity {
   managedBy: Administrator;
   active: boolean;
   role: string;
+  manDown: any;
 }
 
 export interface Administrator {

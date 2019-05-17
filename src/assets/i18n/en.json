@@ -289,14 +289,14 @@
     "ADD_HAZARD": "Add Hazard",
     "EDIT_HAZARD": "Edit Hazard",
     "SITE_HAZARD_DETAIL": "Site Hazard Details",
-    "EDITPROFILE": "Edit Profile",
     "ENTITYCODE_FOR": "Entity Code for",
     "CREATEGROUP": "Create Group",
     "ENTITY_SETTINGS": "Entity Settings",
     "PERMISSION_SETTINGS": "Permission Settings",
     "THEME_SETTINGS": "Theme Settings",
     "HAZARD_EDIT_SUCCESS": "Hazard edited Successfully",
-    "HAZARD_EDIT_FAILURE": "Hazard edit failed"
+    "HAZARD_EDIT_FAILURE": "Hazard edit failed",
+    "EDITPROFILE": "Edit Profile"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
