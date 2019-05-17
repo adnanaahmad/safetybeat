@@ -7,6 +7,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddHazardComponent} from '../../../siteCenter/dialogs/addHazard/addHazard.component';
+import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -24,7 +25,7 @@ export class HazardCenterComponent implements OnInit {
     private navService: NavigationService,
     private compiler: CompilerProvider,
     private adminControlService: AdminControlService) {
-      this.hazardTable.serverUrl = this.helperService.appConstants.serverUrl;
+    this.hazardTable.serverUrl = this.helperService.appConstants.serverUrl;
   }
 
   ngOnInit() {
@@ -35,10 +36,10 @@ export class HazardCenterComponent implements OnInit {
     this.getHazardList();
   }
 
-  openDetailsDialog(data) {
+  viewHazard(hazard) {
     this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
-      data: {data: data}
+      data: hazard
     });
   }
 
@@ -65,5 +66,28 @@ export class HazardCenterComponent implements OnInit {
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getHazardList();
     });
+  }
+
+  confirmationModal(id) {
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.deleteHazard(id);
+      }
+    });
+  }
+
+  deleteHazard(id) {
+    this.adminControlService.deleteHazard(id).subscribe((res) => {
+        this.getHazardList();
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }
+    );
   }
 }

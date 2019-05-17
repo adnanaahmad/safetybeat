@@ -88,11 +88,9 @@ export class AddHazardComponent implements OnInit {
   removePicture() {
     this.url = this.helperService.appConstants.noHazard;
     this.hazardObj.removeImage = 'True';
-    console.log('remove picture');
   }
 
   generateHazardData(value, editHazard) {
-    debugger;
     let formData = new FormData();
     formData.append('title', value.title);
     formData.append('description', value.description);

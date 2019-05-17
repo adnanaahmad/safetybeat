@@ -18,7 +18,8 @@ export interface AddHazardModel {
 export interface Hazard {
   hazard: NewHazard;
   site: Site;
-  user: User;
+  addedBy: User;
+  resolvedBy: User;
   risk: RiskType;
 }
 export interface NewHazard {
