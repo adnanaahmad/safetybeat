@@ -11,7 +11,7 @@
       <img [src]="url">
       <input type='file'
         accept='image/*' (change)=onFileSelected($event.target.files) />
-      <mat-icon class="remove-picture">{{ helperService.appIcons.deleteForever }}</mat-icon>
+      <mat-icon class="remove-picture" (click)="removePicture()">{{ helperService.appIcons.deleteForever }}</mat-icon>
     </div>
     <div class="form-group">
       <mat-form-field full-width appearance="outline">

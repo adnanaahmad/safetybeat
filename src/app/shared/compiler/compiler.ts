@@ -128,8 +128,6 @@ export class CompilerProvider {
   }
 
   constructAllDocumentsData(documentsApiResponse: any): DocumentObj[] {
-    debugger;
-    console.log(documentsApiResponse);
     return documentsApiResponse.data.documents;
   }
 
@@ -139,7 +137,8 @@ export class CompilerProvider {
       let obj: Hazard = {
         hazard: hazard.hazard,
         site: hazard.site,
-        user: hazard.user,
+        addedBy: hazard.addedBy,
+        resolvedBy: hazard.resolvedBy,
         risk: hazard.risk,
       };
       hazardArray.push(obj);

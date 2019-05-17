@@ -159,6 +159,13 @@ export class AdminControlService {
     );
   }
 
+  deleteHazard(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.viewHazardInfo}${id}/`,
+    );
+  }
+
 
   getRisks() {
     return this.helperService.requestCall(
