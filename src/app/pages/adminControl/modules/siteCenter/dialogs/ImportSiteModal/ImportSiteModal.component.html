@@ -10,7 +10,7 @@
   <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)
     [enctype]="importSiteModal.type">
     <div class="form-group file-upload">
-      <button mat-raised-button custom-btn btn-primary mat-dialog-close>
+      <button mat-raised-button custom-btn mat-dialog-close>
         {{ helperService.translated.BUTTONS.UPLOAD_FILE }}
       </button>
       <input type='file' name="{{helperService.appConstants.importSite}}" id="{{helperService.appConstants.importSite}}"

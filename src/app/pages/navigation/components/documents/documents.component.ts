@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
-import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {DocumentObj, Documents} from 'src/app/models/navigation/documents.model';
-import {CompilerProvider} from 'src/app//shared/compiler/compiler';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource } from '@angular/material';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+import { DocumentObj, Documents } from 'src/app/models/navigation/documents.model';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { UploadDocumentComponent } from 'src/app/pages/navigation/dialogs/uploadDocument/uploadDocument.component';
 
 
 @Component({
@@ -61,5 +62,10 @@ export class DocumentsComponent implements OnInit {
     });
   }
 
-
+  /**
+     * this function is used to create upload document modal
+     */
+  uploadFile() {
+    this.helperService.createDialog(UploadDocumentComponent, { disableClose: true });
+  }
 }

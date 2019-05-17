@@ -91,7 +91,9 @@
     "DATE_TIME": "Date/Time",
     "RESOLVED_BY": "Resolved By",
     "ADDED_BY": "Added By",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "RENAME": "Rename Folder",
+    "DELETE_FOLDER": "Delete Folder"
   },
   "BUTTONS": {
     "LOGIN": "Login",
