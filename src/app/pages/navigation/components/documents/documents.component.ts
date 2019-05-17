@@ -41,7 +41,6 @@ export class DocumentsComponent implements OnInit {
     formData.append('file', blob, this.documentsObj.file.name);
     formData.append('entity', entityId);
     this.navService.uploadDocuments(formData).subscribe((res) => {
-      console.log(res)
     });
   }
 
@@ -54,7 +53,6 @@ export class DocumentsComponent implements OnInit {
       this.documentsData.docResponse = res;
       if (this.documentsData.docResponse.data) {
         this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
-        console.log(this.documentsData.docList);
         this.documentsData.dataSource = new MatTableDataSource(this.documentsData.docList);
         this.documentsData.dataSource.paginator = this.paginator;
       } else if (this.documentsData.docResponse.data === '') {

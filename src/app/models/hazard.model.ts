@@ -10,6 +10,7 @@ export interface HazardModel {
 }
 
 export interface AddHazardModel {
+  removeImage: string;
   editModal: boolean;
   image: File;
   addHazardForm: FormGroup;
@@ -17,7 +18,8 @@ export interface AddHazardModel {
 export interface Hazard {
   hazard: NewHazard;
   site: Site;
-  user: User;
+  addedBy: User;
+  resolvedBy: User;
   risk: RiskType;
 }
 export interface NewHazard {

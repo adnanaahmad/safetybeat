@@ -346,7 +346,9 @@ export interface Messages {
   HAZARD_NOT_ADDED: string;
   HAZARD_LIST_FAIL: string;
   HAZARD_EDIT_SUCCESS: string;
+  HAZARD_DELETE_SUCCESS: string;
   HAZARD_EDIT_FAILURE: string;
+  HAZARD_DELETE_FAILURE: string;
   ADD_HAZARD: string;
   EDIT_HAZARD: string;
   SITE_HAZARD_DETAIL: string;
@@ -473,6 +475,7 @@ export interface Confirmation {
   ACTIVATE_USER: string;
   DEACTIVATE_USER: string;
   DELETE_SITE: string;
+  DELETE_HAZARD: string;
   DELETE_ENTITY: string;
   ADD_CONNECTION: string;
   REMOVE_CONNECTION: string
