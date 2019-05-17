@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {AddHazardModel, Hazard, NewHazard, RiskType} from 'src/app/models/hazard.model';
+import {AddHazardModel, Hazard, NewHazard} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 
 @Component({
@@ -75,6 +75,7 @@ export class AddHazardComponent implements OnInit {
   }
 
   onFileSelected(file: FileList) {
+    this.hazardObj.removeImage = 'False';
     this.hazardObj.image = file.item(0);
     let reader = new FileReader();
     reader.onload = (event: any) => {
@@ -84,11 +85,19 @@ export class AddHazardComponent implements OnInit {
   }
 
 
+  removePicture() {
+    this.url = this.helperService.appConstants.noHazard;
+    this.hazardObj.removeImage = 'True';
+    console.log('remove picture');
+  }
+
   generateHazardData(value, editHazard) {
+    debugger;
     let formData = new FormData();
     formData.append('title', value.title);
     formData.append('description', value.description);
     formData.append('risk', value.risk);
+    formData.append('removeImage', this.hazardObj.removeImage);
     if (this.hazardObj.image) {
       let blob = new Blob([this.hazardObj.image], {type: 'application/image'});
       formData.append('image', blob, this.hazardObj.image.name);

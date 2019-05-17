@@ -7,7 +7,6 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddHazardComponent} from '../../../siteCenter/dialogs/addHazard/addHazard.component';
-import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-hazardCenter',
