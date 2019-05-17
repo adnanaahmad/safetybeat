@@ -17,6 +17,7 @@ export class DocumentsComponent implements OnInit {
   displayedColumns: string[] = ['file', 'uploadedBy', 'actions'];
   documentsObj: DocumentObj = <DocumentObj>{};
   documentsData: Documents = <Documents>{};
+  panelOpenState = false;
 
   constructor(
     public dialog: MatDialog,
