@@ -14,8 +14,8 @@ export class AddHazardComponent implements OnInit {
   hazardObj: AddHazardModel = <AddHazardModel>{};
   hazardInfo: Hazard = <Hazard>{};
   risks: string[];
-  private serverUrl: string;
-  private url: string;
+  public serverUrl: string;
+  public url: string;
 
   constructor(
     public formBuilder: FormBuilder,
