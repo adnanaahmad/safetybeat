@@ -296,6 +296,8 @@
     "THEME_SETTINGS": "Theme Settings",
     "HAZARD_EDIT_SUCCESS": "Hazard edited Successfully",
     "HAZARD_EDIT_FAILURE": "Hazard edit failed",
+    "HAZARD_DELETE_SUCCESS": "Hazard delete Successfully",
+    "HAZARD_DELETE_FAILURE": "Hazard delete failed",
     "EDITPROFILE": "Edit Profile"
   },
   "SITETITLE": {
@@ -336,7 +338,7 @@
     "PAYMENT_HISTORY": "Payment History",
     "DELETE_ENTITY": "Delete Entity",
     "TITLE": "Title",
-    "HAZARD_DETAILS": "View Hazard Details"
+    "HAZARD_DETAILS": "View Hazard"
   },
   "LOGGER": {
     "STATUS": {
@@ -403,6 +405,7 @@
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
+    "DELETE_HAZARD": "Are you sure you want Delete this hazard?",
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
     "ADD_CONNECTION": "Are you sure you want to Add this user to your Connections.",
     "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections."

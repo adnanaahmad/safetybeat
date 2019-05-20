@@ -55,9 +55,13 @@
           <button mat-menu-item (click)="editHazard(element)">
             <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>Edit
           </button>
-          <button mat-menu-item (click)="openDetailsDialog(element)">
+          <button mat-menu-item (click)="viewHazard(element)">
             <mat-icon>{{ helperService.appIcons.viewSite }}</mat-icon>
             {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
+          </button>
+          <button mat-menu-item (click)="confirmationModal(element.hazard.id)">
+            <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
+            Delete
           </button>
         </mat-menu>
       </td>

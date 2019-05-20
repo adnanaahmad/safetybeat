@@ -20,7 +20,8 @@ export class TokenInterceptorService implements HttpInterceptor {
     if (this.auth.getToken()) {
       req = req.clone({
         setHeaders: {
-          authorization: `Token ${this.auth.getToken()}`
+          authorization: `Token ${this.auth.getToken()}`,
+          'X-CSRFToken': this.auth.getCsrfToken()
 
         }
       });

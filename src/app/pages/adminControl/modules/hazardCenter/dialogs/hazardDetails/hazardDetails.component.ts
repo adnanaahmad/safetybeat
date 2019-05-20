@@ -11,11 +11,14 @@ import {FormBuilder, Validators} from '@angular/forms';
 export class HazardDetailsComponent implements OnInit {
   hazardDetailForm: any;
   data1: any;
-
+  serverUrl: string;
+  hazardInfo: any;
 
   constructor(public helperService: HelperService,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              public formBuilder: FormBuilder) { }
+              public formBuilder: FormBuilder) {
+    this.serverUrl = this.helperService.appConstants.serverUrl;
+  }
 
   ngOnInit() {
     this.hazardDetailForm = this.formBuilder.group({
@@ -23,7 +26,7 @@ export class HazardDetailsComponent implements OnInit {
       resolvedBy: ['', Validators.required],
       addedBy: ['', Validators.required]
     });
-    this.data1 = this.data.data;
+    this.hazardInfo = this.data;
   }
 
 

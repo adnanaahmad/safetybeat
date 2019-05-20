@@ -4,47 +4,48 @@
 <div mat-dialog-content>
   <div [formGroup]="hazardDetailForm">
     <div class="hazard-thumbnail">
-      <img src="../../../../../../../assets/images/no-hazard.png">
+      <img src="{{ hazardInfo.hazard.image ? serverUrl+hazardInfo.hazard.image : helperService.appConstants.noHazard}}">
     </div>
     <div class="hazard-detail-grid">
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.place}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.SITE}}</h4>
-        <p mat-line> {{data1.site.name}} </p>
+        <p mat-line> {{hazardInfo.site.name}} </p>
       </mat-card>
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.warning}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.RISK}}</h4>
-        <p mat-line>{{data1.risk.name}}</p>
+        <p mat-line>{{hazardInfo.risk.name}}</p>
       </mat-card>
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.check_circle}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.RESOLVED}}</h4>
-        <p mat-line>{{data1.hazard.resolved}}</p>
+        <p mat-line>{{hazardInfo.hazard.resolved}}</p>
       </mat-card>
     </div>
     <div class="hazard-detail-grid">
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.schedule}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.DATE_TIME}}</h4>
-        <p mat-line>{{data1.hazard.dateTime | date}}</p>
+        <p mat-line>{{hazardInfo.hazard.dateTime | date}}</p>
       </mat-card>
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.RESOLVED_BY}}</h4>
-        <p mat-line>{{data1.hazard.resolvedBy}} Asad Khan</p>
+        <p mat-line *ngIf="hazardInfo.resolvedBy">{{hazardInfo.resolvedBy.first_name}} {{hazardInfo.resolvedBy.last_name}}</p>
+        <p mat-line *ngIf="!hazardInfo.resolvedBy"> Not Resolved </p>
       </mat-card>
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.ADDED_BY}}</h4>
-        <p mat-line>{{data1.hazard.addedBy}}</p>
+        <p mat-line>{{hazardInfo.addedBy.first_name}} {{hazardInfo.addedBy.last_name}}</p>
       </mat-card>
     </div>
     <div class="hazard-detail-grid">
       <mat-card full-width>
         <mat-icon mat-list-icon>{{helperService.appIcons.description}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.DESCRIPTION}}</h4>
-        <p mat-line>{{data1.hazard.description}}</p>
+        <p mat-line>{{hazardInfo.hazard.description}}</p>
       </mat-card>
     </div>
     <mat-dialog-actions>
