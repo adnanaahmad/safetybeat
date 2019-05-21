@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NavItem } from 'src/app/models/navItems.model';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { FixedNavModel } from 'src/app/models/navigation/fixedNav.model';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {NavItem} from 'src/app/models/navItems.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {FixedNavModel} from 'src/app/models/navigation/fixedNav.model';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -23,11 +23,11 @@ export class FixedNavComponent implements OnInit {
       iconName: this.helperService.constants.appIcons.dashboard,
       toolTip: 'Dashboard'
     },
-    {
-      route: '/home/profile/user',
-      iconName: this.helperService.constants.appIcons.supervisedUserCircle,
-      toolTip: 'Users'
-    },
+    // {
+    //   route: '/home/profile/user',
+    //   iconName: this.helperService.constants.appIcons.supervisedUserCircle,
+    //   toolTip: 'Users'
+    // },
     {
       route: '/home/adminControl/entityControl',
       iconName: this.helperService.constants.appIcons.log,

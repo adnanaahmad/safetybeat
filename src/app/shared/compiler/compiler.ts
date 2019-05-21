@@ -7,6 +7,7 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {Hazard} from 'src/app/models/hazard.model';
+import {DocumentObj} from '../../models/navigation/documents.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -94,7 +95,8 @@ export class CompilerProvider {
         administrator: entity.administrator,
         managedBy: entity.managedBy,
         active: entity.active,
-        role: entity.role
+        role: entity.role,
+        manDown: entity.mandown
       };
       allEntities.push(data);
     });
@@ -125,17 +127,22 @@ export class CompilerProvider {
     return siteApiResponse.data;
   }
 
+  constructAllDocumentsData(documentsApiResponse: any): DocumentObj[] {
+    return documentsApiResponse.data.documents;
+  }
+
   constructHazardArray(hazardResponse: any): Hazard[] {
     let hazardArray: Hazard[] = [];
     this.helperService.iterations(hazardResponse.data, function (hazard) {
       let obj: Hazard = {
         hazard: hazard.hazard,
         site: hazard.site,
-        user: hazard.user,
-        risk: hazard.risk
-      }
+        addedBy: hazard.addedBy,
+        resolvedBy: hazard.resolvedBy,
+        risk: hazard.risk,
+      };
       hazardArray.push(obj);
-    })
+    });
     return hazardArray;
   }
 
@@ -205,12 +212,12 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
-      {
-        route: '/home/profile/user',
-        iconName: this.appIcons.group,
-        displayName: 'Users',
-        disabled: data.permissions.allUsers
-      },
+      // {
+      //   route: '/home/profile/user',
+      //   iconName: this.appIcons.group,
+      //   displayName: 'Users',
+      //   disabled: data.permissions.allUsers
+      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',
@@ -241,10 +248,10 @@ export class CompilerProvider {
         route: '/home/adminControl/hazardCenter',
         disabled: data.permissions.hazardCenter
       },
-      {
-        displayName: 'Invite Users',
-        disabled: data.permissions.inviteUsers
-      },
+      // {
+      //   displayName: 'Invite Users',
+      //   disabled: data.permissions.inviteUsers
+      // },
       {
         route: '/home/documents',
         iconName: this.appIcons.insertDriveFile,
@@ -330,12 +337,12 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
-      {
-        route: '/home/profile/user',
-        iconName: this.appIcons.group,
-        displayName: 'Users',
-        disabled: data.permissions.allUsers
-      },
+      // {
+      //   route: '/home/profile/user',
+      //   iconName: this.appIcons.group,
+      //   displayName: 'Users',
+      //   disabled: data.permissions.allUsers
+      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',

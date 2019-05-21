@@ -3,8 +3,6 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {ConstantService} from 'src/app/shared/constant/constant.service';
-import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +14,7 @@ export class AdminControlService {
   private sites = new BehaviorSubject<any>(1);
   siteObserver = this.sites.asObservable();
 
-  constructor(public helperService: HelperService,
-              private http: HttpClient) {
+  constructor(public helperService: HelperService) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.method = this.helperService.constants.apiMethod;
   }
@@ -146,23 +143,49 @@ export class AdminControlService {
     );
   }
 
-  addNewHazard(data) {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      `${this.helperService.constants.apiRoutes.addHazard}`, data);
+  addHazard(data) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      `${this.apiRoutes.viewHazardInfo}`,
+      data
+    );
   }
 
-  editHazard(id, data) {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      `${this.helperService.constants.apiRoutes.addHazard}${id}`, data);
+  editHazard(id: number, data) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.viewHazardInfo}${id}/`,
+      data
+    );
   }
 
-  getHazards() {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
-      `${this.helperService.constants.apiRoutes.hazardList}`);
+  deleteHazard(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.viewHazardInfo}${id}/`,
+    );
+  }
+
+
+  getRisks() {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.get,
+      `${this.apiRoutes.riskList}`
+    );
   }
 
   allHazards(entityId) {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      `${this.helperService.constants.apiRoutes.allHazards}`, entityId);
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      `${this.apiRoutes.allHazards}`,
+      entityId
+    );
+  }
+
+  allConnections() {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.get,
+      this.apiRoutes.viewAllConnections
+    );
   }
 }

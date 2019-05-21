@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import {DocumentsComponent} from './components/documents/documents.component';
 
 const routes: Routes = [
   {
@@ -30,7 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'documents',
-        loadChildren: '../documents/documents.module#DocumentsModule'
+        component: DocumentsComponent
       }
     ]
   }

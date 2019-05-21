@@ -49,7 +49,8 @@
     "CURRENT_PASSWORD": "Current Password",
     "TRIAL": "Trial",
     "OWNER": "Owner",
-    "LOGOUTSUCCESSION": "Successfully logged out."
+    "LOGOUTSUCCESSION": "Successfully logged out.",
+    "REQUIRED_FIELD": "Field is Required"
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -84,7 +85,7 @@
     "CAN_PROCEED_QUESTION_NO": "No",
     "SAFEZONE": "Safe Zone",
     "SITEINFORMATION": "Site Information",
-    "SITE" : "Site",
+    "SITE": "Site",
     "RISK": "Risk",
     "RESOLVED": "Resolved",
     "DATE_TIME": "Date/Time",
@@ -95,7 +96,7 @@
   "BUTTONS": {
     "LOGIN": "Login",
     "REGISTER": "Sign Up",
-    "FORGOTPASSWORD": "Forogt Password?",
+    "FORGOTPASSWORD": "Forgot Password?",
     "CANCEL": "Cancel",
     "RESET": "Reset Password",
     "NEXT": "Next",
@@ -129,7 +130,13 @@
     "GETSTARTED": "Get Started",
     "LEARNMORE": "Learn More",
     "DELETE": "Delete",
-    "INVITE_USER": "Invite User"
+    "INVITE_USER": "Invite User",
+    "UPLOAD_DOCUMENT": "Upload Document",
+    "UPLOAD_FILE": "Upload File",
+    "VIEWPROFILE": "View Profile",
+    "CREATE_FOLDER": "Create Folder",
+    "VIEW_MAP": "View Map",
+    "CLOSE": "Close"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -273,17 +280,29 @@
     "QUESTION_CREATED": "Question created successfully",
     "QUESTION_CREATION_FAILURE": "Question not created",
     "ANALYTICS_REPORTS": "Analytics Reports",
-    "PIC_UPLOADED_SUCCESS":"Picture Upload Success.",
-    "PIC_UPLOADED_FAILURE":"Picture Upload Failed.",
+    "PIC_UPLOADED_SUCCESS": "Picture Upload Success.",
+    "PIC_UPLOADED_FAILURE": "Picture Upload Failed.",
     "PIC_EXCEEDS_LIMIT": "Uploaded Image Exceeds the Limit.",
     "HAZARD_ADDED": "Hazard Added",
-    "HAZARD_NOT_ADDED": "Hazard could not be added",
     "ALL_QUESTION_SUCCESS": "All questions of entity received",
     "ALL_QUESTION_FAILURE": "No questions for the entity exists",
     "HAZARD_NOT_ADDED": "Hazard could not be added",
-    "HAZARD_LIST_FAIL":"Hazard List could not be added.",
-    "HAZARD_EDITED": "Hazard Edited Successfully",
-    "HAZARD_EDIT_FAIL": "Hazard could not be edited."
+    "HAZARD_LIST_FAIL": "Hazard List could not be added.",
+    "ADD_HAZARD": "Add Hazard",
+    "EDIT_HAZARD": "Edit Hazard",
+    "SITE_HAZARD_DETAIL": "Site Hazard Details",
+    "ENTITYCODE_FOR": "Entity Code for",
+    "CREATEGROUP": "Create Group",
+    "ENTITY_SETTINGS": "Entity Settings",
+    "PERMISSION_SETTINGS": "Permission Settings",
+    "THEME_SETTINGS": "Theme Settings",
+    "HAZARD_EDIT_SUCCESS": "Hazard edited Successfully",
+    "HAZARD_EDIT_FAILURE": "Hazard edit failed",
+    "HAZARD_DELETE_SUCCESS": "Hazard delete Successfully",
+    "HAZARD_DELETE_FAILURE": "Hazard delete failed",
+    "EDITPROFILE": "Edit Profile",
+    "SITE_MAP": "Site Map",
+    "NEW_FOLDER": "New Folder Created."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -293,7 +312,8 @@
     "SETTINGS_DESCRIPTION": "Review your account privacy, permissions, security and packages",
     "SITE_CENTRE": "Site Centre",
     "QUESTION_CENTER": "Question Centre",
-    "HAZARD_CENTER": "Hazard Centre"
+    "HAZARD_CENTER": "Hazard Centre",
+    "DOCUMENTS": "Documents"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
@@ -315,7 +335,14 @@
     "SITE_SAFE_ZONE": "Safe Zone",
     "SITE_CREATED_BY": "Created By",
     "MANAGED_BY": "Managed By",
-    "SITE_SAFETY_MANAGER": "Site Safety Manager"
+    "SITE_SAFETY_MANAGER": "Site Safety Manager",
+    "NOTIFICATIONS": "Notifications",
+    "ENTITYCODE": "Entity Code",
+    "REGISTER_TEAM": "Register Team",
+    "PAYMENT_HISTORY": "Payment History",
+    "DELETE_ENTITY": "Delete Entity",
+    "TITLE": "Title",
+    "HAZARD_DETAILS": "View Hazard"
   },
   "LOGGER": {
     "STATUS": {
@@ -382,6 +409,7 @@
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
+    "DELETE_HAZARD": "Are you sure you want Delete this hazard?",
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
     "ADD_CONNECTION": "Are you sure you want to Add this user to your Connections.",
     "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections."

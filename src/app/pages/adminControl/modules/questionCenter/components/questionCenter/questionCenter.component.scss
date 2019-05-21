@@ -67,6 +67,7 @@
       opacity: 0;
     }
     .question-table {
+      table-layout: fixed;
       thead {
         background: mat-color($primary-pallet, 500);
         color: #fff;
@@ -75,6 +76,7 @@
       td {
         padding: 10px;
         font-size: 14px;
+        overflow: hidden;
       }
       [custom-btn] {
         width: 20px;

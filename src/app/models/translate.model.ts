@@ -91,6 +91,7 @@ export interface Auth {
   TRIAL: string;
   OWNER: string;
   LOGOUTSUCCESSION: string;
+  REQUIRED_FIELD: string;
 }
 
 export interface Icons {
@@ -186,6 +187,12 @@ export interface Buttons {
   LEARNMORE: string;
   DELETE: string;
   INVITE_USER: string;
+  UPLOAD_DOCUMENT: string;
+  UPLOAD_FILE: string;
+  VIEWPROFILE: string;
+  CREATE_FOLDER: string;
+  VIEW_MAP: string;
+  CLOSE: string
 }
 
 export interface Messages {
@@ -340,8 +347,21 @@ export interface Messages {
   HAZARD_ADDED: string;
   HAZARD_NOT_ADDED: string;
   HAZARD_LIST_FAIL: string;
-  HAZARD_EDITED: string;
-  HAZARD_EDIT_FAIL: string;
+  HAZARD_EDIT_SUCCESS: string;
+  HAZARD_DELETE_SUCCESS: string;
+  HAZARD_EDIT_FAILURE: string;
+  HAZARD_DELETE_FAILURE: string;
+  ADD_HAZARD: string;
+  EDIT_HAZARD: string;
+  SITE_HAZARD_DETAIL: string;
+  EDITPROFILE: string;
+  ENTITYCODE_FOR: string;
+  CREATEGROUP: string;
+  ENTITY_SETTINGS: string;
+  PERMISSION_SETTINGS: string;
+  THEME_SETTINGS: string;
+  SITE_MAP: string;
+  NEW_FOLDER: string;
 }
 
 export interface Logger {
@@ -413,6 +433,7 @@ export interface SiteTitle {
   SITE_CENTRE: string;
   QUESTION_CENTER: string;
   HAZARD_CENTER: string;
+  DOCUMENTS: string;
 }
 
 export interface TableHeadings {
@@ -436,6 +457,13 @@ export interface TableHeadings {
   SITE_CREATED_BY: string;
   MANAGED_BY: string;
   SITE_SAFETY_MANAGER: string;
+  NOTIFICATIONS: string;
+  ENTITYCODE: string;
+  REGISTER_TEAM: string;
+  PAYMENT_HISTORY: string;
+  DELETE_ENTITY: string;
+  TITLE: string;
+  HAZARD_DETAILS: string;
 }
 
 export interface Status {
@@ -451,6 +479,7 @@ export interface Confirmation {
   ACTIVATE_USER: string;
   DEACTIVATE_USER: string;
   DELETE_SITE: string;
+  DELETE_HAZARD: string;
   DELETE_ENTITY: string;
   ADD_CONNECTION: string;
   REMOVE_CONNECTION: string

@@ -3,6 +3,10 @@
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
   </div>
   <div class="buttonRow">
+    <button btn-primary mat-raised-button color="primary" (click)="viewMap()">
+      <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
+      {{ helperService.translated.BUTTONS.VIEW_MAP }}
+    </button>
     <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="addSite()">
       <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
       {{ helperService.translated.BUTTONS.ADD_SITE }}
@@ -46,7 +50,8 @@
       <th mat-header-cell *matHeaderCellDef>
         {{ helperService.translated.TABLEHEADINGS.SITE_SAFETY_MANAGER }}
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.siteSafetyManager.first_name }} {{ element.siteSafetyManager.last_name }}<br>
+      <td mat-cell *matCellDef="let element">{{ element.siteSafetyManager.first_name }}
+        {{ element.siteSafetyManager.last_name }}<br>
         {{ element.siteSafetyManager.email }} </td>
     </ng-container>
 
@@ -76,11 +81,11 @@
             <mat-icon>{{ helperService.appIcons.log }}</mat-icon>
             Log
           </button>
-          <button mat-menu-item (click)="openDialog(element.site.id)">
-            <mat-icon>whatshot</mat-icon>
+          <button mat-menu-item (click)="addHazard(element.site.id)">
+            <mat-icon>{{ helperService.appIcons.warning }}</mat-icon>
             Add Hazard
           </button>
-          <button mat-menu-item *ngIf="siteCentreObj.siteOption"  (click)="confirmationModal(element.site.id)">
+          <button mat-menu-item *ngIf="siteCentreObj.siteOption" (click)="confirmationModal(element.site.id)">
             <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
             Delete
           </button>
@@ -96,4 +101,5 @@
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
 </div>

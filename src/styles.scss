@@ -8,7 +8,7 @@
 @import "./theme/dark-forest.scss";
 
 // Define font-family
-$fontFamily: "Montserrat", sans-serif;
+$fontFamily: "Roboto", sans-serif;
 html,
 body {
   height: 100%;
@@ -18,13 +18,33 @@ body {
   font-family: $fontFamily;
 }
 * {
-  font-family: $fontFamily;
+  // font-family: $fontFamily;
 }
 
 // Define font-family explicitly
 .mat-card-title {
-  font-family: $fontFamily !important;
+  // font-family: $fontFamily !important;
   line-height: inherit;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+notifier-notification,
+app-toaster {
+  font-family: $fontFamily;
+}
+.notification-icon {
+  .notifcount {
+    font-family: $fontFamily;
+  }
+}
+app-entityCodeModal {
+  .entity-code {
+    font-family: $fontFamily;
+  }
 }
 .app-content {
   overflow-x: hidden !important;
@@ -82,9 +102,8 @@ mat-dialog-container {
     padding: 15px 20px;
     color: #fff;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 16px !important;
-    font-family: inherit !important;
   }
   .mat-dialog-content {
     padding: 0 20px 20px !important;
@@ -129,12 +148,12 @@ mat-dialog-container {
   margin: 5px 0 10px;
   text-align: right;
   float: right;
-  button:last-child {
+  button {
     margin-left: 10px;
   }
 }
 .topbar {
-  box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 7px 1px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
 .noflex {
@@ -220,10 +239,7 @@ mat-dialog-container {
     top: -4px;
   }
 }
-.mat-dialog-content {
-  overflow: unset !important;
-  max-height: initial !important;
-}
+
 .notifier__notification-button {
   opacity: 1 !important;
   svg {
@@ -263,7 +279,6 @@ mat-dialog-container {
 [custom-btn] {
   padding: 6px 15px !important;
   text-transform: capitalize;
-  font-weight: 700;
   line-height: 30px !important;
 }
 [btn-white] {
@@ -502,6 +517,13 @@ hr.forheading {
 snack-bar-container {
   padding: 0 !important;
 }
+.mat-expansion-indicator::after {
+  top: -4px;
+  position: relative;
+}
+input:-internal-autofill-selected {
+  background-color: transparent;
+}
 @media (max-width: 992px) {
   .midbox {
     width: 60% !important;
@@ -538,6 +560,11 @@ snack-bar-container {
       position: relative;
       left: 0 !important;
       top: 0 !important;
+      height: auto !important;
+      .mat-figure {
+        display: block;
+        position: relative;
+      }
       .highcharts-container,
       .highcharts-root {
         height: auto !important;

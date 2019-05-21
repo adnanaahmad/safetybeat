@@ -55,13 +55,18 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
-    addHazard: `${environment.apiUrl}/api/hazard/`,
-    hazardList: `${environment.apiUrl}/api/riskType/`,
+    viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
+    riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
     getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
+    viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
+    viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
+    uploadDocuments: `${environment.apiUrl}/api/documents/`,
+    getFolders: `${environment.apiUrl}/api/folders/folderList/`,
+    createFolder: `${environment.apiUrl}/api/folders/`
   };
   /**
    * all the api methods are declared here.
@@ -118,6 +123,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    serverUrl: 'http://localhost:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -271,7 +277,21 @@ export class ConstantService {
     place: 'place',
     check_circle: 'check_circle',
     schedule: 'schedule',
-    description: 'description'
+    description: 'description',
+    email: 'email',
+    vpnKey: 'vpn_key',
+    deleteForever: 'delete_forever',
+    lock: 'lock',
+    powerSettings: 'power_settings_new',
+    keyboardArrowDown: 'keyboard_arrow_down',
+    business: 'business',
+    screenLock: 'screen_lock_portrait',
+    permSettings: 'perm_data_setting',
+    themeSettings: 'brightness_medium',
+    clock: 'access_time',
+    cloudDownload: 'cloud_download',
+    folder: 'folder',
+    createFolder: 'create_new_folder'
   };
   /**
    * all the particle container icon names are declared here.

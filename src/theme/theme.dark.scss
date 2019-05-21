@@ -306,7 +306,7 @@ $theme: createTheme($primary, $secondary, $warn);
           color: #fff !important;
           &:hover,
           &.settingNav {
-            border-color: mat-color($primary-pallet, 500);
+            border-color: mat-color($primary-pallet, 50);
           }
         }
       }
@@ -546,6 +546,13 @@ $theme: createTheme($primary, $secondary, $warn);
   }
   .entity-code {
     -webkit-text-fill-color: rgba(255, 255, 255, 0.25) !important;
+  }
+  app-viewSite {
+    .dashboard-card {
+      .activity-card {
+        background-color: mat-color($primary, 400);
+      }
+    }
   }
   @include amte-setTheme($theme);
 }

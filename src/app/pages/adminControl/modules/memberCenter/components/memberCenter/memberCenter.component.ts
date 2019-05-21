@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -9,8 +9,7 @@ import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/membe
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
-import {InviteUserModalComponent} from '../../../../../../Dialogs/inviteUserModal/inviteUserModal.component';
-import {environment} from '../../../../../../../environments/environment';
+import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
 
 
 @Component({
@@ -18,7 +17,7 @@ import {environment} from '../../../../../../../environments/environment';
   templateUrl: './memberCenter.component.html',
   styleUrls: ['./memberCenter.component.scss']
 })
-export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
+export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   memberCenter: MemberCenter = <MemberCenter>{};
   displayedColumns: string[] = [
@@ -29,22 +28,39 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
     'accessLevel',
     'symbol'
   ];
-  serverUrl = environment.serverUrl;
 
   constructor(public helperService: HelperService,
               public memberService: MemberCenterService,
               public navService: NavigationService,
               public compiler: CompilerProvider,
               public userService: ProfileService) {
+    this.memberCenter.serverUrl = this.helperService.appConstants.serverUrl;
+    this.memberCenter.userStatus = false;
   }
 
 
   ngOnInit() {
-    this.getUsers();
+    this.userService.getUser().subscribe(res => {
+      this.memberCenter.user = res;
+      this.memberCenter.userId = this.memberCenter.user.data.user.id;
+    });
+    this.navService.selectedEntityData.subscribe((res) => {
+      this.memberCenter.currentRole = res.role;
+    });
   }
 
-  ngOnChanges() {
-    this.getUsers();
+  ngAfterViewInit() {
+    this.memberCenter.subscription = this.memberService.entityUserObserver.subscribe((res) => {
+      if (res !== 1) {
+        this.memberCenter.dataSource = res;
+      } else {
+        this.getUsers();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.memberCenter.subscription.unsubscribe();
   }
 
   getUsers() {
@@ -54,24 +70,13 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
         this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
       }
     });
-    this.userService.getUser().subscribe(res => {
-      this.memberCenter.user = res;
-      this.memberCenter.userId = this.memberCenter.user.data.user.id;
-    });
-    this.navService.selectedEntityData.subscribe((res) => {
-      this.memberCenter.currentRole = res.role;
-    });
-
-  }
-
-  ngOnDestroy() {
-    this.memberCenter.subscription.unsubscribe();
   }
 
 
   getAllUsers(data) {
     this.memberService.entityUsers(data).subscribe((res) => {
       this.memberCenter.elements = this.compiler.entityUser(res);
+      this.memberService.changeEntityUsers(this.memberCenter.elements);
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
     });
@@ -81,6 +86,10 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
     this.helperService.navigateWithData([this.helperService.appConstants.paths.profile,
       {data: JSON.stringify(element)}], {skipLocationChange: true});
   }
+
+  /**
+   * this function is used for calling  the functions on the basis of adding removing connections
+   */
 
   connections(type, params?: any) {
     switch (type) {
@@ -113,6 +122,12 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
     this.helperService.createDialog(ChangeAccessLevelComponent, {});
   }
 
+  /**
+   * this function is used for deactivating the users
+   * userId  id of the selected user.
+   * @params userId
+   */
+
   deactivateUsers(userId) {
     this.helperService.createDialog(ConfirmationModalComponent, {
       data: {
@@ -123,11 +138,20 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
         this.memberService.deactivateUser(data).subscribe((res) => {
-          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+          this.memberCenter.responseObj = res;
+          if (this.memberCenter.responseObj.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+          }
         });
       }
     });
   }
+
+  /**
+   * this function is used for activating the users
+   * userId  id of the selected user.
+   * @params userId
+   */
 
   activateUsers(userId) {
     this.helperService.createDialog(ConfirmationModalComponent, {
@@ -139,12 +163,20 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         let data = {id: userId};
         this.memberService.activateUser(data).subscribe((res) => {
-          this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+          this.memberCenter.responseObj = res;
+          if (this.memberCenter.responseObj.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+          }
         });
       }
     });
   }
 
+  /**
+   * this function is used for adding connections
+   * receivedBy  id of the selected user.
+   * @params receivedBy
+   */
 
   addConnections(sentToUserId: number) {
     this.memberService.addConnection({receivedBy: sentToUserId}).subscribe((res) => {
@@ -163,6 +195,12 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
     });
 
   }
+
+  /**
+   * this function is used for removing connections
+   * receivedBy  id of the selected user to remove.
+   * @params receivedBy
+   */
 
   removeConnections(sentToUserId: number) {
     this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
@@ -189,9 +227,9 @@ export class MemberCenterComponent implements OnInit, OnChanges, OnDestroy {
    */
   inviteUser() {
     this.navService.getRoles().subscribe((roles) => {
-      this.navService.selectedEntityData.subscribe(selectedEntity => {
-        this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': selectedEntity.entityInfo.id}});
-      });
+      let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key));
+      this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': entityId}});
     });
   }
 }

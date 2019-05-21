@@ -1,53 +1,54 @@
 <mat-card-title class="mat-dialog-title">
-  Site Hazard Details
+  {{helperService.translated.MESSAGES.SITE_HAZARD_DETAIL}}
 </mat-card-title>
-
 <div mat-dialog-content>
-  <form [formGroup]="hazardDetailForm"   >
-    <div class="form-group">
-      <div full-width>
-        <mat-icon>{{helperService.appIcons.place}}</mat-icon>
-        <strong>{{helperService.translated.STRINGS.SITE}}</strong>
-        <p>{{data1.site.name}}</p>
-      </div><hr>
-      <div full-width>
-        <mat-icon>{{helperService.appIcons.warning}}</mat-icon>
-        <strong>{{helperService.translated.STRINGS.RISK}}</strong>
-        <p>{{data1.risk.name}}</p>
-      </div><hr>
-      <div full-width>
-        <mat-icon>{{helperService.appIcons.check_circle}}</mat-icon>
-        <strong>{{helperService.translated.STRINGS.RESOLVED}}</strong>
-        <p>{{data1.hazard.resolved}}</p>
-      </div><hr>
-      <div full-width>
-        <mat-icon>{{helperService.appIcons.schedule}}</mat-icon>
-        <strong>{{helperService.translated.STRINGS.DATE_TIME}}</strong>
-        <p>{{data1.hazard.dateTime | date}}</p>
-      </div><hr>
-      <div full-width>
-        <mat-icon>{{helperService.appIcons.person}}</mat-icon>
-        <strong>{{helperService.translated.STRINGS.RESOLVED_BY}}</strong>
-        <p>{{data1.hazard.resolvedBy}}</p>
-      </div><hr>
-      <div full-width>
-        <mat-icon>{{helperService.appIcons.person}}</mat-icon>
-        <strong>{{helperService.translated.STRINGS.ADDED_BY}}</strong>
-        <p>{{data1.hazard.addedBy}}</p>
-      </div><hr>
-      <div full-width>
-        <mat-icon>{{helperService.appIcons.description}}</mat-icon>
-        <strong>{{helperService.translated.STRINGS.DESCRIPTION}}</strong>
-        <p>{{data1.hazard.description}}</p>
-      </div><hr>
-    <mat-dialog-actions>
-      <button mat-raised-button custom-btn btn-primary
-              color="primary" mat-dialog-close>
-        Done
-      </button>
-
-    </mat-dialog-actions>
+  <div [formGroup]="hazardDetailForm">
+    <div class="hazard-thumbnail">
+      <img src="{{ hazardInfo.hazard.image ? serverUrl+hazardInfo.hazard.image : helperService.appConstants.noHazard}}">
     </div>
-  </form>
-</div>
-
+    <div class="hazard-detail-grid">
+      <mat-card>
+        <mat-icon mat-list-icon>{{helperService.appIcons.place}}</mat-icon>
+        <h4 mat-subheader>{{helperService.translated.STRINGS.SITE}}</h4>
+        <p mat-line> {{hazardInfo.site.name}} </p>
+      </mat-card>
+      <mat-card>
+        <mat-icon mat-list-icon>{{helperService.appIcons.warning}}</mat-icon>
+        <h4 mat-subheader>{{helperService.translated.STRINGS.RISK}}</h4>
+        <p mat-line>{{hazardInfo.risk.name}}</p>
+      </mat-card>
+      <mat-card>
+        <mat-icon mat-list-icon>{{helperService.appIcons.check_circle}}</mat-icon>
+        <h4 mat-subheader>{{helperService.translated.STRINGS.RESOLVED}}</h4>
+        <p mat-line>{{hazardInfo.hazard.resolved}}</p>
+      </mat-card>
+    </div>
+    <div class="hazard-detail-grid">
+      <mat-card>
+        <mat-icon mat-list-icon>{{helperService.appIcons.schedule}}</mat-icon>
+        <h4 mat-subheader>{{helperService.translated.STRINGS.DATE_TIME}}</h4>
+        <p mat-line>{{hazardInfo.hazard.dateTime | date}}</p>
+      </mat-card>
+      <mat-card>
+        <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
+        <h4 mat-subheader>{{helperService.translated.STRINGS.RESOLVED_BY}}</h4>
+        <p mat-line *ngIf="hazardInfo.resolvedBy">{{hazardInfo.resolvedBy.first_name}} {{hazardInfo.resolvedBy.last_name}}</p>
+        <p mat-line *ngIf="!hazardInfo.resolvedBy"> Not Resolved </p>
+      </mat-card>
+      <mat-card>
+        <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
+        <h4 mat-subheader>{{helperService.translated.STRINGS.ADDED_BY}}</h4>
+        <p mat-line>{{hazardInfo.addedBy.first_name}} {{hazardInfo.addedBy.last_name}}</p>
+      </mat-card>
+    </div>
+    <div class="hazard-detail-grid">
+      <mat-card full-width>
+        <mat-icon mat-list-icon>{{helperService.appIcons.description}}</mat-icon>
+        <h4 mat-subheader>{{helperService.translated.STRINGS.DESCRIPTION}}</h4>
+        <p mat-line>{{hazardInfo.hazard.description}}</p>
+      </mat-card>
+    </div>
+    <mat-dialog-actions>
+      <button mat-raised-button custom-btn btn-primary color="primary" mat-dialog-close>OK</button>
+    </mat-dialog-actions>
+  </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {Component, OnInit} from '@angular/core';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 
 @Component({
   selector: 'app-viewConnections',
@@ -8,11 +9,18 @@ import { HelperService } from 'src/app/shared/helperService/helper.service';
 })
 export class ViewConnectionsComponent implements OnInit {
 
+  connections = [];
+
   constructor(
-    public helperService: HelperService
-  ) { }
+    public helperService: HelperService,
+    private adminService: AdminControlService
+  ) {
+  }
 
   ngOnInit() {
+    this.adminService.allConnections().subscribe(res => {
+      this.connections = res.data;
+    });
   }
 
 }

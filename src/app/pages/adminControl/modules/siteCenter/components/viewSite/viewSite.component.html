@@ -96,15 +96,17 @@
             <mat-card-title>{{helperService.translated.STRINGS.SITEINFORMATION}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div *ngIf="viewSiteObj.siteInfo">
+            <div class="flexbox" *ngIf="viewSiteObj.siteInfo">
               <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
                 <mat-icon>{{helperService.appIcons.permIdentity}}</mat-icon>
                 <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
                 <p>{{viewSiteObj.siteSafetyManager.first_name}} {{viewSiteObj.siteSafetyManager.last_name}}</p>
               </div>
               <div class="siteinfo-row">
-                <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.check}}</mat-icon>
-                <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.check}}
+                </mat-icon>
+                <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">
+                  {{helperService.appIcons.clear}}</mat-icon>
                 <strong>{{helperService.translated.STRINGS.SAFEZONE}}</strong>
                 <p *ngIf="viewSiteObj.siteInfo.safeZone">
                   {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
@@ -179,3 +181,4 @@
       </mat-grid-tile><!-- /Site Location -->
     </mat-grid-list>
   </div>
+</div>

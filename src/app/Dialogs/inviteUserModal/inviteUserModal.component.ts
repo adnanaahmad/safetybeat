@@ -9,6 +9,7 @@ import {CompilerProvider} from '../../shared/compiler/compiler';
 import {EntityInfo} from '../../models/userEntityData.model';
 import {share} from 'rxjs/operators';
 import {ProfileService} from '../../pages/profile/services/profile.service';
+import {MemberCenterService} from '../../pages/adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-inviteUserModal',
@@ -28,6 +29,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     private userService: ProfileService,
     public adminServices: AdminControlService,
     private navService: NavigationService,
+    public memberService: MemberCenterService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
@@ -110,9 +112,21 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
         this.inviteUserModal.allUsersList = result.data;
         this.userService.updateUsers(this.inviteUserModal.allUsersList);
       },
-      error => {
+      (error) => {
       }
     );
+  }
+
+
+  /**
+   *
+   */
+
+  getAllEntityUsers(data) {
+    this.memberService.entityUsers(data).subscribe((res) => {
+      this.inviteUserModal.elements = this.compiler.entityUser(res);
+      this.memberService.changeEntityUsers(this.inviteUserModal.elements);
+    });
   }
 
 
@@ -146,6 +160,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
       this.getAllUsers();
+      this.getAllEntityUsers({entityId: this.inviteUserModal.entityID});
       this.dialogRef.close();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.INVITE_SUCCESS);
     }, (err) => {

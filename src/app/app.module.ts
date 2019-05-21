@@ -39,6 +39,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {GeneralComponent} from './pages/settings/components/general/general.component';
 import {SecurityComponent} from './pages/settings/components/security/security.component';
 import {AddQuestionComponent} from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
+import { SiteMapComponent } from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { UploadDocComponent } from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
+import { CreateFolderComponent } from './pages/navigation/dialogs/createFolder/createFolder.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,7 +66,10 @@ export function createTranslateLoader(http: HttpClient) {
     HazardDetailsComponent,
     GeneralComponent,
     SecurityComponent,
-    AddQuestionComponent
+    AddQuestionComponent,
+    SiteMapComponent,
+    UploadDocComponent,
+    CreateFolderComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -123,7 +129,10 @@ export function createTranslateLoader(http: HttpClient) {
     GeneralComponent,
     SecurityComponent,
     AddHazardComponent,
-    AddQuestionComponent
+    AddQuestionComponent,
+    SiteMapComponent,
+    UploadDocComponent,
+    CreateFolderComponent
   ]
 })
 export class AppModule {
