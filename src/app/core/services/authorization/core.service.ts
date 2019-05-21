@@ -33,7 +33,6 @@ export class CoreService {
     this.removeToken();
     sessionStorage.clear();
     localStorage.clear();
-    this.cookies.delete('sessionid');
     this.cookies.deleteAll();
     this.helperService.createSnack(this.translated.MESSAGES.LOGOUT_SUCCESS, this.helperService.constants.status.WARNING);
     this.helperService.navigateTo([this.helperService.appConstants.paths.login]);
@@ -95,4 +94,12 @@ export class CoreService {
     // return an observable with a user-facing error message
     return throwError({error: 'Something bad happened; please try again later.', status: error.status});
   };
+
+  /**
+   * to get csrf token
+   */
+
+  getCsrfToken() {
+    return this.cookies.get('csrftoken');
+  }
 }
