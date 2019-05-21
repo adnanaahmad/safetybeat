@@ -25,9 +25,11 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <div #gmap style="width:100%;height:250px"></div>
+    <mat-card>
+      <div #gmap class="site-map"></div>
+    </mat-card>
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
+      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
         [disabled]="!helperService.displayButton || createEntity.loading">
         {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
       </button>

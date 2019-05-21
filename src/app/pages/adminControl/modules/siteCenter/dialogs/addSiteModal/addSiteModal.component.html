@@ -52,7 +52,10 @@
             *ngIf="formValidation.siteSafetyManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
         </mat-error>
       </mat-form-field>
-      <div #gmap class="site-map"></div>
+      <mat-card>
+        <div #gmap class="site-map"></div>
+      </mat-card>
+      <br>
       <mat-slide-toggle [formControlName]="helperService.appConstants.safeZone">
         Safe Zone
       </mat-slide-toggle>
