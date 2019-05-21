@@ -1,6 +1,7 @@
 import {Translation} from '../translate.model';
 import {NavItem} from '../navItems.model';
 import {EntityUserData} from '../userEntityData.model';
+import {Subscription} from 'rxjs';
 
 export interface NavigationModel {
   serverUrl: string;
@@ -16,4 +17,5 @@ export interface NavigationModel {
   entityUserData: EntityUserData;
   selectedEntity: any;
   Entity: any;
+  subscription: Subscription;
 }

@@ -111,9 +111,14 @@ export class AddHazardComponent implements OnInit {
 
   addHazard(value) {
     this.service.addHazard(this.generateHazardData(value, false)).subscribe((res) => {
-        this.onNoClick();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ADDED,
-          this.helperService.constants.status.SUCCESS);
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.onNoClick();
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ADDED,
+            this.helperService.constants.status.SUCCESS);
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
+            this.helperService.constants.status.ERROR);
+        }
       }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
           this.helperService.constants.status.ERROR);
@@ -128,9 +133,14 @@ export class AddHazardComponent implements OnInit {
 
   editHazard(value) {
     this.service.editHazard(this.hazardInfo.hazard.id, this.generateHazardData(value, true)).subscribe((res) => {
-        this.onNoClick();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.onNoClick();
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_SUCCESS,
+            this.helperService.constants.status.SUCCESS);
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
+            this.helperService.constants.status.ERROR);
+        }
       }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
           this.helperService.constants.status.ERROR);

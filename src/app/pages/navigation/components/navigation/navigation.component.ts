@@ -87,8 +87,9 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   getSelectedEntity() {
-    this.navService.data.subscribe((res) => {
+    this.navModel.subscription = this.navService.data.subscribe((res) => {
       if (res !== 1) {
+        debugger;
         this.navModel.allEntitiesData = res;
         this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
         this.navModel.empty = false;
@@ -110,7 +111,7 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
           });
       }
     });
-    this.navService.packageData.subscribe(
+    this.navModel.subscription = this.navService.packageData.subscribe(
       (packageDataResult) => {
         if (packageDataResult !== 1) {
           this.packageInfo = packageDataResult;
@@ -138,6 +139,8 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
+    this.profileModel.subscription.unsubscribe();
+    this.navModel.subscription.unsubscribe();
   }
 
   getCurrentUser() {
@@ -267,6 +270,7 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
     (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
+
   /**
    * this function is used for displaying model on basis of selection
    */

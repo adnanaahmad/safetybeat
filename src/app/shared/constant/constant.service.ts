@@ -64,7 +64,8 @@ export class ConstantService {
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
-    uploadDocuments: `${environment.apiUrl}/api/documents/`
+    uploadDocuments: `${environment.apiUrl}/api/documents/`,
+    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`
   };
   /**
    * all the api methods are declared here.
@@ -177,6 +178,8 @@ export class ConstantService {
     safeQuestion: 'safeQuestion',
     canProceed: 'canProceed',
     parent: 'parent',
+    dateTo: 'dateTo',
+    dateFrom: 'dateFrom',
     paths: {
       home: '/home',
       profile: '/home/profile',
