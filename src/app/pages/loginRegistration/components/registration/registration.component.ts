@@ -202,9 +202,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
       'organization': this.registerObj.organizationData,
       'invitation': false,
-      'module': 'Safetybeat',
+      'moduleName': 'Safetybeat',
       'package': 'Trial',
-      'role': 'Owner'
+      'roleId': 'Owner'
     };
 
     if (this.registerObj.organizationForm.invalid || this.registerObj.userForm.invalid) {
