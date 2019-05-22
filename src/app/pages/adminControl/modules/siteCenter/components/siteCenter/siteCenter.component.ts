@@ -8,8 +8,8 @@ import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCent
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {SitesInfo} from 'src/app/models/site.model';
-import {AddHazardComponent} from '../../dialogs/addHazard/addHazard.component';
-import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
+import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-siteCenter',

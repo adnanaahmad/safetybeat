@@ -32,8 +32,7 @@
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>
         <h4 mat-subheader>{{helperService.translated.STRINGS.RESOLVED_BY}}</h4>
-        <p mat-line *ngIf="hazardInfo.resolvedBy">{{hazardInfo.resolvedBy.first_name}} {{hazardInfo.resolvedBy.last_name}}</p>
-        <p mat-line *ngIf="!hazardInfo.resolvedBy"> Not Resolved </p>
+        <p mat-line>{{hazardInfo.resolvedBy.first_name}} {{hazardInfo.resolvedBy.last_name}}</p>
       </mat-card>
       <mat-card>
         <mat-icon mat-list-icon>{{helperService.appIcons.person}}</mat-icon>

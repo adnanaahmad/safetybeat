@@ -6,8 +6,8 @@ import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardC
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {AddHazardComponent} from '../../../siteCenter/dialogs/addHazard/addHazard.component';
-import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
+import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -34,6 +34,7 @@ export class HazardCenterComponent implements OnInit {
 
   initialize() {
     this.getHazardList();
+    this.editorDeleteEnable();
   }
 
   viewHazard(hazard) {
@@ -54,6 +55,21 @@ export class HazardCenterComponent implements OnInit {
         this.hazardTable.dataSource.paginator = this.paginator;
       } else if (res === '') {
         this.hazardTable.dataSource = 0;
+      }
+    });
+  }
+
+  editorDeleteEnable() {
+    this.navService.currentRole.subscribe(res => {
+      this.hazardTable.entitySelectedRole = res;
+      if (
+        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.owner ||
+        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
+        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.entityManager
+      ) {
+        this.hazardTable.hazardOption = true;
+      } else {
+        this.hazardTable.hazardOption = false;
       }
     });
   }
@@ -82,8 +98,13 @@ export class HazardCenterComponent implements OnInit {
   deleteHazard(id) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
         this.getHazardList();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
+            this.helperService.constants.status.SUCCESS);
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
+            this.helperService.constants.status.ERROR);
+        }
       }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
           this.helperService.constants.status.ERROR);

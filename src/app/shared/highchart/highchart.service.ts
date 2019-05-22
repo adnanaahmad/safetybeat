@@ -10,7 +10,7 @@ export class HighchartService {
   }
 
   reportSettings(chartType: any, charSeries: any) {
-    // this.pieChartWithNoData();
+    this.pieChartWithNoData();
     let highChartReport = {
       chart: {
         type: chartType.type,
