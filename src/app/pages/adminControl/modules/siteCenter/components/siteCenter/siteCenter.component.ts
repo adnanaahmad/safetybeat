@@ -8,8 +8,8 @@ import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCent
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {SitesInfo} from 'src/app/models/site.model';
-import {AddHazardComponent} from '../../dialogs/addHazard/addHazard.component';
-import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
+import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -76,10 +76,10 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
       this.adminServices.changeSites(this.siteCentreObj.sitesData);
       this.adminServices.siteObserver.subscribe((res) => {
-        if (res !== 1 && res !== '') {
+        if (res !== 1 && res.length !== 0) {
           this.siteCentreObj.dataSource = new MatTableDataSource(res);
           this.siteCentreObj.dataSource.paginator = this.paginator;
-        } else if (res === '') {
+        } else if (res.length === 0) {
           this.siteCentreObj.dataSource = 0;
         }
       });

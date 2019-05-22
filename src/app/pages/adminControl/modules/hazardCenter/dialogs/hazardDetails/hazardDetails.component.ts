@@ -10,7 +10,6 @@ import {FormBuilder, Validators} from '@angular/forms';
 })
 export class HazardDetailsComponent implements OnInit {
   hazardDetailForm: any;
-  data1: any;
   serverUrl: string;
   hazardInfo: any;
 

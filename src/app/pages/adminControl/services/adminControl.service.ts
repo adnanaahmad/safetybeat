@@ -103,7 +103,7 @@ export class AdminControlService {
    */
 
   deleteEntity(id) {
-    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.importSite}/${id}/`);
+    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.editEntity}/${id}/`);
   }
 
   /**
@@ -182,10 +182,12 @@ export class AdminControlService {
     );
   }
 
-  allConnections() {
+  allConnections(data) {
+    debugger;
     return this.helperService.requestCall(
-      this.helperService.constants.apiMethod.get,
-      this.apiRoutes.viewAllConnections
+      this.helperService.constants.apiMethod.post,
+      this.apiRoutes.viewAllConnections,
+      data
     );
   }
 }

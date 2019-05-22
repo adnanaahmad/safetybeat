@@ -96,7 +96,7 @@
             <mat-card-title>{{helperService.translated.STRINGS.SITEINFORMATION}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="flexbox" *ngIf="viewSiteObj.siteInfo">
+            <div *ngIf="viewSiteObj.siteInfo">
               <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
                 <mat-icon>{{helperService.appIcons.permIdentity}}</mat-icon>
                 <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
