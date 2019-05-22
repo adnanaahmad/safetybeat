@@ -1,9 +1,13 @@
 @mixin amte-addQuestion($primary, $accent, $warn) {
   :host,
   app-addQuestion {
-    mat-radio-button{
+    mat-radio-group {
+      width: 100%;
+      display: block;
+    }
+    mat-radio-button {
       margin-right: 10px;
-      margin-bottom: 20px;
+      float: right;
     }
   }
 }

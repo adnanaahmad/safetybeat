@@ -143,23 +143,49 @@ export class AdminControlService {
     );
   }
 
-  addNewHazard(data) {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      `${this.helperService.constants.apiRoutes.addHazard}`, data);
+  addHazard(data) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      `${this.apiRoutes.viewHazardInfo}`,
+      data
+    );
   }
 
-  getHazards() {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
-      `${this.helperService.constants.apiRoutes.hazardList}`);
+  editHazard(id: number, data) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.viewHazardInfo}${id}/`,
+      data
+    );
+  }
+
+  deleteHazard(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.viewHazardInfo}${id}/`,
+    );
+  }
+
+
+  getRisks() {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.get,
+      `${this.apiRoutes.riskList}`
+    );
   }
 
   allHazards(entityId) {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      `${this.helperService.constants.apiRoutes.allHazards}`, entityId);
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      `${this.apiRoutes.allHazards}`,
+      entityId
+    );
   }
 
   allConnections() {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
-      this.helperService.constants.apiRoutes.viewAllConnections);
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.get,
+      this.apiRoutes.viewAllConnections
+    );
   }
 }

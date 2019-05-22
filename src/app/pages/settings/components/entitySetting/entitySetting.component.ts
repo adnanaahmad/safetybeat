@@ -30,14 +30,14 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.entitySettingObj.allUsersList = []
+    this.entitySettingObj.allUsersList = [];
     this.entitySettingObj.subscription = this.profile.usersData.subscribe((res) => {
       if (res !== 1) {
         this.entitySettingObj.allUsersList = res;
       } else {
         this.getAllUsers();
       }
-    })
+    });
     this.selectedEntityData();
   }
 
@@ -59,6 +59,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
         this.entityFormValidations['name'].setValue(this.entitySettingObj.entitiesData.name);
         this.entityFormValidations['code'].setValue(this.entitySettingObj.entitiesData.code);
         this.entityFormValidations['headOffice'].setValue(this.entitySettingObj.entitiesData.headOffice);
+        this.helperService.address = this.entitySettingObj.entitiesData.headOffice;
         this.helperService.setLocationGeocode(this.entitySettingObj.entitiesData.headOffice,
           this.helperService.createMap(this.gMapElement)).then();
       }

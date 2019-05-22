@@ -21,10 +21,11 @@
       <p class="subheading">{{helperService.translated.MESSAGES.SIGNINMESSAGE}}</p>
       <form [formGroup]="loginObj.loginForm" (ngSubmit)="onSubmit(loginObj.loginForm)">
         <div class="input">
-          <mat-form-field full-width>
-            <input matInput type="email" [placeholder]="helperService.translated.AUTH.EMAIL"
-              [formControlName]="helperService.appConstants.email" [errorStateMatcher]="helperService.formErrorMatcher"
-              required />
+          <mat-form-field appearance="outline" full-width>
+            <mat-label>{{helperService.translated.AUTH.EMAIL}}</mat-label>
+            <input matInput type="email" [formControlName]="helperService.appConstants.email"
+              [errorStateMatcher]="helperService.formErrorMatcher" required />
+            <mat-icon color="primary" matSuffix>{{ helperService.appIcons.email }}</mat-icon>
             <mat-error *ngIf="formValidation.email.errors">
               <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
               <span
@@ -33,10 +34,11 @@
           </mat-form-field>
         </div>
         <div class="password">
-          <mat-form-field full-width>
-            <input matInput type="password" [placeholder]="helperService.translated.AUTH.PASSWORD"
-              [formControlName]="helperService.appConstants.password"
+          <mat-form-field appearance="outline" full-width>
+            <mat-label>{{helperService.translated.AUTH.PASSWORD}}</mat-label>
+            <input matInput type="password" [formControlName]="helperService.appConstants.password"
               [errorStateMatcher]="helperService.formErrorMatcher" required />
+            <mat-icon color="primary" matSuffix>{{ helperService.appIcons.vpnKey }}</mat-icon>
             <mat-error *ngIf="formValidation.password.errors">
               <span
                 *ngIf="formValidation.password.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>

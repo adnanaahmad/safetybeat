@@ -1,10 +1,89 @@
 @mixin amte-addHazard($primary, $accent, $warn) {
   :host,
   app-addHazard {
+    $boxShadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
     .multiple-inputs {
       mat-form-field {
         width: 48%;
         margin: 1%;
+      }
+    }
+    .change-picture {
+      width: 130px;
+      height: 130px;
+      margin: 10px auto;
+      overflow: hidden;
+      border-radius: 100px;
+      position: relative;
+      box-shadow: $boxShadow;
+      span {
+        position: absolute;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.6);
+        top: 0;
+        z-index: 1;
+        font-size: 12px;
+        color: #fff;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.5;
+        opacity: 0;
+        visibility: hidden;
+        cursor: pointer;
+        justify-content: center;
+        border-radius: 100px;
+      }
+      .remove-picture {
+        z-index: 2;
+        position: absolute;
+        right: 20px;
+        background: mat-color($warn);
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        line-height: 1.4;
+        top: 20px;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        border-radius: 100px;
+        box-shadow: $boxShadow;
+      }
+      &:hover {
+        span {
+          opacity: 1;
+          visibility: visible;
+        }
+        .remove-picture {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      img {
+        max-width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 0;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+      }
+      input {
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 1;
       }
     }
   }
