@@ -147,12 +147,12 @@ mat-dialog-container {
   margin: 5px 0 10px;
   text-align: right;
   float: right;
-  button:last-child {
+  button {
     margin-left: 10px;
   }
 }
 .topbar {
-  box-shadow: 0px 4px 7px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 7px 1px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
 .noflex {

@@ -10,6 +10,7 @@ import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteC
 import {SitesInfo} from 'src/app/models/site.model';
 import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import {SiteMapComponent} from '../../dialogs/siteMap/siteMap.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -22,6 +23,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   siteCentreObj: SiteCentre = <SiteCentre>{};
   displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'siteSafetyManager', 'symbol'];
+
 
   constructor(
     public dialog: MatDialog,
@@ -149,7 +151,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   goToViewSite(id) {
-    let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key)
+    let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key);
     this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
   }
 
@@ -179,5 +181,11 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DELETE_SITE_FAILURE);
 
     });
+  }
+
+  viewMap() {
+    let siteList = this.siteCentreObj.sitesList;
+    let sitedata = siteList.data;
+    this.helperService.createDialog(SiteMapComponent, {disableClose: true, height: '75%', width: '80%',  data: {'siteData': sitedata}});
   }
 }

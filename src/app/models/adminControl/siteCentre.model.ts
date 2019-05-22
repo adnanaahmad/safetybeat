@@ -1,4 +1,4 @@
-import {SitesInfo} from '../site.model';
+import {Site, SitesInfo} from '../site.model';
 import {Subscription} from 'rxjs';
 
 export interface SiteCentre {

@@ -31,6 +31,7 @@ import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/d
 import { ImportSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import { ConfirmationModalComponent } from './Dialogs/conformationModal/confirmationModal.component';
 import { ViewConnectionsComponent } from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
+// tslint:disable-next-line:max-line-length
 import { ChangeAccessLevelComponent } from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import { AddHazardComponent } from './pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
@@ -40,7 +41,9 @@ import { GeneralComponent } from './pages/settings/components/general/general.co
 import { SecurityComponent } from './pages/settings/components/security/security.component';
 import { AddQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
 import { UploadDocumentComponent } from './pages/navigation/dialogs/uploadDocument/uploadDocument.component';
-
+import { CreateFolderComponent } from './pages/navigation/dialogs/createFolder/createFolder.component';
+import {UploadDocComponent} from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
+import {SiteMapComponent} from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -65,7 +68,9 @@ export function createTranslateLoader(http: HttpClient) {
     GeneralComponent,
     SecurityComponent,
     AddQuestionComponent,
-    UploadDocumentComponent
+    SiteMapComponent,
+    UploadDocComponent,
+    CreateFolderComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -126,7 +131,9 @@ export function createTranslateLoader(http: HttpClient) {
     SecurityComponent,
     AddHazardComponent,
     AddQuestionComponent,
-    UploadDocumentComponent
+    SiteMapComponent,
+    UploadDocComponent,
+    CreateFolderComponent
   ]
 })
 export class AppModule {

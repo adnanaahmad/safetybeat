@@ -44,17 +44,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
     );
     this.route.params.subscribe((data) => {
-      debugger;
       if (!helperService.isEmpty(data)) {
         this.profileModel.receivedData = JSON.parse(data.data);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.currentUserProfile = false;
+        this.getUserConnections(this.profileModel.receivedData.id);
+
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
+
             this.ngOnInit();
           }
         });
@@ -76,19 +78,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.email = this.profileModel.profileData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
+          this.getUserConnections(this.profileModel.userId);
+
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
           this.profileModel.email = this.profileModel.receivedData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
-          this.profileModel.userId = this.profileModel.profileData.id;
         }
       } else {
         this.getCurrentUser();
       }
     });
     this.viewAllEntities();
-    // this.getUserConnections();
   }
 
   /**
@@ -173,22 +175,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.profileModel.userId = userData.id;
+      this.getUserConnections(userData.id);
       this.navService.updateCurrentUser(userData);
     });
   }
 
-  getUserConnections() {
-    debugger;
-    let data = {
-        'userId': this.profileModel.userId
+  getUserConnections(userId: number) {
+
+    this.adminService.allConnections({userId: userId}).subscribe((res) => {
+      this.profileModel.allConnectionsRes = res;
+      this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+          this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
+          this.helperService.constants.status.WARNING);
+
       }
-    ;
-    this.adminService.allConnections(data).subscribe((res) => {
-      let data = res;
-      console.log(data);
+      console.log(this.profileModel.allConnectionsData);
     });
-    console.log('abc');
   }
 }
 

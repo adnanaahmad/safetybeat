@@ -161,4 +161,13 @@ export class NavigationService {
       data
     );
   }
+  allFolders(data) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.getFolders,
+      data);
+  }
+  createFolder(data) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.createFolder, data);
+  }
 }
