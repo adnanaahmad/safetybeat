@@ -64,7 +64,9 @@ export class ConstantService {
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
-    uploadDocuments: `${environment.apiUrl}/api/documents/`
+    uploadDocuments: `${environment.apiUrl}/api/documents/`,
+    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
   };
   /**
    * all the api methods are declared here.
@@ -121,7 +123,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    serverUrl: 'http://localhost:8001',
+    serverUrl: 'http://localhost:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -177,6 +179,9 @@ export class ConstantService {
     safeQuestion: 'safeQuestion',
     canProceed: 'canProceed',
     parent: 'parent',
+    dateTo: 'dateTo',
+    dateFrom: 'dateFrom',
+    site: 'site',
     paths: {
       home: '/home',
       profile: '/home/profile',
@@ -289,6 +294,7 @@ export class ConstantService {
     clock: 'access_time',
     cloudDownload: 'cloud_download',
     folder: 'folder',
+    phone: 'phone',
     createFolder: 'create_new_folder'
   };
   /**

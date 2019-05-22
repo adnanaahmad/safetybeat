@@ -50,8 +50,13 @@
     <mat-dialog-actions>
       <button type="submit" mat-raised-button custom-btn btn-primary [disabled]="!changePasswordForm.valid">
         {{helperService.translated.BUTTONS.SAVE}}
+        <div class="main-loader" *ngIf="loading">
+          <span class="loader1"></span>
+          <span class="loader2"></span>
+          <span class="loader3"></span>
+        </div>
       </button>
-      <img *ngIf="loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+      <!-- <img *ngIf="loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
       <button mat-button custom-btn btn-danger mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
   </form>

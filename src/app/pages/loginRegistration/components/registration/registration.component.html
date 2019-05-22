@@ -106,7 +106,12 @@
                 {{helperService.translated.BUTTONS.NEXT}}
                 <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
               </button>
-              <img *ngIf="registerObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+              <div class="main-loader" *ngIf="registerObj.loading">
+                <span class="loader1"></span>
+                <span class="loader2"></span>
+                <span class="loader3"></span>
+              </div>
+              <!-- <img *ngIf="registerObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
             </div>
           </form>
         </mat-card>
@@ -156,7 +161,12 @@
                 {{helperService.translated.BUTTONS.NEXT}}
                 <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
               </button>
-              <img *ngIf="registerObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+              <div class="main-loader" *ngIf="registerObj.loading">
+                <span class="loader1"></span>
+                <span class="loader2"></span>
+                <span class="loader3"></span>
+              </div>
+              <!-- <img *ngIf="registerObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
             </div>
           </form>
         </mat-card>
@@ -187,8 +197,14 @@
             <button mat-raised-button [disabled]="registerObj.loading||orgTypeForm.type.errors" custom-btn btn-primary
               color="primary" (click)='registration()'>
               Submit
+              <div class="main-loader" *ngIf="registerObj.loading">
+                <span class="loader1"></span>
+                <span class="loader2"></span>
+                <span class="loader3"></span>
+              </div>
             </button>
-            <img *ngIf="registerObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+
+            <!-- <img *ngIf="registerObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
           </form>
         </mat-card>
       </mat-step>

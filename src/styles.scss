@@ -7,23 +7,22 @@
 @import "./theme/olive-green.scss";
 @import "./theme/dark-forest.scss";
 
-// Define font-family
-$fontFamily: "Roboto", sans-serif;
+$fontFamily: "Roboto", sans-serif; // Default Font Family
+$fullValue: 100%;
+$hexWhite: #ffffff;
+$borderRadius: 4px;
+$roundRadius: 100px;
 html,
 body {
-  height: 100%;
+  height: $fullValue;
   display: block;
-  width: 100%;
+  width: $fullValue;
   margin: 0;
   font-family: $fontFamily;
-}
-* {
-  // font-family: $fontFamily;
 }
 
 // Define font-family explicitly
 .mat-card-title {
-  // font-family: $fontFamily !important;
   line-height: inherit;
 }
 h1,
@@ -53,10 +52,10 @@ app-entityCodeModal {
   line-height: 1.7;
 }
 .full-width {
-  width: 100%;
+  width: $fullValue;
 }
 [btn-primary] {
-  color: #fff !important;
+  color: $hexWhite !important;
 }
 .mat-input-element:disabled {
   cursor: not-allowed;
@@ -100,14 +99,14 @@ mat-dialog-container {
   }
   mat-card-title {
     padding: 15px 20px;
-    color: #fff;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
+    color: $hexWhite;
     text-transform: capitalize;
     font-size: 16px !important;
   }
   .mat-dialog-content {
     padding: 0 20px 20px !important;
     margin: 0 !important;
+    max-height: 85vh;
   }
   .subheading {
     padding: 0 20px;
@@ -130,9 +129,9 @@ mat-dialog-container {
     width: 70%;
     display: block;
     margin: 0 auto;
-    height: 100%;
+    height: $fullValue;
     path {
-      fill: #fff;
+      fill: $hexWhite;
       fill-rule: evenodd;
     }
   }
@@ -163,14 +162,14 @@ mat-dialog-container {
 .flexbox {
   display: flex;
   & > div {
-    width: 100%;
+    width: $fullValue;
     text-align: center;
     justify-content: center;
     align-items: center;
   }
 }
 [full-width] {
-  width: 100% !important;
+  width: $fullValue !important;
 }
 .marginGrid {
   margin-bottom: 20px;
@@ -194,7 +193,7 @@ mat-dialog-container {
   &:after {
     content: "";
     display: block;
-    height: 100%;
+    height: $fullValue;
     width: 3px;
     position: absolute;
     right: -3px;
@@ -208,7 +207,7 @@ mat-dialog-container {
   width: 70%;
   margin: 0 auto;
   .midbox {
-    width: 100%;
+    width: $fullValue;
     margin: 50px auto;
   }
 }
@@ -282,12 +281,12 @@ mat-dialog-container {
   line-height: 30px !important;
 }
 [btn-white] {
-  background-color: #fff !important;
+  background-color: $hexWhite !important;
 }
 .clearsep {
   clear: both;
   display: block;
-  width: 100%;
+  width: $fullValue;
   height: 20px;
 }
 @for $i from 1 through 30 {
@@ -320,13 +319,13 @@ mat-dialog-container {
 #particle-container {
   position: fixed;
   left: 0;
-  height: 100%;
+  height: $fullValue;
   top: 0;
   overflow: hidden;
   .particle {
     position: absolute;
     border-radius: 50%;
-    color: #fff;
+    color: $hexWhite;
     mat-icon {
       font-size: 30px;
       transition: all cubic-bezier(0.45, 0.01, 0, 3) 0.3s;
@@ -355,8 +354,8 @@ mat-dialog-container {
     overflow: hidden;
     &:before {
       content: "";
-      width: 100%;
-      height: 100%;
+      width: $fullValue;
+      height: $fullValue;
       position: absolute;
       left: 0;
       top: 0;
@@ -410,7 +409,7 @@ mat-dialog-container {
 }
 .package-selectors {
   .circ {
-    stroke: #fff !important;
+    stroke: $hexWhite !important;
     opacity: 0;
     stroke-dasharray: 130;
     stroke-dashoffset: 130;
@@ -421,7 +420,7 @@ mat-dialog-container {
     transition: all 1s;
   }
   .tick {
-    stroke: #fff !important;
+    stroke: $hexWhite !important;
     stroke-dasharray: 50;
     stroke-dashoffset: 50;
     -webkit-transition: stroke-dashoffset 1s 0.5s ease-out;
@@ -450,23 +449,38 @@ hr.forheading {
   width: 30%;
   opacity: 0.4;
 }
+.mat-paginator {
+  border-radius: 0 0 $borderRadius $borderRadius;
+}
 .customTable {
-  width: 100%;
+  width: $fullValue;
+  border-radius: $borderRadius;
   td,
   th {
     padding: 10px !important;
   }
+  tr.mat-row:last-child {
+    td {
+      border: 0 !important;
+    }
+  }
   .table-img {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 100px;
-    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.4);
-    margin: 10px 0;
-    border: 1px solid #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    border: 1px solid $hexWhite;
   }
   .mat-header-row {
+    border-radius: $borderRadius $borderRadius 0 0;
     .mat-header-cell {
-      color: #fff;
+      color: $hexWhite;
+      &:first-child {
+        border-radius: $borderRadius 0 0 0;
+      }
+      &:last-child {
+        border-radius: 0 $borderRadius 0 0;
+      }
     }
   }
   .btn-table {
@@ -485,7 +499,7 @@ hr.forheading {
 .verify-modal {
   mat-dialog-container {
     background: transparent !important;
-    color: #fff !important;
+    color: $hexWhite !important;
     overflow: hidden;
     position: relative;
     box-shadow: none !important;
@@ -507,8 +521,8 @@ hr.forheading {
       content: "";
       position: absolute;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: $fullValue;
+      height: $fullValue;
       top: 0;
       opacity: 0.9;
     }
@@ -524,6 +538,147 @@ snack-bar-container {
 input:-internal-autofill-selected {
   background-color: transparent;
 }
+
+// Preloader
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(0.2, 0.2, 0.2);
+    transform: scale3d(0.2, 0.2, 0.2);
+  }
+}
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(0.2, 0.2, 0.2);
+    transform: scale3d(0.2, 0.2, 0.2);
+  }
+}
+@-webkit-keyframes pulse2 {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(0, 0, 0);
+    transform: scale3d(0, 0, 0);
+  }
+}
+@keyframes pulse2 {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(0, 0, 0);
+    transform: scale3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@-webkit-keyframes pulse3 {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(0, 0, 0);
+    transform: scale3d(0, 0, 0);
+  }
+  90% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes pulse3 {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(0, 0, 0);
+    transform: scale3d(0, 0, 0);
+  }
+  90% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+.main-loader {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+  transform: scale(0.8);
+}
+.loader1 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  float: left;
+  z-index: 9;
+  opacity: 0.5;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background-color: #fff;
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: center;
+  animation-delay: 0s;
+  transition: transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.loader2 {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  float: left;
+  z-index: 8;
+  opacity: 0.3;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  background-color: #fff;
+  -webkit-animation-name: pulse2;
+  animation-name: pulse2;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.3s;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.loader3 {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  float: left;
+  z-index: 7;
+  opacity: 0.1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  -webkit-animation-name: pulse3;
+  animation-name: pulse3;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.5s;
+  transform-origin: center;
+  transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 @media (max-width: 992px) {
   .midbox {
     width: 60% !important;
@@ -532,7 +687,7 @@ input:-internal-autofill-selected {
     &:after {
       content: "";
       display: block;
-      height: 100%;
+      height: $fullValue;
       width: 3px;
       position: absolute;
       right: -3px;
@@ -556,7 +711,7 @@ input:-internal-autofill-selected {
   .dashboard-widgets {
     height: auto !important;
     .mat-grid-tile {
-      width: 100% !important;
+      width: $fullValue !important;
       position: relative;
       left: 0 !important;
       top: 0 !important;
@@ -574,13 +729,14 @@ input:-internal-autofill-selected {
   app-profile {
     .grid-container {
       .mat-grid-tile {
-        width: 100% !important;
+        width: $fullValue !important;
       }
     }
     .pagehead {
       display: block;
       text-align: center;
       margin-bottom: 10px;
+      box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
       .user-avatar {
         display: block;
         margin: 0 auto;
@@ -623,7 +779,7 @@ input:-internal-autofill-selected {
     }
     mat-grid-tile {
       left: auto !important;
-      width: 100% !important;
+      width: $fullValue !important;
       top: 0px !important;
       height: auto !important;
       position: relative !important;

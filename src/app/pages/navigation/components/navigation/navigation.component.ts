@@ -91,7 +91,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
 
   getSelectedEntity() {
-    this.navService.data.subscribe((res) => {
+    this.navModel.subscription = this.navService.data.subscribe((res) => {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
         this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
@@ -114,7 +114,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
           });
       }
     });
-    this.navService.packageData.subscribe(
+    this.navModel.subscription = this.navService.packageData.subscribe(
       (packageDataResult) => {
         if (packageDataResult !== 1) {
           this.packageInfo = packageDataResult;
@@ -142,6 +142,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
+    this.profileModel.subscription.unsubscribe();
+    this.navModel.subscription.unsubscribe();
   }
 
   getCurrentUser() {
