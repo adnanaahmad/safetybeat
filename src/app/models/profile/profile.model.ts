@@ -32,6 +32,8 @@ export interface ProfileModel {
   profileFeatures: ProfileFeatures;
   receivedData: any;
   currentUserProfile: boolean;
+  allConnectionsData: any;
+  allConnectionsRes: any;
 }
 
 

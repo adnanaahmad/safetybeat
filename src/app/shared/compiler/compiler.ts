@@ -102,7 +102,7 @@ export class CompilerProvider {
     });
     let managedBy: any[] = [];
     this.helperService.iterations(allEntities, function (entity) {
-      managedBy.push(entity.managedBy)
+      managedBy.push(entity.managedBy);
     });
     let userEntityData: EntityUserData = {
       entities: allEntities
@@ -192,6 +192,21 @@ export class CompilerProvider {
       usersArray.push(user);
     });
     return usersArray;
+  }
+
+  constructAllConnectionData(connectionArray) {
+    let connectionData = [];
+    this.helperService.iterations(connectionArray.data, function (obj) {
+      let connection = {
+        name: obj.user.first_name + ' ' + obj.user.last_name,
+        email: obj.user.email,
+        contact: obj.user.contactNo,
+        photos: obj.user.profileImage,
+        id: obj.user.id,
+      };
+      connectionData.push(connection);
+    });
+    return connectionData;
   }
 
   constructOrganizationObject(organizationApiResponse: any): Organization {
