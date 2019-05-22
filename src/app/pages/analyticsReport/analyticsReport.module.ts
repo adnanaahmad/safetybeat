@@ -1,19 +1,28 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AnalyticsReportRoutingModule } from './analyticsReport-routing.module';
-import { ActionAlertsReportsComponent } from './components/actionAlertsReport/actionAlertsReport.component';
-import { ActionReportComponent } from './components/actionReport/actionReport.component';
-import { AlertsPersonReportComponent } from './components/alertsPersonReport/alertsPersonReport.component';
-import { AverageDailyActionsReportComponent } from './components/averageDailyActionsReport/averageDailyActionsReport.component';
-import { CheckInActivityReportComponent } from './components/checkinActivityReport/checkinActivityReport.component';
-import { EntityPulseReportComponent } from './components/entityPulseReport/entityPulseReport.component';
-import { PersonPulseReportComponent } from './components/personPulseReport/personPulseReport.component';
-import { CompilantCheckoutReportComponent } from './components/compilantCheckoutReport/compilantCheckoutReport.component';
-import { SiteActivityReportComponent } from './components/siteActivityReport/siteActivityReport.component';
-import { HazardReportComponent } from './components/hazardReport/hazardReport.component';
+import {AnalyticsReportRoutingModule} from './analyticsReport-routing.module';
+import {ActionAlertsReportsComponent} from './components/actionAlertsReport/actionAlertsReport.component';
+import {ActionReportComponent} from './components/actionReport/actionReport.component';
+import {AlertsPersonReportComponent} from './components/alertsPersonReport/alertsPersonReport.component';
+import {AverageDailyActionsReportComponent} from './components/averageDailyActionsReport/averageDailyActionsReport.component';
+import {CheckInActivityReportComponent} from './components/checkinActivityReport/checkinActivityReport.component';
+import {EntityPulseReportComponent} from './components/entityPulseReport/entityPulseReport.component';
+import {PersonPulseReportComponent} from './components/personPulseReport/personPulseReport.component';
+import {CompilantCheckoutReportComponent} from './components/compilantCheckoutReport/compilantCheckoutReport.component';
+import {SiteActivityReportComponent} from './components/siteActivityReport/siteActivityReport.component';
+import {HazardReportComponent} from './components/hazardReport/hazardReport.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from '../../shared/material/material.module';
 
 @NgModule({
+  imports: [
+    CommonModule,
+    AnalyticsReportRoutingModule,
+    FormsModule,
+    MaterialModule,
+    ReactiveFormsModule
+  ],
   declarations: [
     ActionReportComponent,
     AverageDailyActionsReportComponent,
@@ -25,9 +34,6 @@ import { HazardReportComponent } from './components/hazardReport/hazardReport.co
     CompilantCheckoutReportComponent,
     SiteActivityReportComponent,
     HazardReportComponent],
-  imports: [
-    CommonModule,
-    AnalyticsReportRoutingModule
-  ]
 })
-export class AnalyticsReportModule { }
+export class AnalyticsReportModule {
+}

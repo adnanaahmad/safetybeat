@@ -49,14 +49,10 @@
         width: 100%;
       }
       mat-card-content {
-        height: 200px;
+        height: 180px;
         overflow: auto;
       }
       .siteinfo-row {
-        clear: both;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
         padding: 10px;
         .safe-icon {
           color: #fff;
@@ -77,6 +73,8 @@
         }
         strong {
           width: 100%;
+          display: block;
+          margin: 10px 0;
         }
         p {
           margin: 0;

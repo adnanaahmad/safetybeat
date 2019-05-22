@@ -31,6 +31,7 @@ import {
   MatAutocompleteModule
 } from '@angular/material';
 import { GooglePlacesDirective } from 'src/app/directives/googlePlaces/googlePlaces.directive';
+import {HighchartsChartModule} from 'highcharts-angular';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { GooglePlacesDirective } from 'src/app/directives/googlePlaces/googlePla
     MatProgressBarModule,
     MatExpansionModule,
     MatTabsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    HighchartsChartModule
   ],
   declarations: [GooglePlacesDirective],
   exports: [
