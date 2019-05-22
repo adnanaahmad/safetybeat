@@ -196,7 +196,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.helperService.constants.status.WARNING);
 
       }
-      console.log(this.profileModel.allConnectionsData);
     });
   }
 }

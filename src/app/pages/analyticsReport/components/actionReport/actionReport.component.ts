@@ -27,6 +27,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     private highChartSettings: HighchartService,
     public adminServices: AdminControlService,
   ) {
+    this.actionReportObj.showChart = true;
     this.getAllSites();
   }
 
@@ -54,7 +55,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   actionReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
-    debugger
     if (!valid) {
       return;
     }
@@ -66,21 +66,25 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     };
     this.analyticsService.actionReportForUser(data).subscribe((res) => {
       this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
-      let chartType: HighChartType = {
-        type: 'column',
-        title: this.actionReportObj.userActionReportData.site,
-        subtitle: ''
-      };
-      let checkInChart = 1;
-      let data1 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkInChart);
-      console.log(data1);
-      Highcharts.chart('checkInContainer', data1);
-      let checkOutChart = 2;
-      let data2 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkOutChart);
-      console.log(data2);
-      Highcharts.chart('checkOutContainer', data2);
-    });
+      if (this.actionReportObj.userActionReportData.CheckIns.length === 0 &&
+        this.actionReportObj.userActionReportData.CheckOuts.length === 0) {
+        this.actionReportObj.showChart = false;
+      } else {
+        this.actionReportObj.showChart = true;
+        let chartType: HighChartType = {
+          type: 'column',
+          title: this.actionReportObj.userActionReportData.site,
+          subtitle: ''
+        };
+        let checkInChart = 1;
+        let data1 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkInChart);
+        Highcharts.chart('checkInContainer', data1);
+        let checkOutChart = 2;
+        let data2 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkOutChart);
+        Highcharts.chart('checkOutContainer', data2);
 
+      }
+    });
   }
 
   getAllSites() {

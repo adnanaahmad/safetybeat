@@ -247,7 +247,6 @@ export class HelperService {
             mapProp.setCenter(results[0].geometry.location);
             self.latitude = results[0].geometry.location.lat();
             self.longitude = results[0].geometry.location.lng();
-            console.log(results[0].geometry.location);
             let marker = new google.maps.Marker({
               map: mapProp,
               position: results[0].geometry.location

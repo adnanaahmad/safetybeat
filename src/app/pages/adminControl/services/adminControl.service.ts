@@ -183,7 +183,6 @@ export class AdminControlService {
   }
 
   allConnections(data) {
-    debugger;
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       this.apiRoutes.viewAllConnections,

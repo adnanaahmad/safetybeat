@@ -46,13 +46,19 @@
         </button>
       </div>
     </form>
-    <mat-grid-list cols="2" rowHeight="2:1">
-      <mat-grid-tile>
-        <div id="checkInContainer"></div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div id="checkOutContainer"></div>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <div *ngIf="actionReportObj.showChart">
+      <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>
+          <div id="checkInContainer"></div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div id="checkOutContainer"></div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <div *ngIf="!actionReportObj.showChart">
+      <p>No data available</p>
+    </div>
+
   </div>
 </div>
