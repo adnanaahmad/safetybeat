@@ -4,6 +4,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {ActionReport, ActionReportApiData} from '../../../../models/analyticsReport/actionReports.model';
 import {NavigationService} from '../../../navigation/services/navigation.service';
 import {AnalyticsReportService} from '../../services/analyticsReport.service';
+import {CompilerProvider} from '../../../../shared/compiler/compiler';
 
 @Component({
   selector: 'app-action-report',
@@ -18,6 +19,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     private navService: NavigationService,
     public analyticsService: AnalyticsReportService,
+    public compiler: CompilerProvider,
   ) {
   }
 
@@ -52,7 +54,8 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       'dateFrom': value.dateFrom
     };
     this.analyticsService.actionReport(data).subscribe((res) => {
-      console.log(res);
+      this.actionReportObj.actionReportData = this.compiler.constructActionReportData(res);
+      console.log(this.actionReportObj.actionReportData)
     });
 
   }
