@@ -53,8 +53,13 @@
             custom-btn btn-primary color="primary">
             <mat-icon>add</mat-icon>
             {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
+            <div class="main-loader" *ngIf="createEntityObj.loading">
+              <span class="loader1"></span>
+              <span class="loader2"></span>
+              <span class="loader3"></span>
+            </div>
           </button>
-          <img *ngIf="createEntityObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+          <!-- <img *ngIf="createEntityObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
         </mat-dialog-actions>
       </form>
     </mat-card>

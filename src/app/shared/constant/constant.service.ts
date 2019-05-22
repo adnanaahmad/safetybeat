@@ -294,6 +294,7 @@ export class ConstantService {
     clock: 'access_time',
     cloudDownload: 'cloud_download',
     folder: 'folder',
+    phone: 'phone',
     createFolder: 'create_new_folder'
   };
   /**

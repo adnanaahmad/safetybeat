@@ -9,18 +9,22 @@
   <h1 class="mat-h3">{{helperService.translated.MESSAGES.CSVIMPORT_MSG}}</h1>
   <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)
     [enctype]="importSiteModal.type">
-    <div class="form-group file-upload">
-      <button mat-raised-button custom-btn btn-primary mat-dialog-close>
-        {{ helperService.translated.BUTTONS.UPLOAD_FILE }}
-      </button>
+    <div class="form-group">
       <input type='file' name="{{helperService.appConstants.importSite}}" id="{{helperService.appConstants.importSite}}"
         accept='.csv' (change)=onFileSelected($event) />
     </div>
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="importSiteModal.loading"
-        color="primary">{{ helperService.translated.BUTTONS.IMPORT_SITE }}</button>
-      <img *ngIf="importSiteModal.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
-      <button mat-button mat-dialog-close type="button">
+        color="primary">{{ helperService.translated.BUTTONS.IMPORT_SITE }}
+        <div class="main-loader" *ngIf="importSiteModal.loading">
+          <span class="loader1"></span>
+          <span class="loader2"></span>
+          <span class="loader3"></span>
+        </div>
+      </button>
+
+      <!-- <img *ngIf="importSiteModal.loading" [src]=helperService.translated.MESSAGES.LOADING_URL> -->
+      <button mat-button mat-dialog-close>
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>

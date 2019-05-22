@@ -19,10 +19,10 @@
     </div>
   </mat-toolbar>
   <div class="paddingbox">
-    <mat-grid-list cols="4" rowHeight="250px" gutterSize="30px">
+    <mat-grid-list cols="4" rowHeight="230px" gutterSize="10px">
       <mat-grid-tile colspan="2">
         <!-- Activites -->
-        <mat-card class="dashboard-card activities mat-elevation-z8">
+        <mat-card class="dashboard-card activities">
           <mat-card-header class="infoTitle">
             <mat-card-title>Activities</mat-card-title>
             <div class="filter-results">
@@ -107,7 +107,7 @@
 
       <mat-grid-tile colspan="2">
         <!-- Connections -->
-        <mat-card class="dashboard-card activities mat-elevation-z8">
+        <mat-card class="dashboard-card activities">
           <mat-card-header class="infoTitle">
             <mat-card-title>Connections</mat-card-title>
             <div class="filter-results">
@@ -159,7 +159,7 @@
           </mat-card-header>
           <mat-card-content>
             <div class="">
-              <table class="customTable" mat-table [dataSource]="dataSource">
+              <table class="customTable mat-elevation-z3" mat-table [dataSource]="dataSource">
                 <!-- Position Column -->
                 <ng-container matColumnDef="position">
                   <th mat-header-cell *matHeaderCellDef> No.</th>
@@ -197,7 +197,7 @@
           </mat-card-header>
           <mat-card-content>
             <div class="">
-              <table class="customTable" mat-table [dataSource]="profileModel.dataSource">
+              <table class="customTable mat-elevation-z3" mat-table [dataSource]="profileModel.dataSource">
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef>
                     {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
