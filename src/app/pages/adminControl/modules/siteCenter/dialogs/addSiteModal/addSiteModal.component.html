@@ -67,7 +67,7 @@
         {{ helperService.translated.BUTTONS.SAVE }}
       </button>
       <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL>
-      <button mat-raised-button custom-btn btn-primary color="warn" mat-dialog-close>
+      <button mat-button mat-dialog-close type="button">
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>

@@ -49,10 +49,10 @@ export class HazardCenterComponent implements OnInit {
         this.helperService.appConstants.key)),
     };
     this.adminControlService.allHazards(entityData).subscribe((res) => {
-      if (res !== 1 && res !== '') {
+      if (res !== 1 && res.data.length !== 0) {
         this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
         this.hazardTable.dataSource.paginator = this.paginator;
-      } else if (res === '') {
+      } else if (res.data.length === 0) {
         this.hazardTable.dataSource = 0;
       }
     });

@@ -151,7 +151,7 @@
                 {{helperService.translated.BUTTONS.BACK}}
               </button>
               <button matStepperNext mat-raised-button
-                (click)="orgForm.address.errors.invalid&&helperService.setAddress({},gMapElement,orgForm.address)"
+                (click)="orgForm.address.invalid&&helperService.setAddress({},gMapElement,orgForm.address)"
                 [disabled]="!helperService.displayButton" custom-btn btn-primary color="primary">
                 {{helperService.translated.BUTTONS.NEXT}}
                 <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>

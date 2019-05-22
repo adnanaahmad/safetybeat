@@ -17,7 +17,7 @@ import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUs
   templateUrl: './memberCenter.component.html',
   styleUrls: ['./memberCenter.component.scss']
 })
-export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MemberCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   memberCenter: MemberCenter = <MemberCenter>{};
   displayedColumns: string[] = [
@@ -47,9 +47,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy, AfterViewInit {
     this.navService.selectedEntityData.subscribe((res) => {
       this.memberCenter.currentRole = res.role;
     });
-  }
-
-  ngAfterViewInit() {
     this.memberCenter.subscription = this.memberService.entityUserObserver.subscribe((res) => {
       if (res !== 1) {
         this.memberCenter.dataSource = res;
