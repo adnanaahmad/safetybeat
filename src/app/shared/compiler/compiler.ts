@@ -7,7 +7,7 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {Hazard} from 'src/app/models/hazard.model';
-import {DocumentObj} from '../../models/navigation/documents.model';
+import {DocList, DocumentObj} from '../../models/navigation/documents.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -127,7 +127,7 @@ export class CompilerProvider {
     return siteApiResponse.data;
   }
 
-  constructAllDocumentsData(documentsApiResponse: any): DocumentObj[] {
+  constructAllDocumentsData(documentsApiResponse: any): DocList[] {
     return documentsApiResponse.data.documents;
   }
 

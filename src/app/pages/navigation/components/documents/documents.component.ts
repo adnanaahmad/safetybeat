@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialog, MatDialogConfig, MatPaginator, MatTableDataSource} from '@angular/material';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -13,13 +13,14 @@ import {CreateFolderComponent} from '../../dialogs/createFolder/createFolder.com
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.scss']
 })
-export class DocumentsComponent implements OnInit {
+export class DocumentsComponent implements OnInit, OnDestroy {
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['file', 'uploadedBy', 'actions'];
   documentsObj: DocumentObj = <DocumentObj>{};
   documentsData: Documents = <Documents>{};
   panelOpenState = false;
+  private folderList: any;
 
   constructor(
     public dialog: MatDialog,
@@ -31,20 +32,26 @@ export class DocumentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allDocumentsData()
+
+        this.allDocumentsData();
+    this.getAllFolders();
   }
 
-  uploadDocuments(event) {
-    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key))
-    this.documentsObj.file = <File>event.target.files[0];
-    let blob = new Blob([this.documentsObj.file]);
-    let formData = new FormData();
-    formData.append('file', blob, this.documentsObj.file.name);
-    formData.append('entity', entityId);
-    this.navService.uploadDocuments(formData).subscribe((res) => {
+  ngOnDestroy(): void {
+  }
+
+  getAllFolders() {
+    let entityID = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
+    this.navService.allFolders({entityId: entityID}).subscribe((res) => {
+      if (res.responseDetails.code === 104) {
+
+      } else {
+        this.folderList = res.data;
+      }
     });
   }
+
 
   allDocumentsData() {
     let entityData = {
@@ -66,6 +73,9 @@ export class DocumentsComponent implements OnInit {
 
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent);
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      this.allDocumentsData();
+    });
   }
 
   newFolder() {

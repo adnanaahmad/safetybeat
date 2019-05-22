@@ -50,7 +50,8 @@
     "TRIAL": "Trial",
     "OWNER": "Owner",
     "LOGOUTSUCCESSION": "Successfully logged out.",
-    "REQUIRED_FIELD": "Field is Required"
+    "REQUIRED_FIELD": "Field is Required",
+    "NO_FILE": "No File Selected"
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -91,7 +92,11 @@
     "DATE_TIME": "Date/Time",
     "RESOLVED_BY": "Resolved By",
     "ADDED_BY": "Added By",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "UPLOAD_DOC": "Upload document",
+    "FILE_NAME": "File Name",
+    "SELECT_FOLDER": "Select Folder",
+    "FOLDER_NAME": "Folder Name"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -302,7 +307,10 @@
     "HAZARD_DELETE_FAILURE": "Hazard delete failed",
     "EDITPROFILE": "Edit Profile",
     "SITE_MAP": "Site Map",
-    "NEW_FOLDER": "New Folder Created."
+    "NEW_FOLDER": "New Folder Created.",
+    "FOLDER_FAIL": "Folder Creation Failed",
+    "DOC_ADDED": "Document Uploaded Successfully.",
+    "DOC_FAIL": "Document could not be Uploaded"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

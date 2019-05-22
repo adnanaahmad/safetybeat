@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {HelperService} from '../../../../shared/helperService/helper.service';
-import {NavigationService} from '../../services/navigation.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {Folders} from '../../../../models/welcomeScreen/folders.model';
 import {MatDialogRef} from '@angular/material';
+import {Folders} from 'src/app/models/navigation/documents.model';
 
 @Component({
   selector: 'app-create-folder',
@@ -38,7 +38,11 @@ export class CreateFolderComponent implements OnInit {
       this.helperService.appConstants.key));
     let data = {name: value.title, entity: entityId};
     this.navService.createFolder(data).subscribe((res) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
+      if (res.responseDetails.code === 100) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
+      } else {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_FAIL, this.helperService.constants.status.WARNING);
+      }
     });
     this.dialogRef.close();
   }

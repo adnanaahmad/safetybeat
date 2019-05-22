@@ -18,7 +18,7 @@ import {TokenInterceptorService} from './core/services/interceptors/tokenInterce
 import {NotifierModule} from 'angular-notifier';
 import {CoreService} from './core/services/authorization/core.service';
 import {CookieService} from 'ngx-cookie-service';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {LocationStrategy, HashLocationStrategy, CommonModule} from '@angular/common';
 import {CreateEntityComponent} from './pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {JoinEntityModalComponent} from './pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import {InviteUserModalComponent} from './Dialogs/inviteUserModal/inviteUserModal.component';
