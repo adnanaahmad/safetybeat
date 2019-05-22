@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { Translation } from 'src/app/models/translate.model';
+import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
+import {Translation} from 'src/app/models/translate.model';
 import * as Highcharts from 'highcharts';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -12,7 +13,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   option2: object;
   option3: object;
   option4: object;
-  translated: Translation
+  translated: Translation;
+
   constructor(
     public helperService: HelperService
   ) {
@@ -79,6 +81,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       }]
     };
 
+    Highcharts.chart('my', this.option1);
     this.option2 = {
       chart: {
         type: 'pie',
@@ -213,8 +216,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       }]
     };
   }
-  ngOnInit() { }
-  ngAfterViewInit() { }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+  }
+
   ngOnDestroy() {
     this.helperService.hideLoggers();
   }

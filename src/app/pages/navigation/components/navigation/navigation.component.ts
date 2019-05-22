@@ -11,7 +11,6 @@ import {GeneralComponent} from 'src/app/pages/settings/components/general/genera
 import {SecurityComponent} from 'src/app/pages/settings/components/security/security.component';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
-import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-navigation',

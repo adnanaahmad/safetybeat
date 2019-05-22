@@ -5,20 +5,9 @@ import {MaterialModule} from 'src/app/shared/material/material.module';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthGuard} from 'src/app/core/services/guards/auth.guard';
-import {ChartModule} from 'angular2-highcharts';
-import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {TokenInterceptorService} from 'src/app/core/services/interceptors/tokenInterceptor';
+import {HighchartsChartModule} from 'highcharts-angular';
 
-declare var require: any;
-
-export function HighchartsFactory() {
-  const hc = require('highcharts/highstock');
-  const hd = require('highcharts/modules/exporting');
-  let expdt = require('highcharts/modules/export-data');
-  hd(hc);
-  expdt(hc);
-  return hc;
-}
 
 @NgModule({
   declarations: [
@@ -28,7 +17,7 @@ export function HighchartsFactory() {
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
-    ChartModule
+    HighchartsChartModule
   ],
   providers: [
     AuthGuard,
@@ -36,11 +25,8 @@ export function HighchartsFactory() {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
-    },
-    {
-      provide: HighchartsStatic,
-      useFactory: HighchartsFactory
     }
+
   ]
 })
 export class DashboardModule {
