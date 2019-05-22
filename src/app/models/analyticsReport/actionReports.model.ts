@@ -1,9 +1,12 @@
 import {FormGroup} from '@angular/forms';
 import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
+import {SitesInfo} from '../site.model';
 
 
 export interface ActionReport {
+  userActionReportData: UserActionReportData;
+  sitesData: SitesInfo[];
   entityName: string;
   entityUserData: EntityUserData;
   allEntitiesData: any;
@@ -16,6 +19,7 @@ export interface ActionReportApiData {
   entityName: string;
   dateFrom: string;
   dateTo: Date;
+  site: number;
 }
 
 export interface HighChartType {
@@ -30,6 +34,12 @@ export interface ActionReportData {
   site: string,
 }
 
+export interface UserActionReportData {
+  CheckIns: userCheckIn[],
+  CheckOuts: userCheckOut[],
+  site: string,
+}
+
 export interface CheckIn {
   site: number,
   numberOfCheckIn: number
@@ -37,5 +47,15 @@ export interface CheckIn {
 
 export interface CheckOut {
   site: number,
+  numberOfCheckOut: number
+}
+
+export interface userCheckIn {
+  user: number,
+  numberOfCheckIn: number
+}
+
+export interface userCheckOut {
+  user: number,
   numberOfCheckOut: number
 }

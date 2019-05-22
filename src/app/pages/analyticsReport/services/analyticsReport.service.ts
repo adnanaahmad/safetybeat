@@ -21,4 +21,12 @@ export class AnalyticsReportService {
     );
   }
 
+  actionReportForUser(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.actionsReportForUser,
+      data
+    );
+  }
+
 }

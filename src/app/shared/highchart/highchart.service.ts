@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
 import * as Highcharts from 'highcharts';
-import {ActionReportData, HighChartType} from '../../models/analyticsReport/actionReports.model';
+import {
+  ActionReportData,
+  HighChartType,
+  UserActionReportData,
+  userCheckIn,
+  userCheckOut
+} from '../../models/analyticsReport/actionReports.model';
 import {HelperService} from '../helperService/helper.service';
 
 @Injectable({
@@ -11,22 +17,66 @@ export class HighchartService {
   constructor(public helperService: HelperService) {
   }
 
-  generateCharSeries(reportData: ActionReportData[]) {
-    let charSeries = [];
-    let self = this;
-    this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
+  generateCharSeries(reportData: any, userChart: number) {
+    if (userChart === 0) {
+      let charSeries = [];
+      this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
         let checkIn = {
           name: actionReport.site,
           data: [actionReport.CheckIns.numberOfCheckIn, actionReport.CheckOuts.numberOfCheckOut]
         };
         charSeries.push(checkIn);
-    });
-    return charSeries;
+      });
+      let data = {
+        charSeries: charSeries,
+        categories: ['Check In', 'CheckOut'],
+        title: 'No of Check In and Check out'
+      }
+      return data;
+    } else if (userChart === 1) {
+      return this.generateCheckInSeries(reportData)
+    } else if (userChart === 2) {
+      return this.generateCheckOutSeries(reportData)
+    }
   }
 
-  reportSettings(chartType: HighChartType, data: any, reportData?: ActionReportData[]) {
+  generateCheckInSeries(reportData: any) {
+    let charSeries = [];
+    this.helperService.iterations(reportData.CheckIns, function (actionReport: userCheckIn) {
+      let checkIn = {
+        name: actionReport.user,
+        data: [actionReport.numberOfCheckIn]
+      };
+      charSeries.push(checkIn);
+    });
+    let data = {
+      charSeries: charSeries,
+      categories: ['Check In'],
+      title: 'No of CheckIn'
+    }
+    return data;
+  }
+
+  generateCheckOutSeries(reportData: any) {
+    let charSeries = [];
+    this.helperService.iterations(reportData.CheckOuts, function (actionReport: userCheckOut) {
+      let checkIn = {
+        name: actionReport.user,
+        data: [actionReport.numberOfCheckOut]
+      };
+      charSeries.push(checkIn);
+    });
+    let data = {
+      charSeries: charSeries,
+      categories: ['CheckOut'],
+      title: 'No of CheckOut'
+    }
+    return data;
+  }
+
+  reportSettings(chartType: HighChartType, data: any, reportData?: any, userChart?: any) {
     this.pieChartWithNoData();
-    let charSeries = (data.length === 0) ? this.generateCharSeries(reportData) : data;
+    let charSeries = (data.length === 0) ? this.generateCharSeries(reportData, userChart) : data;
     let highChartReport = {
       chart: {
         type: chartType.type,
@@ -39,7 +89,7 @@ export class HighchartService {
         text: chartType.subtitle
       },
       xAxis: {
-        categories: ['Check In', 'CheckOut'],
+        categories: charSeries.categories,
         gridLineWidth: 1,
         gridZIndex: 4,
         labels: {
@@ -50,7 +100,7 @@ export class HighchartService {
       yAxis: {
         min: 0,
         title: {
-          text: 'No of Check In and Check out',
+          text: charSeries.title,
         },
       },
       plotOptions: {
@@ -81,7 +131,7 @@ export class HighchartService {
       credits: {
         enabled: false
       },
-      series: charSeries
+      series: charSeries.charSeries
     };
     return highChartReport;
   }

@@ -7,6 +7,8 @@ import {AnalyticsReportService} from '../../services/analyticsReport.service';
 import {CompilerProvider} from '../../../../shared/compiler/compiler';
 import {HighchartService} from '../../../../shared/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
+import {AdminControlService} from '../../../adminControl/services/adminControl.service';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-action-report',
@@ -22,15 +24,18 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public analyticsService: AnalyticsReportService,
     public compiler: CompilerProvider,
-    private highChartSettings: HighchartService
+    private highChartSettings: HighchartService,
+    public adminServices: AdminControlService,
   ) {
+    this.getAllSites();
   }
 
   ngOnInit() {
     this.actionReportObj.actionReportForm = this.formBuilder.group({
       entityName: ['', Validators.required],
       dateTo: ['', Validators.required],
-      dateFrom: ['', Validators.required]
+      dateFrom: ['', Validators.required],
+      site: ['', Validators.required]
     });
     this.actionReportObj.subscription = this.navService.data.subscribe((res) => {
       if (res !== 1) {
@@ -41,6 +46,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
         this.actionFormValidations['entityName'].disable();
       }
     });
+
   }
 
   get actionFormValidations() {
@@ -54,20 +60,36 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     let data = {
       'entityId': this.actionReportObj.entityUserData[0].entityInfo.id,
       'dateTo': value.dateTo,
-      'dateFrom': value.dateFrom
+      'dateFrom': value.dateFrom,
+      'siteId': value.site,
     };
-    this.analyticsService.actionReport(data).subscribe((res) => {
-      this.actionReportObj.actionReportData = this.compiler.constructActionReportData(res);
+    this.analyticsService.actionReportForUser(data).subscribe((res) => {
+      this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
       let chartType: HighChartType = {
         type: 'column',
-        title: 'Site Based Action Report',
+        title: this.actionReportObj.userActionReportData.site,
         subtitle: ''
       };
-      let data = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.actionReportData);
-      console.log(data);
-      Highcharts.chart('container', data);
+      let checkInChart = 1;
+      let data1 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkInChart);
+      console.log(data1);
+      Highcharts.chart('checkInContainer', data1);
+      let checkOutChart = 2;
+      let data2 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkOutChart);
+      console.log(data2);
+      Highcharts.chart('checkOutContainer', data2);
     });
 
+  }
+
+  getAllSites() {
+    let entityData = {
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+    };
+    this.adminServices.viewSites(entityData).subscribe((res) => {
+      this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res);
+    });
   }
 
   ngOnDestroy() {

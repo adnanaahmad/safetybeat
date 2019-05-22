@@ -65,7 +65,8 @@ export class ConstantService {
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
     uploadDocuments: `${environment.apiUrl}/api/documents/`,
-    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`
+    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
   };
   /**
    * all the api methods are declared here.
@@ -122,7 +123,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    serverUrl: 'http://192.168.69.38:8000',
+    serverUrl: 'http://localhost:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -180,6 +181,7 @@ export class ConstantService {
     parent: 'parent',
     dateTo: 'dateTo',
     dateFrom: 'dateFrom',
+    site: 'site',
     paths: {
       home: '/home',
       profile: '/home/profile',

@@ -8,7 +8,7 @@ import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {Hazard} from 'src/app/models/hazard.model';
 import {DocumentObj} from '../../models/navigation/documents.model';
-import {ActionReportData} from '../../models/analyticsReport/actionReports.model';
+import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -129,6 +129,10 @@ export class CompilerProvider {
   }
 
   constructActionReportData(actionReportApiResponse: any): ActionReportData[] {
+    return actionReportApiResponse;
+  }
+
+  constructUserActionReportData(actionReportApiResponse: any): UserActionReportData {
     return actionReportApiResponse;
   }
 
