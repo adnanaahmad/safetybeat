@@ -89,7 +89,6 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
   getSelectedEntity() {
     this.navModel.subscription = this.navService.data.subscribe((res) => {
       if (res !== 1) {
-        debugger;
         this.navModel.allEntitiesData = res;
         this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
         this.navModel.empty = false;

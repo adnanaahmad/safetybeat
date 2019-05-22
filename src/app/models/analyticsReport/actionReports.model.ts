@@ -25,17 +25,17 @@ export interface highChartTitle {
 }
 
 export interface ActionReportData {
-  site: number,
-  CheckIns: CheckIn[],
-  CheckOuts: CheckOut[]
+  CheckIns: CheckIn,
+  CheckOuts: CheckOut,
+  site: string,
 }
 
 export interface CheckIn {
-  day: string,
+  site: number,
   numberOfCheckIn: number
 }
 
 export interface CheckOut {
-  day: string,
+  site: number,
   numberOfCheckOut: number
 }

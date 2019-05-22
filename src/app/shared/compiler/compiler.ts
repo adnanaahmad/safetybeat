@@ -129,7 +129,7 @@ export class CompilerProvider {
   }
 
   constructActionReportData(actionReportApiResponse: any): ActionReportData[] {
-    return actionReportApiResponse.data;
+    return actionReportApiResponse;
   }
 
   constructAllDocumentsData(documentsApiResponse: any): DocumentObj[] {
