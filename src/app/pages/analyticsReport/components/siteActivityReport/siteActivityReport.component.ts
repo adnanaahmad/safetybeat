@@ -59,6 +59,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     };
     this.analyticsService.actionReport(data).subscribe((res) => {
       this.siteActivityObj.actionReportData = this.compiler.constructActionReportData(res);
+
       let chartType: HighChartType = {
         type: 'column',
         title: 'Site Based Action Report',

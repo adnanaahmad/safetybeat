@@ -75,7 +75,7 @@
   </mat-card>
   <div class="btn-grp" *ngIf="orgObj.enabled">
     <button type="submit" mat-raised-button custom-btn btn-primary
-      [disabled]="orgObj.organizationForm.pristine || !orgObj.organizationForm.valid || !helperService.displayButton">
+      [disabled]="orgObj.organizationForm.pristine">
       <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
       Save
     </button>

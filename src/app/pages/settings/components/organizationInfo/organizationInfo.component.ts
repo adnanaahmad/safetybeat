@@ -121,6 +121,8 @@ export class OrganizationInfoComponent implements OnInit {
       return;
     }
     this.settingService.editOrganization(this.orgObj.orgID, data).subscribe((res) => {
+      this.orgObj.enabled = true;
+      this.orgObj.organizationForm.enable();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ORG_DETAILS, this.helperService.constants.status.SUCCESS);
     });
   }

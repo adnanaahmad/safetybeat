@@ -57,11 +57,52 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         y: 1.2
       }]
     }];
-    this.option1 = this.highChartSettings.reportSettings({
-      type: 'pie',
-      title: 'People working on the bluesky site for installation',
-      subtitle: ''
-    }, charSeries);
+    this.option1 = {
+      chart: {
+        type: 'pie',
+        options3d: {
+          enabled: true,
+          alpha: 45,
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+          }
+        }
+      },
+      title: {
+        text: 'Bluesky softwares and hardwares'
+      },
+      subtitle: {
+        text: 'Work Report 2017'
+      },
+      plotOptions: {
+        pie: {
+          innerSize: 100,
+          depth: 45,
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          }
+        }
+      },
+      series: [{
+        name: 'Delivered amount',
+        data: [
+          ['software installation', 8],
+          ['hardware installation', 3],
+          ['software issues resolving', 1],
+          ['hardware services', 6],
+          ['proton settings', 8],
+          ['safetybeat installation', 4],
+          ['optergy app installation', 4],
+        ]
+      }]
+    };
+
     this.option2 = {
       chart: {
         type: 'pie',

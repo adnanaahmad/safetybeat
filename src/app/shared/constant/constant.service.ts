@@ -125,7 +125,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    serverUrl: 'http://192.168.69.13:8000',
+    serverUrl: 'http://localhost:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -181,6 +181,9 @@ export class ConstantService {
     safeQuestion: 'safeQuestion',
     canProceed: 'canProceed',
     parent: 'parent',
+    dateFrom: 'dateFrom',
+    dateTo: 'dateTo',
+    site: 'site',
     paths: {
       home: '/home',
       profile: '/home/profile',
