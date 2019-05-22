@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from '../../../shared/helperService/helper.service';
-import {entity} from '../../../models/entity.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +17,14 @@ export class AnalyticsReportService {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.actionsReport,
+      data
+    );
+  }
+
+  actionReportForUser(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.actionsReportForUser,
       data
     );
   }

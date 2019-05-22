@@ -65,7 +65,8 @@ export class ConstantService {
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
     uploadDocuments: `${environment.apiUrl}/api/documents/`,
-    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`
+    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
   };
   /**
    * all the api methods are declared here.
@@ -180,6 +181,7 @@ export class ConstantService {
     parent: 'parent',
     dateTo: 'dateTo',
     dateFrom: 'dateFrom',
+    site: 'site',
     paths: {
       home: '/home',
       profile: '/home/profile',
