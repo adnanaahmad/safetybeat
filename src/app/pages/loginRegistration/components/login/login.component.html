@@ -48,9 +48,15 @@
           </mat-form-field>
         </div>
         <div class="button">
-          <button mat-raised-button [disabled]="loginObj.loading" custom-btn btn-primary
-            color="primary">{{helperService.translated.BUTTONS.LOGIN}}</button>
-          <img *ngIf="loginObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+          <button class="mat-elevation-z1" mat-raised-button custom-btn btn-primary
+            color="primary">{{helperService.translated.BUTTONS.LOGIN}}
+            <div class="main-loader" *ngIf="loginObj.loading">
+              <span class="loader1"></span>
+              <span class="loader2"></span>
+              <span class="loader3"></span>
+            </div>
+          </button>
+          <!-- <img *ngIf="loginObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
         </div>
         <br>
         <div class="link">

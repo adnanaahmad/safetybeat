@@ -7,33 +7,34 @@
       display: flex;
       flex-wrap: wrap;
       mat-card {
-        text-align: center;
         width: 100%;
         box-shadow: none !important;
         border: 1px solid mat-color($primary-pallet, 50);
         flex: 1;
         margin: 3px;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         .mat-subheader {
           justify-content: center;
           margin: 0;
-          padding: 10px 0 0;
+          padding: 3px 0 0;
           font-size: 12px;
           opacity: 0.5;
         }
         mat-icon {
-          box-shadow: $boxShadow;
-          border-radius: $circle;
-          padding: 5px;
           background-color: #fff;
           color: mat-color($primary-pallet, 500);
-          width: 30px;
-          height: 30px;
-          line-height: 1.2;
-          margin: 0 auto;
+          padding-right: 5px;
+          font-size: 18px;
+          height: auto;
+          width: auto;
         }
         p {
           margin: 5px 0;
           font-size: 14px;
+          width: 100%;
         }
       }
     }

@@ -67,9 +67,15 @@
     </div>
 
     <mat-dialog-actions>
-      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="inviteUserModal.loading"
-        color="primary">{{helperService.translated.BUTTONS.INVITE}}</button>
-      <img *ngIf="inviteUserModal.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
+        [disabled]="inviteUserModal.loading" color="primary">{{helperService.translated.BUTTONS.INVITE}}
+        <div class="main-loader" *ngIf="inviteUserModal.loading">
+          <span class="loader1"></span>
+          <span class="loader2"></span>
+          <span class="loader3"></span>
+        </div>
+      </button>
+      <!-- <img *ngIf="inviteUserModal.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
       <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
   </form>

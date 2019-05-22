@@ -19,7 +19,7 @@
     </div>
   </mat-toolbar>
   <div class="paddingbox">
-    <mat-grid-list cols="4" rowHeight="250px" gutterSize="30px">
+    <mat-grid-list cols="4" rowHeight="230px" gutterSize="10px">
       <mat-grid-tile colspan="2">
         <!-- Activites -->
         <mat-card class="dashboard-card activities">
@@ -122,7 +122,7 @@
             </div>
           </mat-card-header>
           <mat-card-content>
-            <table class="customTable mat-elevation-z3" mat-table [dataSource]="dataSource">
+            <table class="customTable" mat-table [dataSource]="dataSource">
               <!-- Position Column -->
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> No.</th>

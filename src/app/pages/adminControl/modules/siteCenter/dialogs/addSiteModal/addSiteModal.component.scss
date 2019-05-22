@@ -7,10 +7,19 @@
         margin: 1%;
       }
     }
-    .site-map{
-      width:100%;
-      height:200px;
+    .site-map {
+      width: 100%;
+      height: 100%;
       margin-bottom: 10px;
+    }
+    .flexbox {
+      mat-card {
+        width: 100%;
+      }
+    }
+    .mat-dialog-content,
+    .mat-dialog-title {
+      width: auto;
     }
   }
 }
