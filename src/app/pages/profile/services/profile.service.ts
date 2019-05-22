@@ -64,5 +64,9 @@ export class ProfileService {
     );
   }
 
+  viewAllConnections(data: any) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.viewAllConnections, data);
+  }
+
 
 }

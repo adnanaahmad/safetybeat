@@ -33,7 +33,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-        this.allDocumentsData();
+    this.allDocumentsData();
     this.getAllFolders();
   }
 
@@ -80,5 +80,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   newFolder() {
     this.helperService.createDialog(CreateFolderComponent);
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      this.getAllFolders();
+    });
   }
 }

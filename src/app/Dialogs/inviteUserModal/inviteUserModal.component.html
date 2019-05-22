@@ -53,7 +53,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field full-width *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">
+      <mat-form-field appearance="outline" full-width *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">
         <mat-label>{{helperService.translated.AUTH.SITE}}</mat-label>
         <mat-select [(value)]="inviteUserModal.selectedSite.id" [formControlName]=helperService.appConstants.sites>
           <mat-option *ngFor="let site of inviteUserModal.siteList" [value]="site.site.id">
@@ -67,9 +67,15 @@
     </div>
 
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="inviteUserModal.loading"
-        color="primary">{{helperService.translated.BUTTONS.INVITE}}</button>
-      <img *ngIf="inviteUserModal.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" />
+      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
+        [disabled]="inviteUserModal.loading" color="primary">{{helperService.translated.BUTTONS.INVITE}}
+        <div class="main-loader" *ngIf="inviteUserModal.loading">
+          <span class="loader1"></span>
+          <span class="loader2"></span>
+          <span class="loader3"></span>
+        </div>
+      </button>
+      <!-- <img *ngIf="inviteUserModal.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
       <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
   </form>

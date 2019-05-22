@@ -36,7 +36,7 @@
 @import "src/app/pages/adminControl/modules/questionCenter/components/questionCenter/questionCenter.component.scss";
 @import "src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component.scss";
 @import "src/app/pages/navigation/components/documents/documents.component.scss";
-@import "src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component.scss";
+@import "src/app/pages/navigation/dialogs/uploadDocument/uploadDocument.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -83,5 +83,5 @@
   @include amte-questionCenter($primary, $accent, $warn);
   @include amte-addQuestion($primary, $accent, $warn);
   @include amte-documents($primary, $accent, $warn);
-  @include amte-site-map($primary, $accent, $warn);
+  @include amte-uploadDocument($primary, $accent, $warn);
 }

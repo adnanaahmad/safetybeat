@@ -151,7 +151,8 @@ export interface Strings {
   CAN_PROCEED_QUESTION: string;
   CAN_PROCEED_QUESTION_YES: string;
   CAN_PROCEED_QUESTION_NO: string;
-  FOLDER_NAME: string;
+  RENAME: string;
+  DELETE_FOLDER: string;
 }
 
 export interface Buttons {

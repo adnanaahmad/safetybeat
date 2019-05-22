@@ -66,7 +66,9 @@ export class ConstantService {
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
     uploadDocuments: `${environment.apiUrl}/api/documents/`,
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
-    createFolder: `${environment.apiUrl}/api/folders/`
+    createFolder: `${environment.apiUrl}/api/folders/`,
+    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
   };
   /**
    * all the api methods are declared here.

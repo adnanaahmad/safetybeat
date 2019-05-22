@@ -7,45 +7,55 @@
       display: flex;
       flex-wrap: wrap;
       mat-card {
-        text-align: center;
         width: 100%;
         box-shadow: none !important;
         border: 1px solid mat-color($primary-pallet, 50);
         flex: 1;
         margin: 3px;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         .mat-subheader {
           justify-content: center;
           margin: 0;
-          padding: 10px 0 0;
+          padding: 3px 0 0;
           font-size: 12px;
           opacity: 0.5;
         }
         mat-icon {
-          box-shadow: $boxShadow;
-          border-radius: $circle;
-          padding: 5px;
           background-color: #fff;
           color: mat-color($primary-pallet, 500);
-          width: 30px;
-          height: 30px;
-          line-height: 1.2;
-          margin: 0 auto;
+          padding-right: 5px;
+          font-size: 18px;
+          height: auto;
+          width: auto;
         }
         p {
           margin: 5px 0;
           font-size: 14px;
+          width: 100%;
         }
       }
     }
     .hazard-thumbnail {
-      max-width: 130px;
+      width: 130px;
+      height: 130px;
       margin: 10px auto;
-      border-radius: $circle;
+      overflow: hidden;
+      border-radius: 100px;
       position: relative;
+      box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
       img {
         max-width: 100%;
-        border-radius: $circle;
-        box-shadow: $boxShadow;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 0;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
       }
     }
   }

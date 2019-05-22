@@ -50,8 +50,7 @@
     "TRIAL": "Trial",
     "OWNER": "Owner",
     "LOGOUTSUCCESSION": "Successfully logged out.",
-    "REQUIRED_FIELD": "Field is Required",
-    "NO_FILE": "No File Selected"
+    "REQUIRED_FIELD": "Field is Required"
   },
   "STRINGS": {
     "USERNAME": "User Name:",
@@ -96,7 +95,10 @@
     "UPLOAD_DOC": "Upload document",
     "FILE_NAME": "File Name",
     "SELECT_FOLDER": "Select Folder",
-    "FOLDER_NAME": "Folder Name"
+    "FOLDER_NAME": "Folder Name",
+    "DESCRIPTION": "Description",
+    "RENAME": "Rename Folder",
+    "DELETE_FOLDER": "Delete Folder"
   },
   "BUTTONS": {
     "LOGIN": "Login",

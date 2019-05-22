@@ -9,7 +9,7 @@
     </div>
   </mat-toolbar>
   <div class="paddingbox">
-    <mat-grid-list cols="4" rowHeight="250px" gutterSize="30px">
+    <mat-grid-list cols="4" rowHeight="250px" gutterSize="10px">
 
       <!-- Site Activity -->
       <mat-grid-tile colspan="2">
@@ -96,7 +96,7 @@
             <mat-card-title>{{helperService.translated.STRINGS.SITEINFORMATION}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="flexbox" *ngIf="viewSiteObj.siteInfo">
+            <div *ngIf="viewSiteObj.siteInfo">
               <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
                 <mat-icon>{{helperService.appIcons.permIdentity}}</mat-icon>
                 <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
@@ -139,6 +139,7 @@
                 <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
                 <div class="row"><strong>Duration</strong><span>10 days</span></div>
               </div>
+              <mat-divider></mat-divider>
               <div class="activity-card">
                 <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                       <mat-icon>link</mat-icon> View Site
@@ -147,6 +148,7 @@
                 <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
                 <div class="row"><strong>Duration</strong><span>10 days</span></div>
               </div>
+              <mat-divider></mat-divider>
               <div class="activity-card">
                 <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                       <mat-icon>link</mat-icon> View Site
@@ -155,6 +157,7 @@
                 <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
                 <div class="row"><strong>Duration</strong><span>10 days</span></div>
               </div>
+              <mat-divider></mat-divider>
               <div class="activity-card">
                 <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                       <mat-icon>link</mat-icon> View Site
@@ -163,6 +166,7 @@
                 <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
                 <div class="row"><strong>Duration</strong><span>10 days</span></div>
               </div>
+              <mat-divider></mat-divider>
             </div>
           </mat-card-content>
         </mat-card>
@@ -181,4 +185,5 @@
       </mat-grid-tile><!-- /Site Location -->
     </mat-grid-list>
   </div>
+
 </div>

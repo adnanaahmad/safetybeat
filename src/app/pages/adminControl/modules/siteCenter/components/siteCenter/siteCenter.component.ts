@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -8,8 +8,8 @@ import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCent
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {SitesInfo} from 'src/app/models/site.model';
-import {AddHazardComponent} from '../../dialogs/addHazard/addHazard.component';
-import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
+import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {SiteMapComponent} from '../../dialogs/siteMap/siteMap.component';
 
 @Component({
@@ -78,10 +78,10 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
       this.adminServices.changeSites(this.siteCentreObj.sitesData);
       this.adminServices.siteObserver.subscribe((res) => {
-        if (res !== 1 && res !== '') {
+        if (res !== 1 && res.length !== 0) {
           this.siteCentreObj.dataSource = new MatTableDataSource(res);
           this.siteCentreObj.dataSource.paginator = this.paginator;
-        } else if (res === '') {
+        } else if (res.length === 0) {
           this.siteCentreObj.dataSource = 0;
         }
       });

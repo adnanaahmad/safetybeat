@@ -12,7 +12,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {ActivatedRoute} from '@angular/router';
-import {environment} from 'src/environments/environment';
+import {AdminControlService} from '../../../adminControl/services/adminControl.service';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +34,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private compiler: CompilerProvider,
     private navService: NavigationService,
-    public  profileService: ProfileService
+    public  profileService: ProfileService,
+    public adminService: AdminControlService
   ) {
     this.profileModel.serverUrl = this.helperService.appConstants.serverUrl;
     this.initialize();
@@ -47,12 +48,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileModel.receivedData = JSON.parse(data.data);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.currentUserProfile = false;
+        this.getUserConnections(this.profileModel.receivedData.id);
+
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
+
             this.ngOnInit();
           }
         });
@@ -73,6 +77,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.username = this.profileModel.profileData.username;
           this.profileModel.email = this.profileModel.profileData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
+          this.profileModel.userId = this.profileModel.profileData.id;
+          this.getUserConnections(this.profileModel.userId);
+
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
@@ -168,7 +175,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
+      this.getUserConnections(userData.id);
       this.navService.updateCurrentUser(userData);
+    });
+  }
+
+  getUserConnections(userId: number) {
+
+    this.adminService.allConnections({userId: userId}).subscribe((res) => {
+      this.profileModel.allConnectionsRes = res;
+      this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+          this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
+          this.helperService.constants.status.WARNING);
+
+      }
+      console.log(this.profileModel.allConnectionsData);
     });
   }
 }
