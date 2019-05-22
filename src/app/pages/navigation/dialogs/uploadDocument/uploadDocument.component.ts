@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 
 @Component({
-  selector: 'app-group-setting',
-  templateUrl: './groupSetting.component.html',
-  styleUrls: ['./groupSetting.component.scss']
+  selector: 'app-uploadDocument',
+  templateUrl: './uploadDocument.component.html',
+  styleUrls: ['./uploadDocument.component.scss']
 })
-export class GroupSettingComponent implements OnInit {
+export class UploadDocumentComponent implements OnInit {
 
   constructor(
     public helperService: HelperService

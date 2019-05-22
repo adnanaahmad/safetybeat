@@ -1,7 +1,9 @@
 @mixin amte-memberCenter($primary, $accent, $warn) {
-    :host,
-    app-memberCenter {
-      
+  :host,
+  app-memberCenter {
+    .customTable td,
+    .customTable th {
+      padding: 3px !important;
     }
   }
-  
+}
