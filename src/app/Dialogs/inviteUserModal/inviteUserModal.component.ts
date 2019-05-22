@@ -172,7 +172,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
   }
 
   changeSelection(role: any) {
-    if (role.name === this.compiler.insertSpaces(this.helperService.appConstants.roles.siteSafetyManager)) {
+    if (role.name === this.helperService.appConstants.roles.siteSafetyManager) {
       this.inviteUserModal.showSites = true;
     } else {
       this.inviteUserModal.showSites = false;
@@ -186,6 +186,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     };
     this.adminServices.viewSites(entityData).subscribe((res) => {
       this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res);
+      this.removeRole();
       this.adminServices.changeSites(this.inviteUserModal.siteList);
       let index = this.helperService.findIndex(this.inviteUserModal.siteList, function (site) {
         return site;
@@ -193,8 +194,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       if (index >= 0) {
         this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[index].site;
         this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
-      } else {
-        this.removeRole();
       }
     });
   }
@@ -202,7 +201,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
   removeRole() {
     if (this.inviteUserModal.siteList.length === 0) {
       this.helperService.remove(this.inviteUserModal.roleList,
-        {name: this.compiler.insertSpaces(this.helperService.appConstants.roles.siteSafetyManager)});
+        {name: this.helperService.appConstants.roles.siteSafetyManager});
     }
   }
 }

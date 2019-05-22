@@ -19,11 +19,11 @@
       <mat-toolbar class="topbar">
         <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&!packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_LEFT_1}}{{packageInfo.daysLeft}}{{helperService.translated.MESSAGES.TRIAL_LEFT_2}}
-          <button routerLink="">{{helperService.translated.BUTTONS.UPGRADE}}</button>
+          <button>{{helperService.translated.BUTTONS.UPGRADE}}</button>
         </div>
         <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_EXPIRED}}
-          <button routerLink="">{{helperService.translated.BUTTONS.UPGRADE}}</button>
+          <button>{{helperService.translated.BUTTONS.UPGRADE}}</button>
         </div>
         <div class="product-notice" *ngIf="!isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_EXP_USER}}</div>
@@ -40,8 +40,14 @@
             <span class="notifcount">90+</span></mat-icon>
           <div class="profile-menu">
             <button mat-button [matMenuTriggerFor]="menu">
-              <img
-                src="{{ profileModel.profileImage != null ? navModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
+<!--              <img-->
+<!--                src="{{ profileModel.profileImage != null ? navModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />-->
+              <div *ngIf="profileModel.profileImage !== null">
+                <img src="{{navModel.serverUrl+profileModel.profileImage}}">
+              </div>
+              <div *ngIf="!profileModel.profileImage">
+                <img src="{{helperService.appConstants.avatar}}">
+              </div>
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">

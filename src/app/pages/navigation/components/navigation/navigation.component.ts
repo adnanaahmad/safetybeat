@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Output, EventEmitter, OnChanges, AfterViewInit} from '@angular/core';
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {ChangeDetectionStrategy} from '@angular/core';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -18,7 +18,7 @@ import {ProfileService} from 'src/app/pages/profile/services/profile.service';
   styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NavigationComponent implements OnInit, OnDestroy {
   profileModel: ProfileModel = <ProfileModel>{};
   @Output() entitySelected = new EventEmitter();
   moduleData = {
@@ -26,12 +26,7 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   navModel: NavigationModel = <NavigationModel>{};
   isOwner: boolean = false;
-  packageInfo: PackageInfo = {
-    days: 0,
-    expired: false,
-    package: 'None',
-    module: this.helperService.appConstants.moduleName
-  };
+  packageInfo: PackageInfo;
 
   constructor(
     public core: CoreService,
@@ -52,10 +47,13 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-
+    this.getProfileData();
   }
 
-  ngAfterViewInit(): void {
+  /**
+   * Get Profile Data of User
+   */
+  getProfileData() {
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
@@ -79,6 +77,12 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.navModel.appIcons = this.helperService.constants.appIcons;
     this.navModel.navLinks = this.navModel.defaultList;
     this.navModel.logoutDisable = false;
+    this.packageInfo = {
+      days: 0,
+      expired: false,
+      package: 'None',
+      module: this.helperService.appConstants.moduleName
+    };
   }
 
   /**
@@ -232,14 +236,19 @@ export class NavigationComponent implements OnInit, OnDestroy, AfterViewInit {
    * @params data
    */
   switchSideMenu(data: any) {
-    this.navModel.Entity = data;
-    localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
-      this.helperService.encrypt(JSON.stringify(this.navModel.Entity.entityInfo.id), this.helperService.appConstants.key));
-    this.navService.changeSelectedEntity(this.navModel.Entity);
-    this.navService.changeRole(this.navModel.Entity.role);
-    this.getRoleFromStorage();
-    this.navService.changeRoleId(this.navModel.Entity.permissions.role);
-    this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
+    if (data === undefined) {
+      this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
+    } else {
+      this.navModel.Entity = data;
+      localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
+        this.helperService.encrypt(JSON.stringify(this.navModel.Entity.entityInfo.id), this.helperService.appConstants.key));
+      this.navService.changeSelectedEntity(this.navModel.Entity);
+      this.navService.changeRole(this.navModel.Entity.role);
+      this.getRoleFromStorage();
+      this.navService.changeRoleId(this.navModel.Entity.permissions.role);
+      this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
+    }
+
   }
 
   /**

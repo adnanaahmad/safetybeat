@@ -76,10 +76,10 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
       this.adminServices.changeSites(this.siteCentreObj.sitesData);
       this.adminServices.siteObserver.subscribe((res) => {
-        if (res !== 1 && res !== '') {
+        if (res !== 1 && res.length !== 0) {
           this.siteCentreObj.dataSource = new MatTableDataSource(res);
           this.siteCentreObj.dataSource.paginator = this.paginator;
-        } else if (res === '') {
+        } else if (res.length === 0) {
           this.siteCentreObj.dataSource = 0;
         }
       });
