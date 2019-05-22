@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import * as Highcharts from 'highcharts';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {HighchartService} from '../../../../shared/highchart/highchart.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,75 +14,54 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   option2: object;
   option3: object;
   option4: object;
+  mockData: any [] = [];
   translated: Translation;
 
   constructor(
-    public helperService: HelperService
+    public helperService: HelperService,
+    private highchartSettings: HighchartService
   ) {
     this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,
       this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
     );
-
-
-    this.option1 = {
-      chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie',
-      },
-      title: {
-        text: 'People working on the bluesky site for installation'
-      },
-      tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-      },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: {
-            enabled: true,
-            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-          }
-        }
-      },
-      series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: [{
-          name: 'Chrome',
-          y: 61.41,
-          sliced: true,
-          selected: true
-        }, {
-          name: 'Michael',
-          y: 11.84
-        }, {
-          name: 'John',
-          y: 10.85
-        }, {
-          name: 'Ibrahim',
-          y: 4.67
-        }, {
-          name: 'David',
-          y: 4.18
-        }, {
-          name: 'Sogou Jain',
-          y: 1.64
-        }, {
-          name: 'Colling',
-          y: 1.6
-        }, {
-          name: 'Jame',
-          y: 1.2
-        }]
+    let charSeries = [{
+      name: 'Brands',
+      colorByPoint: true,
+      data: [{
+        name: 'Anthony',
+        y: 61.41,
+        sliced: true,
+        selected: true
+      }, {
+        name: 'Michael',
+        y: 11.84
+      }, {
+        name: 'John',
+        y: 10.85
+      }, {
+        name: 'Ibrahim',
+        y: 4.67
+      }, {
+        name: 'David',
+        y: 4.18
+      }, {
+        name: 'Sogou Jain',
+        y: 1.64
+      }, {
+        name: 'Colling',
+        y: 1.6
+      }, {
+        name: 'Jame',
+        y: 1.2
       }]
-    };
-
-    Highcharts.chart('my', this.option1);
+    }];
+    this.option1 = this.highchartSettings.reportSettings({
+      type: 'pie',
+      title: 'People working on the bluesky site for installation',
+      subtitle: ''
+    }, charSeries);
     this.option2 = {
       chart: {
         type: 'pie',
@@ -218,9 +198,17 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.mockData = [{containerId: 'option1', data: this.option1},
+      {containerId: 'option2', data: this.option2},
+      {containerId: 'option3', data: this.option3},
+      {containerId: 'option4', data: this.option4}
+    ];
   }
 
   ngAfterViewInit() {
+    this.helperService.iterations(this.mockData, function (chart) {
+      Highcharts.chart(chart.containerId, chart.data);
+    });
   }
 
   ngOnDestroy() {

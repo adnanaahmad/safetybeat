@@ -1,33 +1,8 @@
-<div id="my"></div>
-<!--<mat-grid-list cols="2" rowHeight="460px" gutterSize="30px" class="dashboard-widgets">-->
-<!--  <mat-grid-tile>-->
-<!--    <mat-card>-->
-<!--      <mat-card-content>-->
-<!--      </mat-card-content>-->
-<!--    </mat-card>-->
-<!--  </mat-grid-tile>-->
-
-<!--  <mat-grid-tile>-->
-<!--    <mat-card>-->
-<!--      <mat-card-content>-->
-<!--        <chart [options]="option2"></chart>-->
-<!--      </mat-card-content>-->
-<!--    </mat-card>-->
-<!--  </mat-grid-tile>-->
-
-<!--  <mat-grid-tile>-->
-<!--    <mat-card>-->
-<!--      <mat-card-content>-->
-<!--        <chart [options]="option3"></chart>-->
-<!--      </mat-card-content>-->
-<!--    </mat-card>-->
-<!--  </mat-grid-tile>-->
-
-<!--  <mat-grid-tile>-->
-<!--    <mat-card>-->
-<!--      <mat-card-content>-->
-<!--        <chart [options]="option4"></chart>-->
-<!--      </mat-card-content>-->
-<!--    </mat-card>-->
-<!--  </mat-grid-tile>-->
-<!--</mat-grid-list>-->
+<mat-grid-list cols="2" rowHeight="460px" gutterSize="30px" class="dashboard-widgets">
+  <mat-grid-tile *ngFor="let chart of mockData">
+    <mat-card>
+      <mat-card-content>
+        <div [id]="chart.containerId"></div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>

@@ -6,8 +6,6 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthGuard} from 'src/app/core/services/guards/auth.guard';
 import {TokenInterceptorService} from 'src/app/core/services/interceptors/tokenInterceptor';
-import {HighchartsChartModule} from 'highcharts-angular';
-
 
 @NgModule({
   declarations: [
@@ -16,8 +14,7 @@ import {HighchartsChartModule} from 'highcharts-angular';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    MaterialModule,
-    HighchartsChartModule
+    MaterialModule
   ],
   providers: [
     AuthGuard,
