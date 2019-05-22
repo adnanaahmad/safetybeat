@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     public helperService: HelperService,
-    private highchartSettings: HighchartService
+    private highChartSettings: HighchartService
   ) {
     this.translated = this.helperService.translated;
     this.helperService.appLoggerDev(
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         y: 1.2
       }]
     }];
-    this.option1 = this.highchartSettings.reportSettings({
+    this.option1 = this.highChartSettings.reportSettings({
       type: 'pie',
       title: 'People working on the bluesky site for installation',
       subtitle: ''

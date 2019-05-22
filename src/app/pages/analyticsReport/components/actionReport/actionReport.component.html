@@ -19,14 +19,16 @@
           <mat-label>Date From</mat-label>
           <input matInput type="date" [formControlName]="helperService.appConstants.dateFrom"/>
           <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            <span
+              *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" full-width>
           <mat-label>Date To</mat-label>
           <input matInput type="date" [formControlName]="helperService.appConstants.dateTo"/>
           <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            <span
+              *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
           </mat-error>
         </mat-form-field>
 
@@ -35,5 +37,6 @@
         </button>
       </div>
     </form>
+    <div id="container"></div>
   </div>
 </div>

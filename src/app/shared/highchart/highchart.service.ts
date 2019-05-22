@@ -1,20 +1,35 @@
 import {Injectable} from '@angular/core';
 import * as Highcharts from 'highcharts';
+import {ActionReportData, HighChartType} from '../../models/analyticsReport/actionReports.model';
+import {HelperService} from '../helperService/helper.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HighchartService {
 
-  constructor() {
+  constructor(public helperService: HelperService) {
   }
 
-  reportSettings(chartType: any, charSeries: any) {
+  generateCharSeries(reportData: ActionReportData[]) {
+    let charSeries = [];
+    let self = this;
+    this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
+        let checkIn = {
+          name: actionReport.site,
+          data: [actionReport.CheckIns.numberOfCheckIn, actionReport.CheckOuts.numberOfCheckOut]
+        };
+        charSeries.push(checkIn);
+    });
+    return charSeries;
+  }
+
+  reportSettings(chartType: HighChartType, data: any, reportData?: ActionReportData[]) {
     this.pieChartWithNoData();
+    let charSeries = (data.length === 0) ? this.generateCharSeries(reportData) : data;
     let highChartReport = {
       chart: {
         type: chartType.type,
-        zoomType: 'x',
         animation: true,
       },
       title: {
@@ -24,6 +39,7 @@ export class HighchartService {
         text: chartType.subtitle
       },
       xAxis: {
+        categories: ['Check In', 'CheckOut'],
         gridLineWidth: 1,
         gridZIndex: 4,
         labels: {
@@ -34,7 +50,7 @@ export class HighchartService {
       yAxis: {
         min: 0,
         title: {
-          text: 'y-axis',
+          text: 'No of Check In and Check out',
         },
       },
       plotOptions: {
@@ -54,12 +70,11 @@ export class HighchartService {
           },
         },
         column: {
-          stacking: 'normal',
+          // stacking: 'normal',
           pointPadding: 0.2,
           borderWidth: 0
         }
       },
-
       exporting: {
         showTable: true
       },

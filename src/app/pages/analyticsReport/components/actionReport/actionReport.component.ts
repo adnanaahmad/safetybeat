@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from '../../../../shared/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ActionReport, ActionReportApiData} from '../../../../models/analyticsReport/actionReports.model';
+import {ActionReport, ActionReportApiData, HighChartType} from '../../../../models/analyticsReport/actionReports.model';
 import {NavigationService} from '../../../navigation/services/navigation.service';
 import {AnalyticsReportService} from '../../services/analyticsReport.service';
 import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {HighchartService} from '../../../../shared/highchart/highchart.service';
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-action-report',
@@ -20,6 +22,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public analyticsService: AnalyticsReportService,
     public compiler: CompilerProvider,
+    private highChartSettings: HighchartService
   ) {
   }
 
@@ -55,7 +58,14 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     };
     this.analyticsService.actionReport(data).subscribe((res) => {
       this.actionReportObj.actionReportData = this.compiler.constructActionReportData(res);
-      console.log(this.actionReportObj.actionReportData)
+      let chartType: HighChartType = {
+        type: 'column',
+        title: 'Site Based Action Report',
+        subtitle: ''
+      };
+      let data = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.actionReportData);
+      console.log(data);
+      Highcharts.chart('container', data);
     });
 
   }

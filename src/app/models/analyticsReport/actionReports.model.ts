@@ -18,7 +18,7 @@ export interface ActionReportApiData {
   dateTo: Date;
 }
 
-export interface highChartTitle {
+export interface HighChartType {
   type: string,
   title: string,
   subtitle: string,
