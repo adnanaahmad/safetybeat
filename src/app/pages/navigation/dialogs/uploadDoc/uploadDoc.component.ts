@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MatDialogRef, MatTableDataSource} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 import {NewDoc, UploadDocForm} from 'src/app/models/navigation/documents.model';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-
 @Component({
   selector: 'app-upload-doc',
   templateUrl: './uploadDoc.component.html',
@@ -13,14 +11,11 @@ import {CompilerProvider} from '../../../../shared/compiler/compiler';
 })
 export class UploadDocComponent implements OnInit {
   newDoc: UploadDocForm = <UploadDocForm>{};
-  private documentsData: any;
   docResponse: any;
-  private docList: any;
 
   constructor(public helperService: HelperService,
               private formBuilder: FormBuilder,
               private navService: NavigationService,
-              private compiler: CompilerProvider,
               public dialogRef: MatDialogRef<UploadDocComponent>) { }
 
   ngOnInit() {
@@ -91,6 +86,7 @@ export class UploadDocComponent implements OnInit {
       if (!this.checkRoot(this.newDoc.folderList)) {
         let data = {name: 'root', entity: this.newDoc.entityId};
         this.navService.createFolder(data).subscribe((res) => {
+          this.upload(value, res.data.id);
         }); } else {
         this.upload(value, this.checkRoot(this.newDoc.folderList));
       }

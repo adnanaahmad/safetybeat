@@ -11,10 +11,10 @@
     [enctype]="importSiteModal.type">
     <div class="form-group">
       <input type='file' name="{{helperService.appConstants.importSite}}" id="{{helperService.appConstants.importSite}}"
-        accept='.csv' (change)=onFileSelected($event) />
+        accept='.csv' (change)=onFileSelected($event) required/>
     </div>
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="importSiteModal.loading"
+      <button mat-raised-button cdkFocusInitial custom-btn btn-primary  [disabled]="importSiteModal.loading || !importSiteModal.importSiteForm.valid"
         color="primary">{{ helperService.translated.BUTTONS.IMPORT_SITE }}
         <div class="main-loader" *ngIf="importSiteModal.loading">
           <span class="loader1"></span>

@@ -1,4 +1,3 @@
-import {User} from 'src/app/models/user.model';
 import {Subscription} from 'rxjs';
 
 export interface Documents {
@@ -6,7 +5,8 @@ export interface Documents {
   docResponse: any;
   dataSource: any;
   docList: DocList[];
-
+  documentExit: boolean;
+  folderExist: boolean;
 }
 
 export interface DocList {
@@ -22,13 +22,16 @@ export interface DocumentObj {
   id: any,
 
 }
+
 export interface Folders {
   title: string
 }
+
 export interface NewDoc {
   fileName: string,
   folders?: string
 }
+
 export interface UploadDocForm {
   file: any,
   entityId: number,

@@ -68,7 +68,8 @@ export class ConstantService {
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
-    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`,
+    deleteDoc: `${environment.apiUrl}/api/documents/`
   };
   /**
    * all the api methods are declared here.
@@ -125,7 +126,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    serverUrl: 'http://localhost:8000',
+    serverUrl: 'http://192.168.69.48:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',

@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({

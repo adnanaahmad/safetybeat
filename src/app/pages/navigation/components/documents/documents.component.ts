@@ -17,7 +17,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['file', 'uploadedBy', 'actions'];
-  documentsObj: DocumentObj = <DocumentObj>{};
   documentsData: Documents = <Documents>{};
   panelOpenState = false;
   private folderList: any;
@@ -28,7 +27,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public compiler: CompilerProvider,
   ) {
-
+    this.documentsData.documentExit = true;
+    this.documentsData.folderExist = true;
   }
 
   ngOnInit() {
@@ -45,9 +45,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       this.helperService.appConstants.key));
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === 104) {
-
+        this.documentsData.folderExist = false;
       } else {
         this.folderList = res.data;
+        if (this.folderList.length === 0) {
+          this.documentsData.folderExist = false;
+        }
       }
     });
   }
@@ -60,28 +63,33 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     };
     this.navService.viewAllDocuments(entityData).subscribe((res) => {
       this.documentsData.docResponse = res;
-      if (this.documentsData.docResponse.data) {
+      if (this.documentsData.docResponse.data.length !== 0) {
+        this.documentsData.documentExit = true;
         this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
-        this.documentsData.dataSource = new MatTableDataSource(this.documentsData.docList);
-        this.documentsData.dataSource.paginator = this.paginator;
-      } else if (this.documentsData.docResponse.data === '') {
-        this.documentsData.dataSource = 0;
+      } else if (this.documentsData.docResponse.data.length === 0) {
+        this.documentsData.documentExit = false;
       }
     });
   }
 
 
   uploadDoc() {
-    this.helperService.createDialog(UploadDocComponent);
+    this.helperService.createDialog(UploadDocComponent, {disableClose: true});
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       this.allDocumentsData();
+      this.getAllFolders();
     });
   }
 
   newFolder() {
-    this.helperService.createDialog(CreateFolderComponent);
+    this.helperService.createDialog(CreateFolderComponent, {disableClose: true});
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       this.getAllFolders();
+    });
+  }
+
+  deleteDoc(id) {
+    this.navService.deleteDoc(id).subscribe((res) => {
     });
   }
 }
