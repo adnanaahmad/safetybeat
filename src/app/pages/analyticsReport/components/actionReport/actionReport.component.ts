@@ -39,7 +39,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       site: ['', Validators.required]
     });
     this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      debugger
       if (res !== 1) {
         this.actionReportObj.allEntitiesData = res;
         this.actionReportObj.entityName = this.actionReportObj.allEntitiesData.entityInfo.name;

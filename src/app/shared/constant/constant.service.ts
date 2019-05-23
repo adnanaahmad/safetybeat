@@ -68,7 +68,8 @@ export class ConstantService {
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
-    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`,
+    deleteDoc: `${environment.apiUrl}/api/documents/`
   };
   /**
    * all the api methods are declared here.

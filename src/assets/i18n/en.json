@@ -311,6 +311,7 @@
     "SITE_MAP": "Site Map",
     "NEW_FOLDER": "New Folder Created.",
     "FOLDER_FAIL": "Folder Creation Failed",
+    "NO_FOLDER" : "NO Folders Found.",
     "DOC_ADDED": "Document Uploaded Successfully.",
     "DOC_FAIL": "Document could not be Uploaded"
   },
