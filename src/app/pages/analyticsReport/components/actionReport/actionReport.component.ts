@@ -38,11 +38,10 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       dateFrom: ['', Validators.required],
       site: ['', Validators.required]
     });
-    this.actionReportObj.subscription = this.navService.data.subscribe((res) => {
+    this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.actionReportObj.allEntitiesData = res;
-        this.actionReportObj.entityUserData = this.actionReportObj.allEntitiesData.entities;
-        this.actionReportObj.entityName = this.actionReportObj.entityUserData[0].entityInfo.name;
+        this.actionReportObj.entityName = this.actionReportObj.allEntitiesData.entityInfo.name;
         this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
         this.actionFormValidations['entityName'].disable();
       }
@@ -59,7 +58,8 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       return;
     }
     let data = {
-      'entityId': this.actionReportObj.entityUserData[0].entityInfo.id,
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
       'dateTo': value.dateTo,
       'dateFrom': value.dateFrom,
       'siteId': value.site,
