@@ -68,7 +68,8 @@ export class ConstantService {
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
-    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`,
+    deleteDoc: `${environment.apiUrl}/api/documents/`
   };
   /**
    * all the api methods are declared here.
@@ -181,6 +182,9 @@ export class ConstantService {
     safeQuestion: 'safeQuestion',
     canProceed: 'canProceed',
     parent: 'parent',
+    dateFrom: 'dateFrom',
+    dateTo: 'dateTo',
+    site: 'site',
     paths: {
       home: '/home',
       profile: '/home/profile',

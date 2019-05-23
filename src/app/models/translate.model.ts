@@ -370,6 +370,7 @@ export interface Messages {
   SITE_MAP: string;
   NEW_FOLDER: string;
   FOLDER_FAIL: string;
+  NO_FOLDER: string;
   DOC_ADDED: string;
   DOC_FAIL: string;
 }

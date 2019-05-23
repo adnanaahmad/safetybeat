@@ -86,6 +86,7 @@ export class UploadDocComponent implements OnInit {
       if (!this.checkRoot(this.newDoc.folderList)) {
         let data = {name: 'root', entity: this.newDoc.entityId};
         this.navService.createFolder(data).subscribe((res) => {
+          this.upload(value, res.data.id);
         }); } else {
         this.upload(value, this.checkRoot(this.newDoc.folderList));
       }
