@@ -4,8 +4,6 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {FormBuilder, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 import {NewDoc, UploadDocForm} from 'src/app/models/navigation/documents.model';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-
 @Component({
   selector: 'app-upload-doc',
   templateUrl: './uploadDoc.component.html',
@@ -13,9 +11,7 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 })
 export class UploadDocComponent implements OnInit {
   newDoc: UploadDocForm = <UploadDocForm>{};
-  private documentsData: any;
   docResponse: any;
-  private docList: any;
 
   constructor(public helperService: HelperService,
               private formBuilder: FormBuilder,

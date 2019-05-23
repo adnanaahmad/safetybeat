@@ -1,4 +1,3 @@
-import {User} from 'src/app/models/user.model';
 import {Subscription} from 'rxjs';
 
 export interface Documents {
