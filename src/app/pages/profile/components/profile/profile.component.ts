@@ -184,8 +184,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.adminService.allConnections({userId: userId}).subscribe((res) => {
       this.profileModel.allConnectionsRes = res;
-      this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (this.profileModel.allConnectionsRes.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
           this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
@@ -196,7 +196,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.helperService.constants.status.WARNING);
 
       }
-      console.log(this.profileModel.allConnectionsData);
     });
   }
 }

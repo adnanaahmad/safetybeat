@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MatDialogRef, MatTableDataSource} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 import {NewDoc, UploadDocForm} from 'src/app/models/navigation/documents.model';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-upload-doc',
@@ -20,7 +20,6 @@ export class UploadDocComponent implements OnInit {
   constructor(public helperService: HelperService,
               private formBuilder: FormBuilder,
               private navService: NavigationService,
-              private compiler: CompilerProvider,
               public dialogRef: MatDialogRef<UploadDocComponent>) { }
 
   ngOnInit() {
