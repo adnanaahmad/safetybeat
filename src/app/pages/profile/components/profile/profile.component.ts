@@ -186,14 +186,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.allConnectionsRes = res;
       this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
+        // this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+        //   this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
+        // this.helperService.appLogger(this.helperService.constants.status.ERROR,
+        //   this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
-          this.helperService.constants.status.WARNING);
+        // this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
+        //   this.helperService.constants.status.WARNING);
 
       }
     });
