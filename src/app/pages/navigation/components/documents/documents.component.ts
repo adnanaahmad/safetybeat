@@ -48,7 +48,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.folderExist = false;
       } else {
         this.folderList = res.data;
-        console.log(this.folderList);
         if (this.folderList.length === 0) {
           this.documentsData.folderExist = false;
         }
@@ -67,11 +66,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (this.documentsData.docResponse.data.length !== 0) {
         this.documentsData.documentExit = true;
         this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
-        console.log(this.documentsData.docList);
-        // this.documentsData.dataSource = new MatTableDataSource(this.documentsData.docList);
-        // this.documentsData.dataSource.paginator = this.paginator;
       } else if (this.documentsData.docResponse.data.length === 0) {
-        // this.documentsData.dataSource = 0;
         this.documentsData.documentExit = false;
       }
     });
@@ -95,7 +90,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   deleteDoc(id) {
     this.navService.deleteDoc(id).subscribe((res) => {
-      console.log(res);
     });
   }
 }
