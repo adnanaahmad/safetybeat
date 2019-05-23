@@ -73,7 +73,7 @@
       </mat-toolbar>
 
       <div class="page-content">
-        <mat-drawer autoFocus="false" #drawer mode="push" position="end">
+        <mat-drawer class="notification-drawer" autoFocus="false" #drawer mode="push" position="end">
           <mat-icon class="close-notif" (click)="drawer.toggle()">{{helperService.appIcons.arrowForward}}</mat-icon>
           <app-notificationNav></app-notificationNav>
         </mat-drawer>

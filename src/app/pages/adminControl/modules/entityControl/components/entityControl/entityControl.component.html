@@ -15,86 +15,89 @@
       {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
     </button>
   </div>
-  <table mat-table [dataSource]="entityControl.dataSource" class="customTable mat-elevation-z3">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>
-        {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.entityInfo.name }}</td>
-    </ng-container>
+  <div class="table-wrap">
+    <table mat-table [dataSource]="entityControl.dataSource" class="customTable mat-elevation-z3">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.entityInfo.name }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="headOffice">
-      <th mat-header-cell *matHeaderCellDef>
-        {{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.entityInfo.headOffice }}</td>
-    </ng-container>
+      <ng-container matColumnDef="headOffice">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
+        </th>
+        <td matTooltip="{{ element.entityInfo.headOffice }}" mat-cell *matCellDef="let element">
+          {{ element.entityInfo.headOffice }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="role">
-      <th mat-header-cell *matHeaderCellDef>
-        {{ helperService.translated.TABLEHEADINGS.ACCESS_LEVEL }}
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.role }}</td>
-    </ng-container>
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.ACCESS_LEVEL }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="administrator">
-      <th mat-header-cell *matHeaderCellDef>
-        {{ helperService.translated.TABLEHEADINGS.ADMINISTRATED_BY }}
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element.administrator.first_name +' '+ element.administrator.last_name}}
-        <br>
-        {{ element.administrator.email }}</td>
-    </ng-container>
+      <ng-container matColumnDef="administrator">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.ADMINISTRATED_BY }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.administrator.first_name +' '+ element.administrator.last_name}}
+          <br>
+          {{ element.administrator.email }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="managedBy">
-      <th mat-header-cell *matHeaderCellDef>
-        {{ helperService.translated.TABLEHEADINGS.MANAGED_BY }}
-      </th>
-      <td mat-cell *matCellDef="let element"><span *ngFor="let manager of element.managedBy">
-          {{manager.email}}<br>
-        </span>
-        {{ element.managedBy.email }}</td>
-    </ng-container>
+      <ng-container matColumnDef="managedBy">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.MANAGED_BY }}
+        </th>
+        <td mat-cell *matCellDef="let element"><span *ngFor="let manager of element.managedBy">
+            {{manager.email}}<br>
+          </span>
+          {{ element.managedBy.email }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef>
-        {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <button class="btn-table mat-elevation-z1" btn-primary mat-raised-button color="primary" mat-button
-          [matMenuTriggerFor]="menu">
-          <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="entityCode(element.entityInfo.code, element.entityInfo.name)">
-            <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
-            {{ helperService.translated.TABLEHEADINGS.ENTITYCODE }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <button class="btn-table mat-elevation-z1" btn-primary mat-raised-button color="primary" mat-button
+            [matMenuTriggerFor]="menu">
+            <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
+            {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
           </button>
-          <button mat-menu-item *ngIf="entityControl.joinOption" (click)='inviteTeam(element)'>
-            <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
-            {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
-          </button>
-          <button mat-menu-item>
-            <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
-            {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM }}
-          </button>
-          <button mat-menu-item>
-            <mat-icon>{{ helperService.appIcons.payment }}</mat-icon>
-            {{ helperService.translated.TABLEHEADINGS.PAYMENT_HISTORY }}
-          </button>
-          <button mat-menu-item *ngIf="entityControl.createEntityOption"
-            (click)="confirmationModal(element.entityInfo.id)">
-            <mat-icon>{{ helperService.constants.appIcons.deleteSweep }}</mat-icon>
-            {{ helperService.translated.TABLEHEADINGS.DELETE_ENTITY }}
-          </button>
-        </mat-menu>
-      </td>
-    </ng-container>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="entityCode(element.entityInfo.code, element.entityInfo.name)">
+              <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
+              {{ helperService.translated.TABLEHEADINGS.ENTITYCODE }}
+            </button>
+            <button mat-menu-item *ngIf="entityControl.joinOption" (click)='inviteTeam(element)'>
+              <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
+              {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
+            </button>
+            <button mat-menu-item>
+              <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
+              {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM }}
+            </button>
+            <button mat-menu-item>
+              <mat-icon>{{ helperService.appIcons.payment }}</mat-icon>
+              {{ helperService.translated.TABLEHEADINGS.PAYMENT_HISTORY }}
+            </button>
+            <button mat-menu-item *ngIf="entityControl.createEntityOption"
+              (click)="confirmationModal(element.entityInfo.id)">
+              <mat-icon>{{ helperService.constants.appIcons.deleteSweep }}</mat-icon>
+              {{ helperService.translated.TABLEHEADINGS.DELETE_ENTITY }}
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="entityControl.displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: entityControl.displayedColumns"></tr>
+    </table>
+  </div>
 
-    <tr mat-header-row *matHeaderRowDef="entityControl.displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: entityControl.displayedColumns"></tr>
-  </table>
-
-  <mat-paginator class="mat-elevation-z3" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator class="mat-elevation-z1" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

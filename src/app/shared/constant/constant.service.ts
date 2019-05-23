@@ -295,7 +295,8 @@ export class ConstantService {
     cloudDownload: 'cloud_download',
     folder: 'folder',
     phone: 'phone',
-    createFolder: 'create_new_folder'
+    createFolder: 'create_new_folder',
+    cloudUpload: 'cloud_upload'
   };
   /**
    * all the particle container icon names are declared here.

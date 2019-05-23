@@ -193,6 +193,7 @@ export interface Buttons {
   UPLOAD_FILE: string;
   VIEWPROFILE: string;
   CREATE_FOLDER: string;
+  GENERATE_REPORT: string;
 }
 
 export interface Messages {

@@ -190,15 +190,6 @@ mat-dialog-container {
 .sideLegend {
   padding: 0 !important;
   border-radius: 0 !important;
-  &:after {
-    content: "";
-    display: block;
-    height: $fullValue;
-    width: 3px;
-    position: absolute;
-    right: -3px;
-    top: 0;
-  }
 }
 .mat-drawer-side {
   border-right: 0 !important;
@@ -678,21 +669,55 @@ input:-internal-autofill-selected {
   transform-origin: center;
   transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
+.table-wrap {
+  overflow: auto;
+  width: 100%;
+  table {
+    table-layout: fixed;
+    th,
+    td {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
+.file-uploader {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  .fake-uploader {
+    background: transparent;
+    border: 2px dashed rgba(0, 0, 0, 0.3);
+    width: 100%;
+    padding: 10px;
+    border-radius: 100px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      border-color: mat-color($primary, 500);
+    }
+  }
+  input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+  }
+}
 @media (max-width: 992px) {
   .midbox {
     width: 60% !important;
   }
   .sideLegend {
-    &:after {
-      content: "";
-      display: block;
-      height: $fullValue;
-      width: 3px;
-      position: absolute;
-      right: -3px;
-      top: 0;
-    }
     .legendContent {
       h1 {
         font-size: 2.5em !important;
@@ -705,6 +730,54 @@ input:-internal-autofill-selected {
   }
 }
 @media (max-width: 768px) {
+  app-settings {
+    .settings-parent {
+      width: 90% !important;
+      padding: 20px 10px !important;
+      .navigator {
+        .mat-list {
+          display: block;
+          .mat-list-item {
+            margin: 20px 0;
+            width: 30%;
+          }
+        }
+      }
+    }
+  }
+  app-general {
+    .country-code {
+      .number-input {
+        width: 230px !important;
+      }
+    }
+  }
+  app-documents {
+    .paddingbox {
+      padding: 16px !important;
+    }
+  }
+  mat-dialog-container {
+    .mat-dialog-content,
+    .mat-dialog-title {
+      width: auto;
+    }
+  }
+  .table-wrap {
+    overflow: auto;
+    width: 100%;
+    table {
+      table-layout: unset;
+      th,
+      td {
+        white-space: nowrap;
+      }
+    }
+  }
+  .monogram {
+    width: 80px;
+    height: 80px;
+  }
   mat-dialog-container {
     width: 500px !important;
   }
@@ -727,11 +800,6 @@ input:-internal-autofill-selected {
     }
   }
   app-profile {
-    .grid-container {
-      .mat-grid-tile {
-        width: $fullValue !important;
-      }
-    }
     .pagehead {
       display: block;
       text-align: center;
@@ -742,7 +810,7 @@ input:-internal-autofill-selected {
         margin: 0 auto;
       }
       .user-info {
-        padding: 0;
+        padding: 0 !important;
         p {
           white-space: normal;
         }
@@ -770,10 +838,33 @@ input:-internal-autofill-selected {
       font-size: 16px;
     }
   }
+  .buttonRow {
+    margin: 0px 0 10px;
+    text-align: left;
+    float: none;
+  }
 }
 @media (max-width: 575px) {
+  .page-title {
+    margin: 10px 0 0;
+  }
+  [custom-btn] {
+    padding: 6px 6px !important;
+  }
+  .monogram {
+    display: none;
+  }
+  .notification-drawer {
+    width: 100%;
+  }
+  .pagehead {
+    .user-info {
+      padding: 0;
+    }
+  }
   app-login,
-  app-forgot-password {
+  app-forgot-password,
+  app-registration {
     app-particle-container {
       display: none;
     }
@@ -802,7 +893,8 @@ input:-internal-autofill-selected {
     width: 80% !important;
     padding: 20px !important;
   }
-  app-login {
+  app-login,
+  app-forgot-password {
     .loginbox {
       margin: 20px auto;
     }

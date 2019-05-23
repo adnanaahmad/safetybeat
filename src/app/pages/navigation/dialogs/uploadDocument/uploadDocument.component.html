@@ -1,8 +1,12 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.BUTTONS.UPLOAD_DOCUMENT}}</mat-card-title>
 <div mat-dialog-content>
   <form>
-    <div>
+    <div class="file-uploader">
+      <button class="fake-uploader">
+        <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon> Upload File
+      </button>
       <input type='file' accept='.csv' />
+
     </div>
     <mat-dialog-actions>
       <button mat-raised-button custom-btn cdkFocusInitial btn-primary

@@ -5,6 +5,9 @@
     .settings-btn {
       margin-left: auto;
     }
+    mat-grid-list {
+      height: 80vh;
+    }
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
@@ -189,7 +192,7 @@
         min-height: auto;
       }
       mat-card-content {
-        height: 170px;
+        height: 80%;
         overflow: auto;
       }
     }
@@ -217,15 +220,15 @@
       }
     }
   }
-  @media (max-width: 768px) {
-    app-profile {
-      .grid-container {
-        .mat-grid-tile {
-          width: 100% !important;
-          left: 0 !important;
-          position: relative;
-        }
-      }
-    }
-  }
+  // @media (max-width: 768px) {
+  //   app-profile {
+  //     .grid-container {
+  //       .mat-grid-tile {
+  //         width: 100% !important;
+  //         left: 0 !important;
+  //         position: relative;
+  //       }
+  //     }
+  //   }
+  // }
 }
