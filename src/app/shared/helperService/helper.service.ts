@@ -260,6 +260,14 @@ export class HelperService {
     });
   }
 
+  addMarker(mapProp, locObj: any) {
+    mapProp.setCenter(new google.maps.LatLng(locObj.lng, locObj.lat));
+    return new google.maps.Marker({
+      map: mapProp,
+      position: new google.maps.LatLng(locObj.lng, locObj.lat)
+    });
+  }
+
   /**
    *  Return true if a object is empty
    */

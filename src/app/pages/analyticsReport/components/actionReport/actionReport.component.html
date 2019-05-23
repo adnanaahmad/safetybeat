@@ -42,8 +42,12 @@
         {{helperService.translated.BUTTONS.GENERATE_REPORT}}
       </button>
     </form>
-    <div id="checkInContainer"></div>
-    <div id="checkOutContainer"></div>
-
+    <div *ngIf="actionReportObj.showChart">
+      <div id="checkInContainer"></div>
+      <div id="checkOutContainer"></div>
+    </div>
+    <div *ngIf="!actionReportObj.showChart">
+      <p>No data available</p>
+    </div>
   </mat-card>
 </div>

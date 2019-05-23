@@ -3,25 +3,25 @@
     <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
   </div>
   <div class="buttonRow">
-    <button btn-primary mat-raised-button color="primary" (click)="uploadFile()">
+    <button btn-primary mat-raised-button color="primary" (click)="uploadDoc()">
       <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
       {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
     </button>
-    <button btn-primary mat-raised-button color="primary">
+    <button btn-primary mat-raised-button color="primary" (click)="newFolder()">
       <mat-icon>{{ helperService.appIcons.createFolder }}</mat-icon>
       {{ helperService.translated.BUTTONS.CREATE_FOLDER }}
     </button>
   </div>
   <mat-tab-group class="documents-tab">
-    <mat-tab label="All">
+    <mat-tab label="Documents">
       <!-- Document Row -->
-      <mat-card class="document-row">
+      <mat-card class="document-row" *ngFor="let doc of documentsData.docList">
         <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
         <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
+          <span class="document-title">{{doc.Document.title}}</span>
+          <!--          <span>-->
+          <!--            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago-->
+          <!--          </span>-->
         </div>
         <div class="document-options">
           <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
@@ -29,218 +29,10 @@
           <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
         </div>
       </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-    </mat-tab>
-    <mat-tab label="Recent">
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
-      <!-- Document Row -->
-      <mat-card class="document-row">
-        <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-        <div class="document-data">
-          <span class="document-title">Sample Document</span>
-          <span>
-            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago
-          </span>
-        </div>
-        <div class="document-options">
-          <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-          <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-        </div>
-      </mat-card><!-- /Document Row -->
+      <div class="document-row text-align-center" text-align-center *ngIf="!documentsData.documentExit">
+        <span class="document-title">No Documents</span>
+      </div><!-- /Document Row -->
+
     </mat-tab>
 
     <!--Folders Tab-->
@@ -248,416 +40,43 @@
       <!-- Document Row -->
       <mat-accordion class="documents-tab folder-expansion">
         <!--Folder-->
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+          *ngFor="let folder of folderList">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              My Folder
+              {{folder.name}}
             </mat-panel-title>
-            <mat-panel-description>
-              25 Documents
-            </mat-panel-description>
+            <!--            <mat-panel-description>-->
+            <!--              25 Documents-->
+            <!--            </mat-panel-description>-->
           </mat-expansion-panel-header>
-          <div class="folder-option">
-            <button class="menubtn" mat-button [matMenuTriggerFor]="menu">
-              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
-                {{helperService.translated.STRINGS.DELETE_FOLDER}}
-              </button>
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.edit}}</mat-icon>
-                {{helperService.translated.STRINGS.RENAME}}
-              </button>
-            </mat-menu>
-          </div>
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
 
           <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
+          <ng-container *ngFor="let doc of documentsData.docList">
+            <mat-card class="document-row" *ngIf="folder.name === doc.folder.name">
+              <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
+              <div class="document-data">
+                <span class="document-title">{{doc.Document.title}}</span>
+                <span>
+                  <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added few minutes ago
+                </span>
+                <span class="d-count">
+                  <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 1 document(s)
+                </span>
+              </div>
+              <div class="document-options">
+                <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
+                <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
+                <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
+              </div>
+            </mat-card>
 
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
+          </ng-container>
           <!--/Document Row-->
         </mat-expansion-panel>
-        <!--/Folder-->
-
-        <!--Folder-->
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              My Folder
-            </mat-panel-title>
-            <mat-panel-description>
-              25 Documents
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div class="folder-option">
-            <button class="menubtn" mat-button [matMenuTriggerFor]="menu">
-              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
-                {{helperService.translated.STRINGS.DELETE_FOLDER}}
-              </button>
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.edit}}</mat-icon>
-                {{helperService.translated.STRINGS.RENAME}}
-              </button>
-            </mat-menu>
-          </div>
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-        </mat-expansion-panel>
-        <!--/Folder-->
-
-        <!--Folder-->
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              My Folder
-            </mat-panel-title>
-            <mat-panel-description>
-              25 Documents
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div class="folder-option">
-            <button class="menubtn" mat-button [matMenuTriggerFor]="menu">
-              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
-                {{helperService.translated.STRINGS.DELETE_FOLDER}}
-              </button>
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.edit}}</mat-icon>
-                {{helperService.translated.STRINGS.RENAME}}
-              </button>
-            </mat-menu>
-          </div>
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-        </mat-expansion-panel>
-        <!--/Folder-->
-
-        <!--Folder-->
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              My Folder
-            </mat-panel-title>
-            <mat-panel-description>
-              25 Documents
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div class="folder-option">
-            <button class="menubtn" mat-button [matMenuTriggerFor]="menu">
-              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
-                {{helperService.translated.STRINGS.DELETE_FOLDER}}
-              </button>
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.edit}}</mat-icon>
-                {{helperService.translated.STRINGS.RENAME}}
-              </button>
-            </mat-menu>
-          </div>
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-        </mat-expansion-panel>
-        <!--/Folder-->
-
-        <!--Folder-->
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              My Folder
-            </mat-panel-title>
-            <mat-panel-description>
-              25 Documents
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div class="folder-option">
-            <button class="menubtn" mat-button [matMenuTriggerFor]="menu">
-              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
-                {{helperService.translated.STRINGS.DELETE_FOLDER}}
-              </button>
-              <button mat-menu-item>
-                <mat-icon>{{helperService.appIcons.edit}}</mat-icon>
-                {{helperService.translated.STRINGS.RENAME}}
-              </button>
-            </mat-menu>
-          </div>
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-          <!--Document Row-->
-          <mat-card class="document-row">
-            <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-            <div class="document-data">
-              <span class="document-title">File name</span>
-              <span>
-                <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 years ago
-              </span>
-              <span class="d-count">
-                <mat-icon>{{ helperService.appIcons.insertDriveFile }}</mat-icon> 20 documents
-              </span>
-            </div>
-            <div class="document-options">
-              <mat-icon color="warn" matTooltip="Delete File">{{helperService.appIcons.deleteSweep}}</mat-icon>
-              <mat-icon color="primary" matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-              <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>
-            </div>
-          </mat-card>
-          <!--/Document Row-->
-        </mat-expansion-panel>
+        <div class="document-row" *ngIf="!documentsData.folderExist">
+          <span class="document-title">No Folders</span>
+        </div>
         <!--/Folder-->
       </mat-accordion>
     </mat-tab>

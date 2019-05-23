@@ -91,6 +91,10 @@
     "DATE_TIME": "Date/Time",
     "RESOLVED_BY": "Resolved By",
     "ADDED_BY": "Added By",
+    "UPLOAD_DOC": "Upload document",
+    "FILE_NAME": "File Name",
+    "SELECT_FOLDER": "Select Folder",
+    "FOLDER_NAME": "Folder Name",
     "DESCRIPTION": "Description",
     "RENAME": "Rename Folder",
     "DELETE_FOLDER": "Delete Folder"
@@ -136,8 +140,10 @@
     "UPLOAD_DOCUMENT": "Upload Document",
     "UPLOAD_FILE": "Upload File",
     "VIEWPROFILE": "View Profile",
-    "CREATE_FOLDER": "Create Folder",
-    "GENERATE_REPORT": "Generate Report"
+    "GENERATE_REPORT": "Generate Report",
+    "VIEW_MAP": "View Map",
+    "CLOSE": "Close",
+    "CREATE_FOLDER": "Create Folder"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -301,7 +307,13 @@
     "HAZARD_EDIT_FAILURE": "Hazard edit failed",
     "HAZARD_DELETE_SUCCESS": "Hazard delete Successfully",
     "HAZARD_DELETE_FAILURE": "Hazard delete failed",
-    "EDITPROFILE": "Edit Profile"
+    "EDITPROFILE": "Edit Profile",
+    "SITE_MAP": "Site Map",
+    "NEW_FOLDER": "New Folder Created.",
+    "FOLDER_FAIL": "Folder Creation Failed",
+    "NO_FOLDER" : "NO Folders Found.",
+    "DOC_ADDED": "Document Uploaded Successfully.",
+    "DOC_FAIL": "Document could not be Uploaded"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

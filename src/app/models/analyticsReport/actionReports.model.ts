@@ -5,6 +5,8 @@ import {SitesInfo} from '../site.model';
 
 
 export interface ActionReport {
+  entityId: number;
+  showChart: boolean;
   userActionReportData: UserActionReportData;
   sitesData: SitesInfo[];
   entityName: string;

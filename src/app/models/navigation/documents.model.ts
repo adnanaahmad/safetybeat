@@ -1,20 +1,47 @@
-import {User} from '../user.model';
+import {Subscription} from 'rxjs';
 
 export interface Documents {
+  subscription: Subscription;
   docResponse: any;
   dataSource: any;
-  docList: DocumentObj[];
-
+  docList: DocList[];
+  documentExit: boolean;
+  folderExist: boolean;
 }
 
 export interface DocList {
   document: DocumentObj;
-  uploadedBy: User;
+  folder: Folder;
 }
 
 export interface DocumentObj {
-  id: number,
+  title: string,
   file: any,
   uploadedBy: any,
-  entity: any
+  folder: any,
+  id: any,
+
 }
+
+export interface Folders {
+  title: string
+}
+
+export interface NewDoc {
+  fileName: string,
+  folders?: string
+}
+
+export interface UploadDocForm {
+  file: any,
+  entityId: number,
+  folderList: any[],
+  uploadDocForm: any
+}
+
+export interface Folder {
+  id: number,
+  name: string,
+  entity: number
+}
+

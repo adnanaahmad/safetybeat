@@ -3,6 +3,10 @@
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
   </div>
   <div class="buttonRow">
+    <button btn-primary mat-raised-button color="primary" (click)="viewMap()" [disabled]="siteCentreObj.dataSource === 0">
+      <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
+      {{ helperService.translated.BUTTONS.VIEW_MAP }}
+    </button>
     <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="addSite()">
       <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
       {{ helperService.translated.BUTTONS.ADD_SITE }}

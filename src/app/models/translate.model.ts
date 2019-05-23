@@ -37,6 +37,9 @@ export interface Strings {
   RESOLVED_BY: string;
   ADDED_BY: string;
   DESCRIPTION: string;
+  UPLOAD_DOC: string;
+  FILE_NAME: string;
+  SELECT_FOLDER: string;
 }
 
 export interface Auth {
@@ -92,6 +95,7 @@ export interface Auth {
   OWNER: string;
   LOGOUTSUCCESSION: string;
   REQUIRED_FIELD: string;
+  NO_FILE: string;
 }
 
 export interface Icons {
@@ -194,6 +198,9 @@ export interface Buttons {
   VIEWPROFILE: string;
   CREATE_FOLDER: string;
   GENERATE_REPORT: string;
+  VIEW_MAP: string;
+  CLOSE: string;
+
 }
 
 export interface Messages {
@@ -361,6 +368,12 @@ export interface Messages {
   ENTITY_SETTINGS: string;
   PERMISSION_SETTINGS: string;
   THEME_SETTINGS: string;
+  SITE_MAP: string;
+  NEW_FOLDER: string;
+  FOLDER_FAIL: string;
+  NO_FOLDER: string;
+  DOC_ADDED: string;
+  DOC_FAIL: string;
 }
 
 export interface Logger {
