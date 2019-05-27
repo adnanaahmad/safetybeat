@@ -10,8 +10,13 @@
   <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)
     [enctype]="importSiteModal.type">
     <div class="form-group">
-      <input type='file' name="{{helperService.appConstants.importSite}}" id="{{helperService.appConstants.importSite}}"
-        accept='.csv' (change)=onFileSelected($event) required/>
+      <div class="file-uploader">
+        <button class="fake-uploader">
+          <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon> Upload File
+        </button>
+        <input type='file' name="{{helperService.appConstants.importSite}}"
+          id="{{helperService.appConstants.importSite}}" accept='.csv' (change)=onFileSelected($event) />
+      </div>
     </div>
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary  [disabled]="importSiteModal.loading || !importSiteModal.importSiteForm.valid"

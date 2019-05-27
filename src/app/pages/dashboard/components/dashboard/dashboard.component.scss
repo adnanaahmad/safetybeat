@@ -1,6 +1,9 @@
 @mixin amte-dashboard($primary, $accent, $warn) {
   :host,
   app-dashboard {
+    mat-grid-list {
+      height: 90vh;
+    }
     .highcharts-background {
       fill: transparent;
     }
@@ -25,6 +28,11 @@
     .dashboard-widgets {
       .mat-card {
         width: 100%;
+      }
+      mat-grid-tile {
+        figure > div {
+          width: 100%;
+        }
       }
     }
   }

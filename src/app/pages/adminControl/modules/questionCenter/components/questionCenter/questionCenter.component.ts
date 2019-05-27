@@ -33,6 +33,11 @@ export class QuestionCenterComponent implements OnInit {
     'Is the visibility in the work area adequate?',
     'Are there members of the public and/or other trades in your work area?'
   ];
+  def = [
+    'Have you ensured the correct safety measures are in place?',
+    'Is the visibility in the work area adequate?',
+    'Are there members of the public and/or other trades in your work area?'
+  ];
   QuestionObj: QuestionCenter = <QuestionCenter>{};
 
   constructor(

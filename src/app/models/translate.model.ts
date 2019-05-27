@@ -197,6 +197,7 @@ export interface Buttons {
   UPLOAD_FILE: string;
   VIEWPROFILE: string;
   CREATE_FOLDER: string;
+  GENERATE_REPORT: string;
   VIEW_MAP: string;
   CLOSE: string;
 

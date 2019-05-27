@@ -339,5 +339,17 @@ $theme: createTheme($primary, $secondary, $warn);
   .entity-code {
     -webkit-text-fill-color: rgba(255, 255, 255, 0.25) !important;
   }
+  app-questionCenter {
+    .list,
+    .list-item {
+      background: transparent !important;
+      border-color: mat-color($primary, 400) !important;
+    }
+    .container {
+      h4 {
+        background-color: mat-color($primary, 800);
+      }
+    }
+  }
   @include amte-setTheme($theme);
 }

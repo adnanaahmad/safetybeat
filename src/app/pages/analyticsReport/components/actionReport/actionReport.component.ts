@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HelperService} from '../../../../shared/helperService/helper.service';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ActionReport, ActionReportApiData, HighChartType} from '../../../../models/analyticsReport/actionReports.model';
-import {NavigationService} from '../../../navigation/services/navigation.service';
-import {AnalyticsReportService} from '../../services/analyticsReport.service';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-import {HighchartService} from '../../../../shared/highchart/highchart.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HelperService } from '../../../../shared/helperService/helper.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActionReport, ActionReportApiData, HighChartType } from '../../../../models/analyticsReport/actionReports.model';
+import { NavigationService } from '../../../navigation/services/navigation.service';
+import { AnalyticsReportService } from '../../services/analyticsReport.service';
+import { CompilerProvider } from '../../../../shared/compiler/compiler';
+import { HighchartService } from '../../../../shared/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
-import {AdminControlService} from '../../../adminControl/services/adminControl.service';
-import {MatTableDataSource} from '@angular/material';
+import { AdminControlService } from '../../../adminControl/services/adminControl.service';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-action-report',
@@ -53,7 +53,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     return this.actionReportObj.actionReportForm.controls;
   }
 
-  actionReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
+  actionReportFormSubmit({ value, valid }: { value: ActionReportApiData; valid: boolean; }) {
     if (!valid) {
       return;
     }
