@@ -1,5 +1,8 @@
-<mat-card-title class="mat-dialog-title">
+<mat-card-title class="mat-dialog-title" *ngIf="modalType === 'create'">
   {{helperService.translated.BUTTONS.CREATE_FOLDER}}
+</mat-card-title>
+<mat-card-title class="mat-dialog-title" *ngIf="modalType === 'rename'">
+  {{helperService.translated.STRINGS.RENAME_FOLDER}}
 </mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="folderForm" (ngSubmit)="createFolder(folderForm)">
@@ -12,8 +15,11 @@
           </mat-error>
     </mat-form-field>
     <mat-dialog-actions>
-      <button mat-raised-button type="submit" cdkFocusInitial [disabled]="!folderForm.valid" custom-btn btn-primary color="primary">
+      <button *ngIf="modalType === 'create'" mat-raised-button type="submit"  [disabled]="!folderForm.valid" custom-btn btn-primary color="primary">
         {{helperService.translated.BUTTONS.CREATE_FOLDER}}
+      </button>
+      <button *ngIf="modalType === 'rename'" mat-raised-button type="submit"  [disabled]="!folderForm.valid" custom-btn btn-primary color="primary">
+        {{helperService.translated.STRINGS.RENAME_FOLDER}}
       </button>
       <button mat-button mat-dialog-close type="button">
         {{helperService.translated.BUTTONS.CANCEL}}

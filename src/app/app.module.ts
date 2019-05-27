@@ -44,6 +44,7 @@ import { UploadDocumentComponent } from './pages/navigation/dialogs/uploadDocume
 import { CreateFolderComponent } from './pages/navigation/dialogs/createFolder/createFolder.component';
 import {UploadDocComponent} from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
 import {SiteMapComponent} from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -70,7 +71,8 @@ export function createTranslateLoader(http: HttpClient) {
     AddQuestionComponent,
     SiteMapComponent,
     UploadDocComponent,
-    CreateFolderComponent
+    CreateFolderComponent,
+    ViewDocComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -133,7 +135,8 @@ export function createTranslateLoader(http: HttpClient) {
     AddQuestionComponent,
     SiteMapComponent,
     UploadDocComponent,
-    CreateFolderComponent
+    CreateFolderComponent,
+    ViewDocComponent
   ]
 })
 export class AppModule {

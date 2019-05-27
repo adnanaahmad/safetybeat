@@ -12,6 +12,7 @@ import {Folders} from 'src/app/models/navigation/documents.model';
 })
 export class CreateFolderComponent implements OnInit {
   folderForm: any;
+  modalType: string;
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
@@ -23,6 +24,7 @@ export class CreateFolderComponent implements OnInit {
     this.folderForm = this.formBuilder.group({
       title: ['', Validators.required],
     });
+    this.modalType = 'create';
   }
 
   get formValidation() {
