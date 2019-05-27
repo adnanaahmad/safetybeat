@@ -312,7 +312,9 @@
     "NEW_FOLDER": "New Folder Created.",
     "FOLDER_FAIL": "Folder Creation Failed",
     "DOC_ADDED": "Document Uploaded Successfully.",
-    "DOC_FAIL": "Document could not be Uploaded"
+    "DOC_FAIL": "Document could not be Uploaded",
+    "CONFIRM_CONNECTION_SUCCESS": "Connection is confirmed",
+    "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -422,6 +424,7 @@
     "DELETE_HAZARD": "Are you sure you want Delete this hazard?",
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
     "ADD_CONNECTION": "Are you sure you want to Add this user to your Connections.",
-    "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections."
+    "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections.",
+    "CONFIRM_CONNECTION": "Are you sure you want to Add this user to your Connections."
   }
 }
