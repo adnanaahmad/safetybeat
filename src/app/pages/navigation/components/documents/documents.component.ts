@@ -20,8 +20,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['file', 'uploadedBy', 'actions'];
   documentsData: Documents = <Documents>{};
   panelOpenState = false;
-  private folderList: any;
-  private length;
+  folderList: any;
+  length;
 
   constructor(
     public dialog: MatDialog,

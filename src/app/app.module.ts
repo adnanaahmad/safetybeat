@@ -40,7 +40,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { GeneralComponent } from './pages/settings/components/general/general.component';
 import { SecurityComponent } from './pages/settings/components/security/security.component';
 import { AddQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
-import { UploadDocumentComponent } from './pages/navigation/dialogs/uploadDocument/uploadDocument.component';
 import { CreateFolderComponent } from './pages/navigation/dialogs/createFolder/createFolder.component';
 import {UploadDocComponent} from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
 import {SiteMapComponent} from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
