@@ -95,9 +95,10 @@
     "FILE_NAME": "File Name",
     "SELECT_FOLDER": "Select Folder",
     "FOLDER_NAME": "Folder Name",
-    "DESCRIPTION": "Description",
     "RENAME": "Rename Folder",
-    "DELETE_FOLDER": "Delete Folder"
+    "DELETE_FOLDER": "Delete Folder",
+    "VIEW_DOC": "View Document",
+    "RENAME_FOLDER": "Rename Folder"
   },
   "BUTTONS": {
     "LOGIN": "Login",

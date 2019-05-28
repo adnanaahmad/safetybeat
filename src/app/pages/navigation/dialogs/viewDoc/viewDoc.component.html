@@ -1,0 +1,13 @@
+<mat-card-title class="mat-dialog-title">
+  {{helperService.translated.STRINGS.VIEW_DOC}}
+</mat-card-title>
+<div mat-dialog-content>
+  <mat-card>
+    <iframe [src]=file width='560px' height='623px'></iframe>
+  </mat-card>
+  <mat-dialog-actions>
+    <button btn-primary mat-raised-button color="primary" mat-dialog-close="">
+      {{ helperService.translated.BUTTONS.CLOSE }}
+    </button>
+  </mat-dialog-actions>
+</div>
