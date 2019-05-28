@@ -36,7 +36,6 @@
 @import "src/app/pages/adminControl/modules/questionCenter/components/questionCenter/questionCenter.component.scss";
 @import "src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component.scss";
 @import "src/app/pages/navigation/components/documents/documents.component.scss";
-@import "src/app/pages/navigation/dialogs/uploadDocument/uploadDocument.component.scss";
 @import "src/app/pages/analyticsReport/components/actionReport/actionReport.component.scss";
 @import "src/app/pages/analyticsReport/components/siteActivityReport/siteActivityReport.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component.scss";
@@ -86,7 +85,6 @@
   @include amte-questionCenter($primary, $accent, $warn);
   @include amte-addQuestion($primary, $accent, $warn);
   @include amte-documents($primary, $accent, $warn);
-  @include amte-uploadDocument($primary, $accent, $warn);
   @include amte-action-report($primary, $accent, $warn);
   @include amte-siteActivityReport($primary, $accent, $warn);
   @include amte-site-map($primary, $accent, $warn);
