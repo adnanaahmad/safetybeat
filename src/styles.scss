@@ -845,6 +845,13 @@ input:-internal-autofill-selected {
   }
 }
 @media (max-width: 575px) {
+  .buttonRow {
+    button {
+      margin-left: 0;
+      display: block;
+      margin-top: 10px;
+    }
+  }
   .page-title {
     margin: 10px 0 0;
   }

@@ -27,26 +27,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  // cards: any;
 
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
-      // if (matches) {
-      //   return [
-      //     { title: 'Card 1', cols: 4, rows: 1 },
-      //     { title: 'Card 2', cols: 3, rows: 1 },
-      //     { title: 'Card 3', cols: 4, rows: 2 },
-      //     { title: 'Card 4', cols: 1, rows: 1 }
-      //   ];
-      // }
-
-      return [
-        { title: 'Activities', cols: 2, rows: 1 },
-        { title: 'Connections', cols: 2, rows: 1 },
-        { title: 'Leaves', cols: 2, rows: 1 },
-        { title: 'Entities', cols: 2, rows: 1 }
-      ];
+      if (matches) {
+        return [
+          { title: 'Activities', cols: 4, rows: 1 },
+          { title: 'Connections', cols: 4, rows: 1 },
+          { title: 'Leaves', cols: 4, rows: 1 },
+          { title: 'Entities', cols: 4, rows: 1 }
+        ];
+      } else {
+        return [
+          { title: 'Activities', cols: 2, rows: 1 },
+          { title: 'Connections', cols: 2, rows: 1 },
+          { title: 'Leaves', cols: 2, rows: 1 },
+          { title: 'Entities', cols: 2, rows: 1 }
+        ];
+      }
     })
   );
 
@@ -103,7 +104,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.getUserConnections(this.profileModel.userId);
-
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
@@ -115,11 +115,105 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
     this.viewAllEntities();
+    // this.responsive();
   }
 
   /**
    * this function is used for initializing the global variables that have been declared in the profileModel.
    */
+
+  responsive() {
+
+    this.helperService.isXLarge.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.XLarge).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('large screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isLarge.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Large).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('large screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isTablet.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Medium).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('tablet screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isHandset.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('small screen');
+              return [
+                { title: 'Activities', cols: 4, rows: 1 },
+                { title: 'Connections', cols: 4, rows: 1 },
+                { title: 'Leaves', cols: 4, rows: 1 },
+                { title: 'Entities', cols: 4, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isWeb.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('web screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+  }
 
   initialize() {
     this.profileModel.translated = this.helperService.translated;
@@ -133,6 +227,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       'role',
       'administrator'
     ];
+    console.log('these are dimensions', this.helperService.dimensions);
   }
 
   /**
@@ -206,7 +301,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getUserConnections(userId: number) {
 
-    this.adminService.allConnections({userId: userId}).subscribe((res) => {
+    this.adminService.allConnections({ userId: userId }).subscribe((res) => {
       this.profileModel.allConnectionsRes = res;
       this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {

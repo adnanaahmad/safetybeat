@@ -18,7 +18,7 @@
   </div>
 </mat-toolbar>
 <div class="grid-container">
-  <mat-grid-list cols="4" rowHeight="fit">
+  <mat-grid-list cols="4" rowHeight="300px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card activities" *ngIf="card.title==='Activities'">
         <mat-card-header class="infoTitle">
