@@ -185,6 +185,8 @@ export class ConstantService {
     dateFrom: 'dateFrom',
     dateTo: 'dateTo',
     site: 'site',
+    create: 'create',
+    rename: 'rename',
     paths: {
       home: '/home',
       profile: '/home/profile',

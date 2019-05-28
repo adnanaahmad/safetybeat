@@ -24,7 +24,7 @@ export class CreateFolderComponent implements OnInit {
     this.folderForm = this.formBuilder.group({
       title: ['', Validators.required],
     });
-    this.modalType = 'create';
+    this.modalType = this.helperService.appConstants.create;
   }
 
   get formValidation() {

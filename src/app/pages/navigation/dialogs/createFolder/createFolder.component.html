@@ -1,7 +1,7 @@
-<mat-card-title class="mat-dialog-title" *ngIf="modalType === 'create'">
+<mat-card-title class="mat-dialog-title" *ngIf="modalType === helperService.constants.appConstant.create">
   {{helperService.translated.BUTTONS.CREATE_FOLDER}}
 </mat-card-title>
-<mat-card-title class="mat-dialog-title" *ngIf="modalType === 'rename'">
+<mat-card-title class="mat-dialog-title" *ngIf="modalType === helperService.constants.appConstant.rename">
   {{helperService.translated.STRINGS.RENAME_FOLDER}}
 </mat-card-title>
 <div mat-dialog-content>
