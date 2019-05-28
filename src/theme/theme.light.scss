@@ -258,5 +258,16 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       }
     }
   }
+  app-questionCenter {
+    .list,
+    .list-item {
+      border-color: mat-color($primary, 50);
+    }
+    .container {
+      h4 {
+        background-color: mat-color($primary, 800);
+      }
+    }
+  }
   @include amte-setTheme($light-theme);
 }

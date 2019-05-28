@@ -15,13 +15,13 @@
   <mat-tab-group class="documents-tab">
     <mat-tab label="Documents">
       <!-- Document Row -->
-      <mat-card class="document-row" *ngFor="let doc of documentsData.docList" >
+      <mat-card class="document-row" *ngFor="let doc of documentsData.docList">
         <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
         <div class="document-data">
           <span class="document-title">{{doc.Document.title}}</span>
-<!--          <span>-->
-<!--            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago-->
-<!--          </span>-->
+          <!--          <span>-->
+          <!--            <mat-icon>{{ helperService.appIcons.clock }}</mat-icon> Added 10 days ago-->
+          <!--          </span>-->
         </div>
         <div class="document-options">
           <mat-icon (click)="deleteDoc(doc.Document.id)" color="warn" matTooltip="Delete File" >{{helperService.appIcons.deleteSweep}}</mat-icon>
@@ -30,7 +30,7 @@
         </div>
       </mat-card><!-- /Document Row -->
       <div class="document-row text-align-center" text-align-center *ngIf="!documentsData.documentExit">
-          <span class="document-title">No Documents</span>
+        <span class="document-title">No Documents</span>
       </div><!-- /Document Row -->
 
     </mat-tab>
@@ -40,14 +40,15 @@
       <!-- Document Row -->
       <mat-accordion class="documents-tab folder-expansion">
         <!--Folder-->
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let folder of folderList">
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+          *ngFor="let folder of folderList">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{folder.name}}
             </mat-panel-title>
-<!--            <mat-panel-description>-->
-<!--              25 Documents-->
-<!--            </mat-panel-description>-->
+            <!--            <mat-panel-description>-->
+            <!--              25 Documents-->
+            <!--            </mat-panel-description>-->
           </mat-expansion-panel-header>
           <div class="folder-option">
             <button class="menubtn" mat-button [matMenuTriggerFor]="menu">

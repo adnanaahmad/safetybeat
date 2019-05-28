@@ -554,5 +554,17 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
+  app-questionCenter {
+    .list,
+    .list-item {
+      background: transparent !important;
+      border-color: mat-color($primary, 400) !important;
+    }
+    .container {
+      h4 {
+        background-color: mat-color($primary, 800);
+      }
+    }
+  }
   @include amte-setTheme($theme);
 }

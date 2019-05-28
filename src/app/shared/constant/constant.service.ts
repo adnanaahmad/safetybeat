@@ -126,7 +126,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    serverUrl: 'http://192.168.69.48:8000',
+    serverUrl: 'http://localhost:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -297,8 +297,9 @@ export class ConstantService {
     clock: 'access_time',
     cloudDownload: 'cloud_download',
     folder: 'folder',
+    cloudUpload: 'cloud_upload',
     createFolder: 'create_new_folder',
-    phone: 'phone'
+    phone: 'phone',
   };
   /**
    * all the particle container icon names are declared here.

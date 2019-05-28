@@ -91,7 +91,6 @@
     "DATE_TIME": "Date/Time",
     "RESOLVED_BY": "Resolved By",
     "ADDED_BY": "Added By",
-    "DESCRIPTION": "Description",
     "UPLOAD_DOC": "Upload document",
     "FILE_NAME": "File Name",
     "SELECT_FOLDER": "Select Folder",
@@ -142,9 +141,10 @@
     "UPLOAD_DOCUMENT": "Upload Document",
     "UPLOAD_FILE": "Upload File",
     "VIEWPROFILE": "View Profile",
-    "CREATE_FOLDER": "Create Folder",
+    "GENERATE_REPORT": "Generate Report",
     "VIEW_MAP": "View Map",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "CREATE_FOLDER": "Create Folder"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -183,7 +183,7 @@
     "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",
     "VERIFY_REQ": "Please verify your account to continue using this service",
     "WELCOME": "Welcome to",
-    "WELCOME_MSG": "The only safety app that allows you to easily manage the safety of your mobile, remote and lone workers, anytime, anywhere",
+    "WELCOME_MSG": "The only safety app that allows you to easily manage the safety of your workers, anytime, anywhere",
     "NOACCOUNT": "Don't have an account?",
     "USERNAME_EXISTS": "Username already exixts.",
     "CHANGE_EMAIL": "Change your email address.",

@@ -2,7 +2,6 @@
   :host,
   app-notificationnav {
     padding: 0 20px;
-    width: 320px;
     display: block;
     .mat-tab-label {
       height: 30px;
@@ -27,9 +26,6 @@
       p {
         margin: 10px 0;
         font-size: 12px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
       .clear-notif {
         float: right;

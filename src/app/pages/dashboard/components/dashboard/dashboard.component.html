@@ -1,8 +1,4 @@
-<mat-grid-list cols="2" rowHeight="460px" gutterSize="30px" class="dashboard-widgets">
-  <mat-grid-tile *ngFor="let chart of mockData">
-    <mat-card>
-      <mat-card-content>
+<mat-grid-list cols="2" rowHeight="fit" gutterSize="10px" class="dashboard-widgets">
+  <mat-grid-tile class="mat-elevation-z2" *ngFor="let chart of mockData">
         <div [id]="chart.containerId"></div>
-      </mat-card-content>
-    </mat-card>
   </mat-grid-tile>

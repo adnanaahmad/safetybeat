@@ -38,6 +38,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
         this.siteActivityObj.allEntitiesData = res;
         this.siteActivityObj.entityUserData = this.siteActivityObj.allEntitiesData.entities;
         this.siteActivityObj.entityName = this.siteActivityObj.entityUserData[0].entityInfo.name;
+        this.siteActivityObj.entityId = this.siteActivityObj.entityUserData[0].entityInfo.id;
         this.actionFormValidations['entityName'].setValue(this.siteActivityObj.entityName);
         this.actionFormValidations['entityName'].disable();
       }
@@ -53,7 +54,8 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       return;
     }
     let data = {
-      'entityId': this.siteActivityObj.entityUserData[0].entityInfo.id,
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
       'dateTo': value.dateTo,
       'dateFrom': value.dateFrom
     };
