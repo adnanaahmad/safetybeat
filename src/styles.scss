@@ -764,8 +764,6 @@ input:-internal-autofill-selected {
     }
   }
   .table-wrap {
-    overflow: auto;
-    width: 100%;
     table {
       table-layout: unset;
       th,
@@ -845,6 +843,15 @@ input:-internal-autofill-selected {
   }
 }
 @media (max-width: 575px) {
+  .settings-parent {
+    .navigator {
+      .mat-list {
+        .mat-list-item {
+          width: 50% !important;
+        }
+      }
+    }
+  }
   app-addQuestion {
     mat-radio-button {
       margin-right: 0;

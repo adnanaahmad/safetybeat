@@ -3,7 +3,7 @@
 </mat-card-title>
 <div mat-dialog-content>
   <div [formGroup]="hazardDetailForm">
-    <div class="hazard-thumbnail">
+    <div (click)="testingFunc()" class="hazard-thumbnail">
       <img src="{{ hazardInfo.hazard.image ? serverUrl+hazardInfo.hazard.image : helperService.appConstants.noHazard}}">
     </div>
     <div class="hazard-detail-grid">
