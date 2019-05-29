@@ -1,8 +1,8 @@
 <div class="container">
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
     (switchNavListDefault)="switchListDefault(navModel.Entity)" [selectedEntity]="navModel.Entity"></app-fixed-nav>
-  <mat-sidenav-container hasBackdrop="false">
-    <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
+  <mat-sidenav-container hasBackdrop="true">
+    <mat-sidenav #sideNav mode="over" class="mat-sidenav mat-elevation-z6">
       <div class="sb-logo">
         <svg xmlns="http://www.w3.org/2000/svg" width="446" height="114" viewBox="0 0 446 114">
           <path id="SafetyBeat" class="cls-1"
@@ -40,8 +40,8 @@
             <span class="notifcount">90+</span></mat-icon>
           <div class="profile-menu">
             <button mat-button [matMenuTriggerFor]="menu">
-<!--              <img-->
-<!--                src="{{ profileModel.profileImage != null ? navModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />-->
+              <!--              <img-->
+              <!--                src="{{ profileModel.profileImage != null ? navModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />-->
               <div *ngIf="profileModel.profileImage !== null">
                 <img src="{{navModel.serverUrl+profileModel.profileImage}}">
               </div>

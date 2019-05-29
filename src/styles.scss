@@ -738,8 +738,8 @@ input:-internal-autofill-selected {
         .mat-list {
           display: block;
           .mat-list-item {
-            margin: 20px 0;
-            width: 30%;
+            margin: 10px 0;
+            width: 33.333333%;
           }
         }
       }
@@ -845,15 +845,32 @@ input:-internal-autofill-selected {
   }
 }
 @media (max-width: 575px) {
-  .buttonRow {
-    button {
-      margin-left: 0;
+  app-addQuestion {
+    mat-radio-button {
+      margin-right: 0;
+      float: none;
       display: block;
-      margin-top: 10px;
+      clear: both;
+    }
+  }
+  app-settings {
+    .settings-wrap {
+      .form-row {
+        display: block !important;
+      }
+    }
+  }
+  .buttonRow {
+    text-align: center;
+    button {
+      display: block;
+      margin: 10px auto 0;
     }
   }
   .page-title {
     margin: 10px 0 0;
+    display: block;
+    text-align: center;
   }
   [custom-btn] {
     padding: 6px 6px !important;
