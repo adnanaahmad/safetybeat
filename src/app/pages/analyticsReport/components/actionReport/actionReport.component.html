@@ -7,14 +7,6 @@
           (ngSubmit)=actionReportFormSubmit(siteActivityObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
       <div class="form-group">
         <mat-form-field appearance="outline">
-          <mat-label>Report Type</mat-label>
-          <mat-select [formControlName]="helperService.appConstants.site">
-            <mat-option *ngFor="let sites of actionReportObj.sitesData" [value]="sites.site.id">
-              {{sites.site.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
           <mat-label>Entity</mat-label>
           <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled] />
           <mat-error class="text-right" *ngIf="actionFormValidations.errors">
