@@ -5,7 +5,6 @@ import {User} from './user.model';
 export interface HazardModel {
   hazardOption: boolean;
   entitySelectedRole: string;
-  serverUrl: string;
   entityId: number;
   dataSource: any;
   displayedColumns: string[];

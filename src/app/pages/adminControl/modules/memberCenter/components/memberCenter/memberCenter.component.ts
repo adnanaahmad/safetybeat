@@ -34,7 +34,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
               public navService: NavigationService,
               public compiler: CompilerProvider,
               public userService: ProfileService) {
-    this.memberCenter.serverUrl = this.helperService.appConstants.serverUrl;
     this.memberCenter.userStatus = false;
   }
 

@@ -61,7 +61,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public adminService: AdminControlService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.profileModel.serverUrl = this.helperService.appConstants.serverUrl;
     this.initialize();
     this.helperService.appLoggerDev(
       this.profileModel.translated.LOGGER.STATUS.SUCCESS,

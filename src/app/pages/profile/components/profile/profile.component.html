@@ -2,7 +2,7 @@
   <div>
     <div class="user-avatar">
       <img
-        src="{{ profileModel.profileImage != null ? profileModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />
+        src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}" />
       <span class="change-avatar" *ngIf="profileModel.currentUserProfile">
         <input type='file' name="{{helperService.appConstants.profileImage}}"
           id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />

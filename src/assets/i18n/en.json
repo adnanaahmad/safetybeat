@@ -97,7 +97,8 @@
     "FOLDER_NAME": "Folder Name",
     "DESCRIPTION": "Description",
     "RENAME": "Rename Folder",
-    "DELETE_FOLDER": "Delete Folder"
+    "DELETE_FOLDER": "Delete Folder",
+    "IMAGE": "Image"
   },
   "BUTTONS": {
     "LOGIN": "Login",

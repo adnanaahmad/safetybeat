@@ -40,6 +40,7 @@ export interface Strings {
   UPLOAD_DOC: string;
   FILE_NAME: string;
   SELECT_FOLDER: string;
+  IMAGE: string;
 }
 
 export interface Auth {
