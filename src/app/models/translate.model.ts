@@ -41,6 +41,9 @@ export interface Strings {
   FILE_NAME: string;
   SELECT_FOLDER: string;
   IMAGE: string;
+  VIEW_DOC: string;
+  RENAME_FOLDER: string;
+  FOLDER_NAME: string;
 }
 
 export interface Auth {

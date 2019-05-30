@@ -173,6 +173,6 @@ export class NavigationService {
 
   deleteDoc(id) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
-      `${this.helperService.constants.apiRoutes.deleteDoc}/${id}/`);
+      `${this.helperService.constants.apiRoutes.deleteDoc}${id}/`);
   }
 }
