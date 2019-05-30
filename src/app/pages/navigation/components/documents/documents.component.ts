@@ -6,7 +6,8 @@ import {Documents} from 'src/app/models/navigation/documents.model';
 import {CompilerProvider} from 'src/app//shared/compiler/compiler';
 import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/uploadDoc.component';
 import {CreateFolderComponent} from 'src/app/pages/navigation/dialogs/createFolder/createFolder.component';
-import {ViewDocComponent} from '../../dialogs/viewDoc/viewDoc.component';
+import {ConfirmationModalComponent} from '../../../../Dialogs/conformationModal/confirmationModal.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -22,19 +23,26 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   panelOpenState = false;
   folderList: any;
   length;
+  fileUrl: any;
+  private entityID: any;
 
   constructor(
     public dialog: MatDialog,
     public helperService: HelperService,
     private navService: NavigationService,
     public compiler: CompilerProvider,
+    private sanitizer: DomSanitizer
   ) {
     this.documentsData.documentExit = true;
     this.documentsData.folderExist = true;
   }
 
   ngOnInit() {
-
+    // const data = 'some text';
+    // const blob = new Blob([data], { type: 'application/octet-stream' });
+    // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+    this.entityID = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
     this.allDocumentsData();
     this.getAllFolders();
   }
@@ -43,9 +51,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   getAllFolders() {
-    let entityID = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
-    this.navService.allFolders({entityId: entityID}).subscribe((res) => {
+    this.navService.allFolders({entityId: this.entityID}).subscribe((res) => {
       if (res.responseDetails.code === 104) {
         this.documentsData.folderExist = false;
       } else {
@@ -57,11 +63,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
-
   allDocumentsData() {
     let entityData = {
-      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      'entityId': this.entityID,
     };
     this.navService.viewAllDocuments(entityData).subscribe((res) => {
       this.documentsData.docResponse = res;
@@ -76,7 +80,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   checkDoc(folderId): boolean {
-    if (this.documentsData.docResponse.data.length !== 0) {
+    if (this.documentsData.docResponse.responseDetails.code !== 104) {
       for (let j = 0; j < this.documentsData.docResponse.data.documents.length ; j++) {
         let temp = this.documentsData.docResponse.data.documents[j];
         if (temp.Document.folder === folderId) {
@@ -96,7 +100,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   newFolder() {
-    this.helperService.createDialog(CreateFolderComponent, {disableClose: true});
+    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true}});
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       this.getAllFolders();
       this.documentsData.folderExist = true;
@@ -104,13 +108,51 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   deleteDoc(id) {
-    this.navService.deleteDoc(id).subscribe((res) => {
-      this.allDocumentsData();
-      this.getAllFolders();
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_DOCUMENT}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.navService.deleteDoc(id).subscribe((res) => {
+          this.allDocumentsData();
+          this.getAllFolders();
+        });
+      }
     });
   }
 
-  viewDoc(doc) {
-     this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
+  viewDoc(route) {
+    // this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
+    // this.navService.downloadPDF(url).subscribe(res => {
+    //   const fileURL = URL.createObjectURL(res);
+    //   window.open(fileURL, '_blank');
+    // });
+    let response = this.helperService.appConstants.serverUrl + route;
+    const blob = new Blob([route], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    window.open(url);
+  }
+
+  deleteFolder(id) {
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_FOLDER}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.navService.deleteFolder(id).subscribe((res) => {
+          this.allDocumentsData();
+          this.getAllFolders();
+        });
+      }
+    });
+  }
+
+  renameFolder(folderInfo) {
+    this.helperService.createDialog(CreateFolderComponent, {disableClose: true,
+      data: {type: false, id: folderInfo.id, name: folderInfo.name}});
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      this.getAllFolders();
+      this.documentsData.folderExist = true;
+    });
   }
 }

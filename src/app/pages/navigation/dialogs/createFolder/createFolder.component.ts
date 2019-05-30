@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Folders} from 'src/app/models/navigation/documents.model';
 
 @Component({
@@ -12,11 +12,12 @@ import {Folders} from 'src/app/models/navigation/documents.model';
 })
 export class CreateFolderComponent implements OnInit {
   folderForm: any;
-  modalType: string;
+  modalType: boolean;
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<CreateFolderComponent>,
+              @Inject(MAT_DIALOG_DATA) public data,
               private navService: NavigationService) {
   }
 
@@ -24,18 +25,21 @@ export class CreateFolderComponent implements OnInit {
     this.folderForm = this.formBuilder.group({
       title: ['', Validators.required],
     });
-    this.modalType = this.helperService.appConstants.create;
+    this.modalType = this.data.type;
+    if (!this.modalType) {
+      this.folderFormControls['title'].setValue(this.data.name);
+    }
   }
 
-  get formValidation() {
+  get folderFormControls() {
     return this.folderForm.controls;
   }
 
-  createFolder({value, valid}: { value: Folders; valid: boolean; }) {
-    if (!valid) {
-      this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
-      return;
-    }
+  folderFormSubmit({value}: { value: Folders }) {
+    this.modalType ? this.createFolder(value) : this.renameFolder(value);
+  }
+
+  createFolder(value: Folders) {
     let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     let data = {name: value.title, entity: entityId};
@@ -45,6 +49,16 @@ export class CreateFolderComponent implements OnInit {
       } else {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_FAIL, this.helperService.constants.status.WARNING);
       }
+    });
+    this.dialogRef.close();
+  }
+
+   renameFolder(value: Folders) {
+    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem
+      (this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
+    let data = {name: value.title, entity: entityId};
+    this.navService.renameFolder(this.data.id, data).subscribe((res) => {
     });
     this.dialogRef.close();
   }

@@ -23,6 +23,7 @@ export class NavigationService {
   private currentUser = new BehaviorSubject<any>(1);
   currentUserData = this.currentUser.asObservable();
 
+
   constructor(
     private router: Router,
     public helperService: HelperService) {
@@ -153,6 +154,10 @@ export class NavigationService {
       data
     );
   }
+  getDocument(id) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
+      `${this.helperService.constants.apiRoutes.createFolder}${id}/` );
+  }
 
   uploadDocuments(data: object) {
     return this.helperService.requestCall(
@@ -171,8 +176,18 @@ export class NavigationService {
       this.helperService.constants.apiRoutes.createFolder, data);
   }
 
+  renameFolder(id, data) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
+      `${this.helperService.constants.apiRoutes.createFolder}${id}/` , data);
+  }
+
   deleteDoc(id) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
       `${this.helperService.constants.apiRoutes.deleteDoc}${id}/`);
+  }
+
+  deleteFolder(id) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
+      `${this.helperService.constants.apiRoutes.createFolder}${id}/`);
   }
 }
