@@ -10,13 +10,11 @@ import {FormBuilder, Validators} from '@angular/forms';
 })
 export class HazardDetailsComponent implements OnInit {
   hazardDetailForm: any;
-  serverUrl: string;
   hazardInfo: any;
 
   constructor(public helperService: HelperService,
               @Inject(MAT_DIALOG_DATA) public data: any,
               public formBuilder: FormBuilder) {
-    this.serverUrl = this.helperService.appConstants.serverUrl;
   }
 
   ngOnInit() {

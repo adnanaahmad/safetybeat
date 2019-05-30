@@ -18,7 +18,7 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <img class="table-img"
-            src="{{ element.profileImage  ? memberCenter.serverUrl+element.profileImage : helperService.appConstants.avatar}}" />
+            src="{{ element.profileImage  ? element.profileImage : helperService.appConstants.avatar}}" />
         </td>
       </ng-container>
 

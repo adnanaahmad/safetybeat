@@ -98,7 +98,8 @@
     "RENAME": "Rename Folder",
     "DELETE_FOLDER": "Delete Folder",
     "VIEW_DOC": "View Document",
-    "RENAME_FOLDER": "Rename Folder"
+    "RENAME_FOLDER": "Rename Folder",
+    "IMAGE": "Image"
   },
   "BUTTONS": {
     "LOGIN": "Login",
