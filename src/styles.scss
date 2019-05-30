@@ -35,6 +35,12 @@ notifier-notification,
 app-toaster {
   font-family: $fontFamily;
 }
+.clearfix {
+  clear: both;
+  display: block;
+  width: 100%;
+  height: 1px;
+}
 .notification-icon {
   .notifcount {
     font-family: $fontFamily;
