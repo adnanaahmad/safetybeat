@@ -25,7 +25,6 @@ export class HazardCenterComponent implements OnInit {
     private navService: NavigationService,
     private compiler: CompilerProvider,
     private adminControlService: AdminControlService) {
-    this.hazardTable.serverUrl = this.helperService.appConstants.serverUrl;
   }
 
   ngOnInit() {

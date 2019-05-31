@@ -39,7 +39,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private profile: ProfileService,
     public breakpointObserver: BreakpointObserver
   ) {
-    this.navModel.serverUrl = this.helperService.appConstants.serverUrl;
     this.initialize();
     this.helperService.appLoggerDev(
       this.helperService.constants.status.SUCCESS,

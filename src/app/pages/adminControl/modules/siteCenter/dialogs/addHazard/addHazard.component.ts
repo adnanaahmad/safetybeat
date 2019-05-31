@@ -14,8 +14,7 @@ export class AddHazardComponent implements OnInit {
   hazardObj: AddHazardModel = <AddHazardModel>{};
   hazardInfo: Hazard = <Hazard>{};
   risks: string[];
-  public serverUrl: string;
-  public url: string;
+  public url: any;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -26,7 +25,6 @@ export class AddHazardComponent implements OnInit {
   ) {
     this.hazardObj.editModal = data.Modal;
     this.hazardInfo = data.hazardInfo;
-    this.serverUrl = this.helperService.appConstants.serverUrl;
     this.url = helperService.appConstants.noHazard
 
   }
@@ -45,7 +43,7 @@ export class AddHazardComponent implements OnInit {
 
   viewHazardInfo() {
     if (this.hazardInfo.hazard.image) {
-      this.url = this.serverUrl + this.hazardInfo.hazard.image;
+      this.url =  this.hazardInfo.hazard.image;
     }
     this.hazardObj.addHazardForm = this.formBuilder.group({
       title: this.hazardInfo.hazard.title,

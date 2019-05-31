@@ -4,7 +4,6 @@ import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
 
 export interface NavigationModel {
-  serverUrl: string;
   logoutDisable: boolean;
   logoutResponse: any;
   translated: Translation;

@@ -40,10 +40,8 @@
             <span class="notifcount">90+</span></mat-icon>
           <div class="profile-menu">
             <button mat-button [matMenuTriggerFor]="menu">
-              <!--              <img-->
-              <!--                src="{{ profileModel.profileImage != null ? navModel.serverUrl+profileModel.profileImage : helperService.appConstants.avatar}}" />-->
               <div *ngIf="profileModel.profileImage !== null">
-                <img src="{{navModel.serverUrl+profileModel.profileImage}}">
+                <img src="{{profileModel.profileImage}}">
               </div>
               <div *ngIf="!profileModel.profileImage">
                 <img src="{{helperService.appConstants.avatar}}">
