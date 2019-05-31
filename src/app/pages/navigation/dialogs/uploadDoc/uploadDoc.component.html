@@ -13,13 +13,15 @@
     <div>
   <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt" (change)=uploadFile($event) required/>
     </div>
-  <mat-form-field appearance="outline" full-width>
+  <mat-form-field appearance="outline" full-width *ngIf="!rootOnly">
     <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
     <mat-select formControlName="folders">
       <ng-container *ngFor="let folder of newDoc.folderList">
+        <div *ngIf="folder.name !== 'root'">
         <mat-option  [value]="folder.id">
           {{folder.name}}
         </mat-option>
+        </div>
       </ng-container>
     </mat-select>
   </mat-form-field>

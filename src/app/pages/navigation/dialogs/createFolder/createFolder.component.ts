@@ -13,12 +13,17 @@ import {Folders} from 'src/app/models/navigation/documents.model';
 export class CreateFolderComponent implements OnInit {
   folderForm: any;
   modalType: boolean;
+  private folderExist: boolean = false;
+  folderList: any;
+  private entityId: number;
+  private folderCreated: boolean;
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<CreateFolderComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
               private navService: NavigationService) {
+    this.folderCreated = false;
   }
 
   ngOnInit() {
@@ -29,6 +34,11 @@ export class CreateFolderComponent implements OnInit {
     if (!this.modalType) {
       this.folderFormControls['title'].setValue(this.data.name);
     }
+    this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.entityId = res.entityInfo.id;
+      }
+    });
   }
 
   get folderFormControls() {
@@ -43,15 +53,33 @@ export class CreateFolderComponent implements OnInit {
     let data = {name: value.title, entity: this.data.id};
     this.navService.createFolder(data).subscribe((res) => {
       if (res.responseDetails.code === 100) {
+        this.getAllFolders(this.entityId);
+        this.folderCreated = true;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
+        this.dialogRef.close(this.folderCreated);
       } else {
+        this.folderCreated = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_FAIL, this.helperService.constants.status.WARNING);
+        this.dialogRef.close(this.folderCreated);
       }
     });
-    this.dialogRef.close();
   }
 
-   renameFolder(value: Folders) {
+  getAllFolders(entityID: number) {
+    this.navService.allFolders({entityId: entityID}).subscribe((res) => {
+      if (res.responseDetails.code === 104) {
+        this.folderExist = false;
+      } else {
+        this.folderList = res.data;
+        this.navService.updateFolder(this.folderList);
+        if (this.folderList.length === 0) {
+          this.folderExist = false;
+        }
+      }
+    });
+  }
+
+  renameFolder(value: Folders) {
     let data = {name: value.title, entity: this.data.id};
     this.navService.renameFolder(this.data.folderId, data).subscribe((res) => {
     });

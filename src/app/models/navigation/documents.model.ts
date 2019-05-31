@@ -33,6 +33,9 @@ export interface NewDoc {
 }
 
 export interface UploadDocForm {
+  docList: any;
+  documentExist: boolean;
+  docResponse: any;
   file: any,
   entityId: number,
   folderList: any[],

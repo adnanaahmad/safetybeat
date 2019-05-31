@@ -21,7 +21,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   documentsData: Documents = <Documents>{};
   panelOpenState = false;
   folderList: any;
-  private entityID: any;
+  entityID: any;
 
   constructor(
     public dialog: MatDialog,
@@ -29,8 +29,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public compiler: CompilerProvider
   ) {
-    this.documentsData.documentExist = true;
-    this.documentsData.folderExist = true;
+    this.documentsData.documentExist = false;
+    this.documentsData.folderExist = false;
   }
 
   ngOnInit() {
@@ -41,6 +41,23 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.allDocumentsData(this.entityID);
       }
     });
+    this.navService.newDoc.subscribe((res) => {
+      if (res !== 1) {
+        this.documentsData.docList = res;
+        this.documentsData.documentExist = true;
+      } else {
+        this.documentsData.documentExist = false;
+      }
+    });
+    this.navService.allFoldersList.subscribe((res) => {
+      if (res !== 1) {
+        this.folderList = res;
+        this.documentsData.folderExist = true;
+      } else {
+        this.documentsData.folderExist = false;
+      }
+    });
+
   }
 
   ngOnDestroy(): void {
@@ -49,13 +66,17 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === 104) {
+        this.folderList = res.data;
         this.documentsData.folderExist = false;
-        console.log('no folders');
       } else {
         this.folderList = res.data;
-        console.log(this.folderList)
+        this.navService.updateFolder(this.folderList);
         if (this.folderList.length === 0) {
           this.documentsData.folderExist = false;
+        } else if (this.folderList.length === 1) {
+          if (this.folderList[0].name === 'root') {
+            this.documentsData.folderExist = false;
+          }
         }
       }
     });
@@ -73,6 +94,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.documentExist = false;
       }
       this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
+      // this.navService.updateDocument(this.documentsData.docList);
     });
   }
 
@@ -90,18 +112,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {disableClose: true});
-    this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.allDocumentsData(this.entityID);
-      this.getAllFolders(this.entityID);
-    });
+    this.helperService.dialogRef.afterClosed()
   }
 
   newFolder() {
     this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.entityID}});
-    this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.getAllFolders(this.entityID);
-      this.documentsData.folderExist = true;
-    });
   }
 
   deleteDoc(id) {
