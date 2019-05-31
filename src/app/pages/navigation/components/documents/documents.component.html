@@ -26,10 +26,10 @@
         <div class="document-options">
           <mat-icon (click)="deleteDoc(doc.Document.id)" color="warn" matTooltip="Delete File" >{{helperService.appIcons.deleteSweep}}</mat-icon>
           <mat-icon (click)="viewDoc(doc.Document.file)" color=primary matTooltip="View File">{{helperService.appIcons.viewSite}}</mat-icon>
-<!--          <mat-icon color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>-->
+<!--          <mat-icon (click)="downloadDoc()" color="primary" matTooltip="Download">{{helperService.appIcons.cloudDownload}}</mat-icon>-->
         </div>
       </mat-card><!-- /Document Row -->
-      <div class="document-row text-align-center" text-align-center *ngIf="!documentsData.documentExit">
+      <div class="document-row text-align-center" text-align-center *ngIf="!documentsData.documentExist">
         <span class="document-title">No Documents</span>
       </div><!-- /Document Row -->
 

@@ -40,6 +40,7 @@ export interface Strings {
   UPLOAD_DOC: string;
   FILE_NAME: string;
   SELECT_FOLDER: string;
+  IMAGE: string;
   VIEW_DOC: string;
   RENAME_FOLDER: string;
   FOLDER_NAME: string;

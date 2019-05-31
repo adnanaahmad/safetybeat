@@ -40,9 +40,7 @@ export class CreateFolderComponent implements OnInit {
   }
 
   createFolder(value: Folders) {
-    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
-    let data = {name: value.title, entity: entityId};
+    let data = {name: value.title, entity: this.data.id};
     this.navService.createFolder(data).subscribe((res) => {
       if (res.responseDetails.code === 100) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
@@ -54,11 +52,8 @@ export class CreateFolderComponent implements OnInit {
   }
 
    renameFolder(value: Folders) {
-    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem
-      (this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
-    let data = {name: value.title, entity: entityId};
-    this.navService.renameFolder(this.data.id, data).subscribe((res) => {
+    let data = {name: value.title, entity: this.data.id};
+    this.navService.renameFolder(this.data.folderId, data).subscribe((res) => {
     });
     this.dialogRef.close();
   }

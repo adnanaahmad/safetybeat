@@ -1,41 +1,54 @@
+
 <div class="paddingbox">
   <div class="page-title">
     <h3>Site Activity Report</h3>
   </div>
   <mat-card>
-    <form [formGroup]="siteActivityObj.actionReportForm"
-      (ngSubmit)=actionReportFormSubmit(siteActivityObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
-      <div class="form-group">
-        <mat-form-field appearance="outline">
-          <mat-label>Entity</mat-label>
-          <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled] />
-          <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-              *ngIf="actionFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Date From</mat-label>
-          <input matInput type="date" [formControlName]="helperService.appConstants.dateFrom" />
-          <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-              *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Date To</mat-label>
-          <input matInput type="date" [formControlName]="helperService.appConstants.dateTo" />
-          <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-              *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-          </mat-error>
-        </mat-form-field>
-        <br>
-        <button mat-raised-button custom-btn btn-primary color="primary">
-          {{helperService.translated.BUTTONS.GENERATE_REPORT}}
-        </button>
-      </div>
+    <form [formGroup]="actionReportObj.actionReportForm"
+          (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
+      <mat-form-field appearance="outline">
+        <mat-label>Entity</mat-label>
+        <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled] />
+        <mat-error class="text-right" *ngIf="actionFormValidations.errors">
+          <span
+            *ngIf="actionFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date From</mat-label>
+        <input matInput type="date" [formControlName]="helperService.appConstants.dateFrom" />
+        <mat-error class="text-right" *ngIf="actionFormValidations.errors">
+          <span
+            *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date To</mat-label>
+        <input matInput type="date" [formControlName]="helperService.appConstants.dateTo" />
+        <mat-error class="text-right" *ngIf="actionFormValidations.errors">
+          <span
+            *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Site</mat-label>
+        <mat-select [formControlName]="helperService.appConstants.site">
+          <mat-option *ngFor="let sites of actionReportObj.sitesData" [value]="sites.site.id">
+            {{sites.site.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button custom-btn btn-primary color="primary">
+        {{helperService.translated.BUTTONS.GENERATE_REPORT}}
+      </button>
     </form>
-    <div id="container"></div>
+    <div *ngIf="actionReportObj.showChart">
+      <div id="checkInContainer"></div>
+      <div id="checkOutContainer"></div>
+    </div>
+    <div *ngIf="!actionReportObj.showChart">
+      <p>No data available</p>
+    </div>
   </mat-card>
 </div>

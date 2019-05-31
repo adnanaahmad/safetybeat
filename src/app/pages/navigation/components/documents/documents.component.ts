@@ -6,8 +6,8 @@ import {Documents} from 'src/app/models/navigation/documents.model';
 import {CompilerProvider} from 'src/app//shared/compiler/compiler';
 import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/uploadDoc.component';
 import {CreateFolderComponent} from 'src/app/pages/navigation/dialogs/createFolder/createFolder.component';
-import {ConfirmationModalComponent} from '../../../../Dialogs/conformationModal/confirmationModal.component';
-import {DomSanitizer} from '@angular/platform-browser';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc.component';
 
 
 @Component({
@@ -18,44 +18,42 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class DocumentsComponent implements OnInit, OnDestroy {
   dialogConfig = new MatDialogConfig();
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['file', 'uploadedBy', 'actions'];
   documentsData: Documents = <Documents>{};
   panelOpenState = false;
   folderList: any;
-  length;
-  fileUrl: any;
   private entityID: any;
 
   constructor(
     public dialog: MatDialog,
     public helperService: HelperService,
     private navService: NavigationService,
-    public compiler: CompilerProvider,
-    private sanitizer: DomSanitizer
+    public compiler: CompilerProvider
   ) {
-    this.documentsData.documentExit = true;
+    this.documentsData.documentExist = true;
     this.documentsData.folderExist = true;
   }
 
   ngOnInit() {
-    // const data = 'some text';
-    // const blob = new Blob([data], { type: 'application/octet-stream' });
-    // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-    this.entityID = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
-    this.allDocumentsData();
-    this.getAllFolders();
+    this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.entityID = res.entityInfo.id;
+        this.getAllFolders(this.entityID);
+        this.allDocumentsData(this.entityID);
+      }
+    });
   }
 
   ngOnDestroy(): void {
   }
 
-  getAllFolders() {
-    this.navService.allFolders({entityId: this.entityID}).subscribe((res) => {
+  getAllFolders(entityID: number) {
+    this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === 104) {
         this.documentsData.folderExist = false;
+        console.log('no folders');
       } else {
         this.folderList = res.data;
+        console.log(this.folderList)
         if (this.folderList.length === 0) {
           this.documentsData.folderExist = false;
         }
@@ -63,25 +61,24 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  allDocumentsData() {
+  allDocumentsData(entityID: number) {
     let entityData = {
-      'entityId': this.entityID,
+      'entityId': entityID,
     };
     this.navService.viewAllDocuments(entityData).subscribe((res) => {
       this.documentsData.docResponse = res;
       if (this.documentsData.docResponse.data.length !== 0) {
-        this.documentsData.documentExit = true;
+        this.documentsData.documentExist = true;
       } else if (this.documentsData.docResponse.data.length === 0) {
-        this.documentsData.documentExit = false;
+        this.documentsData.documentExist = false;
       }
-        this.length = this.documentsData.docResponse.data.length;
-        this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
+      this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
     });
   }
 
   checkDoc(folderId): boolean {
     if (this.documentsData.docResponse.responseDetails.code !== 104) {
-      for (let j = 0; j < this.documentsData.docResponse.data.documents.length ; j++) {
+      for (let j = 0; j < this.documentsData.docResponse.data.documents.length; j++) {
         let temp = this.documentsData.docResponse.data.documents[j];
         if (temp.Document.folder === folderId) {
           return true;
@@ -94,15 +91,15 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {disableClose: true});
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.allDocumentsData();
-      this.getAllFolders();
+      this.allDocumentsData(this.entityID);
+      this.getAllFolders(this.entityID);
     });
   }
 
   newFolder() {
-    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true}});
+    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.entityID}});
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.getAllFolders();
+      this.getAllFolders(this.entityID);
       this.documentsData.folderExist = true;
     });
   }
@@ -114,23 +111,15 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteDoc(id).subscribe((res) => {
-          this.allDocumentsData();
-          this.getAllFolders();
+          this.allDocumentsData(this.entityID);
+          this.getAllFolders(this.entityID);
         });
       }
     });
   }
 
-  viewDoc(route) {
-    // this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
-    // this.navService.downloadPDF(url).subscribe(res => {
-    //   const fileURL = URL.createObjectURL(res);
-    //   window.open(fileURL, '_blank');
-    // });
-    let response = this.helperService.appConstants.serverUrl + route;
-    const blob = new Blob([route], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    window.open(url);
+  viewDoc(doc: any) {
+    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
   }
 
   deleteFolder(id) {
@@ -140,19 +129,23 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteFolder(id).subscribe((res) => {
-          this.allDocumentsData();
-          this.getAllFolders();
+          this.allDocumentsData(this.entityID);
+          this.getAllFolders(this.entityID);
         });
       }
     });
   }
 
   renameFolder(folderInfo) {
-    this.helperService.createDialog(CreateFolderComponent, {disableClose: true,
-      data: {type: false, id: folderInfo.id, name: folderInfo.name}});
+    this.helperService.createDialog(CreateFolderComponent, {
+      disableClose: true,
+      data: {type: false, folderId: folderInfo.id, name: folderInfo.name}
+    });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.getAllFolders();
+      this.getAllFolders(this.entityID);
+      this.allDocumentsData(this.entityID);
       this.documentsData.folderExist = true;
     });
   }
+
 }
