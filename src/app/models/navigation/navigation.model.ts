@@ -17,4 +17,5 @@ export interface NavigationModel {
   selectedEntity: any;
   Entity: any;
   subscription: Subscription;
+  navStyle:any;
 }

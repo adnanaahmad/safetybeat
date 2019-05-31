@@ -41,9 +41,10 @@ import { GeneralComponent } from './pages/settings/components/general/general.co
 import { SecurityComponent } from './pages/settings/components/security/security.component';
 import { AddQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
 import { CreateFolderComponent } from './pages/navigation/dialogs/createFolder/createFolder.component';
-import {UploadDocComponent} from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
-import {SiteMapComponent} from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { UploadDocComponent } from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
+import { SiteMapComponent } from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.component';
+import { ImageLightboxComponent } from './Dialogs/imageLightbox/imageLightbox.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -71,7 +72,8 @@ export function createTranslateLoader(http: HttpClient) {
     SiteMapComponent,
     UploadDocComponent,
     CreateFolderComponent,
-    ViewDocComponent
+    ViewDocComponent,
+    ImageLightboxComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -135,7 +137,8 @@ export function createTranslateLoader(http: HttpClient) {
     SiteMapComponent,
     UploadDocComponent,
     CreateFolderComponent,
-    ViewDocComponent
+    ViewDocComponent,
+    ImageLightboxComponent
   ]
 })
 export class AppModule {

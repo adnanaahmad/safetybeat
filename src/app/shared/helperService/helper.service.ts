@@ -1,19 +1,20 @@
-import {Injectable, ElementRef, NgZone} from '@angular/core';
-import {forEach, findIndex, remove, sortBy, find} from 'lodash';
-import {TranslateService} from '@ngx-translate/core';
-import {Translation} from 'src/app/models/translate.model';
-import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
-import {ConstantService} from 'src/app/shared/constant/constant.service';
-import {CookieService} from 'ngx-cookie-service';
-import {Router} from '@angular/router';
-import {NotifierService} from 'angular-notifier';
-import {catchError} from 'rxjs/operators';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {BehaviorSubject, throwError} from 'rxjs';
-import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
-import {PhoneNumberUtil} from 'google-libphonenumber';
-import {FormErrorHandler} from '../FormErrorHandler/FormErrorHandler';
+import { Injectable, ElementRef, NgZone } from '@angular/core';
+import { forEach, findIndex, remove, sortBy, find } from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
+import { Translation } from 'src/app/models/translate.model';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
+import { ConstantService } from 'src/app/shared/constant/constant.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
+import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, throwError, Observable } from 'rxjs';
+import { ToasterComponent } from 'src/app/common/toaster/toaster.component';
+import { PhoneNumberUtil } from 'google-libphonenumber';
+import { FormErrorHandler } from '../FormErrorHandler/FormErrorHandler';
 import * as CryptoJS from 'crypto-js';
+import { BreakpointState, BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,13 @@ export class HelperService {
   latitude: number;
   public dialogRef: MatDialogRef<any>;
   formErrorMatcher: any;
-
+  isHandset: Observable<BreakpointState>;
+  isTablet: Observable<BreakpointState>;
+  isLarge: Observable<BreakpointState>;
+  isXLarge: Observable<BreakpointState>;
+  isPortrait: Observable<BreakpointState>;
+  isLandscape: Observable<BreakpointState>;
+  isWeb: Observable<BreakpointState>;
 
   constructor(
     private http: HttpClient,
@@ -44,12 +51,13 @@ export class HelperService {
     private cookies: CookieService,
     private router: Router,
     private notifier: NotifierService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private breakpointObserver: BreakpointObserver
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
       'STATUS', 'TABLEHEADINGS', 'CONFIRMATION']).subscribe((values) => {
-      this.translated = values;
-    });
+        this.translated = values;
+      });
     this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
@@ -61,6 +69,13 @@ export class HelperService {
     this.longitude = 0;
     this.displayButton = false;
     this.formErrorMatcher = new FormErrorHandler();
+    this.isHandset = this.breakpointObserver.observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait]);
+    this.isTablet = this.breakpointObserver.observe(Breakpoints.Tablet);
+    this.isXLarge = this.breakpointObserver.observe([Breakpoints.XLarge]);
+    this.isLarge = this.breakpointObserver.observe([Breakpoints.Large]);
+    this.isPortrait = this.breakpointObserver.observe('(orientation: portrait)');
+    this.isLandscape = this.breakpointObserver.observe('(orientation: landscape)');
+    this.isWeb = this.breakpointObserver.observe([Breakpoints.WebLandscape, Breakpoints.WebPortrait, Breakpoints.Large, Breakpoints.XLarge]);
   }
 
   /**
@@ -78,7 +93,7 @@ export class HelperService {
    */
   createSnack(message, type) {
     this.snackBar.openFromComponent(ToasterComponent, {
-      data: {message: message, type: type},
+      data: { message: message, type: type },
       verticalPosition: 'bottom',
       horizontalPosition: 'right',
     });
@@ -219,7 +234,7 @@ export class HelperService {
     }
     // return an observable with a user-facing error message
     // let msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
-    return throwError({error: error.message, status: error.status});
+    return throwError({ error: error.message, status: error.status });
   };
 
   /**
@@ -242,7 +257,7 @@ export class HelperService {
     let self = this;
     return new Promise((resolve, reject) => {
       this.ngZone.run(() => {
-        geoCoder.geocode({'address': address}, function (results, status) {
+        geoCoder.geocode({ 'address': address }, function (results, status) {
           if (status.toString() === self.constants.status.OK) {
             mapProp.setCenter(results[0].geometry.location);
             self.latitude = results[0].geometry.location.lat();
@@ -313,7 +328,7 @@ export class HelperService {
       return formControl.setErrors(null);
     }).catch(err => {
       this.displayButton = false;
-      return formControl.setErrors({invalid: true});
+      return formControl.setErrors({ invalid: true });
     });
   }
 
@@ -361,4 +376,17 @@ export class HelperService {
     return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
   }
 
+  /**
+   * this function is used to get all the devices dimensions
+   */
+  get dimensions() {
+    this.isHandset = this.breakpointObserver.observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait]);
+    this.isTablet = this.breakpointObserver.observe(Breakpoints.Tablet);
+    this.isXLarge = this.breakpointObserver.observe([Breakpoints.XLarge]);
+    this.isLarge = this.breakpointObserver.observe([Breakpoints.Large]);
+    this.isPortrait = this.breakpointObserver.observe('(orientation: portrait)');
+    this.isLandscape = this.breakpointObserver.observe('(orientation: landscape)');
+    let dimensions = [this.isHandset, this.isTablet, this.isLarge, this.isPortrait, this.isLandscape];
+    return dimensions;
+  }
 }
