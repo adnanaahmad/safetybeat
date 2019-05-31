@@ -348,6 +348,8 @@ export interface Messages {
   ADD_CONNECTION_FAILURE: string;
   REMOVE_CONNECTION_SUCCESS: string;
   REMOVE_CONNECTION_FAILURE: string;
+  CONFIRM_CONNECTION_SUCCESS: string;
+  CONFIRM_CONNECTION_FAILURE: string;
   QUESTION_CREATED: string;
   QUESTION_CREATION_FAILURE: string;
   PIC_UPLOADED_SUCCESS: string;
@@ -498,5 +500,6 @@ export interface Confirmation {
   DELETE_HAZARD: string;
   DELETE_ENTITY: string;
   ADD_CONNECTION: string;
-  REMOVE_CONNECTION: string
+  REMOVE_CONNECTION: string;
+  CONFIRM_CONNECTION: string;
 }
