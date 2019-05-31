@@ -5,7 +5,7 @@ export interface Documents {
   docResponse: any;
   dataSource: any;
   docList: DocList[];
-  documentExit: boolean;
+  documentExist: boolean;
   folderExist: boolean;
 }
 
@@ -33,6 +33,9 @@ export interface NewDoc {
 }
 
 export interface UploadDocForm {
+  docList: any;
+  documentExist: boolean;
+  docResponse: any;
   file: any,
   entityId: number,
   folderList: any[],

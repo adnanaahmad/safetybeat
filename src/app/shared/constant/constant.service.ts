@@ -126,6 +126,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    serverUrl: 'http://192.168.69.38:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -184,8 +185,6 @@ export class ConstantService {
     dateFrom: 'dateFrom',
     dateTo: 'dateTo',
     site: 'site',
-    create: 'create',
-    rename: 'rename',
     paths: {
       home: '/home',
       profile: '/home/profile',

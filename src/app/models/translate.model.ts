@@ -378,6 +378,8 @@ export interface Messages {
   NO_FOLDER: string;
   DOC_ADDED: string;
   DOC_FAIL: string;
+  FOLDER_RENAMED: string;
+  RENAME_FAIL: string;
 }
 
 export interface Logger {
@@ -498,5 +500,7 @@ export interface Confirmation {
   DELETE_HAZARD: string;
   DELETE_ENTITY: string;
   ADD_CONNECTION: string;
-  REMOVE_CONNECTION: string
+  REMOVE_CONNECTION: string;
+  DELETE_DOCUMENT: string;
+  DELETE_FOLDER: string;
 }
