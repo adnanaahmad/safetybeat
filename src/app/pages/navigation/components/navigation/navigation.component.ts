@@ -1,16 +1,19 @@
-import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {CoreService} from 'src/app/core/services/authorization/core.service';
-import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {NavigationModel} from 'src/app/models/navigation/navigation.model';
-import {PackageInfo} from 'src/app/models/user.model';
-import {GeneralComponent} from 'src/app/pages/settings/components/general/general.component';
-import {SecurityComponent} from 'src/app/pages/settings/components/security/security.component';
-import {ProfileModel} from 'src/app/models/profile/profile.model';
-import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { CoreService } from 'src/app/core/services/authorization/core.service';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { NavigationModel } from 'src/app/models/navigation/navigation.model';
+import { PackageInfo } from 'src/app/models/user.model';
+import { GeneralComponent } from 'src/app/pages/settings/components/general/general.component';
+import { SecurityComponent } from 'src/app/pages/settings/components/security/security.component';
+import { ProfileModel } from 'src/app/models/profile/profile.model';
+import { ProfileService } from 'src/app/pages/profile/services/profile.service';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -27,7 +30,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   navModel: NavigationModel = <NavigationModel>{};
   isOwner: boolean = false;
   packageInfo: PackageInfo;
-
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
@@ -35,6 +37,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public helperService: HelperService,
     private profile: ProfileService,
+    public breakpointObserver: BreakpointObserver
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -48,6 +51,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProfileData();
   }
+
 
   /**
    * Get Profile Data of User
@@ -121,10 +125,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.navService.getPackageInfo().subscribe(res => {
             this.packageInfo = res.data[0];
             localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-            (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+              (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           }, error => {
             this.packageInfo = JSON.parse(this.helperService.decrypt(localStorage.getItem
-            (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
+              (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
           });
         }
       });
@@ -274,7 +278,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   getRoleFromStorage() {
     let currentRole = this.helperService.decrypt(localStorage.getItem
-    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
+      (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 
@@ -283,6 +287,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   showModel(isProfile) {
     let modal = (isProfile) ? GeneralComponent : SecurityComponent;
-    this.helperService.createDialog(modal, {disableClose: true});
+    this.helperService.createDialog(modal, { disableClose: true });
   }
 }
