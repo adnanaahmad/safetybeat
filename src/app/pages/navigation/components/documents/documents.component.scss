@@ -53,7 +53,7 @@
             height: auto;
             width: auto;
             background: #fff;
-            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
             margin: 0 5px;
             border-radius: 100px;
             &:hover {
@@ -69,6 +69,9 @@
       }
     }
     .folder-option {
+      position: absolute;
+      right: 50px;
+      top: 16px;
       .menubtn {
         min-width: auto;
         width: auto;
