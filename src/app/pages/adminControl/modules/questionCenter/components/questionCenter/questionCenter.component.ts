@@ -29,8 +29,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./questionCenter.component.scss'],
 })
 export class QuestionCenterComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[];
+  dataSource: any = [];
   todo = [
     'Is a site specific induction required for this site?',
     'Do you know how to safely exit the site in the event of an emergency?',
@@ -63,6 +63,26 @@ export class QuestionCenterComponent implements OnInit {
     private compiler: CompilerProvider,
   ) {
     this.QuestionObj.translated = this.helperService.translated;
+    // this.dataSource.push(this.todo,this.done,this.abc,this.def);
+    // this.dataSource.push.apply(this.dataSource, this.todo);
+    // this.dataSource.push.apply(this.dataSource, this.done);
+    // this.dataSource.push.apply(this.dataSource, this.abc);
+    // this.dataSource.push.apply(this.dataSource, this.def);
+
+    let abc= {
+      'todo':this.todo,
+      'done': this.done,
+      'abc':this.abc,
+      'def': this.def
+    }
+    this.dataSource.push(abc);
+    console.log(this.dataSource,'i am datasource');
+    this.displayedColumns = [
+      'name',
+      'role',
+      'managedBy',
+      'administrator'
+    ];
   }
 
   ngOnInit() {
