@@ -210,6 +210,7 @@ export class ConstantService {
       add: 'add',
       remove: 'remove',
       confirm: 'confirm',
+      nature: 'Outgoing'
     },
     enterKey: 13,
     importSite: 'importSite',

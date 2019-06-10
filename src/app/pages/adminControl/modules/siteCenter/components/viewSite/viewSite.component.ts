@@ -27,21 +27,21 @@ export class ViewSiteComponent implements OnInit {
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
-      // if (matches) {
-      //   return [
-      //     { title: 'Card 1', cols: 4, rows: 1 },
-      //     { title: 'Card 2', cols: 3, rows: 1 },
-      //     { title: 'Card 3', cols: 4, rows: 2 },
-      //     { title: 'Card 4', cols: 1, rows: 1 }
-      //   ];
-      // }
-
-      return [
-        { title: 'Activity', cols: 2, rows: 1 },
-        { title: 'Information', cols: 2, rows: 1 },
-        { title: 'Hazards', cols: 2, rows: 1 },
-        { title: 'Location', cols: 2, rows: 1 }
-      ];
+      if (matches) {
+        return [
+          { title: 'Activity', cols: 4, rows: 1 },
+          { title: 'Information', cols: 4, rows: 1 },
+          { title: 'Hazards', cols: 4, rows: 1 },
+          { title: 'Location', cols: 4, rows: 1 }
+        ];
+      } else {
+        return [
+          { title: 'Activity', cols: 2, rows: 1 },
+          { title: 'Information', cols: 2, rows: 1 },
+          { title: 'Hazards', cols: 2, rows: 1 },
+          { title: 'Location', cols: 2, rows: 1 }
+        ];
+      }
     })
   );
 

@@ -105,7 +105,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
             this.removeConnections(params.userId);
-            this.getUsers();
           }
         });
         break;
@@ -118,7 +117,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
             this.confirmConnections(params.userId);
-            this.getUsers();
           }
         });
         break;
