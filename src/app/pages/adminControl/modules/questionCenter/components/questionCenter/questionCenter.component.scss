@@ -5,10 +5,7 @@
     .page-title {
       margin: 20px 0;
     }
-    .mat-grid-tile {
-      overflow: unset;
-    }
-    .container {
+    mat-card {
       width: 100%;
       max-width: 100%;
       margin: 0 5px;
@@ -33,15 +30,6 @@
       overflow: hidden;
     }
 
-    .example-list {
-      border-bottom: solid 1px #ccc;
-      box-sizing: border-box;
-      cursor: move;
-      background: white;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
     .example-container {
       width: 400px;
       max-width: 100%;
@@ -50,17 +38,7 @@
       vertical-align: top;
     }
 
-    .example-list {
-      border: solid 1px #ccc;
-      min-height: 60px;
-      background: white;
-      border-radius: 4px;
-      overflow: hidden;
-      display: block;
-    }
-
     .example-box {
-      padding: 20px 10px;
       border-bottom: solid 1px #ccc;
       color: rgba(0, 0, 0, 0.87);
       display: flex;
@@ -95,7 +73,14 @@
     .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
     }
-
+    .example-list {
+      border: solid 1px #ccc;
+      min-height: 60px;
+      background: white;
+      border-radius: 4px;
+      overflow: hidden;
+      display: block;
+    }
     .question-table {
       table-layout: fixed;
       thead {
@@ -119,6 +104,19 @@
           width: auto;
           font-size: 16px;
         }
+      }
+    }
+    .questions-grid {
+      min-height: 70vh;
+      mat-grid-tile {
+        overflow: auto;
+        figure {
+          align-items: baseline;
+        }
+      }
+      mat-card {
+        margin: 0;
+        background-color: transparent;
       }
     }
   }

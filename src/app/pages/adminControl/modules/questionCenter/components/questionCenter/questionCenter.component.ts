@@ -5,15 +5,32 @@ import { AddQuestionComponent } from 'src/app/pages/adminControl/modules/questio
 import { QuestionCenterService } from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { QuestionCenter } from 'src/app/models/adminControl/questionCenter.model';
-
-
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+const ELEMENT_DATA: PeriodicElement[] = [
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+];
 @Component({
   selector: 'app-questionCenter',
   templateUrl: './questionCenter.component.html',
   styleUrls: ['./questionCenter.component.scss'],
 })
 export class QuestionCenterComponent implements OnInit {
-
+  displayedColumns: string[];
+  dataSource: any = [];
   todo = [
     'Is a site specific induction required for this site?',
     'Do you know how to safely exit the site in the event of an emergency?',
@@ -46,6 +63,26 @@ export class QuestionCenterComponent implements OnInit {
     private compiler: CompilerProvider,
   ) {
     this.QuestionObj.translated = this.helperService.translated;
+    // this.dataSource.push(this.todo,this.done,this.abc,this.def);
+    // this.dataSource.push.apply(this.dataSource, this.todo);
+    // this.dataSource.push.apply(this.dataSource, this.done);
+    // this.dataSource.push.apply(this.dataSource, this.abc);
+    // this.dataSource.push.apply(this.dataSource, this.def);
+
+    let abc= {
+      'todo':this.todo,
+      'done': this.done,
+      'abc':this.abc,
+      'def': this.def
+    }
+    this.dataSource.push(abc);
+    console.log(this.dataSource,'i am datasource');
+    this.displayedColumns = [
+      'name',
+      'role',
+      'managedBy',
+      'administrator'
+    ];
   }
 
   ngOnInit() {
