@@ -92,7 +92,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     };
     this.navService.viewAllDocuments(entityData).subscribe((res) => {
       this.documentsData.docResponse = res;
-      console.log(this.documentsData.docResponse);
       if (this.documentsData.docResponse.data.length !== 0) {
           this.documentsData.documentExist = true;
         if (this.documentsData.docResponse.data.folder !== []) {
@@ -108,7 +107,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.folderExist = false;
       }
       this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
-      console.log(this.documentsData.docList);
       this.navService.updateDocument(this.documentsData.docList);
     });
   }

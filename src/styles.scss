@@ -12,6 +12,7 @@ $fullValue: 100%;
 $hexWhite: #ffffff;
 $borderRadius: 4px;
 $roundRadius: 100px;
+$card-padding: 16px;
 html,
 body {
   height: $fullValue;
@@ -691,7 +692,7 @@ input:-internal-autofill-selected {
 .file-uploader {
   position: relative;
   cursor: pointer;
-  width: 100%;
+  display: inline-block;
   height: 100%;
   .fake-uploader {
     background: transparent;
@@ -706,6 +707,9 @@ input:-internal-autofill-selected {
     cursor: pointer;
     &:hover {
       border-color: mat-color($primary, 500);
+    }
+    mat-icon {
+      margin-right: 5px;
     }
   }
   input[type="file"] {
