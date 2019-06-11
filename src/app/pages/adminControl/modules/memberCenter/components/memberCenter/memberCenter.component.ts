@@ -5,7 +5,6 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
-import {ViewConnectionsComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
@@ -89,9 +88,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
 
   connections(type, params?: any) {
     switch (type) {
-      case this.helperService.appConstants.connections.view:
-        this.helperService.createDialog(ViewConnectionsComponent, {});
-        break;
       case this.helperService.appConstants.connections.add:
         this.addConnections(params.userId);
         this.getUsers();

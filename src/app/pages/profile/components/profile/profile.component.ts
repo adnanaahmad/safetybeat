@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminControlService } from '../../../adminControl/services/adminControl.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,9 @@ import { map } from 'rxjs/operators';
 export class ProfileComponent implements OnInit, OnDestroy {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  connectionColumns: string[] = ['photos', 'name', 'email', 'delete'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource1;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // cards: any;
 
@@ -60,7 +63,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public profileService: ProfileService,
     public adminService: AdminControlService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    public memberService: MemberCenterService
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -304,19 +308,41 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileModel.allConnectionsRes = res;
       this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.dataSource1 = this.profileModel.allConnectionsData;
         // this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
         //   this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.dataSource1 = null;
         // this.helperService.appLogger(this.helperService.constants.status.ERROR,
         //   this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        this.dataSource1 = null;
         // this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
         //   this.helperService.constants.status.WARNING);
 
       }
     });
   }
+  removeConnection(sentToUserId: number) {
+    this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+          res.responseDetails.message);
+      }
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+        this.helperService.constants.status.ERROR);
+    });
+
+  }
 }
+
+
 
 /**
  * below code is mocked data will be replaced when we will have data to change this.

@@ -129,7 +129,7 @@ export class CompilerProvider {
   }
 
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {
-    return documentsApiResponse.data.documents;
+    return documentsApiResponse.data;
   }
   constructActionReportData(actionReportApiResponse: any): ActionReportData[] {
     return actionReportApiResponse;

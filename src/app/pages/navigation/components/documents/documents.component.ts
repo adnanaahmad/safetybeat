@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {MatDialog, MatDialogConfig, MatPaginator} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {Documents} from 'src/app/models/navigation/documents.model';
 import {CompilerProvider} from 'src/app//shared/compiler/compiler';
@@ -17,11 +17,7 @@ import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   dialogConfig = new MatDialogConfig();
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   documentsData: Documents = <Documents>{};
-  panelOpenState = false;
-  folderList: any;
-  entityID: any;
 
   constructor(
     public dialog: MatDialog,
@@ -29,19 +25,24 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public compiler: CompilerProvider
   ) {
+    this.initialize();
+  }
+
+  initialize() {
     this.documentsData.documentExist = false;
     this.documentsData.folderExist = false;
+    this.documentsData.panelOpenState = false;
   }
 
   ngOnInit() {
-    this.navService.selectedEntityData.subscribe((res) => {
+    this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
-        this.entityID = res.entityInfo.id;
-        this.getAllFolders(this.entityID);
-        this.allDocumentsData(this.entityID);
+        this.documentsData.entityID = res.entityInfo.id;
+        this.getAllFolders(this.documentsData.entityID);
+        this.allDocumentsData(this.documentsData.entityID);
       }
     });
-    this.navService.newDoc.subscribe((res) => {
+    this.documentsData.subscription = this.navService.newDoc.subscribe((res) => {
       if (res !== 1) {
         this.documentsData.docList = res;
         this.documentsData.documentExist = true;
@@ -49,9 +50,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.documentExist = false;
       }
     });
-    this.navService.allFoldersList.subscribe((res) => {
+    this.documentsData.subscription = this.navService.allFoldersList.subscribe((res) => {
       if (res !== 1) {
-        this.folderList = res;
+        this.documentsData.folderList = res;
         this.documentsData.folderExist = true;
       } else {
         this.documentsData.folderExist = false;
@@ -61,21 +62,24 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.documentsData.subscription.unsubscribe();
   }
 
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
-      if (res.responseDetails.code === 104) {
-        this.folderList = res.data;
+      if (res.responseDetails.code !== 100) {
         this.documentsData.folderExist = false;
+        this.documentsData.folderList = res.data;
       } else {
-        this.folderList = res.data;
-        this.navService.updateFolder(this.folderList);
-        if (this.folderList.length === 0) {
+        this.documentsData.folderList = res.data;
+        if (this.documentsData.folderList.length === 0) {
           this.documentsData.folderExist = false;
-        } else if (this.folderList.length === 1) {
-          if (this.folderList[0].name === 'root') {
+        } else if (this.documentsData.folderList.length === 1) {
+          if (this.documentsData.folderList[0].name === 'root') {
             this.documentsData.folderExist = false;
+          } else {
+            this.documentsData.folderExist = true;
+            this.navService.updateFolder(this.documentsData.folderList);
           }
         }
       }
@@ -88,35 +92,40 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     };
     this.navService.viewAllDocuments(entityData).subscribe((res) => {
       this.documentsData.docResponse = res;
+      console.log(this.documentsData.docResponse);
       if (this.documentsData.docResponse.data.length !== 0) {
-        this.documentsData.documentExist = true;
+          this.documentsData.documentExist = true;
+        if (this.documentsData.docResponse.data.folder !== []) {
+          if (this.documentsData.docResponse.data.length === 1 &&  this.documentsData.docResponse.data[0].folder.name === 'root') {
+            this.documentsData.folderExist = false;
+          } else {
+            this.documentsData.folderExist = true;
+          }
+        }
+
       } else if (this.documentsData.docResponse.data.length === 0) {
         this.documentsData.documentExist = false;
+        this.documentsData.folderExist = false;
       }
       this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
-      // this.navService.updateDocument(this.documentsData.docList);
+      console.log(this.documentsData.docList);
+      this.navService.updateDocument(this.documentsData.docList);
     });
   }
 
-  checkDoc(folderId): boolean {
-    if (this.documentsData.docResponse.responseDetails.code !== 104) {
-      for (let j = 0; j < this.documentsData.docResponse.data.documents.length; j++) {
-        let temp = this.documentsData.docResponse.data.documents[j];
-        if (temp.Document.folder === folderId) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
   uploadDoc() {
-    this.helperService.createDialog(UploadDocComponent, {disableClose: true});
-    this.helperService.dialogRef.afterClosed()
+    this.helperService.createDialog(UploadDocComponent, {disableClose: true, data: {folders: this.documentsData.folderList}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.allDocumentsData(this.documentsData.entityID);
+    });
   }
 
   newFolder() {
-    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.entityID}});
+    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.allDocumentsData(this.documentsData.entityID);
+      this.getAllFolders(this.documentsData.entityID);
+    });
   }
 
   deleteDoc(id) {
@@ -126,8 +135,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteDoc(id).subscribe((res) => {
-          this.allDocumentsData(this.entityID);
-          this.getAllFolders(this.entityID);
+          this.allDocumentsData(this.documentsData.entityID);
+          this.getAllFolders(this.documentsData.entityID);
         });
       }
     });
@@ -144,8 +153,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteFolder(id).subscribe((res) => {
-          this.allDocumentsData(this.entityID);
-          this.getAllFolders(this.entityID);
+          this.allDocumentsData(this.documentsData.entityID);
+          this.getAllFolders(this.documentsData.entityID);
         });
       }
     });
@@ -157,10 +166,19 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       data: {type: false, folderId: folderInfo.id, name: folderInfo.name}
     });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.getAllFolders(this.entityID);
-      this.allDocumentsData(this.entityID);
+      this.getAllFolders(this.documentsData.entityID);
+      this.allDocumentsData(this.documentsData.entityID);
       this.documentsData.folderExist = true;
     });
   }
 
+  checkDoc(docs: any[]) {
+    for (let i = 0; i < (docs.length); i++) {
+      if (docs[i].documents.length !== 0) {
+        return true;
+      }
+    }
+    return false;
+
+  }
 }

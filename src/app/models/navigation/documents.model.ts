@@ -1,16 +1,24 @@
 import {Subscription} from 'rxjs';
 
 export interface Documents {
+  folderLength: number;
   subscription: Subscription;
   docResponse: any;
   dataSource: any;
   docList: DocList[];
   documentExist: boolean;
   folderExist: boolean;
+  folderList: any;
+  entityID: number;
+  rootOnly: boolean;
+  folderForm: any;
+  modalType: boolean;
+  panelOpenState: boolean;
+  loader: boolean;
 }
 
 export interface DocList {
-  document: DocumentObj;
+  document: DocumentObj[];
   folder: Folder;
 }
 
