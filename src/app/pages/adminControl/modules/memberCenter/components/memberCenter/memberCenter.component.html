@@ -67,12 +67,6 @@
               <mat-icon>linear_scale</mat-icon>
               View Profile
             </button>
-            <button mat-menu-item *ngIf="memberCenter.currentRole === helperService.appConstants.roles.owner ||
-                (memberCenter.currentRole  === helperService.appConstants.roles.entityManager)"
-              (click)="connections(helperService.appConstants.connections.view)">
-              <mat-icon>linear_scale</mat-icon>
-              View Connections
-            </button>
             <button *ngIf="!element.pendingConnection && !element.acceptedConnection " mat-menu-item
               (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
               <mat-icon>linear_scale</mat-icon>

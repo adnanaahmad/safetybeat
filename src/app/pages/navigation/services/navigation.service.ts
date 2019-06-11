@@ -162,7 +162,7 @@ export class NavigationService {
   uploadDocuments(data: object) {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.uploadDocuments,
+      this.helperService.constants.apiRoutes.documents,
       data
     );
   }
@@ -185,7 +185,7 @@ export class NavigationService {
 
   deleteDoc(id) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
-      `${this.helperService.constants.apiRoutes.deleteDoc}${id}/`);
+      `${this.helperService.constants.apiRoutes.documents}${id}/`);
   }
 
   deleteFolder(id) {
