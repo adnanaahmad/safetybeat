@@ -107,6 +107,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.getUserConnections(this.profileModel.userId);
+          this.viewActivities(this.profileModel.userId);
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
@@ -302,6 +303,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
+  viewActivities(userId: number) {
+     this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+       console.log(res);
+       this.profileModel.recentActivities = res.data;
+    //   this.profileModel.allConnectionsRes = res;
+    //   this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        // this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+        //   this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        // this.helperService.appLogger(this.helperService.constants.status.ERROR,
+        //   this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        // this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
+        //   this.helperService.constants.status.WARNING);
+
+      }
+    });
+  }
+
   getUserConnections(userId: number) {
 
     this.adminService.allConnections({ userId: userId }).subscribe((res) => {
@@ -328,6 +349,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
+        this.getUserConnections(this.profileModel.userId);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);

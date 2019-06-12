@@ -49,7 +49,9 @@
         <mat-expansion-panel (opened)="documentsData.panelOpenState = true" (closed)="documentsData.panelOpenState = false"
           *ngIf="data.folder.name !== 'root'">
           <mat-expansion-panel-header>
+
             <mat-panel-title>
+              <mat-icon class="folder-icon">{{helperService.appIcons.folder}}</mat-icon>
               {{data.folder.name}}
             </mat-panel-title>
             <!--            <mat-panel-description>-->
@@ -94,7 +96,7 @@
           </ng-container>
           <div *ngIf="documentsData.docResponse">
           <ng-container class="document-row text-align-center"  *ngIf="data.documents.length === 0">
-            <span class="document-title">No Documents</span>
+            <span class="no-document">No Documents</span>
           </ng-container>
           </div>
           <!--/Document Row-->

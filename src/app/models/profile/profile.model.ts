@@ -33,6 +33,7 @@ export interface ProfileModel {
   currentUserProfile: boolean;
   allConnectionsData: any;
   allConnectionsRes: any;
+  recentActivities: any;
 }
 
 
@@ -42,4 +43,10 @@ export interface ProfileFeatures {
   leaves: boolean;
   profile: boolean;
   changePassword: boolean;
+}
+
+export interface recentActivities {
+  location: any;
+  type: string;
+  time: any;
 }
