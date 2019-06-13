@@ -184,6 +184,7 @@ export interface Buttons {
   PROFIILE_INFO: string;
   JOIN_ENTITY: string;
   ADD_QUESTION: string;
+  CREATE_QUESTION: string;
   CREATE_ENTITY: string;
   SKIP: string;
   MAP: string;
@@ -292,6 +293,7 @@ export interface Messages {
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
   ADDQUESTION_MSG: string;
+  CREATEQUESTION_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
   NOUSER: string;

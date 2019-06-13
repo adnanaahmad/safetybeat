@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { AddQuestionComponent } from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
+import { CreateQuestionComponent } from 'src/app/pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
 import { QuestionCenterService } from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
 import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { QuestionCenter } from 'src/app/models/adminControl/questionCenter.model';
@@ -19,21 +20,23 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
   { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
   { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' }
 ];
 export interface PeriodicElement2 {
   questionbank: string;
 }
 const ELEMENT_DATA2: PeriodicElement2[] = [
   { questionbank: 'Is a site specific induction required for this site?' },
-  { questionbank: 'Is a site specific induction required for this site?' },
-  { questionbank: 'Is a site specific induction required for this site?' },
-  { questionbank: 'Is a site specific induction required for this site?' },
-  { questionbank: 'Is a site specific induction required for this site?' },
-  { questionbank: 'Is a site specific induction required for this site?' },
-  { questionbank: 'Is a site specific induction required for this site?' }
+  { questionbank: 'Do you know how to safely exit the site in the event of an emergency?' },
+  { questionbank: 'Have you completed the site safety induction?' },
+  { questionbank: 'Have you signed the SWMS for all high risk work you will undertake?' },
+  { questionbank: 'Are you wearing all PPE required for this site?' },
+  { questionbank: 'Do you have the appropriate equipment, training and tools to safely perform the tasks on site?' },
+  { questionbank: 'Do you feel that the environment is safe to work in?' },
+  { questionbank: 'Are there members of the public and/or other trades in your work area?' },
+  { questionbank: 'Have you ensured the correct safety measures are in place?' },
+  { questionbank: 'Is the visibility in the work area adequate?' },
+  { questionbank: 'Are there any high risk activities you will engage in?' }
 ];
 @Component({
   selector: 'app-questionCenter',
@@ -106,5 +109,8 @@ export class QuestionCenterComponent implements OnInit {
 
   addQuestion() {
     this.helperService.createDialog(AddQuestionComponent, { disableClose: true });
+  }
+  createQuestion() {
+    this.helperService.createDialog(CreateQuestionComponent, { disableClose: true });
   }
 }
