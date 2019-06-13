@@ -68,5 +68,9 @@ export class ProfileService {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.viewAllConnections, data);
   }
 
+  viewRecentActivities(userId) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.recentActivities, userId);
+  }
 
 }
