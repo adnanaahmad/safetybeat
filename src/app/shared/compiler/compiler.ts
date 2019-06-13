@@ -132,6 +132,7 @@ export class CompilerProvider {
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {
     return documentsApiResponse.data;
   }
+
   constructActionReportData(actionReportApiResponse: any): ActionReportData[] {
     return actionReportApiResponse;
   }
@@ -178,7 +179,8 @@ export class CompilerProvider {
         id: obj.user.id,
         status: obj.status,
         pendingConnection: obj.pendingConnection,
-        acceptedConnection: obj.acceptedConnection
+        acceptedConnection: obj.acceptedConnection,
+        nature: obj.nature
       };
       usersArray.push(user);
     });

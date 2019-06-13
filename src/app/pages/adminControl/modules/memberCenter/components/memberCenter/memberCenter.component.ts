@@ -90,7 +90,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     switch (type) {
       case this.helperService.appConstants.connections.add:
         this.addConnections(params.userId);
-        this.getUsers();
+
         break;
       case this.helperService.appConstants.connections.remove:
         this.helperService.createDialog(ConfirmationModalComponent, {
@@ -101,7 +101,18 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.helperService.dialogRef.afterClosed().subscribe(res => {
           if (res === this.helperService.appConstants.yes) {
             this.removeConnections(params.userId);
-            this.getUsers();
+          }
+        });
+        break;
+      case this.helperService.appConstants.connections.confirm:
+        this.helperService.createDialog(ConfirmationModalComponent, {
+          data: {
+            message: this.helperService.translated.CONFIRMATION.CONFIRM_CONNECTION
+          }
+        });
+        this.helperService.dialogRef.afterClosed().subscribe(res => {
+          if (res === this.helperService.appConstants.yes) {
+            this.confirmConnections(params.userId);
           }
         });
         break;
@@ -175,6 +186,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
+        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_FAILURE,
           res.responseDetails.message);
@@ -199,6 +211,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
+        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);
@@ -207,6 +220,25 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+        this.helperService.constants.status.ERROR);
+    });
+
+  }
+
+  confirmConnections(receivedFrom: number) {
+    this.memberService.confirmConnection({sentBy: receivedFrom}).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.CONFIRM_CONNECTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.CONFIRM_CONNECTION_FAILURE,
+          res.responseDetails.message);
+      }
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.CONFIRM_CONNECTION_FAILURE,
         this.helperService.constants.status.ERROR);
     });
 
