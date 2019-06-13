@@ -189,4 +189,36 @@ export class AdminControlService {
       data
     );
   }
+
+  registerTeam(data) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      this.apiRoutes.team,
+      data
+    );
+  }
+
+  deleteTeam(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.team}${id}/`
+    );
+  }
+
+  allTeamsData(data) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      this.apiRoutes.viewAllTeams,
+      data
+    );
+  }
+
+  editTeam(id: number, data) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.team}${id}/`,
+      data
+    );
+  }
+
 }

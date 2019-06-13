@@ -76,15 +76,7 @@
             </button>
             <button mat-menu-item *ngIf="entityControl.joinOption" (click)='inviteTeam(element)'>
               <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
-              {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
-            </button>
-            <button mat-menu-item>
-              <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
-              {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM }}
-            </button>
-            <button mat-menu-item>
-              <mat-icon>{{ helperService.appIcons.payment }}</mat-icon>
-              {{ helperService.translated.TABLEHEADINGS.PAYMENT_HISTORY }}
+              {{ helperService.translated.MESSAGES.INVITEMEMBERTITLE }}
             </button>
             <button mat-menu-item *ngIf="entityControl.createEntityOption"
               (click)="confirmationModal(element.entityInfo.id)">

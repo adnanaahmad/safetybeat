@@ -9,6 +9,7 @@ import {MemberCenterModule} from './modules/memberCenter/memberCenter.module';
 import {PermissionCenterModule} from './modules/permissionCenter/permissionCenter.module';
 import {QuestionCenterModule} from './modules/questionCenter/questionCenter.module';
 import {SiteCenterModule} from './modules/siteCenter/siteCenter.module';
+import {MyTeamModule} from './modules/myTeam/myTeam.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {SiteCenterModule} from './modules/siteCenter/siteCenter.module';
     MemberCenterModule,
     PermissionCenterModule,
     QuestionCenterModule,
-    SiteCenterModule
+    SiteCenterModule,
+    MyTeamModule
   ],
   providers: [
     CompilerProvider
