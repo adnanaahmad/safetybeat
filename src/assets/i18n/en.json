@@ -99,7 +99,12 @@
     "DELETE_FOLDER": "Delete Folder",
     "VIEW_DOC": "View Document",
     "RENAME_FOLDER": "Rename Folder",
-    "IMAGE": "Image"
+    "IMAGE": "Image",
+    "CHECK_IN": "Check-in",
+    "CHECK_OUT": "Check-Out",
+    "DURATION": "Duration",
+    "NO_ACTIVITIES" : "No activities",
+    "NAME" : "Name"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -319,7 +324,9 @@
     "FOLDER_RENAMED": "Folder Renamed Successfully",
     "RENAME_FAIL" : "Folder could not be re-named",
     "ACTIVITIES_FAIL": "Activities could not be retrieved",
-    "NOT_CHECKED_OUT": "Not checked out yet"
+    "NOT_CHECKED_OUT": "Not checked out yet",
+    "NO_CONNECTIONS": "No Connection",
+    "GET_CONNECTIONS_FAILURE": "Connection could not be retrieved"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

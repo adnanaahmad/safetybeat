@@ -44,6 +44,10 @@ export interface Strings {
   VIEW_DOC: string;
   RENAME_FOLDER: string;
   FOLDER_NAME: string;
+  CHECK_IN: string;
+  CHECK_OUT: string;
+  DURATION: string;
+  NO_ACTIVITIES: string;
 }
 
 export interface Auth {
@@ -157,6 +161,7 @@ export interface Strings {
   CAN_PROCEED_QUESTION_NO: string;
   RENAME: string;
   DELETE_FOLDER: string;
+
 }
 
 export interface Buttons {
@@ -382,6 +387,8 @@ export interface Messages {
   RENAME_FAIL: string;
   ACTIVITIES_FAIL: string;
   NOT_CHECKED_OUT: string;
+  NO_CONNECTIONS: string;
+  GET_CONNECTIONS_FAILURE: string;
 }
 
 export interface Logger {
