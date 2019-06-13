@@ -22,6 +22,11 @@ export class NavigationService {
   packageData = this.packageInfo.asObservable();
   private currentUser = new BehaviorSubject<any>(1);
   currentUserData = this.currentUser.asObservable();
+  private doc = new BehaviorSubject<any>(1);
+  newDoc = this.doc.asObservable();
+  private folder = new BehaviorSubject<any>(1);
+  allFoldersList = this.folder.asObservable();
+
 
   constructor(
     private router: Router,
@@ -157,22 +162,42 @@ export class NavigationService {
   uploadDocuments(data: object) {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.uploadDocuments,
+      this.helperService.constants.apiRoutes.documents,
       data
     );
   }
+
   allFolders(data) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.getFolders,
       data);
   }
+
   createFolder(data) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.createFolder, data);
   }
 
+  renameFolder(id, data) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
+      `${this.helperService.constants.apiRoutes.createFolder}${id}/`, data);
+  }
+
   deleteDoc(id) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
-      `${this.helperService.constants.apiRoutes.deleteDoc}${id}/`);
+      `${this.helperService.constants.apiRoutes.documents}${id}/`);
+  }
+
+  deleteFolder(id) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
+      `${this.helperService.constants.apiRoutes.createFolder}${id}/`);
+  }
+
+  updateDocument(data: any) {
+    this.doc.next(data);
+  }
+
+  updateFolder(data: any) {
+    this.folder.next(data);
   }
 }

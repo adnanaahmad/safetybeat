@@ -61,23 +61,18 @@
               <mat-icon>linear_scale</mat-icon>
               View Profile
             </button>
-            <button mat-menu-item *ngIf="memberCenter.currentRole === helperService.appConstants.roles.owner ||
-                (memberCenter.currentRole  === helperService.appConstants.roles.entityManager)"
-              (click)="connections(helperService.appConstants.connections.view)">
-              <mat-icon>linear_scale</mat-icon>
-              View Connections
-            </button>
             <button *ngIf="!element.pendingConnection && !element.acceptedConnection " mat-menu-item
               (click)="connections(helperService.appConstants.connections.add, {'userId':element.id})">
               <mat-icon>linear_scale</mat-icon>
               Add Connections
             </button>
 
-            <button *ngIf="element.pendingConnection && !element.acceptedConnection" mat-menu-item
-              (click)="connections(helperService.appConstants.connections.remove, {'userId':element.id})">
-              <mat-icon>linear_scale</mat-icon>
-              Cancel Request
-            </button>
+          <button *ngIf="element.pendingConnection && !element.acceptedConnection" mat-menu-item
+                  (click)="element.nature === 'Outgoing' ? connections(helperService.appConstants.connections.remove, {'userId':element.id}):
+                  connections(helperService.appConstants.connections.confirm, {'userId':element.id})">
+            <mat-icon>linear_scale</mat-icon>
+            {{element.nature === helperService.appConstants.connections.nature ? 'Cancel Request' : 'Confirm Request'}}
+          </button>
 
             <button *ngIf="element.acceptedConnection && !element.pendingConnection" mat-menu-item
               (click)="connections(helperService.appConstants.connections.remove, {'userId':element.id})">

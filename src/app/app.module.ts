@@ -30,8 +30,6 @@ import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import { ImportSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import { ConfirmationModalComponent } from './Dialogs/conformationModal/confirmationModal.component';
-import { ViewConnectionsComponent } from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
-// tslint:disable-next-line:max-line-length
 import { ChangeAccessLevelComponent } from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import { AddHazardComponent } from './pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
@@ -41,10 +39,10 @@ import { GeneralComponent } from './pages/settings/components/general/general.co
 import { SecurityComponent } from './pages/settings/components/security/security.component';
 import { AddQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
 import { CreateFolderComponent } from './pages/navigation/dialogs/createFolder/createFolder.component';
-import {UploadDocComponent} from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
-import {SiteMapComponent} from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { UploadDocComponent } from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
+import { SiteMapComponent } from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.component';
-import { MyTeamComponent } from './pages/adminControl/modules/myTeam/components/myTeam/myTeam.component';
+import { ImageLightboxComponent } from './Dialogs/imageLightbox/imageLightbox.component';
 import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 export function createTranslateLoader(http: HttpClient) {
@@ -64,7 +62,6 @@ export function createTranslateLoader(http: HttpClient) {
     AddSiteModalComponent,
     ImportSiteModalComponent,
     ConfirmationModalComponent,
-    ViewConnectionsComponent,
     ChangeAccessLevelComponent,
     AddHazardComponent,
     HazardDetailsComponent,
@@ -74,6 +71,8 @@ export function createTranslateLoader(http: HttpClient) {
     SiteMapComponent,
     UploadDocComponent,
     CreateFolderComponent,
+    ViewDocComponent,
+    ImageLightboxComponent,
     ViewDocComponent,
     RegisterTeamComponent,
     ViewTeamComponent,
@@ -129,7 +128,6 @@ export function createTranslateLoader(http: HttpClient) {
     AddSiteModalComponent,
     ImportSiteModalComponent,
     ConfirmationModalComponent,
-    ViewConnectionsComponent,
     ChangeAccessLevelComponent,
     AddHazardComponent,
     HazardDetailsComponent,
@@ -140,6 +138,8 @@ export function createTranslateLoader(http: HttpClient) {
     SiteMapComponent,
     UploadDocComponent,
     CreateFolderComponent,
+    ViewDocComponent,
+    ImageLightboxComponent,
     ViewDocComponent,
     RegisterTeamComponent,
     ViewTeamComponent,

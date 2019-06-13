@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewConnectionsComponent } from './viewConnections.component';
+import { ImageLightboxComponent } from './imageLightbox.component';
 
-describe('ViewConnectionsComponent', () => {
-  let component: ViewConnectionsComponent;
-  let fixture: ComponentFixture<ViewConnectionsComponent>;
+describe('ImageLightboxComponent', () => {
+  let component: ImageLightboxComponent;
+  let fixture: ComponentFixture<ImageLightboxComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewConnectionsComponent ]
+      declarations: [ ImageLightboxComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewConnectionsComponent);
+    fixture = TestBed.createComponent(ImageLightboxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

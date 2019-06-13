@@ -15,6 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminControlService } from '../../../adminControl/services/adminControl.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
+import {SiteMapComponent} from '../../../adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 
 @Component({
   selector: 'app-profile',
@@ -25,28 +27,31 @@ import { map } from 'rxjs/operators';
 export class ProfileComponent implements OnInit, OnDestroy {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  connectionColumns: string[] = ['photos', 'name', 'email', 'delete'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource1;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  // cards: any;
 
 
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
-      // if (matches) {
-      //   return [
-      //     { title: 'Card 1', cols: 4, rows: 1 },
-      //     { title: 'Card 2', cols: 3, rows: 1 },
-      //     { title: 'Card 3', cols: 4, rows: 2 },
-      //     { title: 'Card 4', cols: 1, rows: 1 }
-      //   ];
-      // }
-
-      return [
-        { title: 'Activities', cols: 2, rows: 1 },
-        { title: 'Connections', cols: 2, rows: 1 },
-        { title: 'Leaves', cols: 2, rows: 1 },
-        { title: 'Entities', cols: 2, rows: 1 }
-      ];
+      if (matches) {
+        return [
+          { title: 'Activities', cols: 4, rows: 1 },
+          { title: 'Connections', cols: 4, rows: 1 },
+          { title: 'Leaves', cols: 4, rows: 1 },
+          { title: 'Entities', cols: 4, rows: 1 }
+        ];
+      } else {
+        return [
+          { title: 'Activities', cols: 2, rows: 1 },
+          { title: 'Connections', cols: 2, rows: 1 },
+          { title: 'Leaves', cols: 2, rows: 1 },
+          { title: 'Entities', cols: 2, rows: 1 }
+        ];
+      }
     })
   );
 
@@ -59,7 +64,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public profileService: ProfileService,
     public adminService: AdminControlService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    public memberService: MemberCenterService
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -72,15 +78,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id);
-
+        this.viewActivities(this.profileModel.receivedData.id);
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
-
-            this.ngOnInit();
           }
         });
       }
@@ -102,7 +106,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.getUserConnections(this.profileModel.userId);
-
+          this.viewActivities(this.profileModel.userId);
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
@@ -114,11 +118,105 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
     this.viewAllEntities();
+    // this.responsive();
   }
 
   /**
    * this function is used for initializing the global variables that have been declared in the profileModel.
    */
+
+  responsive() {
+
+    this.helperService.isXLarge.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.XLarge).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('large screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isLarge.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Large).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('large screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isTablet.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Medium).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('tablet screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isHandset.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('small screen');
+              return [
+                { title: 'Activities', cols: 4, rows: 1 },
+                { title: 'Connections', cols: 4, rows: 1 },
+                { title: 'Leaves', cols: 4, rows: 1 },
+                { title: 'Entities', cols: 4, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+
+    this.helperService.isWeb.subscribe((res) => {
+      if (res.matches) {
+        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+          map(({ matches }) => {
+            if (matches) {
+              console.log('web screen');
+              return [
+                { title: 'Activities', cols: 2, rows: 1 },
+                { title: 'Connections', cols: 2, rows: 1 },
+                { title: 'Leaves', cols: 2, rows: 1 },
+                { title: 'Entities', cols: 2, rows: 1 }
+              ];
+            }
+          })
+        );
+      }
+    });
+  }
 
   initialize() {
     this.profileModel.translated = this.helperService.translated;
@@ -126,12 +224,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileModel.appConstants = this.helperService.constants.appConstant;
     this.profileModel.currentUserProfile = true;
     this.profileModel.disabled = false;
+    this.profileModel.noActivity = false;
     this.profileModel.displayedColumns = [
       'name',
       'headOffice',
       'role',
       'administrator'
     ];
+    console.log('these are dimensions', this.helperService.dimensions);
   }
 
   /**
@@ -198,30 +298,80 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.getUserConnections(userData.id);
+      // this.getUserConnections(userData.id);
+      // this.viewActivities(userData.id);
       this.navService.updateCurrentUser(userData);
+    });
+  }
+
+  viewActivities(userId: number) {
+     this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+       console.log(res);
+
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res.data.length === 0) {
+          this.profileModel.noActivity = true;
+        } else {
+          this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res);
+        }
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.profileModel.noActivity = true;
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.ACTIVITIES_FAIL);
+      } else {
+        this.profileModel.noActivity = true;
+      }
     });
   }
 
   getUserConnections(userId: number) {
 
-    this.adminService.allConnections({userId: userId}).subscribe((res) => {
+    this.adminService.allConnections({ userId: userId }).subscribe((res) => {
+      console.log(res);
       this.profileModel.allConnectionsRes = res;
       this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.dataSource1 = this.profileModel.allConnectionsData;
         // this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
         //   this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.dataSource1 = null;
         // this.helperService.appLogger(this.helperService.constants.status.ERROR,
         //   this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        this.dataSource1 = null;
         // this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
         //   this.helperService.constants.status.WARNING);
 
       }
     });
   }
+  removeConnection(sentToUserId: number) {
+    this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+        this.getUserConnections(this.profileModel.userId);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+          res.responseDetails.message);
+      }
+
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+        this.helperService.constants.status.ERROR);
+    });
+
+  }
+
+  viewSite(longitude, latitude, siteName, location) {
+    let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location}
+    this.helperService.createDialog(SiteMapComponent, {disableClose : true, data: {siteData: data, type: true}});
+  }
 }
+
+
 
 /**
  * below code is mocked data will be replaced when we will have data to change this.

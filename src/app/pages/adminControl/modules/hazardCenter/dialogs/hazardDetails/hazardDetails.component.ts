@@ -1,7 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {MAT_DIALOG_DATA} from '@angular/material';
-import {FormBuilder, Validators} from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ImageLightboxComponent } from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
 
 @Component({
   selector: 'app-hazard-details',
@@ -26,5 +27,8 @@ export class HazardDetailsComponent implements OnInit {
     this.hazardInfo = this.data;
   }
 
-
+  testingFunc() {
+    this.helperService.createDialog(ImageLightboxComponent,
+      { data: { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD } });
+  }
 }

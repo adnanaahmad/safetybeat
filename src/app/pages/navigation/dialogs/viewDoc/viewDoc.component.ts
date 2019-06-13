@@ -14,7 +14,7 @@ export class ViewDocComponent implements OnInit {
               public dialogRef: MatDialogRef<ViewDocComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
               private sanitizer: DomSanitizer) {
-    this.file =  sanitizer.bypassSecurityTrustResourceUrl(this.data.file);
+    this.file =  sanitizer.bypassSecurityTrustResourceUrl(`https://docs.google.com/gview?url=${this.data}&embedded=true"`);
   }
 
   ngOnInit() {

@@ -351,6 +351,8 @@ export interface Messages {
   ADD_CONNECTION_FAILURE: string;
   REMOVE_CONNECTION_SUCCESS: string;
   REMOVE_CONNECTION_FAILURE: string;
+  CONFIRM_CONNECTION_SUCCESS: string;
+  CONFIRM_CONNECTION_FAILURE: string;
   QUESTION_CREATED: string;
   QUESTION_CREATION_FAILURE: string;
   PIC_UPLOADED_SUCCESS: string;
@@ -381,6 +383,10 @@ export interface Messages {
   NO_FOLDER: string;
   DOC_ADDED: string;
   DOC_FAIL: string;
+  FOLDER_RENAMED: string;
+  RENAME_FAIL: string;
+  ACTIVITIES_FAIL: string;
+  NOT_CHECKED_OUT: string;
   TEAM_MEMBER: string;
   TEAM_LEAD: string;
   TEAM_TITLE: string;
@@ -517,6 +523,9 @@ export interface Confirmation {
   DELETE_HAZARD: string;
   DELETE_ENTITY: string;
   ADD_CONNECTION: string;
+  CONFIRM_CONNECTION: string;
+  DELETE_DOCUMENT: string;
+  DELETE_FOLDER: string;
   REMOVE_CONNECTION: string
   DELETE_TEAM: string;
 

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material';
-import {NewDoc, UploadDocForm} from 'src/app/models/navigation/documents.model';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Documents, NewDoc, UploadDocForm} from 'src/app/models/navigation/documents.model';
+
 @Component({
   selector: 'app-upload-doc',
   templateUrl: './uploadDoc.component.html',
@@ -11,46 +12,54 @@ import {NewDoc, UploadDocForm} from 'src/app/models/navigation/documents.model';
 })
 export class UploadDocComponent implements OnInit {
   newDoc: UploadDocForm = <UploadDocForm>{};
-  docResponse: any;
+  documentsData: Documents = <Documents>{};
 
   constructor(public helperService: HelperService,
               private formBuilder: FormBuilder,
               private navService: NavigationService,
-              public dialogRef: MatDialogRef<UploadDocComponent>) { }
+              public dialogRef: MatDialogRef<UploadDocComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) {
+    this.documentsData.rootOnly = false;
+  }
 
   ngOnInit() {
-
     this.newDoc.uploadDocForm = this.formBuilder.group({
       fileName: ['', Validators.required],
       doc: ['', Validators.required],
       folders: ['']
     });
-
-    this.newDoc.entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem
-      (this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
-    this.getAllFolders(this.newDoc.entityId);
-  }
-
-  getAllFolders(entityId) {
-    this.navService.allFolders({entityId: entityId}).subscribe((res) => {
-      if (res.responseDetails.code === 104) {
-        this.formControls.folders.disable();
-        this.newDoc.folderList = [];
-      } else {
-        this.newDoc.folderList = res.data;
+    this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.newDoc.entityId = res.entityInfo.id;
       }
     });
+    this.getAllFolders();
   }
 
+  getAllFolders() {
+    this.documentsData.folderLength = this.data.folders.length;
+    if (this.documentsData.folderLength === 0) {
+      this.documentsData.rootOnly = true;
+    } else {
+      if (this.documentsData.folderLength === 1) {
+        if (this.data.folders[0].name === 'root') {
+          this.documentsData.rootOnly = true;
+        }
+      }
+      this.newDoc.folderList = this.data.folders;
+    }
+  }
+// this function checks if root folder is already created
   checkRoot(data): any {
+    let length = this.documentsData.folderLength;
     if (data !== []) {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].name === 'root' ) {
+      for (let i = 0; i < length; i++) {
+        if (data[i].name === 'root') {
           return data[i].id;
         }
       }
-    } return null;
+    }
+    return null;
   }
 
   get formControls() {
@@ -71,29 +80,35 @@ export class UploadDocComponent implements OnInit {
     this.navService.uploadDocuments(formData).subscribe((res) => {
       if (res.responseDetails.code === 100) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_ADDED, this.helperService.constants.status.SUCCESS);
+        this.documentsData.loader = false;
+        this.dialogRef.close();
       } else {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_FAIL, this.helperService.constants.status.WARNING);
+        this.documentsData.loader = false;
+        this.dialogRef.close();
       }
     });
   }
 
   uploadDoc({value, valid}: { value: NewDoc; valid: boolean; }) {
+    this.documentsData.loader = true;
     if (!valid) {
       this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
       return;
     }
-    if (this.formControls.folders.value === '' ) {
+    if (this.formControls.folders.value === '') {
       if (!this.checkRoot(this.newDoc.folderList)) {
         let data = {name: 'root', entity: this.newDoc.entityId};
         this.navService.createFolder(data).subscribe((res) => {
           this.upload(value, res.data.id);
-        }); } else {
+        });
+      } else {
         this.upload(value, this.checkRoot(this.newDoc.folderList));
       }
     } else {
       this.upload(value, value.folders);
     }
-    this.dialogRef.close();
+
   }
 }
 

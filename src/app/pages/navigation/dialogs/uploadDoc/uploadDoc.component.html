@@ -3,32 +3,36 @@
 </mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="newDoc.uploadDocForm" (ngSubmit)="uploadDoc(newDoc.uploadDocForm)">
-  <mat-form-field appearance="outline" full-width>
-    <mat-label>{{helperService.translated.STRINGS.FILE_NAME}}</mat-label>
-    <input formControlName="fileName" matInput type="text" required />
-    <mat-error class="text-right" *ngIf="formControls.fileName.errors">
-            <span
-              *ngIf="formControls.fileName.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="outline" full-width>
+      <mat-label>{{helperService.translated.STRINGS.FILE_NAME}}</mat-label>
+      <input formControlName="fileName" matInput type="text" required />
+      <mat-error class="text-right" *ngIf="formControls.fileName.errors">
+        <span *ngIf="formControls.fileName.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>
+      </mat-error>
+    </mat-form-field>
     <div>
-  <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .pdf, .xls, .txt" (change)=uploadFile($event) required/>
-<!--    <button mat-raised-button color="primary" (click)="fileInput.click()" >Upload</button>-->
-<!--    <input hidden type="file" accept=".doc, .pdf, .xls, .txt" (change)=uploadFile($event) #fileInput required>-->
+  <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt" (change)=uploadFile($event) required/>
     </div>
-  <mat-form-field appearance="outline" full-width>
+  <mat-form-field appearance="outline" full-width *ngIf="!documentsData.rootOnly">
     <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
     <mat-select formControlName="folders">
       <ng-container *ngFor="let folder of newDoc.folderList">
+        <div *ngIf="folder.name !== 'root'">
         <mat-option  [value]="folder.id">
           {{folder.name}}
         </mat-option>
+        </div>
       </ng-container>
     </mat-select>
   </mat-form-field>
   <mat-dialog-actions>
     <button mat-raised-button type="submit" custom-btn btn-primary color="primary" [disabled]="!newDoc.uploadDocForm.valid">
       {{helperService.translated.STRINGS.UPLOAD_DOC}}
+      <div class="main-loader" *ngIf="documentsData.loader">
+        <span class="loader1"></span>
+        <span class="loader2"></span>
+        <span class="loader3"></span>
+      </div>
     </button>
     <button mat-button mat-dialog-close type="button">
       {{helperService.translated.BUTTONS.CANCEL}}

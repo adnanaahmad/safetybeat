@@ -55,6 +55,7 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
+    connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
     viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
     riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
@@ -64,11 +65,12 @@ export class ConstantService {
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
-    uploadDocuments: `${environment.apiUrl}/api/documents/`,
+    documents: `${environment.apiUrl}/api/documents/`,
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
     actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`,
+    recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`,
     deleteDoc: `${environment.apiUrl}/api/documents/`,
     team: `${environment.apiUrl}/api/teams/`,
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
@@ -186,8 +188,6 @@ export class ConstantService {
     dateFrom: 'dateFrom',
     dateTo: 'dateTo',
     site: 'site',
-    create: 'create',
-    rename: 'rename',
     paths: {
       home: '/home',
       profile: '/home/profile',
@@ -209,7 +209,9 @@ export class ConstantService {
     connections: {
       view: 'view',
       add: 'add',
-      remove: 'remove'
+      remove: 'remove',
+      confirm: 'confirm',
+      nature: 'Outgoing'
     },
     enterKey: 13,
     importSite: 'importSite',
