@@ -57,7 +57,7 @@
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>Edit
             </button>
             <button mat-menu-item (click)="viewHazard(element)">
-              <mat-icon>{{ helperService.appIcons.viewSite }}</mat-icon>
+              <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
             </button>
             <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="confirmationModal(element.hazard.id)">

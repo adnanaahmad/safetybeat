@@ -163,6 +163,7 @@ export interface Buttons {
   LOGIN: string;
   EDIT: string;
   REGISTER: string;
+  SIGNUP: string;
   FORGOTPASSWORD: string;
   CANCEL: string;
   RESET: string;
@@ -286,7 +287,7 @@ export interface Messages {
   ENTITYJOINFIAL: string,
   INVITETEAMSUCCESS: string;
   INVITETEAMFAIL: string;
-  INVITETEAMTITLE: string;
+  INVITEMEMBERTITLE: string;
   INVITETEAMPLACEHOLDER: string;
   BACKEND_ERROR: string;
   ORGTYPEMESSAGE: string;
@@ -327,6 +328,8 @@ export interface Messages {
   VIEW_SITE_FAILURE: string;
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
+  DELETE_TEAM_SUCCESS: string;
+  DELETE_TEAM_FAILURE: string;
   EDIT_SITE_MSG: string;
   SAFETYBEAT_PRICING: string;
   PRICING_TAGLINE: string;
@@ -387,6 +390,20 @@ export interface Messages {
   RENAME_FAIL: string;
   ACTIVITIES_FAIL: string;
   NOT_CHECKED_OUT: string;
+  TEAM_MEMBER: string;
+  TEAM_LEAD: string;
+  TEAM_TITLE: string;
+  TEAM_REGISTERED: string;
+  TEAM_REGISTRATION_FAILED: string;
+  TEAM_UPDATED: string;
+  TEAM_UPDATE_FAILED: string;
+  TEAM_ALREADY_EXIST: string;
+  ALL_TEAMS_SUCCESS: string;
+  ALL_TEAMS_FAILURE: string;
+  TEAMS_NOT_FOUND: string;
+  TEAM: string;
+  REGISTER_TEAM: string;
+  EDIT_TEAM: string;
 }
 
 export interface Logger {
@@ -459,6 +476,7 @@ export interface SiteTitle {
   QUESTION_CENTER: string;
   HAZARD_CENTER: string;
   DOCUMENTS: string;
+  MY_TEAM: string;
 }
 
 export interface TableHeadings {
@@ -489,6 +507,7 @@ export interface TableHeadings {
   DELETE_ENTITY: string;
   TITLE: string;
   HAZARD_DETAILS: string;
+  TEAM_LEAD: string;
 }
 
 export interface Status {
@@ -508,7 +527,9 @@ export interface Confirmation {
   DELETE_ENTITY: string;
   ADD_CONNECTION: string;
   CONFIRM_CONNECTION: string;
-  REMOVE_CONNECTION: string;
   DELETE_DOCUMENT: string;
   DELETE_FOLDER: string;
+  REMOVE_CONNECTION: string
+  DELETE_TEAM: string;
+
 }

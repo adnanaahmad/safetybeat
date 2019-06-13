@@ -1,20 +1,20 @@
-import { Injectable, ElementRef, NgZone } from '@angular/core';
-import { forEach, findIndex, remove, sortBy, find } from 'lodash';
-import { TranslateService } from '@ngx-translate/core';
-import { Translation } from 'src/app/models/translate.model';
-import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
-import { ConstantService } from 'src/app/shared/constant/constant.service';
-import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
-import { NotifierService } from 'angular-notifier';
-import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, throwError, Observable } from 'rxjs';
-import { ToasterComponent } from 'src/app/common/toaster/toaster.component';
-import { PhoneNumberUtil } from 'google-libphonenumber';
-import { FormErrorHandler } from '../FormErrorHandler/FormErrorHandler';
+import {Injectable, ElementRef, NgZone} from '@angular/core';
+import {forEach, findIndex, remove, sortBy, find} from 'lodash';
+import {TranslateService} from '@ngx-translate/core';
+import {Translation} from 'src/app/models/translate.model';
+import {MatAutocompleteSelectedEvent, MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
+import {ConstantService} from 'src/app/shared/constant/constant.service';
+import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
+import {NotifierService} from 'angular-notifier';
+import {catchError} from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {ToasterComponent} from 'src/app/common/toaster/toaster.component';
+import {PhoneNumberUtil} from 'google-libphonenumber';
+import {FormErrorHandler} from '../FormErrorHandler/FormErrorHandler';
 import * as CryptoJS from 'crypto-js';
-import { BreakpointState, BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import {BreakpointState, BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +56,8 @@ export class HelperService {
   ) {
     translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'LOGGER', 'STRINGS', 'ICONS', 'SITETITLE',
       'STATUS', 'TABLEHEADINGS', 'CONFIRMATION']).subscribe((values) => {
-        this.translated = values;
-      });
+      this.translated = values;
+    });
     this.constants = ConstantService;
     this.iterations = forEach;
     this.findIndex = findIndex;
@@ -93,7 +93,7 @@ export class HelperService {
    */
   createSnack(message, type) {
     this.snackBar.openFromComponent(ToasterComponent, {
-      data: { message: message, type: type },
+      data: {message: message, type: type},
       verticalPosition: 'bottom',
       horizontalPosition: 'right',
     });
@@ -234,7 +234,7 @@ export class HelperService {
     }
     // return an observable with a user-facing error message
     // let msg = error.error.email ? error.error.email[0] : 'Something bad happened, Please try again later.';
-    return throwError({ error: error.message, status: error.status });
+    return throwError({error: error.message, status: error.status});
   };
 
   /**
@@ -257,7 +257,7 @@ export class HelperService {
     let self = this;
     return new Promise((resolve, reject) => {
       this.ngZone.run(() => {
-        geoCoder.geocode({ 'address': address }, function (results, status) {
+        geoCoder.geocode({'address': address}, function (results, status) {
           if (status.toString() === self.constants.status.OK) {
             mapProp.setCenter(results[0].geometry.location);
             self.latitude = results[0].geometry.location.lat();
@@ -328,7 +328,7 @@ export class HelperService {
       return formControl.setErrors(null);
     }).catch(err => {
       this.displayButton = false;
-      return formControl.setErrors({ invalid: true });
+      return formControl.setErrors({invalid: true});
     });
   }
 
@@ -389,4 +389,35 @@ export class HelperService {
     let dimensions = [this.isHandset, this.isTablet, this.isLarge, this.isPortrait, this.isLandscape];
     return dimensions;
   }
+
+
+  _filter(value: any, list: any[]): any[] {
+    const filterValue =
+      value && value.name
+        ? value.name.toLowerCase()
+        : value.toLowerCase();
+    return list.filter(user => {
+      return user.name.toLowerCase().indexOf(filterValue) === 0;
+    });
+  }
+
+  removeFromList(user: any, list: any): void {
+    const index = list.indexOf(user);
+    if (index >= 0) {
+      list.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent, users: any[]): void {
+    let index = this.findIndex(
+      users,
+      function (obj) {
+        return obj.name === event.option.value.name;
+      }
+    );
+    if (index === -1) {
+      users.push(event.option.value);
+    }
+  }
+
 }
