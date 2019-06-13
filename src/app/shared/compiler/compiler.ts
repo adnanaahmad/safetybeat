@@ -9,6 +9,7 @@ import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
+import {recentActivities} from '../../models/profile/profile.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -131,6 +132,7 @@ export class CompilerProvider {
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {
     return documentsApiResponse.data;
   }
+
   constructActionReportData(actionReportApiResponse: any): ActionReportData[] {
     return actionReportApiResponse;
   }
@@ -177,7 +179,8 @@ export class CompilerProvider {
         id: obj.user.id,
         status: obj.status,
         pendingConnection: obj.pendingConnection,
-        acceptedConnection: obj.acceptedConnection
+        acceptedConnection: obj.acceptedConnection,
+        nature: obj.nature
       };
       usersArray.push(user);
     });
@@ -217,6 +220,11 @@ export class CompilerProvider {
     });
     return connectionData;
   }
+
+  constructRecentActivitiesData(recentActivitiesRes: any): recentActivities[]  {
+    return recentActivitiesRes.data;
+  }
+
 
   constructOrganizationObject(organizationApiResponse: any): Organization {
     let organizationData: Organization = organizationApiResponse.data;

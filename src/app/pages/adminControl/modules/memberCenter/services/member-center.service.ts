@@ -46,6 +46,9 @@ export class MemberCenterService {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.removeConnection, data);
   }
 
+  confirmConnection(data) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.connectionConfirm, data);
+  }
   deactivateUser(data) {
     return this.helperService.requestCall(this.method.put, this.apiRoutes.deactivateUser, data);
   }

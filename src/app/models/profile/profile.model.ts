@@ -33,6 +33,9 @@ export interface ProfileModel {
   currentUserProfile: boolean;
   allConnectionsData: any;
   allConnectionsRes: any;
+  recentActivities: any;
+  noActivity: boolean;
+  duration: string;
 }
 
 
@@ -43,3 +46,33 @@ export interface ProfileFeatures {
   profile: boolean;
   changePassword: boolean;
 }
+
+export interface recentActivities {
+  checkInCheckOut: checkInCheckOut;
+  site: siteData;
+  duration: string
+}
+
+export interface checkInCheckOut {
+  checkInType: any;
+  checkedInAt: any;
+  checkedOutAt: any;
+  checkedOutType: any;
+  id: number;
+  site: number;
+  user: number
+}
+ export interface siteData {
+   createdBy: number;
+   entity: number;
+   gpsTrackEnabled: any;
+   id: number;
+   latitude: any;
+   location: string;
+   longitude: any;
+   name: string;
+   radius: any;
+   safeZone: boolean;
+   siteSafetyManager: any;
+   siteSafetyPlan: string;
+ }

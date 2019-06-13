@@ -55,6 +55,7 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
+    connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
     viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
     riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
@@ -68,7 +69,8 @@ export class ConstantService {
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
-    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`
+    actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`,
+    recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`
   };
   /**
    * all the api methods are declared here.
@@ -205,7 +207,9 @@ export class ConstantService {
     connections: {
       view: 'view',
       add: 'add',
-      remove: 'remove'
+      remove: 'remove',
+      confirm: 'confirm',
+      nature: 'Outgoing'
     },
     enterKey: 13,
     importSite: 'importSite',

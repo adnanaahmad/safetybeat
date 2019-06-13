@@ -16,6 +16,7 @@ import { AdminControlService } from '../../../adminControl/services/adminControl
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
+import {SiteMapComponent} from '../../../adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 
 @Component({
   selector: 'app-profile',
@@ -77,15 +78,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id);
-
+        this.viewActivities(this.profileModel.receivedData.id);
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
-
-            this.ngOnInit();
           }
         });
       }
@@ -107,6 +106,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.getUserConnections(this.profileModel.userId);
+          this.viewActivities(this.profileModel.userId);
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
@@ -224,6 +224,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileModel.appConstants = this.helperService.constants.appConstant;
     this.profileModel.currentUserProfile = true;
     this.profileModel.disabled = false;
+    this.profileModel.noActivity = false;
     this.profileModel.displayedColumns = [
       'name',
       'headOffice',
@@ -297,14 +298,36 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.getUserConnections(userData.id);
+      // this.getUserConnections(userData.id);
+      // this.viewActivities(userData.id);
       this.navService.updateCurrentUser(userData);
+    });
+  }
+
+  viewActivities(userId: number) {
+     this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+       console.log(res);
+
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res.data.length === 0) {
+          this.profileModel.noActivity = true;
+        } else {
+          this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res);
+        }
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.profileModel.noActivity = true;
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.ACTIVITIES_FAIL);
+      } else {
+        this.profileModel.noActivity = true;
+      }
     });
   }
 
   getUserConnections(userId: number) {
 
     this.adminService.allConnections({ userId: userId }).subscribe((res) => {
+      console.log(res);
       this.profileModel.allConnectionsRes = res;
       this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -328,6 +351,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
+        this.getUserConnections(this.profileModel.userId);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);
@@ -339,6 +363,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.helperService.constants.status.ERROR);
     });
 
+  }
+
+  viewSite(longitude, latitude, siteName, location) {
+    let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location}
+    this.helperService.createDialog(SiteMapComponent, {disableClose : true, data: {siteData: data, type: true}});
   }
 }
 
