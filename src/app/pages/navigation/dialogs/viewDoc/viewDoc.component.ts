@@ -14,7 +14,6 @@ export class ViewDocComponent implements OnInit {
               public dialogRef: MatDialogRef<ViewDocComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
               private sanitizer: DomSanitizer) {
-     console.log(this.data);
     this.file =  sanitizer.bypassSecurityTrustResourceUrl(this.data.file);
   }
 

@@ -44,6 +44,9 @@ import { CreateFolderComponent } from './pages/navigation/dialogs/createFolder/c
 import {UploadDocComponent} from './pages/navigation/dialogs/uploadDoc/uploadDoc.component';
 import {SiteMapComponent} from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.component';
+import { MyTeamComponent } from './pages/adminControl/modules/myTeam/components/myTeam/myTeam.component';
+import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
+import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -71,7 +74,9 @@ export function createTranslateLoader(http: HttpClient) {
     SiteMapComponent,
     UploadDocComponent,
     CreateFolderComponent,
-    ViewDocComponent
+    ViewDocComponent,
+    RegisterTeamComponent,
+    ViewTeamComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -135,7 +140,9 @@ export function createTranslateLoader(http: HttpClient) {
     SiteMapComponent,
     UploadDocComponent,
     CreateFolderComponent,
-    ViewDocComponent
+    ViewDocComponent,
+    RegisterTeamComponent,
+    ViewTeamComponent,
   ]
 })
 export class AppModule {

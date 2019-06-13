@@ -30,6 +30,10 @@ const routes: Routes = [
     {
       path: 'questionCenter',
       loadChildren: './modules/questionCenter/questionCenter.module#QuestionCenterModule'
+    },
+    {
+      path: 'myTeam',
+      loadChildren: './modules/myTeam/myTeam.module#MyTeamModule'
     }
   ]
 ;

@@ -42,6 +42,7 @@ export interface EntityPermissions {
   myTeam: boolean;
   documents: boolean;
   entityControl: boolean;
+  memberCentre: boolean;
   siteCenter: boolean;
   questionCenter: boolean;
   hazardCenter: boolean;

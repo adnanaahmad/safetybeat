@@ -2,7 +2,7 @@ import {Injectable, ElementRef, NgZone} from '@angular/core';
 import {forEach, findIndex, remove, sortBy, find} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
-import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
+import {MatAutocompleteSelectedEvent, MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
@@ -359,6 +359,35 @@ export class HelperService {
 
   decrypt(data: string, key: string): string {
     return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
+  }
+
+  _filter(value: any, list: any[]): any[] {
+    const filterValue =
+      value && value.name
+        ? value.name.toLowerCase()
+        : value.toLowerCase();
+    return list.filter(user => {
+      return user.name.toLowerCase().indexOf(filterValue) === 0;
+    });
+  }
+
+  removeFromList(user: any, list: any): void {
+    const index = list.indexOf(user);
+    if (index >= 0) {
+      list.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent, users: any[]): void {
+    let index = this.findIndex(
+      users,
+      function (obj) {
+        return obj.name === event.option.value.name;
+      }
+    );
+    if (index === -1) {
+      users.push(event.option.value);
+    }
   }
 
 }

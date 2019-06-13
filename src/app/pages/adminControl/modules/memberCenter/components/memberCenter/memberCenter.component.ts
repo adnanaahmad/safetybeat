@@ -24,7 +24,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     'photos',
     'name',
     'email',
-    'contact',
     'accessLevel',
     'symbol'
   ];
