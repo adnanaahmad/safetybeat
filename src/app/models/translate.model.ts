@@ -382,6 +382,8 @@ export interface Messages {
   DOC_FAIL: string;
   FOLDER_RENAMED: string;
   RENAME_FAIL: string;
+  ACTIVITIES_FAIL: string;
+  NOT_CHECKED_OUT: string;
 }
 
 export interface Logger {

@@ -319,7 +319,9 @@
     "CONFIRM_CONNECTION_SUCCESS": "Connection is confirmed",
     "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed",
     "FOLDER_RENAMED": "Folder Renamed Successfully",
-    "RENAME_FAIL" : "Folder could not be re-named"
+    "RENAME_FAIL" : "Folder could not be re-named",
+    "ACTIVITIES_FAIL": "Activities could not be retrieved",
+    "NOT_CHECKED_OUT": "Not checked out yet"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

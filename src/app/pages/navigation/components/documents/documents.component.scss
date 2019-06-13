@@ -4,28 +4,32 @@
     .paddingbox {
       padding: 1rem 5rem;
     }
+    .folder-icon{
+      font-size: 20px;
+      width: auto;
+      height: auto;
+      border-radius: 4px;
+      opacity: 0.3;
+      padding-right:5px;
+    }
     .documents-tab {
       .document-row {
         display: flex;
         margin: 10px 1px;
         align-items: center;
         .document-type {
-          font-size: 30px;
-          color: #ffffff;
+          font-size: 20px;
           width: auto;
           height: auto;
-          padding: 6px;
-          background: mat-color($primary);
           border-radius: 4px;
-          margin-right: 10px;
+          opacity: 0.3;
+          padding-right:5px;
         }
         .document-data {
           .document-title {
             display: block;
-            padding: 0 0 6px;
             font-size: 14px;
             font-weight: 500;
-            color: mat-color($primary);
           }
           span {
             display: inline-flex;
@@ -67,16 +71,18 @@
       mat-expansion-panel {
         margin: 10px 1px;
       }
-    }
-    .folder-option {
-      position: absolute;
-      right: 50px;
-      top: 16px;
-      .menubtn {
-        min-width: auto;
-        width: auto;
-        padding: 0;
+      mat-panel-title{
+        align-items: center;
       }
+    }
+    .menubtn {
+      position: absolute;
+      right: 40px;
+      top: 12px;
+    }
+    .no-document{
+      opacity: 0.4;
+      font-size: 12px;
     }
   }
 }

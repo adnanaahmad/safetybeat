@@ -35,70 +35,24 @@
           </div>
         </mat-card-header>
         <mat-card-content>
-          <div class="activity-card">
-            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
+          <ng-container *ngIf="profileModel.noActivity !== true">
+          <div class="activity-card" *ngFor="let activity of profileModel.recentActivities">
+            <div class="row"><strong>{{activity.siteData.name}}</strong><span (click)="viewSite(activity.siteData.longitude, activity.siteData.latitude,
+             activity.siteData.name, activity.siteData.location)"><a>
+                  <mat-icon >link</mat-icon> View Site
                 </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
+            <div class="row"><strong>Check-in</strong><span>{{activity.checkInCheckOut.checkedInAt | date:'medium'}}</span></div>
+            <div class="row"><strong>Check-out</strong>
+              <span *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span>
+              <span *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.checkInCheckOut.checkedOutAt | date:'medium'}}</span>
+            </div>
+            <div class="row"><strong>Duration</strong><span *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.duration}}</span>
+              <span *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span></div>
           </div>
-          <div class="activity-card">
-            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-          </div>
-          <div class="activity-card">
-            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-          </div>
-          <div class="activity-card">
-            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-          </div>
-          <div class="activity-card">
-            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-          </div>
-          <div class="activity-card">
-            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-          </div>
-          <div class="activity-card">
-            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-          </div>
-          <div class="activity-card">
-            <div class="row"><strong>Last Company</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-          </div>
+          </ng-container>
+          <ng-container *ngIf="profileModel.noActivity === true">
+            <mat-card style="text-align: center;">No activities</mat-card>
+          </ng-container>
         </mat-card-content>
       </mat-card>
       <mat-card class="dashboard-card activities" *ngIf="card.title==='Connections'">
@@ -116,11 +70,16 @@
           </div>
         </mat-card-header>
         <mat-card-content>
-          <table class="customTable" mat-table [dataSource]="dataSource">
+          <table class="customTable" mat-table [dataSource]="dataSource1">
             <!-- Position Column -->
-            <ng-container matColumnDef="position">
-              <th mat-header-cell *matHeaderCellDef> No.</th>
-              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            <ng-container matColumnDef="photos">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-icon>person</mat-icon>
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <img class="table-img"
+                     src="{{ element.photos  ? element.photos : helperService.appConstants.avatar}}" />
+              </td>
             </ng-container>
             <!-- Name Column -->
             <ng-container matColumnDef="name">
@@ -128,18 +87,22 @@
               <td mat-cell *matCellDef="let element"> {{element.name}} </td>
             </ng-container>
             <!-- Weight Column -->
-            <ng-container matColumnDef="weight">
-              <th mat-header-cell *matHeaderCellDef> Weight</th>
-              <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element">
+              <mat-icon (click)="removeConnection(element.id)">remove_circle</mat-icon></td>
             </ng-container>
             <!-- Symbol Column -->
-            <ng-container matColumnDef="symbol">
-              <th mat-header-cell *matHeaderCellDef> Symbol</th>
-              <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-header-row *matHeaderRowDef="connectionColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: connectionColumns;"></tr>
           </table>
+          <div class="paddingbox text-center" *ngIf="dataSource1 === null">
+            {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </mat-card-content>
       </mat-card>
       <mat-card class="dashboard-card activities" *ngIf="card.title==='Leaves'">

@@ -65,12 +65,12 @@ export class ConstantService {
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
-    uploadDocuments: `${environment.apiUrl}/api/documents/`,
+    documents: `${environment.apiUrl}/api/documents/`,
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
     actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`,
-    deleteDoc: `${environment.apiUrl}/api/documents/`
+    recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`
   };
   /**
    * all the api methods are declared here.

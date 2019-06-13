@@ -30,7 +30,6 @@ import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import { ImportSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import { ConfirmationModalComponent } from './Dialogs/conformationModal/confirmationModal.component';
-import { ViewConnectionsComponent } from './pages/adminControl/modules/memberCenter/dialogs/viewConnections/viewConnections.component';
 // tslint:disable-next-line:max-line-length
 import { ChangeAccessLevelComponent } from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
@@ -62,7 +61,6 @@ export function createTranslateLoader(http: HttpClient) {
     AddSiteModalComponent,
     ImportSiteModalComponent,
     ConfirmationModalComponent,
-    ViewConnectionsComponent,
     ChangeAccessLevelComponent,
     AddHazardComponent,
     HazardDetailsComponent,
@@ -126,7 +124,6 @@ export function createTranslateLoader(http: HttpClient) {
     AddSiteModalComponent,
     ImportSiteModalComponent,
     ConfirmationModalComponent,
-    ViewConnectionsComponent,
     ChangeAccessLevelComponent,
     AddHazardComponent,
     HazardDetailsComponent,
