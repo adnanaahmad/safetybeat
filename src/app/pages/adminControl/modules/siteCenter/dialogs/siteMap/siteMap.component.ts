@@ -15,7 +15,11 @@ export class SiteMapComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
-    this.showMap();
+    if (this.data.type === true) {
+      this.singleSite();
+    } else {
+      this.showMap();
+    }
   }
 
   showMap() {
@@ -26,5 +30,10 @@ export class SiteMapComponent implements OnInit {
     for (let i = 0; i < this.data.siteData.length; i++) {
       this.helperService.addMarker(val, {lat: this.data.siteData[i].site.longitude, lng: this.data.siteData[i].site.latitude});
     }
+  }
+
+   singleSite() {
+     let val = this.helperService.createMap(this.gMapElement);
+     this.helperService.addMarker(val, {lat: this.data.siteData.longitude, lng: this.data.siteData.latitude});
   }
 }

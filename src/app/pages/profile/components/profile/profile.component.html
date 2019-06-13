@@ -35,14 +35,24 @@
           </div>
         </mat-card-header>
         <mat-card-content>
+          <ng-container *ngIf="profileModel.noActivity !== true">
           <div class="activity-card" *ngFor="let activity of profileModel.recentActivities">
-            <div class="row"><strong>{{activity.siteData.name}}</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
+            <div class="row"><strong>{{activity.siteData.name}}</strong><span (click)="viewSite(activity.siteData.longitude, activity.siteData.latitude,
+             activity.siteData.name, activity.siteData.location)"><a>
+                  <mat-icon >link</mat-icon> View Site
                 </a></span></div>
-            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-            <div class="row"><strong>Duration</strong><span>10 days</span></div>
+            <div class="row"><strong>Check-in</strong><span>{{activity.checkInCheckOut.checkedInAt | date:'medium'}}</span></div>
+            <div class="row"><strong>Check-out</strong>
+              <span *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span>
+              <span *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.checkInCheckOut.checkedOutAt | date:'medium'}}</span>
+            </div>
+            <div class="row"><strong>Duration</strong><span *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.duration}}</span>
+              <span *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span></div>
           </div>
+          </ng-container>
+          <ng-container *ngIf="profileModel.noActivity === true">
+            <mat-card style="text-align: center;">No activities</mat-card>
+          </ng-container>
         </mat-card-content>
       </mat-card>
       <mat-card class="dashboard-card activities" *ngIf="card.title==='Connections'">

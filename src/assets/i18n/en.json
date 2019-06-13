@@ -317,7 +317,9 @@
     "DOC_ADDED": "Document Uploaded Successfully.",
     "DOC_FAIL": "Document could not be Uploaded",
     "FOLDER_RENAMED": "Folder Renamed Successfully",
-    "RENAME_FAIL" : "Folder could not be re-named"
+    "RENAME_FAIL" : "Folder could not be re-named",
+    "ACTIVITIES_FAIL": "Activities could not be retrieved",
+    "NOT_CHECKED_OUT": "Not checked out yet"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
