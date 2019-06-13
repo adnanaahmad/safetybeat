@@ -1,5 +1,9 @@
 <div class="topnav">
-  <button (click)="logoutUser()" [disabled]="logoutDisable">Logout</button>
+  <a routerLink="">How it works</a>
+  <a routerLink="">Customer reviews</a>
+  <a routerLink="">Feedback</a>
+  <a routerLink="">Contact</a>
+  <button custom-btn btn-primary mat-button (click)="logoutUser()" [disabled]="logoutDisable">Logout</button>
 </div>
 <div class="legend-header">
   <mat-card-title class="mat-dialog-title mdc-typography">{{helperService.translated.MESSAGES.SAFETYBEAT_PRICING}}

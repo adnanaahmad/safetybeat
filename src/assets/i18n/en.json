@@ -103,6 +103,7 @@
   },
   "BUTTONS": {
     "LOGIN": "Login",
+    "EDIT": "Edit",
     "REGISTER": "Sign Up",
     "FORGOTPASSWORD": "Forgot Password?",
     "CANCEL": "Cancel",

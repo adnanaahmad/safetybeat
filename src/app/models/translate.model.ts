@@ -161,6 +161,7 @@ export interface Strings {
 
 export interface Buttons {
   LOGIN: string;
+  EDIT: string;
   REGISTER: string;
   FORGOTPASSWORD: string;
   CANCEL: string;

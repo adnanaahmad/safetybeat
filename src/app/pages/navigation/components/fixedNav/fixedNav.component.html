@@ -1,11 +1,12 @@
 <div class="menu-button">
   <button (click)="toggleSideNav()" mat-mini-fab color="primary">
-    <mat-icon class="opened" *ngIf="!navOpened">{{fixedNav.appIcons.arrowRight}}</mat-icon>
-    <mat-icon class="closed" *ngIf="navOpened">{{fixedNav.appIcons.arrowLeft}}</mat-icon>
+    <mat-icon class="opened" *ngIf="!navOpened">{{fixedNav.appIcons.menu}}</mat-icon>
+    <mat-icon class="closed" *ngIf="navOpened">{{fixedNav.appIcons.menu}}</mat-icon>
   </button>
 </div>
 <mat-nav-list class="nav-list">
-  <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.route" routerLinkActive="active" [disableRipple]="disableNav">
+  <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.route" routerLinkActive="active"
+    [disableRipple]="disableNav">
     <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right" (click)="switchNavListMenuDefault()">
       <mat-icon>{{link.iconName}}</mat-icon>
     </a>
