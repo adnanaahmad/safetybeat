@@ -317,7 +317,9 @@
     "DOC_ADDED": "Document Uploaded Successfully.",
     "DOC_FAIL": "Document could not be Uploaded",
     "CONFIRM_CONNECTION_SUCCESS": "Connection is confirmed",
-    "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed"
+    "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed",
+    "FOLDER_RENAMED": "Folder Renamed Successfully",
+    "RENAME_FAIL" : "Folder could not be re-named"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -428,6 +430,8 @@
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
     "ADD_CONNECTION": "Are you sure you want to Add this user to your Connections.",
     "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections.",
-    "CONFIRM_CONNECTION": "Are you sure you want to Add this user to your Connections."
+    "CONFIRM_CONNECTION": "Are you sure you want to Add this user to your Connections.",
+    "DELETE_DOCUMENT": "Are you sure you want to delete this document?",
+    "DELETE_FOLDER": "Are you sure you want to delete this folder? Its all documents will be deleted."
   }
 }
