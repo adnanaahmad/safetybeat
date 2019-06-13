@@ -55,6 +55,7 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
+    connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
     viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
     riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazards/`,
@@ -206,7 +207,9 @@ export class ConstantService {
     connections: {
       view: 'view',
       add: 'add',
-      remove: 'remove'
+      remove: 'remove',
+      confirm: 'confirm',
+      nature: 'Outgoing'
     },
     enterKey: 13,
     importSite: 'importSite',
