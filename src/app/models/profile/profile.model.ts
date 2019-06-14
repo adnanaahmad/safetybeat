@@ -36,6 +36,7 @@ export interface ProfileModel {
   recentActivities: any;
   noActivity: boolean;
   duration: string;
+  noConnection: boolean;
 }
 
 
