@@ -10,6 +10,7 @@ import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from '../../models/profile/profile.model';
+import {TeamList} from '../../models/adminControl/myTeam.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -141,6 +142,10 @@ export class CompilerProvider {
     return actionReportApiResponse;
   }
 
+  constructAllTeamsData(allTeamsApiResponse: any): TeamList[] {
+    return allTeamsApiResponse.data;
+  }
+
 
   constructHazardArray(hazardResponse: any): Hazard[] {
     let hazardArray: Hazard[] = [];
@@ -187,19 +192,16 @@ export class CompilerProvider {
     return usersArray;
   }
 
-  allQuestionsOfEntity(users) {
+  constructDataForTeams(users) {
     let usersArray = [];
-    this.helperService.iterations(users.data, function (obj) {
+    this.helperService.iterations(users, function (obj) {
       let user = {
-        name: obj.user.first_name + ' ' + obj.user.last_name,
-        email: obj.user.email,
-        contact: obj.user.contactNo,
+        name: obj.first_name + ' ' + obj.last_name,
+        email: obj.email,
+        contact: obj.contactNo,
         photos: '',
         accessLevel: obj.role,
-        id: obj.user.id,
-        status: obj.status,
-        pendingConnection: obj.pendingConnection,
-        acceptedConnection: obj.acceptedConnection
+        id: obj.id
       };
       usersArray.push(user);
     });
@@ -244,6 +246,11 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
+      {
+        displayName: 'Member Center',
+        route: '/home/adminControl/memberCenter',
+        disabled: data.permissions.myTeam
+      },
       // {
       //   route: '/home/profile/user',
       //   iconName: this.appIcons.group,
@@ -256,8 +263,8 @@ export class CompilerProvider {
         disabled: data.permissions.entityControl
       },
       {
-        displayName: 'Member Center',
-        route: '/home/adminControl/memberCenter',
+        displayName: 'My Team',
+        route: '/home/adminControl/myTeam',
         disabled: data.permissions.myTeam
       },
       {
@@ -369,6 +376,11 @@ export class CompilerProvider {
         displayName: 'Dashboard',
         disabled: data.permissions.dashboard
       },
+      {
+        displayName: 'Member Centre',
+        route: '/home/adminControl/memberCenter',
+        disabled: data.permissions.myTeam
+      },
       // {
       //   route: '/home/profile/user',
       //   iconName: this.appIcons.group,
@@ -381,8 +393,8 @@ export class CompilerProvider {
         disabled: data.permissions.entityControl
       },
       {
-        displayName: 'Member Centre',
-        route: '/home/adminControl/memberCenter',
+        displayName: 'My Team',
+        route: '/home/adminControl/myTeam',
         disabled: data.permissions.myTeam
       },
       {

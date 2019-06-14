@@ -25,9 +25,9 @@ export class InviteTeamModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    public helperService: HelperService,
     private adminServices: AdminControlService,
-    public helperService: HelperService
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.initialize();
     this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData
@@ -35,9 +35,9 @@ export class InviteTeamModalComponent implements OnInit {
       : [];
     this.inviteTeamModel.filteredUsers = this.inviteTeamModel.userCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: any | null) => {
-        return fruit
-          ? this._filter(fruit)
+      map((user: any | null) => {
+        return user
+          ? this._filter(user)
           : this.inviteTeamModel.allUsers.slice();
       })
     );
@@ -100,12 +100,11 @@ export class InviteTeamModalComponent implements OnInit {
    */
 
   private _filter(value: any): any[] {
-    const filterValue =
-      value && value.first_name
+    const filterValue = value && value.first_name
         ? value.first_name.toLowerCase()
         : value.toLowerCase();
-    return this.inviteTeamModel.allUsers.filter(fruit => {
-      return fruit.first_name.toLowerCase().indexOf(filterValue) === 0;
+    return this.inviteTeamModel.allUsers.filter(user => {
+      return user.first_name.toLowerCase().indexOf(filterValue) === 0;
     });
   }
 

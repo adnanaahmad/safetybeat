@@ -108,7 +108,8 @@
   },
   "BUTTONS": {
     "LOGIN": "Login",
-    "REGISTER": "Sign Up",
+    "REGISTER": "Register",
+    "SIGNUP": "Sign Up",
     "FORGOTPASSWORD": "Forgot Password?",
     "CANCEL": "Cancel",
     "RESET": "Reset Password",
@@ -230,7 +231,7 @@
     "ENTITYJOINFIAL": "Sorry, something bad happened thats why you can not join this entity",
     "INVITETEAMSUCCESS": "Invitation Successful",
     "INVITETEAMFAIL": "Invitation Unsuccessful",
-    "INVITETEAMTITLE": "Invite Team",
+    "INVITEMEMBERTITLE": "Invite Member",
     "INVITETEAMPLACEHOLDER": "Type user names to invite",
     "INVALIDADDRESS": "Invalid address",
     "ADDSITE_MSG": "Enter Site Details to Add Site",
@@ -318,9 +319,8 @@
     "SITE_MAP": "Site Map",
     "NEW_FOLDER": "New Folder Created.",
     "FOLDER_FAIL": "Folder Creation Failed",
-    "NO_FOLDER" : "NO Folders Found.",
+    "NO_FOLDER": "NO Folders Found.",
     "DOC_ADDED": "Document Uploaded Successfully.",
-    "DOC_FAIL": "Document could not be Uploaded",
     "CONFIRM_CONNECTION_SUCCESS": "Connection is confirmed",
     "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed",
     "FOLDER_RENAMED": "Folder Renamed Successfully",
@@ -328,7 +328,24 @@
     "ACTIVITIES_FAIL": "Activities could not be retrieved",
     "NOT_CHECKED_OUT": "Not checked out yet",
     "NO_CONNECTIONS": "No Connection",
-    "GET_CONNECTIONS_FAILURE": "Connection could not be retrieved"
+    "GET_CONNECTIONS_FAILURE": "Connection could not be retrieved",
+    "DOC_FAIL": "Document could not be Uploaded",
+    "TEAM_MEMBER": "Select Team Members",
+    "TEAM_LEAD": "Select Team Lead",
+    "TEAM_TITLE": "Team Title",
+    "TEAM_REGISTERED": "Team got registered successfully",
+    "TEAM_REGISTRATION_FAILED": "Team registration failed",
+    "TEAM_UPDATED": "Team updated successfully",
+    "TEAM_UPDATE_FAILED": "Team update failed",
+    "TEAM_ALREADY_EXIST": "Team title already exists",
+    "ALL_TEAMS_SUCCESS": "Teams data retrieved successfully",
+    "TEAMS_NOT_FOUND": "No Record Available for Teams",
+    "ALL_TEAMS_FAILURE": "Teams data retrieval failed",
+    "TEAM": "Team",
+    "REGISTER_TEAM": "Enter Details to Register Team",
+    "DELETE_TEAM_SUCCESS": "Team deleted successfully",
+    "DELETE_TEAM_FAILURE": "Team deletion failed",
+    "EDIT_TEAM": "Enter Details to Edit Team"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -339,7 +356,8 @@
     "SITE_CENTRE": "Site Centre",
     "QUESTION_CENTER": "Question Centre",
     "HAZARD_CENTER": "Hazard Centre",
-    "DOCUMENTS": "Documents"
+    "DOCUMENTS": "Documents",
+    "MY_TEAM": "My Team"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
@@ -368,7 +386,8 @@
     "PAYMENT_HISTORY": "Payment History",
     "DELETE_ENTITY": "Delete Entity",
     "TITLE": "Title",
-    "HAZARD_DETAILS": "View Hazard"
+    "HAZARD_DETAILS": "View Hazard",
+    "TEAM_LEAD": "Team Lead"
   },
   "LOGGER": {
     "STATUS": {
@@ -437,6 +456,7 @@
     "DELETE_SITE": "Are you sure you want Delete this site?",
     "DELETE_HAZARD": "Are you sure you want Delete this hazard?",
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
+    "DELETE_TEAM": "Are you sure you want Delete this team?",
     "ADD_CONNECTION": "Are you sure you want to Add this user to your Connections.",
     "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections.",
     "CONFIRM_CONNECTION": "Are you sure you want to Add this user to your Connections.",

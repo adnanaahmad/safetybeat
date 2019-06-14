@@ -38,6 +38,7 @@
 @import "src/app/pages/analyticsReport/components/actionReport/actionReport.component.scss";
 @import "src/app/pages/analyticsReport/components/siteActivityReport/siteActivityReport.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component.scss";
+@import "src/app/pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -86,4 +87,5 @@
   @include amte-action-report($primary, $accent, $warn);
   @include amte-siteActivityReport($primary, $accent, $warn);
   @include amte-site-map($primary, $accent, $warn);
+  @include amte-viewTeam($primary, $accent, $warn);
 }

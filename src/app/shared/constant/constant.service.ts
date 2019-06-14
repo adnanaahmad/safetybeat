@@ -70,7 +70,10 @@ export class ConstantService {
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
     actionsReportForUser: `${environment.apiUrl}/api/analyticsReport/actionsReportForUser/`,
-    recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`
+    recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`,
+    deleteDoc: `${environment.apiUrl}/api/documents/`,
+    team: `${environment.apiUrl}/api/teams/`,
+    viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
   };
   /**
    * all the api methods are declared here.
@@ -127,7 +130,6 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    serverUrl: 'http://192.168.69.38:8000',
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -166,7 +168,7 @@ export class ConstantService {
     linearForm: true,
     emailValid: 'VALID',
     yes: 'YES',
-    codeValidations: [100, 101, 102, 103, 104],
+    codeValidations: [100, 101, 102, 103, 104, 105],
     dateJoined: 'dateJoined',
     phoneNo: 'phoneNo',
     avatar: './assets/images/avatar.png',
@@ -215,7 +217,10 @@ export class ConstantService {
     importSite: 'importSite',
     csvFile: 'csvFile',
     profileImage: 'profileImage',
-    noHazard: './assets/images/no-hazard.png'
+    noHazard: './assets/images/no-hazard.png',
+    title: 'title',
+    teamLead: 'teamLead',
+    team: 'team'
   };
   /**
    * all the material icon names are declared here.
@@ -272,7 +277,7 @@ export class ConstantService {
     payment: 'payment',
     exit_to_app: 'exitToApp',
     edit: 'edit',
-    viewSite: 'remove_red_eye',
+    view: 'remove_red_eye',
     siteQuestionCenter: 'question_answer',
     log: 'library_books',
     import: 'play_for_work',

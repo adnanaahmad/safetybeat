@@ -30,7 +30,6 @@ import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import { ImportSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import { ConfirmationModalComponent } from './Dialogs/conformationModal/confirmationModal.component';
-// tslint:disable-next-line:max-line-length
 import { ChangeAccessLevelComponent } from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import { AddHazardComponent } from './pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
@@ -44,6 +43,8 @@ import { UploadDocComponent } from './pages/navigation/dialogs/uploadDoc/uploadD
 import { SiteMapComponent } from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.component';
 import { ImageLightboxComponent } from './Dialogs/imageLightbox/imageLightbox.component';
+import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
+import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -71,7 +72,10 @@ export function createTranslateLoader(http: HttpClient) {
     UploadDocComponent,
     CreateFolderComponent,
     ViewDocComponent,
-    ImageLightboxComponent
+    ImageLightboxComponent,
+    ViewDocComponent,
+    RegisterTeamComponent,
+    ViewTeamComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -135,7 +139,10 @@ export function createTranslateLoader(http: HttpClient) {
     UploadDocComponent,
     CreateFolderComponent,
     ViewDocComponent,
-    ImageLightboxComponent
+    ImageLightboxComponent,
+    ViewDocComponent,
+    RegisterTeamComponent,
+    ViewTeamComponent,
   ]
 })
 export class AppModule {

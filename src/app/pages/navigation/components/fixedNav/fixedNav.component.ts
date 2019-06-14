@@ -23,6 +23,11 @@ export class FixedNavComponent implements OnInit {
       iconName: this.helperService.constants.appIcons.dashboard,
       toolTip: 'Dashboard'
     },
+    {
+      route: '/home/adminControl/memberCenter',
+      iconName: this.helperService.constants.appIcons.person,
+      toolTip: 'Member Center'
+    },
     // {
     //   route: '/home/profile/user',
     //   iconName: this.helperService.constants.appIcons.supervisedUserCircle,
@@ -34,9 +39,9 @@ export class FixedNavComponent implements OnInit {
       toolTip: 'Entity Control Center'
     },
     {
-      route: '/home/adminControl/memberCenter',
+      route: '/home/adminControl/myTeam',
       iconName: this.helperService.constants.appIcons.group,
-      toolTip: 'Member Center'
+      toolTip: 'My Team'
     },
     {
       route: '/home/adminControl/siteCenter',
