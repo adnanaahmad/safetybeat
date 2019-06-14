@@ -79,7 +79,7 @@
                   <label>{{connection.name}} </label>
                   <span><mat-icon>{{helperService.appIcons.email}}</mat-icon>{{connection.email}}</span>
                 </div>
-                <div><mat-icon (click)="removeConnection(connection.id)">remove_circle_outline</mat-icon></div>
+                <div *ngIf="profileModel.currentUserProfile"><mat-icon (click)="removeConnection(connection.id)">remove_circle_outline</mat-icon></div>
               </mat-list-item>
             </mat-list>
           </ng-container>

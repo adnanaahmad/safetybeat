@@ -250,10 +250,30 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
           this.profileModel.dataSource.paginator = this.paginator;
         }
-      }
-      );
+      });
+    } else {
+
+
     }
   }
+
+  // viewAllEntities(userId: number) {
+  //   this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+  //     if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+  //       if (res.data.length === 0) {
+  //         this.profileModel.noActivity = true;
+  //       } else {
+  //         this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res);
+  //       }
+  //     } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+  //       this.profileModel.noActivity = true;
+  //       this.helperService.appLogger(this.helperService.constants.status.ERROR,
+  //         this.helperService.translated.MESSAGES.ACTIVITIES_FAIL);
+  //     } else {
+  //       this.profileModel.noActivity = true;
+  //     }
+  //   });
+  // }
 
   /**
    * this function is used for hiding all the debugging messages and also used for unsubscribing the
@@ -298,8 +318,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     this.profile.getUser().subscribe((res) => {
+      console.log(res);
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
+   //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
       this.navService.updateCurrentUser(userData);
     });
   }
@@ -331,10 +353,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noConnection = true;
-          this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE);
       } else {
         this.profileModel.noConnection = true;
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE);
       }
     });
   }
@@ -343,7 +365,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
-        this.getUserConnections(this.profileModel.userId);
+          this.getUserConnections(this.profileModel.userId);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);

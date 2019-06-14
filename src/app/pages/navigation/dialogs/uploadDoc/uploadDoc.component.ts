@@ -20,6 +20,8 @@ export class UploadDocComponent implements OnInit {
               public dialogRef: MatDialogRef<UploadDocComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
     this.documentsData.rootOnly = false;
+    this.newDoc.entityId = this.data.entityID;
+    this.newDoc.folderList = [];
   }
 
   ngOnInit() {
@@ -28,11 +30,11 @@ export class UploadDocComponent implements OnInit {
       doc: ['', Validators.required],
       folders: ['']
     });
-    this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.newDoc.entityId = res.entityInfo.id;
-      }
-    });
+    // this.navService.selectedEntityData.subscribe((res) => {
+    //   if (res !== 1) {
+    //     this.newDoc.entityId = res.entityInfo.id;
+    //   }
+    // });
     this.getAllFolders();
   }
 
@@ -55,11 +57,12 @@ export class UploadDocComponent implements OnInit {
     if (data !== []) {
       for (let i = 0; i < length; i++) {
         if (data[i].name === 'root') {
-          return data[i].id;
+          return true;
+
         }
       }
     }
-    return null;
+    return false;
   }
 
   get formControls() {

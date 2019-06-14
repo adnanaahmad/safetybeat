@@ -41,6 +41,7 @@ export interface NewDoc {
 }
 
 export interface UploadDocForm {
+  rootID: any;
   docList: any;
   documentExist: boolean;
   docResponse: any;
