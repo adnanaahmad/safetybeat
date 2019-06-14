@@ -8,6 +8,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ViewTeamComponent} from 'src/app/pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-my-team',
@@ -24,6 +25,7 @@ export class MyTeamComponent implements OnInit {
   constructor(public helperService: HelperService,
               public compiler: CompilerProvider,
               private memberService: MemberCenterService,
+              private navService: NavigationService,
               private adminServices: AdminControlService) {
 
   }
