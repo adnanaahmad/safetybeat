@@ -2,9 +2,6 @@
 @mixin amte-questionCenter($primary, $accent, $warn) {
   :host,
   app-questionCenter {
-    .page-title {
-      margin: 20px 0;
-    }
     mat-grid-list {
       height: calc(88vh - 100px);
     }

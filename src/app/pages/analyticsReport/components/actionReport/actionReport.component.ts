@@ -7,8 +7,6 @@ import { AnalyticsReportService } from '../../services/analyticsReport.service';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { HighchartService } from '../../../../shared/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
-import { AdminControlService } from '../../../adminControl/services/adminControl.service';
-import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-action-report',

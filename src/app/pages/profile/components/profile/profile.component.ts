@@ -27,9 +27,7 @@ import {SiteMapComponent} from '../../../adminControl/modules/siteCenter/dialogs
 export class ProfileComponent implements OnInit, OnDestroy {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  connectionColumns: string[] = ['photos', 'name', 'email', 'delete'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  dataSource1;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // cards: any;
 
@@ -74,8 +72,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
     this.route.params.subscribe((data) => {
       if (!helperService.isEmpty(data)) {
+
         this.profileModel.receivedData = JSON.parse(data.data);
+        console.log(this.profileModel.receivedData);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
+        this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id);
         this.viewActivities(this.profileModel.receivedData.id);
@@ -225,6 +226,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profileModel.currentUserProfile = true;
     this.profileModel.disabled = false;
     this.profileModel.noActivity = false;
+    this.profileModel.noConnection = false;
     this.profileModel.displayedColumns = [
       'name',
       'headOffice',
@@ -248,10 +250,30 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
           this.profileModel.dataSource.paginator = this.paginator;
         }
-      }
-      );
+      });
+    } else {
+
+
     }
   }
+
+  // viewAllEntities(userId: number) {
+  //   this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+  //     if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+  //       if (res.data.length === 0) {
+  //         this.profileModel.noActivity = true;
+  //       } else {
+  //         this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res);
+  //       }
+  //     } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+  //       this.profileModel.noActivity = true;
+  //       this.helperService.appLogger(this.helperService.constants.status.ERROR,
+  //         this.helperService.translated.MESSAGES.ACTIVITIES_FAIL);
+  //     } else {
+  //       this.profileModel.noActivity = true;
+  //     }
+  //   });
+  // }
 
   /**
    * this function is used for hiding all the debugging messages and also used for unsubscribing the
@@ -296,18 +318,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     this.profile.getUser().subscribe((res) => {
+      console.log(res);
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      // this.getUserConnections(userData.id);
-      // this.viewActivities(userData.id);
+   //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
       this.navService.updateCurrentUser(userData);
     });
   }
 
   viewActivities(userId: number) {
      this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
-       console.log(res);
-
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
           this.profileModel.noActivity = true;
@@ -327,22 +347,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   getUserConnections(userId: number) {
 
     this.adminService.allConnections({ userId: userId }).subscribe((res) => {
-      console.log(res);
-      this.profileModel.allConnectionsRes = res;
-      this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.dataSource1 = this.profileModel.allConnectionsData;
-        // this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-        //   this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
+        this.profileModel.allConnectionsRes = res;
+        console.log(this.profileModel.allConnectionsRes);
+        this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.dataSource1 = null;
-        // this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        //   this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
-        this.dataSource1 = null;
-        // this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
-        //   this.helperService.constants.status.WARNING);
-
+        this.profileModel.noConnection = true;
+      } else {
+        this.profileModel.noConnection = true;
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE);
       }
     });
   }
@@ -351,12 +365,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
-        this.getUserConnections(this.profileModel.userId);
+          this.getUserConnections(this.profileModel.userId);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);
       }
-
     }, (error) => {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,

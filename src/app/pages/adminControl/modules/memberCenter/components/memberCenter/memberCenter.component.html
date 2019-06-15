@@ -1,16 +1,15 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.MEMBERCENTER_TITLE }}</h3>
+    <div class="buttonRow" *ngIf="memberCenter.currentRole">
+      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary"
+        *ngIf="memberCenter.currentRole===helperService.appConstants.roles.entityManager||memberCenter.currentRole===helperService.appConstants.roles.owner"
+        (click)="inviteUser()">
+        <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
+        {{ helperService.translated.BUTTONS.INVITE_USER}}
+      </button>
+    </div>
   </div>
-  <div class="buttonRow" *ngIf="memberCenter.currentRole">
-    <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary"
-      *ngIf="memberCenter.currentRole===helperService.appConstants.roles.entityManager||memberCenter.currentRole===helperService.appConstants.roles.owner"
-      (click)="inviteUser()">
-      <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
-      {{ helperService.translated.BUTTONS.INVITE_USER}}
-    </button>
-  </div>
-
   <div class="table-wrap">
     <table mat-table [dataSource]="memberCenter.dataSource" class="customTable mat-elevation-z3">
       <ng-container matColumnDef="photos">
@@ -67,12 +66,11 @@
               Add Connections
             </button>
 
-          <button *ngIf="element.pendingConnection && !element.acceptedConnection" mat-menu-item
-                  (click)="element.nature === 'Outgoing' ? connections(helperService.appConstants.connections.remove, {'userId':element.id}):
+            <button *ngIf="element.pendingConnection && !element.acceptedConnection" mat-menu-item (click)="element.nature === 'Outgoing' ? connections(helperService.appConstants.connections.remove, {'userId':element.id}):
                   connections(helperService.appConstants.connections.confirm, {'userId':element.id})">
-            <mat-icon>linear_scale</mat-icon>
-            {{element.nature === helperService.appConstants.connections.nature ? 'Cancel Request' : 'Confirm Request'}}
-          </button>
+              <mat-icon>linear_scale</mat-icon>
+              {{element.nature === helperService.appConstants.connections.nature ? 'Cancel Request' : 'Confirm Request'}}
+            </button>
 
             <button *ngIf="element.acceptedConnection && !element.pendingConnection" mat-menu-item
               (click)="connections(helperService.appConstants.connections.remove, {'userId':element.id})">

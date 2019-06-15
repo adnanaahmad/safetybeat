@@ -112,7 +112,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   uploadDoc() {
-    this.helperService.createDialog(UploadDocComponent, {disableClose: true, data: {folders: this.documentsData.folderList}});
+    this.helperService.createDialog(UploadDocComponent, {disableClose: true, data: {folders: this.documentsData.folderList, entityID: this.documentsData.entityID}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.allDocumentsData(this.documentsData.entityID);
     });

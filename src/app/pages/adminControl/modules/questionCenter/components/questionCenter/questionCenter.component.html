@@ -1,16 +1,16 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.QUESTION_CENTER }}</h3>
-  </div>
-  <div class="buttonRow">
-    <button class="mat-elevation-z1" (click)="addQuestion()" btn-primary mat-raised-button color="primary">
-      <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
-      {{ helperService.translated.BUTTONS.ADD_QUESTION}}
-    </button>
-    <button class="mat-elevation-z1" (click)="createQuestion()" btn-primary mat-raised-button color="primary">
-      <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
-      {{ helperService.translated.BUTTONS.CREATE_QUESTION}}
-    </button>
+    <div class="buttonRow">
+      <button class="mat-elevation-z1" (click)="addQuestion()" btn-primary mat-raised-button color="primary">
+        <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
+        {{ helperService.translated.BUTTONS.ADD_QUESTION}}
+      </button>
+      <button class="mat-elevation-z1" (click)="createQuestion()" btn-primary mat-raised-button color="primary">
+        <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
+        {{ helperService.translated.BUTTONS.CREATE_QUESTION}}
+      </button>
+    </div>
   </div>
   <mat-grid-list cols="3" gutterSize="10px" rowHeight="fit">
     <mat-grid-tile rowspan="2" colspan="2">
@@ -40,11 +40,11 @@
 
           <!-- Symbol Column -->
           <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element">
+            <th mat-header-cell> Action </th>
+            <td mat-cell>
               <button class="btn-table mat-elevation-z1" btn-primary mat-raised-button color="primary" mat-button
                 [matMenuTriggerFor]="menu">
-                <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
+                <mat-icon>{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
                 {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
               </button>
               <mat-menu #menu="matMenu">

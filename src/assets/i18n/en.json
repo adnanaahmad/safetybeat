@@ -99,7 +99,12 @@
     "DELETE_FOLDER": "Delete Folder",
     "VIEW_DOC": "View Document",
     "RENAME_FOLDER": "Rename Folder",
-    "IMAGE": "Image"
+    "IMAGE": "Image",
+    "CHECK_IN": "Check-in",
+    "CHECK_OUT": "Check-Out",
+    "DURATION": "Duration",
+    "NO_ACTIVITIES": "No activities",
+    "NAME": "Name"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -322,9 +327,11 @@
     "CONFIRM_CONNECTION_SUCCESS": "Connection is confirmed",
     "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed",
     "FOLDER_RENAMED": "Folder Renamed Successfully",
-    "RENAME_FAIL" : "Folder could not be re-named",
+    "RENAME_FAIL": "Folder could not be re-named",
     "ACTIVITIES_FAIL": "Activities could not be retrieved",
     "NOT_CHECKED_OUT": "Not checked out yet",
+    "NO_CONNECTIONS": "No Connection",
+    "GET_CONNECTIONS_FAILURE": "Connection could not be retrieved",
     "DOC_FAIL": "Document could not be Uploaded",
     "TEAM_MEMBER": "Select Team Members",
     "TEAM_LEAD": "Select Team Lead",
@@ -341,7 +348,8 @@
     "REGISTER_TEAM": "Enter Details to Register Team",
     "DELETE_TEAM_SUCCESS": "Team deleted successfully",
     "DELETE_TEAM_FAILURE": "Team deletion failed",
-    "EDIT_TEAM": "Enter Details to Edit Team"
+    "EDIT_TEAM": "Enter Details to Edit Team",
+    "INVITETEAMTITLE": "Invite Users"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

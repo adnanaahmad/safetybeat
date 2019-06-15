@@ -10,17 +10,18 @@ export interface PeriodicElement {
   parent: string;
   childYes: string;
   childNo: string;
+  action: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?' }
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
+  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' }
 ];
 export interface PeriodicElement2 {
   questionbank: string;
