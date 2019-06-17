@@ -144,20 +144,20 @@ mat-dialog-container {
   }
 }
 .page-title {
-  margin: 10px 0;
-  display: inline-block;
+  padding: 10px 0 20px;
+  display: flex;
+  align-items: center;
   h3 {
-    margin-top: 0;
+    margin: 0;
+  }
+  .buttonRow {
+    margin-left: auto;
+    button {
+      margin-left: 10px;
+    }
   }
 }
-.buttonRow {
-  margin: 5px 0 10px;
-  text-align: right;
-  float: right;
-  button {
-    margin-left: 10px;
-  }
-}
+
 .topbar {
   box-shadow: 0 4px 7px 1px rgba(0, 0, 0, 0.2);
   z-index: 2;
@@ -880,7 +880,6 @@ input:-internal-autofill-selected {
   .buttonRow {
     text-align: center;
     button {
-      display: block;
       margin: 10px auto 0;
     }
   }

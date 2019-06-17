@@ -4,15 +4,13 @@
     .topnav {
       text-align: right;
       padding: 20px;
-      background: mat-color($primary, 900);
-      color: #fff;
       box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2);
       z-index: 2;
       position: relative;
       border-bottom: 1px solid mat-color($primary, 600);
       a {
-        color: #fff;
         text-decoration: none;
+        padding: 20px;
       }
     }
     .legend-header {

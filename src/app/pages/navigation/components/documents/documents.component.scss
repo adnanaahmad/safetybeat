@@ -1,9 +1,6 @@
 @mixin amte-documents($primary, $accent, $warn) {
   :host,
   app-documents {
-    .paddingbox {
-      padding: 1rem 5rem;
-    }
     .folder-icon{
       font-size: 20px;
       width: auto;

@@ -2,9 +2,12 @@
 <div class="mat-dialog-content">
   <mat-list role="list">
     <mat-list-item role="listitem">
-      <img src="{{ team.teamLead.profileImage != null ? team.teamLead.profileImage : helperService.appConstants.avatar}}">
+      <div class="member-thumbnail mat-elevation-z3">
+        <img
+          src="{{ team.teamLead.profileImage != null ? team.teamLead.profileImage : helperService.appConstants.avatar}}">
+      </div>
       <div class="list-content">
-        <label>{{team.teamLead.first_name}} {{team.teamLead.last_name}}</label>
+        <label>{{team.teamLead.first_name}} {{team.teamLead.last_name}} <div class="role">Team Lead</div></label>
         <span>
           <mat-icon>{{helperService.appIcons.email}}</mat-icon>
           {{team.teamLead.email}}
@@ -13,14 +16,12 @@
           <mat-icon>{{helperService.appIcons.phone}}</mat-icon>
           {{team.teamLead.contactNo}}
         </span>
-        <span>
-          <mat-icon>{{helperService.appIcons.phone}}</mat-icon>
-          Team Leader
-        </span>
       </div>
     </mat-list-item>
     <mat-list-item role="listitem" *ngFor="let member of team.users">
-      <img src="{{ member.profileImage != null ? member.profileImage : helperService.appConstants.avatar}}">
+      <div class="member-thumbnail">
+        <img src="{{ member.profileImage != null ? member.profileImage : helperService.appConstants.avatar}}">
+      </div>
       <div class="list-content">
         <label>{{member.first_name}} {{member.last_name}} </label>
         <span>
@@ -35,5 +36,5 @@
     </mat-list-item>
   </mat-list>
   <br>
-  <button class="mat-elevation-z1" mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+  <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
 </div>
