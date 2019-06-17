@@ -4,15 +4,25 @@
     <mat-icon class="closed" *ngIf="navOpened">{{fixedNav.appIcons.arrowLeft}}</mat-icon>
   </button>
 </div>
-<mat-nav-list class="nav-list">
-  <mat-list-item *ngFor="let link of navLinks" mat-button [routerLink]="link.route" routerLinkActive="active"
+<mat-nav-list class="nav-list" *ngFor="let link of navLinks">
+  <mat-list-item *ngIf="link.toolTip!='Reports'" mat-button [routerLink]="link.route" routerLinkActive="active"
     [disableRipple]="disableNav">
     <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right" (click)="switchNavListMenuDefault()">
       <mat-icon>{{link.iconName}}</mat-icon>
     </a>
   </mat-list-item>
-</mat-nav-list>
 
+  <mat-list-item *ngIf="link.toolTip=='Reports'" mat-button>
+    <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right" [matMenuTriggerFor]="menu">
+      <mat-icon>{{link.iconName}}</mat-icon>
+    </a>
+    <mat-menu #menu="matMenu">
+      <div *ngFor="let reportLink of reportLinks">
+        <button mat-menu-item [routerLink]="reportLink.route" routerLinkActive="active">{{reportLink.displayName}}</button>
+      </div>
+    </mat-menu>
+  </mat-list-item>
+</mat-nav-list>
 <mat-nav-list class="nav-list bottom">
   <mat-list-item *ngFor="let link of navLinksBottom" mat-button [routerLink]="link.route" routerLinkActive="active">
     <a class="nav-link" matTooltip={{link.toolTip}} matTooltipPosition="right">

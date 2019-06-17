@@ -1,8 +1,12 @@
 <div class="container">
+
+    <!-- [attr.role]="(isHandset$ | async) ? 'dialog' : 'clockin'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)"> -->
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
     (switchNavListDefault)="switchListDefault(navModel.Entity)" [selectedEntity]="navModel.Entity"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
-    <mat-sidenav #sideNav mode="side" class="mat-sidenav mat-elevation-z6">
+    <mat-sidenav *ngIf="!(isHandset$ | async)" #sideNav [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)" class="mat-sidenav mat-elevation-z6">
       <div class="sb-logo">
         <svg xmlns="http://www.w3.org/2000/svg" width="446" height="114" viewBox="0 0 446 114">
           <path id="SafetyBeat" class="cls-1"
