@@ -48,6 +48,8 @@ export interface Strings {
   CHECK_OUT: string;
   DURATION: string;
   NO_ACTIVITIES: string;
+  NO_DOCUMENTS: string;
+  NO_FOLDERS: string;
 }
 
 export interface Auth {
@@ -387,7 +389,9 @@ export interface Messages {
   FOLDER_FAIL: string;
   NO_FOLDER: string;
   DOC_ADDED: string;
-  DOC_FAIL: string;
+  GET_DOCUMENT_FAILURE: string;
+  GET_FOLDER_FAILURE: string;
+  DOC_UPLOAD_FAIL: string;
   FOLDER_RENAMED: string;
   RENAME_FAIL: string;
   ACTIVITIES_FAIL: string;

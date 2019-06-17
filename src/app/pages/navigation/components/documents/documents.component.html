@@ -12,11 +12,42 @@
       {{ helperService.translated.BUTTONS.CREATE_FOLDER }}
     </button>
   </div>
-  <mat-tab-group class="documents-tab">
+
+  <!-- Folders -->
+
+  <div class="folders-wrapper">
+    <h4 class="wrapper-heading">Folders</h4>
+    <div class="content-area">
+      <ng-container *ngFor="let folder of documentsData.folderList">
+      <mat-card class="element-inline">
+        <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
+        <span>{{folder.name}}</span>
+      </mat-card>
+      </ng-container>
+    </div>
+  </div><!-- Folders -->
+
+  <!-- Files -->
+  <div class="files-wrapper">
+    <h4 class="wrapper-heading">Files</h4>
+    <div class="content-area">
+      <ng-container *ngFor="let doc of documentsData.rootDocs">
+      <mat-card class="file-inline">
+        <div class="file-info">
+          <mat-icon class="file-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
+          <span>{{doc.title}}</span>
+        </div>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      </mat-card>
+      </ng-container>
+    </div>
+  </div><!-- Files -->
+
+  <mat-tab-group style="display:none;" class="documents-tab">
     <mat-tab label="Documents">
       <!-- Document Row -->
-      <ng-container *ngFor="let docs of documentsData.docList">
-      <mat-card class="document-row" *ngFor="let doc of docs.documents">
+      <ng-container *ngFor="let doc of documentsData.rootDocs">
+      <mat-card class="document-row">
         <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
         <div class="document-data">
           <span class="document-title">{{doc.title}}</span>
@@ -33,9 +64,9 @@
       </mat-card>
       </ng-container>
       <!-- /Document Row -->
-      <ng-container *ngIf="documentsData.docList">
-      <div class="document-row text-align-center" *ngIf="!checkDoc(documentsData.docList)">
-        <span class="document-title">No Documents</span>
+      <ng-container *ngIf="!documentsData.documentExist">
+      <div class="document-row text-align-center">
+        <span class="document-title">{{helperService.translated.STRINGS.NO_DOCUMENTS}}</span>
       </div><!-- /Document Row -->
       </ng-container>
     </mat-tab>
@@ -45,14 +76,13 @@
       <!-- Document Row -->
       <mat-accordion class="documents-tab folder-expansion">
         <!--Folder-->
-        <ng-container *ngFor="let data of documentsData.docList">
-        <mat-expansion-panel (opened)="documentsData.panelOpenState = true" (closed)="documentsData.panelOpenState = false"
-          *ngIf="data.folder.name !== 'root'">
+        <div>
+        <ng-container *ngFor="let folder of documentsData.folderList">
+        <mat-expansion-panel (closed)="documentsData.panelOpenState = false" (opened)="docsOfFolder(folder.id)">
           <mat-expansion-panel-header>
-
             <mat-panel-title>
               <mat-icon class="folder-icon">{{helperService.appIcons.folder}}</mat-icon>
-              {{data.folder.name}}
+              {{folder.name}}
             </mat-panel-title>
             <!--            <mat-panel-description>-->
             <!--              25 Documents-->
@@ -63,11 +93,11 @@
               <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
             </button>
             <mat-menu #menu="matMenu" >
-              <button mat-menu-item (click)="deleteFolder(data.folder.id)">
+              <button mat-menu-item (click)="deleteFolder(folder.id)">
                 <mat-icon >{{helperService.appIcons.deleteForever}}</mat-icon>
                 {{helperService.translated.STRINGS.DELETE_FOLDER}}
               </button>
-              <button mat-menu-item (click)="renameFolder(data.folder)">
+              <button mat-menu-item (click)="renameFolder(folder)">
                 <mat-icon >{{helperService.appIcons.edit}}</mat-icon>
                 {{helperService.translated.STRINGS.RENAME}}
               </button>
@@ -75,7 +105,8 @@
           </ng-container>
 
           <!--Document Row-->
-          <ng-container *ngFor="let doc of data.documents">
+          <ng-container *ngIf="documentsData.docList">
+          <ng-container *ngFor="let doc of documentsData.docList">
           <mat-card class="document-row">
             <mat-icon class="document-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
             <div class="document-data">
@@ -94,16 +125,17 @@
             </div>
           </mat-card>
           </ng-container>
-          <div *ngIf="documentsData.docResponse">
-          <ng-container class="document-row text-align-center"  *ngIf="data.documents.length === 0">
-            <span class="no-document">No Documents</span>
           </ng-container>
-          </div>
+
+          <ng-container class="document-row text-align-center"  *ngIf="!documentsData.folderDoc">
+            <span class="no-document">{{helperService.translated.STRINGS.NO_DOCUMENTS}}</span>
+          </ng-container>
           <!--/Document Row-->
         </mat-expansion-panel>
         </ng-container>
+        </div>
         <div class="document-row" *ngIf="!documentsData.folderExist">
-          <p class="document-title">No Folders</p>
+          <p class="document-title">{{helperService.translated.STRINGS.NO_FOLDERS}}</p>
         </div>
         <!--/Folder-->
       </mat-accordion>

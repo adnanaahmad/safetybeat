@@ -7,7 +7,7 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {Hazard} from 'src/app/models/hazard.model';
-import {DocList, DocumentObj} from '../../models/navigation/documents.model';
+import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from '../../models/profile/profile.model';
 import {TeamList} from '../../models/adminControl/myTeam.model';
@@ -131,6 +131,13 @@ export class CompilerProvider {
   }
 
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {
+    return documentsApiResponse.data;
+  }
+  constructDocuments(documentsApiResponse: any): DocumentObj[] {
+    return documentsApiResponse.data;
+  }
+
+  constructFolderList(documentsApiResponse: any): Folder[] {
     return documentsApiResponse.data;
   }
 
