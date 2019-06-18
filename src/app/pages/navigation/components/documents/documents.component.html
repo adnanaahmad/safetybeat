@@ -19,7 +19,7 @@
     <h4 class="wrapper-heading">Folders</h4>
     <div class="content-area">
       <ng-container *ngFor="let folder of documentsData.folderList">
-      <mat-card class="element-inline">
+      <mat-card class="element-inline" (click)="showDocs()">
         <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
         <span>{{folder.name}}</span>
       </mat-card>
@@ -37,7 +37,7 @@
           <mat-icon class="file-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
           <span>{{doc.title}}</span>
         </div>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        <img mat-card-image src="https://docs.google.com/gview?url=https://s3-ap-southeast-2.amazonaws.com/2testbucket786/Faisal+Usman.pdf&embedded=true width='560px' height='623px" alt="no preview available">
       </mat-card>
       </ng-container>
     </div>
