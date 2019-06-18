@@ -91,7 +91,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       'folderId': folderID
     };
     this.navService.getDocuments(data).subscribe((res) => {
-      console.log(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.documentsData.folderDoc = true;
           this.documentsData.docList = this.compiler.constructAllDocumentsData(res);
@@ -110,7 +109,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.documentsData.rootDocs = [];
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
-      console.log(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
           this.documentsData.documentExist = false;

@@ -56,7 +56,6 @@ export class UploadDocComponent implements OnInit {
     if (length !== 0) {
       for (let i = 0; i < length; i++) {
         if (list[i].name === 'root') {
-          console.log(list[i].name);
           return true;
 
         }

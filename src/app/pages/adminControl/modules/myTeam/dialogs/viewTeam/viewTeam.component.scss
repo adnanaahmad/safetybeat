@@ -1,17 +1,25 @@
 @mixin amte-viewTeam($primary, $accent, $warn) {
   :host,
   app-view-team {
+    .mat-dialog-title{
+      margin: 0;
+    }
     mat-list-item {
       height: auto !important;
       padding: 8px 0 !important;
       border-bottom: 1px solid #ddd;
-      img {
-        width: 50px;
+      .member-thumbnail {
+        width: 60px;
+        height: 53px;
         border-radius: 100px;
         margin-right: 10px;
+        overflow: hidden;
+      }
+      img {
+        max-width: 100%;
       }
       label {
-        font-weight: 600;
+        font-weight: 500;
         display: block;
         margin: 0 0 6px;
       }
@@ -26,7 +34,7 @@
           mat-icon {
             width: auto;
             height: auto;
-            font-size: 16px;
+            font-size: 14px;
             padding: 0 6px 0 0;
           }
         }
@@ -39,11 +47,14 @@
         cursor: pointer;
       }
     }
-    .user-role{
-      background: red;
+    .role {
+      background: mat-color($primary, 500);
       border-radius: 100px;
       color: #fff;
       font-size: 12px;
+      float: right;
+      padding: 2px 6px;
+      font-weight: normal;
     }
   }
 }

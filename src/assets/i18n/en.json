@@ -110,6 +110,7 @@
   },
   "BUTTONS": {
     "LOGIN": "Login",
+    "EDIT": "Edit",
     "REGISTER": "Register",
     "SIGNUP": "Sign Up",
     "FORGOTPASSWORD": "Forgot Password?",
@@ -134,6 +135,7 @@
     "FIELDCOMMUNICATION": "Field Communication",
     "JOIN_ENTITY": "Join Entity",
     "ADD_QUESTION": "Add Question",
+    "CREATE_QUESTION": "Create Question",
     "CREATE_ENTITY": "Create Entity",
     "INVITE": "Invite",
     "SKIP": "Skip",
@@ -294,6 +296,7 @@
     "REMOVE_CONNECTION_SUCCESS": "Connection has been removed successfully.",
     "REMOVE_CONNECTION_FAILURE": "Connection has not been removed",
     "ADDQUESTION_MSG": "Add Question",
+    "CREATEQUESTION_MSG": "Create a Question",
     "QUESTION_CREATED": "Question created successfully",
     "QUESTION_CREATION_FAILURE": "Question not created",
     "ANALYTICS_REPORTS": "Analytics Reports",
@@ -326,7 +329,7 @@
     "CONFIRM_CONNECTION_SUCCESS": "Connection is confirmed",
     "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed",
     "FOLDER_RENAMED": "Folder Renamed Successfully",
-    "RENAME_FAIL" : "Folder could not be re-named",
+    "RENAME_FAIL": "Folder could not be re-named",
     "ACTIVITIES_FAIL": "Activities could not be retrieved",
     "NOT_CHECKED_OUT": "Not checked out yet",
     "NO_CONNECTIONS": "No Connection",
@@ -349,7 +352,8 @@
     "REGISTER_TEAM": "Enter Details to Register Team",
     "DELETE_TEAM_SUCCESS": "Team deleted successfully",
     "DELETE_TEAM_FAILURE": "Team deletion failed",
-    "EDIT_TEAM": "Enter Details to Edit Team"
+    "EDIT_TEAM": "Enter Details to Edit Team",
+    "INVITETEAMTITLE": "Invite Users"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

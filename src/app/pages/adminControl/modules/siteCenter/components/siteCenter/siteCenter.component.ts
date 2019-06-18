@@ -186,7 +186,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   viewMap() {
     let siteList = this.siteCentreObj.sitesList;
     let sitedata = siteList.data;
-    console.log(sitedata);
     this.helperService.createDialog(SiteMapComponent, {disableClose: true, height: '75%', width: '80%',  data: {'siteData': sitedata, type : false}});
   }
 }

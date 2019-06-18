@@ -168,6 +168,7 @@ export interface Strings {
 
 export interface Buttons {
   LOGIN: string;
+  EDIT: string;
   REGISTER: string;
   SIGNUP: string;
   FORGOTPASSWORD: string;
@@ -191,6 +192,7 @@ export interface Buttons {
   PROFIILE_INFO: string;
   JOIN_ENTITY: string;
   ADD_QUESTION: string;
+  CREATE_QUESTION: string;
   CREATE_ENTITY: string;
   SKIP: string;
   MAP: string;
@@ -299,6 +301,7 @@ export interface Messages {
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
   ADDQUESTION_MSG: string;
+  CREATEQUESTION_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
   NOUSER: string;
@@ -412,6 +415,7 @@ export interface Messages {
   EDIT_TEAM: string;
   NO_CONNECTIONS: string;
   GET_CONNECTIONS_FAILURE: string;
+  INVITETEAMTITLE: string;
 }
 
 export interface Logger {
