@@ -1,7 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {NavItem} from 'src/app/models/navItems.model';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {FixedNavModel} from 'src/app/models/navigation/fixedNav.model';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NavItem } from 'src/app/models/navItems.model';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { FixedNavModel } from 'src/app/models/navigation/fixedNav.model';
+import { Observable } from 'rxjs';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -14,6 +17,7 @@ export class FixedNavComponent implements OnInit {
   @Output() switchNavList = new EventEmitter();
   @Output() switchNavListDefault = new EventEmitter();
   @Input() public selectedEntity;
+
   fixedNav: FixedNavModel = <FixedNavModel>{};
   appIcons: any;
   public navLinks: NavItem[] = [];
@@ -62,6 +66,10 @@ export class FixedNavComponent implements OnInit {
       route: '/home/documents',
       iconName: this.helperService.constants.appIcons.insertDriveFile,
       toolTip: 'Documents'
+    },
+    {
+      iconName: 'bar_chart',
+      toolTip: 'Reports'
     }
   ];
   public navLinksBottom: NavItem[] = [
@@ -76,10 +84,64 @@ export class FixedNavComponent implements OnInit {
       toolTip: 'Settings'
     }
   ];
+
+  public reportLinks: NavItem[] = [
+    {
+      displayName: 'Action Report',
+      route: '/home/analyticsReport/actionReport',
+      disabled: true
+    },
+    {
+      displayName: 'Average Daily Actions',
+      route: '/home/analyticsReport/averageDailyActionsReport',
+      disabled: true
+    },
+    {
+      displayName: 'Checkin by Activity',
+      route: '/home/analyticsReport/checkInActivityReport',
+      disabled: true
+    },
+    {
+      displayName: 'Checkin and Alert by Person',
+      route: '/home/analyticsReport/alertsPersonReport',
+      disabled: true
+    },
+    {
+      displayName: 'Actions vs Alerts',
+      route: '/home/analyticsReport/actionAlertsReport',
+      disabled: true
+    },
+    {
+      displayName: 'Pulse Report by Entity',
+      route: '/home/analyticsReport/entityPulseReport',
+      disabled: true
+    },
+    {
+      displayName: 'Pulse Report by Person',
+      route: '/home/analyticsReport/personPulseReport',
+      disabled: true
+    },
+    {
+      displayName: 'Compliant Checkout',
+      route: '/home/analyticsReport/compliantCheckoutReport',
+      disabled: true
+    },
+    {
+      displayName: 'Site Activity Report',
+      route: '/home/analyticsReport/siteActivityReport',
+      disabled: true
+    },
+    {
+      displayName: 'Hazard Reports',
+      route: '/home/analyticsReport/hazardReport',
+      disabled: true
+    }
+  ]
   entitiesList: any;
 
   constructor(
     public helperService: HelperService,
+    public breakpointObserver: BreakpointObserver
   ) {
     this.fixedNav.translated = this.helperService.translated;
     this.fixedNav.appIcons = this.helperService.constants.appIcons;
