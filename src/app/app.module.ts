@@ -46,6 +46,7 @@ import { ImageLightboxComponent } from './Dialogs/imageLightbox/imageLightbox.co
 import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import { CreateQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import { ShowDocumentsComponent } from './pages/navigation/dialogs/showDocuments/showDocuments.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -76,7 +77,8 @@ export function createTranslateLoader(http: HttpClient) {
     ViewDocComponent,
     RegisterTeamComponent,
     ViewTeamComponent,
-    CreateQuestionComponent
+    CreateQuestionComponent,
+    ShowDocumentsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -144,6 +146,7 @@ export function createTranslateLoader(http: HttpClient) {
     ViewDocComponent,
     RegisterTeamComponent,
     ViewTeamComponent,
+    ShowDocumentsComponent
   ]
 })
 export class AppModule {

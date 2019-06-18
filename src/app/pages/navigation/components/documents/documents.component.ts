@@ -8,6 +8,7 @@ import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/upl
 import {CreateFolderComponent} from 'src/app/pages/navigation/dialogs/createFolder/createFolder.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc.component';
+import {ShowDocumentsComponent} from '../../dialogs/showDocuments/showDocuments.component';
 
 
 @Component({
@@ -219,5 +220,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     }
     return false;
 
+  }
+
+  showDocs() {
+    this.helperService.createDialog(ShowDocumentsComponent, {disableClose: true});
   }
 }
