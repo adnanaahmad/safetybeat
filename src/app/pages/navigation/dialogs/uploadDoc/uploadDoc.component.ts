@@ -21,7 +21,6 @@ export class UploadDocComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data) {
     this.documentsData.rootOnly = false;
     this.newDoc.entityId = this.data.entityID;
-    this.newDoc.folderList = [];
   }
 
   ngOnInit() {
@@ -30,12 +29,12 @@ export class UploadDocComponent implements OnInit {
       doc: ['', Validators.required],
       folders: ['']
     });
+    this.getAllFolders();
     // this.navService.selectedEntityData.subscribe((res) => {
     //   if (res !== 1) {
     //     this.newDoc.entityId = res.entityInfo.id;
     //   }
     // });
-    this.getAllFolders();
   }
 
   getAllFolders() {
@@ -48,15 +47,15 @@ export class UploadDocComponent implements OnInit {
           this.documentsData.rootOnly = true;
         }
       }
-      this.newDoc.folderList = this.data.folders;
     }
+    this.newDoc.folderList = this.data.folders;
   }
 // this function checks if root folder is already created
-  checkRoot(data): any {
+  checkRoot(list): any {
     let length = this.documentsData.folderLength;
-    if (data !== []) {
+    if (length !== 0) {
       for (let i = 0; i < length; i++) {
-        if (data[i].name === 'root') {
+        if (list[i].name === 'root') {
           return true;
 
         }
@@ -86,7 +85,7 @@ export class UploadDocComponent implements OnInit {
         this.documentsData.loader = false;
         this.dialogRef.close();
       } else {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_FAIL, this.helperService.constants.status.WARNING);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_UPLOAD_FAIL, this.helperService.constants.status.WARNING);
         this.documentsData.loader = false;
         this.dialogRef.close();
       }
@@ -100,7 +99,7 @@ export class UploadDocComponent implements OnInit {
       return;
     }
     if (this.formControls.folders.value === '') {
-      if (!this.checkRoot(this.newDoc.folderList)) {
+      if (!(this.checkRoot(this.newDoc.folderList))) {
         let data = {name: 'root', entity: this.newDoc.entityId};
         this.navService.createFolder(data).subscribe((res) => {
           this.upload(value, res.data.id);

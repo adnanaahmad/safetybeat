@@ -6,6 +6,7 @@ export interface Documents {
   docResponse: any;
   dataSource: any;
   docList: DocList[];
+  rootDocs: any;
   documentExist: boolean;
   folderExist: boolean;
   folderList: any;
@@ -15,6 +16,8 @@ export interface Documents {
   modalType: boolean;
   panelOpenState: boolean;
   loader: boolean;
+  folderShow: boolean;
+  folderDoc: boolean;
 }
 
 export interface DocList {

@@ -103,8 +103,10 @@
     "CHECK_IN": "Check-in",
     "CHECK_OUT": "Check-Out",
     "DURATION": "Duration",
-    "NO_ACTIVITIES": "No activities",
-    "NAME": "Name"
+    "NO_ACTIVITIES" : "No activities",
+    "NAME" : "Name",
+    "NO_DOCUMENTS": "No Documents",
+    "NO_FOLDERS": "No Folders"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -332,7 +334,9 @@
     "NOT_CHECKED_OUT": "Not checked out yet",
     "NO_CONNECTIONS": "No Connection",
     "GET_CONNECTIONS_FAILURE": "Connection could not be retrieved",
-    "DOC_FAIL": "Document could not be Uploaded",
+    "GET_DOCUMENT_FAILURE": "Documents could not be retrieved",
+    "GET_FOLDER_FAILURE": "Folders could not be retrieved",
+    "DOC_UPLOAD_FAIL": "Document could not be Uploaded",
     "TEAM_MEMBER": "Select Team Members",
     "TEAM_LEAD": "Select Team Lead",
     "TEAM_TITLE": "Team Title",
