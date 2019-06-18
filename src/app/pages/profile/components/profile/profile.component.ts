@@ -318,7 +318,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     this.profile.getUser().subscribe((res) => {
-      console.log(res);
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
    //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;

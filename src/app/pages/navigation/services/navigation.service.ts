@@ -159,6 +159,21 @@ export class NavigationService {
     );
   }
 
+  getDocuments(data: object) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.getAllDocuments,
+      data
+    );
+  }
+
+  getRootDocuments(data: object) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.getRootDocuments, data
+    );
+  }
+
   uploadDocuments(data: object) {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
