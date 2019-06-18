@@ -1,42 +1,31 @@
 @mixin amte-documents($primary, $accent, $warn) {
   :host,
   app-documents {
-    .paddingbox {
-      padding: 1rem 5rem;
-    }
-    .element-inline{
+    .document-inline,
+    .file-inline {
       display: inline-block;
-    }
-    .file-inline{
-      display: inline-block;
-      max-width:200px;
+      cursor: pointer;
       margin-right: 20px;
       margin-bottom: 20px;
-      padding-bottom:0;
+      width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .file-type,
-    .document-type{
+    .document-type {
       opacity: 0.5;
       padding-right: 5px;
+      float: left;
     }
-    .folders-wrapper{
-      .content-area{
-        mat-card{
-          margin-right: 20px;
-          margin-bottom: 20px;
-          width: 150px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+    .files-wrapper {
+      .file-inline {
+        img {
+          max-width: 100%;
+          display: block;
+          margin: 20px 0 0;
         }
       }
-    }
-    .files-wrapper{
-    .file-info{
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
     }
   }
 }
