@@ -56,12 +56,12 @@ export class UploadDocComponent implements OnInit {
     if (length !== 0) {
       for (let i = 0; i < length; i++) {
         if (list[i].name === 'root') {
-          return true;
-
+          return list[i].id;
         }
       }
+      return null;
     }
-    return false;
+    return null;
   }
 
   get formControls() {
@@ -99,7 +99,7 @@ export class UploadDocComponent implements OnInit {
       return;
     }
     if (this.formControls.folders.value === '') {
-      if (!(this.checkRoot(this.newDoc.folderList))) {
+      if (this.checkRoot(this.newDoc.folderList) === null) {
         let data = {name: 'root', entity: this.newDoc.entityId};
         this.navService.createFolder(data).subscribe((res) => {
           this.upload(value, res.data.id);
