@@ -19,7 +19,7 @@
     <h4 class="wrapper-heading">Folders</h4>
     <div class="content-area">
       <ng-container *ngFor="let folder of documentsData.folderList">
-      <mat-card class="element-inline" (click)="showDocs()">
+      <mat-card class="element-inline" (click)="showDocs(folder.id)">
         <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
         <span>{{folder.name}}</span>
       </mat-card>

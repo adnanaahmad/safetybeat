@@ -8,6 +8,7 @@ import {NavListComponent} from './components/navList/navList.component';
 import {NotificationNavComponent} from './components/notificationNav/notificationNav.component';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {DocumentsComponent} from './components/documents/documents.component';
+import {ShowDocumentsComponent} from './components/showDocuments/showDocuments.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {DocumentsComponent} from './components/documents/documents.component';
     NavListComponent,
     NavigationComponent,
     NotificationNavComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    ShowDocumentsComponent
   ],
   imports: [
     CommonModule,
