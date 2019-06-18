@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { NavigationComponent } from './components/navigation/navigation.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {NavigationComponent} from './components/navigation/navigation.component';
 import {DocumentsComponent} from './components/documents/documents.component';
+import {ShowDocumentsComponent} from './components/showDocuments/showDocuments.component';
 
 const routes: Routes = [
   {
     path: '',
     component: NavigationComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       {
         path: 'dashboard',
         loadChildren: '../dashboard/dashboard.module#DashboardModule',
@@ -32,7 +33,11 @@ const routes: Routes = [
       {
         path: 'documents',
         component: DocumentsComponent
-      }
+      },
+      {
+        path: 'viewDocs',
+        component: ShowDocumentsComponent
+      },
     ]
   }
 
@@ -42,4 +47,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NavigationRoutingModule { }
+export class NavigationRoutingModule {
+}

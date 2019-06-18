@@ -1,0 +1,22 @@
+<mat-card-title class="mat-dialog-title">
+  {{helperService.translated.SITETITLE.DOCUMENTS}}
+</mat-card-title>
+<div >
+
+  <div class="files-wrapper">
+    <h4 class="wrapper-heading">Files</h4>
+    <div class="content-area">
+      <ng-container *ngFor="let doc of documentsData.docList">
+        <mat-card class="file-inline">
+          <div class="file-info">
+            <mat-icon class="file-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
+            <span>{{doc.title}}</span>
+          </div>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="no preview available">
+        </mat-card>
+      </ng-container>
+    </div>
+  </div>
+
+
+</div>
