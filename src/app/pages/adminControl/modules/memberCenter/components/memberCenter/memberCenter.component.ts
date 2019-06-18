@@ -86,6 +86,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
    */
 
   connections(type, params?: any) {
+    console.log(this.memberCenter.dataSource);
     switch (type) {
       case this.helperService.appConstants.connections.add:
         this.addConnections(params.userId);
