@@ -51,6 +51,14 @@ export class AdminControlService {
     );
   }
 
+  viewEntitiesOfUser(data: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.viewAllEntitiesOfUser,
+      data
+    );
+  }
+
   /**
    * this function is used to return the joinEntity api response.
    * @params data
