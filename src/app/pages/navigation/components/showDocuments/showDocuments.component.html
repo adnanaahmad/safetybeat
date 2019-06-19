@@ -6,29 +6,26 @@
         <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
         {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
       </button>
-      <button btn-primary mat-raised-button color="primary" (click)="newFolder()">
-        <mat-icon>{{ helperService.appIcons.createFolder }}</mat-icon>
-        {{ helperService.translated.BUTTONS.CREATE_FOLDER }}
-      </button>
     </div>
   </div>
 
   <!--Go to root folder-->
-  <button class="go-back" (click)="goBack()" mat-button mat-dialog-close type="button">
+  <button class="go-back" (click)="goBack()" mat-button type="button">
     <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon> {{helperService.translated.BUTTONS.BACK}}
   </button>
 
   <!--Files-->
   <div class="files-wrapper">
     <h4 class="wrapper-heading">Files</h4>
-    <p class="no-data mat-small mat-caption">No documents found.</p>
+    <p class="no-data mat-small mat-caption" *ngIf="documentsData.docList.length < 1">No documents found.</p>
     <div class="content-area">
       <ng-container *ngFor="let doc of documentsData.docList">
         <mat-card class="file-inline">
           <span class="file-label mat-caption">PDF</span>
-          <img mat-card-image
-            src="https://docs.google.com/gview?url=https://s3-ap-southeast-2.amazonaws.com/2testbucket786/Faisal+Usman.pdf&embedded=true width='560px' height='623px"
-            alt="no preview available">
+          <iframe
+            src="https://docs.google.com/gview?url=https://s3-ap-southeast-2.amazonaws.com/2testbucket786/Faisal+Usman.pdf&embedded=true"
+            width='150' height='150'></iframe>
+          <br>
           <span class="mat-body-strong">{{doc.title}}</span>
         </mat-card>
       </ng-container>

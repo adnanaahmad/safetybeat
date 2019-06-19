@@ -28,7 +28,7 @@
   <!-- Folders -->
   <div class="folders-wrapper">
     <h4 class="wrapper-heading">Folders</h4>
-    <p class="no-data mat-small mat-caption">No folders found.</p>
+    <p class="no-data mat-small mat-caption" *ngIf="documentsData.folderList.length < 1">No folders found.</p>
     <div class="content-area">
       <ng-container *ngFor="let folder of documentsData.folderList">
         <mat-card class="document-inline" (click)="showDocs(folder.id)">
@@ -43,7 +43,7 @@
   <!--Files-->
   <div class="files-wrapper">
     <h4 class="wrapper-heading">Files</h4>
-    <p class="no-data mat-caption">No documents found.</p>
+    <p class="no-data mat-caption" *ngIf="documentsData.rootDocs.length < 1" >No documents found.</p>
     <div class="content-area">
       <ng-container *ngFor="let doc of documentsData.rootDocs">
         <mat-card class="file-inline">
