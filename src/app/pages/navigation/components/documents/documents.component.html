@@ -43,15 +43,15 @@
   <!--Files-->
   <div class="files-wrapper">
     <h4 class="wrapper-heading">Files</h4>
-    <p class="no-data mat-small mat-caption">No documents found.</p>
+    <p class="no-data mat-caption">No documents found.</p>
     <div class="content-area">
       <ng-container *ngFor="let doc of documentsData.rootDocs">
         <mat-card class="file-inline">
-          <mat-icon class="file-type">{{ helperService.appIcons.insertDriveFile }}</mat-icon>
-          <span>{{doc.title}}</span><br>
+          <span class="file-label mat-caption">PDF</span>
           <img mat-card-image
             src="https://docs.google.com/gview?url=https://s3-ap-southeast-2.amazonaws.com/2testbucket786/Faisal+Usman.pdf&embedded=true width='560px' height='623px"
-            alt="no preview available">
+            alt="no preview available"><br>
+            <span>{{doc.title}}</span>
         </mat-card>
       </ng-container>
     </div>

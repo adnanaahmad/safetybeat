@@ -6,7 +6,7 @@ import {NavigationService} from '../../services/navigation.service';
 import {CompilerProvider} from '../../../../shared/compiler/compiler';
 
 @Component({
-  selector: 'app-show-documents',
+  selector: 'app-showDocuments',
   templateUrl: './showDocuments.component.html',
   styleUrls: ['./showDocuments.component.scss']
 })
