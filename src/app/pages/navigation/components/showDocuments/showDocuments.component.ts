@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {ActivatedRoute} from '@angular/router';
-import {Documents} from '../../../../models/navigation/documents.model';
-import {NavigationService} from '../../services/navigation.service';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-
+import { Component, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { ActivatedRoute } from '@angular/router';
+import { Documents } from '../../../../models/navigation/documents.model';
+import { NavigationService } from '../../services/navigation.service';
+import { CompilerProvider } from '../../../../shared/compiler/compiler';
+import { Location } from '@angular/common';
+import {ViewDocComponent} from '../../dialogs/viewDoc/viewDoc.component';
 @Component({
-  selector: 'app-show-documents',
+  selector: 'app-showDocuments',
   templateUrl: './showDocuments.component.html',
   styleUrls: ['./showDocuments.component.scss']
 })
@@ -15,9 +16,10 @@ export class ShowDocumentsComponent implements OnInit {
   folderId: number;
 
   constructor(public helperService: HelperService,
-              private route: ActivatedRoute,
-              private navService: NavigationService,
-              public compiler: CompilerProvider) {
+    private route: ActivatedRoute,
+    private navService: NavigationService,
+    public compiler: CompilerProvider,
+    private location: Location) {
     this.route.params.subscribe((data) => {
       this.folderId = data.data
     });
@@ -26,7 +28,13 @@ export class ShowDocumentsComponent implements OnInit {
   ngOnInit() {
     this.docsOfFolder(this.folderId);
   }
+  goBack() {
+    this.location.back();
+  }
 
+  viewDoc(doc: any) {
+    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
+  }
   docsOfFolder(folderID: number) {
     this.documentsData.docList = [];
     this.documentsData.panelOpenState = true;
