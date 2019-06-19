@@ -17,10 +17,10 @@
   <!--Files-->
   <div class="files-wrapper">
     <h4 class="wrapper-heading">Files</h4>
-    <p class="no-data mat-small mat-caption" *ngIf="documentsData.docList.length < 1">No documents found.</p>
+    <p class="no-data mat-small mat-caption" *ngIf="!documentsData.folderDoc">No documents found.</p>
     <div class="content-area">
       <ng-container *ngFor="let doc of documentsData.docList">
-        <mat-card class="file-inline">
+        <mat-card class="file-inline" (click)="viewDoc(doc.file)">
           <span class="file-label mat-caption">PDF</span>
           <iframe
             src="https://docs.google.com/gview?url=https://s3-ap-southeast-2.amazonaws.com/2testbucket786/Faisal+Usman.pdf&embedded=true"

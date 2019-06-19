@@ -5,6 +5,7 @@ import { Documents } from '../../../../models/navigation/documents.model';
 import { NavigationService } from '../../services/navigation.service';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { Location } from '@angular/common';
+import {ViewDocComponent} from '../../dialogs/viewDoc/viewDoc.component';
 @Component({
   selector: 'app-showDocuments',
   templateUrl: './showDocuments.component.html',
@@ -29,6 +30,10 @@ export class ShowDocumentsComponent implements OnInit {
   }
   goBack() {
     this.location.back();
+  }
+
+  viewDoc(doc: any) {
+    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
   }
   docsOfFolder(folderID: number) {
     this.documentsData.docList = [];

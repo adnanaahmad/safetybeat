@@ -244,21 +244,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
 
   viewAllEntities(userId) {
-    // if (this.profileModel.currentUserProfile) {
-    //   this.profileModel.subscription = this.navService.data.subscribe((res) => {
-    //     if (res !== 1) {
-    //       this.helperService.toggleLoader(false);
-    //       this.profileModel.entitiesList = res;
-    //       this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-    //       this.profileModel.dataSource.paginator = this.paginator;
-    //     }
-    //   });
-    // } else {
-      this.adminService.viewEntitiesOfUser({'userId': userId, 'moduleName': 'safetybeat'}).subscribe((res) => {
-        this.profileModel.entitiesList = res;
-        this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-        this.profileModel.dataSource.paginator = this.paginator;
+    if (this.profileModel.currentUserProfile) {
+      this.profileModel.subscription = this.navService.data.subscribe((res) => {
+        if (res !== 1) {
+          this.helperService.toggleLoader(false);
+          this.profileModel.entitiesList = res;
+          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+          this.profileModel.dataSource.paginator = this.paginator;
+        }
       });
+    } else {}
+    //   this.adminService.viewEntitiesOfUser({'userId': userId, 'moduleName': 'safetybeat'}).subscribe((res) => {
+    //     this.profileModel.entitiesList = res;
+    //     this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+    //     this.profileModel.dataSource.paginator = this.paginator;
+    //   });
 
   }
 
