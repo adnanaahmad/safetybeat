@@ -31,6 +31,10 @@ export class ShowDocumentsComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
+  viewDoc(doc: any) {
+    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
+  }
   docsOfFolder(folderID: number) {
     this.documentsData.docList = [];
     this.documentsData.panelOpenState = true;
