@@ -45,6 +45,7 @@ import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.com
 import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import { CreateQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import { UploadFolderDocComponent } from './pages/navigation/dialogs/uploadFolderDoc/uploadFolderDoc.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -70,6 +71,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddQuestionComponent,
     SiteMapComponent,
     UploadDocComponent,
+    UploadFolderDocComponent,
     CreateFolderComponent,
     ViewDocComponent,
     ViewDocComponent,
@@ -137,12 +139,13 @@ export function createTranslateLoader(http: HttpClient) {
     AddQuestionComponent,
     SiteMapComponent,
     UploadDocComponent,
+    UploadFolderDocComponent,
     CreateFolderComponent,
     ViewDocComponent,
     CreateQuestionComponent,
     ViewDocComponent,
     RegisterTeamComponent,
-    ViewTeamComponent
+    ViewTeamComponent    
   ]
 })
 export class AppModule {
