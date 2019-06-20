@@ -112,5 +112,13 @@ export class UploadDocComponent implements OnInit {
     }
 
   }
+  uploadToFolder({value, valid}: { value: NewDoc; valid: boolean; }) {
+    this.documentsData.loader = true;
+    if (!valid) {
+      this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
+      return;
+    }
+      this.upload(value, value.folders);
+  }
 }
 
