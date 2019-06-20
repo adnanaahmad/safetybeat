@@ -40,16 +40,20 @@ export class CreateFolderComponent implements OnInit {
   }
 
   createFolder(value: Folders) {
-    let data = {name: value.title, entity: this.data.id};
-    this.navService.createFolder(data).subscribe((res) => {
-      if (res.responseDetails.code === 100) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
-        this.dialogRef.close();
-      } else {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_FAIL, this.helperService.constants.status.WARNING);
-        this.dialogRef.close();
-      }
-    });
+    if (value.title === this.helperService.appConstants.Root ) {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.CANT_CREATE_ROOT, this.helperService.constants.status.WARNING);
+    } else {
+      let data = {name: value.title, entity: this.data.id};
+      this.navService.createFolder(data).subscribe((res) => {
+        if (res.responseDetails.code === 100) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
+          this.dialogRef.close();
+        } else {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_FAIL, this.helperService.constants.status.WARNING);
+          this.dialogRef.close();
+        }
+      });
+    }
   }
 
   renameFolder(value: Folders) {

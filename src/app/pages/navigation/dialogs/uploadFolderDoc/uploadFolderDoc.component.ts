@@ -26,7 +26,7 @@ export class UploadFolderDocComponent implements OnInit {
 
   ngOnInit() {
     this.newDoc.uploadDocForm = this.formBuilder.group({
-      fileName: ['', Validators.required],
+      // fileName: ['', Validators.required],
       doc: ['', Validators.required],
       folders: ['']
     });
@@ -43,14 +43,15 @@ export class UploadFolderDocComponent implements OnInit {
 
   uploadFile(event) {
     this.newDoc.file = <File>event.target.files[0];
+    this.fileName = event.target.files[0].name;
   }
 
   upload(value, folderId) {
     let blob = new Blob([this.newDoc.file]);
     let formData = new FormData();
     formData.append('file', blob, this.newDoc.file.name);
-    formData.append('title', value.fileName);
     formData.append('folder', folderId);
+    formData.append('entityId', this.data.entityID);
 
     this.navService.uploadDocuments(formData).subscribe((res) => {
       if (res.responseDetails.code === 100) {
