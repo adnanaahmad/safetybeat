@@ -22,9 +22,9 @@
       <ng-container *ngFor="let doc of documentsData.docList">
         <mat-card class="file-inline" (click)="viewDoc(doc.file)">
           <span class="file-label mat-caption">PDF</span>
-          <iframe
-            src="https://docs.google.com/gview?url=https://s3-ap-southeast-2.amazonaws.com/2testbucket786/Faisal+Usman.pdf&embedded=true"
-            width='150' height='150'></iframe>
+          <!-- <iframe
+            src="doc.sourceUrl"
+            width='150' height='150'></iframe> -->
           <br>
           <span class="mat-body-strong">{{doc.title}}</span>
         </mat-card>

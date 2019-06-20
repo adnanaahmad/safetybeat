@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Documents } from '../../../../models/navigation/documents.model';
 import { NavigationService } from '../../services/navigation.service';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
-import { Location } from '@angular/common';
-import {ViewDocComponent} from '../../dialogs/viewDoc/viewDoc.component';
+import { Location } from '@angular/common'
+import { UploadFolderDocComponent } from '../../dialogs/uploadFolderDoc/uploadFolderDoc.component';
+import { ViewDocComponent } from '../../dialogs/viewDoc/viewDoc.component';
 @Component({
   selector: 'app-showDocuments',
   templateUrl: './showDocuments.component.html',
@@ -45,6 +46,11 @@ export class ShowDocumentsComponent implements OnInit {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.folderDoc = true;
         this.documentsData.docList = this.compiler.constructAllDocumentsData(res);
+        this.helperService.iterations(this.documentsData.docList,function(obj){
+          // https//docs.google.com/gview?url=" + obj.file + "&embedded=true
+          obj.sourceUrl =obj.file 
+          console.log(obj)
+        })
         this.navService.updateDocument(this.documentsData.docList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.documentsData.folderDoc = false;
@@ -56,4 +62,12 @@ export class ShowDocumentsComponent implements OnInit {
     });
   }
 
+  uploadDoc() {
+    this.helperService.createDialog(UploadFolderDocComponent, {
+      disableClose: true, 
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      debugger
+    });
+  }
 }
