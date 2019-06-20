@@ -6,6 +6,7 @@ import { NavigationService } from '../../services/navigation.service';
 import { CompilerProvider } from '../../../../shared/compiler/compiler';
 import { Location } from '@angular/common'
 import { UploadFolderDocComponent } from '../../dialogs/uploadFolderDoc/uploadFolderDoc.component';
+import { ViewDocComponent } from '../../dialogs/viewDoc/viewDoc.component';
 @Component({
   selector: 'app-showDocuments',
   templateUrl: './showDocuments.component.html',
