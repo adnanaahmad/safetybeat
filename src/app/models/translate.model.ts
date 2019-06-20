@@ -48,6 +48,8 @@ export interface Strings {
   CHECK_OUT: string;
   DURATION: string;
   NO_ACTIVITIES: string;
+  NO_DOCUMENTS: string;
+  NO_FOLDERS: string;
 }
 
 export interface Auth {
@@ -166,6 +168,7 @@ export interface Strings {
 
 export interface Buttons {
   LOGIN: string;
+  EDIT: string;
   REGISTER: string;
   SIGNUP: string;
   FORGOTPASSWORD: string;
@@ -189,6 +192,7 @@ export interface Buttons {
   PROFIILE_INFO: string;
   JOIN_ENTITY: string;
   ADD_QUESTION: string;
+  CREATE_QUESTION: string;
   CREATE_ENTITY: string;
   SKIP: string;
   MAP: string;
@@ -297,6 +301,7 @@ export interface Messages {
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
   ADDQUESTION_MSG: string;
+  CREATEQUESTION_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
   NOUSER: string;
@@ -387,7 +392,9 @@ export interface Messages {
   FOLDER_FAIL: string;
   NO_FOLDER: string;
   DOC_ADDED: string;
-  DOC_FAIL: string;
+  GET_DOCUMENT_FAILURE: string;
+  GET_FOLDER_FAILURE: string;
+  DOC_UPLOAD_FAIL: string;
   FOLDER_RENAMED: string;
   RENAME_FAIL: string;
   ACTIVITIES_FAIL: string;
@@ -408,6 +415,7 @@ export interface Messages {
   EDIT_TEAM: string;
   NO_CONNECTIONS: string;
   GET_CONNECTIONS_FAILURE: string;
+  INVITETEAMTITLE: string;
 }
 
 export interface Logger {

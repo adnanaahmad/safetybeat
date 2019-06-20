@@ -34,6 +34,7 @@ export class ConstantService {
     getInvite: `${environment.apiUrl}/registration/`,
     createEntity: `${environment.apiUrl}/entity/createEntity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
+    viewAllEntitiesOfUser: `${environment.apiUrl}/entity/viewAllEntitiesOfUser/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
@@ -65,6 +66,8 @@ export class ConstantService {
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
     viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocumentsDashboard/`,
+    getAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
+    getRootDocuments: `${environment.apiUrl}/api/documents/rootFolderDocuments/`,
     documents: `${environment.apiUrl}/api/documents/`,
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
@@ -194,7 +197,7 @@ export class ConstantService {
       login: '/login',
       package: '/package',
       welcomeScreen: '/welcomeScreen',
-      viewSite: '/home/adminControl/siteCenter/viewSite',
+      viewSite: '/home/adminControl/siteCenter/viewSite'
     },
     roles: {
       owner: 'Owner',

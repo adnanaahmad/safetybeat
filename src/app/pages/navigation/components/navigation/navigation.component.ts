@@ -11,7 +11,7 @@ import { GeneralComponent } from 'src/app/pages/settings/components/general/gene
 import { SecurityComponent } from 'src/app/pages/settings/components/security/security.component';
 import { ProfileModel } from 'src/app/models/profile/profile.model';
 import { ProfileService } from 'src/app/pages/profile/services/profile.service';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -30,6 +30,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   navModel: NavigationModel = <NavigationModel>{};
   isOwner: boolean = false;
   packageInfo: PackageInfo;
+  matcher: MediaQueryList;
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  .pipe(
+    map(result => result.matches)
+  );
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
@@ -37,7 +42,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public helperService: HelperService,
     private profile: ProfileService,
-    public breakpointObserver: BreakpointObserver
+    public breakpointObserver: BreakpointObserver,
+    public mediaMatcher: MediaMatcher
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -49,6 +55,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.matcher = this.mediaMatcher.matchMedia('(min-width: 500px)');
+    console.log('i am matcher', this.matcher);
     this.getProfileData();
   }
 

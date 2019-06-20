@@ -2,18 +2,18 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
-  </div>
-  <div class="buttonRow">
-    <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary" *ngIf="entityControl.joinOption"
-      (click)="joinEntity()">
-      <mat-icon>{{ helperService.appIcons.joinEntity }}</mat-icon>
-      {{ helperService.translated.BUTTONS.JOIN_ENTITY }}
-    </button>
-    <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary"
-      *ngIf="entityControl.createEntityOption" (click)="createEntity()">
-      <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
-      {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
-    </button>
+    <div class="buttonRow">
+      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary" *ngIf="entityControl.joinOption"
+        (click)="joinEntity()">
+        <mat-icon>{{ helperService.appIcons.joinEntity }}</mat-icon>
+        {{ helperService.translated.BUTTONS.JOIN_ENTITY }}
+      </button>
+      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary"
+        *ngIf="entityControl.createEntityOption" (click)="createEntity()">
+        <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
+        {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
+      </button>
+    </div>
   </div>
   <div class="table-wrap">
     <table mat-table [dataSource]="entityControl.dataSource" class="customTable mat-elevation-z3">

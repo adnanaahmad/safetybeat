@@ -1,88 +1,31 @@
 @mixin amte-documents($primary, $accent, $warn) {
   :host,
   app-documents {
-    .paddingbox {
-      padding: 1rem 5rem;
+    .document-inline,
+    .file-inline {
+      display: inline-block;
+      cursor: pointer;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .folder-icon{
-      font-size: 20px;
-      width: auto;
-      height: auto;
-      border-radius: 4px;
-      opacity: 0.3;
-      padding-right:5px;
+    .file-type,
+    .document-type {
+      opacity: 0.5;
+      padding-right: 5px;
+      float: left;
     }
-    .documents-tab {
-      .document-row {
-        display: flex;
-        margin: 10px 1px;
-        align-items: center;
-        .document-type {
-          font-size: 20px;
-          width: auto;
-          height: auto;
-          border-radius: 4px;
-          opacity: 0.3;
-          padding-right:5px;
-        }
-        .document-data {
-          .document-title {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-          }
-          span {
-            display: inline-flex;
-            align-items: center;
-            font-size: 12px;
-            mat-icon {
-              font-size: 14px;
-              height: auto;
-              width: auto;
-              margin-right: 5px;
-              font-weight: bold;
-              opacity: 0.4;
-            }
-            &.d-count {
-              margin-left: 10px;
-            }
-          }
-        }
-        .document-options {
-          margin-left: auto;
-          mat-icon {
-            padding: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            height: auto;
-            width: auto;
-            background: #fff;
-            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
-            margin: 0 5px;
-            border-radius: 100px;
-            &:hover {
-              opacity: 0.7;
-            }
-          }
+    .files-wrapper {
+      .file-inline {
+        img {
+          max-width: 100%;
+          display: block;
+          margin: 20px 0 0;
         }
       }
-    }
-    .folder-expansion {
-      mat-expansion-panel {
-        margin: 10px 1px;
-      }
-      mat-panel-title{
-        align-items: center;
-      }
-    }
-    .menubtn {
-      position: absolute;
-      right: 40px;
-      top: 12px;
-    }
-    .no-document{
-      opacity: 0.4;
-      font-size: 12px;
     }
   }
 }

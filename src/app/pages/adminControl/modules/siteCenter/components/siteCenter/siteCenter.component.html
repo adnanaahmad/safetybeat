@@ -1,21 +1,23 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
+    <div class="buttonRow">
+      <button btn-primary mat-raised-button color="primary" (click)="viewMap()"
+              [disabled]="siteCentreObj.dataSource === 0">
+        <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
+        {{ helperService.translated.BUTTONS.VIEW_MAP }}
+      </button>
+      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="addSite()">
+        <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
+        {{ helperService.translated.BUTTONS.ADD_SITE }}
+      </button>
+      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="importSite()">
+        <mat-icon>{{ helperService.appIcons.import }}</mat-icon>
+        {{ helperService.translated.BUTTONS.IMPORT_SITE }}
+      </button>
+    </div>
   </div>
-  <div class="buttonRow">
-    <button btn-primary mat-raised-button color="primary" (click)="viewMap()" [disabled]="siteCentreObj.dataSource === 0">
-      <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
-      {{ helperService.translated.BUTTONS.VIEW_MAP }}
-    </button>
-    <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="addSite()">
-      <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
-      {{ helperService.translated.BUTTONS.ADD_SITE }}
-    </button>
-    <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="importSite()">
-      <mat-icon>{{ helperService.appIcons.import }}</mat-icon>
-      {{ helperService.translated.BUTTONS.IMPORT_SITE }}
-    </button>
-  </div>
+
   <div class="table-wrap">
     <table matSort mat-table [dataSource]="siteCentreObj.dataSource" class="customTable mat-elevation-z3">
       <ng-container matColumnDef="name">
@@ -102,5 +104,6 @@
   <div class="paddingbox text-center" *ngIf="siteCentreObj.dataSource === 0">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
 
-  <mat-paginator class="mat-elevation-z1" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount"
+                 (page)="nextPage($event)"></mat-paginator>
 </div>

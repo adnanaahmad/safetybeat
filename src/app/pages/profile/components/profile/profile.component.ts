@@ -74,12 +74,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (!helperService.isEmpty(data)) {
 
         this.profileModel.receivedData = JSON.parse(data.data);
-        console.log(this.profileModel.receivedData);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id);
         this.viewActivities(this.profileModel.receivedData.id);
+        this.viewAllEntities(this.profileModel.userId);
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
@@ -108,6 +108,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.userId = this.profileModel.profileData.id;
           this.getUserConnections(this.profileModel.userId);
           this.viewActivities(this.profileModel.userId);
+          this.viewAllEntities(this.profileModel.userId);
         } else {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.username = this.profileModel.receivedData.name;
@@ -118,7 +119,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.getCurrentUser();
       }
     });
-    this.viewAllEntities();
+
     // this.responsive();
   }
 
@@ -241,20 +242,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * viewALLEntities.
    */
 
-  viewAllEntities() {
-    if (this.profileModel.currentUserProfile) {
-      this.profileModel.subscription = this.navService.data.subscribe((res) => {
-        if (res !== 1) {
-          this.helperService.toggleLoader(false);
-          this.profileModel.entitiesList = res;
-          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-          this.profileModel.dataSource.paginator = this.paginator;
-        }
+  viewAllEntities(userId) {
+    // if (this.profileModel.currentUserProfile) {
+    //   this.profileModel.subscription = this.navService.data.subscribe((res) => {
+    //     if (res !== 1) {
+    //       this.helperService.toggleLoader(false);
+    //       this.profileModel.entitiesList = res;
+    //       this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+    //       this.profileModel.dataSource.paginator = this.paginator;
+    //     }
+    //   });
+    // } else {
+      this.adminService.viewEntitiesOfUser({'userId': userId, 'moduleName': 'safetybeat'}).subscribe((res) => {
+        this.profileModel.entitiesList = res;
+        this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+        this.profileModel.dataSource.paginator = this.paginator;
       });
-    } else {
 
-
-    }
   }
 
   // viewAllEntities(userId: number) {
@@ -318,7 +322,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     this.profile.getUser().subscribe((res) => {
-      console.log(res);
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
    //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
@@ -349,7 +352,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.adminService.allConnections({ userId: userId }).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.profileModel.allConnectionsRes = res;
-        console.log(this.profileModel.allConnectionsRes);
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noConnection = true;

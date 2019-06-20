@@ -2,6 +2,7 @@ import {Site, SitesInfo} from '../site.model';
 import {Subscription} from 'rxjs';
 
 export interface SiteCentre {
+  data: any;
   entitiesData: any;
   allEntities: any;
   siteOption: boolean;
@@ -14,5 +15,8 @@ export interface SiteCentre {
   empty: boolean;
   viewSiteResponse: any;
   subscription: Subscription;
+  lastIndex: number;
+  firstIndex: number;
+  paginationData: any[];
 }
 

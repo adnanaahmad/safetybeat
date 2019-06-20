@@ -2,8 +2,18 @@
 @mixin amte-questionCenter($primary, $accent, $warn) {
   :host,
   app-questionCenter {
-    .page-title {
-      margin: 20px 0;
+    mat-grid-list {
+      height: calc(88vh - 100px);
+    }
+    .mat-figure {
+      align-items: flex-start;
+    }
+    mat-grid-tile {
+      height: 100% !important;
+      overflow: inherit;
+    }
+    .table-wrap {
+      padding: 5px;
     }
     mat-card {
       width: 100%;
@@ -82,7 +92,6 @@
       display: block;
     }
     .question-table {
-      table-layout: fixed;
       thead {
         background: mat-color($primary-pallet, 500);
         color: #fff;
@@ -91,7 +100,9 @@
       td {
         padding: 10px;
         font-size: 14px;
-        overflow: hidden;
+        text-overflow: unset !important;
+        overflow: auto !important;
+        white-space: normal !important;
       }
       [custom-btn] {
         width: 20px;

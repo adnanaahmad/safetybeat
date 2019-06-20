@@ -8,6 +8,8 @@ import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/upl
 import {CreateFolderComponent} from 'src/app/pages/navigation/dialogs/createFolder/createFolder.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc.component';
+import {ShowDocumentsComponent} from '../showDocuments/showDocuments.component';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public helperService: HelperService,
     private navService: NavigationService,
-    public compiler: CompilerProvider
+    public compiler: CompilerProvider,
+    private router: Router
   ) {
     this.initialize();
   }
@@ -39,15 +42,16 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res !== 1) {
         this.documentsData.entityID = res.entityInfo.id;
         this.getAllFolders(this.documentsData.entityID);
-        this.allDocumentsData(this.documentsData.entityID);
+        //   this.allDocumentsData(this.documentsData.entityID);
+        this.getRootDocuments(this.documentsData.entityID);
       }
     });
     this.documentsData.subscription = this.navService.newDoc.subscribe((res) => {
       if (res !== 1) {
         this.documentsData.docList = res;
-        this.documentsData.documentExist = true;
+        //      this.documentsData.documentExist = true;
       } else {
-        this.documentsData.documentExist = false;
+        //     this.documentsData.documentExist = false;
       }
     });
     this.documentsData.subscription = this.navService.allFoldersList.subscribe((res) => {
@@ -59,6 +63,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       }
     });
 
+
   }
 
   ngOnDestroy(): void {
@@ -67,61 +72,105 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
-      if (res.responseDetails.code !== 100) {
+      if (res.responseDetails.code !== this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.folderExist = false;
-        this.documentsData.folderList = res.data;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_FOLDER_FAILURE,
+          this.helperService.constants.status.ERROR);
       } else {
-        this.documentsData.folderList = res.data;
-        if (this.documentsData.folderList.length === 0) {
+        if (res.data.length === 0) {
           this.documentsData.folderExist = false;
-        } else if (this.documentsData.folderList.length === 1) {
-          if (this.documentsData.folderList[0].name === 'root') {
-            this.documentsData.folderExist = false;
-          } else {
-            this.documentsData.folderExist = true;
-            this.navService.updateFolder(this.documentsData.folderList);
-          }
+        } else {
+          this.documentsData.folderExist = true;
+          this.documentsData.folderList = res.data;
+          this.navService.updateFolder(this.documentsData.folderList);
         }
       }
     });
   }
 
-  allDocumentsData(entityID: number) {
-    let entityData = {
-      'entityId': entityID,
+  docsOfFolder(folderID: number) {
+    this.documentsData.docList = [];
+    this.documentsData.panelOpenState = true;
+    let data = {
+      'folderId': folderID
     };
-    this.navService.viewAllDocuments(entityData).subscribe((res) => {
-      this.documentsData.docResponse = res;
-      if (this.documentsData.docResponse.data.length !== 0) {
-          this.documentsData.documentExist = true;
-        if (this.documentsData.docResponse.data.folder !== []) {
-          if (this.documentsData.docResponse.data.length === 1 &&  this.documentsData.docResponse.data[0].folder.name === 'root') {
-            this.documentsData.folderExist = false;
-          } else {
-            this.documentsData.folderExist = true;
-          }
-        }
-
-      } else if (this.documentsData.docResponse.data.length === 0) {
-        this.documentsData.documentExist = false;
-        this.documentsData.folderExist = false;
+    this.navService.getDocuments(data).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.documentsData.folderDoc = true;
+        this.documentsData.docList = this.compiler.constructAllDocumentsData(res);
+        this.navService.updateDocument(this.documentsData.docList);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.documentsData.folderDoc = false;
+      } else {
+        this.documentsData.folderDoc = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
+          this.helperService.constants.status.ERROR);
       }
-      this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
-      this.navService.updateDocument(this.documentsData.docList);
     });
   }
+
+  getRootDocuments(entityId) {
+    this.documentsData.rootDocs = [];
+    let data = {'entityId': entityId};
+    this.navService.getRootDocuments(data).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res.data.length === 0) {
+          this.documentsData.documentExist = false;
+        } else {
+          this.documentsData.documentExist = true;
+          this.documentsData.rootDocs = this.compiler.constructDocuments(res);
+          this.navService.updateDocument(this.documentsData.docList);
+        }
+      } else {
+        this.documentsData.documentExist = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }
+    });
+  }
+
+  // allDocumentsData(entityID: number) {
+  //   let entityData = {
+  //     'entityId': entityID,
+  //   };
+  //   this.navService.viewAllDocuments(entityData).subscribe((res) => {
+  //     this.documentsData.docResponse = res;
+  //     if (this.documentsData.docResponse.data.length !== 0) {
+  //         this.documentsData.documentExist = true;
+  //       if (this.documentsData.docResponse.data.folder !== []) {
+  //         if (this.documentsData.docResponse.data.length === 1 &&  this.documentsData.docResponse.data[0].folder.name === 'root') {
+  //           this.documentsData.folderExist = false;
+  //         } else {
+  //           this.documentsData.folderExist = true;
+  //         }
+  //       }
+  //
+  //     } else if (this.documentsData.docResponse.data.length === 0) {
+  //       this.documentsData.documentExist = false;
+  //       this.documentsData.folderExist = false;
+  //     }
+  //     this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
+  //     this.navService.updateDocument(this.documentsData.docList);
+  //   });
+  // }
 
   uploadDoc() {
-    this.helperService.createDialog(UploadDocComponent, {disableClose: true, data: {folders: this.documentsData.folderList, entityID: this.documentsData.entityID}});
+    this.helperService.createDialog(UploadDocComponent, {
+      disableClose: true, data: {
+        folders: this.documentsData.folderList,
+        entityID: this.documentsData.entityID
+      }
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.allDocumentsData(this.documentsData.entityID);
+      //  this.allDocumentsData(this.documentsData.entityID);
+      this.getRootDocuments(this.documentsData.entityID);
     });
   }
 
   newFolder() {
     this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.allDocumentsData(this.documentsData.entityID);
+      //    this.allDocumentsData(this.documentsData.entityID);
       this.getAllFolders(this.documentsData.entityID);
     });
   }
@@ -133,8 +182,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteDoc(id).subscribe((res) => {
-          this.allDocumentsData(this.documentsData.entityID);
           this.getAllFolders(this.documentsData.entityID);
+          this.getRootDocuments(this.documentsData.entityID);
         });
       }
     });
@@ -151,7 +200,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteFolder(id).subscribe((res) => {
-          this.allDocumentsData(this.documentsData.entityID);
+          //        this.allDocumentsData(this.documentsData.entityID);
           this.getAllFolders(this.documentsData.entityID);
         });
       }
@@ -165,8 +214,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       this.getAllFolders(this.documentsData.entityID);
-      this.allDocumentsData(this.documentsData.entityID);
-      this.documentsData.folderExist = true;
+      //    this.allDocumentsData(this.documentsData.entityID);
+      //    this.documentsData.folderExist = true;
     });
   }
 
@@ -177,6 +226,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
 
+  showDocs(folderId: number) {
+    this.router.navigate(['/home/viewDocs', {data: JSON.stringify(folderId)}], {skipLocationChange: false});
   }
 }
