@@ -390,6 +390,7 @@ export interface Messages {
   SITE_MAP: string;
   NEW_FOLDER: string;
   FOLDER_FAIL: string;
+  CANT_CREATE_ROOT: string;
   NO_FOLDER: string;
   DOC_ADDED: string;
   GET_DOCUMENT_FAILURE: string;
