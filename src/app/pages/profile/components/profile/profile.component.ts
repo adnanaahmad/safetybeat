@@ -74,7 +74,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (!helperService.isEmpty(data)) {
 
         this.profileModel.receivedData = JSON.parse(data.data);
-        console.log(this.profileModel.receivedData);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
@@ -353,7 +352,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.adminService.allConnections({ userId: userId }).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.profileModel.allConnectionsRes = res;
-        console.log(this.profileModel.allConnectionsRes);
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noConnection = true;
