@@ -13,6 +13,8 @@ import {Documents, NewDoc, UploadDocForm} from 'src/app/models/navigation/docume
 export class UploadDocComponent implements OnInit {
   newDoc: UploadDocForm = <UploadDocForm>{};
   documentsData: Documents = <Documents>{};
+  private isDisabled: boolean;
+  private fileName: any;
 
   constructor(public helperService: HelperService,
               private formBuilder: FormBuilder,
@@ -21,11 +23,12 @@ export class UploadDocComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data) {
     this.documentsData.rootOnly = false;
     this.newDoc.entityId = this.data.entityID;
+    this.isDisabled = false;
   }
 
   ngOnInit() {
     this.newDoc.uploadDocForm = this.formBuilder.group({
-      fileName: ['', Validators.required],
+      // fileName: ['', Validators.required],
       doc: ['', Validators.required],
       folders: ['']
     });
@@ -42,11 +45,11 @@ export class UploadDocComponent implements OnInit {
     if (this.documentsData.folderLength === 0) {
       this.documentsData.rootOnly = true;
     } else {
-      if (this.documentsData.folderLength === 1) {
-        if (this.data.folders[0].name === 'root') {
-          this.documentsData.rootOnly = true;
-        }
-      }
+      // if (this.documentsData.folderLength === 1) {
+      //   if (this.data.folders[0].name === 'root') {
+      //     this.documentsData.rootOnly = true;
+      //   }
+      // }
     }
     this.newDoc.folderList = this.data.folders;
   }
@@ -70,14 +73,15 @@ export class UploadDocComponent implements OnInit {
 
   uploadFile(event) {
     this.newDoc.file = <File>event.target.files[0];
+    this.fileName = event.target.files[0].name;
   }
 
-  upload(value, folderName) {
+  upload(value, folderId) {
     let blob = new Blob([this.newDoc.file]);
     let formData = new FormData();
     formData.append('file', blob, this.newDoc.file.name);
-    formData.append('title', value.fileName);
-    formData.append('folder', folderName);
+    formData.append('folder', folderId);
+    formData.append('entityId', this.data.entityID);
 
     this.navService.uploadDocuments(formData).subscribe((res) => {
       if (res.responseDetails.code === 100) {
@@ -98,27 +102,12 @@ export class UploadDocComponent implements OnInit {
       this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
       return;
     }
-    if (this.formControls.folders.value === '') {
-      if (this.checkRoot(this.newDoc.folderList) === null) {
-        let data = {name: 'root', entity: this.newDoc.entityId};
-        this.navService.createFolder(data).subscribe((res) => {
-          this.upload(value, res.data.id);
-        });
-      } else {
-        this.upload(value, this.checkRoot(this.newDoc.folderList));
-      }
-    } else {
       this.upload(value, value.folders);
-    }
-
   }
-  uploadToFolder({value, valid}: { value: NewDoc; valid: boolean; }) {
-    this.documentsData.loader = true;
-    if (!valid) {
-      this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
-      return;
-    }
-      this.upload(value, value.folders);
+
+  showFolderList() {
+    this.isDisabled = !this.isDisabled;
+    return;
   }
 }
 

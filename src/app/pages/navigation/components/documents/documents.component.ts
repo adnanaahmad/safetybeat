@@ -203,6 +203,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   showDocs(folderId: number) {
-    this.router.navigate(['/home/viewDocs', {data: JSON.stringify(folderId)}], {skipLocationChange: false});
+    this.router.navigate(['/home/viewDocs', {folderId: JSON.stringify(folderId),
+      entityId: JSON.stringify(this.documentsData.entityID)}], {skipLocationChange: false});
   }
 }
