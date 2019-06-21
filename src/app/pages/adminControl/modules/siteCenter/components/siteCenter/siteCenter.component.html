@@ -105,5 +105,5 @@
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
 
   <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount"
-                 (page)="nextPage($event)"></mat-paginator>
+                 (page)="getSitesData(paginator.pageIndex)"></mat-paginator>
 </div>

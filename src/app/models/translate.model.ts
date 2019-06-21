@@ -417,6 +417,8 @@ export interface Messages {
   NO_CONNECTIONS: string;
   GET_CONNECTIONS_FAILURE: string;
   INVITETEAMTITLE: string;
+  ALL_SITES_SUCCESS: string;
+  ALL_SITES_FAILURE: string;
 }
 
 export interface Logger {
