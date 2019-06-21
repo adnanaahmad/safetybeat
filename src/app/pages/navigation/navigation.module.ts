@@ -17,7 +17,7 @@ import {ShowDocumentsComponent} from './components/showDocuments/showDocuments.c
     NavigationComponent,
     NotificationNavComponent,
     DocumentsComponent,
-    ShowDocumentsComponent
+    ShowDocumentsComponent    
   ],
   imports: [
     CommonModule,

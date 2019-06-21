@@ -1,12 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {ActivatedRoute} from '@angular/router';
-import {Documents} from '../../../../models/navigation/documents.model';
-import {NavigationService} from '../../services/navigation.service';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-
+import { Component, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { ActivatedRoute } from '@angular/router';
+import { Documents } from '../../../../models/navigation/documents.model';
+import { NavigationService } from '../../services/navigation.service';
+import { CompilerProvider } from '../../../../shared/compiler/compiler';
+import { Location } from '@angular/common'
+import { UploadFolderDocComponent } from '../../dialogs/uploadFolderDoc/uploadFolderDoc.component';
+import { ViewDocComponent } from '../../dialogs/viewDoc/viewDoc.component';
+import {UploadDocComponent} from '../../dialogs/uploadDoc/uploadDoc.component';
 @Component({
-  selector: 'app-show-documents',
+  selector: 'app-showDocuments',
   templateUrl: './showDocuments.component.html',
   styleUrls: ['./showDocuments.component.scss']
 })
@@ -17,7 +20,8 @@ export class ShowDocumentsComponent implements OnInit {
   constructor(public helperService: HelperService,
               private route: ActivatedRoute,
               private navService: NavigationService,
-              public compiler: CompilerProvider) {
+              public compiler: CompilerProvider,
+              private location: Location) {
     this.route.params.subscribe((data) => {
       this.folderId = data.data
     });
@@ -27,6 +31,14 @@ export class ShowDocumentsComponent implements OnInit {
     this.docsOfFolder(this.folderId);
   }
 
+  goBack() {
+    this.location.back();
+  }
+
+  viewDoc(doc: any) {
+    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
+  }
+
   docsOfFolder(folderID: number) {
     this.documentsData.docList = [];
     this.documentsData.panelOpenState = true;
@@ -34,9 +46,15 @@ export class ShowDocumentsComponent implements OnInit {
       'folderId': folderID
     };
     this.navService.getDocuments(data).subscribe((res) => {
+      console.log(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.folderDoc = true;
-        this.documentsData.docList = this.compiler.constructAllDocumentsData(res);
+        this.documentsData.docList = this.compiler.constructDocuments(res);
+        this.helperService.iterations(this.documentsData.docList, function (obj) {
+          // https//docs.google.com/gview?url=" + obj.file + "&embedded=true
+          obj.sourceUrl = obj.file
+          console.log(obj)
+        })
         this.navService.updateDocument(this.documentsData.docList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.documentsData.folderDoc = false;
@@ -48,4 +66,12 @@ export class ShowDocumentsComponent implements OnInit {
     });
   }
 
+  uploadDoc() {
+    this.helperService.createDialog(UploadFolderDocComponent, {
+      disableClose: true, data: {entityID: this.documentsData.entityID, folderId: this.folderId}
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.docsOfFolder(this.folderId);
+    });
+  }
 }

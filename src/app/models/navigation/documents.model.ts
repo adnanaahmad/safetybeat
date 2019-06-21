@@ -5,7 +5,7 @@ export interface Documents {
   subscription: Subscription;
   docResponse: any;
   dataSource: any;
-  docList: DocList[];
+  docList: any;
   rootDocs: any;
   documentExist: boolean;
   folderExist: boolean;

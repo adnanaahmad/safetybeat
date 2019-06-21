@@ -2,35 +2,23 @@
   {{helperService.translated.STRINGS.UPLOAD_DOC}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="newDoc.uploadDocForm" (ngSubmit)="uploadDoc(newDoc.uploadDocForm)">
+  <form [formGroup]="newDoc.uploadDocForm" (ngSubmit)="uploadToFolder(newDoc.uploadDocForm)">
     <mat-form-field appearance="outline" full-width>
       <mat-label>{{helperService.translated.STRINGS.FILE_NAME}}</mat-label>
-      <input formControlName="fileName" matInput type="text" required />
+      <input disabled formControlName="fileName" matInput type="text" required />
       <mat-error class="text-right" *ngIf="formControls.fileName.errors">
         <span *ngIf="formControls.fileName.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>
       </mat-error>
     </mat-form-field>
     <div>
-      <div class="file-uploader">
+      <div class="file-uploader" >
         <button class="fake-uploader">
-          <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon> Upload File
+          <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon> {{fileName}}
         </button>
         <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt"
           (change)=uploadFile($event) required />
       </div>
     </div>
-    <mat-form-field appearance="outline" full-width *ngIf="!documentsData.rootOnly">
-      <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
-      <mat-select formControlName="folders">
-        <ng-container *ngFor="let folder of newDoc.folderList">
-          <div *ngIf="folder.name !== 'root'">
-            <mat-option [value]="folder.id">
-              {{folder.name}}
-            </mat-option>
-          </div>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
     <mat-dialog-actions>
       <button mat-raised-button type="submit" custom-btn btn-primary color="primary"
         [disabled]="!newDoc.uploadDocForm.valid">
@@ -46,5 +34,4 @@
       </button>
     </mat-dialog-actions>
   </form>
-
 </div>
