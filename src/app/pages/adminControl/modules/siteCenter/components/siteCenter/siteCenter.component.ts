@@ -205,21 +205,12 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       {disableClose: true, height: '75%', width: '80%', data: {'siteData': sitedata, type: false}});
   }
 
-  getTableData(pageIndex) {
-    let self = this;
-    this.siteCentreObj.paginationData.forEach(function (obj) {
-      if (obj.pageIndex === pageIndex) {
-        self.siteCentreObj.data = obj.data
-      }
-    })
-  }
-
   nextPage(event: PageEvent) {
     if (this.paginator.pageIndex > this.siteCentreObj.lastIndex) {
       this.getSitesData(this.paginator.pageIndex);
     } else if (this.paginator.pageIndex <= this.siteCentreObj.lastIndex) {
-      this.getTableData(this.paginator.pageIndex)
-      this.siteCentreObj.dataSource = this.siteCentreObj.data ;
+      this.getSitesData(this.paginator.pageIndex)
     }
   }
 }
+
