@@ -128,31 +128,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // allDocumentsData(entityID: number) {
-  //   let entityData = {
-  //     'entityId': entityID,
-  //   };
-  //   this.navService.viewAllDocuments(entityData).subscribe((res) => {
-  //     this.documentsData.docResponse = res;
-  //     if (this.documentsData.docResponse.data.length !== 0) {
-  //         this.documentsData.documentExist = true;
-  //       if (this.documentsData.docResponse.data.folder !== []) {
-  //         if (this.documentsData.docResponse.data.length === 1 &&  this.documentsData.docResponse.data[0].folder.name === 'root') {
-  //           this.documentsData.folderExist = false;
-  //         } else {
-  //           this.documentsData.folderExist = true;
-  //         }
-  //       }
-  //
-  //     } else if (this.documentsData.docResponse.data.length === 0) {
-  //       this.documentsData.documentExist = false;
-  //       this.documentsData.folderExist = false;
-  //     }
-  //     this.documentsData.docList = this.compiler.constructAllDocumentsData(this.documentsData.docResponse);
-  //     this.navService.updateDocument(this.documentsData.docList);
-  //   });
-  // }
-
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {
       disableClose: true, data: {
