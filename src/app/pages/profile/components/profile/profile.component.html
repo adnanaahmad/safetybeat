@@ -1,13 +1,10 @@
-<mat-toolbar class="pagehead">
-  <div>
-    <div class="user-avatar">
-      <img
-        src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}" />
-      <span class="change-avatar" *ngIf="profileModel.currentUserProfile">
-        <input type='file' name="{{helperService.appConstants.profileImage}}"
-          id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />
-        Change Picture</span>
-    </div>
+<mat-toolbar class="pagehead mat-elevation-z5">
+  <div class="user-avatar">
+    <img src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}" />
+    <span class="change-avatar" *ngIf="profileModel.currentUserProfile">
+      <input type='file' name="{{helperService.appConstants.profileImage}}"
+        id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />
+      Change Picture</span>
   </div>
   <div class="user-info" *ngIf="profileModel.profileData">
     <h3>
@@ -15,6 +12,12 @@
         aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.username }}</strong>
     </h3>
     <p>{{profileModel.role}} <strong>{{profileModel.entityName}}</strong></p>
+  </div>
+  <div class="data-counts">
+    <div class="countbox">
+      <h4 class="mat-display-1">30</h4>
+      <p class="mat-small">Connections</p>
+    </div>
   </div>
 </mat-toolbar>
 <div class="grid-container" style="max-height: 500px">
@@ -36,19 +39,26 @@
         </mat-card-header>
         <mat-card-content>
           <ng-container *ngIf="profileModel.noActivity !== true">
-          <div class="activity-card" *ngFor="let activity of profileModel.recentActivities">
-            <div class="row"><strong>{{activity.siteData.name}}</strong><span (click)="viewSite(activity.siteData.longitude, activity.siteData.latitude,
+            <div class="activity-card" *ngFor="let activity of profileModel.recentActivities">
+              <div class="row"><strong>{{activity.siteData.name}}</strong><span (click)="viewSite(activity.siteData.longitude, activity.siteData.latitude,
              activity.siteData.name, activity.siteData.location)"><a>
-                  <mat-icon >link</mat-icon> View Site
-                </a></span></div>
-            <div class="row"><strong>{{helperService.translated.STRINGS.CHECK_IN}}</strong><span>{{activity.checkInCheckOut.checkedInAt | date:'medium'}}</span></div>
-            <div class="row"><strong>{{helperService.translated.STRINGS.CHECK_OUT}}</strong>
-              <span *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span>
-              <span *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.checkInCheckOut.checkedOutAt | date:'medium'}}</span>
+                    <mat-icon>link</mat-icon> View Site
+                  </a></span></div>
+              <div class="row">
+                <strong>{{helperService.translated.STRINGS.CHECK_IN}}</strong><span>{{activity.checkInCheckOut.checkedInAt | date:'medium'}}</span>
+              </div>
+              <div class="row"><strong>{{helperService.translated.STRINGS.CHECK_OUT}}</strong>
+                <span
+                  *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span>
+                <span
+                  *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.checkInCheckOut.checkedOutAt | date:'medium'}}</span>
+              </div>
+              <div class="row"><strong>{{helperService.translated.STRINGS.DURATION}}</strong><span
+                  *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.duration}}</span>
+                <span
+                  *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span>
+              </div>
             </div>
-            <div class="row"><strong>{{helperService.translated.STRINGS.DURATION}}</strong><span *ngIf="activity.checkInCheckOut.checkedOutAt !== null">{{activity.duration}}</span>
-              <span *ngIf="activity.checkInCheckOut.checkedOutAt === null">{{helperService.translated.MESSAGES.NOT_CHECKED_OUT}}</span></div>
-          </div>
           </ng-container>
           <ng-container *ngIf="profileModel.noActivity === true">
             <mat-card style="text-align: center;">{{helperService.translated.STRINGS.NO_ACTIVITIES}}</mat-card>
@@ -77,9 +87,13 @@
                 <img src="{{ connection.photos != null ? connection.photos : helperService.appConstants.avatar}}">
                 <div class="list-content">
                   <label>{{connection.name}} </label>
-                  <span><mat-icon>{{helperService.appIcons.email}}</mat-icon>{{connection.email}}</span>
+                  <span>
+                    <mat-icon>{{helperService.appIcons.email}}</mat-icon>{{connection.email}}
+                  </span>
                 </div>
-                <div *ngIf="profileModel.currentUserProfile"><mat-icon (click)="removeConnection(connection.id)">remove_circle_outline</mat-icon></div>
+                <div *ngIf="profileModel.currentUserProfile">
+                  <mat-icon (click)="removeConnection(connection.id)">remove_circle_outline</mat-icon>
+                </div>
               </mat-list-item>
             </mat-list>
           </ng-container>

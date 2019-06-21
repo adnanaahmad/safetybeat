@@ -127,7 +127,7 @@ export class CompilerProvider {
   }
 
   constructAllSitesData(siteApiResponse: any): SitesInfo[] {
-    return siteApiResponse.data;
+    return siteApiResponse;
   }
 
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {

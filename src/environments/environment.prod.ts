@@ -1,4 +1,4 @@
-const serverUrl = 'http://192.168.69.38:8000';
+const serverUrl = 'http://localhost:8080';
 export const environment = {
   production: true,
   apiUrl: `${serverUrl}/safetybeat`,
