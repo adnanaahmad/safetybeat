@@ -84,22 +84,34 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       'pageIndex': pageIndex
     };
     this.adminServices.viewSites(entityData).subscribe((res) => {
-      this.siteCentreObj.sitesList = res.data.sitesList;
-      this.pageCount = res.data.pageCount;
-      if (pageIndex === 0) {
-        this.siteCentreObj.paginationData = [];
-      }
-      this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
-      this.siteCentreObj.lastIndex = pageIndex;
-      this.siteCentreObj.paginationData.push({'pageIndex': pageIndex, 'data': this.siteCentreObj.sitesData});
-      this.adminServices.changeSites(this.siteCentreObj.sitesData);
-      this.adminServices.siteObserver.subscribe((res) => {
-        if (res !== 1 && res.length !== 0) {
-          this.siteCentreObj.dataSource = new MatTableDataSource(res);
-        } else if (res.length === 0) {
-          this.siteCentreObj.dataSource = 0;
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.siteCentreObj.sitesList = res.data.sitesList;
+        this.pageCount = res.data.pageCount;
+        if (pageIndex === 0) {
+          this.siteCentreObj.paginationData = [];
         }
-      });
+        this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
+        this.siteCentreObj.lastIndex = pageIndex;
+        this.siteCentreObj.paginationData.push({'pageIndex': pageIndex, 'data': this.siteCentreObj.sitesData});
+        this.adminServices.changeSites(this.siteCentreObj.sitesData);
+        this.adminServices.siteObserver.subscribe((res) => {
+          if (res !== 1 && res.length !== 0) {
+            this.siteCentreObj.dataSource = new MatTableDataSource(res);
+          } else if (res.length === 0) {
+            this.siteCentreObj.dataSource = 0;
+          }
+        });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        this.siteCentreObj.dataSource = 0;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }
+    }, (error) => {
+      this.siteCentreObj.dataSource = 0;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
+        this.helperService.constants.status.ERROR);
     });
   }
 
@@ -205,12 +217,5 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       {disableClose: true, height: '75%', width: '80%', data: {'siteData': sitedata, type: false}});
   }
 
-  nextPage(event: PageEvent) {
-    if (this.paginator.pageIndex > this.siteCentreObj.lastIndex) {
-      this.getSitesData(this.paginator.pageIndex);
-    } else if (this.paginator.pageIndex <= this.siteCentreObj.lastIndex) {
-      this.getSitesData(this.paginator.pageIndex)
-    }
-  }
 }
 
