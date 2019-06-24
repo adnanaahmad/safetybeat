@@ -98,6 +98,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.profileModel.noRecords = false;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
@@ -250,34 +251,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.entitiesList = res;
           this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
           this.profileModel.dataSource.paginator = this.paginator;
+        } else {
+          this.profileModel.noRecords = true;
         }
       });
-    } else {}
-    //   this.adminService.viewEntitiesOfUser({'userId': userId, 'moduleName': 'safetybeat'}).subscribe((res) => {
-    //     this.profileModel.entitiesList = res;
-    //     this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-    //     this.profileModel.dataSource.paginator = this.paginator;
-    //   });
-
+    } else {
+      this.adminService.viewEntitiesOfUser({'userId': userId}).subscribe((res) => {
+        if (res.responseDetails.code === 100) {
+          this.profileModel.entitiesList = res;
+          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.data);
+          this.profileModel.dataSource.paginator = this.paginator;
+        } else {
+          this.profileModel.noRecords = true;
+        }
+      });
+    }
   }
-
-  // viewAllEntities(userId: number) {
-  //   this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
-  //     if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-  //       if (res.data.length === 0) {
-  //         this.profileModel.noActivity = true;
-  //       } else {
-  //         this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res);
-  //       }
-  //     } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-  //       this.profileModel.noActivity = true;
-  //       this.helperService.appLogger(this.helperService.constants.status.ERROR,
-  //         this.helperService.translated.MESSAGES.ACTIVITIES_FAIL);
-  //     } else {
-  //       this.profileModel.noActivity = true;
-  //     }
-  //   });
-  // }
 
   /**
    * this function is used for hiding all the debugging messages and also used for unsubscribing the

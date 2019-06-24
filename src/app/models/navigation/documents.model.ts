@@ -18,6 +18,7 @@ export interface Documents {
   loader: boolean;
   folderShow: boolean;
   folderDoc: boolean;
+  folderId: number;
 }
 
 export interface DocList {

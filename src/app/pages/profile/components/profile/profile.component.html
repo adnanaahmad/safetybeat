@@ -139,6 +139,7 @@
           </div>
         </mat-card-content>
       </mat-card>
+
       <mat-card class="dashboard-card activities" *ngIf="card.title==='Entities'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
@@ -178,7 +179,7 @@
               <tr mat-header-row *matHeaderRowDef="profileModel.displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: profileModel.displayedColumns;"></tr>
             </table>
-            <div class="paddingbox text-center" *ngIf="!profileModel.currentUserProfile">
+            <div class="paddingbox text-center" *ngIf="profileModel.noRecords">
               {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </div>
