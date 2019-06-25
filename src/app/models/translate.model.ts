@@ -417,6 +417,10 @@ export interface Messages {
   NO_CONNECTIONS: string;
   GET_CONNECTIONS_FAILURE: string;
   INVITETEAMTITLE: string;
+  ACTIVITIES: string;
+  CONNECTIONS: string;
+  LEAVES: string;
+  ENTITIES: string;
 }
 
 export interface Logger {
@@ -490,6 +494,7 @@ export interface SiteTitle {
   HAZARD_CENTER: string;
   DOCUMENTS: string;
   MY_TEAM: string;
+  ACCOUNTINFO: string;
 }
 
 export interface TableHeadings {
