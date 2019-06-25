@@ -358,7 +358,9 @@
     "ACTIVITIES": "Activities",
     "CONNECTIONS": "Connections",
     "LEAVES": "Leaves",
-    "ENTITIES": "Entities"
+    "ENTITIES": "Entities",
+    "ALL_SITES_SUCCESS": "All Sites Received",
+    "ALL_SITES_FAILURE": "All Sites Record API Failed"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

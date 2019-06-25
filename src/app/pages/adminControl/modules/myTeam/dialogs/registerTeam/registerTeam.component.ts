@@ -27,6 +27,7 @@ export class RegisterTeamComponent implements OnInit {
               public helperService: HelperService,
               public formBuilder: FormBuilder,
               public compiler: CompilerProvider,
+              private navService: NavigationService,
               private adminServices: AdminControlService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.initialize();
@@ -48,7 +49,6 @@ export class RegisterTeamComponent implements OnInit {
         team: [''],
       });
     }
-
   }
 
   onNoClick(): void {
@@ -147,11 +147,13 @@ export class RegisterTeamComponent implements OnInit {
     this.registerTeamObj.userCtrl.setValue(null);
   }
 
-  excludeTeamLead(event: MatSelectChange) {
-    this.registerTeamObj.allUsersList = this.data.allUsersOfTeam;
-    console.log(event.value);
-
-  }
+  // excludeTeamLead(event: MatSelectChange) {
+  //   console.log(this.data.allUsersOfTeam)
+  //   this.registerTeamObj.allUsersList = _.reject(this.data.allUsersOfTeam, function(user){
+  //    if(user.id !== event.value
+  //   })
+  //
+  // }
 
 
   private editOrRegister() {

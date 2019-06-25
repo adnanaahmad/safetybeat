@@ -421,6 +421,8 @@ export interface Messages {
   CONNECTIONS: string;
   LEAVES: string;
   ENTITIES: string;
+  ALL_SITES_SUCCESS: string;
+  ALL_SITES_FAILURE: string;
 }
 
 export interface Logger {

@@ -8,7 +8,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ViewTeamComponent} from 'src/app/pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-my-team',
@@ -72,6 +72,7 @@ export class MyTeamComponent implements OnInit {
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.myTeam.dataSource = 0;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
         this.helperService.constants.status.ERROR);
     });
