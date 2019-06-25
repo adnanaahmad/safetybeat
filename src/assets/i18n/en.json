@@ -103,8 +103,8 @@
     "CHECK_IN": "Check-in",
     "CHECK_OUT": "Check-Out",
     "DURATION": "Duration",
-    "NO_ACTIVITIES" : "No activities",
-    "NAME" : "Name",
+    "NO_ACTIVITIES": "No activities",
+    "NAME": "Name",
     "NO_DOCUMENTS": "No Documents",
     "NO_FOLDERS": "No Folders"
   },
@@ -355,6 +355,10 @@
     "EDIT_TEAM": "Enter Details to Edit Team",
     "INVITETEAMTITLE": "Invite Users",
     "CANT_CREATE_ROOT": "Cannot create folder with this name. Please try another name!",
+    "ACTIVITIES": "Activities",
+    "CONNECTIONS": "Connections",
+    "LEAVES": "Leaves",
+    "ENTITIES": "Entities",
     "ALL_SITES_SUCCESS": "All Sites Received",
     "ALL_SITES_FAILURE": "All Sites Record API Failed"
   },
@@ -368,7 +372,8 @@
     "QUESTION_CENTER": "Question Centre",
     "HAZARD_CENTER": "Hazard Centre",
     "DOCUMENTS": "Documents",
-    "MY_TEAM": "My Team"
+    "MY_TEAM": "My Team",
+    "ACCOUNTINFO": "Account information"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
