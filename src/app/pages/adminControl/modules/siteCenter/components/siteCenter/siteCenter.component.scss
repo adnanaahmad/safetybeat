@@ -1,1 +1,21 @@
-
+@mixin amte-siteCenter($primary, $accent, $warn) {
+  :host,
+  app-siteCenter {
+    .data-filter {
+      padding: 0 0 0 10px;
+      top: 11px;
+      position: relative;
+      width: 160px;
+      .input-wrap {
+        display: flex;
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 4px;
+      }
+      mat-form-field {
+        margin: 0 10px;
+        width: 150px;
+      }
+    }
+  }
+}
