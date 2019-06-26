@@ -76,6 +76,7 @@ export class ConstantService {
     deleteDoc: `${environment.apiUrl}/api/documents/`,
     team: `${environment.apiUrl}/api/teams/`,
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
+    saveFirebaseToken: `${environment.apiUrl}/users/saveFirebaseToken/`
   };
   /**
    * all the api methods are declared here.
