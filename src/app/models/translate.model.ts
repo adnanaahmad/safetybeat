@@ -50,6 +50,41 @@ export interface Strings {
   NO_ACTIVITIES: string;
   NO_DOCUMENTS: string;
   NO_FOLDERS: string;
+  PASSWORD: string;
+  MOBILENO: string;
+  PASSWORD1: string;
+  PASSWORD2: string;
+  NAME: string;
+  TYPE: string;
+  ADDRESS: string;
+  CITY: string;
+  COUNTRY: string;
+  ZIPCODE: string;
+  BILLINGEMAIL: string;
+  ACCOUNTNO: string;
+  PHONENO: string;
+  FAX: string;
+  PACKAGE_DESCRIPTION_1: string;
+  PACKAGE_DESCRIPTION_2: string;
+  PACKAGE_DESCRIPTION_3: string;
+  QUESTION_NAME: string;
+  QUESTION_WARNING: string;
+  SELECT_QUESTION_TYPE: string;
+  SAFE_QUESTION: string;
+  PARENT: string;
+  SAFE_QUESTION_YES: string;
+  SAFE_QUESTION_NO: string;
+  SAFE_QUESTION_BOTH: string;
+  CAN_PROCEED_QUESTION: string;
+  CAN_PROCEED_QUESTION_YES: string;
+  CAN_PROCEED_QUESTION_NO: string;
+  RENAME: string;
+  DELETE_FOLDER: string;
+  PARENT_QUESTION: string;
+  CHILD_YES: string;
+  CHILD_NO: string;
+  CHILD: string;
+
 }
 
 export interface Auth {
@@ -124,46 +159,6 @@ export interface Icons {
   SCATTER_PLOT: string;
   DETAILS: string;
   TEXTURE: string;
-}
-
-export interface Strings {
-  EXPAND: string;
-  REMOVE: string;
-  EMAIL: string;
-  USERNAME: string;
-  PASSWORD: string;
-  FIRSTNAME: string;
-  LASTNAME: string;
-  MOBILENO: string;
-  PASSWORD1: string;
-  PASSWORD2: string;
-  NAME: string;
-  TYPE: string;
-  ADDRESS: string;
-  CITY: string;
-  COUNTRY: string;
-  ZIPCODE: string;
-  BILLINGEMAIL: string;
-  ACCOUNTNO: string;
-  PHONENO: string;
-  FAX: string;
-  PACKAGE_DESCRIPTION_1: string;
-  PACKAGE_DESCRIPTION_2: string;
-  PACKAGE_DESCRIPTION_3: string;
-  QUESTION_NAME: string;
-  QUESTION_WARNING: string;
-  SELECT_QUESTION_TYPE: string;
-  SAFE_QUESTION: string;
-  PARENT: string;
-  SAFE_QUESTION_YES: string;
-  SAFE_QUESTION_NO: string;
-  SAFE_QUESTION_BOTH: string;
-  CAN_PROCEED_QUESTION: string;
-  CAN_PROCEED_QUESTION_YES: string;
-  CAN_PROCEED_QUESTION_NO: string;
-  RENAME: string;
-  DELETE_FOLDER: string;
-
 }
 
 export interface Buttons {
