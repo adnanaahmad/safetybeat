@@ -28,47 +28,18 @@ export class UploadDocComponent implements OnInit {
 
   ngOnInit() {
     this.newDoc.uploadDocForm = this.formBuilder.group({
-      // fileName: ['', Validators.required],
       doc: ['', Validators.required],
       folders: ['']
     });
     this.getAllFolders();
-    // this.navService.selectedEntityData.subscribe((res) => {
-    //   if (res !== 1) {
-    //     this.newDoc.entityId = res.entityInfo.id;
-    //   }
-    // });
   }
 
   getAllFolders() {
     this.documentsData.folderLength = this.data.folders.length;
     if (this.documentsData.folderLength === 0) {
       this.documentsData.rootOnly = true;
-    } else {
-      // if (this.documentsData.folderLength === 1) {
-      //   if (this.data.folders[0].name === 'root') {
-      //     this.documentsData.rootOnly = true;
-      //   }
-      // }
     }
     this.newDoc.folderList = this.data.folders;
-  }
-// this function checks if root folder is already created
-  checkRoot(list): any {
-    let length = this.documentsData.folderLength;
-    if (length !== 0) {
-      for (let i = 0; i < length; i++) {
-        if (list[i].name === 'root') {
-          return list[i].id;
-        }
-      }
-      return null;
-    }
-    return null;
-  }
-
-  get formControls() {
-    return this.newDoc.uploadDocForm.controls;
   }
 
   uploadFile(event) {
@@ -102,7 +73,7 @@ export class UploadDocComponent implements OnInit {
       this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
       return;
     }
-      this.upload(value, value.folders);
+    this.upload(value, value.folders);
   }
 
   showFolderList() {

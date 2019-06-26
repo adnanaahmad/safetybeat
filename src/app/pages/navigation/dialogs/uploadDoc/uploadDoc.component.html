@@ -3,13 +3,6 @@
 </mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="newDoc.uploadDocForm" (ngSubmit)="uploadDoc(newDoc.uploadDocForm)">
-<!--    <mat-form-field appearance="outline" full-width>-->
-<!--      <mat-label>{{helperService.translated.STRINGS.FILE_NAME}}</mat-label>-->
-<!--      <input formControlName="fileName" matInput type="text" required />-->
-<!--      <mat-error class="text-right" *ngIf="formControls.fileName.errors">-->
-<!--        <span *ngIf="formControls.fileName.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>-->
-<!--      </mat-error>-->
-<!--    </mat-form-field>-->
     <div>
       <div class="file-uploader">
         <button class="fake-uploader">

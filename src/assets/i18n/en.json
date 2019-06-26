@@ -76,7 +76,6 @@
     "QUESTION_WARNING": "Question Warning",
     "SELECT_QUESTION_TYPE": "Select Question Type",
     "SAFE_QUESTION": "Which answer is safe?",
-    "PARENT": "",
     "SAFE_QUESTION_YES": "Yes",
     "SAFE_QUESTION_NO": "No",
     "SAFE_QUESTION_BOTH": "Both",
@@ -106,7 +105,12 @@
     "NO_ACTIVITIES" : "No activities",
     "NAME" : "Name",
     "NO_DOCUMENTS": "No Documents",
-    "NO_FOLDERS": "No Folders"
+    "NO_FOLDERS": "No Folders",
+    "PARENT_QUESTION": "Parent Question",
+    "CHILD_YES": "Child Yes",
+    "CHILD_NO": "Child No",
+    "CHILD": "Child",
+    "PARENT": "Parent"
   },
   "BUTTONS": {
     "LOGIN": "Login",

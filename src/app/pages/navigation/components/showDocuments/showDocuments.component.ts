@@ -48,7 +48,6 @@ export class ShowDocumentsComponent implements OnInit {
       'folderId': folderID
     };
     this.navService.getDocuments(data).subscribe((res) => {
-      console.log(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.folderDoc = true;
         this.documentsData.docList = this.compiler.constructDocuments(res);
