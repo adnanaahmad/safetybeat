@@ -1,19 +1,20 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { NavigationModel } from 'src/app/models/navigation/navigation.model';
-import { PackageInfo } from 'src/app/models/user.model';
-import { GeneralComponent } from 'src/app/pages/settings/components/general/general.component';
-import { SecurityComponent } from 'src/app/pages/settings/components/security/security.component';
-import { ProfileModel } from 'src/app/models/profile/profile.model';
-import { ProfileService } from 'src/app/pages/profile/services/profile.service';
-import { BreakpointObserver, Breakpoints, MediaMatcher } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {CoreService} from 'src/app/core/services/authorization/core.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {NavigationModel} from 'src/app/models/navigation/navigation.model';
+import {PackageInfo} from 'src/app/models/user.model';
+import {GeneralComponent} from 'src/app/pages/settings/components/general/general.component';
+import {SecurityComponent} from 'src/app/pages/settings/components/security/security.component';
+import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {FirebaseService} from '../../../../shared/FirebaseNotification/firebase.service';
 
 @Component({
   selector: 'app-navigation',
@@ -32,9 +33,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   packageInfo: PackageInfo;
   matcher: MediaQueryList;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches)
-  );
+    .pipe(
+      map(result => result.matches)
+    );
+  message;
+
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
@@ -43,7 +46,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private profile: ProfileService,
     public breakpointObserver: BreakpointObserver,
-    public mediaMatcher: MediaMatcher
+    public mediaMatcher: MediaMatcher,
+    private messagingService: FirebaseService
   ) {
     this.initialize();
     this.helperService.appLoggerDev(
@@ -51,6 +55,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.navModel.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
     );
     this.getSelectedEntity();
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    // this.messagingService.currentMessage.subscribe(message => {
+    //   this.message = message;
+    //   console.log(this.message.notfication);
+    // });
 
   }
 
@@ -132,10 +142,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.navService.getPackageInfo().subscribe(res => {
             this.packageInfo = res.data[0];
             localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-              (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+            (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           }, error => {
             this.packageInfo = JSON.parse(this.helperService.decrypt(localStorage.getItem
-              (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
+            (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
           });
         }
       });
@@ -285,7 +295,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   getRoleFromStorage() {
     let currentRole = this.helperService.decrypt(localStorage.getItem
-      (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
+    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 
@@ -294,6 +304,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   showModel(isProfile) {
     let modal = (isProfile) ? GeneralComponent : SecurityComponent;
-    this.helperService.createDialog(modal, { disableClose: true });
+    this.helperService.createDialog(modal, {disableClose: true});
   }
 }

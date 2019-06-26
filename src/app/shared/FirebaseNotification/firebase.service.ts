@@ -6,18 +6,21 @@ import {catchError, take} from 'rxjs/operators';
 import {BehaviorSubject, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {ConstantService} from '../constant/constant.service';
+import {HelperService} from '../helperService/helper.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
   currentMessage = new BehaviorSubject(null);
+  myMessage;
 
   constructor(
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
     private angularFireMessaging: AngularFireMessaging,
-    private http: HttpClient
+    private http: HttpClient,
+    public helperService: HelperService
   ) {
     this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
@@ -67,7 +70,11 @@ export class FirebaseService {
   receiveMessage() {
     this.angularFireMessaging.messages.subscribe(
       (payload) => {
-        console.log('new message received. ', payload);
+        this.myMessage = payload;
+        // console.log('new message received. ', payload);
+        // console.log('notfication', this.myMessage.notification);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
+          this.myMessage.notification.title + ' ' + this.myMessage.notification.body);
         this.currentMessage.next(payload);
       });
   }
