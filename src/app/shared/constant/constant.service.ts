@@ -189,6 +189,8 @@ export class ConstantService {
     parent: 'parent',
     dateFrom: 'dateFrom',
     dateTo: 'dateTo',
+    filter: 'filter',
+    noSite: 'noSite',
     site: 'site',
     Root: 'root',
     paths: {

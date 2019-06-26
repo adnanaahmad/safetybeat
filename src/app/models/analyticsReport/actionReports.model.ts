@@ -15,6 +15,8 @@ export interface ActionReport {
   subscription: Subscription;
   actionReportForm: FormGroup;
   actionReportData: ActionReportData[];
+  filters: any;
+  noSites: boolean;
 }
 
 export interface ActionReportApiData {

@@ -25,7 +25,7 @@ import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserMo
 import { VerificationComponent } from './Dialogs/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
 import { InviteTeamModalComponent } from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatNativeDateModule} from '@angular/material';
 import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import { ImportSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
@@ -78,6 +78,9 @@ export function createTranslateLoader(http: HttpClient) {
     CreateQuestionComponent
   ],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
@@ -96,6 +99,7 @@ export function createTranslateLoader(http: HttpClient) {
     DragDropModule
   ],
   providers: [
+    MatDatepickerModule,
     TranslateService,
     CoreService,
     AuthGuard,

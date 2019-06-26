@@ -22,7 +22,6 @@ export class TokenInterceptorService implements HttpInterceptor {
         setHeaders: {
           authorization: `Token ${this.auth.getToken()}`,
           'X-CSRFToken': this.auth.getCsrfToken() // csrf added in the header
-
         }
       });
     }
