@@ -31,23 +31,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // cards: any;
 
-
+  profileFeatures = {
+    activities: true,
+    connections: false,
+    leaves: false,
+    entities: false,
+    myTeam: false
+  };
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Activities', cols: 4, rows: 1 },
-          { title: 'Connections', cols: 4, rows: 1 },
-          { title: 'Leaves', cols: 4, rows: 1 },
-          { title: 'Entities', cols: 4, rows: 1 }
+          { title: 'links', cols: 3, rows: 1 },
+          { title: 'userData', cols: 3, rows: 1 },
+          { title: 'accountInfo', cols: 3, rows: 1 }
         ];
       } else {
         return [
-          { title: 'Activities', cols: 1, rows: 1 },
-          { title: 'Connections', cols: 1, rows: 1 },
-          { title: 'Leaves', cols: 1, rows: 1 },
-          { title: 'Entities', cols: 1, rows: 1 }
+          { title: 'links', cols: 1, rows: 1 },
+          { title: 'userData', cols: 2, rows: 2 },
+          { title: 'accountInfo', cols: 1, rows: 1 }
         ];
       }
     })
@@ -139,6 +143,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
       'administrator'
     ];
     console.log('these are dimensions', this.helperService.dimensions);
+  }
+
+
+  onChangeFeatures(feature:any){
+    var self= this;
+    this.helperService.iterations(this.profileFeatures, function(value, key){
+      if(key===feature){
+        self.profileFeatures[key] = true;
+      } else {
+        self.profileFeatures[key] = false;
+      }
+    })
   }
 
   /**

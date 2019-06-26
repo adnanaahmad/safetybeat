@@ -7,7 +7,7 @@
 <div mat-dialog-content>
   <form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="hazardFormSubmit(hazardObj.addHazardForm)">
     <div class="form-group change-picture">
-      <span>Change Picture</span>
+      <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
       <img [src]="url">
       <input type='file' accept='image/*' (change)=onFileSelected($event.target.files) />
       <mat-icon class="remove-picture" (click)="removePicture()">{{ helperService.appIcons.deleteForever }}</mat-icon>
