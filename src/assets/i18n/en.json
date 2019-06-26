@@ -110,7 +110,8 @@
     "CHILD_YES": "Child Yes",
     "CHILD_NO": "Child No",
     "CHILD": "Child",
-    "PARENT": "Parent"
+    "PARENT": "Parent",
+    "CHANGEPICTURE": "Change Picture"
   },
   "BUTTONS": {
     "LOGIN": "Login",

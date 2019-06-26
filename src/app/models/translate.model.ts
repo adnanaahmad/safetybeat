@@ -84,6 +84,7 @@ export interface Strings {
   CHILD_YES: string;
   CHILD_NO: string;
   CHILD: string;
+  CHANGEPICTURE: string;
 
 }
 
