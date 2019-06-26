@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatAutocomplete, MatDialogRef} from '@angular/material';
 import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {QuestionCenterService} from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
 
 @Component({
@@ -24,6 +24,7 @@ export class AddQuestionComponent implements OnInit {
     this.QuestionObj.parentQuestions = data.parentQuestions;
     this.QuestionObj.childQuestions = data.childQuestions;
     this.QuestionObj.loading = false;
+    this.QuestionObj.questionCtrl = new FormControl();
   }
 
   ngOnInit() {
@@ -51,6 +52,10 @@ export class AddQuestionComponent implements OnInit {
       this.QuestionObj.loading = false;
       this.onNoClick();
     });
+  }
+
+  filterResult(event) {
+    console.log(event)
   }
 
 }

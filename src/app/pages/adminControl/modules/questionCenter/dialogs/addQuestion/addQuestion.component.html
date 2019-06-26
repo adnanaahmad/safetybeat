@@ -6,8 +6,9 @@
     <div class="form-group">
       <mat-form-field appearance="outline" full-width>
         <mat-label>{{helperService.translated.STRINGS.PARENT_QUESTION}}</mat-label>
-        <mat-select [formControlName]="helperService.appConstants.parent" >
-          <mat-option *ngFor="let question of QuestionObj.parentQuestions" [value]="question.id">
+        <mat-select [formControlName]="helperService.appConstants.parent">
+          <input #input (change)="filterResult($event)">
+          <mat-option *ngFor="let question of QuestionObj.parentQuestions | searchFilter" [value]="question.id">
             {{question.description}}
           </mat-option>
         </mat-select>
