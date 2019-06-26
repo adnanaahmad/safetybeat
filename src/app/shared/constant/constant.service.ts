@@ -76,6 +76,9 @@ export class ConstantService {
     deleteDoc: `${environment.apiUrl}/api/documents/`,
     team: `${environment.apiUrl}/api/teams/`,
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
+    parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
+    viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
+
   };
   /**
    * all the api methods are declared here.
@@ -225,7 +228,9 @@ export class ConstantService {
     noHazard: './assets/images/no-hazard.png',
     title: 'title',
     teamLead: 'teamLead',
-    team: 'team'
+    team: 'team',
+    childYes: 'childYes',
+    childNo: 'childNo'
   };
   /**
    * all the material icon names are declared here.
@@ -313,6 +318,8 @@ export class ConstantService {
     cloudUpload: 'cloud_upload',
     createFolder: 'create_new_folder',
     phone: 'phone',
+    activities: 'tab_unselected',
+    connections: 'linear_scale'
   };
   /**
    * all the particle container icon names are declared here.

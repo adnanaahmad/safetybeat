@@ -4,7 +4,7 @@ import {RegisterTeamModel} from 'src/app/models/adminControl/registerTeam.model'
 import {EntityInfo} from 'src/app/models/userEntityData.model';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {MAT_DIALOG_DATA, MatAutocomplete, MatAutocompleteSelectedEvent, MatDialogRef, MatSelectChange} from '@angular/material';
+import {MAT_DIALOG_DATA, MatAutocomplete, MatAutocompleteSelectedEvent, MatDialogRef} from '@angular/material';
 import {map, startWith} from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -146,15 +146,6 @@ export class RegisterTeamComponent implements OnInit {
     this.userInput.nativeElement.value = '';
     this.registerTeamObj.userCtrl.setValue(null);
   }
-
-  // excludeTeamLead(event: MatSelectChange) {
-  //   console.log(this.data.allUsersOfTeam)
-  //   this.registerTeamObj.allUsersList = _.reject(this.data.allUsersOfTeam, function(user){
-  //    if(user.id !== event.value
-  //   })
-  //
-  // }
-
 
   private editOrRegister() {
     if (this.registerTeamObj.editTeam === true) {

@@ -76,7 +76,6 @@
     "QUESTION_WARNING": "Question Warning",
     "SELECT_QUESTION_TYPE": "Select Question Type",
     "SAFE_QUESTION": "Which answer is safe?",
-    "PARENT": "",
     "SAFE_QUESTION_YES": "Yes",
     "SAFE_QUESTION_NO": "No",
     "SAFE_QUESTION_BOTH": "Both",
@@ -103,10 +102,15 @@
     "CHECK_IN": "Check-in",
     "CHECK_OUT": "Check-Out",
     "DURATION": "Duration",
-    "NO_ACTIVITIES" : "No activities",
-    "NAME" : "Name",
+    "NO_ACTIVITIES": "No activities",
+    "NAME": "Name",
     "NO_DOCUMENTS": "No Documents",
-    "NO_FOLDERS": "No Folders"
+    "NO_FOLDERS": "No Folders",
+    "PARENT_QUESTION": "Parent Question",
+    "CHILD_YES": "Child Yes",
+    "CHILD_NO": "Child No",
+    "CHILD": "Child",
+    "PARENT": "Parent"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -355,6 +359,10 @@
     "EDIT_TEAM": "Enter Details to Edit Team",
     "INVITETEAMTITLE": "Invite Users",
     "CANT_CREATE_ROOT": "Cannot create folder with this name. Please try another name!",
+    "ACTIVITIES": "Activities",
+    "CONNECTIONS": "Connections",
+    "LEAVES": "Leaves",
+    "ENTITIES": "Entities",
     "ALL_SITES_SUCCESS": "All Sites Received",
     "ALL_SITES_FAILURE": "All Sites Record API Failed"
   },
@@ -368,7 +376,8 @@
     "QUESTION_CENTER": "Question Centre",
     "HAZARD_CENTER": "Hazard Centre",
     "DOCUMENTS": "Documents",
-    "MY_TEAM": "My Team"
+    "MY_TEAM": "My Team",
+    "ACCOUNTINFO": "Account information"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
