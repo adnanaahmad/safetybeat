@@ -151,14 +151,6 @@ export class NavigationService {
     this.currentUser.next(data);
   };
 
-  viewAllDocuments(data: object) {
-    return this.helperService.requestCall(
-      this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.viewAllDocuments,
-      data
-    );
-  }
-
   getDocuments(data: object) {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,

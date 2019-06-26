@@ -5,7 +5,6 @@ import {Documents} from '../../../../models/navigation/documents.model';
 import {NavigationService} from '../../services/navigation.service';
 import {CompilerProvider} from '../../../../shared/compiler/compiler';
 import {Location} from '@angular/common';
-import {UploadFolderDocComponent} from '../../dialogs/uploadFolderDoc/uploadFolderDoc.component';
 import {ViewDocComponent} from '../../dialogs/viewDoc/viewDoc.component';
 import {UploadDocComponent} from '../../dialogs/uploadDoc/uploadDoc.component';
 
@@ -66,8 +65,12 @@ export class ShowDocumentsComponent implements OnInit {
   }
 
   uploadDoc() {
-    this.helperService.createDialog(UploadFolderDocComponent, {
-      disableClose: true, data: {entityID: this.documentsData.entityID, folderId: this.folderId}
+    this.helperService.createDialog(UploadDocComponent, {
+      disableClose: true, data: {
+        folderId: this.folderId,
+        entityID: this.documentsData.entityID,
+        modalType: false
+      }
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.docsOfFolder(this.folderId);

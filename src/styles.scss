@@ -21,7 +21,9 @@ body {
   margin: 0;
   font-family: $fontFamily;
 }
-
+*[fullWidth] {
+  width: $fullValue !important;
+}
 // Define font-family explicitly
 .mat-card-title {
   line-height: inherit;
@@ -100,10 +102,6 @@ app-entityCodeModal {
 }
 mat-dialog-container {
   padding: 0 !important;
-  .mat-dialog-content,
-  .mat-dialog-title {
-    width: 600px;
-  }
   mat-card-title {
     padding: 15px 20px;
     color: $hexWhite;

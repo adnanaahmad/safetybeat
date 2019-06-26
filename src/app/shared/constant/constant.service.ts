@@ -65,7 +65,6 @@ export class ConstantService {
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
-    viewAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocumentsDashboard/`,
     getAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
     getRootDocuments: `${environment.apiUrl}/api/documents/rootFolderDocuments/`,
     documents: `${environment.apiUrl}/api/documents/`,
@@ -317,6 +316,8 @@ export class ConstantService {
     cloudUpload: 'cloud_upload',
     createFolder: 'create_new_folder',
     phone: 'phone',
+    activities: 'tab_unselected',
+    connections: 'linear_scale'
   };
   /**
    * all the particle container icon names are declared here.

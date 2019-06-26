@@ -28,18 +28,34 @@ export class UploadDocComponent implements OnInit {
 
   ngOnInit() {
     this.newDoc.uploadDocForm = this.formBuilder.group({
+      // fileName: ['', Validators.required],
       doc: ['', Validators.required],
       folders: ['']
     });
     this.getAllFolders();
+    // this.navService.selectedEntityData.subscribe((res) => {
+    //   if (res !== 1) {
+    //     this.newDoc.entityId = res.entityInfo.id;
+    //   }
+    // });
   }
 
   getAllFolders() {
     this.documentsData.folderLength = this.data.folders.length;
     if (this.documentsData.folderLength === 0) {
       this.documentsData.rootOnly = true;
+    } else {
+      // if (this.documentsData.folderLength === 1) {
+      //   if (this.data.folders[0].name === 'root') {
+      //     this.documentsData.rootOnly = true;
+      //   }
+      // }
     }
     this.newDoc.folderList = this.data.folders;
+  }
+
+  get formControls() {
+    return this.newDoc.uploadDocForm.controls;
   }
 
   uploadFile(event) {
@@ -66,14 +82,18 @@ export class UploadDocComponent implements OnInit {
       }
     });
   }
+  folderFormSubmit({value}: { value: NewDoc }) {
+    this.data.modalType ? this.uploadDoc(value) : this.uploadToFolder(value);
+  }
 
-  uploadDoc({value, valid}: { value: NewDoc; valid: boolean; }) {
+  uploadDoc(value: NewDoc) {
     this.documentsData.loader = true;
-    if (!valid) {
-      this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
-      return;
-    }
-    this.upload(value, value.folders);
+      this.upload(value, value.folders);
+  }
+
+  uploadToFolder(value: NewDoc) {
+    this.documentsData.loader = true;
+    this.upload(value, this.data.folderId);
   }
 
   showFolderList() {
