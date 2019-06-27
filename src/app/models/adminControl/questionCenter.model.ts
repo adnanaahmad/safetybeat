@@ -9,8 +9,13 @@ export class QuestionCenter {
   addQuestionResponse: any;
   canProceed: boolean;
   canSafe: string;
-  allQuestions: any;
+  allQuestions: QuestionsData;
   parent: boolean;
+  dataSource: any;
+  parentQuestions: Questions[];
+  childQuestions: Questions[];
+  allEntityQuestions: EntityQuestion[];
+  entityQuestions: any;
 }
 
 
@@ -20,4 +25,27 @@ export interface AddQuestionData {
   questionType: any;
   safeQuestion?: any;
   canProceed: any;
+}
+
+export interface QuestionsData {
+  parentQuestions: Questions[],
+  childQuestions: Questions[],
+  questionList: Questions[]
+}
+
+export interface Questions {
+  id: number,
+  canProceed: boolean,
+  default: boolean,
+  description: string,
+  entity: number,
+  parent: boolean,
+  safe: string,
+  warning: string
+}
+
+export interface EntityQuestion {
+  parent: Questions,
+  childYes: Questions,
+  childNo: Questions
 }

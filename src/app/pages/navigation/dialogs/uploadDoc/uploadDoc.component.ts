@@ -28,6 +28,7 @@ export class UploadDocComponent implements OnInit {
 
   ngOnInit() {
     this.newDoc.uploadDocForm = this.formBuilder.group({
+      // fileName: ['', Validators.required],
       doc: ['', Validators.required],
       folders: ['']
     });

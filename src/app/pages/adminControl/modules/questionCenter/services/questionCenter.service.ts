@@ -5,25 +5,44 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
   providedIn: 'root'
 })
 export class QuestionCenterService {
+  apiRoutes: any;
+  method: any;
 
   constructor(
     public helperService: HelperService) {
-
+    this.apiRoutes = this.helperService.constants.apiRoutes;
+    this.method = this.helperService.constants.apiMethod;
   }
 
 
-  addQuestion(data: any) {
+  createQuestion(data: any) {
     return this.helperService.requestCall(
-      this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.addQuestion,
+      this.method.post,
+      this.apiRoutes.addQuestion,
       data
     );
   }
 
   getAllQuestions(data: any) {
     return this.helperService.requestCall(
-      this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.getAllQuestions,
+      this.method.post,
+      this.apiRoutes.getAllQuestions,
+      data
+    );
+  }
+
+  addQuestion(data) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.parentChildQuestions,
+      data
+    );
+  }
+
+  viewAllEntityQuestions(data) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.viewAllEntityQuestions,
       data
     );
   }

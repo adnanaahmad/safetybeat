@@ -9,8 +9,9 @@ import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
-import {recentActivities} from '../../models/profile/profile.model';
-import {TeamList} from '../../models/adminControl/myTeam.model';
+import {recentActivities} from 'src/app/models/profile/profile.model';
+import {TeamList} from 'src/app/models/adminControl/myTeam.model';
+import {EntityQuestion, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -133,6 +134,7 @@ export class CompilerProvider {
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {
     return documentsApiResponse.data;
   }
+
   constructDocuments(documentsApiResponse: any): DocumentObj[] {
     return documentsApiResponse.data;
   }
@@ -151,6 +153,14 @@ export class CompilerProvider {
 
   constructAllTeamsData(allTeamsApiResponse: any): TeamList[] {
     return allTeamsApiResponse.data;
+  }
+
+  constructAllQuestionsData(questionsApiResponse: any): QuestionsData {
+    return questionsApiResponse.data;
+  }
+
+  constructAllEntityQuestionsData(questionsApiResponse: any): EntityQuestion[] {
+    return questionsApiResponse.data;
   }
 
 
@@ -230,7 +240,7 @@ export class CompilerProvider {
     return connectionData;
   }
 
-  constructRecentActivitiesData(recentActivitiesRes: any): recentActivities[]  {
+  constructRecentActivitiesData(recentActivitiesRes: any): recentActivities[] {
     return recentActivitiesRes.data;
   }
 

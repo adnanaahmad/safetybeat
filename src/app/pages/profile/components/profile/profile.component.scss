@@ -143,6 +143,7 @@
       .data-counts {
         display: flex;
         text-align: center;
+        justify-content: center;
         .countbox {
           padding: 0 20px;
           &:nth-child(2) {
@@ -168,11 +169,6 @@
       align-items: normal;
     }
     .dashboard-card {
-      padding: 0;
-      width: 100%;
-      table {
-        width: 100%;
-      }
       .infoTitle {
         color: #fff;
         border-radius: 4px 4px 0 0;
@@ -291,15 +287,6 @@
       margin: 3px;
     }
   }
-  // @media (max-width: 768px) {
-  //   app-profile {
-  //     .grid-container {
-  //       .mat-grid-tile {
-  //         width: 100% !important;
-  //         left: 0 !important;
-  //         position: relative;
-  //       }
-  //     }
-  //   }
-  // }
+  @media (max-width: 768px) {
+  }
 }
