@@ -5,7 +5,7 @@ import { ActionReportComponent } from './components/actionReport/actionReport.co
 import { AlertsPersonReportComponent } from './components/alertsPersonReport/alertsPersonReport.component';
 import { AverageDailyActionsReportComponent } from './components/averageDailyActionsReport/averageDailyActionsReport.component';
 import { CheckInActivityReportComponent } from './components/checkinActivityReport/checkinActivityReport.component';
-import { CompilantCheckoutReportComponent } from './components/compilantCheckoutReport/compilantCheckoutReport.component';
+import { CompliantCheckoutReportComponent } from './components/compliantCheckoutReport/compliantCheckoutReport.component';
 import { EntityPulseReportComponent } from './components/entityPulseReport/entityPulseReport.component';
 import { HazardReportComponent } from './components/hazardReport/hazardReport.component';
 import { PersonPulseReportComponent } from './components/personPulseReport/personPulseReport.component';
@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'compliantCheckoutReport',
-    component: CompilantCheckoutReportComponent,
+    component: CompliantCheckoutReportComponent,
   },
   {
     path: 'entityPulseReport',

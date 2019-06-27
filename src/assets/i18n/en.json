@@ -365,7 +365,18 @@
     "LEAVES": "Leaves",
     "ENTITIES": "Entities",
     "ALL_SITES_SUCCESS": "All Sites Received",
-    "ALL_SITES_FAILURE": "All Sites Record API Failed"
+    "ALL_SITES_FAILURE": "All Sites Record API Failed",
+    "ACTION_REPORT_MSG": "This is a report of the number and type of SafetyBeat Actions undertaken within the entity.",
+    "AVERAGE_ACTIONS_MSG": "This report shows the average first check-in for the day time and the average finish for the day time by person.",
+    "NUMBER_CHECKIN_MSG": "This is a report of number and percentage of Check-ins by Activity type, or reason by entity.",
+    "HOURS_CHECKIN_MSG": "This is an entity report of the number of hours and percentage of Check-ins by Check-in type/reason.",
+    "ALERT_PERSON_MSG": "This is a report of the number of Check-ins compared to number of alerts by person.",
+    "ACTION_ALERT_MSG": "This report compares the number of Check-ins to the number of report-in alerts users received by person.",
+    "PULSE_ENTITY_MSG": "This report provides an entity view of the number of pulses, by reason/pulse type.",
+    "PULSE_PERSON_MSG": "This report provides a view of the number of pulses, by reason/pulse type, by person.",
+    "COMPLIANT_CHECKOUT_MSG": "This report compares the number of compliant check-outs to the number of non compliant Check-outs by person. A compliant check-out is where a person check-out within the site’s geo-zone, whereas a non-complaint check-out occurs outside the geo-zone.",
+    "SITE_ACTIVITY_MSG": "This report shows the number of check-ins and hours checked-in total and by site.",
+    "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved)."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

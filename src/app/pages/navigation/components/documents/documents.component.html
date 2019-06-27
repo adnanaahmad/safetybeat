@@ -44,12 +44,12 @@
   <!--Files-->
   <div class="files-wrapper">
     <h4 class="wrapper-heading">Files</h4>
-    <p class="no-data mat-caption" *ngIf="documentsData.rootDocs && documentsData.rootDocs.length < 1">No documents
+    <p class="no-data mat-caption" *ngIf="!documentsData.documentExist">No documents
       found.</p>
     <div class="content-area">
       <ng-container *ngFor="let doc of documentsData.rootDocs">
         <mat-card class="file-inline" (click)="viewDoc(doc.file)">
-          <span class="file-label mat-caption">PDF</span>
+          <span class="file-label mat-caption">{{(doc.title.split('.'))[1]}}</span>
 <!--          <iframe src="https://docs.google.com/spreadsheets/d/1LF_fQTyzS9woI4nG4MkAvbNFhKWgQPnfhoQDsdCKBEc/edit#gid=1243096096" width='100%' height='140'></iframe>-->
           <br>
           <span>{{doc.title}}</span>
