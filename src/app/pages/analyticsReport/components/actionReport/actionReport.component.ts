@@ -25,7 +25,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     public compiler: CompilerProvider,
     private highChartSettings: HighchartService
   ) {
-    this.siteActivityObj.filters = ['Choose a Range', 'weekly', 'monthly', 'yearly'];
+    this.siteActivityObj.filters = ['Choose a Range', 'weekly', 'monthly', 'yearly', 'Lifetime'];
     this.siteActivityObj.noSites = false;
   }
 
@@ -46,7 +46,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
         this.actionFormValidations['entityName'].disable();
       }
     });
-    this.actionFormValidations[this.helperService.appConstants.filter].setValue(this.siteActivityObj.filters[0]);
+    this.actionFormValidations[this.helperService.appConstants.filter].setValue(this.siteActivityObj.filters[4]);
     this.siteActivityObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
@@ -62,7 +62,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       'entityId': this.siteActivityObj.entityId,
       'dateTo': null,
       'dateFrom': null,
-      'filter': ''
+      'filter': null
     };
     this.makeReport(data);
   }
@@ -89,12 +89,22 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     if (!valid) {
       return;
     }
-    let data = {
-      'entityId': this.siteActivityObj.entityId,
-      'dateTo': value.dateTo,
-      'dateFrom': value.dateFrom,
-      'filter': ''
-    };
+    let data;
+    if (value.filter !== 'Choose a Range') {
+      data = {
+        'entityId': this.siteActivityObj.entityId,
+        'dateTo': null,
+        'dateFrom': null,
+        'filter': value.filter
+      };
+    } else {
+      data = {
+        'entityId': this.siteActivityObj.entityId,
+        'dateTo': value.dateTo,
+        'dateFrom': value.dateFrom,
+        'filter': null
+      };
+    }
     this.makeReport(data);
   }
 
@@ -106,17 +116,9 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     if (value !== 'Choose a Range') {
       this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
-      let data = {
-        'entityId': this.siteActivityObj.entityId,
-        'dateTo': null,
-        'dateFrom': null,
-        'filter': value
-      };
-      this.makeReport(data);
     } else {
       this.actionFormValidations[this.helperService.appConstants.dateFrom].enable();
       this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
-      this.defaultReport();
     }
   }
 }

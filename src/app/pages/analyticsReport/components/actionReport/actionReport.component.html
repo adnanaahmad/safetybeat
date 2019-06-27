@@ -2,7 +2,7 @@
   <div class="page-title">
     <h3>Action Report</h3>
   </div>
-
+  <p>{{helperService.translated.MESSAGES.ACTION_REPORT_MSG}}</p>
   <mat-card>
     <form [formGroup]="siteActivityObj.actionReportForm"
           (ngSubmit)=actionReportFormSubmit(siteActivityObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
