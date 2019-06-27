@@ -1,6 +1,6 @@
 <div class="container">
 
-    <!-- [attr.role]="(isHandset$ | async) ? 'dialog' : 'clockin'"
+  <!-- [attr.role]="(isHandset$ | async) ? 'dialog' : 'clockin'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)"> -->
   <app-fixed-nav class="mini-sidenav" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
@@ -42,7 +42,7 @@
 
           <mat-icon class="notification-icon" (click)="drawer.toggle()">{{helperService.appIcons.notificationImportant}}
             <span class="notifcount">90+</span></mat-icon>
-          <div class="profile-menu">
+          <div class="profile-menu mat-elevation-z4">
             <button mat-button [matMenuTriggerFor]="menu">
               <div *ngIf="profileModel.profileImage !== null">
                 <img src="{{profileModel.profileImage}}">

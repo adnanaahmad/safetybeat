@@ -15,8 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminControlService } from '../../../adminControl/services/adminControl.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
-import {SiteMapComponent} from '../../../adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { MemberCenterService } from '../../../adminControl/modules/memberCenter/services/member-center.service';
+import { SiteMapComponent } from '../../../adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 
 @Component({
   selector: 'app-profile',
@@ -31,23 +31,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // cards: any;
 
-
+  profileFeatures = {
+    activities: true,
+    connections: false,
+    leaves: false,
+    entities: false,
+    myTeam: false
+  };
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Activities', cols: 4, rows: 1 },
-          { title: 'Connections', cols: 4, rows: 1 },
-          { title: 'Leaves', cols: 4, rows: 1 },
-          { title: 'Entities', cols: 4, rows: 1 }
+          { title: 'links', cols: 3, rows: 1 },
+          { title: 'userData', cols: 3, rows: 1 },
+          { title: 'accountInfo', cols: 3, rows: 1 }
         ];
       } else {
         return [
-          { title: 'Activities', cols: 2, rows: 1 },
-          { title: 'Connections', cols: 2, rows: 1 },
-          { title: 'Leaves', cols: 2, rows: 1 },
-          { title: 'Entities', cols: 2, rows: 1 }
+          { title: 'links', cols: 1, rows: 1 },
+          { title: 'userData', cols: 2, rows: 2 },
+          { title: 'accountInfo', cols: 1, rows: 1 }
         ];
       }
     })
@@ -98,7 +102,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.profileModel.noRecords = false;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
@@ -124,102 +127,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // this.responsive();
   }
 
-  /**
-   * this function is used for initializing the global variables that have been declared in the profileModel.
-   */
-
-  responsive() {
-
-    this.helperService.isXLarge.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.XLarge).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('large screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isLarge.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Large).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('large screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isTablet.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Medium).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('tablet screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isHandset.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('small screen');
-              return [
-                { title: 'Activities', cols: 4, rows: 1 },
-                { title: 'Connections', cols: 4, rows: 1 },
-                { title: 'Leaves', cols: 4, rows: 1 },
-                { title: 'Entities', cols: 4, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isWeb.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('web screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-  }
 
   initialize() {
     this.profileModel.translated = this.helperService.translated;
@@ -238,6 +145,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     console.log('these are dimensions', this.helperService.dimensions);
   }
 
+
+  onChangeFeatures(feature:any){
+    var self= this;
+    this.helperService.iterations(this.profileFeatures, function(value, key){
+      if(key===feature){
+        self.profileFeatures[key] = true;
+      } else {
+        self.profileFeatures[key] = false;
+      }
+    })
+  }
+
   /**
    * this function is used to return all the entities while subscribing to the behavior subject of the
    * viewALLEntities.
@@ -251,23 +170,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.entitiesList = res;
           this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
           this.profileModel.dataSource.paginator = this.paginator;
-        } else {
-          this.profileModel.noRecords = true;
         }
       });
-    } else {
-      this.adminService.viewEntitiesOfUser({'userId': userId}).subscribe((res) => {
-        if (res.responseDetails.code === 100) {
-          this.profileModel.entitiesList = res;
-          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.data);
-          this.profileModel.dataSource.paginator = this.paginator;
-        } else {
-          this.profileModel.noRecords = true;
-        }
-      });
-    }
-  }
+    } else { }
 
+  }
   /**
    * this function is used for hiding all the debugging messages and also used for unsubscribing the
    * observables.
@@ -313,13 +220,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-   //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
+      //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
       this.navService.updateCurrentUser(userData);
     });
   }
 
   viewActivities(userId: number) {
-     this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+    this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
           this.profileModel.noActivity = true;
@@ -352,11 +259,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   removeConnection(sentToUserId: number) {
-    this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
+    this.memberService.removeConnection({ receivedBy: sentToUserId }).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
-          this.getUserConnections(this.profileModel.userId);
+        this.getUserConnections(this.profileModel.userId);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);
@@ -370,8 +277,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   viewSite(longitude, latitude, siteName, location) {
-    let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location}
-    this.helperService.createDialog(SiteMapComponent, {disableClose : true, data: {siteData: data, type: true}});
+    let data = { 'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location }
+    this.helperService.createDialog(SiteMapComponent, { disableClose: true, data: { siteData: data, type: true } });
   }
 }
 
