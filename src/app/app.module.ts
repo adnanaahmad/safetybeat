@@ -45,6 +45,7 @@ import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.com
 import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import { CreateQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -96,7 +97,8 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AppRoutingModule,
     NotifierModule,
-    DragDropModule
+    DragDropModule,
+    MyTeamModule
   ],
   providers: [
     MatDatepickerModule,

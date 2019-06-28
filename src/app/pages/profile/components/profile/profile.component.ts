@@ -12,11 +12,11 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ProfileModel } from 'src/app/models/profile/profile.model';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
-import { AdminControlService } from '../../../adminControl/services/adminControl.service';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import { MemberCenterService } from '../../../adminControl/modules/memberCenter/services/member-center.service';
-import { SiteMapComponent } from '../../../adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { MemberCenterService } from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import { SiteMapComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 
 @Component({
   selector: 'app-profile',
