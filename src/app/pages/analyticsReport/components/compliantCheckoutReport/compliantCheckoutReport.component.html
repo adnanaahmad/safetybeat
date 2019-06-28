@@ -1,13 +1,11 @@
 <div class="paddingbox">
   <div class="page-title">
-    <h3>Number of Check-ins by Activity</h3>
-    <h3>Hours Of Check-ins by Activity</h3>
+    <h3>Compliant Check-Out by Person</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.NUMBER_CHECKIN_MSG}}</p>
-  <p>{{helperService.translated.MESSAGES.HOURS_CHECKIN_MSG}}</p>
+  <p>{{helperService.translated.MESSAGES.AVERAGE_ACTIONS_MSG}}</p>
   <mat-card>
-    <form [formGroup]="checkInActivityObj.checkInActivityForm"
-          (ngSubmit)=activityFormSubmit(checkInActivityObj.checkInActivityForm) (keydown.enter)="$event.preventDefault()">
+    <form [formGroup]="compliantObj.compliantCheckOutForm"
+          (ngSubmit)=formSubmit(compliantObj.compliantCheckOutForm) (keydown.enter)="$event.preventDefault()">
 
       <div class="form-group">
         <mat-form-field appearance="outline">
@@ -26,15 +24,16 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>All Users</mat-label>
-          <mat-select [formControlName]="helperService.appConstants.allSites">
-            <mat-option>option
+          <mat-select [formControlName]="helperService.appConstants.allUsers">
+            <mat-option *ngFor="let user of compliantObj.allUserList" [value]="user.id">
+              {{ user.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>All Teams</mat-label>
           <mat-select [formControlName]="helperService.appConstants.allTeams">
-            <mat-option *ngFor="let team of checkInActivityObj.allTeams" [value]="team.team.id">
+            <mat-option *ngFor="let team of compliantObj.allTeams" [value]="team.team.id">
               {{ team.team.title }}
             </mat-option>
           </mat-select>

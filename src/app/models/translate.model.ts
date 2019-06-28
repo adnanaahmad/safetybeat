@@ -84,6 +84,7 @@ export interface Strings {
   CHILD_YES: string;
   CHILD_NO: string;
   CHILD: string;
+  CHANGEPICTURE: string;
 
 }
 
@@ -418,7 +419,17 @@ export interface Messages {
   ENTITIES: string;
   ALL_SITES_SUCCESS: string;
   ALL_SITES_FAILURE: string;
-  PARENT_QUESTION_REQ: string;
+  ACTION_REPORT_MSG: string;
+  AVERAGE_ACTIONS_MSG: string;
+  NUMBER_CHECKIN_MSG: string;
+  HOURS_CHECKIN_MSG: string;
+  ALERT_PERSON_MSG: string;
+  ACTION_ALERT_MSG: string;
+  PULSE_ENTITY_MSG: string;
+  PULSE_PERSON_MSG: string;
+  COMPLIANT_CHECKOUT_MSG: string;
+  SITE_ACTIVITY_MSG: string;
+  HAZARD_REPORT_MSG: string;
 }
 
 export interface Logger {

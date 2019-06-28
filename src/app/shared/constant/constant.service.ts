@@ -193,6 +193,12 @@ export class ConstantService {
     input: 'input',
     dateFrom: 'dateFrom',
     dateTo: 'dateTo',
+    filter: 'filter',
+    range: 'range',
+    allUsers: 'allUsers',
+    allSites: 'allSites',
+    allTeams: 'allTeams',
+    noSite: 'noSite',
     site: 'site',
     Root: 'root',
     paths: {

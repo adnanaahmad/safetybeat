@@ -3,6 +3,7 @@
   <div class="page-title">
     <h3>Site Activity Report</h3>
   </div>
+  <p>{{helperService.translated.MESSAGES.SITE_ACTIVITY_MSG}}</p>
   <mat-card>
     <form [formGroup]="actionReportObj.actionReportForm"
           (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
@@ -16,7 +17,10 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Date From</mat-label>
-        <input matInput type="date" [formControlName]="helperService.appConstants.dateFrom" />
+        <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+               placeholder="Date From">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
         <mat-error class="text-right" *ngIf="actionFormValidations.errors">
           <span
             *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
@@ -24,7 +28,10 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Date To</mat-label>
-        <input matInput type="date" [formControlName]="helperService.appConstants.dateTo" />
+        <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+               placeholder="Date From">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
         <mat-error class="text-right" *ngIf="actionFormValidations.errors">
           <span
             *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
