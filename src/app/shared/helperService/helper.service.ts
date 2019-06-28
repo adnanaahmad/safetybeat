@@ -403,16 +403,6 @@ export class HelperService {
     });
   }
 
-  _filterSearch(value: any, list: any[]): any[] {
-    const filterValue =
-      value && value.description
-        ? value.description.toLowerCase()
-        : value.toLowerCase();
-    return list.filter(question => {
-      return question.description.toLowerCase().indexOf(filterValue) === 0;
-    });
-  }
-
   removeFromList(user: any, list: any): void {
     const index = list.indexOf(user);
     if (index >= 0) {

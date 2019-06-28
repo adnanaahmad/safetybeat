@@ -23,7 +23,6 @@ export class SiteMapComponent implements OnInit {
   }
 
   showMap() {
-    debugger
     let val = this.helperService.createMap(this.gMapElement, {
       zoom: 15,
       center: {lat: this.data.siteData[0].site.longitude, lng: this.data.siteData[0].site.latitude},

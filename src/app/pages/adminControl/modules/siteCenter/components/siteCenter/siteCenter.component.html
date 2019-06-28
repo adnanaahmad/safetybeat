@@ -2,7 +2,7 @@
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
     <div class="buttonRow">
-      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.sitesList" (click)="viewMap()">
+      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.sitesData" (click)="viewMap()">
         <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
         {{ helperService.translated.BUTTONS.VIEW_MAP }}
       </button>
@@ -109,9 +109,9 @@
     </table>
   </div>
 
-  <div class="paddingbox text-center" *ngIf="siteCentreObj.dataSource === 0">
+  <div class="paddingbox text-center" *ngIf="siteCentreObj.dataSource === null">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
 
-  <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount"
+  <mat-paginator class="mat-elevation-z1" [pageSize]="siteCentreObj.pageSize" [length]="siteCentreObj.pageCount"
     (page)="getSitesData(paginator.pageIndex, siteCentreObj.search)"></mat-paginator>
 </div>

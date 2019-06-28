@@ -23,8 +23,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   siteCentreObj: SiteCentre = <SiteCentre>{};
   displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'siteSafetyManager', 'symbol'];
-  private pageCount: any;
-  pageSize: any;
   private dataSource: MatTableDataSource<any>;
 
 
@@ -43,12 +41,10 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * this function is used to initialize the global variables that we have made in the models.
    */
   initialize() {
-    this.siteCentreObj.empty = false;
     this.siteCentreObj.search = '';
-    this.siteCentreObj.lastIndex = 0;
     this.siteCentreObj.firstIndex = 0;
-    this.pageSize = 10;
-    this.siteCentreObj.dataSource = [];
+    this.siteCentreObj.pageSize = 10;
+    this.siteCentreObj.dataSource = null;
   }
 
   /**
@@ -83,32 +79,28 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     };
     this.adminServices.viewSites(entityData).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.siteCentreObj.sitesList = res.data.sitesList;
-        this.pageCount = res.data.pageCount;
+        this.siteCentreObj.pageCount = res.data.pageCount;
         if (pageIndex === 0) {
           this.paginator.pageIndex = 0;
-          this.siteCentreObj.paginationData = [];
         }
-        this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(this.siteCentreObj.sitesList);
-        this.siteCentreObj.lastIndex = pageIndex;
-        this.siteCentreObj.paginationData.push({'pageIndex': pageIndex, 'data': this.siteCentreObj.sitesData});
+        this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
         this.adminServices.changeSites(this.siteCentreObj.sitesData);
         this.siteCentreObj.subscription = this.adminServices.siteObserver.subscribe((res) => {
           if (res !== 1 && res.length !== 0) {
             this.siteCentreObj.dataSource = new MatTableDataSource(res);
           } else if (res.length === 0) {
-            this.siteCentreObj.dataSource = 0;
+            this.siteCentreObj.dataSource = null;
           }
         });
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.siteCentreObj.dataSource = 0;
+        this.siteCentreObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-      this.siteCentreObj.dataSource = 0;
+      this.siteCentreObj.dataSource = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
         this.helperService.constants.status.ERROR);
     });
@@ -181,6 +173,10 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
   }
 
+
+  /**
+   * this function is used to open add hazard dialog.
+   */
   addHazard(id: any) {
     this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
@@ -188,6 +184,9 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * this function is used to open delete dialog.
+   */
   confirmationModal(siteId: number) {
     this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_SITE}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
@@ -198,6 +197,9 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * this function is used to call the api for deleting the site.
+   */
   deleteSite(siteId) {
     this.adminServices.deleteSite(siteId).subscribe((res) => {
       this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
@@ -209,11 +211,17 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * this function is used to open the viewMap dialog.
+   */
   viewMap() {
     this.helperService.createDialog(SiteMapComponent,
-      {disableClose: true, height: '75%', width: '80%', data: {'siteData': this.siteCentreObj.sitesList, type: false}});
+      {disableClose: true, height: '75%', width: '80%', data: {'siteData': this.siteCentreObj.sitesData, type: false}});
   }
 
+  /**
+   * this function is used to call the api for sitesdata again on the basis of search value.
+   */
   search(value) {
     this.siteCentreObj.search = value;
     this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);

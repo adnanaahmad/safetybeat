@@ -22,7 +22,6 @@ export class AddQuestionComponent implements OnInit {
     private questionCenterService: QuestionCenterService,
     @Inject(MAT_DIALOG_DATA) public data,
   ) {
-    this.QuestionObj.questionCtrl = new FormControl();
     this.QuestionObj.parentQuestions = data.parentQuestions;
     this.QuestionObj.childQuestions = data.childQuestions;
     this.QuestionObj.loading = false;
