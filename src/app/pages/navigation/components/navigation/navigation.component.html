@@ -21,7 +21,7 @@
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
-        <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&!packageInfo.expired">
+        <div class="product-notice">
           {{helperService.translated.MESSAGES.TRIAL_LEFT_1}}{{packageInfo.daysLeft}}{{helperService.translated.MESSAGES.TRIAL_LEFT_2}}
           <button>{{helperService.translated.BUTTONS.UPGRADE}}</button>
         </div>
@@ -32,14 +32,24 @@
         <div class="product-notice" *ngIf="!isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_EXP_USER}}</div>
         <div class="top-btns">
-          <mat-form-field class="entity-switcher">
+          <!-- <mat-form-field class="entity-switcher">
             <mat-select [(value)]="navModel.selectedEntity" (selectionChange)="switchSideMenu(navModel.selectedEntity)">
               <mat-option *ngFor="let entity of navModel.entityUserData" [value]="entity">{{entity.entityInfo.name}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
-
-
+          </mat-form-field> -->
+          <div class="entity-switch-wrap" *ngIf="navModel.showEntitySwitcher">
+            <button mat-button
+              [matMenuTriggerFor]="menu1">{{navModel.selectedEntity?navModel.selectedEntity.entityInfo.name:''}}</button>
+            <mat-menu #menu1="matMenu">
+              <div *ngFor="let entity of navModel.entityUserData">
+                <button mat-menu-item (click)="switchSideMenu(entity)">{{entity.entityInfo.name}}</button>
+              </div>
+            </mat-menu>
+          </div>
+          <div *ngIf="!navModel.showEntitySwitcher">
+            <button mat-button>{{navModel.selectedEntity?navModel.selectedEntity.entityInfo.name:''}}</button>
+          </div>
           <mat-icon class="notification-icon" (click)="drawer.toggle()">{{helperService.appIcons.notificationImportant}}
             <span class="notifcount">90+</span></mat-icon>
           <div class="profile-menu mat-elevation-z4">
