@@ -45,7 +45,7 @@ export class CreateFolderComponent implements OnInit {
     } else {
       let data = {name: value.title, entity: this.data.id};
       this.navService.createFolder(data).subscribe((res) => {
-        if (res.responseDetails.code === 100) {
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
           this.dialogRef.close();
         } else {

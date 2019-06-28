@@ -25,7 +25,7 @@ import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserMo
 import { VerificationComponent } from './Dialogs/verification/verification.component';
 import { CompilerProvider } from './shared/compiler/compiler';
 import { InviteTeamModalComponent } from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatNativeDateModule} from '@angular/material';
 import { ToasterComponent } from './common/toaster/toaster.component';
 import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import { ImportSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
@@ -45,6 +45,7 @@ import { ViewDocComponent } from './pages/navigation/dialogs/viewDoc/viewDoc.com
 import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import { CreateQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -78,6 +79,9 @@ export function createTranslateLoader(http: HttpClient) {
     CreateQuestionComponent
   ],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
@@ -93,9 +97,11 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     AppRoutingModule,
     NotifierModule,
-    DragDropModule
+    DragDropModule,
+    MyTeamModule
   ],
   providers: [
+    MatDatepickerModule,
     TranslateService,
     CoreService,
     AuthGuard,

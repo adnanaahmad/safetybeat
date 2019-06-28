@@ -45,7 +45,7 @@ app-toaster {
 .clearfix {
   clear: both;
   display: block;
-  width: 100%;
+  width: $fullValue;
   height: 1px;
 }
 .notification-icon {
@@ -681,8 +681,8 @@ input:-internal-autofill-selected {
 }
 .table-wrap {
   overflow: auto;
-  width: 100%;
-  height: 100%;
+  width: $fullValue;
+  height: $fullValue;
   table {
     table-layout: fixed;
     th,
@@ -697,11 +697,11 @@ input:-internal-autofill-selected {
   position: relative;
   cursor: pointer;
   display: inline-block;
-  height: 100%;
+  height: $fullValue;
   .fake-uploader {
     background: transparent;
     border: 2px dashed rgba(0, 0, 0, 0.3);
-    width: 100%;
+    width: $fullValue;
     padding: 10px;
     border-radius: 100px;
     margin: 10px 0;
@@ -721,8 +721,8 @@ input:-internal-autofill-selected {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    width: $fullValue;
+    height: $fullValue;
     cursor: pointer;
     z-index: 2;
   }

@@ -44,6 +44,7 @@
 @import "src/app/pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/components/siteCenter/siteCenter.component.scss";
 @import "src/app/Dialogs/conformationModal/confirmationModal.component.scss";
+@import "src/app/pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -98,4 +99,5 @@
   @include amte-viewTeam($primary, $accent, $warn);
   @include amte-siteCenter($primary, $accent, $warn);
   @include amte-confirmationModal($primary, $accent, $warn);
+  @include amte-register-team($primary, $accent, $warn);
 }

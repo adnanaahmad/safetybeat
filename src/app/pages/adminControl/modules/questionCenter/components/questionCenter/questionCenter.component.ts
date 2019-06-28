@@ -14,8 +14,6 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class QuestionCenterComponent implements OnInit {
   questionTableColumns: string[] = ['parent', 'childYes', 'childNo', 'symbol'];
-
-  // Question Bank
   questionBankColumns: string[] = ['questionbank', 'symbol'];
   QuestionObj: QuestionCenter = <QuestionCenter>{};
 
@@ -25,6 +23,7 @@ export class QuestionCenterComponent implements OnInit {
     private compiler: CompilerProvider,
   ) {
     this.QuestionObj.translated = this.helperService.translated;
+    this.QuestionObj.pageSize = 10;
 
   }
 
@@ -33,6 +32,10 @@ export class QuestionCenterComponent implements OnInit {
     this.getAllEntityQuestions();
   }
 
+
+  /**
+   * this function is used to call the api to get all the questions for Question bank by passing the entityId.
+   */
   getAllQuestions() {
     let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
@@ -44,14 +47,14 @@ export class QuestionCenterComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.QuestionObj.dataSource = 0;
+        this.QuestionObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
       }
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
         this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED);
     }, (err) => {
-      this.QuestionObj.dataSource = 0;
+      this.QuestionObj.dataSource = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
         this.helperService.constants.status.ERROR);
       this.helperService.appLogger(this.helperService.constants.status.ERROR,
@@ -60,6 +63,11 @@ export class QuestionCenterComponent implements OnInit {
 
   }
 
+  /**
+   * this function is used to open Add Question dialog and when the dialog is closed
+   * we call the api to get all the question of entity for updating the parent child
+   * question table.
+   */
   addQuestion() {
     this.helperService.createDialog(AddQuestionComponent, {
       disableClose: true, data:
@@ -73,6 +81,10 @@ export class QuestionCenterComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used to open Create Question dialog and when the dialog is closed
+   * we call the api to get all the question for QuestionBank.
+   */
   createQuestion() {
     this.helperService.createDialog(CreateQuestionComponent, {
       disableClose: true
@@ -83,6 +95,9 @@ export class QuestionCenterComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used to call the api to get all the question for Entity in the Question Table.
+   */
   getAllEntityQuestions() {
     let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
@@ -93,12 +108,12 @@ export class QuestionCenterComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.QuestionObj.entityQuestions = 0;
+        this.QuestionObj.entityQuestions = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
       }
-    }, (err) => {
-      this.QuestionObj.entityQuestions = 0;
+    }, (error) => {
+      this.QuestionObj.entityQuestions = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
         this.helperService.constants.status.ERROR);
     });

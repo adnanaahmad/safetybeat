@@ -21,7 +21,7 @@
     <mat-sidenav-content class="app-content">
       <!-- Router outlet for the rest of the app -->
       <mat-toolbar class="topbar">
-        <div class="product-notice">
+        <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&!packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_LEFT_1}}{{packageInfo.daysLeft}}{{helperService.translated.MESSAGES.TRIAL_LEFT_2}}
           <button>{{helperService.translated.BUTTONS.UPGRADE}}</button>
         </div>

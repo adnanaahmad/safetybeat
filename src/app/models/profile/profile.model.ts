@@ -37,6 +37,7 @@ export interface ProfileModel {
   noActivity: boolean;
   duration: string;
   noConnection: boolean;
+  noRecords: boolean;
 }
 
 
