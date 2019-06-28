@@ -2,6 +2,7 @@ import {Site, SitesInfo} from '../site.model';
 import {Subscription} from 'rxjs';
 
 export interface SiteCentre {
+  search: any;
   data: any;
   entitiesData: any;
   allEntities: any;

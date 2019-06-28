@@ -1,4 +1,4 @@
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
 
 
@@ -16,7 +16,10 @@ export class QuestionCenter {
   childQuestions: Questions[];
   allEntityQuestions: EntityQuestion[];
   entityQuestions: any;
-  questionCtrl: FormControl;
+  questionCtrl: any;
+  filteredParentQuestion: Questions[];
+  filteredChildNoQuestion: Questions[];
+  filteredChildYesQuestion: Questions[];
 }
 
 

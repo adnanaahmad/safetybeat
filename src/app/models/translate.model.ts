@@ -418,6 +418,7 @@ export interface Messages {
   ENTITIES: string;
   ALL_SITES_SUCCESS: string;
   ALL_SITES_FAILURE: string;
+  PARENT_QUESTION_REQ: string;
 }
 
 export interface Logger {

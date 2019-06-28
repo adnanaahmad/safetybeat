@@ -364,7 +364,8 @@
     "LEAVES": "Leaves",
     "ENTITIES": "Entities",
     "ALL_SITES_SUCCESS": "All Sites Received",
-    "ALL_SITES_FAILURE": "All Sites Record API Failed"
+    "ALL_SITES_FAILURE": "All Sites Record API Failed",
+    "PARENT_QUESTION_REQ": "Parent Question is required"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
