@@ -375,7 +375,7 @@
     "PULSE_PERSON_MSG": "This report provides a view of the number of pulses, by reason/pulse type, by person.",
     "COMPLIANT_CHECKOUT_MSG": "This report compares the number of compliant check-outs to the number of non compliant Check-outs by person. A compliant check-out is where a person check-out within the site’s geo-zone, whereas a non-complaint check-out occurs outside the geo-zone.",
     "SITE_ACTIVITY_MSG": "This report shows the number of check-ins and hours checked-in total and by site.",
-    "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved)."
+    "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved).",
     "ALL_SITES_FAILURE": "All Sites Record API Failed",
     "PARENT_QUESTION_REQ": "Parent Question is required"
   },
