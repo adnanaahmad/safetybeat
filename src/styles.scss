@@ -13,6 +13,7 @@ $hexWhite: #ffffff;
 $borderRadius: 4px;
 $roundRadius: 100px;
 $card-padding: 16px;
+$cursor-pointer: pointer;
 html,
 body {
   height: $fullValue;
@@ -37,6 +38,9 @@ h6,
 notifier-notification,
 app-toaster {
   font-family: $fontFamily;
+}
+.pointer{
+  cursor: $cursor-pointer;
 }
 .clearfix {
   clear: both;
@@ -142,7 +146,7 @@ mat-dialog-container {
   }
 }
 .page-title {
-  padding: 10px 0 20px;
+  padding: 0 0 20px;
   display: flex;
   align-items: center;
   h3 {

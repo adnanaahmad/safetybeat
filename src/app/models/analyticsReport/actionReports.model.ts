@@ -15,6 +15,8 @@ export interface ActionReport {
   subscription: Subscription;
   actionReportForm: FormGroup;
   actionReportData: ActionReportData[];
+  filters: any;
+  noSites: boolean;
 }
 
 export interface ActionReportApiData {
@@ -22,6 +24,7 @@ export interface ActionReportApiData {
   dateFrom: string;
   dateTo: Date;
   site: number;
+  filter: string;
 }
 
 export interface HighChartType {

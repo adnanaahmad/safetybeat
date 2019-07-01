@@ -50,6 +50,42 @@ export interface Strings {
   NO_ACTIVITIES: string;
   NO_DOCUMENTS: string;
   NO_FOLDERS: string;
+  PASSWORD: string;
+  MOBILENO: string;
+  PASSWORD1: string;
+  PASSWORD2: string;
+  NAME: string;
+  TYPE: string;
+  ADDRESS: string;
+  CITY: string;
+  COUNTRY: string;
+  ZIPCODE: string;
+  BILLINGEMAIL: string;
+  ACCOUNTNO: string;
+  PHONENO: string;
+  FAX: string;
+  PACKAGE_DESCRIPTION_1: string;
+  PACKAGE_DESCRIPTION_2: string;
+  PACKAGE_DESCRIPTION_3: string;
+  QUESTION_NAME: string;
+  QUESTION_WARNING: string;
+  SELECT_QUESTION_TYPE: string;
+  SAFE_QUESTION: string;
+  PARENT: string;
+  SAFE_QUESTION_YES: string;
+  SAFE_QUESTION_NO: string;
+  SAFE_QUESTION_BOTH: string;
+  CAN_PROCEED_QUESTION: string;
+  CAN_PROCEED_QUESTION_YES: string;
+  CAN_PROCEED_QUESTION_NO: string;
+  RENAME: string;
+  DELETE_FOLDER: string;
+  PARENT_QUESTION: string;
+  CHILD_YES: string;
+  CHILD_NO: string;
+  CHILD: string;
+  CHANGEPICTURE: string;
+
 }
 
 export interface Auth {
@@ -424,6 +460,17 @@ export interface Messages {
   ENTITIES: string;
   ALL_SITES_SUCCESS: string;
   ALL_SITES_FAILURE: string;
+  ACTION_REPORT_MSG: string;
+  AVERAGE_ACTIONS_MSG: string;
+  NUMBER_CHECKIN_MSG: string;
+  HOURS_CHECKIN_MSG: string;
+  ALERT_PERSON_MSG: string;
+  ACTION_ALERT_MSG: string;
+  PULSE_ENTITY_MSG: string;
+  PULSE_PERSON_MSG: string;
+  COMPLIANT_CHECKOUT_MSG: string;
+  SITE_ACTIVITY_MSG: string;
+  HAZARD_REPORT_MSG: string;
   TEAM_TITLE_REQUIRED: string;
   TEAM_SELECTION_REQUIRED: string;
   TEAM_MEMBERS_REQUIRED: string;

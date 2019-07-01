@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {ActivatedRoute} from '@angular/router';
-import {Documents} from '../../../../models/navigation/documents.model';
-import {NavigationService} from '../../services/navigation.service';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
+import {Documents} from 'src/app/models/navigation/documents.model';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {Location} from '@angular/common';
-import {ViewDocComponent} from '../../dialogs/viewDoc/viewDoc.component';
-import {UploadDocComponent} from '../../dialogs/uploadDoc/uploadDoc.component';
+import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc.component';
+import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/uploadDoc.component';
 
 @Component({
   selector: 'app-showDocuments',
@@ -15,21 +15,20 @@ import {UploadDocComponent} from '../../dialogs/uploadDoc/uploadDoc.component';
 })
 export class ShowDocumentsComponent implements OnInit {
   documentsData: Documents = <Documents>{};
-  folderId: number;
 
   constructor(public helperService: HelperService,
+              public compiler: CompilerProvider,
               private route: ActivatedRoute,
               private navService: NavigationService,
-              public compiler: CompilerProvider,
               private location: Location) {
     this.route.params.subscribe((data) => {
-      this.folderId = data.folderId;
+      this.documentsData.folderId = data.folderId;
       this.documentsData.entityID = data.entityId;
     });
   }
 
   ngOnInit() {
-    this.docsOfFolder(this.folderId);
+    this.docsOfFolder(this.documentsData.folderId);
   }
 
   goBack() {
@@ -53,8 +52,7 @@ export class ShowDocumentsComponent implements OnInit {
         this.helperService.iterations(this.documentsData.docList, function (obj) {
           obj.sourceUrl = 'https//docs.google.com/gview?url=' + obj.file + '&embedded=true';
         });
-        this.navService.updateDocument(this.documentsData.docList);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.documentsData.folderDoc = false;
       } else {
         this.documentsData.folderDoc = false;
@@ -67,13 +65,13 @@ export class ShowDocumentsComponent implements OnInit {
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {
       disableClose: true, data: {
-        folderId: this.folderId,
+        folderId: this.documentsData.folderId,
         entityID: this.documentsData.entityID,
         modalType: false
       }
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.docsOfFolder(this.folderId);
+      this.docsOfFolder(this.documentsData.folderId);
     });
   }
 }

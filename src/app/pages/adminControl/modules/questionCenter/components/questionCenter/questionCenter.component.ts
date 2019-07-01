@@ -1,57 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { AddQuestionComponent } from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
-import { CreateQuestionComponent } from 'src/app/pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
-import { QuestionCenterService } from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { QuestionCenter } from 'src/app/models/adminControl/questionCenter.model';
-export interface PeriodicElement {
-  parent: string;
-  childYes: string;
-  childNo: string;
-  action: string;
-}
+import {Component, OnInit} from '@angular/core';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {AddQuestionComponent} from 'src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
+import {CreateQuestionComponent} from 'src/app/pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import {QuestionCenterService} from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
+import {MatTableDataSource} from '@angular/material';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' },
-  { parent: 'Is a site specific induction required for this site?', childYes: 'Is a site specific induction required for this site?', childNo: 'Is a site specific induction required for this site?', action: '' }
-];
-export interface PeriodicElement2 {
-  questionbank: string;
-}
-const ELEMENT_DATA2: PeriodicElement2[] = [
-  { questionbank: 'Is a site specific induction required for this site?' },
-  { questionbank: 'Do you know how to safely exit the site in the event of an emergency?' },
-  { questionbank: 'Have you completed the site safety induction?' },
-  { questionbank: 'Have you signed the SWMS for all high risk work you will undertake?' },
-  { questionbank: 'Are you wearing all PPE required for this site?' },
-  { questionbank: 'Do you have the appropriate equipment, training and tools to safely perform the tasks on site?' },
-  { questionbank: 'Do you feel that the environment is safe to work in?' },
-  { questionbank: 'Are there members of the public and/or other trades in your work area?' },
-  { questionbank: 'Have you ensured the correct safety measures are in place?' },
-  { questionbank: 'Is the visibility in the work area adequate?' },
-  { questionbank: 'Are there any high risk activities you will engage in?' }
-];
 @Component({
   selector: 'app-questionCenter',
   templateUrl: './questionCenter.component.html',
   styleUrls: ['./questionCenter.component.scss'],
 })
 export class QuestionCenterComponent implements OnInit {
-  displayedColumns: string[] = ['parent', 'childYes', 'childNo'];
-  dataSource = ELEMENT_DATA;
-
-  // Question Bank
-  displayedColumns2: string[] = ['questionbank'];
-  dataSource2 = ELEMENT_DATA2;
-
+  questionTableColumns: string[] = ['parent', 'childYes', 'childNo', 'symbol'];
+  questionBankColumns: string[] = ['questionbank', 'symbol'];
   QuestionObj: QuestionCenter = <QuestionCenter>{};
 
   constructor(
@@ -60,46 +23,38 @@ export class QuestionCenterComponent implements OnInit {
     private compiler: CompilerProvider,
   ) {
     this.QuestionObj.translated = this.helperService.translated;
-    // this.dataSource.push(this.todo,this.done,this.abc,this.def);
-    // this.dataSource.push.apply(this.dataSource, this.todo);
-    // this.dataSource.push.apply(this.dataSource, this.done);
-    // this.dataSource.push.apply(this.dataSource, this.abc);
-    // this.dataSource.push.apply(this.dataSource, this.def);
+    this.QuestionObj.pageSize = 10;
 
   }
 
   ngOnInit() {
-    this.getAllquestions();
-  }
-
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
+    this.getAllQuestions();
+    this.getAllEntityQuestions();
   }
 
 
-  getAllquestions() {
+  /**
+   * this function is used to call the api to get all the questions for Question bank by passing the entityId.
+   */
+  getAllQuestions() {
     let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
 
-    this.questionCenterService.getAllQuestions({ 'entityId': entityId }).subscribe((res) => {
-      this.QuestionObj.allQuestions = res;
+    this.questionCenterService.getAllQuestions({'entityId': entityId}).subscribe((res) => {
+      this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList)
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.QuestionObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
       }
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
         this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED);
     }, (err) => {
+      this.QuestionObj.dataSource = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
         this.helperService.constants.status.ERROR);
       this.helperService.appLogger(this.helperService.constants.status.ERROR,
@@ -108,10 +63,59 @@ export class QuestionCenterComponent implements OnInit {
 
   }
 
+  /**
+   * this function is used to open Add Question dialog and when the dialog is closed
+   * we call the api to get all the question of entity for updating the parent child
+   * question table.
+   */
   addQuestion() {
-    this.helperService.createDialog(AddQuestionComponent, { disableClose: true });
+    this.helperService.createDialog(AddQuestionComponent, {
+      disableClose: true, data:
+        {
+          parentQuestions: this.QuestionObj.allQuestions.parentQuestions,
+          childQuestions: this.QuestionObj.allQuestions.childQuestions
+        }
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.getAllEntityQuestions();
+    });
   }
+
+  /**
+   * this function is used to open Create Question dialog and when the dialog is closed
+   * we call the api to get all the question for QuestionBank.
+   */
   createQuestion() {
-    this.helperService.createDialog(CreateQuestionComponent, { disableClose: true });
+    this.helperService.createDialog(CreateQuestionComponent, {
+      disableClose: true
+    })
+    ;
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.getAllQuestions();
+    });
+  }
+
+  /**
+   * this function is used to call the api to get all the question for Entity in the Question Table.
+   */
+  getAllEntityQuestions() {
+    let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
+    this.questionCenterService.viewAllEntityQuestions({'entity': entityId}).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.QuestionObj.allEntityQuestions = this.compiler.constructAllEntityQuestionsData(res);
+        this.QuestionObj.entityQuestions = new MatTableDataSource(this.QuestionObj.allEntityQuestions)
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.QuestionObj.entityQuestions = null;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+          res.responseDetails.message);
+      }
+    }, (error) => {
+      this.QuestionObj.entityQuestions = null;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+        this.helperService.constants.status.ERROR);
+    });
   }
 }

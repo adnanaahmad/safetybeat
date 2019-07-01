@@ -76,6 +76,9 @@ export class ConstantService {
     deleteDoc: `${environment.apiUrl}/api/documents/`,
     team: `${environment.apiUrl}/api/teams/`,
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
+    parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
+    viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
+
   };
   /**
    * all the api methods are declared here.
@@ -187,8 +190,15 @@ export class ConstantService {
     safeQuestion: 'safeQuestion',
     canProceed: 'canProceed',
     parent: 'parent',
+    input: 'input',
     dateFrom: 'dateFrom',
     dateTo: 'dateTo',
+    filter: 'filter',
+    range: 'range',
+    allUsers: 'allUsers',
+    allSites: 'allSites',
+    allTeams: 'allTeams',
+    noSite: 'noSite',
     site: 'site',
     Root: 'root',
     paths: {
@@ -223,7 +233,9 @@ export class ConstantService {
     noHazard: './assets/images/no-hazard.png',
     title: 'title',
     teamLead: 'teamLead',
-    team: 'team'
+    team: 'team',
+    childYes: 'childYes',
+    childNo: 'childNo'
   };
   /**
    * all the material icon names are declared here.
