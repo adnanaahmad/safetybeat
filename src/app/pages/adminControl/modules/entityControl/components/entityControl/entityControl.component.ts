@@ -32,17 +32,21 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     private compiler: CompilerProvider
   ) {
     this.initialize();
-    this.helperService.toggleLoader(true)
+    this.helperService.toggleLoader(true);
     this.helperService.appLogger(
       this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.ENTITYCONTROL
     );
+
+    this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
+      this.entityControl.currentUserData = res;
+    });
     this.entityControl.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getUsers();
       } else {
         this.entityControl.allUsersList = res;
-        this.helperService.toggleLoader(false)
+        this.helperService.toggleLoader(false);
       }
     });
   }
@@ -72,13 +76,12 @@ export class EntityControlComponent implements OnInit, OnDestroy {
 
   initialize() {
     this.entityControl.createEntityOption = false;
-    this.entityControl.dialogConfig = new MatDialogConfig();
-    this.entityControl.dataSource = [];
     this.entityControl.allEntitiesData = [];
     this.entityControl.entitiesList = [];
     this.entityControl.empty = false;
     this.entityControl.createEntityOption = false;
     this.entityControl.joinOption = false;
+    this.entityControl.allUsersData = [];
     this.entityControl.displayedColumns = [
       'name',
       'headOffice',
@@ -191,7 +194,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
 
   getUsers() {
-    this.helperService.toggleLoader(true)
+    this.helperService.toggleLoader(true);
     this.entityControl.allUsers = this.userService.getAllUsers().pipe(share());
     this.entityControl.allUsers.subscribe(
       result => {
@@ -199,8 +202,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
         this.entityControl.allUsersList = result.data;
         this.userService.updateUsers(this.entityControl.allUsersList);
       },
-      error => {
-        this.helperService.toggleLoader(false)
+      (error) => {
+        this.helperService.toggleLoader(false);
       }
     );
   }
@@ -212,10 +215,17 @@ export class EntityControlComponent implements OnInit, OnDestroy {
 
   inviteTeam(entityData: any) {
     if (this.entityControl.allUsersList.length !== 0) {
+      let self = this;
+      this.helperService.iterations(this.entityControl.allUsersList, function (value) {
+        if (value.email !== self.entityControl.currentUserData.email) {
+          self.entityControl.allUsersData.push(value);
+        }
+      });
       let inviteTeamData = {
         entityData: entityData.entityInfo.code,
-        usersData: this.entityControl.allUsersList
+        usersData: this.entityControl.allUsersData
       };
+      console.log('this is the invite team data', inviteTeamData);
       this.helperService.createDialog(InviteTeamModalComponent, {
         data: {inviteTeamData},
         disableClose: true
@@ -239,6 +249,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       this.entityControl.entitiesList = res;
       let entityUserData = this.compiler.constructUserEntityData(this.entityControl.entitiesList.data);
       this.navService.changeEntites(entityUserData);
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL, this.helperService.translated.STATUS.ERROR);
     });
   }
 
@@ -247,7 +259,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * @params entityId
    */
 
-  deleteEntity(entityId: any) {
+  deleteEntity(entityId: number) {
     this.helperService.toggleLoader(true);
     this.adminServices.deleteEntity(entityId).subscribe(res => {
       this.viewEntitiesApiCall();

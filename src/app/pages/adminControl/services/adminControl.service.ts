@@ -3,6 +3,8 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
+import {EntityUserData} from '../../../models/userEntityData.model';
+import {ViewAllEntitiesResponse} from '../../../models/adminControl/entityControl.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +45,7 @@ export class AdminControlService {
    * this function is used to return the viewAllEntities api response whenever and wherever this function is called
    * @params data
    */
-  viewEntities(data: object) {
+  viewEntities(data: object): Observable<ViewAllEntitiesResponse> {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllEntities,

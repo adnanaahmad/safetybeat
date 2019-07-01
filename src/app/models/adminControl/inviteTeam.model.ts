@@ -1,6 +1,7 @@
 import {Observable} from 'rxjs';
 
 export interface InviteTeamModel {
+  currentUserData: any;
   showMessage: boolean;
   loading: boolean;
   selectable: boolean;

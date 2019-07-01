@@ -321,6 +321,7 @@ export interface Messages {
   ENTITY_DELETE: string;
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
+  ENTITYNOTDELETED: string;
   ENTITY_DELETE_FAIL_TITLE: string;
   SITE_IMPORT_SUCCESS: string;
   SITE_IMPORT_FAILURE: string;
@@ -423,6 +424,9 @@ export interface Messages {
   ENTITIES: string;
   ALL_SITES_SUCCESS: string;
   ALL_SITES_FAILURE: string;
+  TEAM_TITLE_REQUIRED: string;
+  TEAM_SELECTION_REQUIRED: string;
+  TEAM_MEMBERS_REQUIRED: string;
 }
 
 export interface Logger {

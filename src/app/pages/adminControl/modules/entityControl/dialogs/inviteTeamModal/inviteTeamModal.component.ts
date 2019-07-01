@@ -11,6 +11,7 @@ import {startWith, map} from 'rxjs/operators';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {InviteTeamModel} from 'src/app/models/adminControl/inviteTeam.model';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-inviteTeamModal',
@@ -27,8 +28,13 @@ export class InviteTeamModalComponent implements OnInit {
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
     public helperService: HelperService,
     private adminServices: AdminControlService,
+    private navService: NavigationService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
+    this.navService.currentUserData.subscribe((currentUserData) => {
+      this.inviteTeamModel.currentUserData = currentUserData;
+    });
+
     this.initialize();
     this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData
       ? this.data.inviteTeamData.usersData.map(x => Object.assign({}, x))
@@ -101,8 +107,8 @@ export class InviteTeamModalComponent implements OnInit {
 
   private _filter(value: any): any[] {
     const filterValue = value && value.first_name
-        ? value.first_name.toLowerCase()
-        : value.toLowerCase();
+      ? value.first_name.toLowerCase()
+      : value.toLowerCase();
     return this.inviteTeamModel.allUsers.filter(user => {
       return user.first_name.toLowerCase().indexOf(filterValue) === 0;
     });

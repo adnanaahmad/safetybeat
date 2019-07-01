@@ -360,7 +360,10 @@
     "LEAVES": "Leaves",
     "ENTITIES": "Entities",
     "ALL_SITES_SUCCESS": "All Sites Received",
-    "ALL_SITES_FAILURE": "All Sites Record API Failed"
+    "ALL_SITES_FAILURE": "All Sites Record API Failed",
+    "TEAM_TITLE_REQUIRED": "Team title is required.",
+    "TEAM_SELECTION_REQUIRED": "Team selection is required.",
+    "TEAM_MEMBERS_REQUIRED": "Team members selection is required."
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -455,7 +458,8 @@
       "ORG_SUCCESS": "Organization Data Edited.",
       "QUESTION_DATA_REQ": "Question data is required",
       "ALL_QUESTION_RECEIVED": "All Questions of Entity received",
-      "ALL_QUESTION_RECEIVED_ERROR": "No Questions of Entity exits"
+      "ALL_QUESTION_RECEIVED_ERROR": "No Questions of Entity exits",
+      "ENTITYNOTDELETED": "Entity is not deleted. Check your internet connection or try again."
     }
   },
   "STATUS": {

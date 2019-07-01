@@ -77,7 +77,8 @@ export class HelperService {
     this.isLarge = this.breakpointObserver.observe([Breakpoints.Large]);
     this.isPortrait = this.breakpointObserver.observe('(orientation: portrait)');
     this.isLandscape = this.breakpointObserver.observe('(orientation: landscape)');
-    this.isWeb = this.breakpointObserver.observe([Breakpoints.WebLandscape, Breakpoints.WebPortrait, Breakpoints.Large, Breakpoints.XLarge]);
+    this.isWeb = this.breakpointObserver.observe(
+      [Breakpoints.WebLandscape, Breakpoints.WebPortrait, Breakpoints.Large, Breakpoints.XLarge]);
   }
 
   /**
