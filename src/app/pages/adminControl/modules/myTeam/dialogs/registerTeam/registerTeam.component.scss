@@ -19,9 +19,14 @@
             right: 0;
             top: 50%;
             transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
             display: block;
             margin: 0 auto;
           }
+        }
+        .user-name {
+          display: flex;
+          align-items: center;
         }
         mat-list-item {
           padding: 6px 0;

@@ -78,10 +78,11 @@
     <div class="data-search">
       <mat-form-field fullWidth appearance="outline">
         <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
-        <mat-select [formControl]="toppings" multiple>
+        <input type="text" matInput [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}} <img
               src="/assets/images/useravatar.jpg" width="20px"></mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
       <div class="data-result">
         <mat-list role="list">
@@ -89,49 +90,17 @@
             <div class="user-thumbnail">
               <img src="/assets/images/useravatar.jpg">
             </div>
-            <h4 mat-line>User name</h4>
+            <h4 class="user-name align-items-center" mat-line>
+              <mat-icon class="remove-member" color="warn">{{helperService.appIcons.close}}</mat-icon> User name
+            </h4>
           </mat-list-item>
           <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
             <div class="user-thumbnail">
               <img src="/assets/images/useravatar.jpg">
             </div>
-            <h4 mat-line>User name</h4>
-          </mat-list-item>
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
-            <div class="user-thumbnail">
-              <img src="/assets/images/useravatar.jpg">
-            </div>
-            <h4 mat-line>User name</h4>
-          </mat-list-item>
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
-            <div class="user-thumbnail">
-              <img src="/assets/images/useravatar.jpg">
-            </div>
-            <h4 mat-line>User name</h4>
-          </mat-list-item>
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
-            <div class="user-thumbnail">
-              <img src="/assets/images/useravatar.jpg">
-            </div>
-            <h4 mat-line>User name</h4>
-          </mat-list-item>
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
-            <div class="user-thumbnail">
-              <img src="/assets/images/useravatar.jpg">
-            </div>
-            <h4 mat-line>User name</h4>
-          </mat-list-item>
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
-            <div class="user-thumbnail">
-              <img src="/assets/images/useravatar.jpg">
-            </div>
-            <h4 mat-line>User name</h4>
-          </mat-list-item>
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
-            <div class="user-thumbnail">
-              <img src="/assets/images/useravatar.jpg">
-            </div>
-            <h4 mat-line>User name</h4>
+            <h4 class="user-name align-items-center" mat-line>
+              <mat-icon class="remove-member" color="warn">{{helperService.appIcons.close}}</mat-icon> User name
+            </h4>
           </mat-list-item>
         </mat-list>
       </div>
@@ -139,7 +108,7 @@
   </form>
   <mat-dialog-actions>
     <button mat-raised-button cdkFocusInitial custom-btn btn-primary
-      color="primary">{{ helperService.translated.BUTTONS.JOIN_ENTITY }}</button>
+      color="primary">{{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM }}</button>
     <button mat-button mat-dialog-close>{{ helperService.translated.BUTTONS.CANCEL }}</button>
   </mat-dialog-actions>
 </div>
