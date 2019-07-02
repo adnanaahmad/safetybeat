@@ -49,10 +49,12 @@
     <div class="content-area">
       <ng-container *ngFor="let doc of documentsData.rootDocs">
         <mat-card class="file-inline" (click)="viewDoc(doc.file)">
-          <span class="file-label mat-caption">{{(doc.title.split('.'))[1]}}</span>
-<!--          <iframe src="https://docs.google.com/spreadsheets/d/1LF_fQTyzS9woI4nG4MkAvbNFhKWgQPnfhoQDsdCKBEc/edit#gid=1243096096" width='100%' height='140'></iframe>-->
-          <br>
-          <span>{{doc.title}}</span>
+          <div class="filetype">
+            <span>{{(doc.title.split('.'))[1]}}</span>
+          </div>
+          <!-- <span class="file-label mat-caption">{{(doc.title.split('.'))[1]}}</span> -->
+          <!--          <iframe src="https://docs.google.com/spreadsheets/d/1LF_fQTyzS9woI4nG4MkAvbNFhKWgQPnfhoQDsdCKBEc/edit#gid=1243096096" width='100%' height='140'></iframe>-->
+          <span class="mat-body-2 mat-small">{{doc.title}}</span>
         </mat-card>
       </ng-container>
     </div>
