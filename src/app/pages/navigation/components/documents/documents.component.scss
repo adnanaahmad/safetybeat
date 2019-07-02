@@ -11,6 +11,11 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      .file-options {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
     }
     .file-type,
     .document-type {

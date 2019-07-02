@@ -32,9 +32,25 @@
       found.</p>
     <div class="content-area">
       <ng-container *ngFor="let folder of documentsData.folderList">
-        <mat-card class="document-inline" (click)="showDocs(folder.id)">
-          <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
-          <span>{{folder.name}}</span>
+        <mat-card class="document-inline">
+          <button class="file-options" mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+              <span>{{helperService.translated.BUTTONS.RENAME}}</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>{{ helperService.appIcons.deleteForever }}</mat-icon>
+              <span>{{helperService.translated.BUTTONS.DELETE}}</span>
+            </button>
+          </mat-menu>
+          <div (click)="showDocs(folder.id)">
+            <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
+            <span>{{folder.name}}</span>
+          </div>
         </mat-card>
       </ng-container>
     </div>
@@ -48,13 +64,29 @@
       found.</p>
     <div class="content-area">
       <ng-container *ngFor="let doc of documentsData.rootDocs">
-        <mat-card class="file-inline" (click)="viewDoc(doc.file)">
-          <div class="filetype">
-            <span>{{(doc.title.split('.'))[1]}}</span>
+        <mat-card class="file-inline">
+          <button class="file-options" mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+              <span>{{helperService.translated.BUTTONS.RENAME}}</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>{{ helperService.appIcons.deleteForever }}</mat-icon>
+              <span>{{helperService.translated.BUTTONS.DELETE}}</span>
+            </button>
+          </mat-menu>
+          <div (click)="viewDoc(doc.file)">
+            <div class="filetype">
+              <span>{{(doc.title.split('.'))[1]}}</span>
+            </div>
+            <!-- <span class="file-label mat-caption">{{(doc.title.split('.'))[1]}}</span> -->
+            <!--          <iframe src="https://docs.google.com/spreadsheets/d/1LF_fQTyzS9woI4nG4MkAvbNFhKWgQPnfhoQDsdCKBEc/edit#gid=1243096096" width='100%' height='140'></iframe>-->
+            <span class="mat-body-2 mat-small">{{doc.title}}</span>
           </div>
-          <!-- <span class="file-label mat-caption">{{(doc.title.split('.'))[1]}}</span> -->
-          <!--          <iframe src="https://docs.google.com/spreadsheets/d/1LF_fQTyzS9woI4nG4MkAvbNFhKWgQPnfhoQDsdCKBEc/edit#gid=1243096096" width='100%' height='140'></iframe>-->
-          <span class="mat-body-2 mat-small">{{doc.title}}</span>
         </mat-card>
       </ng-container>
     </div>
