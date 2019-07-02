@@ -16,6 +16,10 @@
         right: 0;
         top: 0;
       }
+      .content {
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
     .file-type,
     .document-type {

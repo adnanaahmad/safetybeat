@@ -16,7 +16,7 @@
   <!--Search-->
   <div class="search-bar">
     <form autocomplete="off">
-      <mat-form-field autocomplete="off" appearance="outline">
+      <mat-form-field fullWidth autocomplete="off" appearance="outline">
         <mat-label>Search file or folder</mat-label>
         <input matInput placeholder="Search file or folder">
         <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
@@ -47,7 +47,7 @@
               <span>{{helperService.translated.BUTTONS.DELETE}}</span>
             </button>
           </mat-menu>
-          <div (click)="showDocs(folder.id)">
+          <div class="content" (click)="showDocs(folder.id)">
             <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
             <span>{{folder.name}}</span>
           </div>
@@ -79,7 +79,7 @@
               <span>{{helperService.translated.BUTTONS.DELETE}}</span>
             </button>
           </mat-menu>
-          <div (click)="viewDoc(doc.file)">
+          <div class="content" (click)="viewDoc(doc.file)">
             <div class="filetype">
               <span>{{(doc.title.split('.'))[1]}}</span>
             </div>
