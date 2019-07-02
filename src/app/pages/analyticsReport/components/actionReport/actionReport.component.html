@@ -1,11 +1,11 @@
 <div class="paddingbox">
   <div class="page-title">
-    <h3>Action Report</h3>
+    <h3>{{helperService.translated.STRINGS.ACTION_REPORT}}</h3>
   </div>
   <p>{{helperService.translated.MESSAGES.ACTION_REPORT_MSG}}</p>
   <mat-card>
-    <form [formGroup]="siteActivityObj.actionReportForm"
-          (ngSubmit)=actionReportFormSubmit(siteActivityObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
+    <form [formGroup]="actionReportObj.actionReportForm"
+          (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
 
       <div class="form-group">
         <mat-form-field appearance="outline">
@@ -40,7 +40,7 @@
           <mat-label>Select filter</mat-label>
           <mat-select [formControlName]="helperService.appConstants.filter"
                       (selectionChange)="filteredReport($event.value)">
-            <mat-option *ngFor="let filter of siteActivityObj.filters" [value]="filter">
+            <mat-option *ngFor="let filter of actionReportObj.filters" [value]="filter">
               {{ filter }}
             </mat-option>
           </mat-select>
@@ -51,7 +51,7 @@
         </button>
       </div>
       <br>
-      <div *ngIf="siteActivityObj.noSites">
+      <div *ngIf="actionReportObj.noSites">
         <p>No Sites</p>
       </div>
     </form>

@@ -131,6 +131,10 @@ export class CompilerProvider {
     return siteApiResponse;
   }
 
+  constructSiteList(siteApiResponse: any): Site[] {
+    return siteApiResponse.data;
+  }
+
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {
     return documentsApiResponse.data;
   }
@@ -148,7 +152,7 @@ export class CompilerProvider {
   }
 
   constructUserActionReportData(actionReportApiResponse: any): UserActionReportData {
-    return actionReportApiResponse;
+    return actionReportApiResponse.data;
   }
 
   constructAllTeamsData(allTeamsApiResponse: any): TeamList[] {

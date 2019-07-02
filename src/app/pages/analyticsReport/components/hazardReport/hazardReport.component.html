@@ -32,13 +32,13 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
-                 placeholder="Date From">
+                 placeholder="Date From" readonly>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-                 placeholder="Date To">
+                 placeholder="Date To" readonly>
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>

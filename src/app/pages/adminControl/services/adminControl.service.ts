@@ -83,6 +83,14 @@ export class AdminControlService {
     );
   }
 
+  getSiteList(data: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.getAllSites,
+      data
+    );
+  }
+
   /**
    * this function is used to return the addSite api response.
    * @params data

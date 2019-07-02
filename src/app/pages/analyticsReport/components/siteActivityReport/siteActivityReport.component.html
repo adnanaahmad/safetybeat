@@ -29,7 +29,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Date To</mat-label>
         <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-               placeholder="Date From">
+               placeholder="Date To">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
         <mat-error class="text-right" *ngIf="actionFormValidations.errors">
@@ -42,6 +42,14 @@
         <mat-select [formControlName]="helperService.appConstants.site">
           <mat-option *ngFor="let sites of actionReportObj.sitesData" [value]="sites.site.id">
             {{sites.site.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Select filter</mat-label>
+        <mat-select [formControlName]="helperService.appConstants.filter" (selectionChange)="filteredReport($event.value)">
+          <mat-option *ngFor="let filter of actionReportObj.filters" [value]="filter">
+            {{ filter }}
           </mat-option>
         </mat-select>
       </mat-form-field>

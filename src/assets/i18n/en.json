@@ -111,7 +111,8 @@
     "CHILD_NO": "Child No",
     "CHILD": "Child",
     "PARENT": "Parent",
-    "CHANGEPICTURE": "Change Picture"
+    "CHANGEPICTURE": "Change Picture",
+    "ACTION_REPORT": "Action Report"
   },
   "BUTTONS": {
     "LOGIN": "Login",

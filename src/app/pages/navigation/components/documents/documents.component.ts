@@ -38,6 +38,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
+        console.log(res);
         this.documentsData.entityID = res.entityInfo.id;
         this.getAllFolders(this.documentsData.entityID);
         this.getRootDocuments(this.documentsData.entityID);
