@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatAutocomplete, MatAutocompleteSelectedEvent, MatDial
 import { map, startWith } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { NavigationService } from '../../../../../navigation/services/navigation.service';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 
 
 @Component({

@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ViewChild
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { ProfileService } from 'src/app/pages/profile/services/profile.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -24,7 +25,7 @@ import { SiteMapComponent } from 'src/app/pages/adminControl/modules/siteCenter/
   styleUrls: ['./profile.component.scss']
 })
 
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -101,7 +102,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * to the behavior subject of the profile data.
    */
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
@@ -125,6 +126,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
 
     // this.responsive();
+  }
+
+  ngAfterViewInit(){
+    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -300,8 +305,4 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
   { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
   { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
 ];

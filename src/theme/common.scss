@@ -1,4 +1,8 @@
 @mixin amte-common($primary, $accent, $warn) {
+
+
+
+
   [btn-primary] {
     background-color: mat-color($primary);
     color: #fff;
@@ -32,4 +36,14 @@
     }
   }
   // Radio Button Coloring End
+}
+$centered: 0 auto;
+@mixin midBlock {
+  margin: $centered;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }

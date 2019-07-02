@@ -15,6 +15,7 @@ $roundRadius: 100px;
 $card-padding: 16px;
 $cursor-pointer: pointer;
 $centered: 0 auto;
+%midBlock{
 @mixin midBlock {
   position: absolute;
   top: 50%;
@@ -24,6 +25,8 @@ $centered: 0 auto;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
 }
+}
+
 html,
 body {
   height: $fullValue;

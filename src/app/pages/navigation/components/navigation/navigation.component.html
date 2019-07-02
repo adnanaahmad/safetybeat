@@ -41,13 +41,13 @@
           <div class="entity-switch-wrap" *ngIf="navModel.showEntitySwitcher">
             <button mat-button
               [matMenuTriggerFor]="menu1">{{navModel.selectedEntity?navModel.selectedEntity.entityInfo.name:''}}</button>
-            <mat-menu #menu1="matMenu">
+            <mat-menu class="mdropdown" #menu1="matMenu">
               <div *ngFor="let entity of navModel.entityUserData">
                 <button mat-menu-item (click)="switchSideMenu(entity)">{{entity.entityInfo.name}}</button>
               </div>
             </mat-menu>
           </div>
-          <div *ngIf="!navModel.showEntitySwitcher">
+          <div class="entity-switch-wrap" *ngIf="!navModel.showEntitySwitcher">
             <button mat-button>{{navModel.selectedEntity?navModel.selectedEntity.entityInfo.name:''}}</button>
           </div>
           <mat-icon class="notification-icon" (click)="drawer.toggle()">{{helperService.appIcons.notificationImportant}}
@@ -61,7 +61,7 @@
                 <img src="{{helperService.appConstants.avatar}}">
               </div>
             </button>
-            <mat-menu #menu="matMenu">
+            <mat-menu class="mdropdown2" #menu="matMenu">
               <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
                 <mat-icon>{{helperService.appIcons.person}}</mat-icon> {{helperService.translated.BUTTONS.VIEWPROFILE}}
               </button>

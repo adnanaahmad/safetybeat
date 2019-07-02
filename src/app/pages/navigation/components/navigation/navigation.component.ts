@@ -106,7 +106,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
         this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
-        this.navModel.showEntitySwitcher = this.navModel.allEntitiesData.entities.length>1 ? true : false;
+        this.navModel.showEntitySwitcher = this.navModel.allEntitiesData.entities.length > 1;
         this.navModel.empty = false;
         let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
           return entity.active === true;

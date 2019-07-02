@@ -6,6 +6,24 @@
     margin: 10px;
     border: 1px solid #555;
   }
+  .mdropdown {
+    margin-top: 13px;
+  }
+  .mdropdown2 {
+    margin-top: 20px;
+  }
+  .notification-drawer {
+    .mat-drawer-inner-container {
+      overflow: hidden;
+    }
+    .mat-tab-body-wrapper {
+      overflow-y: auto;
+      height: 100vh;
+      .mat-list-item:last-child {
+        margin-bottom: 100px;
+      }
+    }
+  }
   app-navigation {
     .entity-switch-wrap {
       display: inline-block;
@@ -29,15 +47,12 @@
       border-radius: 100px;
       overflow: hidden;
       margin-left: 10px;
-
       button {
         padding: 0 !important;
-        height: 50px;
         img {
           float: left;
           width: 30px;
           height: 30px;
-          margin-top: -20px;
         }
       }
     }
