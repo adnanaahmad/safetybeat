@@ -221,6 +221,7 @@
     "NOT_FOUND_CODE": "404",
     "NOTFOUND_DESCRIPTION": "The page you are looking for is not here, or maybe broken",
     "ALREADY_ACCOUNT": "Already Have an Account?",
+    "EMAIL_ALREADY_EXISTS": "User with this email already exists",
     "ENTITYNAME_REQ": "Entity Name is Required.",
     "OFFICELOCATION_REQ": "Head Office Location is Required.",
     "CREATEENTITY_MSG": "Enter Details to create Entity",

@@ -259,7 +259,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.navService.changeRoleId(this.navModel.Entity.permissions.role);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
-
   }
 
   /**
