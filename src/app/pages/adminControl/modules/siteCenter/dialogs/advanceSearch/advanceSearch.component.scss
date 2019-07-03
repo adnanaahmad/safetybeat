@@ -1,0 +1,58 @@
+@mixin amte-advanceSearch($primary, $accent, $warn) {
+    :host,
+    app-register-team {
+      // Search Filter
+      .data-search {
+        .data-result {
+          max-height: 320px;
+          overflow: auto;
+          padding: 0 3px;
+          .list-item {
+            display: flex;
+            padding: 10px;
+            margin: 7px 0;
+            align-items: center;
+            border-radius: 4px;
+          }
+          .user-thumbnail {
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            position: relative;
+            img {
+              max-width: 100%;
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              -webkit-transform: translateY(-50%);
+              display: block;
+              margin: 0 auto;
+            }
+          }
+          .user-name {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding-left: 10px;
+          }
+          .remove-member {
+            margin-left: auto;
+            cursor: pointer;
+            opacity: .6;
+            &:hover{
+              opacity: 1;
+            }
+          }
+          mat-list-item {
+            padding: 6px 0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  

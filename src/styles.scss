@@ -80,9 +80,6 @@ app-entityCodeModal {
 .full-width {
   width: $fullValue;
 }
-[btn-primary] {
-  color: $hexWhite !important;
-}
 .mat-input-element:disabled {
   cursor: not-allowed;
 }
@@ -749,6 +746,9 @@ input:-internal-autofill-selected {
       }
     }
   }
+  .monogram {
+    display: none;
+  }
 }
 @media (max-width: 768px) {
   app-settings {
@@ -899,9 +899,6 @@ input:-internal-autofill-selected {
     display: block;
     text-align: center;
   }
-  .monogram {
-    display: none;
-  }
   .notification-drawer {
     width: 100%;
   }
@@ -910,7 +907,6 @@ input:-internal-autofill-selected {
       padding: 0;
     }
   }
-  app-login,
   app-forgot-password,
   app-registration {
     app-particle-container {

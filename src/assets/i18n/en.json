@@ -112,7 +112,8 @@
     "CHILD": "Child",
     "PARENT": "Parent",
     "CHANGEPICTURE": "Change Picture",
-    "SEARCHUSERS": "Search Users"
+    "SEARCHUSERS": "Search Users",
+    "ADVSEARCH": "Advanced Search"
   },
   "BUTTONS": {
     "LOGIN": "Login",

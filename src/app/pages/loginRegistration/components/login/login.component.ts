@@ -8,6 +8,8 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Login} from 'src/app/models/loginRegistration/login.model';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -16,13 +18,29 @@ import {Login} from 'src/app/models/loginRegistration/login.model';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginObj: Login = <Login>{};
-
+  /** Based on the screen size, switch from standard to one column per row */
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'particleContainer', cols: 2, rows: 1 },
+          { title: 'loginForm', cols: 2, rows: 1 }
+        ];
+      } else {
+        return [
+          { title: 'particleContainer', cols: 1, rows: 2 },
+          { title: 'loginForm', cols: 1, rows: 2 }
+        ];
+      }
+    })
+  );
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
     public loginService: LoginRegistrationService,
     public helperService: HelperService,
     private compiler: CompilerProvider,
+    private breakpointObserver: BreakpointObserver,
     private adminService: AdminControlService,
     private navService: NavigationService
   ) {
