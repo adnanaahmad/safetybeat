@@ -86,6 +86,7 @@ export interface Strings {
   CHILD: string;
   CHANGEPICTURE: string;
   ACTION_REPORT: string;
+  SEARCHUSERS: string;
 
 }
 

@@ -1,21 +1,26 @@
-import {FormGroup, Validators} from '@angular/forms';
+import { FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
+import {MatTableDataSource} from '@angular/material';
 
 
 export class QuestionCenter {
   addQuestionForm: FormGroup;
   loading: boolean;
   translated: Translation;
-  addQuestionResponse: any;
-  canProceed: boolean;
-  canSafe: string;
   allQuestions: QuestionsData;
-  parent: boolean;
-  dataSource: any;
   parentQuestions: Questions[];
   childQuestions: Questions[];
   allEntityQuestions: EntityQuestion[];
-  entityQuestions: any;
+  filteredParentQuestion: Questions[];
+  filteredChildNoQuestion: Questions[];
+  filteredChildYesQuestion: Questions[];
+  pageSize: number;
+  pageCount: number;
+  dataSource: MatTableDataSource<Questions>;
+  canProceed: boolean;
+  parent: boolean;
+  canSafe: string;
+  entityQuestions: MatTableDataSource<EntityQuestion>;
 }
 
 

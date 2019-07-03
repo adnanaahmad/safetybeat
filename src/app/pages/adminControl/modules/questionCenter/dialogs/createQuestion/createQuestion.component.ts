@@ -76,14 +76,13 @@ export class CreateQuestionComponent implements OnInit {
     }
     this.QuestionObj.loading = true;
     this.questionCenterService.createQuestion(this.generateQuestionData(value)).subscribe((res) => {
-      this.QuestionObj.addQuestionResponse = res;
-      if (this.QuestionObj.addQuestionResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.QuestionObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.QUESTION_CREATED,
           this.helperService.constants.status.SUCCESS);
         this.dialogRef.close();
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.QUESTION_CREATED);
-      } else if (this.QuestionObj.addQuestionResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.QuestionObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.QUESTION_CREATION_FAILURE,
           res.responseDetails.message);

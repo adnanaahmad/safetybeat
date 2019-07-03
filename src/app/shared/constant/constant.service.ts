@@ -192,6 +192,7 @@ export class ConstantService {
     safeQuestion: 'safeQuestion',
     canProceed: 'canProceed',
     parent: 'parent',
+    input: 'input',
     dateFrom: 'dateFrom',
     dateTo: 'dateTo',
     filter: 'filter',

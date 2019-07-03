@@ -61,9 +61,11 @@
           <tr mat-header-row *matHeaderRowDef="questionTableColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: questionTableColumns;"></tr>
         </table>
+        <div class="paddingbox text-center" *ngIf="QuestionObj.entityQuestions === null">
+          {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
+        <mat-paginator class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize" [length]="QuestionObj.pageCount"></mat-paginator>
       </div>
-      <div class="paddingbox text-center" *ngIf="QuestionObj.entityQuestions === 0">
-        {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
+
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
       <div class="table-wrap">
@@ -100,9 +102,10 @@
           <tr mat-header-row *matHeaderRowDef="questionBankColumns"></tr>
           <tr mat-row *matRowDef="let row; columns:questionBankColumns;"></tr>
         </table>
+        <div class="paddingbox text-center" *ngIf="QuestionObj.dataSource === null">
+          {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
+        <mat-paginator class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize" [length]="QuestionObj.pageCount"></mat-paginator>
       </div>
-      <div class="paddingbox text-center" *ngIf="QuestionObj.dataSource === 0">
-        {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

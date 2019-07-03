@@ -3,12 +3,12 @@
 </mat-card-title>
 <div mat-dialog-content>
   <form [formGroup]="QuestionObj.addQuestionForm" (ngSubmit)=questionFormSubmit(QuestionObj.addQuestionForm)
-        (keydown.enter)="$event.preventDefault()">
+    (keydown.enter)="$event.preventDefault()">
     <div class="form-group">
       <mat-form-field appearance="outline" full-width>
         <mat-label>{{helperService.translated.STRINGS.QUESTION_NAME}}</mat-label>
-        <input matTooltip="Write the description of question" matTooltipPosition="below" matInput type="text"
-               [formControlName]="helperService.appConstants.questionDescription" required />
+        <textarea rows="6" cols="6" matTooltip="Write the description of question" matTooltipPosition="below" matInput
+          type="text" [formControlName]="helperService.appConstants.questionDescription" required></textarea>
         <mat-error *ngIf="formValidation.questionDescription.errors">
           <span
             *ngIf="formValidation.questionDescription.errors.required">{{helperService.translated.MESSAGES.QUESTION_DESCRIPTION_REQ}}</span>
@@ -17,12 +17,12 @@
       <mat-form-field appearance="outline" full-width>
         <mat-label>{{helperService.translated.STRINGS.QUESTION_WARNING}}</mat-label>
         <textarea matTooltip="Warning messages to users if they answer the question incorrectly"
-                  matTooltipPosition="below" maxlength="500" rows="6" cols="6" matInput
-                  [formControlName]="helperService.appConstants.questionWarning">
+          matTooltipPosition="below" maxlength="500" rows="6" cols="6" matInput
+          [formControlName]="helperService.appConstants.questionWarning">
           </textarea>
       </mat-form-field>
       <mat-radio-group (change)="QuestionObj.canProceed=!QuestionObj.canProceed"
-                       [formControlName]="helperService.appConstants.canProceed">
+        [formControlName]="helperService.appConstants.canProceed">
         {{helperService.translated.STRINGS.CAN_PROCEED_QUESTION}}
         <mat-radio-button [checked]=QuestionObj.canProceed [value]="helperService.appConstants.canProceedQuestionYes">
           {{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_YES}}
@@ -31,13 +31,15 @@
           {{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_NO}}</mat-radio-button>
       </mat-radio-group>
       <br>
+      <br>
       <mat-radio-group (change)="QuestionObj.parent=!QuestionObj.parent"
-                       [formControlName]="helperService.appConstants.parent">{{helperService.translated.STRINGS.SELECT_QUESTION_TYPE}}
+        [formControlName]="helperService.appConstants.parent">{{helperService.translated.STRINGS.SELECT_QUESTION_TYPE}}
         <mat-radio-button [checked]=QuestionObj.parent [value]="helperService.appConstants.parentYes">
           {{helperService.translated.STRINGS.PARENT}}</mat-radio-button>
         <mat-radio-button [value]="helperService.appConstants.parentNo">
           {{helperService.translated.STRINGS.CHILD}}</mat-radio-button>
       </mat-radio-group>
+      <br>
       <br>
       <mat-radio-group (change)="changeSafeOption($event)" [formControlName]="helperService.appConstants.safeQuestion">
         {{helperService.translated.STRINGS.SAFE_QUESTION}}
@@ -49,6 +51,7 @@
           {{helperService.translated.STRINGS.SAFE_QUESTION_BOTH}}</mat-radio-button>
       </mat-radio-group>
     </div>
+    <br>
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="QuestionObj.loading" color="primary">
         {{ helperService.translated.BUTTONS.ADD_QUESTION }}
@@ -66,4 +69,3 @@
     </mat-dialog-actions>
   </form>
 </div>
-
