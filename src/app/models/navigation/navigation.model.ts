@@ -4,6 +4,7 @@ import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
 
 export interface NavigationModel {
+  showEntitySwitcher: boolean;
   logoutDisable: boolean;
   logoutResponse: any;
   translated: Translation;

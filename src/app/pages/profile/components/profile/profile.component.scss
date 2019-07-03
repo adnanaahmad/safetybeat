@@ -14,6 +14,14 @@
     .mat-list-item-content {
       padding: 0 !important;
     }
+    .customTable {
+      .mat-header-row {
+        background-color: transparent;
+      }
+      .mat-header-cell {
+        color: inherit;
+      }
+    }
     .navigator {
       width: 100%;
       .mat-list {
@@ -79,7 +87,7 @@
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
-      background: url("~assets/images/legend-headerbg.jpg") no-repeat center/cover;
+      background: url("~assets/images/legend-headerbg2.jpg") no-repeat center/cover;
       .user-avatar {
         width: 100px;
         position: relative;
@@ -253,10 +261,6 @@
           border: 1px solid rgba(255, 255, 255, 0.5);
         }
       }
-      tr.mat-row,
-      tr.mat-header-row {
-        height: 35px;
-      }
       tr.mat-row:last-child {
         td {
           border-bottom: 0;
@@ -269,8 +273,7 @@
         min-height: auto;
       }
       mat-card-content {
-        height: 80%;
-        overflow: auto;
+        height: 95%;
       }
     }
     .profile-form {

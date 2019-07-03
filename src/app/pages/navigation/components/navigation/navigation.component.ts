@@ -106,6 +106,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       if (res !== 1) {
         this.navModel.allEntitiesData = res;
         this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
+        this.navModel.showEntitySwitcher = this.navModel.allEntitiesData.entities.length > 1;
         this.navModel.empty = false;
         let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
           return entity.active === true;
@@ -113,6 +114,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.navModel.selectedEntity =
           index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
         this.switchSideMenu(this.navModel.selectedEntity);
+        console.log(this.navModel.selectedEntity);
       } else {
         this.adminServices
           .viewEntities(this.moduleData)
@@ -250,13 +252,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
     if (data === undefined) {
       this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
     } else {
-      this.navModel.Entity = data;
+      this.navModel.selectedEntity = data;
       localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
-        this.helperService.encrypt(JSON.stringify(this.navModel.Entity.entityInfo.id), this.helperService.appConstants.key));
-      this.navService.changeSelectedEntity(this.navModel.Entity);
-      this.navService.changeRole(this.navModel.Entity.role);
+        this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
+      this.navService.changeSelectedEntity(this.navModel.selectedEntity);
+      this.navService.changeRole(this.navModel.selectedEntity.role);
       this.getRoleFromStorage();
-      this.navService.changeRoleId(this.navModel.Entity.permissions.role);
+      this.navService.changeRoleId(this.navModel.selectedEntity.permissions.role);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
   }

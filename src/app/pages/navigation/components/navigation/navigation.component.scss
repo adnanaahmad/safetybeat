@@ -6,7 +6,40 @@
     margin: 10px;
     border: 1px solid #555;
   }
+  .mdropdown {
+    margin-top: 13px;
+  }
+  .mdropdown2 {
+    margin-top: 20px;
+  }
+  .notification-drawer {
+    .mat-drawer-inner-container {
+      overflow: hidden;
+    }
+    .mat-tab-body-wrapper {
+      overflow-y: auto;
+      height: 100vh;
+      .mat-list-item:last-child {
+        margin-bottom: 100px;
+      }
+    }
+  }
   app-navigation {
+    .entity-switch-wrap {
+      display: inline-block;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      max-width: 110px;
+      margin-left: 10px;
+      border-radius: 4px;
+      button {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        padding: 0 10px;
+      }
+    }
     .profile-menu {
       width: 30px;
       height: 30px;
@@ -130,9 +163,6 @@
     .top-btns {
       width: 100%;
       text-align: right;
-      .mat-button {
-        padding: 0 10px;
-      }
     }
     .sidenav-logo {
       margin: 20px 0 0 15px;

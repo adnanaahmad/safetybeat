@@ -111,7 +111,8 @@
     "CHILD_NO": "Child No",
     "CHILD": "Child",
     "PARENT": "Parent",
-    "CHANGEPICTURE": "Change Picture"
+    "CHANGEPICTURE": "Change Picture",
+    "SEARCHUSERS": "Search Users"
   },
   "BUTTONS": {
     "LOGIN": "Login",
@@ -153,6 +154,7 @@
     "GETSTARTED": "Get Started",
     "LEARNMORE": "Learn More",
     "DELETE": "Delete",
+    "RENAME": "Rename",
     "INVITE_USER": "Invite User",
     "UPLOAD_DOCUMENT": "Upload Document",
     "UPLOAD_FILE": "Upload File",
