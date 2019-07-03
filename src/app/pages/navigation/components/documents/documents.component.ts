@@ -37,7 +37,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
         console.log(res);
         this.documentsData.entityID = res.entityInfo.id;
         this.getAllFolders(this.documentsData.entityID);
@@ -57,7 +57,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.folderExist = true;
         this.documentsData.folderList = res.data;
-        this.navService.updateFolder(this.documentsData.folderList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.documentsData.folderExist = false;
       } else {
@@ -76,7 +75,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.documentExist = true;
         this.documentsData.rootDocs = this.compiler.constructDocuments(res);
-        this.navService.updateDocument(this.documentsData.docList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.documentsData.documentExist = false;
       } else {
