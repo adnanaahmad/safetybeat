@@ -1,8 +1,7 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
 <div class="mat-dialog-content">
-  <h4>Choose role for this user</h4>
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Roles</mat-label>
+    <mat-label>{{helperService.translated.STRINGS.CHOOSE_ROLE}}</mat-label>
     <mat-select>
       <mat-option value="Paratha Role">User</mat-option>
       <mat-option value="Cream Role">Entity Manager</mat-option>
@@ -10,9 +9,8 @@
       <mat-option value="Rock Role">Site Safety Manager</mat-option>
     </mat-select>
   </mat-form-field>
-  <h4>Select team</h4>
   <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Teams</mat-label>
+    <mat-label>Select Team</mat-label>
     <mat-select>
       <mat-option value="Football Team">Team 1</mat-option>
       <mat-option value="Cricket Team">Team 2</mat-option>

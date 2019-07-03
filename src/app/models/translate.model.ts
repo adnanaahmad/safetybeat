@@ -87,6 +87,7 @@ export interface Strings {
   CHANGEPICTURE: string;
   SEARCHUSERS: string;
   ADVSEARCH: string;
+  CHOOSE_ROLE: string;
 
 }
 
