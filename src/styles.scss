@@ -15,16 +15,16 @@ $roundRadius: 100px;
 $card-padding: 16px;
 $cursor-pointer: pointer;
 $centered: 0 auto;
-%midBlock{
-@mixin midBlock {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
-  margin: $centered;
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-}
+%midBlock {
+  @mixin midBlock {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    margin: $centered;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+  }
 }
 
 html,
