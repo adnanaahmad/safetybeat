@@ -204,6 +204,7 @@ export interface Buttons {
   GETSTARTED: string;
   LEARNMORE: string;
   DELETE: string;
+  RENAME: string;
   INVITE_USER: string;
   UPLOAD_DOCUMENT: string;
   UPLOAD_FILE: string;
