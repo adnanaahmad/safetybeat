@@ -28,7 +28,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   ) {
     this.initialize();
   }
-
+// this function initializes the values of variables
   initialize() {
     this.documentsData.documentExist = false;
     this.documentsData.folderExist = false;
@@ -42,6 +42,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.entityID = res.entityInfo.id;
         this.getAllFolders(this.documentsData.entityID);
         this.getRootDocuments(this.documentsData.entityID);
+      } else {
+        // do something here
       }
     });
   }
@@ -49,6 +51,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.documentsData.subscription.unsubscribe();
   }
 
+// this function returns the list of all folders in an entity
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -65,6 +68,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
+  // this function gets all the documents that are saved in root folder
   getRootDocuments(entityId) {
     this.documentsData.rootDocs = [];
     let data = {'entityId': entityId};
@@ -83,6 +87,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
+  // this function opens a dialog to upload file
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {
       disableClose: true, data: {
@@ -96,6 +101,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       this.getAllFolders(this.documentsData.entityID);
     });
   }
+  // this function is used to create new folder
   newFolder() {
     this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
@@ -103,6 +109,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
+  // this function first asks for confirmation and then deletes a document
   deleteDoc(id) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_DOCUMENT}});
@@ -143,7 +150,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       this.getAllFolders(this.documentsData.entityID);
     });
   }
-// this function opens another component to show a folder's file
+// this function opens another component to show a folder's files/documents
   showDocs(folderId: number) {
     this.router.navigate(['/home/viewDocs', {folderId: JSON.stringify(folderId),
       entityId: JSON.stringify(this.documentsData.entityID)}], {skipLocationChange: false});

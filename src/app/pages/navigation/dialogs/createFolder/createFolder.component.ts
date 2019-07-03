@@ -38,7 +38,7 @@ export class CreateFolderComponent implements OnInit {
   folderFormSubmit({value}: { value: Folders }) {
     this.documentsData.modalType ? this.createFolder(value) : this.renameFolder(value);
   }
-
+// this function creates new folder
   createFolder(value: Folders) {
     if (value.title === this.helperService.appConstants.Root ) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CANT_CREATE_ROOT, this.helperService.constants.status.WARNING);

@@ -3,7 +3,6 @@ import {Subscription} from 'rxjs';
 export interface Documents {
   folderLength: number;
   subscription: Subscription;
-  docResponse: any;
   dataSource: any;
   docList: any;
   rootDocs: any;
@@ -16,7 +15,6 @@ export interface Documents {
   modalType: boolean;
   panelOpenState: boolean;
   loader: boolean;
-  folderShow: boolean;
   folderDoc: boolean;
   folderId: number;
 }
