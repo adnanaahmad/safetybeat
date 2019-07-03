@@ -1,13 +1,13 @@
 import {FormGroup} from '@angular/forms';
 import {Site} from './site.model';
-import {User} from './user.model';
+import {responseDetails, User} from './user.model';
+import {MatTableDataSource} from '@angular/material';
 
 export interface HazardModel {
   hazardOption: boolean;
-  entitySelectedRole: string;
   entityId: number;
-  dataSource: any;
-  displayedColumns: string[];
+  dataSource: MatTableDataSource<Hazard>;
+  displayedColumns: Array<string>;
 }
 
 export interface AddHazardModel {
@@ -16,6 +16,7 @@ export interface AddHazardModel {
   image: File;
   addHazardForm: FormGroup;
 }
+
 export interface Hazard {
   hazard: NewHazard;
   site: Site;
@@ -23,19 +24,26 @@ export interface Hazard {
   resolvedBy: User;
   risk: RiskType;
 }
+
 export interface NewHazard {
   title: string;
   risk: string;
-  addedBy: any;
-  dateTime: any;
+  addedBy: string;
+  dateTime: Date;
   description: string;
   id: number;
   resolved: boolean;
   resolvedBy: string;
-  site: any;
+  site: string;
   image: File;
 }
+
 export interface RiskType {
   id: number
   name: string
+}
+
+export interface AllHazardsApiData {
+  data: Array<Hazard>;
+  responseDetails: responseDetails;
 }

@@ -1,15 +1,23 @@
 import {Observable} from 'rxjs';
+import {User} from '../user.model';
+import {FormControl} from '@angular/forms';
 
 export interface InviteTeamModel {
-  currentUserData: any;
   showMessage: boolean;
   loading: boolean;
   selectable: boolean;
   removable: boolean;
   addOnBlur: boolean;
   separatorKeysCodes: number[];
-  userCtrl: any;
-  filteredUsers: Observable<any[]>;
-  users: any[];
-  allUsers: any[];
+  userCtrl: FormControl;
+  filteredUsers: Observable<Array<User>>;
+  users: Array<User>;
+  allUsers: Array<User>;
+}
+
+export interface InviteTeamModelData {
+  inviteTeamData: {
+    entityData: string;
+    usersData: Array<User>
+  }
 }

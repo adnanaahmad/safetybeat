@@ -188,7 +188,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerObj.organizationData = {
       'name': orgForm.name,
       'address': this.helperService.address,
-      'billingEmail': this.registerObj.userEmail.email,
       'accountNo': '12344532',
       'phoneNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
       'type': this.registerObj.organizationTypeForm.value.type
@@ -202,9 +201,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
       'organization': this.registerObj.organizationData,
       'invitation': false,
-      'moduleName': 'Safetybeat',
-      'package': 'Trial',
-      'roleId': 'Owner'
+      'moduleName': 'Safetybeat'
     };
 
     if (this.registerObj.organizationForm.invalid || this.registerObj.userForm.invalid) {

@@ -1,5 +1,5 @@
 import {Injectable, ElementRef, NgZone} from '@angular/core';
-import {forEach, findIndex, remove, sortBy, find, union} from 'lodash';
+import {forEach, findIndex, remove, sortBy, find, union, isEmpty} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatAutocompleteSelectedEvent, MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -421,6 +421,10 @@ export class HelperService {
     if (index === -1) {
       users.push(event.option.value);
     }
+  }
+
+  get isEmptyLodash() {
+    return isEmpty;
   }
 
 }

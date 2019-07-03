@@ -17,7 +17,7 @@ import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/conf
 export class HazardCenterComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   hazardTable: HazardModel = <HazardModel>{};
-  displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
+
 
 
   constructor(
@@ -32,6 +32,7 @@ export class HazardCenterComponent implements OnInit {
   }
 
   initialize() {
+    this.hazardTable.displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
     this.getHazardList();
     this.editorDeleteEnable();
   }
@@ -49,22 +50,21 @@ export class HazardCenterComponent implements OnInit {
         this.helperService.appConstants.key)),
     };
     this.adminControlService.allHazards(entityData).subscribe((res) => {
-      if (res !== 1 && res.data.length !== 0) {
+      if (res && res.data.length !== 0) {
         this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
         this.hazardTable.dataSource.paginator = this.paginator;
       } else if (res.data.length === 0) {
-        this.hazardTable.dataSource = 0;
+        this.hazardTable.dataSource = null;
       }
     });
   }
 
   editorDeleteEnable() {
     this.navService.currentRole.subscribe(res => {
-      this.hazardTable.entitySelectedRole = res;
       if (
-        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.owner ||
-        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
-        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.entityManager
+        res === this.helperService.appConstants.roles.owner ||
+        res === this.helperService.appConstants.roles.teamLead ||
+        res === this.helperService.appConstants.roles.entityManager
       ) {
         this.hazardTable.hazardOption = true;
       } else {
@@ -97,7 +97,7 @@ export class HazardCenterComponent implements OnInit {
   deleteHazard(id) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
         this.getHazardList();
-        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {

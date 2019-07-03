@@ -11,7 +11,7 @@ import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.mo
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
 import {Team, TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {EntityQuestion, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
+import {EntityQuestion, QuestionsData} from '../../models/adminControl/questionCenter.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -164,15 +164,15 @@ export class CompilerProvider {
   }
 
 
-  constructHazardArray(hazardResponse: any): Hazard[] {
-    let hazardArray: Hazard[] = [];
+  constructHazardArray(hazardResponse: any): Array<Hazard> {
+    let hazardArray: Array<Hazard> = [];
     this.helperService.iterations(hazardResponse.data, function (hazard) {
       let obj: Hazard = {
         hazard: hazard.hazard,
         site: hazard.site,
         addedBy: hazard.addedBy,
         resolvedBy: hazard.resolvedBy,
-        risk: hazard.risk,
+        risk: hazard.risk
       };
       hazardArray.push(obj);
     });

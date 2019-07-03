@@ -2,7 +2,11 @@ import {FormGroup} from '@angular/forms';
 
 export interface JoinEntity {
   joinEntityForm: FormGroup;
-  joinEntityData: any;
+  joinEntityData: JoinEntityApiData;
   entityResponse: any;
-  entities: any;
+}
+
+export interface JoinEntityApiData {
+  moduleName: string;
+  entityCode: string;
 }

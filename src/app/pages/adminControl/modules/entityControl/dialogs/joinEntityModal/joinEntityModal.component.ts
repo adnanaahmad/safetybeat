@@ -92,9 +92,8 @@ export class JoinEntityModalComponent implements OnInit {
             moduleName: 'Safetybeat'
           };
           this.adminServices.viewEntities(data).subscribe(res => {
-            this.joinEntity.entities = res;
             let entityUserData = this.compiler.constructUserEntityData(
-              this.joinEntity.entities.data
+              res.data
             );
             this.onNoClick();
             this.navService.changeEntites(entityUserData);

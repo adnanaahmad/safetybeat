@@ -1,6 +1,6 @@
 import {Subscription} from 'rxjs';
 import {responseDetails, User} from '../user.model';
-import {Entity} from '../userEntityData.model';
+import {Administrator, Entity, EntityInfo, EntityPermissions, ReportAccess} from '../userEntityData.model';
 import {MatTableDataSource} from '@angular/material';
 
 export interface EntityControl {
@@ -12,11 +12,9 @@ export interface EntityControl {
   entitySelectedRole: string;
   displayedColumns: string[];
   allEntitiesData: Array<Entity>;
-  entitiesList: any;
   empty: boolean;
   createEntityOption: boolean;
   joinOption: boolean;
-  allUsers: any;
   allUsersList: Array<User>;
 }
 
@@ -30,11 +28,28 @@ export interface EntityUserData {
 }
 
 export interface AllUsersOfEntityResponse {
-  data: Array<EntityUserData>;
+  data: Array<User>;
   reponseDetails: responseDetails;
 }
 
 export interface ViewAllEntitiesResponse {
   data: Array<Entity>;
   responseDetails: responseDetails;
+}
+
+export interface InviteTeamData {
+  entityInfo: EntityInfo;
+  permissions: EntityPermissions;
+  reportAccess: ReportAccess;
+  administrator: Administrator;
+  managedBy: Array<Administrator>;
+  active: boolean;
+  role: string;
+  manDown: string;
+}
+
+export interface EntityCodeData {
+  name: string;
+  code: string;
+
 }

@@ -43,7 +43,7 @@ export class AddHazardComponent implements OnInit {
 
   viewHazardInfo() {
     if (this.hazardInfo.hazard.image) {
-      this.url =  this.hazardInfo.hazard.image;
+      this.url = this.hazardInfo.hazard.image;
     }
     this.hazardObj.addHazardForm = this.formBuilder.group({
       title: this.hazardInfo.hazard.title,
@@ -88,7 +88,7 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.removeImage = 'True';
   }
 
-  generateHazardData(value, editHazard) {
+  generateHazardData(value, editHazard): FormData {
     let formData = new FormData();
     formData.append('title', value.title);
     formData.append('description', value.description);
@@ -108,6 +108,7 @@ export class AddHazardComponent implements OnInit {
   }
 
   addHazard(value) {
+    console.log(this.generateHazardData(value, false));
     this.service.addHazard(this.generateHazardData(value, false)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.onNoClick();

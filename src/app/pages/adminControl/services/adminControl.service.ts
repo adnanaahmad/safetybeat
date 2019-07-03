@@ -3,15 +3,15 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {EntityUserData} from '../../../models/userEntityData.model';
 import {ViewAllEntitiesResponse} from '../../../models/adminControl/entityControl.model';
+import {CreateEntityResponse} from '../../../models/adminControl/createEntity.model';
+import {AllHazardsApiData, Hazard} from '../../../models/hazard.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminControlService {
   apiRoutes: any;
-  inviteTeamResponse$: Observable<InviteTeamResponse>;
   method: any;
   private sites = new BehaviorSubject<any>(1);
   siteObserver = this.sites.asObservable();
@@ -33,7 +33,7 @@ export class AdminControlService {
    * this function is used to return the createEntity api response.
    * @params data
    */
-  createEntity(data: entity) {
+  createEntity(data: entity): Observable<CreateEntityResponse> {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.createEntity,
@@ -103,8 +103,7 @@ export class AdminControlService {
    */
 
   inviteTeam(data: InviteTeamData): Observable<InviteTeamResponse> {
-    this.inviteTeamResponse$ = this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.inviteTeam, data);
-    return this.inviteTeamResponse$;
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.inviteTeam, data);
   }
 
   /**
@@ -184,7 +183,7 @@ export class AdminControlService {
     );
   }
 
-  allHazards(entityId) {
+  allHazards(entityId): Observable<AllHazardsApiData> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       `${this.apiRoutes.allHazards}`,

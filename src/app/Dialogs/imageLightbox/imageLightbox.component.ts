@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-imageLightbox',
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./imageLightbox.component.scss']
 })
 export class ImageLightboxComponent implements OnInit {
-
-  constructor() { }
+  image: any;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    this.image = this.data.image;
+  }
 
   ngOnInit() {
   }

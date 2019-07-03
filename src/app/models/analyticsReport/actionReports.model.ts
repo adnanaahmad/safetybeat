@@ -1,4 +1,4 @@
-import {FormGroup} from '@angular/forms';
+import {FormGroup, Validators} from '@angular/forms';
 import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
 import {SitesInfo} from '../site.model';
@@ -63,4 +63,36 @@ export interface userCheckIn {
 export interface userCheckOut {
   user: number,
   numberOfCheckOut: number
+}
+
+export interface InputElement {
+  element: string;
+  type: string;
+  placeholder: string;
+  formControlName: string;
+  validators: Array<Validators>;
+  errorMessage: string;
+  disabled: boolean;
+  value?: string | number;
+  matFormFieldCss?: string;
+  event?: string;
+  label?: string;
+  cssClass?: string;
+  group?: Array<string>;
+}
+
+export interface SelectElement {
+  element: string;
+  formControlName: string;
+  validators: Validators ;
+  options: Array<string>;
+  errorMessage: string;
+  value?: string;
+  disabled: boolean;
+  matFormFieldCss?: string;
+  event?: string;
+  label?: string;
+  cssClass?: string;
+  placeholder?: string;
+  hideRequired?: boolean;
 }

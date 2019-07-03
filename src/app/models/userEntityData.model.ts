@@ -1,7 +1,4 @@
-import {User} from './user.model';
-
 export interface EntityUserData {
-  // user: User;
   entities: Entity[];
 }
 

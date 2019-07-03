@@ -198,6 +198,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     let formData = new FormData();
     formData.append('profileImage', blob, this.profileModel.imageFile.name);
     this.profileService.profilePicUpdate(formData).subscribe((res) => {
+      debugger
       let userData = this.compiler.constructProfileData(res.data);
       this.navService.updateCurrentUser(userData);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
