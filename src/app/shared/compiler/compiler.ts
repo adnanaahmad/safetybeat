@@ -10,8 +10,8 @@ import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
-import {Team, TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {EntityQuestion, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
+import { TeamList} from 'src/app/models/adminControl/myTeam.model';
+import { EntityQuestionResponse, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -159,7 +159,7 @@ export class CompilerProvider {
     return questionsApiResponse.data;
   }
 
-  constructAllEntityQuestionsData(questionsApiResponse: any): EntityQuestion[] {
+  constructAllEntityQuestionsData(questionsApiResponse: any): EntityQuestionResponse {
     return questionsApiResponse.data;
   }
 

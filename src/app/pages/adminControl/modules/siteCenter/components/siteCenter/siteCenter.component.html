@@ -18,7 +18,8 @@
     <!--Filter-->
     <div class="data-filter">
       <div class="input-wrap">
-        <input class="search-input" autocomplete="off" matInput placeholder="Search" (keyup)=search($event.target.value)>
+        <input class="search-input" autocomplete="off" matInput placeholder="Search"
+               (keyup)=getSitesData(siteCentreObj.firstIndex,$event.target.value)>
         <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
       </div>
       <a class="mat-body-strong mat-small pointer">Advanced Search</a>

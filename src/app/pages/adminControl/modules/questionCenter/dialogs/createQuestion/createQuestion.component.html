@@ -1,14 +1,13 @@
 <mat-card-title class="mat-dialog-title">
-  {{helperService.translated.MESSAGES.CREATEQUESTION_MSG}}
+  {{data.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG : helperService.translated.MESSAGES.CREATEQUESTION_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="QuestionObj.addQuestionForm" (ngSubmit)=questionFormSubmit(QuestionObj.addQuestionForm)
-        (keydown.enter)="$event.preventDefault()">
+  <form [formGroup]="QuestionObj.addQuestionForm" (ngSubmit)=questionFormSubmit(QuestionObj.addQuestionForm)>
     <div class="form-group">
       <mat-form-field appearance="outline" full-width>
         <mat-label>{{helperService.translated.STRINGS.QUESTION_NAME}}</mat-label>
         <input matTooltip="Write the description of question" matTooltipPosition="below" matInput type="text"
-               [formControlName]="helperService.appConstants.questionDescription" required />
+               [formControlName]="helperService.appConstants.questionDescription" required/>
         <mat-error *ngIf="formValidation.questionDescription.errors">
           <span
             *ngIf="formValidation.questionDescription.errors.required">{{helperService.translated.MESSAGES.QUESTION_DESCRIPTION_REQ}}</span>
@@ -21,45 +20,25 @@
                   [formControlName]="helperService.appConstants.questionWarning">
           </textarea>
       </mat-form-field>
-      <mat-radio-group (change)="QuestionObj.canProceed=!QuestionObj.canProceed"
-                       [formControlName]="helperService.appConstants.canProceed">
+      <mat-slide-toggle [formControlName]="helperService.appConstants.canProceed">
         {{helperService.translated.STRINGS.CAN_PROCEED_QUESTION}}
-        <mat-radio-button [checked]=QuestionObj.canProceed [value]="helperService.appConstants.canProceedQuestionYes">
-          {{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_YES}}
-        </mat-radio-button>
-        <mat-radio-button [value]="helperService.appConstants.canProceedQuestionNo">
-          {{helperService.translated.STRINGS.CAN_PROCEED_QUESTION_NO}}</mat-radio-button>
-      </mat-radio-group>
+      </mat-slide-toggle>
       <br>
-      <mat-radio-group (change)="QuestionObj.parent=!QuestionObj.parent"
-                       [formControlName]="helperService.appConstants.parent">{{helperService.translated.STRINGS.SELECT_QUESTION_TYPE}}
-        <mat-radio-button [checked]=QuestionObj.parent [value]="helperService.appConstants.parentYes">
-          {{helperService.translated.STRINGS.PARENT}}</mat-radio-button>
-        <mat-radio-button [value]="helperService.appConstants.parentNo">
-          {{helperService.translated.STRINGS.CHILD}}</mat-radio-button>
-      </mat-radio-group>
+
+      <mat-slide-toggle [formControlName]="helperService.appConstants.parent">
+        {{helperService.translated.STRINGS.SELECT_QUESTION_TYPE}}
+      </mat-slide-toggle>
       <br>
-      <mat-radio-group (change)="changeSafeOption($event)" [formControlName]="helperService.appConstants.safeQuestion">
-        {{helperService.translated.STRINGS.SAFE_QUESTION}}
-        <mat-radio-button [checked]="true" [value]="helperService.appConstants.safeQuestionYes">
-          {{helperService.translated.STRINGS.SAFE_QUESTION_YES}}</mat-radio-button>
-        <mat-radio-button [value]="helperService.appConstants.safeQuestionNo">
-          {{helperService.translated.STRINGS.SAFE_QUESTION_NO}}</mat-radio-button>
-        <mat-radio-button [value]=" helperService.appConstants.safeQuestionBoth">
-          {{helperService.translated.STRINGS.SAFE_QUESTION_BOTH}}</mat-radio-button>
-      </mat-radio-group>
     </div>
     <mat-dialog-actions>
       <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="QuestionObj.loading" color="primary">
-        {{ helperService.translated.BUTTONS.ADD_QUESTION }}
+        {{data.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG : helperService.translated.MESSAGES.ADDQUESTION_MSG}}
         <div class="main-loader" *ngIf="QuestionObj.loading">
           <span class="loader1"></span>
           <span class="loader2"></span>
           <span class="loader3"></span>
         </div>
       </button>
-
-      <!-- <img *ngIf="QuestionObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL> -->
       <button mat-button mat-dialog-close>
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>
