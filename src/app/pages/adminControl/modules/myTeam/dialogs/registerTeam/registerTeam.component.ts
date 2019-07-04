@@ -1,14 +1,14 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {RegisterTeamModel} from 'src/app/models/adminControl/registerTeam.model';
-import {EntityInfo} from 'src/app/models/userEntityData.model';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {MAT_DIALOG_DATA, MatAutocomplete, MatAutocompleteSelectedEvent, MatDialogRef} from '@angular/material';
-import {map, startWith} from 'rxjs/operators';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { RegisterTeamModel } from 'src/app/models/adminControl/registerTeam.model';
+import { EntityInfo } from 'src/app/models/userEntityData.model';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { MAT_DIALOG_DATA, MatAutocomplete, MatAutocompleteSelectedEvent, MatDialogRef } from '@angular/material';
+import { map, startWith } from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 
 
 @Component({
@@ -23,13 +23,16 @@ export class RegisterTeamComponent implements OnInit {
   @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
   constructor(public dialogRef: MatDialogRef<RegisterTeamComponent>,
-              public helperService: HelperService,
-              public formBuilder: FormBuilder,
-              public compiler: CompilerProvider,
-              private navService: NavigationService,
-              private adminServices: AdminControlService,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+    public helperService: HelperService,
+    public formBuilder: FormBuilder,
+    public compiler: CompilerProvider,
+    private navService: NavigationService,
+    private adminServices: AdminControlService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     this.initialize();
     this.registerTeamObj.editTeam = data.Modal;
     this.editOrRegister();
@@ -77,7 +80,7 @@ export class RegisterTeamComponent implements OnInit {
   }
 
 
-  teamFormSubmit({value, valid}: { value: any; valid: boolean }) {
+  teamFormSubmit({ value, valid }: { value: any; valid: boolean }) {
     this.registerTeamObj.editTeam ? this.editTeam(value) : this.registerTeam(value);
   }
 
@@ -119,25 +122,25 @@ export class RegisterTeamComponent implements OnInit {
   registerTeam(value) {
     this.registerTeamObj.loading = true;
     this.adminServices.registerTeam(this.generateTeamData(value)).subscribe(res => {
-        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.registerTeamObj.loading = false;
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTERED,
-            this.helperService.constants.status.SUCCESS);
-          this.onNoClick();
-        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
-          this.registerTeamObj.loading = false;
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_ALREADY_EXIST,
-            this.helperService.constants.status.ERROR);
-        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.registerTeamObj.loading = false;
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
-            this.helperService.constants.status.ERROR);
-        }
-      }, (error) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.registerTeamObj.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTERED,
+          this.helperService.constants.status.SUCCESS);
+        this.onNoClick();
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
+        this.registerTeamObj.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_ALREADY_EXIST,
+          this.helperService.constants.status.ERROR);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.registerTeamObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.registerTeamObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
+        this.helperService.constants.status.ERROR);
+    }
     );
   }
 

@@ -111,6 +111,7 @@
     "CHILD_NO": "Child No",
     "CHILD": "Child",
     "PARENT": "Parent",
+    "SEARCHUSERS": "Search Users",
     "CHANGEPICTURE": "Change Picture",
     "CHILD_YES_SAFE": "Is Child Yes Question Safe?",
     "CHILD_NO_SAFE": "Is Child No Question Safe?"
@@ -155,6 +156,7 @@
     "GETSTARTED": "Get Started",
     "LEARNMORE": "Learn More",
     "DELETE": "Delete",
+    "RENAME": "Rename",
     "INVITE_USER": "Invite User",
     "UPLOAD_DOCUMENT": "Upload Document",
     "UPLOAD_FILE": "Upload File",

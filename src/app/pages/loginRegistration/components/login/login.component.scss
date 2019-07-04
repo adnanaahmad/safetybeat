@@ -1,3 +1,4 @@
+@import "~src/theme/common";
 @mixin amte-login($primary, $accent, $warn) {
   :host,
   app-login {
@@ -11,6 +12,7 @@
       }
     }
     .sideLegend {
+      @include midBlock;
       height: 100%;
       width: 100%;
       .legendContent {

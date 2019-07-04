@@ -11,6 +11,7 @@ import {SitesInfo} from 'src/app/models/site.model';
 import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {SiteMapComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-siteCenter',
@@ -86,11 +87,8 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
         this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
         this.adminServices.changeSites(this.siteCentreObj.sitesData);
         this.siteCentreObj.subscription = this.adminServices.siteObserver.subscribe((res) => {
-          if (res !== 1 && res.length !== 0) {
-            this.siteCentreObj.dataSource = new MatTableDataSource(res);
-          } else if (res.length === 0) {
-            this.siteCentreObj.dataSource = null;
-          }
+          this.siteCentreObj.dataSource = res !== 1 && res.length !== 0 ? new MatTableDataSource(res) : null;
+
         });
         // this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
         //   this.helperService.constants.status.SUCCESS);
@@ -99,7 +97,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
           this.helperService.constants.status.ERROR);
       }
-    }, (error) => {
+    }, (error: HttpErrorResponse) => {
       this.siteCentreObj.dataSource = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
         this.helperService.constants.status.ERROR);

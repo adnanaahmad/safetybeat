@@ -191,7 +191,7 @@ export class CompilerProvider {
 
   entityUser(users) {
     let usersArray = [];
-    this.helperService.iterations(users.data, function (obj) {
+    this.helperService.iterations(users, function (obj) {
       let user = {
         name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,

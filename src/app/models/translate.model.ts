@@ -87,6 +87,8 @@ export interface Strings {
   CHANGEPICTURE: string;
   CHILD_YES_SAFE: string;
   CHILD_NO_SAFE: string;
+  SEARCHUSERS: string;
+
 }
 
 export interface Auth {
@@ -203,6 +205,7 @@ export interface Buttons {
   GETSTARTED: string;
   LEARNMORE: string;
   DELETE: string;
+  RENAME: string;
   INVITE_USER: string;
   UPLOAD_DOCUMENT: string;
   UPLOAD_FILE: string;
