@@ -85,6 +85,8 @@ export interface Strings {
   CHILD_NO: string;
   CHILD: string;
   CHANGEPICTURE: string;
+  CHILD_YES_SAFE: string;
+  CHILD_NO_SAFE: string;
   SEARCHUSERS: string;
   ADVSEARCH: string;
   CHOOSE_ROLE: string;
@@ -306,6 +308,7 @@ export interface Messages {
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
   ADDQUESTION_MSG: string;
+  EDITQUESTION_MSG: string;
   CREATEQUESTION_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
@@ -340,6 +343,8 @@ export interface Messages {
   VIEW_SITE_FAILURE: string;
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
+  DELETE_QUESTION_SUCCESS: string;
+  DELETE_QUESTION_FAILURE: string;
   DELETE_TEAM_SUCCESS: string;
   DELETE_TEAM_FAILURE: string;
   EDIT_SITE_MSG: string;
@@ -440,6 +445,7 @@ export interface Messages {
   SITE_ACTIVITY_MSG: string;
   HAZARD_REPORT_MSG: string;
   NO_SITES: string;
+  PARENT_QUESTION_REQ: string;
 }
 
 export interface Logger {
@@ -569,5 +575,6 @@ export interface Confirmation {
   DELETE_FOLDER: string;
   REMOVE_CONNECTION: string
   DELETE_TEAM: string;
+  DELETE_QUESTION: string;
 
 }

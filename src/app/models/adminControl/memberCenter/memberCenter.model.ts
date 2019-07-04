@@ -1,6 +1,12 @@
 import {Subscription} from 'rxjs';
+import {User} from '../../user.model';
 
 export interface MemberCenter {
+  pageSize: number;
+  pageCount: number;
+  entityId: any;
+  search: string;
+  firstIndex: number;
   responseObj: any;
   userStatus: boolean;
   subscription: Subscription;
@@ -22,3 +28,9 @@ export interface PeriodicElement {
   photos: string;
   accessLevel: string;
 }
+
+export interface allUserResponse {
+  pageCount: number,
+  allUser: Array<User>
+}
+
