@@ -164,7 +164,8 @@
     "GENERATE_REPORT": "Generate Report",
     "VIEW_MAP": "View Map",
     "CLOSE": "Close",
-    "CREATE_FOLDER": "Create Folder"
+    "CREATE_FOLDER": "Create Folder",
+    "SHOW_RESULTS": "Show Results"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",

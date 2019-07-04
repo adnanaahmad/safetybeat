@@ -214,6 +214,7 @@ export interface Buttons {
   GENERATE_REPORT: string;
   VIEW_MAP: string;
   CLOSE: string;
+  SHOW_RESULTS: string;
 
 }
 
