@@ -1,6 +1,6 @@
 <div class="paddingbox">
   <div class="page-title">
-    <h3>Action Report</h3>
+    <h3>{{helperService.translated.SITETITLE.ACTION_REPORT}}</h3>
   </div>
   <p style="margin-top:0;">{{helperService.translated.MESSAGES.ACTION_REPORT_MSG}}</p>
   <mat-card>
@@ -9,7 +9,7 @@
 
       <div class="form-group">
         <mat-form-field appearance="outline">
-          <mat-label>Entity</mat-label>
+          <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
           <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled] />
           <mat-error class="text-right" *ngIf="actionFormValidations.errors">
             <span
@@ -37,7 +37,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>Select filter</mat-label>
+          <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
           <mat-select [formControlName]="helperService.appConstants.filter"
             (selectionChange)="filteredReport($event.value)">
             <mat-option *ngFor="let filter of siteActivityObj.filters" [value]="filter">
@@ -52,7 +52,7 @@
       </div>
       <br>
       <div *ngIf="siteActivityObj.noSites">
-        <p>No Sites</p>
+        <p>{{helperService.translated.MESSAGES.NO_SITES}}</p>
       </div>
     </form>
     <div id="container"></div>

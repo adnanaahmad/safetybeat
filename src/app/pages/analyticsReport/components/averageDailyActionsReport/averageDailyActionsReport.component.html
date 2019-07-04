@@ -3,11 +3,10 @@
     <h3>Average Daily Actions</h3>
   </div>
   <p style="margin-top:0;">{{helperService.translated.MESSAGES.AVERAGE_ACTIONS_MSG}}</p>
-  <form [formGroup]="averageActionObj.averageActionForm"
-    (ngSubmit)=averageActionSubmit(averageActionObj.averageActionForm) (keydown.enter)="$event.preventDefault()">
-
-    <div class="form-group">
-      <mat-card>
+  <mat-card>
+    <form [formGroup]="averageActionObj.averageActionForm"
+      (ngSubmit)=averageActionSubmit(averageActionObj.averageActionForm) (keydown.enter)="$event.preventDefault()">
+      <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Range</mat-label>
           <mat-select [formControlName]="helperService.appConstants.range">
@@ -22,8 +21,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-card>
-      <mat-card>
         <mat-form-field appearance="outline">
           <mat-label>All Users</mat-label>
           <mat-select [formControlName]="helperService.appConstants.allUsers">
@@ -32,8 +29,6 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-card>
-      <mat-card>
         <mat-form-field appearance="outline">
           <mat-label>All Teams</mat-label>
           <mat-select [formControlName]="helperService.appConstants.allTeams">
@@ -42,28 +37,23 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </mat-card>
-      <mat-card>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
             placeholder="Date From">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
-      </mat-card>
-      <mat-card>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
             placeholder="Date To">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
-      </mat-card>
-      </mat-form-field>
-      <br>
-      <button mat-raised-button custom-btn btn-primary color="primary">
-        {{helperService.translated.BUTTONS.GENERATE_REPORT}}
-      </button>
-    </div>
-  </form>
-  <div id="container"></div>
+        </mat-form-field>
+        <button mat-raised-button custom-btn btn-primary color="primary">
+          {{helperService.translated.BUTTONS.GENERATE_REPORT}}
+        </button>
+      </div>
+    </form>
+    <div id="container"></div>
+  </mat-card>
 </div>
