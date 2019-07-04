@@ -235,7 +235,9 @@ export class ConstantService {
     teamLead: 'teamLead',
     team: 'team',
     childYes: 'childYes',
-    childNo: 'childNo'
+    childNo: 'childNo',
+    childYesSafe: 'childYesSafe',
+    childNoSafe: 'childNoSafe'
   };
   /**
    * all the material icon names are declared here.
