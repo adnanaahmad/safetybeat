@@ -19,7 +19,6 @@ export class HazardCenterComponent implements OnInit {
   hazardTable: HazardModel = <HazardModel>{};
 
 
-
   constructor(
     public helperService: HelperService,
     private navService: NavigationService,
@@ -37,7 +36,7 @@ export class HazardCenterComponent implements OnInit {
     this.editorDeleteEnable();
   }
 
-  viewHazard(hazard) {
+  viewHazard(hazard: Hazard) {
     this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
       data: hazard
@@ -83,7 +82,7 @@ export class HazardCenterComponent implements OnInit {
     });
   }
 
-  confirmationModal(id) {
+  confirmationModal(id: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {

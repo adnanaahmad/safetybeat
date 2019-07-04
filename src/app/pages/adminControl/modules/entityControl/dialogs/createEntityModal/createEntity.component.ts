@@ -79,7 +79,9 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
     value.headOffice = this.helperService.address;
     this.createEntity.entityDetails = {
       moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,
-      entityData: value,
+      name: value.name,
+      headOffice: value.headOffice,
+      status: value.status,
       active: true
     };
     if (!valid) {

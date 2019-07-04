@@ -26,7 +26,6 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.editModal = data.Modal;
     this.hazardInfo = data.hazardInfo;
     this.url = helperService.appConstants.noHazard
-
   }
 
   ngOnInit() {

@@ -14,12 +14,25 @@ $borderRadius: 4px;
 $roundRadius: 100px;
 $card-padding: 16px;
 $cursor-pointer: pointer;
+$centered: 0 auto;
+%midBlock{
+@mixin midBlock {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  margin: $centered;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+}
+
 html,
 body {
   height: $fullValue;
   display: block;
   width: $fullValue;
-  margin: 0;
+  margin: $centered;
   font-family: $fontFamily;
 }
 *[fullWidth] {
@@ -39,13 +52,13 @@ notifier-notification,
 app-toaster {
   font-family: $fontFamily;
 }
-.pointer{
+.pointer {
   cursor: $cursor-pointer;
 }
 .clearfix {
   clear: both;
   display: block;
-  width: 100%;
+  width: $fullValue;
   height: 1px;
 }
 .notification-icon {
@@ -116,28 +129,23 @@ mat-dialog-container {
     padding: 0 20px 20px !important;
     margin: 0 !important;
     max-height: 85vh;
+    width: 500px;
   }
   .subheading {
     padding: 0 20px;
   }
 }
 .monogram {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
+  @include midBlock;
   width: 120px;
   height: 120px;
-  margin: 0 auto;
   z-index: 999;
   border-radius: 100px;
   text-align: center;
-  transform: translateY(-50%);
-  box-shadow: -8px 0px 10px 0px rgba(0, 0, 0, 0.2);
   svg {
     width: 70%;
     display: block;
-    margin: 0 auto;
+    margin: $centered;
     height: $fullValue;
     path {
       fill: $hexWhite;
@@ -205,7 +213,7 @@ mat-dialog-container {
 }
 .centerbox {
   width: 70%;
-  margin: 0 auto;
+  margin: $centered;
   .midbox {
     width: $fullValue;
     margin: 50px auto;
@@ -680,7 +688,8 @@ input:-internal-autofill-selected {
 }
 .table-wrap {
   overflow: auto;
-  width: 100%;
+  width: $fullValue;
+  height: $fullValue;
   table {
     table-layout: fixed;
     th,
@@ -695,11 +704,11 @@ input:-internal-autofill-selected {
   position: relative;
   cursor: pointer;
   display: inline-block;
-  height: 100%;
+  height: $fullValue;
   .fake-uploader {
     background: transparent;
     border: 2px dashed rgba(0, 0, 0, 0.3);
-    width: 100%;
+    width: $fullValue;
     padding: 10px;
     border-radius: 100px;
     margin: 10px 0;
@@ -719,8 +728,8 @@ input:-internal-autofill-selected {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    width: $fullValue;
+    height: $fullValue;
     cursor: pointer;
     z-index: 2;
   }
@@ -817,7 +826,7 @@ input:-internal-autofill-selected {
       box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
       .user-avatar {
         display: block;
-        margin: 0 auto;
+        margin: $centered;
       }
       .user-info {
         padding: 0 !important;

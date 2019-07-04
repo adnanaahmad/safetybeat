@@ -34,11 +34,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
+        debugger
         this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
           this.helperService.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
-        this.registerObj.types = data[0];
-        this.registerObj.modules = data[1];
-        this.registerObj.packages = data[2];
+        this.registerObj.types = data;
       }, error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
         this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);

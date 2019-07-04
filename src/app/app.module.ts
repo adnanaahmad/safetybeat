@@ -46,6 +46,7 @@ import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialo
 import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import { CreateQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
 import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
+import { ProfileImagePipe } from './pipes/profileImage/profile-image.pipe';
 import {ImageLightboxComponent} from './Dialogs/imageLightbox/imageLightbox.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -78,6 +79,7 @@ export function createTranslateLoader(http: HttpClient) {
     RegisterTeamComponent,
     ViewTeamComponent,
     CreateQuestionComponent,
+    ProfileImagePipe,
     ImageLightboxComponent
   ],
   imports: [

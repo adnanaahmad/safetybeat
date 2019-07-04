@@ -86,6 +86,7 @@ export class JoinEntityModalComponent implements OnInit {
     );
     this.adminServices.joinEntity(this.joinEntity.joinEntityData).subscribe(
       res => {
+        debugger
         this.joinEntity.entityResponse = res;
         if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           let data = {

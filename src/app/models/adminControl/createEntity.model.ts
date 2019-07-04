@@ -13,7 +13,9 @@ export interface CreateEntity {
 
 export interface EntityDetails {
   moduleName: string;
-  entityData: entityData;
+  name: string;
+  headOffice: string;
+  status: boolean;
   active: boolean;
 }
 

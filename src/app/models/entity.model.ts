@@ -1,12 +1,17 @@
 export interface entity {
   moduleName: string;
-  entityData: entityData;
-}
-
-export interface entityData {
   name: string;
   headOffice: string;
   status: boolean;
+  active: boolean;
+}
+
+export interface entityData {
+  moduleName: string;
+  name: string;
+  headOffice: string;
+  status: boolean;
+  active: boolean;
 }
 
 export interface joinEntity {
@@ -14,6 +19,6 @@ export interface joinEntity {
   entityCode: string;
 }
 
-export interface entityCode  {
+export interface entityCode {
   joinCode: string;
 }

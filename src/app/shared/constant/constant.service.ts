@@ -32,7 +32,7 @@ export class ConstantService {
     editEntity: `${environment.apiUrl}/entity`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
     getInvite: `${environment.apiUrl}/registration/`,
-    createEntity: `${environment.apiUrl}/entity/createEntity/`,
+    createEntity: `${environment.apiUrl}/entity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     viewAllEntitiesOfUser: `${environment.apiUrl}/entity/viewAllEntitiesOfUser/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
