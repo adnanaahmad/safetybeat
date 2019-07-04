@@ -2,7 +2,7 @@
   <div class="page-title">
     <h3>Action VS Alerts</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.ACTION_ALERT_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.ACTION_ALERT_MSG}}</p>
   <mat-card>
     <form [formGroup]="actionAlertObj.actionVsAlertForm"
           (ngSubmit)=formSubmit(actionAlertObj.actionVsAlertForm) (keydown.enter)="$event.preventDefault()">

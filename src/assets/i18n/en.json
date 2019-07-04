@@ -111,8 +111,14 @@
     "CHILD_NO": "Child No",
     "CHILD": "Child",
     "PARENT": "Parent",
-    "SEARCHUSERS": "Search Users",
     "CHANGEPICTURE": "Change Picture",
+    "SEARCHUSERS": "Search Users",
+    "ADVSEARCH": "Advanced Search",
+    "CHOOSE_ROLE": "Choose role for this user",
+    "SELECTED_ENTITY": "Selected Entity",
+    "SELECT_TEAM": "Select Team",
+    "SEARCH": "Search",
+    "SELECT_FILTER": "Select filter",
     "CHILD_YES_SAFE": "Is Child Yes Question Safe?",
     "CHILD_NO_SAFE": "Is Child No Question Safe?"
   },
@@ -164,7 +170,8 @@
     "GENERATE_REPORT": "Generate Report",
     "VIEW_MAP": "View Map",
     "CLOSE": "Close",
-    "CREATE_FOLDER": "Create Folder"
+    "CREATE_FOLDER": "Create Folder",
+    "SHOW_RESULTS": "Show Results"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -382,6 +389,7 @@
     "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved).",
     "ALL_SITES_FAILURE": "All Sites Record API Failed",
     "PARENT_QUESTION_REQ": "Parent Question is required",
+    "NO_SITES": "No Sites",
     "DELETE_QUESTION_SUCCESS": "Question has been delete successfully.",
     "DELETE_QUESTION_FAILURE": "Question deletion failed.",
     "EDITQUESTION_MSG": "Edit Question"
@@ -397,7 +405,8 @@
     "HAZARD_CENTER": "Hazard Centre",
     "DOCUMENTS": "Documents",
     "MY_TEAM": "My Team",
-    "ACCOUNTINFO": "Account information"
+    "ACCOUNTINFO": "Account information",
+    "ACTION_REPORT": "Action Report"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",

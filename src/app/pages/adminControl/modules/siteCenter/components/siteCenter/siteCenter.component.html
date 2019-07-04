@@ -22,7 +22,7 @@
                (keyup)=getSitesData(siteCentreObj.firstIndex,$event.target.value)>
         <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
       </div>
-      <a class="mat-body-strong mat-small pointer">Advanced Search</a>
+      <a (click)="advanceSearch()" class="mat-body-strong mat-small pointer">{{helperService.translated.STRINGS.ADVSEARCH}}</a>
     </div>
     <!--/Filter-->
   </div>

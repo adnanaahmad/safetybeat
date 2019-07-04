@@ -1,10 +1,12 @@
-import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {RegistrationComp} from 'src/app/models/loginRegistration/registration.model';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { RegistrationComp } from 'src/app/models/loginRegistration/registration.model';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 
 const phoneNumberUtil = HelperService.getPhoneNumberUtil();
@@ -17,13 +19,33 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
 export class RegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('gmap') gMapElement: ElementRef;
   registerObj: RegistrationComp = <RegistrationComp>{};
-
+  /** Based on the screen size, switch from standard to one column per row */
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'welcome', cols: 2, rows: 1 },
+          { title: 'userInfo', cols: 2, rows: 1 },
+          { title: 'orgInfo', cols: 2, rows: 1 },
+          { title: 'typeInfo', cols: 2, rows: 1 }
+        ];
+      } else {
+        return [
+          { title: 'welcome', cols: 1, rows: 2 },
+          { title: 'userInfo', cols: 1, rows: 2 },
+          { title: 'orgInfo', cols: 1, rows: 2 },
+          { title: 'typeInfo', cols: 1, rows: 2 }
+        ];
+      }
+    })
+  );
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private register: LoginRegistrationService,
     private compiler: CompilerProvider,
     public helperService: HelperService,
+    private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute
   ) {
     this.initialize();
@@ -41,7 +63,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.registerObj.packages = data[2];
       }, error => {
         this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
-        this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
+          this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
       });
   }
 
@@ -90,7 +112,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       contactNo: ['', Validators.required],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
-    }, {validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)])});
+    }, { validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)]) });
 
     this.registerObj.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -135,7 +157,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   checkPasswords(group: FormGroup) {
     const pass = group.value.password1;
     const confirmPass = group.value.password2;
-    return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
+    return pass === confirmPass ? null : group.controls.password2.setErrors({ notSame: true });
   }
 
   /**
@@ -149,11 +171,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'email': [group.value.email, Validators.email]
     });
     if (this.registerObj.email.status === this.helperService.appConstants.emailValid) {
-      const email = {email: group.value.email};
+      const email = { email: group.value.email };
       this.register.checkEmail(email).pipe().subscribe((res) => {
         this.registerObj.success = res;
         if (this.registerObj.success.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
-          group.controls.email.setErrors({exists: true});
+          group.controls.email.setErrors({ exists: true });
         }
       });
     }
@@ -170,9 +192,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         '+' + group.value.countryCode + group.value.contactNo, undefined
       );
       return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.contactNo.setErrors(null) :
-        group.controls.contactNo.setErrors({inValid: true});
+        group.controls.contactNo.setErrors({ inValid: true });
     } catch (e) {
-      return group.controls.contactNo.setErrors({inValid: true});
+      return group.controls.contactNo.setErrors({ inValid: true });
     }
   }
 
@@ -199,7 +221,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       'last_name': userForm.last_name,
       'password1': userForm.password1,
       'password2': userForm.password2,
-      'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
+      'contactNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
       'organization': this.registerObj.organizationData,
       'invitation': false,
       'moduleName': 'Safetybeat',

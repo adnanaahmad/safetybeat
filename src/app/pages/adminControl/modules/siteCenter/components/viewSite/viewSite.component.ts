@@ -22,30 +22,26 @@ export class ViewSiteComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   viewSiteObj: ViewSite = <ViewSite>{};
   @ViewChild('gmap') gMapElement: ElementRef;
-
-
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Activity', cols: 4, rows: 1 },
-          { title: 'Information', cols: 4, rows: 1 },
-          { title: 'Hazards', cols: 4, rows: 1 },
-          { title: 'Location', cols: 4, rows: 1 }
+          { title: 'activity', cols: 2, rows: 1 },
+          { title: 'information', cols: 2, rows: 1 },
+          { title: 'hazards', cols: 2, rows: 1 },
+          { title: 'location', cols: 2, rows: 1 }
         ];
       } else {
         return [
-          { title: 'Activity', cols: 2, rows: 1 },
-          { title: 'Information', cols: 2, rows: 1 },
-          { title: 'Hazards', cols: 2, rows: 1 },
-          { title: 'Location', cols: 2, rows: 1 }
+          { title: 'activity', cols: 1, rows: 1 },
+          { title: 'information', cols: 1, rows: 1 },
+          { title: 'hazards', cols: 1, rows: 1 },
+          { title: 'location', cols: 1, rows: 1 }
         ];
       }
     })
   );
-
-
 
   constructor(
     private route: ActivatedRoute,
