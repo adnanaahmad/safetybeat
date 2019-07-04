@@ -119,6 +119,10 @@
     "SELECT_TEAM": "Select Team",
     "SEARCH": "Search",
     "SELECT_FILTER": "Select filter",
+    "ALLTEAMS": "All Teams",
+    "RANGE": "Range",
+    "DATE_TO": "Date to",
+    "DATE_FROM": "Date from",
     "CHILD_YES_SAFE": "Is Child Yes Question Safe?",
     "CHILD_NO_SAFE": "Is Child No Question Safe?"
   },
@@ -406,7 +410,17 @@
     "DOCUMENTS": "Documents",
     "MY_TEAM": "My Team",
     "ACCOUNTINFO": "Account information",
-    "ACTION_REPORT": "Action Report"
+    "ACTION_REPORT": "Action Report",
+    "AVERAGE_DAILY_ACTION_REPORT": "Average Daily Actions",
+    "NUMBER_CHECKINS_BY_ACTIVITY": "Number of Check-ins By Activity",
+    "HOURS_CHECKINS_BY_ACTIVITY": "Hours of Check-ins By Activity",
+    "CHECKIN_BY_PERSON": "Checkin and Alert by Person",
+    "ACTIONS_VS_ALERTS": "Actions vs Alerts",
+    "PULSE_REPORT_BY_ENTITY": "Pulse Report by Entity",
+    "PULSE_REPORT_BY_PERSON": "Pulse Report by Person",
+    "COMPLIANT_CHECKOUT": "Compliant Check-Out by Person",
+    "SITE_ACTIVITY_REPORT": "Site Activity Report",
+    "HAZARD_REPORTS": "Hazard Reports"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
