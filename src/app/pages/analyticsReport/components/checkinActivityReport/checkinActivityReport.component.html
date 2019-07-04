@@ -3,8 +3,8 @@
     <h3>Number of Check-ins by Activity</h3>
     <h3>Hours Of Check-ins by Activity</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.NUMBER_CHECKIN_MSG}}</p>
-  <p>{{helperService.translated.MESSAGES.HOURS_CHECKIN_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.NUMBER_CHECKIN_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.HOURS_CHECKIN_MSG}}</p>
   <mat-card>
     <form [formGroup]="checkInActivityObj.checkInActivityForm"
           (ngSubmit)=activityFormSubmit(checkInActivityObj.checkInActivityForm) (keydown.enter)="$event.preventDefault()">

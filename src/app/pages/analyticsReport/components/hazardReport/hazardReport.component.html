@@ -2,7 +2,7 @@
   <div class="page-title">
     <h3>Hazard Reports</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.HAZARD_REPORT_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.HAZARD_REPORT_MSG}}</p>
   <mat-card>
     <form [formGroup]="hazardObj.hazardReportForm"
           (ngSubmit)=formSubmit(hazardObj.hazardReportForm) (keydown.enter)="$event.preventDefault()">

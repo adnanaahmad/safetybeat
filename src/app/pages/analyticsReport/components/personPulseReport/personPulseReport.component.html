@@ -2,7 +2,7 @@
   <div class="page-title">
     <h3> Pulse Report by Person</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.PULSE_PERSON_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.PULSE_PERSON_MSG}}</p>
   <mat-card>
     <form [formGroup]="pulsePersonObj.pulsePersonForm"
           (ngSubmit)=formSubmit(pulsePersonObj.pulsePersonForm) (keydown.enter)="$event.preventDefault()">

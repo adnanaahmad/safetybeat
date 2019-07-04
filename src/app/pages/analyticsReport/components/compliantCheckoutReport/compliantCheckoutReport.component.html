@@ -2,7 +2,7 @@
   <div class="page-title">
     <h3>Compliant Check-Out by Person</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.AVERAGE_ACTIONS_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.AVERAGE_ACTIONS_MSG}}</p>
   <mat-card>
     <form [formGroup]="compliantObj.compliantCheckOutForm"
           (ngSubmit)=formSubmit(compliantObj.compliantCheckOutForm) (keydown.enter)="$event.preventDefault()">

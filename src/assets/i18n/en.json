@@ -112,7 +112,9 @@
     "CHILD": "Child",
     "PARENT": "Parent",
     "CHANGEPICTURE": "Change Picture",
-    "SEARCHUSERS": "Search Users"
+    "SEARCHUSERS": "Search Users",
+    "ADVSEARCH": "Advanced Search",
+    "CHOOSE_ROLE": "Choose role for this user"
   },
   "BUTTONS": {
     "LOGIN": "Login",
