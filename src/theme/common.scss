@@ -8,8 +8,8 @@
   mat-sidenav {
     background-color: mat-color($primary, 600) !important;
   }
-  [btn-white] {
-    color: mat-color($primary) !important;
+  .mat-tooltip{
+    background: #000;
   }
   // Radio Button Coloring Start
   // .mat-radio-button.mat-accent.mat-radio-checked {
@@ -43,6 +43,11 @@ $centered: 0 auto;
   left: 0;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
+}
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 @mixin clearSep {
   clear: both;

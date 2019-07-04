@@ -13,7 +13,7 @@
         <p>{{helperService.translated.MESSAGES.WELCOME_MSG}}</p>
       </div>
     </mat-card>
-    <mat-card class="midbox loginbox" *ngIf="card.title == 'loginForm'">
+    <mat-card class="midbox loginbox mat-elevation-z10" *ngIf="card.title == 'loginForm'">
       <mat-card-title>{{helperService.translated.BUTTONS.LOGIN}}</mat-card-title>
       <p class="subheading">{{helperService.translated.MESSAGES.SIGNINMESSAGE}}</p>
       <form [formGroup]="loginObj.loginForm" (ngSubmit)="onSubmit(loginObj.loginForm)">

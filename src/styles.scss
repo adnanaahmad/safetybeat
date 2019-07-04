@@ -166,7 +166,6 @@ mat-dialog-container {
 }
 
 .topbar {
-  box-shadow: 0 4px 7px 1px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
 .noflex {
@@ -223,7 +222,6 @@ mat-dialog-container {
   }
   width: 60%;
   margin: 100px auto;
-  box-shadow: 0 0px 60px -20px #0000007a !important;
   border-radius: 10px !important;
   &:before {
     content: "";
@@ -366,12 +364,10 @@ mat-dialog-container {
       top: 0;
       z-index: 0;
       transition: all ease 0.3s;
-      // transform: scale(0);
       opacity: 0;
       visibility: hidden;
     }
     &.mat-radio-checked:before {
-      // transform: scale(1);
       opacity: 1;
       visibility: visible;
     }

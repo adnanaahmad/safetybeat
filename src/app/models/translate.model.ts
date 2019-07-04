@@ -88,6 +88,10 @@ export interface Strings {
   SEARCHUSERS: string;
   ADVSEARCH: string;
   CHOOSE_ROLE: string;
+  SELECTED_ENTITY: string;
+  SELECT_TEAM: string;
+  SEARCH: string;
+  SELECT_FILTER: string;
 
 }
 
@@ -214,6 +218,7 @@ export interface Buttons {
   GENERATE_REPORT: string;
   VIEW_MAP: string;
   CLOSE: string;
+  SHOW_RESULTS: string;
 
 }
 
@@ -434,6 +439,7 @@ export interface Messages {
   COMPLIANT_CHECKOUT_MSG: string;
   SITE_ACTIVITY_MSG: string;
   HAZARD_REPORT_MSG: string;
+  NO_SITES: string;
 }
 
 export interface Logger {
@@ -508,6 +514,7 @@ export interface SiteTitle {
   DOCUMENTS: string;
   MY_TEAM: string;
   ACCOUNTINFO: string;
+  ACTION_REPORT: string
 }
 
 export interface TableHeadings {

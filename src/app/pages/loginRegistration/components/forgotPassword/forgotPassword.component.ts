@@ -5,6 +5,8 @@ import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {ForgotPassword} from 'src/app/models/user.model';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,10 +15,26 @@ import {ForgotPassword} from 'src/app/models/user.model';
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPassObj: ForgotPasswordComp = <ForgotPasswordComp>{};
-
+  /** Based on the screen size, switch from standard to one column per row */
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'particleContainer', cols: 2, rows: 1 },
+          { title: 'forgotPasswordForm', cols: 2, rows: 1 }
+        ];
+      } else {
+        return [
+          { title: 'particleContainer', cols: 1, rows: 2 },
+          { title: 'forgotPasswordForm', cols: 1, rows: 2 }
+        ];
+      }
+    })
+  );
   constructor(
     public forgotService: LoginRegistrationService,
     public formBuilder: FormBuilder,
+    private breakpointObserver: BreakpointObserver,
     public helperService: HelperService,
   ) {
     this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
