@@ -9,15 +9,15 @@
     <div>
       <div class="file-uploader">
         <button class="fake-uploader">
-          <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon> {{fileName}}
+          <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon> {{newDoc.fileName}}
         </button>
         <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt"
           (change)=uploadFile($event) required />
       </div>
     </div>
-    <mat-checkbox *ngIf="data.modalType" (change)="showFolderList()">Save in Folder</mat-checkbox>
+    <mat-checkbox *ngIf="data.modalType" (change)="showFolderList()" [disabled]="!documentsData.folderExist">Save in Folder</mat-checkbox>
     <ng-container *ngIf="data.modalType">
-    <mat-form-field appearance="outline" full-width *ngIf="!documentsData.rootOnly && isDisabled" >
+    <mat-form-field appearance="outline" full-width *ngIf="newDoc.isEnabled" >
       <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
       <mat-select formControlName="folders">
         <ng-container *ngFor="let folder of newDoc.folderList">

@@ -38,7 +38,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        console.log(res);
         this.documentsData.entityID = res.entityInfo.id;
         this.getAllFolders(this.documentsData.entityID);
         this.getRootDocuments(this.documentsData.entityID);
@@ -53,10 +52,15 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
 // this function returns the list of all folders in an entity
   getAllFolders(entityID: number) {
+    this.documentsData.folderList = [];
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.documentsData.folderExist = true;
-        this.documentsData.folderList = res.data;
+        if (res.data.length === 0) {
+          this.documentsData.folderExist = false;
+        } else {
+          this.documentsData.folderExist = true;
+          this.documentsData.folderList = res.data;
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.documentsData.folderExist = false;
       } else {
@@ -64,6 +68,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_FOLDER_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_FOLDER_FAILURE,
+        this.helperService.constants.status.ERROR);
     });
   }
 
@@ -82,6 +89,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
+        this.helperService.constants.status.ERROR);
     });
   }
 
@@ -115,7 +125,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteDoc(id).subscribe((res) => {
-          this.getAllFolders(this.documentsData.entityID);
           this.getRootDocuments(this.documentsData.entityID);
         });
       }
@@ -133,7 +142,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.navService.deleteFolder(id).subscribe((res) => {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_DELETED,
+            this.helperService.constants.status.SUCCESS);
           this.getAllFolders(this.documentsData.entityID);
+        }, (error) => {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_DEL_FAIL, this.helperService.constants.status.ERROR);
         });
       }
     });
@@ -152,5 +165,29 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   showDocs(folderId: number) {
     this.router.navigate(['/home/viewDocs', {folderId: JSON.stringify(folderId),
       entityId: JSON.stringify(this.documentsData.entityID)}], {skipLocationChange: false});
+  }
+
+  renameDoc(doc) {
+    doc.editable = true;
+  }
+
+  editedValue(value, doc) {
+    doc.editable = false;
+    value = value + '.' + (doc.title.split('.'))[1];
+    let blob = new Blob([doc.file]);
+    let formData = new FormData();
+    formData.append('title' , value);
+    formData.append('file', blob);
+    formData.append('uploadedBy', doc.uploadedBy);
+    this.navService.renameDocument(doc.id, formData).subscribe((res) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.DOCUMENT_RENAMED, this.helperService.constants.status.SUCCESS);
+      this.getRootDocuments(this.documentsData.entityID);
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DOC_RENAME_FAIL);
+    });
+  }
+
+  downloadFile() {
+
   }
 }

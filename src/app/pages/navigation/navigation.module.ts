@@ -9,6 +9,7 @@ import {NotificationNavComponent} from './components/notificationNav/notificatio
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {DocumentsComponent} from './components/documents/documents.component';
 import {ShowDocumentsComponent} from './components/showDocuments/showDocuments.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ShowDocumentsComponent} from './components/showDocuments/showDocuments.c
   imports: [
     CommonModule,
     NavigationRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [
     CompilerProvider

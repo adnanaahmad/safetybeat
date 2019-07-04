@@ -38,11 +38,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="renameFolder(folder)">
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
               <span>{{helperService.translated.BUTTONS.RENAME}}</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="deleteFolder(folder.id)">
               <mat-icon>{{ helperService.appIcons.deleteForever }}</mat-icon>
               <span>{{helperService.translated.BUTTONS.DELETE}}</span>
             </button>
@@ -70,22 +70,26 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item >
+              <a  [download]="doc.title" target="_blank" [href]=doc.file></a>
+              <mat-icon>{{ helperService.appIcons.cloudDownload }}</mat-icon>
+              <span>{{helperService.translated.BUTTONS.DOWNLOAD}}</span>
+            </button>
+            <button mat-menu-item (click)="renameDoc(doc)">
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
               <span>{{helperService.translated.BUTTONS.RENAME}}</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="deleteDoc(doc.id)">
               <mat-icon>{{ helperService.appIcons.deleteForever }}</mat-icon>
               <span>{{helperService.translated.BUTTONS.DELETE}}</span>
             </button>
           </mat-menu>
-          <div class="content" (click)="viewDoc(doc.file)">
-            <div class="filetype">
+          <div class="content">
+            <div class="filetype" (click)="viewDoc(doc.file)">
               <span>{{(doc.title.split('.'))[1]}}</span>
             </div>
-            <!-- <span class="file-label mat-caption">{{(doc.title.split('.'))[1]}}</span> -->
-            <!--          <iframe src="https://docs.google.com/spreadsheets/d/1LF_fQTyzS9woI4nG4MkAvbNFhKWgQPnfhoQDsdCKBEc/edit#gid=1243096096" width='100%' height='140'></iframe>-->
-            <span class="mat-body-2 mat-small">{{doc.title}}</span>
+            <input type="text" (keyup.enter)="editedValue($event.target.value, doc)" *ngIf="doc.editable" [(ngModel)]="(doc.title.split('.'))[0]"/>
+            <span class="mat-body-2 mat-small" *ngIf="!doc.editable">{{(doc.title.split('.'))[0]}}</span>
           </div>
         </mat-card>
       </ng-container>

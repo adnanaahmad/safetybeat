@@ -22,11 +22,6 @@ export class NavigationService {
   packageData = this.packageInfo.asObservable();
   private currentUser = new BehaviorSubject<any>(1);
   currentUserData = this.currentUser.asObservable();
-  private doc = new BehaviorSubject<any>(1);
-  newDoc = this.doc.asObservable();
-  private folder = new BehaviorSubject<any>(1);
-  allFoldersList = this.folder.asObservable();
-
 
   constructor(
     private router: Router,
@@ -174,6 +169,14 @@ export class NavigationService {
     );
   }
 
+  renameDocument(id: number, data: object) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.put,
+      `${this.helperService.constants.apiRoutes.documents}${id}/`,
+      data
+    );
+  }
+
   allFolders(data) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.getFolders,
@@ -198,13 +201,5 @@ export class NavigationService {
   deleteFolder(id) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
       `${this.helperService.constants.apiRoutes.createFolder}${id}/`);
-  }
-
-  updateDocument(data: any) {
-    this.doc.next(data);
-  }
-
-  updateFolder(data: any) {
-    this.folder.next(data);
   }
 }

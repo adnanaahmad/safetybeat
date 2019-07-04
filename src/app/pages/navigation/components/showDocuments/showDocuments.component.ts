@@ -7,6 +7,7 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {Location} from '@angular/common';
 import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc.component';
 import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/uploadDoc.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-showDocuments',
@@ -34,11 +35,11 @@ export class ShowDocumentsComponent implements OnInit {
   goBack() {
     this.location.back();
   }
-
+// this function opens dialog to show document
   viewDoc(doc: any) {
     this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
   }
-
+// this function gets documents by a folder ID and displays
   docsOfFolder(folderID: number) {
     this.documentsData.docList = [];
     this.documentsData.panelOpenState = true;
@@ -59,9 +60,27 @@ export class ShowDocumentsComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+          // some code here
     });
   }
 
+  // this function first asks for confirmation and then deletes a document
+  deleteDoc(id) {
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_DOCUMENT}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.navService.deleteDoc(id).subscribe((res) => {
+          this.docsOfFolder(this.documentsData.folderId);
+        }, (error) => {
+          // some code here
+        });
+      }
+    });
+  }
+// this function opens a dialog to upload file
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {
       disableClose: true, data: {
