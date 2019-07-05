@@ -113,7 +113,13 @@
     "PARENT": "Parent",
     "CHANGEPICTURE": "Change Picture",
     "ACTION_REPORT": "Action Report",
-    "SEARCHUSERS": "Search Users"
+    "SEARCHUSERS": "Search Users",
+    "ADVSEARCH": "Advanced Search",
+    "CHOOSE_ROLE": "Choose role for this user",
+    "SELECTED_ENTITY": "Selected Entity",
+    "SELECT_TEAM": "Select Team",
+    "SEARCH": "Search",
+    "SELECT_FILTER": "Select filter"
   },
   "BUTTONS": {
     "DOWNLOAD": "Download",
@@ -164,7 +170,8 @@
     "GENERATE_REPORT": "Generate Report",
     "VIEW_MAP": "View Map",
     "CLOSE": "Close",
-    "CREATE_FOLDER": "Create Folder"
+    "CREATE_FOLDER": "Create Folder",
+    "SHOW_RESULTS": "Show Results"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -386,7 +393,8 @@
     "SITE_ACTIVITY_MSG": "This report shows the number of check-ins and hours checked-in total and by site.",
     "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved).",
     "ALL_SITES_FAILURE": "All Sites Record API Failed",
-    "PARENT_QUESTION_REQ": "Parent Question is required"
+    "PARENT_QUESTION_REQ": "Parent Question is required",
+    "NO_SITES": "No Sites"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -399,7 +407,8 @@
     "HAZARD_CENTER": "Hazard Centre",
     "DOCUMENTS": "Documents",
     "MY_TEAM": "My Team",
-    "ACCOUNTINFO": "Account information"
+    "ACCOUNTINFO": "Account information",
+    "ACTION_REPORT": "Action Report"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",

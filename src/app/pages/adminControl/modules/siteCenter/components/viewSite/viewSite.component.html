@@ -9,9 +9,9 @@
 </mat-toolbar>
 
 <div class="grid-container">
-  <mat-grid-list cols="4" rowHeight="300px">
+  <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='Activity'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='activity'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
@@ -67,7 +67,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='Information'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='information'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
@@ -97,7 +97,7 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='Hazards'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='hazards'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
@@ -138,7 +138,7 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='Location'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='location'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>

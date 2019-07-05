@@ -17,6 +17,7 @@ export interface ProfileModel {
   profileData: any;
   userId: number;
   username: string;
+  name: string;
   firstname: string;
   lastname: string;
   contactNo: string;

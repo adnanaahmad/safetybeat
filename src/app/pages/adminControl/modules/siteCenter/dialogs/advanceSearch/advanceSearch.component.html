@@ -1,0 +1,32 @@
+<mat-card-title class="mat-dialog-title">{{helperService.translated.STRINGS.ADVSEARCH}}</mat-card-title>
+<div class="mat-dialog-content">
+  <form>
+    <div class="data-search">
+      <mat-form-field fullWidth appearance="outline">
+        <mat-label>{{helperService.translated.TABLEHEADINGS.SITE_NAME}}</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto">
+      </mat-form-field>
+      <mat-form-field fullWidth appearance="outline">
+        <mat-label>{{helperService.translated.TABLEHEADINGS.SITE_ADDRESS}}</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto">
+        <mat-icon matSuffix>{{helperService.appIcons.myLocation}}</mat-icon>
+      </mat-form-field>
+      <mat-form-field fullWidth appearance="outline">
+        <mat-label>{{helperService.translated.TABLEHEADINGS.SITE_CREATED_BY}}</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto">
+        <mat-icon matSuffix>{{helperService.appIcons.person}}</mat-icon>
+      </mat-form-field>
+      <mat-form-field fullWidth appearance="outline">
+        <mat-label>{{helperService.translated.TABLEHEADINGS.SITE_SAFETY_MANAGER}}</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto">
+        <mat-icon matSuffix>{{helperService.appIcons.supervisedUserCircle}}</mat-icon>
+      </mat-form-field>
+      <mat-slide-toggle>{{helperService.translated.TABLEHEADINGS.SITE_SAFE_ZONE}}</mat-slide-toggle>
+    </div>
+  </form>
+  <mat-dialog-actions>
+    <button mat-raised-button cdkFocusInitial custom-btn btn-primary
+      color="primary">{{helperService.translated.BUTTONS.SHOW_RESULTS}}</button>
+    <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+  </mat-dialog-actions>
+</div>

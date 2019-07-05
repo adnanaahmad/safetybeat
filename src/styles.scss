@@ -80,9 +80,6 @@ app-entityCodeModal {
 .full-width {
   width: $fullValue;
 }
-[btn-primary] {
-  color: $hexWhite !important;
-}
 .mat-input-element:disabled {
   cursor: not-allowed;
 }
@@ -169,7 +166,6 @@ mat-dialog-container {
 }
 
 .topbar {
-  box-shadow: 0 4px 7px 1px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
 .noflex {
@@ -226,7 +222,6 @@ mat-dialog-container {
   }
   width: 60%;
   margin: 100px auto;
-  box-shadow: 0 0px 60px -20px #0000007a !important;
   border-radius: 10px !important;
   &:before {
     content: "";
@@ -369,12 +364,10 @@ mat-dialog-container {
       top: 0;
       z-index: 0;
       transition: all ease 0.3s;
-      // transform: scale(0);
       opacity: 0;
       visibility: hidden;
     }
     &.mat-radio-checked:before {
-      // transform: scale(1);
       opacity: 1;
       visibility: visible;
     }
@@ -749,6 +742,9 @@ input:-internal-autofill-selected {
       }
     }
   }
+  .monogram {
+    display: none;
+  }
 }
 @media (max-width: 768px) {
   app-settings {
@@ -899,9 +895,6 @@ input:-internal-autofill-selected {
     display: block;
     text-align: center;
   }
-  .monogram {
-    display: none;
-  }
   .notification-drawer {
     width: 100%;
   }
@@ -910,7 +903,6 @@ input:-internal-autofill-selected {
       padding: 0;
     }
   }
-  app-login,
   app-forgot-password,
   app-registration {
     app-particle-container {

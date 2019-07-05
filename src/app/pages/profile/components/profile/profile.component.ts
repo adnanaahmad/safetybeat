@@ -25,9 +25,10 @@ import { SiteMapComponent } from 'src/app/pages/adminControl/modules/siteCenter/
   styleUrls: ['./profile.component.scss']
 })
 
-export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
+export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // cards: any;
@@ -107,6 +108,8 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
           this.profileModel.profileData = res;
+          this.profileModel.contactNo = this.profileModel.profileData.contactNo;
+          this.profileModel.name = this.profileModel.profileData.first_name + ' ' + this.profileModel.profileData.last_name;
           this.profileModel.username = this.profileModel.profileData.username;
           this.profileModel.email = this.profileModel.profileData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
@@ -115,8 +118,10 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
           this.viewActivities(this.profileModel.userId);
           this.viewAllEntities(this.profileModel.userId);
         } else {
+          console.log(this.profileModel.receivedData);
+          this.profileModel.contactNo = this.profileModel.receivedData.contact;
           this.profileModel.profileData = this.profileModel.receivedData;
-          this.profileModel.username = this.profileModel.receivedData.name;
+          this.profileModel.name = this.profileModel.receivedData.name;
           this.profileModel.email = this.profileModel.receivedData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
         }
@@ -128,7 +133,7 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
     // this.responsive();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
@@ -151,10 +156,10 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
 
-  onChangeFeatures(feature:any){
-    var self= this;
-    this.helperService.iterations(this.profileFeatures, function(value, key){
-      if(key===feature){
+  onChangeFeatures (feature: any) {
+    let self = this;
+    this.helperService.iterations(this.profileFeatures, function(value, key) {
+      if (key === feature) {
         self.profileFeatures[key] = true;
       } else {
         self.profileFeatures[key] = false;
@@ -230,7 +235,7 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
     });
   }
 
-  viewActivities(userId: number) {
+  viewActivities (userId: number) {
     this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
@@ -251,6 +256,7 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   getUserConnections(userId: number) {
 
     this.adminService.allConnections({ userId: userId }).subscribe((res) => {
+      console.log(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.profileModel.allConnectionsRes = res;
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);

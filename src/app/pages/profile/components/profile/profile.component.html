@@ -11,7 +11,7 @@
   </div>
   <div class="user-info" *ngIf="profileModel.profileData">
     <h3 class="mat-body-strong" matTooltipPosition="after" matTooltip="{{profileModel.email}}"
-      aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.username }}
+      aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.name }}
     </h3>
     <p>{{profileModel.role}} <strong>{{profileModel.entityName}}</strong></p>
   </div>
@@ -68,16 +68,13 @@
           <mat-card-title>{{ helperService.translated.SITETITLE.ACCOUNTINFO }}</mat-card-title>
           <mat-list role="list">
             <mat-list-item role="listitem">
-              <span class="mat-body-strong">Email: info@example.com</span>
+              <span class="mat-body-strong">{{profileModel.email}}</span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item role="listitem">
-              <span class="mat-body-strong">Emergency Contact: 00 123 456 78</span>
+              <span class="mat-body-strong">{{profileModel.contactNo}}</span>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item role="listitem">
-              <span class="mat-body-strong">Medical Condition: N/A</span>
-            </mat-list-item>
           </mat-list>
         </mat-card>
 
@@ -117,36 +114,42 @@
           <mat-card-content *ngIf="profileFeatures.activities">
             <div class="table-wrap">
               <mat-card-title>Your Activities</mat-card-title>
-              <table mat-table [dataSource]="dataSource" class="customTable">
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
+              <table mat-table [dataSource]="profileModel.recentActivities" class="customTable">
+<!--                <ng-container matColumnDef="position">-->
+<!--                  <th mat-header-cell *matHeaderCellDef> No. </th>-->
+<!--                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>-->
+<!--                </ng-container>-->
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.siteData.name}} </td>
                 </ng-container>
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                <ng-container matColumnDef="checkIn">
+                  <th mat-header-cell *matHeaderCellDef> Check-in </th>
+                  <td mat-cell *matCellDef="let element"> {{element.checkInCheckOut.checkedInAt | date}} </td>
                 </ng-container>
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                <ng-container matColumnDef="checkOut">
+                  <th mat-header-cell *matHeaderCellDef> Check-Out </th>
+                  <td mat-cell *matCellDef="let element"> {{element.checkInCheckOut.checkedOutAt | date}} </td>
+                </ng-container>
+                <ng-container matColumnDef="duration">
+                  <th mat-header-cell *matHeaderCellDef> Duration </th>
+                  <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="activitiesColumn"></tr>
+                <tr mat-row *matRowDef="let row; columns: activitiesColumn;"></tr>
               </table>
+              <mat-card *ngIf="profileModel.noActivity">No Activities</mat-card>
             </div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </mat-card-content>
+
           <!-- ================================================================================================= -->
           <!-- for connections insert data here -->
           <mat-card-content *ngIf="profileFeatures.connections">
             <div class="table-wrap">
               <mat-card-title>Your Connections</mat-card-title>
-              <table mat-table [dataSource]="dataSource" class="customTable">
+              <table mat-table [dataSource]="profileModel.allConnectionsData" class="customTable">
                 <ng-container matColumnDef="position">
                   <th mat-header-cell *matHeaderCellDef> No. </th>
                   <td mat-cell *matCellDef="let element"> {{element.position}} </td>

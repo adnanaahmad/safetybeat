@@ -2,18 +2,17 @@
   <div class="page-title">
     <h3>Average Daily Actions</h3>
   </div>
-<p>{{helperService.translated.MESSAGES.AVERAGE_ACTIONS_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.AVERAGE_ACTIONS_MSG}}</p>
   <mat-card>
     <form [formGroup]="averageActionObj.averageActionForm"
-          (ngSubmit)=averageActionSubmit(averageActionObj.averageActionForm) (keydown.enter)="$event.preventDefault()">
-
+      (ngSubmit)=averageActionSubmit(averageActionObj.averageActionForm) (keydown.enter)="$event.preventDefault()">
       <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Range</mat-label>
           <mat-select [formControlName]="helperService.appConstants.range">
-<!--            <mat-option *ngFor="let filter of siteActivityObj.filters" [value]="filter">-->
-<!--              {{ filter }}-->
-<!--            </mat-option>-->
+            <!--            <mat-option *ngFor="let filter of siteActivityObj.filters" [value]="filter">-->
+            <!--              {{ filter }}-->
+            <!--            </mat-option>-->
             <mat-option>
               option1
             </mat-option>
@@ -40,17 +39,16 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
-                 placeholder="Date From">
+            placeholder="Date From">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-                 placeholder="Date To">
+            placeholder="Date To">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
-        <br>
         <button mat-raised-button custom-btn btn-primary color="primary">
           {{helperService.translated.BUTTONS.GENERATE_REPORT}}
         </button>

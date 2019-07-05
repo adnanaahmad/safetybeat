@@ -3,7 +3,7 @@
   <div class="page-title">
     <h3>Site Activity Report</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.SITE_ACTIVITY_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.SITE_ACTIVITY_MSG}}</p>
   <mat-card>
     <form [formGroup]="actionReportObj.actionReportForm"
           (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
