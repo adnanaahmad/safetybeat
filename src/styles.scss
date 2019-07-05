@@ -860,6 +860,10 @@ input:-internal-autofill-selected {
   }
 }
 @media (max-width: 575px) {
+  .data-filter {
+    width: $fullValue !important;
+    padding: 0 !important;
+  }
   .settings-parent {
     .navigator {
       .mat-list {

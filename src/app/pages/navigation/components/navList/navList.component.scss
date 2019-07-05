@@ -20,7 +20,10 @@
       }
       &.active,
       &:hover {
-        background: rgba(255, 255, 255, 0.07) !important;
+        background: #fff !important;
+        .nav-link{
+          color: mat-color($primary) !important;
+        }
       }
     }
     .nav-accordion {

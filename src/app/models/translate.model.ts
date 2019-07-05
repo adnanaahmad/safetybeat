@@ -258,6 +258,7 @@ export interface Messages {
   RESET_MSG: string;
   EMAIL_MSG: string;
   ORGANIZATION_MSG: string;
+  EMAIL_ALREADY_EXISTS: string;
   TYPE_MSG: string;
   MODULE_MSG: string;
   MODULESELECT_MSG: string;
