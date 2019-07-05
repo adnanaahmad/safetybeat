@@ -465,7 +465,7 @@ export class CompilerProvider {
         disabled: data.permissions.hazardCentre
       },
       {
-        route: '/home/documents',
+        route: '/home/adminControl/documents',
         iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         disabled: data.permissions.documents
