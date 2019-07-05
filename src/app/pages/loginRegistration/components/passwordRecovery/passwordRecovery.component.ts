@@ -6,7 +6,8 @@ import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {PasswordRecovery} from 'src/app/models/loginRegistration/passwordRecovery.model';
 import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
-
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-passwordRecovery',
   templateUrl: './passwordRecovery.component.html',
@@ -14,11 +15,27 @@ import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler
 })
 export class PasswordRecoveryComponent implements OnInit {
   passRecoveryObj: PasswordRecovery = <PasswordRecovery>{};
-
+  /** Based on the screen size, switch from standard to one column per row */
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'particleContainer', cols: 2, rows: 1 },
+          { title: 'passwordRecoveryForm', cols: 2, rows: 1 }
+        ];
+      } else {
+        return [
+          { title: 'particleContainer', cols: 1, rows: 2 },
+          { title: 'passwordRecoveryForm', cols: 1, rows: 2 }
+        ];
+      }
+    })
+  );
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private resetServices: LoginRegistrationService,
+    private breakpointObserver: BreakpointObserver,
     public helperService: HelperService
   ) {
     this.route.params.subscribe(data => {

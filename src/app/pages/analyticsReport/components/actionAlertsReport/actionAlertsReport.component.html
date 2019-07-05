@@ -1,15 +1,14 @@
 <div class="paddingbox">
   <div class="page-title">
-    <h3>Action VS Alerts</h3>
+    <h3>{{helperService.translated.SITETITLE.ACTIONS_VS_ALERTS}}</h3>
   </div>
-  <p>{{helperService.translated.MESSAGES.ACTION_ALERT_MSG}}</p>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.ACTION_ALERT_MSG}}</p>
   <mat-card>
-    <form [formGroup]="actionAlertObj.actionVsAlertForm"
-          (ngSubmit)=formSubmit(actionAlertObj.actionVsAlertForm) (keydown.enter)="$event.preventDefault()">
-
+    <form [formGroup]="actionAlertObj.actionVsAlertForm" (ngSubmit)=formSubmit(actionAlertObj.actionVsAlertForm)
+      (keydown.enter)="$event.preventDefault()">
       <div class="form-group">
         <mat-form-field appearance="outline">
-          <mat-label>Range</mat-label>
+          <mat-label>{{helperService.translated.STRINGS.RANGE}}</mat-label>
           <mat-select [formControlName]="helperService.appConstants.range">
             <!--            <mat-option *ngFor="let filter of siteActivityObj.filters" [value]="filter">-->
             <!--              {{ filter }}-->
@@ -23,7 +22,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>All Users</mat-label>
+          <mat-label>{{helperService.translated.SITETITLE.USERS_TITLE}}</mat-label>
           <mat-select [formControlName]="helperService.appConstants.allUsers">
             <mat-option *ngFor="let user of actionAlertObj.allUserList" [value]="user.id">
               {{ user.name }}
@@ -31,7 +30,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <mat-label>All Teams</mat-label>
+          <mat-label>{{helperService.translated.STRINGS.ALLTEAMS}}</mat-label>
           <mat-select [formControlName]="helperService.appConstants.allTeams">
             <mat-option *ngFor="let team of actionAlertObj.allTeams" [value]="team.team.id">
               {{ team.team.title }}
@@ -40,13 +39,13 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
-                 placeholder="Date From">
+            placeholder="Date From">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-                 placeholder="Date To">
+            placeholder="Date To">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>

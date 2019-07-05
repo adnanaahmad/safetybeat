@@ -1,17 +1,18 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator, PageEvent} from '@angular/material';
-import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {AddSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
-import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
-import {ImportSiteModalComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
-import {SitesInfo} from 'src/app/models/site.model';
-import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
-import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
-import {SiteMapComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+import { AddSiteModalComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
+import { SiteCentre } from 'src/app/models/adminControl/siteCentre.model';
+import { ImportSiteModalComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
+import { SitesInfo } from 'src/app/models/site.model';
+import { AddHazardComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import { ConfirmationModalComponent } from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import { SiteMapComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AdvanceSearchComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -90,8 +91,8 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
           this.siteCentreObj.dataSource = res !== 1 && res.length !== 0 ? new MatTableDataSource(res) : null;
 
         });
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
+        // this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
+        //   this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.siteCentreObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
@@ -108,7 +109,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * this function is used to create Add Site Dialog and when the dialog is closed we again call the view all sites api.
    */
   addSite() {
-    this.helperService.createDialog(AddSiteModalComponent, {disableClose: true, data: {Modal: true, siteId: ''}});
+    this.helperService.createDialog(AddSiteModalComponent, { disableClose: true, data: { Modal: true, siteId: '' } });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
     });
@@ -120,7 +121,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   importSite() {
-    this.helperService.createDialog(ImportSiteModalComponent, {disableClose: true});
+    this.helperService.createDialog(ImportSiteModalComponent, { disableClose: true });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
     });
@@ -135,7 +136,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   editSite(siteInfo: SitesInfo) {
     this.helperService.createDialog(AddSiteModalComponent, {
       disableClose: true,
-      data: {Modal: false, site: siteInfo.site, createdBy: siteInfo.createdBy, siteSafetyManager: siteInfo.siteSafetyManager}
+      data: { Modal: false, site: siteInfo.site, createdBy: siteInfo.createdBy, siteSafetyManager: siteInfo.siteSafetyManager }
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
@@ -168,17 +169,23 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
 
   goToViewSite(id) {
     let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key);
-    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
+    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', { data: encryptedId }]);
   }
 
-
+  /**
+   * this function navigates to advance search dialog when we click on advance search anchor
+   */
+  advanceSearch() {
+    this.helperService.createDialog(AdvanceSearchComponent, {data: { disableClose: true}
+    });
+  }
   /**
    * this function is used to open add hazard dialog.
    */
   addHazard(id: any) {
     this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
-      data: {Modal: false, siteId: id}
+      data: { Modal: false, siteId: id }
     });
   }
 
@@ -186,7 +193,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * this function is used to open delete dialog.
    */
   confirmationModal(siteId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_SITE}});
+    this.helperService.createDialog(ConfirmationModalComponent, { data: { message: this.helperService.translated.CONFIRMATION.DELETE_SITE } });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
@@ -214,15 +221,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
   viewMap() {
     this.helperService.createDialog(SiteMapComponent,
-      {disableClose: true, height: '75%', width: '80%', data: {'siteData': this.siteCentreObj.sitesData, type: false}});
-  }
-
-  /**
-   * this function is used to call the api for sitesdata again on the basis of search value.
-   */
-  search(value) {
-    this.siteCentreObj.search = value;
-    this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
+      { disableClose: true, height: '75%', width: '80%', data: { 'siteData': this.siteCentreObj.sitesData, type: false } });
   }
 
 }
