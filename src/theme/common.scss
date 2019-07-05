@@ -8,7 +8,7 @@
   mat-sidenav {
     background-color: mat-color($primary, 600) !important;
   }
-  .mat-tooltip{
+  .mat-tooltip {
     background: #000;
   }
   // Radio Button Coloring Start
@@ -33,7 +33,7 @@
 
 $fullValue: 100%;
 $centered: 0 auto;
-
+$noPadding: 0;
 //====================== All Mixins ==========================//
 @mixin midBlock {
   margin: $centered;
@@ -54,4 +54,11 @@ $centered: 0 auto;
   display: block;
   width: $fullValue;
   height: 20px;
+}
+@mixin fabAction {
+  width: 25px !important;
+  height: 25px !important;
+  .mat-button-wrapper {
+    padding: 0;
+  }
 }
