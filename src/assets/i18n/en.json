@@ -66,6 +66,7 @@
     "CHANGETHEME": "Change Theme",
     "EXPAND": "Expand",
     "REMOVE": "Remove",
+    "ADD": "Add",
     "SITEADDRESS": "Site Address",
     "PACKAGE_DESCRIPTION_1": "For startup business",
     "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
@@ -124,7 +125,10 @@
     "DATE_TO": "Date to",
     "DATE_FROM": "Date from",
     "CHILD_YES_SAFE": "Is Child Yes Question Safe?",
-    "CHILD_NO_SAFE": "Is Child No Question Safe?"
+    "CHILD_NO_SAFE": "Is Child No Question Safe?",
+    "SELECTED_USERS": "Selected Users",
+    "MAKE_TEAMLEAD": "Make Team Lead",
+    "REMOVE_TEAMLEAD": "Remove as Team Lead"
   },
   "BUTTONS": {
     "LOGIN": "Login",

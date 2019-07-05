@@ -24,6 +24,7 @@ export interface Strings {
   CHANGETHEME: string;
   EXPAND: string;
   REMOVE: string;
+  ADD: string;
   USERINFO: string;
   SITEADDRESS: string;
   SITESAFETYPLAN: string;
@@ -98,7 +99,9 @@ export interface Strings {
   RANGE: string;
   DATE_TO: string;
   DATE_FROM: string;
-
+  SELECTED_USERS: string;
+  MAKE_TEAMLEAD: string;
+  REMOVE_TEAMLEAD: string;
 }
 
 export interface Auth {
