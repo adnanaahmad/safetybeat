@@ -29,9 +29,8 @@ export class HazardDetailsComponent implements OnInit {
     });
   }
 
-  testingFunc() {
+  imageView() {
       this.helperService.createDialog(ImageLightboxComponent,
         {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD, image: this.hazardInfo.hazard.image}});
-
   }
 }

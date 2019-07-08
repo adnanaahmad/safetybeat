@@ -5,7 +5,8 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
 import {ViewAllEntitiesResponse} from '../../../models/adminControl/entityControl.model';
 import {CreateEntityResponse} from '../../../models/adminControl/createEntity.model';
-import {AllHazardsApiData, Hazard} from '../../../models/hazard.model';
+import {AllHazardsApiData, DeleteHazardApiResponse, Hazard, RiskType} from '../../../models/hazard.model';
+import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from '../../../models/adminControl/myTeam.model';
 
 @Injectable({
   providedIn: 'root'
@@ -152,7 +153,7 @@ export class AdminControlService {
     );
   }
 
-  addHazard(data) {
+  addHazard(data): Observable<AllHazardsApiData> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       `${this.apiRoutes.viewHazardInfo}`,
@@ -168,7 +169,7 @@ export class AdminControlService {
     );
   }
 
-  deleteHazard(id: number) {
+  deleteHazard(id: number): Observable<DeleteHazardApiResponse> {
     return this.helperService.requestCall(
       this.method.delete,
       `${this.apiRoutes.viewHazardInfo}${id}/`,
@@ -176,7 +177,7 @@ export class AdminControlService {
   }
 
 
-  getRisks() {
+  getRisks(): Observable<Array<RiskType>> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.get,
       `${this.apiRoutes.riskList}`
@@ -214,7 +215,7 @@ export class AdminControlService {
     );
   }
 
-  allTeamsData(data) {
+  allTeamsData(data: GetAllTeamsData): Observable<AllTeamsApiResponse> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       this.apiRoutes.viewAllTeams,

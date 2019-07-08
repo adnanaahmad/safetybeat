@@ -47,3 +47,16 @@ export interface AllHazardsApiData {
   data: Array<Hazard>;
   responseDetails: responseDetails;
 }
+
+
+export interface DeleteHazardApiResponse {
+  data: object;
+  responseDetails: responseDetails;
+}
+
+export interface AddHazardData {
+  description: string;
+  risk: string;
+  title: string;
+}
+

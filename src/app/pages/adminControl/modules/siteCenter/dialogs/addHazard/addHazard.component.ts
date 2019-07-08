@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {AddHazardModel, Hazard, NewHazard} from 'src/app/models/hazard.model';
+import {AddHazardData, AddHazardModel, Hazard, NewHazard, RiskType} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 
 @Component({
@@ -13,8 +13,8 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 export class AddHazardComponent implements OnInit {
   hazardObj: AddHazardModel = <AddHazardModel>{};
   hazardInfo: Hazard = <Hazard>{};
-  risks: string[];
   public url: any;
+  private risks: Array<RiskType>;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -54,7 +54,6 @@ export class AddHazardComponent implements OnInit {
   getRisks() {
     this.service.getRisks().subscribe((res) => {
         this.risks = res;
-
       }, (error) => {
         this.hazardObj.addHazardForm.disable();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_LIST_FAIL,
@@ -106,7 +105,7 @@ export class AddHazardComponent implements OnInit {
     return formData;
   }
 
-  addHazard(value) {
+  addHazard(value: AddHazardData) {
     console.log(this.generateHazardData(value, false));
     this.service.addHazard(this.generateHazardData(value, false)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -114,10 +113,12 @@ export class AddHazardComponent implements OnInit {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ADDED,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
+        this.onNoClick();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
           this.helperService.constants.status.ERROR);
       }
@@ -130,16 +131,19 @@ export class AddHazardComponent implements OnInit {
   }
 
   editHazard(value) {
+    debugger
     this.service.editHazard(this.hazardInfo.hazard.id, this.generateHazardData(value, true)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
+        this.onNoClick();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
           this.helperService.constants.status.ERROR);
       }

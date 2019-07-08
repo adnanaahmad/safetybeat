@@ -60,7 +60,7 @@ export class HazardCenterComponent implements OnInit {
 
   editorDeleteEnable() {
     this.navService.currentRole.subscribe(res => {
-      if (
+      if ( res &&
         res === this.helperService.appConstants.roles.owner ||
         res === this.helperService.appConstants.roles.teamLead ||
         res === this.helperService.appConstants.roles.entityManager
@@ -78,7 +78,9 @@ export class HazardCenterComponent implements OnInit {
       data: {Modal: true, hazardInfo: hazard}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getHazardList();
+      if (res && res === this.helperService.appConstants.yes) {
+        this.getHazardList();
+      }
     });
   }
 
@@ -86,17 +88,17 @@ export class HazardCenterComponent implements OnInit {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
+      if (res && res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.deleteHazard(id);
       }
     });
   }
 
-  deleteHazard(id) {
+  deleteHazard(id: number) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
-        this.getHazardList();
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.getHazardList();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {

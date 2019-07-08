@@ -10,7 +10,7 @@ import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
-import {Team, TeamList} from 'src/app/models/adminControl/myTeam.model';
+import {AllTeamsApiResponse, Team, TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {EntityQuestion, QuestionsData} from '../../models/adminControl/questionCenter.model';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class CompilerProvider {
     this.appIcons = this.helperService.constants.appIcons;
   }
 
-  static constructPackageDetail(packageApiReponse: any): Packages[] {
+  static constructPackageDetail(packageApiReponse: any): Array<Packages> {
     return packageApiReponse.data;
   }
 
@@ -119,7 +119,7 @@ export class CompilerProvider {
    * @params siteApiResponse
    */
 
-  constructSiteData(siteApiResponse: any): SitesInfo[] {
+  constructSiteData(siteApiResponse: any): Array<SitesInfo> {
     return siteApiResponse.data;
   }
 
@@ -127,23 +127,23 @@ export class CompilerProvider {
     return siteData;
   }
 
-  constructAllSitesData(siteApiResponse: any): SitesInfo[] {
+  constructAllSitesData(siteApiResponse: any): Array<SitesInfo> {
     return siteApiResponse;
   }
 
-  constructAllDocumentsData(documentsApiResponse: any): DocList[] {
+  constructAllDocumentsData(documentsApiResponse: any): Array<DocList> {
     return documentsApiResponse.data;
   }
 
-  constructDocuments(documentsApiResponse: any): DocumentObj[] {
+  constructDocuments(documentsApiResponse: any): Array<DocumentObj> {
     return documentsApiResponse.data;
   }
 
-  constructFolderList(documentsApiResponse: any): Folder[] {
+  constructFolderList(documentsApiResponse: any): Array<Folder> {
     return documentsApiResponse.data;
   }
 
-  constructActionReportData(actionReportApiResponse: any): ActionReportData[] {
+  constructActionReportData(actionReportApiResponse: any): Array<ActionReportData> {
     return actionReportApiResponse;
   }
 
@@ -151,7 +151,7 @@ export class CompilerProvider {
     return actionReportApiResponse;
   }
 
-  constructAllTeamsData(allTeamsApiResponse: any): TeamList[] {
+  constructAllTeamsData(allTeamsApiResponse: any): Array<TeamList> {
     return allTeamsApiResponse.data;
   }
 
@@ -159,7 +159,7 @@ export class CompilerProvider {
     return questionsApiResponse.data;
   }
 
-  constructAllEntityQuestionsData(questionsApiResponse: any): EntityQuestion[] {
+  constructAllEntityQuestionsData(questionsApiResponse: any): Array<EntityQuestion> {
     return questionsApiResponse.data;
   }
 
@@ -240,7 +240,7 @@ export class CompilerProvider {
     return connectionData;
   }
 
-  constructRecentActivitiesData(recentActivitiesRes: any): recentActivities[] {
+  constructRecentActivitiesData(recentActivitiesRes: any): Array<recentActivities> {
     return recentActivitiesRes.data;
   }
 
@@ -398,12 +398,6 @@ export class CompilerProvider {
         route: '/home/adminControl/memberCenter',
         disabled: data.permissions.myTeam
       },
-      // {
-      //   route: '/home/profile/user',
-      //   iconName: this.appIcons.group,
-      //   displayName: 'Users',
-      //   disabled: data.permissions.allUsers
-      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',

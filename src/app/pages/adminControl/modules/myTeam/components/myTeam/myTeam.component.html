@@ -55,7 +55,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-  <div class="paddingbox text-center" *ngIf="myTeam.dataSource === 0">
+  <div class="paddingbox text-center" *ngIf="myTeam.dataSource === null">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
   <mat-paginator class="mat-elevation-z1" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

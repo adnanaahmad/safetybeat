@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {MyTeamModel, TeamList} from 'src/app/models/adminControl/myTeam.model';
+import {GetAllTeamsData, MyTeamModel, TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {RegisterTeamComponent} from 'src/app/pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
@@ -55,11 +55,12 @@ export class MyTeamComponent implements OnInit {
   }
 
   getAllTeams() {
-    let data = {
+    let data: GetAllTeamsData = {
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
     }
     this.adminServices.allTeamsData(data).subscribe(res => {
+      debugger
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.myTeam.allTeams = this.compiler.constructAllTeamsData(res);
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
@@ -67,12 +68,12 @@ export class MyTeamComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.myTeam.dataSource = 0;
+        this.myTeam.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAMS_NOT_FOUND,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-      this.myTeam.dataSource = 0;
+      this.myTeam.dataSource = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
         this.helperService.constants.status.ERROR);
     });

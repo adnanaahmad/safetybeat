@@ -102,7 +102,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * to the behavior subject of the profile data.
    */
   ngOnInit() {
-    // this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
@@ -129,7 +129,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -173,8 +172,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         if (res !== 1) {
           this.helperService.toggleLoader(false);
           this.profileModel.entitiesList = res;
-          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-          this.profileModel.dataSource.paginator = this.paginator;
+          // this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
+          // this.profileModel.dataSource.paginator = this.paginator;
         }
       });
     } else {
@@ -302,6 +301,11 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
