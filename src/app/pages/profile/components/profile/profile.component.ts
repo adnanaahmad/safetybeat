@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
   entitiesColumn: string[] = ['name', 'headOffice', 'access', 'managedBy'];
+  connectionsColumns: string[] = ['img', 'name', 'email', 'contact'];
 
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -120,7 +121,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.viewActivities(this.profileModel.userId);
           this.viewAllEntities(this.profileModel.userId);
         } else {
-          console.log(this.profileModel.receivedData);
           this.profileModel.contactNo = this.profileModel.receivedData.contact;
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.name = this.profileModel.receivedData.name;
@@ -175,26 +175,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   viewAllEntities(userId) {
-    // if (this.profileModel.currentUserProfile) {
-    //   this.profileModel.subscription = this.navService.data.subscribe((res) => {
-    //     if (res !== 1) {
-    //       console.log(res);
-    //       this.helperService.toggleLoader(false);
-    //       this.profileModel.entitiesList = res;
-    //       this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-    //       this.profileModel.dataSource.paginator = this.paginator;
-    //     }
-    //   });
-    // } else { }
     this.adminService.viewEntitiesOfUser({'userId': userId}).subscribe((res) => {
-      console.log(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
           this.profileModel.noEntity = true;
         } else {
             this.helperService.toggleLoader(false);
             this.profileModel.entitiesList = res.data;
-            console.log(this.profileModel.entitiesList);
             this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList);
             this.profileModel.dataSource.paginator = this.paginator;
         }
@@ -205,7 +192,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.profileModel.noEntity = true;
       }
-
     });
 
   }
@@ -284,6 +270,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.profileModel.allConnectionsRes = res;
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
+        console.log(this.profileModel.allConnectionsData);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noConnection = true;
       } else {

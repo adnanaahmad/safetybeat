@@ -88,7 +88,7 @@
             <div class="filetype" (click)="viewDoc(doc.file)">
               <span>{{(doc.title.split('.'))[1]}}</span>
             </div>
-            <input type="text" (keyup.enter)="editedValue($event.target.value, doc)" *ngIf="doc.editable" [(ngModel)]="(doc.title.split('.'))[0]"/>
+<!--            <input type="text" (keyup.enter)="editedValue($event.target.value, doc)" *ngIf="doc.editable" [(ngModel)]="(doc.title.split('.'))[0]"/>-->
             <span class="mat-body-2 mat-small" *ngIf="!doc.editable">{{(doc.title.split('.'))[0]}}</span>
           </div>
         </mat-card>

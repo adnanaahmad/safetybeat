@@ -239,7 +239,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
 
   switchListDefault(data) {
-    this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
+    
+    this.navModel.navLinks = this.compiler.switchSideMenuDefault(this.navModel.entityUserData);
   }
 
   /**
@@ -261,7 +262,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.navService.changeRoleId(this.navModel.selectedEntity.permissions.role);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
-
   }
 
   /**

@@ -35,7 +35,7 @@ export class UploadDocComponent implements OnInit {
   }
 // this function saves the folders taken from passed data
   getAllFolders() {
-    this.documentsData.folderLength = this.data.folders.length;
+    this.documentsData.folderLength = (this.data && this.data.folders && this.data.folders.length) ? this.data.folders.length : 0;
     if (this.documentsData.folderLength === 0) {
       this.documentsData.folderExist = false;
     } else {
@@ -63,13 +63,11 @@ export class UploadDocComponent implements OnInit {
     this.navService.uploadDocuments(formData).subscribe((res) => {
       if (res.responseDetails.code === 100) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_ADDED, this.helperService.constants.status.SUCCESS);
-        this.documentsData.loader = false;
-        this.dialogRef.close();
       } else {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_UPLOAD_FAIL, this.helperService.constants.status.WARNING);
-        this.documentsData.loader = false;
-        this.dialogRef.close();
       }
+      this.documentsData.loader = false;
+      this.dialogRef.close();
     }, error => {
       this.dialogRef.close();
     });

@@ -7,22 +7,22 @@
 <div mat-dialog-content>
   <form [formGroup]="newDoc.uploadDocForm" (ngSubmit)="folderFormSubmit(newDoc.uploadDocForm)">
     <div>
-      <div class="file-uploader" >
-        <button class="fake-uploader">
+      <div class="file-uploader">
+        <button class="fake-uploader" [disabled]="newDoc.disableButton">
           <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon> {{newDoc.fileName}}
         </button>
-        <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt" [disabled]=" newDoc.disableButton"
-          (change)=uploadFile($event) required />
+        <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt"
+          (change)=uploadFile($event) [attr.disabled]="newDoc.disableButton ? '' : null" required />
       </div>
     </div>
     <mat-checkbox *ngIf="data.modalType" (change)="showFolderList()" [disabled]="!documentsData.folderExist || newDoc.disableButton">Save in Folder</mat-checkbox>
     <ng-container *ngIf="data.modalType">
     <mat-form-field appearance="outline" full-width *ngIf="newDoc.isEnabled" >
       <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
-      <mat-select formControlName="folders">
-        <ng-container *ngFor="let folder of newDoc.folderList">
+      <mat-select formControlName="folders" [disabled]="newDoc.disableButton">
+        <ng-container *ngFor="let folder of newDoc.folderList" >
           <div>
-            <mat-option [value]="folder.id">
+            <mat-option [value]="folder.id" >
               {{folder.name}}
             </mat-option>
           </div>

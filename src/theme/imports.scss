@@ -22,6 +22,7 @@
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
 @import "src/app/common/toaster/toaster.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/components/entityControl/entityControl.component.scss";
+@import "src/app/pages/adminControl/modules/documents/components/documents/documents.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/components/viewSite/viewSite.component.scss";
@@ -35,8 +36,7 @@
 @import "src/app/pages/adminControl/modules/questionCenter/components/questionCenter/questionCenter.component.scss";
 @import "src/app/pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component.scss";
 @import "src/app/pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component.scss";
-@import "src/app/pages/navigation/components/documents/documents.component.scss";
-@import "src/app/pages/navigation/components/showDocuments/showDocuments.component.scss";
+@import "src/app/pages/adminControl/modules/documents/components/showDocuments/showDocuments.component.scss";
 @import "src/app/pages/navigation/dialogs/viewDoc/viewDoc.component.scss";
 @import "src/app/pages/analyticsReport/components/actionReport/actionReport.component.scss";
 @import "src/app/pages/analyticsReport/components/siteActivityReport/siteActivityReport.component.scss";
