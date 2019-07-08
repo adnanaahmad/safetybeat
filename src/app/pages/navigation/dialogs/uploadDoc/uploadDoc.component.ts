@@ -22,6 +22,7 @@ export class UploadDocComponent implements OnInit {
     this.documentsData.folderExist = false;
     this.newDoc.entityId = this.data.entityID;
     this.newDoc.isEnabled = false;
+    this.newDoc.disableButton = false;
   }
 
   ngOnInit() {
@@ -80,6 +81,7 @@ export class UploadDocComponent implements OnInit {
 // to upload file to root folder
   uploadDoc(value: NewDoc) {
     this.documentsData.loader = true;
+    this.newDoc.disableButton = true;
     if (!this.newDoc.isEnabled) {
       this.upload(value, '');
     } else {
@@ -89,6 +91,7 @@ export class UploadDocComponent implements OnInit {
 // to upload a file to a folder
   uploadToFolder(value: NewDoc) {
     this.documentsData.loader = true;
+    this.newDoc.disableButton = true;
     this.upload(value, this.data.folderId);
   }
 // to enable or disable folderList

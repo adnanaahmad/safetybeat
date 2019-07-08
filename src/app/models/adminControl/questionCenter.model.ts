@@ -1,4 +1,4 @@
-import { FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
 
@@ -10,17 +10,22 @@ export class QuestionCenter {
   allQuestions: QuestionsData;
   parentQuestions: Questions[];
   childQuestions: Questions[];
-  allEntityQuestions: EntityQuestion[];
+  entityQuestionsResponse: EntityQuestionResponse;
   filteredParentQuestion: Questions[];
   filteredChildNoQuestion: Questions[];
   filteredChildYesQuestion: Questions[];
   pageSize: number;
   pageCount: number;
+  questionBankPageCount: number;
   dataSource: MatTableDataSource<Questions>;
   canProceed: boolean;
   parent: boolean;
   canSafe: string;
   entityQuestions: MatTableDataSource<EntityQuestion>;
+  firstIndex: number;
+  search: string;
+  questionId: number;
+  edit: boolean;
 }
 
 
@@ -33,6 +38,7 @@ export interface AddQuestionData {
 }
 
 export interface QuestionsData {
+  pageCount: number,
   parentQuestions: Questions[],
   childQuestions: Questions[],
   questionList: Questions[]
@@ -49,8 +55,16 @@ export interface Questions {
   warning: string
 }
 
+export interface EntityQuestionResponse {
+  pageCount: number,
+  entityQuestionList: EntityQuestion[]
+}
+
 export interface EntityQuestion {
+  id: number,
   parent: Questions,
   childYes: Questions,
-  childNo: Questions
+  childNo: Questions,
+  childYesSafe: boolean,
+  childNoSafe: boolean
 }

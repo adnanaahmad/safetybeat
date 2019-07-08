@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
 
 export interface ProfileModel {
+  noEntity: boolean;
   imageFile: File;
   profileImage: Blob;
   subscription: Subscription;

@@ -91,8 +91,8 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
           this.siteCentreObj.dataSource = res !== 1 && res.length !== 0 ? new MatTableDataSource(res) : null;
 
         });
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
+        // this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
+        //   this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.siteCentreObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
@@ -222,14 +222,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   viewMap() {
     this.helperService.createDialog(SiteMapComponent,
       { disableClose: true, height: '75%', width: '80%', data: { 'siteData': this.siteCentreObj.sitesData, type: false } });
-  }
-
-  /**
-   * this function is used to call the api for sitesdata again on the basis of search value.
-   */
-  search(value) {
-    this.siteCentreObj.search = value;
-    this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
   }
 
 }

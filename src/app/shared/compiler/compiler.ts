@@ -10,8 +10,8 @@ import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
-import {Team, TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {EntityQuestion, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
+import { TeamList} from 'src/app/models/adminControl/myTeam.model';
+import { EntityQuestionResponse, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -114,6 +114,10 @@ export class CompilerProvider {
     return userEntityData;
   }
 
+  constructEntitiesForProfile(loginApiResponse: any) {
+    let array: any[] = [];
+  }
+
   /**
    * this function is used to return the sitesData after constructing the sitesData according to the SitesInfo.
    * @params siteApiResponse
@@ -163,7 +167,7 @@ export class CompilerProvider {
     return questionsApiResponse.data;
   }
 
-  constructAllEntityQuestionsData(questionsApiResponse: any): EntityQuestion[] {
+  constructAllEntityQuestionsData(questionsApiResponse: any): EntityQuestionResponse {
     return questionsApiResponse.data;
   }
 
@@ -195,7 +199,7 @@ export class CompilerProvider {
 
   entityUser(users) {
     let usersArray = [];
-    this.helperService.iterations(users.data, function (obj) {
+    this.helperService.iterations(users, function (obj) {
       let user = {
         name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,

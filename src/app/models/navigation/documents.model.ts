@@ -43,6 +43,7 @@ export interface NewDoc {
 }
 
 export interface UploadDocForm {
+  disableButton: boolean;
   fileName: string;
   isEnabled: boolean;
   modalType: boolean;

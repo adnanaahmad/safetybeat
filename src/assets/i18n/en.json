@@ -74,7 +74,7 @@
     "SITESAFETYMANAGER": "Site Safety Manager",
     "QUESTION_NAME": "Question Description",
     "QUESTION_WARNING": "Question Warning",
-    "SELECT_QUESTION_TYPE": "Select Question Type",
+    "SELECT_QUESTION_TYPE": "Parent Question?",
     "SAFE_QUESTION": "Which answer is safe?",
     "SAFE_QUESTION_YES": "Yes",
     "SAFE_QUESTION_NO": "No",
@@ -119,7 +119,13 @@
     "SELECTED_ENTITY": "Selected Entity",
     "SELECT_TEAM": "Select Team",
     "SEARCH": "Search",
-    "SELECT_FILTER": "Select filter"
+    "SELECT_FILTER": "Select filter",
+    "ALLTEAMS": "All Teams",
+    "RANGE": "Range",
+    "DATE_TO": "Date to",
+    "DATE_FROM": "Date from",
+    "CHILD_YES_SAFE": "Is Child Yes Question Safe?",
+    "CHILD_NO_SAFE": "Is Child No Question Safe?"
   },
   "BUTTONS": {
     "DOWNLOAD": "Download",
@@ -240,7 +246,7 @@
     "HEADOFFICE_LOCATION": "Head Office Location",
     "STATUS": "Status",
     "JOINENTITY_MSG": "Enter Details to Join Entity",
-    "ENTITYCODE": "Enter entity code to join entity",
+    "ENTITYCODE": "Enter entity code to join",
     "ENTITYCODE_REQ": "Entity Code is Required.",
     "BACKEND_ERROR": "Something bad happened; please try again later.",
     "ORGTYPEMESSAGE": "Please choose your organization type",
@@ -394,7 +400,10 @@
     "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved).",
     "ALL_SITES_FAILURE": "All Sites Record API Failed",
     "PARENT_QUESTION_REQ": "Parent Question is required",
-    "NO_SITES": "No Sites"
+    "NO_SITES": "No Sites",
+    "DELETE_QUESTION_SUCCESS": "Question has been delete successfully.",
+    "DELETE_QUESTION_FAILURE": "Question deletion failed.",
+    "EDITQUESTION_MSG": "Edit Question"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -408,7 +417,17 @@
     "DOCUMENTS": "Documents",
     "MY_TEAM": "My Team",
     "ACCOUNTINFO": "Account information",
-    "ACTION_REPORT": "Action Report"
+    "ACTION_REPORT": "Action Report",
+    "AVERAGE_DAILY_ACTION_REPORT": "Average Daily Actions",
+    "NUMBER_CHECKINS_BY_ACTIVITY": "Number of Check-ins By Activity",
+    "HOURS_CHECKINS_BY_ACTIVITY": "Hours of Check-ins By Activity",
+    "CHECKIN_BY_PERSON": "Checkin and Alert by Person",
+    "ACTIONS_VS_ALERTS": "Actions vs Alerts",
+    "PULSE_REPORT_BY_ENTITY": "Pulse Report by Entity",
+    "PULSE_REPORT_BY_PERSON": "Pulse Report by Person",
+    "COMPLIANT_CHECKOUT": "Compliant Check-Out by Person",
+    "SITE_ACTIVITY_REPORT": "Site Activity Report",
+    "HAZARD_REPORTS": "Hazard Reports"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
@@ -512,6 +531,7 @@
     "REMOVE_CONNECTION": "Are you sure you want to Remove this user from your Connections.",
     "CONFIRM_CONNECTION": "Are you sure you want to Add this user to your Connections.",
     "DELETE_DOCUMENT": "Are you sure you want to delete this document?",
-    "DELETE_FOLDER": "Are you sure you want to delete this folder? Its all documents will be deleted."
+    "DELETE_FOLDER": "Are you sure you want to delete this folder? Its all documents will be deleted.",
+    "DELETE_QUESTION": "Are you sure you want to delete this question?"
   }
 }
