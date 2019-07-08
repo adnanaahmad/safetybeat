@@ -25,7 +25,7 @@ import {InviteUserModalComponent} from './Dialogs/inviteUserModal/inviteUserModa
 import {VerificationComponent} from './Dialogs/verification/verification.component';
 import {CompilerProvider} from './shared/compiler/compiler';
 import {InviteTeamModalComponent} from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
-import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule} from '@angular/material';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatNativeDateModule} from '@angular/material';
 import {ToasterComponent} from './common/toaster/toaster.component';
 import {AddSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
@@ -54,8 +54,6 @@ import {FirebaseService} from './shared/FirebaseNotification/firebase.service';
 import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
 import { ProfileImagePipe } from './pipes/profileImage/profile-image.pipe';
 import { AdvanceSearchComponent } from './pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
-import {MatNativeDateModule} from '@angular/material/typings/esm5/core';
-import {MatInputModule} from '@angular/material/typings/input';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
