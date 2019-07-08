@@ -1,10 +1,10 @@
 <mat-toolbar class="pagehead">
-  <mat-icon class="siteicon">language</mat-icon>
+  <mat-icon class="siteicon" color="primary">language</mat-icon>
   <div class="user-info" *ngIf="viewSiteObj.siteInfo">
     <h3>
       <strong>{{viewSiteObj.siteInfo.name}}</strong>
     </h3>
-    <p>{{viewSiteObj.siteInfo.location}}</p>
+    <p class="mat-small mat-body-strong">{{viewSiteObj.siteInfo.location}}</p>
   </div>
 </mat-toolbar>
 
@@ -16,7 +16,7 @@
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <div class="activity-card mat-elevation-z1">
+          <div class="activity-card">
             <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                   <mat-icon>link</mat-icon> View Site
                 </a></span></div>
@@ -24,7 +24,9 @@
             <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
             <div class="row"><strong>Duration</strong><span>10 days</span></div>
           </div>
-          <div class="activity-card mat-elevation-z1">
+          <mat-divider></mat-divider>
+
+          <div class="activity-card">
             <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                   <mat-icon>link</mat-icon> View Site
                 </a></span></div>
@@ -32,7 +34,9 @@
             <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
             <div class="row"><strong>Duration</strong><span>10 days</span></div>
           </div>
-          <div class="activity-card mat-elevation-z1">
+          <mat-divider></mat-divider>
+
+          <div class="activity-card">
             <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                   <mat-icon>link</mat-icon> View Site
                 </a></span></div>
@@ -40,7 +44,9 @@
             <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
             <div class="row"><strong>Duration</strong><span>10 days</span></div>
           </div>
-          <div class="activity-card mat-elevation-z1">
+          <mat-divider></mat-divider>
+
+          <div class="activity-card">
             <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                   <mat-icon>link</mat-icon> View Site
                 </a></span></div>
@@ -48,7 +54,9 @@
             <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
             <div class="row"><strong>Duration</strong><span>10 days</span></div>
           </div>
-          <div class="activity-card mat-elevation-z1">
+          <mat-divider></mat-divider>
+
+          <div class="activity-card">
             <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                   <mat-icon>link</mat-icon> View Site
                 </a></span></div>
@@ -56,7 +64,19 @@
             <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
             <div class="row"><strong>Duration</strong><span>10 days</span></div>
           </div>
-          <div class="activity-card mat-elevation-z1">
+          <mat-divider></mat-divider>
+
+          <div class="activity-card">
+            <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
+                  <mat-icon>link</mat-icon> View Site
+                </a></span></div>
+            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
+            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
+            <div class="row"><strong>Duration</strong><span>10 days</span></div>
+          </div>
+          <mat-divider></mat-divider>
+
+          <div class="activity-card">
             <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                   <mat-icon>link</mat-icon> View Site
                 </a></span></div>
@@ -73,12 +93,13 @@
         </mat-card-header>
         <mat-card-content>
           <div *ngIf="viewSiteObj.siteInfo">
-            <div class="siteinfo-row mat-elevation-z1" *ngIf="viewSiteObj.siteSafetyManager">
+            <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
               <mat-icon>{{helperService.appIcons.permIdentity}}</mat-icon>
               <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
               <p>{{viewSiteObj.siteSafetyManager.first_name}} {{viewSiteObj.siteSafetyManager.last_name}}</p>
             </div>
-            <div class="siteinfo-row mat-elevation-z1">
+            <mat-divider></mat-divider>
+            <div class="siteinfo-row">
               <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.check}}
               </mat-icon>
               <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">
@@ -89,7 +110,8 @@
               <p *ngIf="!viewSiteObj.siteInfo.safeZone">
                 {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
             </div>
-            <div class="siteinfo-row mat-elevation-z1">
+            <mat-divider></mat-divider>
+            <div class="siteinfo-row">
               <mat-icon>{{helperService.appIcons.security}}</mat-icon>
               <strong>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</strong>
               <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>

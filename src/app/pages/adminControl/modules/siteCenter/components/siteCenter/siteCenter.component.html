@@ -1,7 +1,7 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
-    <!-- <div class="buttonRow">
+    <div class="buttonRow">
       <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.sitesData" (click)="viewMap()">
         <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
         {{ helperService.translated.BUTTONS.VIEW_MAP }}
@@ -14,29 +14,15 @@
         <mat-icon>{{ helperService.appIcons.import }}</mat-icon>
         {{ helperService.translated.BUTTONS.IMPORT_SITE }}
       </button>
-    </div> -->
-    <div class="buttonRow">
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle value="bold">
-          <mat-icon>{{ helperService.appIcons.place }}</mat-icon> Bold
-        </mat-button-toggle>
-        <mat-button-toggle value="italic">
-          <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon> Italic
-        </mat-button-toggle>
-        <mat-button-toggle value="underline">
-          <mat-icon>{{ helperService.appIcons.import }}</mat-icon> Underline
-        </mat-button-toggle>
-      </mat-button-toggle-group>
     </div>
     <!--Filter-->
     <div class="data-filter">
       <div class="input-wrap">
         <input class="search-input" autocomplete="off" matInput placeholder="Search"
-          (keyup)=getSitesData(siteCentreObj.firstIndex,$event.target.value)>
+               (keyup)=getSitesData(siteCentreObj.firstIndex,$event.target.value)>
         <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
       </div>
-      <a (click)="advanceSearch()"
-        class="mat-body-strong mat-small pointer">{{helperService.translated.STRINGS.ADVSEARCH}}</a>
+      <a (click)="advanceSearch()" class="mat-body-strong mat-small pointer">{{helperService.translated.STRINGS.ADVSEARCH}}</a>
     </div>
     <!--/Filter-->
   </div>
