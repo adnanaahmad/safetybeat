@@ -14,8 +14,8 @@ export class HazardDetailsComponent implements OnInit {
   hazardInfo: any;
 
   constructor(public helperService: HelperService,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              public formBuilder: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
@@ -29,6 +29,8 @@ export class HazardDetailsComponent implements OnInit {
 
   testingFunc() {
     this.helperService.createDialog(ImageLightboxComponent,
-      { data: { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD } });
+      { data:
+        { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD }
+      });
   }
 }

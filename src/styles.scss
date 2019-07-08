@@ -13,15 +13,31 @@ $hexWhite: #ffffff;
 $borderRadius: 4px;
 $roundRadius: 100px;
 $card-padding: 16px;
+$cursor-pointer: pointer;
+$centered: 0 auto;
+%midBlock {
+  @mixin midBlock {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    margin: $centered;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+  }
+}
+
 html,
 body {
   height: $fullValue;
   display: block;
   width: $fullValue;
-  margin: 0;
+  margin: $centered;
   font-family: $fontFamily;
 }
-
+*[fullWidth] {
+  width: $fullValue !important;
+}
 // Define font-family explicitly
 .mat-card-title {
   line-height: inherit;
@@ -36,10 +52,13 @@ notifier-notification,
 app-toaster {
   font-family: $fontFamily;
 }
+.pointer {
+  cursor: $cursor-pointer;
+}
 .clearfix {
   clear: both;
   display: block;
-  width: 100%;
+  width: $fullValue;
   height: 1px;
 }
 .notification-icon {
@@ -60,9 +79,6 @@ app-entityCodeModal {
 }
 .full-width {
   width: $fullValue;
-}
-[btn-primary] {
-  color: $hexWhite !important;
 }
 .mat-input-element:disabled {
   cursor: not-allowed;
@@ -100,10 +116,6 @@ app-entityCodeModal {
 }
 mat-dialog-container {
   padding: 0 !important;
-  .mat-dialog-content,
-  .mat-dialog-title {
-    width: 600px;
-  }
   mat-card-title {
     padding: 15px 20px;
     color: $hexWhite;
@@ -114,28 +126,23 @@ mat-dialog-container {
     padding: 0 20px 20px !important;
     margin: 0 !important;
     max-height: 85vh;
+    width: 500px;
   }
   .subheading {
     padding: 0 20px;
   }
 }
 .monogram {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  left: 0;
+  @include midBlock;
   width: 120px;
   height: 120px;
-  margin: 0 auto;
   z-index: 999;
   border-radius: 100px;
   text-align: center;
-  transform: translateY(-50%);
-  box-shadow: -8px 0px 10px 0px rgba(0, 0, 0, 0.2);
   svg {
     width: 70%;
     display: block;
-    margin: 0 auto;
+    margin: $centered;
     height: $fullValue;
     path {
       fill: $hexWhite;
@@ -144,7 +151,7 @@ mat-dialog-container {
   }
 }
 .page-title {
-  padding: 10px 0 20px;
+  padding: 0 0 20px;
   display: flex;
   align-items: center;
   h3 {
@@ -159,7 +166,6 @@ mat-dialog-container {
 }
 
 .topbar {
-  box-shadow: 0 4px 7px 1px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
 .noflex {
@@ -203,7 +209,7 @@ mat-dialog-container {
 }
 .centerbox {
   width: 70%;
-  margin: 0 auto;
+  margin: $centered;
   .midbox {
     width: $fullValue;
     margin: 50px auto;
@@ -216,7 +222,6 @@ mat-dialog-container {
   }
   width: 60%;
   margin: 100px auto;
-  box-shadow: 0 0px 60px -20px #0000007a !important;
   border-radius: 10px !important;
   &:before {
     content: "";
@@ -359,12 +364,10 @@ mat-dialog-container {
       top: 0;
       z-index: 0;
       transition: all ease 0.3s;
-      // transform: scale(0);
       opacity: 0;
       visibility: hidden;
     }
     &.mat-radio-checked:before {
-      // transform: scale(1);
       opacity: 1;
       visibility: visible;
     }
@@ -678,7 +681,8 @@ input:-internal-autofill-selected {
 }
 .table-wrap {
   overflow: auto;
-  width: 100%;
+  width: $fullValue;
+  height: $fullValue;
   table {
     table-layout: fixed;
     th,
@@ -693,11 +697,11 @@ input:-internal-autofill-selected {
   position: relative;
   cursor: pointer;
   display: inline-block;
-  height: 100%;
+  height: $fullValue;
   .fake-uploader {
     background: transparent;
     border: 2px dashed rgba(0, 0, 0, 0.3);
-    width: 100%;
+    width: $fullValue;
     padding: 10px;
     border-radius: 100px;
     margin: 10px 0;
@@ -717,8 +721,8 @@ input:-internal-autofill-selected {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    width: $fullValue;
+    height: $fullValue;
     cursor: pointer;
     z-index: 2;
   }
@@ -737,6 +741,9 @@ input:-internal-autofill-selected {
         padding: 0 40px 0 0;
       }
     }
+  }
+  .monogram {
+    display: none;
   }
 }
 @media (max-width: 768px) {
@@ -815,7 +822,7 @@ input:-internal-autofill-selected {
       box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.3);
       .user-avatar {
         display: block;
-        margin: 0 auto;
+        margin: $centered;
       }
       .user-info {
         padding: 0 !important;
@@ -853,6 +860,10 @@ input:-internal-autofill-selected {
   }
 }
 @media (max-width: 575px) {
+  .data-filter {
+    width: $fullValue !important;
+    padding: 0 !important;
+  }
   .settings-parent {
     .navigator {
       .mat-list {
@@ -888,9 +899,6 @@ input:-internal-autofill-selected {
     display: block;
     text-align: center;
   }
-  .monogram {
-    display: none;
-  }
   .notification-drawer {
     width: 100%;
   }
@@ -899,7 +907,6 @@ input:-internal-autofill-selected {
       padding: 0;
     }
   }
-  app-login,
   app-forgot-password,
   app-registration {
     app-particle-container {

@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {NavigationComponent} from './components/navigation/navigation.component';
-import {DocumentsComponent} from './components/documents/documents.component';
-import {ShowDocumentsComponent} from './components/showDocuments/showDocuments.component';
 
 const routes: Routes = [
   {
@@ -29,15 +27,7 @@ const routes: Routes = [
       {
         path: 'analyticsReport',
         loadChildren: '../analyticsReport/analyticsReport.module#AnalyticsReportModule'
-      },
-      {
-        path: 'documents',
-        component: DocumentsComponent
-      },
-      {
-        path: 'viewDocs',
-        component: ShowDocumentsComponent
-      },
+      }
     ]
   }
 

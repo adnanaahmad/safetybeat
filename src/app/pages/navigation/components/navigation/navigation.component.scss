@@ -6,12 +6,42 @@
     margin: 10px;
     border: 1px solid #555;
   }
+  .mdropdown {
+    margin-top: 13px;
+  }
+  .mdropdown2 {
+    margin-top: 20px;
+  }
+  .notification-drawer {
+    .mat-drawer-inner-container {
+      overflow: hidden;
+    }
+    .mat-tab-body-wrapper {
+      overflow-y: auto;
+      height: 100vh;
+      .mat-list-item:last-child {
+        margin-bottom: 100px;
+      }
+    }
+  }
   app-navigation {
+    .entity-switch-wrap {
+      display: inline-block;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      max-width: 110px;
+      margin-left: 10px;
+      border-radius: 4px;
+      button {
+        @include ellipsis;
+        width: $fullValue;
+      }
+    }
     .profile-menu {
       width: 30px;
       height: 30px;
       float: right;
-      border-radius: 100px;
+      border-radius: $fullValue;
       overflow: hidden;
       margin-left: 10px;
       button {
@@ -24,13 +54,13 @@
       }
     }
     .sb-logo {
+      height: 64px;
+      background: mat-color($primary, 900);
+      position: relative;
       svg {
-        width: 80%;
-        display: block;
-        margin: 0 auto;
+        width: 140px;
+        @include midBlock;
         height: auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
       }
       path {
         fill: #fff;
@@ -130,63 +160,6 @@
     .top-btns {
       width: 100%;
       text-align: right;
-      .mat-button {
-        padding: 0 10px;
-      }
     }
-    .sidenav-logo {
-      margin: 20px 0 0 15px;
-    }
-    .entity-switcher {
-      padding: 10px;
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.08);
-      max-width: 110px;
-      margin-left: 10px;
-      border-radius: 4px;
-      .mat-form-field-infix {
-        padding: 0;
-        border: 0;
-      }
-      .mat-form-field-wrapper {
-        padding-bottom: 0;
-      }
-      .switch-icon {
-        margin: 20px 0;
-        color: #fff;
-      }
-      .mat-form-field-underline {
-        display: none;
-      }
-      .mat-select-value,
-      .mat-select-arrow {
-        color: #fff !important;
-      }
-    }
-    .menu-button {
-      button {
-        margin: 0 auto;
-      }
-    }
-  }
-  .entity-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 100px;
-    float: left;
-  }
-  .user-role {
-    display: block;
-    float: left;
-    width: 100%;
-    line-height: 3;
-  }
-  .entity-name {
-    float: left;
-    line-height: 3;
-    padding-left: 10px;
-  }
-  .single-entity {
-    height: auto;
   }
 }

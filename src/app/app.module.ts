@@ -25,7 +25,7 @@ import {InviteUserModalComponent} from './Dialogs/inviteUserModal/inviteUserModa
 import {VerificationComponent} from './Dialogs/verification/verification.component';
 import {CompilerProvider} from './shared/compiler/compiler';
 import {InviteTeamModalComponent} from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
-import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule} from '@angular/material';
 import {ToasterComponent} from './common/toaster/toaster.component';
 import {AddSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
@@ -51,6 +51,11 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {environment} from '../environments/environment';
 import {FirebaseService} from './shared/FirebaseNotification/firebase.service';
+import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
+import { ProfileImagePipe } from './pipes/profileImage/profile-image.pipe';
+import { AdvanceSearchComponent } from './pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
+import {MatNativeDateModule} from '@angular/material/typings/esm5/core';
+import {MatInputModule} from '@angular/material/typings/input';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -82,9 +87,14 @@ export function createTranslateLoader(http: HttpClient) {
     ViewDocComponent,
     RegisterTeamComponent,
     ViewTeamComponent,
-    CreateQuestionComponent
+    CreateQuestionComponent,
+    ProfileImagePipe,
+    AdvanceSearchComponent
   ],
   imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
@@ -101,12 +111,15 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     NotifierModule,
     DragDropModule,
+    MyTeamModule,
+    DragDropModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [
+    MatDatepickerModule,
     TranslateService,
     CoreService,
     AuthGuard,
@@ -130,6 +143,7 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent],
   exports: [],
   entryComponents: [
+    AdvanceSearchComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     EntityCodeModalComponent,
@@ -155,7 +169,8 @@ export function createTranslateLoader(http: HttpClient) {
     CreateQuestionComponent,
     ViewDocComponent,
     RegisterTeamComponent,
-    ViewTeamComponent
+    ViewTeamComponent,
+    AdvanceSearchComponent
   ]
 })
 export class AppModule {

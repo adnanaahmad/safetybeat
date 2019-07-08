@@ -53,6 +53,15 @@ export class NavListComponent implements OnInit {
     });
   }
 
+  applyActiveClass(displayName) {
+    if(displayName=="Dashboard") {
+      return "active"
+    } else {
+      this.navLinks[0].active = false
+      return displayName!=="Dashboard" ? "active": "null"
+    }
+  }
+
   /**
    * this function is used for invite users and analytics reports that if the user click on
    * invite users menu item then the modal dialog will be opened and if the user has

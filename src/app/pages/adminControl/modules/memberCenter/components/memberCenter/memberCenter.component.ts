@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
-import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
+import {allUserResponse, MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
@@ -33,6 +33,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
               public compiler: CompilerProvider,
               public userService: ProfileService) {
     this.memberCenter.userStatus = false;
+    this.initialize();
   }
 
 
@@ -48,7 +49,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res !== 1) {
         this.memberCenter.dataSource = res;
       } else {
-        this.getUsers();
+        this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
       }
     });
   }
@@ -57,19 +58,29 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     this.memberCenter.subscription.unsubscribe();
   }
 
-  getUsers() {
-    this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.memberCenter.entityData = res;
-        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
-      }
-    });
+  initialize() {
+    this.memberCenter.firstIndex = 0;
+    this.memberCenter.search = '';
+    this.memberCenter.entityId = JSON.parse(this.helperService.decrypt(
+      localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
+    this.memberCenter.pageSize = 10;
   }
 
 
-  getAllUsers(data) {
+  getAllUsers(pageIndex, search) {
+    let data = {
+      'entityId': this.memberCenter.entityId,
+      'search': search,
+      'pageIndex': pageIndex,
+    }
     this.memberService.entityUsers(data).subscribe((res) => {
-      this.memberCenter.elements = this.compiler.entityUser(res);
+      let response: allUserResponse = res.data
+      this.memberCenter.pageCount = response.pageCount;
+      if (pageIndex === 0) {
+        this.paginator.pageIndex = 0;
+      }
+      this.memberCenter.elements = this.compiler.entityUser(response.allUser);
       this.memberService.changeEntityUsers(this.memberCenter.elements);
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
@@ -142,7 +153,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.memberService.deactivateUser(data).subscribe((res) => {
           this.memberCenter.responseObj = res;
           if (this.memberCenter.responseObj.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-            this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+            this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
           }
         });
       }
@@ -167,7 +178,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.memberService.activateUser(data).subscribe((res) => {
           this.memberCenter.responseObj = res;
           if (this.memberCenter.responseObj.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-            this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+            this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
           }
         });
       }
@@ -185,7 +196,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
-        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+        this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_FAILURE,
           res.responseDetails.message);
@@ -210,7 +221,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
-        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+        this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);
@@ -229,7 +240,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.CONFIRM_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
-        this.getAllUsers({entityId: this.memberCenter.entityData.entityInfo.id});
+        this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.CONFIRM_CONNECTION_FAILURE,
           res.responseDetails.message);

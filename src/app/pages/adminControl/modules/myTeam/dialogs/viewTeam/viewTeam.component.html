@@ -3,8 +3,8 @@
   <mat-list role="list">
     <mat-list-item role="listitem">
       <div class="member-thumbnail mat-elevation-z3">
-        <img
-          src="{{ team.teamLead.profileImage != null ? team.teamLead.profileImage : helperService.appConstants.avatar}}">
+        <!-- <img src="{{ team.teamLead.profileImage != null ? team.teamLead.profileImage : helperService.appConstants.avatar}}"> -->
+        <img src="{{ team.teamLead | profileImage }}">
       </div>
       <div class="list-content">
         <label>{{team.teamLead.first_name}} {{team.teamLead.last_name}} <div class="role">Team Lead</div></label>
@@ -20,7 +20,8 @@
     </mat-list-item>
     <mat-list-item role="listitem" *ngFor="let member of team.users">
       <div class="member-thumbnail">
-        <img src="{{ member.profileImage != null ? member.profileImage : helperService.appConstants.avatar}}">
+        <!-- <img src="{{ member.profileImage != null ? member.profileImage : helperService.appConstants.avatar}}"> -->
+        <img src="{{ member | profileImage}}">
       </div>
       <div class="list-content">
         <label>{{member.first_name}} {{member.last_name}} </label>

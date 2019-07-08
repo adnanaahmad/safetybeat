@@ -1,3 +1,61 @@
-<p>
-  person-pulse-report works!
-</p>
+<div class="paddingbox">
+  <div class="page-title">
+    <h3>{{helperService.translated.SITETITLE.PULSE_REPORT_BY_PERSON}}</h3>
+  </div>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.PULSE_PERSON_MSG}}</p>
+  <mat-card>
+    <form [formGroup]="pulsePersonObj.pulsePersonForm" (ngSubmit)=formSubmit(pulsePersonObj.pulsePersonForm)
+      (keydown.enter)="$event.preventDefault()">
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>{{helperService.translated.STRINGS.RANGE}}</mat-label>
+          <mat-select [formControlName]="helperService.appConstants.range">
+            <!--            <mat-option *ngFor="let filter of siteActivityObj.filters" [value]="filter">-->
+            <!--              {{ filter }}-->
+            <!--            </mat-option>-->
+            <mat-option>
+              option1
+            </mat-option>
+            <mat-option>
+              option2
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{helperService.translated.SITETITLE.USERS_TITLE}}</mat-label>
+          <mat-select [formControlName]="helperService.appConstants.allUsers">
+            <mat-option *ngFor="let user of pulsePersonObj.allUserList" [value]="user.id">
+              {{ user.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{helperService.translated.STRINGS.ALLTEAMS}}</mat-label>
+          <mat-select [formControlName]="helperService.appConstants.allTeams">
+            <mat-option *ngFor="let team of pulsePersonObj.allTeams" [value]="team.team.id">
+              {{ team.team.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+            placeholder="Date From">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+            placeholder="Date To">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button custom-btn btn-primary color="primary">
+          {{helperService.translated.BUTTONS.GENERATE_REPORT}}
+        </button>
+      </div>
+    </form>
+    <div id="container"></div>
+  </mat-card>
+</div>

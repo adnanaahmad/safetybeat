@@ -1,11 +1,11 @@
-
 <div class="paddingbox">
   <div class="page-title">
-    <h3>Site Activity Report</h3>
+    <h3>{{helperService.translated.SITETITLE.SITE_ACTIVITY_REPORT}}</h3>
   </div>
+  <p style="margin-top:0;">{{helperService.translated.MESSAGES.SITE_ACTIVITY_MSG}}</p>
   <mat-card>
     <form [formGroup]="actionReportObj.actionReportForm"
-          (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
+      (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
       <mat-form-field appearance="outline">
         <mat-label>Entity</mat-label>
         <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled] />
@@ -15,23 +15,29 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Date From</mat-label>
-        <input matInput type="date" [formControlName]="helperService.appConstants.dateFrom" />
+        <mat-label>{{helperService.translated.STRINGS.DATE_FROM}}</mat-label>
+        <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+          placeholder="Date From">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
         <mat-error class="text-right" *ngIf="actionFormValidations.errors">
           <span
             *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Date To</mat-label>
-        <input matInput type="date" [formControlName]="helperService.appConstants.dateTo" />
+        <mat-label>{{helperService.translated.STRINGS.DATE_TO}}</mat-label>
+        <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+          placeholder="Date From">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
         <mat-error class="text-right" *ngIf="actionFormValidations.errors">
           <span
             *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Site</mat-label>
+        <mat-label>{{helperService.translated.AUTH.SITE_REQ}}</mat-label>
         <mat-select [formControlName]="helperService.appConstants.site">
           <mat-option *ngFor="let sites of actionReportObj.sitesData" [value]="sites.site.id">
             {{sites.site.name}}
@@ -48,7 +54,7 @@
       <div id="checkOutContainer"></div>
     </div>
     <div *ngIf="!actionReportObj.showChart">
-      <p>No data available</p>
+      <p>{{helperService.translated.MESSAGES.NOTFOUND_HEADING}}</p>
     </div>
   </mat-card>
 </div>

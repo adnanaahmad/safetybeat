@@ -175,9 +175,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     this.entityControl.subscription = this.navService.currentRole.subscribe(res => {
       this.entityControl.entitySelectedRole = res;
       if (
-        this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.owner ||
-        this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
-        this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.entityManager
+        this.entityControl.entitySelectedRole !== this.helperService.appConstants.roles.owner
       ) {
         this.entityControl.joinOption = true;
       } else {

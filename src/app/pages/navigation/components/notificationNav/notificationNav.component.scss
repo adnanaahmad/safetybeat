@@ -3,6 +3,9 @@
   app-notificationnav {
     padding: 0 20px;
     display: block;
+    mat-tab-group {
+      width: $fullValue;
+    }
     .mat-tab-label {
       height: 30px;
       .mat-tab-label-content {

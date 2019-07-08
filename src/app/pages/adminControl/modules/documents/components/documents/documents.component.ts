@@ -48,7 +48,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.documentsData.subscription.unsubscribe();
   }
 
-
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -145,7 +144,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 // this function opens another component to show a folder's file
   showDocs(folderId: number) {
-    this.router.navigate(['/home/viewDocs', {folderId: JSON.stringify(folderId),
+    this.router.navigate(['/home/adminControl/documents/viewDocs', {folderId: JSON.stringify(folderId),
       entityId: JSON.stringify(this.documentsData.entityID)}], {skipLocationChange: false});
   }
 }

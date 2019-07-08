@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ViewChild
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { ProfileService } from 'src/app/pages/profile/services/profile.service';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
@@ -12,11 +13,11 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ProfileModel } from 'src/app/models/profile/profile.model';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
-import { AdminControlService } from '../../../adminControl/services/adminControl.service';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
-import {SiteMapComponent} from '../../../adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { MemberCenterService } from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import { SiteMapComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 
 @Component({
   selector: 'app-profile',
@@ -24,30 +25,34 @@ import {SiteMapComponent} from '../../../adminControl/modules/siteCenter/dialogs
   styleUrls: ['./profile.component.scss']
 })
 
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   // cards: any;
 
-
+  profileFeatures = {
+    activities: true,
+    connections: false,
+    leaves: false,
+    entities: false,
+    myTeam: false
+  };
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Activities', cols: 4, rows: 1 },
-          { title: 'Connections', cols: 4, rows: 1 },
-          { title: 'Leaves', cols: 4, rows: 1 },
-          { title: 'Entities', cols: 4, rows: 1 }
+          { title: 'links', cols: 3, rows: 1 },
+          { title: 'userData', cols: 3, rows: 1 },
+          { title: 'accountInfo', cols: 3, rows: 1 }
         ];
       } else {
         return [
-          { title: 'Activities', cols: 2, rows: 1 },
-          { title: 'Connections', cols: 2, rows: 1 },
-          { title: 'Leaves', cols: 2, rows: 1 },
-          { title: 'Entities', cols: 2, rows: 1 }
+          { title: 'links', cols: 1, rows: 1 },
+          { title: 'userData', cols: 2, rows: 2 },
+          { title: 'accountInfo', cols: 1, rows: 1 }
         ];
       }
     })
@@ -97,7 +102,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * to the behavior subject of the profile data.
    */
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
@@ -123,102 +128,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // this.responsive();
   }
 
-  /**
-   * this function is used for initializing the global variables that have been declared in the profileModel.
-   */
-
-  responsive() {
-
-    this.helperService.isXLarge.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.XLarge).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('large screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isLarge.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Large).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('large screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isTablet.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Medium).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('tablet screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isHandset.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('small screen');
-              return [
-                { title: 'Activities', cols: 4, rows: 1 },
-                { title: 'Connections', cols: 4, rows: 1 },
-                { title: 'Leaves', cols: 4, rows: 1 },
-                { title: 'Entities', cols: 4, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
-
-    this.helperService.isWeb.subscribe((res) => {
-      if (res.matches) {
-        this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-          map(({ matches }) => {
-            if (matches) {
-              console.log('web screen');
-              return [
-                { title: 'Activities', cols: 2, rows: 1 },
-                { title: 'Connections', cols: 2, rows: 1 },
-                { title: 'Leaves', cols: 2, rows: 1 },
-                { title: 'Entities', cols: 2, rows: 1 }
-              ];
-            }
-          })
-        );
-      }
-    });
+  ngAfterViewInit(){
+    this.dataSource.paginator = this.paginator;
   }
+
 
   initialize() {
     this.profileModel.translated = this.helperService.translated;
@@ -237,6 +150,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     console.log('these are dimensions', this.helperService.dimensions);
   }
 
+
+  onChangeFeatures(feature:any){
+    var self= this;
+    this.helperService.iterations(this.profileFeatures, function(value, key){
+      if(key===feature){
+        self.profileFeatures[key] = true;
+      } else {
+        self.profileFeatures[key] = false;
+      }
+    })
+  }
+
   /**
    * this function is used to return all the entities while subscribing to the behavior subject of the
    * viewALLEntities.
@@ -252,33 +177,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.dataSource.paginator = this.paginator;
         }
       });
-    } else {}
-    //   this.adminService.viewEntitiesOfUser({'userId': userId, 'moduleName': 'safetybeat'}).subscribe((res) => {
-    //     this.profileModel.entitiesList = res;
-    //     this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-    //     this.profileModel.dataSource.paginator = this.paginator;
-    //   });
+    } else { }
 
   }
-
-  // viewAllEntities(userId: number) {
-  //   this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
-  //     if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-  //       if (res.data.length === 0) {
-  //         this.profileModel.noActivity = true;
-  //       } else {
-  //         this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res);
-  //       }
-  //     } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-  //       this.profileModel.noActivity = true;
-  //       this.helperService.appLogger(this.helperService.constants.status.ERROR,
-  //         this.helperService.translated.MESSAGES.ACTIVITIES_FAIL);
-  //     } else {
-  //       this.profileModel.noActivity = true;
-  //     }
-  //   });
-  // }
-
   /**
    * this function is used for hiding all the debugging messages and also used for unsubscribing the
    * observables.
@@ -324,13 +225,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-   //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
+      //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
       this.navService.updateCurrentUser(userData);
     });
   }
 
   viewActivities(userId: number) {
-     this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+    this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
           this.profileModel.noActivity = true;
@@ -363,11 +264,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
   removeConnection(sentToUserId: number) {
-    this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
+    this.memberService.removeConnection({ receivedBy: sentToUserId }).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
-          this.getUserConnections(this.profileModel.userId);
+        this.getUserConnections(this.profileModel.userId);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
           res.responseDetails.message);
@@ -381,8 +282,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   viewSite(longitude, latitude, siteName, location) {
-    let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location}
-    this.helperService.createDialog(SiteMapComponent, {disableClose : true, data: {siteData: data, type: true}});
+    let data = { 'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location }
+    this.helperService.createDialog(SiteMapComponent, { disableClose: true, data: { siteData: data, type: true } });
   }
 }
 
@@ -404,19 +305,4 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
   { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
   { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
 ];

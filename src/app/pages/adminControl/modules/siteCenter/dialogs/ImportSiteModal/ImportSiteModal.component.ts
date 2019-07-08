@@ -15,6 +15,7 @@ import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
 export class ImportSiteModalComponent implements OnInit {
 
   importSiteModal: ImportSite = <ImportSite>{};
+  private fileName: any;
 
   constructor(
     public helperService: HelperService,
@@ -65,6 +66,7 @@ export class ImportSiteModalComponent implements OnInit {
 
   onFileSelected(event) {
     this.importSiteModal.csvFile = <File>event.target.files[0];
+    this.fileName = event.target.files[0].name;
   }
 
   /**

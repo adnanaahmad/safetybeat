@@ -28,6 +28,7 @@ export class UploadDocComponent implements OnInit {
 
   ngOnInit() {
     this.newDoc.uploadDocForm = this.formBuilder.group({
+      // fileName: ['', Validators.required],
       doc: ['', Validators.required],
       folders: ['']
     });
@@ -40,7 +41,7 @@ export class UploadDocComponent implements OnInit {
   }
 
   getAllFolders() {
-    this.documentsData.folderLength = this.data.folders.length;
+    this.documentsData.folderLength = (this.data && this.data.folders && this.data.folders.length) ? this.data.folders.length : 0;
     if (this.documentsData.folderLength === 0) {
       this.documentsData.rootOnly = true;
     } else {

@@ -1,0 +1,8 @@
+@mixin amte-confirmationModal($primary, $accent, $warn) {
+  :host,
+  app-confirmationModal {
+    .mat-dialog-content {
+      width: auto;
+    }
+  }
+}

@@ -9,7 +9,7 @@ import {AverageDailyActionsReportComponent} from './components/averageDailyActio
 import {CheckInActivityReportComponent} from './components/checkinActivityReport/checkinActivityReport.component';
 import {EntityPulseReportComponent} from './components/entityPulseReport/entityPulseReport.component';
 import {PersonPulseReportComponent} from './components/personPulseReport/personPulseReport.component';
-import {CompilantCheckoutReportComponent} from './components/compilantCheckoutReport/compilantCheckoutReport.component';
+import {CompliantCheckoutReportComponent} from './components/compliantCheckoutReport/compliantCheckoutReport.component';
 import {SiteActivityReportComponent} from './components/siteActivityReport/siteActivityReport.component';
 import {HazardReportComponent} from './components/hazardReport/hazardReport.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -31,7 +31,7 @@ import {MaterialModule} from '../../shared/material/material.module';
     ActionAlertsReportsComponent,
     EntityPulseReportComponent,
     PersonPulseReportComponent,
-    CompilantCheckoutReportComponent,
+    CompliantCheckoutReportComponent,
     SiteActivityReportComponent,
     HazardReportComponent],
 })
