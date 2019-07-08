@@ -35,6 +35,13 @@
       button {
         @include ellipsis;
         width: $fullValue;
+        margin-right: 20px;
+        text-align: left;
+        mat-icon {
+          position: absolute;
+          right: 0;
+          top: 7px;
+        }
       }
     }
     .profile-menu {

@@ -1,13 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {Hazard, HazardModel} from 'src/app/models/hazard.model';
-import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
-import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
-import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { HelperService } from 'src/app/shared/helperService/helper.service';
+import { Hazard, HazardModel } from 'src/app/models/hazard.model';
+import { HazardDetailsComponent } from 'src/app/pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
+import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
+import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
+import { CompilerProvider } from 'src/app/shared/compiler/compiler';
+import { AddHazardComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import { ConfirmationModalComponent } from 'src/app/Dialogs/conformationModal/confirmationModal.component';
+import { ImageLightboxComponent } from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -76,7 +77,7 @@ export class HazardCenterComponent implements OnInit {
   editHazard(hazard: Hazard) {
     this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
-      data: {Modal: true, hazardInfo: hazard}
+      data: { Modal: true, hazardInfo: hazard }
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getHazardList();
@@ -85,7 +86,7 @@ export class HazardCenterComponent implements OnInit {
 
   confirmationModal(id) {
     this.helperService.createDialog(ConfirmationModalComponent,
-      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD}});
+      { data: { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD } });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
@@ -96,18 +97,29 @@ export class HazardCenterComponent implements OnInit {
 
   deleteHazard(id) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
-        this.getHazardList();
-        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
-            this.helperService.constants.status.SUCCESS);
-        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
-            this.helperService.constants.status.ERROR);
-        }
-      }, (error) => {
+      this.getHazardList();
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
+        this.helperService.constants.status.ERROR);
+    }
     );
+  }
+  testingFunc(image) {
+    console.log(image)
+    this.helperService.createDialog(ImageLightboxComponent,
+      {
+        data:
+        {
+          message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD,
+          imageData: image
+        }
+      });
   }
 }
