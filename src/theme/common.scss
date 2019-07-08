@@ -8,8 +8,8 @@
   mat-sidenav {
     background-color: mat-color($primary, 600) !important;
   }
-  [btn-white] {
-    color: mat-color($primary) !important;
+  .mat-tooltip {
+    background: #000;
   }
   // Radio Button Coloring Start
   // .mat-radio-button.mat-accent.mat-radio-checked {
@@ -33,7 +33,7 @@
 
 $fullValue: 100%;
 $centered: 0 auto;
-
+$noPadding: 0;
 //====================== All Mixins ==========================//
 @mixin midBlock {
   margin: $centered;
@@ -44,9 +44,21 @@ $centered: 0 auto;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
 }
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 @mixin clearSep {
   clear: both;
   display: block;
   width: $fullValue;
   height: 20px;
+}
+@mixin fabAction {
+  width: 25px !important;
+  height: 25px !important;
+  .mat-button-wrapper {
+    padding: 0;
+  }
 }

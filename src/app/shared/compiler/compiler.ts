@@ -6,12 +6,14 @@ import {Site, SitesInfo} from 'src/app/models/site.model';
 import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
+import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
 import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
 import {AllTeamsApiResponse, Team, TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {EntityQuestion, QuestionsData} from '../../models/adminControl/questionCenter.model';
+import {EntityQuestion} from '../../models/adminControl/questionCenter.model';
+import { EntityQuestionResponse, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -190,8 +192,9 @@ export class CompilerProvider {
   }
 
   entityUser(users) {
+    debugger
     let usersArray = [];
-    this.helperService.iterations(users.data, function (obj) {
+    this.helperService.iterations(users, function (obj) {
       let user = {
         name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,
@@ -251,8 +254,37 @@ export class CompilerProvider {
   }
 
   constructGeneralInfoObject(generalApiResponse: any): GeneralInfo {
-    let generalData: GeneralInfo = generalApiResponse.data;
-    return generalData;
+    // let generalData: GeneralInfo = generalApiResponse.data;
+    // return generalData;
+    return generalApiResponse.data as GeneralInfo;
+  }
+
+
+  constructOrgdata(orgForm: OrgFormData, userForm: UserFormData, registerObj: RegistrationObject): OrgData {
+    return {
+      'name': orgForm.name,
+      'address': this.helperService.address,
+      'accountNo': '12344532',
+      'billingEmail': registerObj.userEmail.email,
+      'phoneNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
+      'type': registerObj.organizationTypeForm.value.type
+    } as OrgData
+  }
+
+  constructRegUserdata(registerObj: RegistrationObject, userForm: UserFormData): RegUserData {
+    return {
+      'email': registerObj.userEmail.email,
+      'first_name': userForm.first_name,
+      'last_name': userForm.last_name,
+      'password1': userForm.password1,
+      'password2': userForm.password2,
+      'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
+      'organization': registerObj.organizationData,
+      'invitation': false,
+      'moduleName': 'Safetybeat',
+      'package': 'Trial',
+      'roleId': 'Owner'
+    } as RegUserData
   }
 
   switchSideMenu(data, name) {
@@ -429,7 +461,7 @@ export class CompilerProvider {
         disabled: data.permissions.hazardCentre
       },
       {
-        route: '/home/documents',
+        route: '/home/adminControl/documents',
         iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         disabled: data.permissions.documents

@@ -24,6 +24,7 @@ export interface Strings {
   CHANGETHEME: string;
   EXPAND: string;
   REMOVE: string;
+  ADD: string;
   USERINFO: string;
   SITEADDRESS: string;
   SITESAFETYPLAN: string;
@@ -85,8 +86,22 @@ export interface Strings {
   CHILD_NO: string;
   CHILD: string;
   CHANGEPICTURE: string;
+  CHILD_YES_SAFE: string;
+  CHILD_NO_SAFE: string;
   SEARCHUSERS: string;
-
+  ADVSEARCH: string;
+  CHOOSE_ROLE: string;
+  SELECTED_ENTITY: string;
+  SELECT_TEAM: string;
+  SEARCH: string;
+  SELECT_FILTER: string;
+  ALLTEAMS: string;
+  RANGE: string;
+  DATE_TO: string;
+  DATE_FROM: string;
+  SELECTED_USERS: string;
+  MAKE_TEAMLEAD: string;
+  REMOVE_TEAMLEAD: string;
 }
 
 export interface Auth {
@@ -252,6 +267,7 @@ export interface Buttons {
   GENERATE_REPORT: string;
   VIEW_MAP: string;
   CLOSE: string;
+  SHOW_RESULTS: string;
 
 }
 
@@ -282,6 +298,7 @@ export interface Messages {
   RESET_MSG: string;
   EMAIL_MSG: string;
   ORGANIZATION_MSG: string;
+  EMAIL_ALREADY_EXISTS: string;
   TYPE_MSG: string;
   MODULE_MSG: string;
   MODULESELECT_MSG: string;
@@ -339,6 +356,7 @@ export interface Messages {
   VERIFICATIONCODEEMAIL: string;
   ADDSITE_MSG: string;
   ADDQUESTION_MSG: string;
+  EDITQUESTION_MSG: string;
   CREATEQUESTION_MSG: string;
   SITE_NAME: string;
   INVALIDADDRESS: string;
@@ -374,6 +392,8 @@ export interface Messages {
   VIEW_SITE_FAILURE: string;
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
+  DELETE_QUESTION_SUCCESS: string;
+  DELETE_QUESTION_FAILURE: string;
   DELETE_TEAM_SUCCESS: string;
   DELETE_TEAM_FAILURE: string;
   EDIT_SITE_MSG: string;
@@ -473,6 +493,8 @@ export interface Messages {
   COMPLIANT_CHECKOUT_MSG: string;
   SITE_ACTIVITY_MSG: string;
   HAZARD_REPORT_MSG: string;
+  NO_SITES: string;
+  PARENT_QUESTION_REQ: string;
   TEAM_TITLE_REQUIRED: string;
   TEAM_SELECTION_REQUIRED: string;
   TEAM_MEMBERS_REQUIRED: string;
@@ -550,6 +572,17 @@ export interface SiteTitle {
   DOCUMENTS: string;
   MY_TEAM: string;
   ACCOUNTINFO: string;
+  ACTION_REPORT: string;
+  AVERAGE_DAILY_ACTION_REPORT: string;
+  NUMBER_CHECKINS_BY_ACTIVITY: string;
+  HOURS_CHECKINS_BY_ACTIVITY: string;
+  CHECKIN_BY_PERSON: string;
+  ACTIONS_VS_ALERTS: string;
+  PULSE_REPORT_BY_ENTITY: string;
+  PULSE_REPORT_BY_PERSON: string;
+  COMPLIANT_CHECKOUT: string;
+  SITE_ACTIVITY_REPORT: string;
+  HAZARD_REPORTS: string;
 }
 
 export interface TableHeadings {
@@ -604,5 +637,6 @@ export interface Confirmation {
   DELETE_FOLDER: string;
   REMOVE_CONNECTION: string
   DELETE_TEAM: string;
+  DELETE_QUESTION: string;
 
 }

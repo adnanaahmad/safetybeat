@@ -1,15 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {AddQuestionData, QuestionCenter} from '../../../../../../models/adminControl/questionCenter.model';
+import {AddQuestionData, QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
 import {FormBuilder, Validators} from '@angular/forms';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
-import {QuestionCenterService} from '../../services/questionCenter.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {QuestionCenterService} from 'src/app/pages/adminControl/modules/questionCenter/services/questionCenter.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
-export interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-createQuestion',
@@ -41,6 +37,15 @@ export class CreateQuestionComponent implements OnInit {
       canProceed: [''],
       parent: [''],
     });
+    if (this.data.edit) {
+      this.QuestionObj.addQuestionForm = this.formBuilder.group({
+        questionDescription: this.data.questionData.description,
+        questionWarning: this.data.questionData.warning,
+        safeQuestion: this.data.questionData.safe,
+        canProceed: this.data.questionData.canProceed,
+        parent: this.data.questionData.parent,
+      });
+    }
   }
 
   get formValidation() {
@@ -49,12 +54,12 @@ export class CreateQuestionComponent implements OnInit {
 
 
   generateQuestionData(value) {
+    console.log(value);
     let questionData: any = {
       description: value.questionDescription,
-      parent: this.QuestionObj.parent,
+      parent: value.parent,
       warning: value.questionWarning,
-      canProceed: this.QuestionObj.canProceed,
-      safe: this.QuestionObj.canSafe,
+      canProceed: value.canProceed,
       default: false,
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
@@ -62,19 +67,7 @@ export class CreateQuestionComponent implements OnInit {
     return questionData;
   }
 
-  questionFormSubmit({value, valid}: { value: AddQuestionData; valid: boolean; }) {
-    if (!valid) {
-      this.helperService.appLoggerDev(
-        this.helperService.constants.status.WARNING,
-        valid
-      );
-      this.helperService.appLogger(
-        this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.QUESTION_DATA_REQ
-      );
-      return;
-    }
-    this.QuestionObj.loading = true;
+  addQuestion(value) {
     this.questionCenterService.createQuestion(this.generateQuestionData(value)).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.QuestionObj.loading = false;
@@ -93,8 +86,30 @@ export class CreateQuestionComponent implements OnInit {
     });
   }
 
-  changeSafeOption(event) {
-    this.QuestionObj.canSafe = event.value;
+  editQuestion(value) {
+    this.questionCenterService.editQuestionOfQuestionBank(this.generateQuestionData(value), this.data.questionData.id).subscribe((res) => {
+        this.QuestionObj.loading = false;
+        this.dialogRef.close();
+    });
+
+  }
+
+  questionFormSubmit({value, valid}: { value: AddQuestionData; valid: boolean; }) {
+    console.log(value);
+    this.data.edit ? this.editQuestion(value) : this.addQuestion(value);
+    if (!valid) {
+      this.helperService.appLoggerDev(
+        this.helperService.constants.status.WARNING,
+        valid
+      );
+      this.helperService.appLogger(
+        this.helperService.constants.status.ERROR,
+        this.helperService.translated.LOGGER.MESSAGES.QUESTION_DATA_REQ
+      );
+      return;
+    }
+    this.QuestionObj.loading = true;
+
   }
 
 }

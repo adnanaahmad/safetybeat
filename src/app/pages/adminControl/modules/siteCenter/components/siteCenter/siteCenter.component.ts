@@ -11,7 +11,8 @@ import {SitesInfo} from 'src/app/models/site.model';
 import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {SiteMapComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
-import { HttpErrorResponse } from '@angular/common/http';
+import {HttpErrorResponse} from '@angular/common/http';
+import {AdvanceSearchComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 
 @Component({
   selector: 'app-siteCenter',
@@ -75,23 +76,27 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     let entityData = {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
-      'pageIndex': pageIndex,
-      'search': search
+
     };
-    this.adminServices.viewSites(entityData).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+    let paginationData = {
+      'offset': pageIndex * this.helperService.appConstants.paginationLimit,
+      'limit': this.helperService.appConstants.paginationLimit
+    }
+    this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
+      debugger
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.siteCentreObj.pageCount = res.data.pageCount;
-        if (pageIndex === 0) {
-          this.paginator.pageIndex = 0;
-        }
+        // if (pageIndex === 0) {
+        //   this.paginator.pageIndex = 0;
+        // }
         this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
         this.adminServices.changeSites(this.siteCentreObj.sitesData);
         this.siteCentreObj.subscription = this.adminServices.siteObserver.subscribe((res) => {
           this.siteCentreObj.dataSource = res !== 1 && res.length !== 0 ? new MatTableDataSource(res) : null;
 
         });
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
+        // this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_SUCCESS,
+        //   this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.siteCentreObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
@@ -110,6 +115,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   addSite() {
     this.helperService.createDialog(AddSiteModalComponent, {disableClose: true, data: {Modal: true, siteId: ''}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
+      debugger
       this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
     });
   }
@@ -138,6 +144,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       data: {Modal: false, site: siteInfo.site, createdBy: siteInfo.createdBy, siteSafetyManager: siteInfo.siteSafetyManager}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
+      debugger
       this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
     });
   }
@@ -171,6 +178,14 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
   }
 
+  /**
+   * this function navigates to advance search dialog when we click on advance search anchor
+   */
+  advanceSearch() {
+    this.helperService.createDialog(AdvanceSearchComponent, {
+      data: {disableClose: true}
+    });
+  }
 
   /**
    * this function is used to open add hazard dialog.
@@ -215,14 +230,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   viewMap() {
     this.helperService.createDialog(SiteMapComponent,
       {disableClose: true, height: '75%', width: '80%', data: {'siteData': this.siteCentreObj.sitesData, type: false}});
-  }
-
-  /**
-   * this function is used to call the api for sitesdata again on the basis of search value.
-   */
-  search(value) {
-    this.siteCentreObj.search = value;
-    this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
   }
 
 }

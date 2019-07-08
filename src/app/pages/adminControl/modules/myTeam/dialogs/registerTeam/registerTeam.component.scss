@@ -2,11 +2,29 @@
   :host,
   app-register-team {
     // Search Filter
+    .mat-tab-header {
+      margin-bottom: 7px;
+    }
+    .fab-action {
+      @include fabAction;
+    }
+    .searchbar {
+      .mat-form-field-wrapper {
+        padding: 0;
+      }
+    }
     .data-search {
       .data-result {
-        max-height: 320px;
+        height: 320px;
         overflow: auto;
         padding: 0 3px;
+        .list-item {
+          display: flex;
+          padding: 10px;
+          margin: 7px 0;
+          align-items: center;
+          border-radius: 4px;
+        }
         .user-thumbnail {
           width: 50px;
           height: 50px;
@@ -14,12 +32,7 @@
           position: relative;
           img {
             max-width: 100%;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            -webkit-transform: translateY(-50%);
+            @include midBlock;
             display: block;
             margin: 0 auto;
           }
@@ -27,6 +40,17 @@
         .user-name {
           display: flex;
           align-items: center;
+          margin: 0;
+          padding-left: 10px;
+        }
+        .actions {
+          margin-left: auto;
+        }
+        .remove-member {
+          margin-left: auto;
+          mat-icon {
+            font-size: 12px;
+          }
         }
         mat-list-item {
           padding: 6px 0;

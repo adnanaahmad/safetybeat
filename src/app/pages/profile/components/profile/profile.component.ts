@@ -166,10 +166,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * viewALLEntities.
    */
 
-  viewAllEntities(userId) {
+  viewAllEntities(userId: number) {
     if (this.profileModel.currentUserProfile) {
       this.profileModel.subscription = this.navService.data.subscribe((res) => {
-        if (res !== 1) {
+        if (res && res !== 1) {
           this.helperService.toggleLoader(false);
           this.profileModel.entitiesList = res;
           // this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);

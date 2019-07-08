@@ -63,7 +63,7 @@ export class FixedNavComponent implements OnInit {
       toolTip: 'Hazard Center'
     },
     {
-      route: '/home/documents',
+      route: '/home/adminControl/documents',
       iconName: this.helperService.constants.appIcons.insertDriveFile,
       toolTip: 'Documents'
     },

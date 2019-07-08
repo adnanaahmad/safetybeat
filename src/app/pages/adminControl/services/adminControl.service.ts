@@ -7,6 +7,7 @@ import {ViewAllEntitiesResponse} from '../../../models/adminControl/entityContro
 import {CreateEntityResponse} from '../../../models/adminControl/createEntity.model';
 import {AllHazardsApiData, DeleteHazardApiResponse, Hazard, RiskType} from '../../../models/hazard.model';
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from '../../../models/adminControl/myTeam.model';
+import {AddSiteApiResponse, AddSiteData, ViewAllSitesData} from '../../../models/site.model';
 
 @Injectable({
   providedIn: 'root'
@@ -78,19 +79,20 @@ export class AdminControlService {
    * this function is used to return the response for viewAllSites api call.
    * @params data
    */
-  viewSites(data: object) {
+  viewSites(data: any, data1: any) {
     return this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.viewAllSites,
+      `${this.apiRoutes.viewAllSites}?limit=${data1.limit}&offset=${data1.offset}`,
       data
     );
   }
+
 
   /**
    * this function is used to return the addSite api response.
    * @params data
    */
-  addSite(data: any) {
+  addSite(data: AddSiteData): Observable<AddSiteApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.addSite,
@@ -113,7 +115,9 @@ export class AdminControlService {
    */
 
   deleteEntity(id) {
-    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.editEntity}/${id}/`);
+    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.editEntity}
+/${id}
+/`);
   }
 
   /**
@@ -123,7 +127,10 @@ export class AdminControlService {
    * @params data
    */
 
-  importSite(data: FormData) {
+  importSite(data
+               :
+               FormData
+  ) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.importSite,
@@ -131,21 +138,31 @@ export class AdminControlService {
     );
   }
 
-  viewSiteInfo(id: number) {
+  viewSiteInfo(id
+                 :
+                 number
+  ) {
     return this.helperService.requestCall(
       this.method.get,
       `${this.apiRoutes.viewSiteInfo}${id}/`
     );
   }
 
-  deleteSite(id: number) {
+  deleteSite(id
+               :
+               number
+  ) {
     return this.helperService.requestCall(
       this.method.delete,
       `${this.apiRoutes.viewSiteInfo}${id}/`
     );
   }
 
-  editSite(id: number, data) {
+  editSite(id
+             :
+             number, data
+  ):
+    Observable<AddSiteApiResponse> {
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.viewSiteInfo}${id}/`,
@@ -153,7 +170,9 @@ export class AdminControlService {
     );
   }
 
-  addHazard(data): Observable<AllHazardsApiData> {
+  addHazard(data)
+    :
+    Observable<AllHazardsApiData> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       `${this.apiRoutes.viewHazardInfo}`,
@@ -161,7 +180,10 @@ export class AdminControlService {
     );
   }
 
-  editHazard(id: number, data) {
+  editHazard(id
+               :
+               number, data
+  ) {
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.viewHazardInfo}${id}/`,
@@ -169,7 +191,11 @@ export class AdminControlService {
     );
   }
 
-  deleteHazard(id: number): Observable<DeleteHazardApiResponse> {
+  deleteHazard(id
+                 :
+                 number
+  ):
+    Observable<DeleteHazardApiResponse> {
     return this.helperService.requestCall(
       this.method.delete,
       `${this.apiRoutes.viewHazardInfo}${id}/`,
@@ -177,14 +203,18 @@ export class AdminControlService {
   }
 
 
-  getRisks(): Observable<Array<RiskType>> {
+  getRisks()
+    :
+    Observable<Array<RiskType>> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.get,
       `${this.apiRoutes.riskList}`
     );
   }
 
-  allHazards(entityId): Observable<AllHazardsApiData> {
+  allHazards(entityId)
+    :
+    Observable<AllHazardsApiData> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       `${this.apiRoutes.allHazards}`,
@@ -208,14 +238,21 @@ export class AdminControlService {
     );
   }
 
-  deleteTeam(id: number) {
+  deleteTeam(id
+               :
+               number
+  ) {
     return this.helperService.requestCall(
       this.method.delete,
       `${this.apiRoutes.team}${id}/`
     );
   }
 
-  allTeamsData(data: GetAllTeamsData): Observable<AllTeamsApiResponse> {
+  allTeamsData(data
+                 :
+                 GetAllTeamsData
+  ):
+    Observable<AllTeamsApiResponse> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       this.apiRoutes.viewAllTeams,
@@ -223,7 +260,10 @@ export class AdminControlService {
     );
   }
 
-  editTeam(id: number, data) {
+  editTeam(id
+             :
+             number, data
+  ) {
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.team}${id}/`,

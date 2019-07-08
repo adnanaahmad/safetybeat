@@ -8,6 +8,8 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Login} from 'src/app/models/loginRegistration/login.model';
+import {Breakpoints, BreakpointObserver} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -16,6 +18,22 @@ import {Login} from 'src/app/models/loginRegistration/login.model';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginObj: Login = <Login>{};
+  /** Based on the screen size, switch from standard to one column per row */
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({matches}) => {
+      if (matches) {
+        return [
+          {title: 'particleContainer', cols: 2, rows: 1},
+          {title: 'loginForm', cols: 2, rows: 1}
+        ];
+      } else {
+        return [
+          {title: 'particleContainer', cols: 1, rows: 2},
+          {title: 'loginForm', cols: 1, rows: 2}
+        ];
+      }
+    })
+  );
 
   constructor(
     public formBuilder: FormBuilder,
@@ -23,6 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public loginService: LoginRegistrationService,
     public helperService: HelperService,
     private compiler: CompilerProvider,
+    private breakpointObserver: BreakpointObserver,
     private adminService: AdminControlService,
     private navService: NavigationService
   ) {
@@ -104,7 +123,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.loginService.loginUser(value).subscribe(
       data => {
-        if (data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.loginObj.loading = false;
+        if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.loginObj.data = data;
           data
             ? this.loginService.setToken(this.loginObj.data.data.token)
@@ -135,7 +155,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           }, (err) => {
           });
-        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        } else if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.appLogger(
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
@@ -145,8 +165,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             data.responseDetails.message
           );
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
-          this.loginObj.loading = false;
-        } else if (data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
+        } else if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
           this.helperService.appLogger(this.helperService.constants.status.ERROR,
             data.responseDetails.message);
           this.helperService.appLoggerDev(
@@ -154,12 +173,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             data.responseDetails.message
           );
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
-          this.loginObj.loading = false;
         }
       },
       error => {
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.loginObj.loading = false;
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_FAIL, this.helperService.constants.status.ERROR);
       }
     );

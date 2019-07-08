@@ -23,6 +23,14 @@ export class QuestionCenterService {
     );
   }
 
+  editQuestionOfQuestionBank(data: any, id) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.addQuestion}${id}/`,
+      data
+    );
+  }
+
   getAllQuestions(data: any) {
     return this.helperService.requestCall(
       this.method.post,
@@ -39,11 +47,33 @@ export class QuestionCenterService {
     );
   }
 
+  editQuestion(data, id) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.parentChildQuestions}${id}/`,
+      data
+    );
+  }
+
   viewAllEntityQuestions(data) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.viewAllEntityQuestions,
       data
+    );
+  }
+
+  deleteQuestion(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.parentChildQuestions}${id}/`
+    );
+  }
+
+  deleteQuestionFromQuestionBank(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.addQuestion}${id}/`
     );
   }
 }

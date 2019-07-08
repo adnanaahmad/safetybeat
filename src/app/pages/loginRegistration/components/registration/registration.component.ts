@@ -4,7 +4,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {RegistrationComp} from 'src/app/models/loginRegistration/registration.model';
+import {RegistrationComp, RegistrationResponseObject} from 'src/app/models/loginRegistration/registration.model';
+import {HttpErrorResponse} from '@angular/common/http';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
 
 
 const phoneNumberUtil = HelperService.getPhoneNumberUtil();
@@ -17,6 +20,26 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
 export class RegistrationComponent implements OnInit, OnDestroy {
   @ViewChild('gmap') gMapElement: ElementRef;
   registerObj: RegistrationComp = <RegistrationComp>{};
+  /** Based on the screen size, switch from standard to one column per row */
+  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({matches}) => {
+      if (matches) {
+        return [
+          {title: 'welcome', cols: 2, rows: 1},
+          {title: 'userInfo', cols: 2, rows: 1},
+          {title: 'orgInfo', cols: 2, rows: 1},
+          {title: 'typeInfo', cols: 2, rows: 1}
+        ];
+      } else {
+        return [
+          {title: 'welcome', cols: 1, rows: 2},
+          {title: 'userInfo', cols: 1, rows: 2},
+          {title: 'orgInfo', cols: 1, rows: 2},
+          {title: 'typeInfo', cols: 1, rows: 2}
+        ];
+      }
+    })
+  );
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,6 +47,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private register: LoginRegistrationService,
     private compiler: CompilerProvider,
     public helperService: HelperService,
+    private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute
   ) {
     this.initialize();
@@ -34,7 +58,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
     this.register.registrationData()
       .subscribe(data => {
-        debugger
         this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
           this.helperService.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
         this.registerObj.types = data;
@@ -50,7 +73,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   initialize() {
     this.helperService.displayButton = false;
     this.registerObj.loading = false;
-    this.registerObj.registerData = [];
   }
 
   /**
@@ -114,7 +136,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @params event
    */
 
-  numberOnly(event): boolean {
+  numberOnly(event: Event): boolean {
     return this.compiler.numberOnly(event);
   }
 
@@ -123,7 +145,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @params event
    */
 
-  characterOnly(event): boolean {
+  characterOnly(event: Event): boolean {
     return this.compiler.charactersOnly(event);
   }
 
@@ -143,20 +165,20 @@ export class RegistrationComponent implements OnInit, OnDestroy {
    * @params group
    */
 
-  checkEmail(group) {
-    this.registerObj.email = this.formBuilder.group({
-      'email': [group.value.email, Validators.email]
-    });
-    if (this.registerObj.email.status === this.helperService.appConstants.emailValid) {
-      const email = {email: group.value.email};
-      this.register.checkEmail(email).pipe().subscribe((res) => {
-        this.registerObj.success = res;
-        if (this.registerObj.success.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
-          group.controls.email.setErrors({exists: true});
-        }
-      });
-    }
-  }
+  // checkEmail(group: FormGroup) {
+  //   this.registerObj.email = this.formBuilder.group({
+  //     'email': [group.value.email, Validators.email]
+  //   });
+  //   if (this.registerObj.email.status === this.helperService.appConstants.emailValid) {
+  //     const email = {email: group.value.email};
+  //     this.register.checkEmail(email).pipe().subscribe((res) => {
+  //       this.registerObj.success = res;
+  //       if (this.registerObj.success.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+  //         group.controls.email.setErrors({exists: true});
+  //       }
+  //     });
+  //   }
+  // }
 
   /**
    * this function is used for checking the validation of the phone number that the user will add.
@@ -184,25 +206,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   registration() {
     let orgForm = this.registerObj.organizationForm.value, userForm = this.registerObj.userForm.value;
     this.registerObj.loading = true;
-    this.registerObj.organizationData = {
-      'name': orgForm.name,
-      'address': this.helperService.address,
-      'accountNo': '12344532',
-      'phoneNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
-      'type': this.registerObj.organizationTypeForm.value.type
-    };
-    this.registerObj.registerData = {
-      'email': this.registerObj.userEmail.email,
-      'first_name': userForm.first_name,
-      'last_name': userForm.last_name,
-      'password1': userForm.password1,
-      'password2': userForm.password2,
-      'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
-      'organization': this.registerObj.organizationData,
-      'invitation': false,
-      'moduleName': 'Safetybeat'
-    };
-
+    this.registerObj.organizationData = this.compiler.constructOrgdata(orgForm, userForm, this.registerObj);
+    this.registerObj.registerData = this.compiler.constructRegUserdata(this.registerObj, userForm);
     if (this.registerObj.organizationForm.invalid || this.registerObj.userForm.invalid) {
       this.registerObj.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.LOGGER.MESSAGES.FALSE);
@@ -211,18 +216,20 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       return;
     }
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerObj.registerData));
-    this.register.registerUser(this.registerObj.registerData).subscribe((result) => {
-      this.registerObj.registrationData = result;
-      if (this.registerObj.registrationData.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        result ? this.register.setToken(this.registerObj.registrationData.data.token) : this.register.setToken('');
+    this.register.registerUser(this.registerObj.registerData).subscribe((result: RegistrationResponseObject) => {
+      if (result.responseDetails && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        result ? this.register.setToken(result.data.token) : this.register.setToken('');
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
           this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
           this.helperService.translated.MESSAGES.RESET_SUCCESS);
         this.registerObj.loading = false;
         this.helperService.navigateTo([this.helperService.appConstants.paths.welcomeScreen]);
+      } else {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.EMAIL_ALREADY_EXISTS,
+          this.helperService.translated.STATUS.ERROR);
       }
-    }, (error) => {
+    }, (error: HttpErrorResponse) => {
       this.registerObj.loading = false;
       this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.BACKEND_ERROR);

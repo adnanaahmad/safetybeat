@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {entityUsersApiResponse} from 'src/app/models/entity.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class MemberCenterService {
    * this function is used to...
    * @params data
    */
-  entityUsers(data) {
+  entityUsers(data): Observable<entityUsersApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.entitiesUsers,

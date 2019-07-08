@@ -74,38 +74,319 @@
     </div>
   </form> -->
 
-  <form>
-    <div class="data-search">
-      <mat-form-field fullWidth appearance="outline">
+  <mat-tab-group>
+    <!--All Users Tab-->
+    <mat-tab label="{{helperService.translated.SITETITLE.USERS_TITLE}}">
+      <mat-form-field class="searchbar" fullWidth appearance="outline">
         <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
         <input type="text" matInput [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}} <img
-              src="/assets/images/useravatar.jpg" width="20px"></mat-option>
-        </mat-autocomplete>
+        <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
       </mat-form-field>
-      <div class="data-result">
-        <mat-list role="list">
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
+      <div class="data-search">
+        <div class="data-result">
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
             <div class="user-thumbnail">
               <img src="/assets/images/useravatar.jpg">
             </div>
-            <h4 class="user-name align-items-center" mat-line>
-              <mat-icon class="remove-member" color="warn">{{helperService.appIcons.close}}</mat-icon> User name
-            </h4>
-          </mat-list-item>
-          <mat-list-item matRipple class="mat-elevation-z2" role="listitem">
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
+              class="remove-member fab-action">
+              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+            </button>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
             <div class="user-thumbnail">
               <img src="/assets/images/useravatar.jpg">
             </div>
-            <h4 class="user-name align-items-center" mat-line>
-              <mat-icon class="remove-member" color="warn">{{helperService.appIcons.close}}</mat-icon> User name
-            </h4>
-          </mat-list-item>
-        </mat-list>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
+              class="remove-member fab-action">
+              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+            </button>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
+              class="remove-member fab-action">
+              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+            </button>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
+              class="remove-member fab-action">
+              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+            </button>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
+              class="remove-member fab-action">
+              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+            </button>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
+              class="remove-member fab-action">
+              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+            </button>
+          </div>
+          <!--/User-->
+        </div>
       </div>
-    </div>
-  </form>
+    </mat-tab>
+    <!--/All Users Tab-->
+
+    <!--Selected Users Tab-->
+    <mat-tab label="{{helperService.translated.STRINGS.SELECTED_USERS}}">
+      <mat-form-field class="searchbar" fullWidth appearance="outline">
+        <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
+        <input type="text" matInput [matAutocomplete]="auto">
+        <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
+      </mat-form-field>
+      <div class="data-search">
+        <div class="data-result">
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2 teamLead">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+              <mat-icon matBadge="15" color="primary" matBadgeColor="warn"
+                matTooltip="{{helperService.translated.TABLEHEADINGS.TEAM_LEAD}}" matTooltipPosition="right">
+                {{helperService.appIcons.teamLead}}</mat-icon>
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+          <!--User-->
+          <div class="list-item mat-elevation-z2">
+            <div class="user-thumbnail">
+              <img src="/assets/images/useravatar.jpg">
+            </div>
+            <h5 class="user-name align-items-center" mat-line>
+              {{helperService.translated.BUTTONS.SAFETYBEAT}} &nbsp;
+            </h5>
+            <button class="actions" mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                {{helperService.translated.STRINGS.REMOVE}}
+              </button>
+              <button mat-menu-item>
+                <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+              </button>
+            </mat-menu>
+          </div>
+          <!--/User-->
+
+        </div>
+      </div>
+    </mat-tab>
+    <!--/Selected Users Tab-->
+  </mat-tab-group>
   <mat-dialog-actions>
     <button mat-raised-button cdkFocusInitial custom-btn btn-primary
       color="primary">{{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM }}</button>

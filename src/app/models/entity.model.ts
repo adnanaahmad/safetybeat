@@ -1,3 +1,5 @@
+import {responseDetails, User} from './user.model';
+
 export interface entity {
   moduleName: string;
   name: string;
@@ -21,4 +23,23 @@ export interface joinEntity {
 
 export interface entityCode {
   joinCode: string;
+}
+
+export interface entityUsersApiResponse {
+  data: entityUsersApiResponseData;
+  responseDetails: responseDetails;
+}
+
+export interface entityUsersApiResponseUserData {
+  acceptedConnection: boolean;
+  nature: string;
+  pendingConnection: boolean;
+  role: string;
+  status: boolean;
+  user: User;
+}
+
+export interface entityUsersApiResponseData {
+  allUser: Array<entityUsersApiResponseUserData>;
+  pageCount: number;
 }

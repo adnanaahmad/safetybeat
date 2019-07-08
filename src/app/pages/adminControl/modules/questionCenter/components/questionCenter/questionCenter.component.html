@@ -11,6 +11,14 @@
         {{ helperService.translated.BUTTONS.CREATE_QUESTION}}
       </button>
     </div>
+    <div class="data-filter">
+      <div class="input-wrap">
+        <input class="search-input" autocomplete="off" matInput placeholder="Search"
+               (keyup)=getAllEntityQuestions(QuestionObj.firstIndex,$event.target.value)>
+        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+      </div>
+      <a class="mat-body-strong mat-small pointer">Advanced Search</a>
+    </div>
   </div>
   <mat-grid-list cols="3" gutterSize="10px" rowHeight="fit">
     <mat-grid-tile rowspan="2" colspan="2">
@@ -47,11 +55,11 @@
                 Actions
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="editParentChildQuestion(element)">
                   <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
                   Edit
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="confirmationModal(element.id,true)">
                   <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
                   Delete
                 </button>
@@ -63,7 +71,9 @@
         </table>
         <div class="paddingbox text-center" *ngIf="QuestionObj.entityQuestions === null">
           {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
-        <mat-paginator class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize" [length]="QuestionObj.pageCount"></mat-paginator>
+        <mat-paginator #entityQuestionMatPage class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize"
+                       [length]="QuestionObj.pageCount"
+                       (page)="getAllEntityQuestions(entityQuestionPaginator.pageIndex, QuestionObj.search)"></mat-paginator>
       </div>
 
     </mat-grid-tile>
@@ -88,11 +98,11 @@
                 Actions
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="editQuestion(element)">
                   <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
                   Edit
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)=" confirmationModal(element.id, false)">
                   <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
                   Delete
                 </button>
@@ -104,7 +114,9 @@
         </table>
         <div class="paddingbox text-center" *ngIf="QuestionObj.dataSource === null">
           {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
-        <mat-paginator class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize" [length]="QuestionObj.pageCount"></mat-paginator>
+        <mat-paginator #questionBankMatPage class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize"
+                       [length]="QuestionObj.questionBankPageCount"
+                       (page)="getAllQuestions(questionBankPaginator.pageIndex)"></mat-paginator>
       </div>
     </mat-grid-tile>
   </mat-grid-list>

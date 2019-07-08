@@ -9,6 +9,16 @@
         {{ helperService.translated.BUTTONS.INVITE_USER}}
       </button>
     </div>
+    <!--Filter-->
+    <div class="data-filter">
+      <div class="input-wrap">
+        <input class="search-input" autocomplete="off" matInput placeholder="Search"
+               (keyup)=getAllUsers(memberCenter.firstIndex,$event.target.value)>
+        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+      </div>
+      <a class="mat-body-strong mat-small pointer">Advanced Search</a>
+    </div>
+    <!--/Filter-->
   </div>
   <div class="table-wrap">
     <table mat-table [dataSource]="memberCenter.dataSource" class="customTable mat-elevation-z3">
@@ -94,5 +104,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-  <mat-paginator class="mat-elevation-z1" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator class="mat-elevation-z1" [pageSize]="memberCenter.pageSize" [length]=memberCenter.pageCount
+                 (page)="getAllUsers(paginator.pageIndex, memberCenter.search)"></mat-paginator>
 </div>

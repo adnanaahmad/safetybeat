@@ -3,7 +3,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {SiteAddData} from 'src/app/models/site.model';
+import {AddSiteData, SiteAddData} from 'src/app/models/site.model';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
@@ -119,7 +119,8 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
         this.helperService.appConstants.key))
     };
     this.memberService.entityUsers(data).subscribe((res) => {
-      this.addSiteObj.entityUsers = this.compiler.entityUser(res);
+      debugger
+      this.addSiteObj.entityUsers = this.compiler.entityUser(res.data.allUser);
     });
   }
 
@@ -130,7 +131,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    */
 
   generateSiteData(value, editSite) {
-    let siteData: any = {
+    let siteData: AddSiteData = {
       name: value.siteName,
       location: this.helperService.address,
       longitude: this.helperService.longitude,
@@ -151,15 +152,20 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    * this function is to call the api of edit site when user makes some changes and clicks on save button
    */
 
-  editSite(value) {
+  editSite(value: SiteAddData) {
     this.addSiteObj.loading = true;
     this.adminServices.editSite(this.addSiteObj.site.id, this.generateSiteData(value, true)).subscribe((res) => {
       this.addSiteObj.loading = false;
       this.onNoClick();
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
+      } else {
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
+      }
     }, (error) => {
       this.addSiteObj.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
+      this.onNoClick();
+      this.helperService.appLogger(error.error, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
     });
   }
 
@@ -167,19 +173,22 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
    * this function is to call the api of add site when user makes some changes and clicks on add button
    */
 
-  addSite(value) {
+  addSite(value: SiteAddData) {
     this.addSiteObj.loading = true;
     this.adminServices.addSite(this.generateSiteData(value, false)).subscribe((res) => {
-      this.addSiteObj.addSiteResponse = res;
-      if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.addSiteObj.loading = false;
-        this.onNoClick();
+      this.addSiteObj.loading = false;
+      this.onNoClick();
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
-      } else if (this.addSiteObj.addSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.addSiteObj.loading = false;
-        this.onNoClick();
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
+      } else {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
+    }, error => {
+      this.onNoClick();
+      this.addSiteObj.loading = false;
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
     });
   }
 
