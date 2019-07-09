@@ -98,7 +98,6 @@ export class QuestionCenterComponent implements OnInit {
   }
 
   editParentChildQuestion(questionsData) {
-    console.log(questionsData);
     this.helperService.createDialog(AddQuestionComponent, {
       disableClose: true, data:
         {
@@ -131,7 +130,6 @@ export class QuestionCenterComponent implements OnInit {
   }
 
   editQuestion(question) {
-    console.log(question);
     this.helperService.createDialog(CreateQuestionComponent, {
       disableClose: true,
       data:

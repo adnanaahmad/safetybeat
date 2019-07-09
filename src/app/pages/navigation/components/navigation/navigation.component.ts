@@ -1,19 +1,19 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { CoreService } from 'src/app/core/services/authorization/core.service';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { NavigationModel } from 'src/app/models/navigation/navigation.model';
-import { PackageInfo } from 'src/app/models/user.model';
-import { GeneralComponent } from 'src/app/pages/settings/components/general/general.component';
-import { SecurityComponent } from 'src/app/pages/settings/components/security/security.component';
-import { ProfileModel } from 'src/app/models/profile/profile.model';
-import { ProfileService } from 'src/app/pages/profile/services/profile.service';
-import { BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy} from '@angular/core';
+import {CoreService} from 'src/app/core/services/authorization/core.service';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {NavigationModel} from 'src/app/models/navigation/navigation.model';
+import {PackageInfo} from 'src/app/models/user.model';
+import {GeneralComponent} from 'src/app/pages/settings/components/general/general.component';
+import {SecurityComponent} from 'src/app/pages/settings/components/security/security.component';
+import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -32,9 +32,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
   packageInfo: PackageInfo;
   matcher: MediaQueryList;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches)
-  );
+    .pipe(
+      map(result => result.matches)
+    );
+
   constructor(
     public core: CoreService,
     public adminServices: AdminControlService,
@@ -82,11 +83,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   initialize() {
     this.navModel.translated = this.helperService.translated;
-    this.navModel.navLinks = [];
+    this.navModel.navLinks = null;
     this.navModel.defaultList = [];
     this.navModel.empty = true;
     this.navModel.appIcons = this.helperService.constants.appIcons;
-    this.navModel.navLinks = this.navModel.defaultList;
     this.navModel.logoutDisable = false;
     this.packageInfo = {
       days: 0,
@@ -114,7 +114,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.navModel.selectedEntity =
           index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
         this.switchSideMenu(this.navModel.selectedEntity);
-        console.log(this.navModel.selectedEntity);
+        this.navService.changePermissions(this.navModel.selectedEntity.permissions)
       } else {
         this.adminServices
           .viewEntities(this.moduleData)
@@ -135,10 +135,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.navService.getPackageInfo().subscribe(res => {
             this.packageInfo = res.data[0];
             localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-              (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+            (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           }, error => {
             this.packageInfo = JSON.parse(this.helperService.decrypt(localStorage.getItem
-              (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
+            (this.helperService.constants.localStorageKeys.packageInfo), this.helperService.appConstants.key));
           });
         }
       });
@@ -167,81 +167,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  /**
-   * this function is used to change the reports menu. when the user clicks on analytics report.
-   */
-
-  switchList() {
-    this.navModel.navLinks = [
-      {
-        route: '/home',
-        iconName: this.navModel.appIcons.dashboard,
-        displayName: 'Dashboard',
-        disabled: true
-      },
-      {
-        displayName: 'Action Report',
-        route: '/home/analyticsReport/actionReport',
-        disabled: true
-      },
-      {
-        displayName: 'Average Daily Actions',
-        route: '/home/analyticsReport/averageDailyActionsReport',
-        disabled: true
-      },
-      {
-        displayName: 'Checkin by Activity',
-        route: '/home/analyticsReport/checkInActivityReport',
-        disabled: true
-      },
-      {
-        displayName: 'Checkin and Alert by Person',
-        route: '/home/analyticsReport/alertsPersonReport',
-        disabled: true
-      },
-      {
-        displayName: 'Actions vs Alerts',
-        route: '/home/analyticsReport/actionAlertsReport',
-        disabled: true
-      },
-      {
-        displayName: 'Pulse Report by Entity',
-        route: '/home/analyticsReport/entityPulseReport',
-        disabled: true
-      },
-      {
-        displayName: 'Pulse Report by Person',
-        route: '/home/analyticsReport/personPulseReport',
-        disabled: true
-      },
-      {
-        displayName: 'Compliant Checkout',
-        route: '/home/analyticsReport/compliantCheckoutReport',
-        disabled: true
-      },
-      {
-        displayName: 'Site Activity Report',
-        route: '/home/analyticsReport/siteActivityReport',
-        disabled: true
-      },
-      {
-        displayName: 'Hazard Reports',
-        route: '/home/analyticsReport/hazardReport',
-        disabled: true
-      }
-    ];
-  }
-
-  /**
-   * this function takes the data against the user and shows the menu according to user privileges.
-   * @params data
-   */
-
-  switchListDefault(data) {
-    this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
-  }
-
   /**
    * this function is used for switching the side menu when the selected entity is changed
    * and when the selected entity is changed then selected entity and role of the user is changed using
@@ -256,10 +181,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
       localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
         this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
       this.navService.changeSelectedEntity(this.navModel.selectedEntity);
-      this.navService.changeRole(this.navModel.selectedEntity.role);
-      this.getRoleFromStorage();
-      this.navService.changeRoleId(this.navModel.selectedEntity.permissions.role);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
+      console.log(this.navModel);
     }
 
   }
@@ -283,20 +206,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function is used for getting the role of the user in the selected entity and is gotten from the local storage.
-   */
-
-  getRoleFromStorage() {
-    let currentRole = this.helperService.decrypt(localStorage.getItem
-      (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
-    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
-  }
-
-  /**
    * this function is used for displaying model on basis of selection
    */
   showModel(isProfile) {
     let modal = (isProfile) ? GeneralComponent : SecurityComponent;
-    this.helperService.createDialog(modal, { disableClose: true });
+    this.helperService.createDialog(modal, {disableClose: true});
   }
 }

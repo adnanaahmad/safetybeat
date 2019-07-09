@@ -80,7 +80,6 @@ export class AddQuestionComponent implements OnInit {
   }
 
   editQuestion(questionForm) {
-    console.log(questionForm)
     this.QuestionObj.loading = true;
     this.questionCenterService.editQuestion(this.generateQuestionData(questionForm), this.data.questionData.id).subscribe((res) => {
       this.QuestionObj.loading = false;
@@ -118,7 +117,6 @@ export class AddQuestionComponent implements OnInit {
       question => question.description.toLowerCase().indexOf(filterValue) === 0);
     let validation = this.QuestionObj.filteredChildYesQuestion.length === 0
     this.QuestionObj.addQuestionForm.controls.childYes.setErrors({notValid: validation})
-    console.log(validation);
   }
 
   get formValidation() {

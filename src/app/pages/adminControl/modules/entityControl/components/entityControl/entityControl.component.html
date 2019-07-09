@@ -53,9 +53,7 @@
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.MANAGED_BY }}
         </th>
-        <td mat-cell *matCellDef="let element"><span *ngFor="let manager of element.managedBy">
-            {{manager.email}}<br>
-          </span>
+        <td mat-cell *matCellDef="let element">
           {{ element.managedBy.email }}</td>
       </ng-container>
 
