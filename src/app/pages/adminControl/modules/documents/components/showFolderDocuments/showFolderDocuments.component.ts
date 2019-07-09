@@ -36,7 +36,7 @@ export class ShowFolderDocumentsComponent implements OnInit {
 
   /**
    * Get folder docs and refresh variables
-   * @param folderID 
+   * @params folderID
    */
   docsOfFolder(folderID: number) {
     this.documentsData.docList = [];
@@ -58,6 +58,8 @@ export class ShowFolderDocumentsComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+          // some code here
     });
   }
 
@@ -79,7 +81,7 @@ export class ShowFolderDocumentsComponent implements OnInit {
 
   /**
    * Refresh Files data after renaming or removing
-   * @param status 
+   * @params status
    */
   refreshFiles(status: boolean){
     if(status) {

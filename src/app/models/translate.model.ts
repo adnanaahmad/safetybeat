@@ -86,6 +86,7 @@ export interface Strings {
   CHILD_NO: string;
   CHILD: string;
   CHANGEPICTURE: string;
+  ACTION_REPORT: string;
   CHILD_YES_SAFE: string;
   CHILD_NO_SAFE: string;
   SEARCHUSERS: string;
@@ -179,6 +180,7 @@ export interface Icons {
 }
 
 export interface Buttons {
+  DOWNLOAD: string;
   LOGIN: string;
   EDIT: string;
   REGISTER: string;
@@ -407,6 +409,7 @@ export interface Messages {
   THEME_SETTINGS: string;
   SITE_MAP: string;
   NEW_FOLDER: string;
+  SAME_FOLDER_NAME: string;
   FOLDER_FAIL: string;
   CANT_CREATE_ROOT: string;
   NO_FOLDER: string;
@@ -415,7 +418,11 @@ export interface Messages {
   GET_FOLDER_FAILURE: string;
   DOC_UPLOAD_FAIL: string;
   FOLDER_RENAMED: string;
+  FOLDER_DELETED: string;
+  FOLDER_DEL_FAIL: string;
+  DOCUMENT_RENAMED: string;
   RENAME_FAIL: string;
+  DOC_RENAME_FAIL: string;
   ACTIVITIES_FAIL: string;
   NOT_CHECKED_OUT: string;
   TEAM_MEMBER: string;

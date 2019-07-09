@@ -22,7 +22,6 @@ export class FileComponent implements OnInit {
               public navService: NavigationService) { }
 
   ngOnInit() {
-    // console.log(this.docData)
   }
 
   /**

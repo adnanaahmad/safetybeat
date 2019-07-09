@@ -22,7 +22,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private navService: NavigationService,
     public compiler: CompilerProvider,
-    private router: Router
   ) {
     this.initialize();
   }
@@ -35,27 +34,32 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
         this.documentsData.entityID = res.entityInfo.id;
         this.refreshFiles(true);
         this.refreshFolders(true);
       }
     });
   }
+
   ngOnDestroy(): void {
     this.documentsData.subscription.unsubscribe();
   }
 
   /**
    * Get and refresh all folders from DB
-   * @param entityID 
+   * @params entityID
    */
   getAllFolders(entityID: number) {
+    this.documentsData.folderList = [];
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.documentsData.folderExist = true;
-        this.documentsData.folderList = res.data;
-        this.navService.updateFolder(this.documentsData.folderList);
+        if (res.data.length === 0) {
+          this.documentsData.folderExist = false;
+        } else {
+          this.documentsData.folderExist = true;
+          this.documentsData.folderList = res.data;
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.documentsData.folderExist = false;
       } else {
@@ -68,7 +72,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   /**
    * Get all root docs
-   * @param entityId 
+   * @params entityId
    */
   getRootDocuments(entityId: number) {
     this.documentsData.rootDocs = [];
@@ -77,14 +81,16 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.documentExist = true;
         this.documentsData.rootDocs = this.compiler.constructDocuments(res);
-        this.navService.updateDocument(this.documentsData.docList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.documentsData.documentExist = false;
+        this.documentsData.documentExist = false;
       } else {
         this.documentsData.documentExist = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
+        this.helperService.constants.status.ERROR);
     });
   }
 
@@ -116,20 +122,20 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   /**
    * Refresh Folders data after renaming or removing
-   * @param status 
+   * @params status
    */
-  refreshFolders(status: boolean){
-    if(status) {
+  refreshFolders(status: boolean) {
+    if (status) {
       this.getAllFolders(this.documentsData.entityID);
     }
   }
 
   /**
    * Refresh Files data after renaming or removing
-   * @param status 
+   * @params status
    */
-  refreshFiles(status: boolean){
-    if(status) {
+  refreshFiles(status: boolean) {
+    if (status) {
       this.getRootDocuments(this.documentsData.entityID);
     }
   }

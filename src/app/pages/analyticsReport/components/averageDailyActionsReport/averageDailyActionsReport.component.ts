@@ -25,7 +25,6 @@ export class AverageDailyActionsReportComponent implements OnInit {
       range: [''],
       allUsers: ['', Validators.required],
       allTeams: ['', Validators.required],
-      filter: ['', Validators.required],
       dateTo: [],
       dateFrom: []
     });

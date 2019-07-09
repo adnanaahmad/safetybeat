@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {Permissions} from '../../../models/adminControl/permissions.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,8 @@ export class NavigationService {
   newDoc = this.doc.asObservable();
   private folder = new BehaviorSubject<any>(1);
   allFoldersList = this.folder.asObservable();
+  private permissions = new BehaviorSubject<any>(1);
+  entityPermissions = this.permissions.asObservable();
 
 
   constructor(
@@ -111,6 +114,10 @@ export class NavigationService {
     this.dataSource.next(entitiesInfo);
   }
 
+  changePermissions(permissions: Permissions) {
+    this.permissions.next(permissions);
+  }
+
   /**
    * this function is used for changing the roleId of the user after changing the entities.
    * @params roleId
@@ -174,6 +181,14 @@ export class NavigationService {
     );
   }
 
+  renameDocument(id: number, data: object) {
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.put,
+      `${this.helperService.constants.apiRoutes.documents}${id}/`,
+      data
+    );
+  }
+
   allFolders(data) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.getFolders,
@@ -198,13 +213,5 @@ export class NavigationService {
   deleteFolder(id) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.delete,
       `${this.helperService.constants.apiRoutes.createFolder}${id}/`);
-  }
-
-  updateDocument(data: any) {
-    this.doc.next(data);
-  }
-
-  updateFolder(data: any) {
-    this.folder.next(data);
   }
 }

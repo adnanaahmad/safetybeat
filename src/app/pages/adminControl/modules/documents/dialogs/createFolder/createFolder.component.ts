@@ -39,8 +39,9 @@ export class CreateFolderComponent implements OnInit {
     this.documentsData.modalType ? this.createFolder(value) : this.renameFolder(value);
   }
 
+// this function opens a dialog to create new folder
   createFolder(value: Folders) {
-    if (value.title === this.helperService.appConstants.Root ) {
+    if (value.title === this.helperService.appConstants.Root) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CANT_CREATE_ROOT, this.helperService.constants.status.WARNING);
     } else {
       let data = {name: value.title, entity: this.data.id};
@@ -48,20 +49,27 @@ export class CreateFolderComponent implements OnInit {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
           this.dialogRef.close();
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.SAME_FOLDER_NAME,
+            this.helperService.constants.status.WARNING);
+          this.dialogRef.close();
         } else {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_FAIL, this.helperService.constants.status.WARNING);
           this.dialogRef.close();
         }
+      }, error => {
+        this.dialogRef.close();
       });
     }
   }
-
+// this function opens a dialog to rename existing folder
   renameFolder(value: Folders) {
     let data = {name: value.title, entity: this.data.id};
     this.navService.renameFolder(this.data.folderId, data).subscribe((res) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_RENAMED, this.helperService.constants.status.SUCCESS);
       this.dialogRef.close();
     }, (error) => {
+      this.dialogRef.close();
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.RENAME_FAIL);
     });
   }

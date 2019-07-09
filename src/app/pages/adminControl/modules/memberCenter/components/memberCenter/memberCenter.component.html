@@ -3,7 +3,7 @@
     <h3>{{ helperService.translated.SITETITLE.MEMBERCENTER_TITLE }}</h3>
     <div class="buttonRow" *ngIf="memberCenter.currentRole">
       <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary"
-        *ngIf="memberCenter.currentRole===helperService.appConstants.roles.entityManager||memberCenter.currentRole===helperService.appConstants.roles.owner"
+        *ngIf="memberCenter.permissions?.inviteUser"
         (click)="inviteUser()">
         <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
         {{ helperService.translated.BUTTONS.INVITE_USER}}
@@ -64,8 +64,7 @@
             Actions
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="(memberCenter.currentRole  === helperService.appConstants.roles.owner) ||
-                (memberCenter.currentRole  === helperService.appConstants.roles.entityManager)"
+            <button mat-menu-item *ngIf="memberCenter.permissions?.viewUserProfile"
               (click)="viewProfile(element)">
               <mat-icon>linear_scale</mat-icon>
               View Profile
@@ -87,12 +86,17 @@
               <mat-icon>linear_scale</mat-icon>
               Remove Connections
             </button>
-            <button mat-menu-item *ngIf="memberCenter.currentRole  === helperService.appConstants.roles.owner"
+            <button mat-menu-item *ngIf="memberCenter.permissions?.changePermissions"
+                    (click)="accessLevel()">
+              <mat-icon>input</mat-icon>
+              Change Permissions
+            </button>
+            <button mat-menu-item *ngIf="memberCenter.permissions?.changeAccessLevel"
               (click)="accessLevel()">
               <mat-icon>input</mat-icon>
               Change Access Level
             </button>
-            <button mat-menu-item *ngIf="memberCenter.currentRole === helperService.appConstants.roles.owner"
+            <button mat-menu-item *ngIf="memberCenter.permissions?.deactivateUser"
               (click)="element.status ? deactivateUsers(element.id) : activateUsers(element.id)">
               <mat-icon>remove_circle_outline</mat-icon>
               {{element.status ? 'Deactivate User' : 'Activate User'}}
