@@ -115,6 +115,10 @@ export class CompilerProvider {
     return userEntityData;
   }
 
+  constructEntitiesForProfile(loginApiResponse: any) {
+    let array: any[] = [];
+  }
+
   /**
    * this function is used to return the sitesData after constructing the sitesData according to the SitesInfo.
    * @params siteApiResponse
@@ -130,6 +134,10 @@ export class CompilerProvider {
 
   constructAllSitesData(siteApiResponse: any): SitesInfo[] {
     return siteApiResponse;
+  }
+
+  constructSiteList(siteApiResponse: any): Site[] {
+    return siteApiResponse.data;
   }
 
   constructAllDocumentsData(documentsApiResponse: any): DocList[] {
@@ -149,7 +157,7 @@ export class CompilerProvider {
   }
 
   constructUserActionReportData(actionReportApiResponse: any): UserActionReportData {
-    return actionReportApiResponse;
+    return actionReportApiResponse.data;
   }
 
   constructAllTeamsData(allTeamsApiResponse: any): TeamList[] {
@@ -167,7 +175,7 @@ export class CompilerProvider {
 
   constructHazardArray(hazardResponse: any): Hazard[] {
     let hazardArray: Hazard[] = [];
-    this.helperService.iterations(hazardResponse.data, function (hazard : Hazard) {
+    this.helperService.iterations(hazardResponse.data, function (hazard: Hazard) {
       let obj: Hazard = {
         hazard: hazard.hazard,
         site: hazard.site,

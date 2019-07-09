@@ -5,19 +5,20 @@ import {
   ViewChild,
   AfterViewInit
 } from '@angular/core';
-import { ProfileService } from 'src/app/pages/profile/services/profile.service';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { LoginRegistrationService } from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import { CompilerProvider } from 'src/app/shared/compiler/compiler';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { ProfileModel } from 'src/app/models/profile/profile.model';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { ActivatedRoute } from '@angular/router';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { MemberCenterService } from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
-import { SiteMapComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import {ProfileService} from 'src/app/pages/profile/services/profile.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {ActivatedRoute} from '@angular/router';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {SiteMapComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-profile',
@@ -25,12 +26,15 @@ import { SiteMapComponent } from 'src/app/pages/adminControl/modules/siteCenter/
   styleUrls: ['./profile.component.scss']
 })
 
-export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
+export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
+  entitiesColumn: string[] = ['name', 'headOffice', 'access', 'managedBy'];
+  connectionsColumns: string[];
+
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // cards: any;
 
   profileFeatures = {
     activities: true,
@@ -41,18 +45,18 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   };
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
+    map(({matches}) => {
       if (matches) {
         return [
-          { title: 'links', cols: 3, rows: 1 },
-          { title: 'userData', cols: 3, rows: 1 },
-          { title: 'accountInfo', cols: 3, rows: 1 }
+          {title: 'links', cols: 3, rows: 1},
+          {title: 'userData', cols: 3, rows: 1},
+          {title: 'accountInfo', cols: 3, rows: 1}
         ];
       } else {
         return [
-          { title: 'links', cols: 1, rows: 1 },
-          { title: 'userData', cols: 2, rows: 2 },
-          { title: 'accountInfo', cols: 1, rows: 1 }
+          {title: 'links', cols: 1, rows: 1},
+          {title: 'userData', cols: 2, rows: 2},
+          {title: 'accountInfo', cols: 1, rows: 1}
         ];
       }
     })
@@ -77,7 +81,6 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
     );
     this.route.params.subscribe((data) => {
       if (!helperService.isEmpty(data)) {
-
         this.profileModel.receivedData = JSON.parse(data.data);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.userId = this.profileModel.receivedData.id;
@@ -91,6 +94,8 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
+          } else {
+            // do something here
           }
         });
       }
@@ -102,11 +107,13 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
    * to the behavior subject of the profile data.
    */
   ngOnInit() {
-    // this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
+          this.connectionsColumns = ['img', 'name', 'email', 'contact', 'remove_connection'];
           this.profileModel.profileData = res;
+          this.profileModel.contactNo = this.profileModel.profileData.contactNo;
+          this.profileModel.name = this.profileModel.profileData.first_name + ' ' + this.profileModel.profileData.last_name;
           this.profileModel.username = this.profileModel.profileData.username;
           this.profileModel.email = this.profileModel.profileData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
@@ -115,8 +122,10 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
           this.viewActivities(this.profileModel.userId);
           this.viewAllEntities(this.profileModel.userId);
         } else {
+          this.connectionsColumns = ['img', 'name', 'email', 'contact'];
+          this.profileModel.contactNo = this.profileModel.receivedData.contact;
           this.profileModel.profileData = this.profileModel.receivedData;
-          this.profileModel.username = this.profileModel.receivedData.name;
+          this.profileModel.name = this.profileModel.receivedData.name;
           this.profileModel.email = this.profileModel.receivedData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
         }
@@ -128,12 +137,15 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
     // this.responsive();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
 
   initialize() {
+    this.profileModel.entityCount = 0;
+    this.profileModel.connectionCount = 0;
+    this.profileModel.noTeam = false;
     this.profileModel.translated = this.helperService.translated;
     this.profileModel.appIcons = this.helperService.constants.appIcons;
     this.profileModel.appConstants = this.helperService.constants.appConstant;
@@ -151,15 +163,15 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
 
-  onChangeFeatures(feature:any){
-    var self= this;
-    this.helperService.iterations(this.profileFeatures, function(value, key){
-      if(key===feature){
+  onChangeFeatures(feature: any) {
+    let self = this;
+    this.helperService.iterations(this.profileFeatures, function (value, key) {
+      if (key === feature) {
         self.profileFeatures[key] = true;
       } else {
         self.profileFeatures[key] = false;
       }
-    })
+    });
   }
 
   /**
@@ -168,18 +180,27 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
    */
 
   viewAllEntities(userId) {
-    if (this.profileModel.currentUserProfile) {
-      this.profileModel.subscription = this.navService.data.subscribe((res) => {
-        if (res !== 1) {
-          this.helperService.toggleLoader(false);
-          this.profileModel.entitiesList = res;
-          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList.entities);
-          this.profileModel.dataSource.paginator = this.paginator;
+    this.adminService.viewEntitiesOfUser({'userId': userId}).subscribe((res) => {
+      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res.data.length === 0) {
+          this.profileModel.noEntity = true;
+        } else {
+            this.profileModel.entityCount = res.data.length;
+            this.helperService.toggleLoader(false);
+            this.profileModel.entitiesList = res.data;
+            this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList);
+            this.profileModel.dataSource.paginator = this.paginator;
         }
-      });
-    } else { }
-
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.profileModel.noEntity = true;
+        this.helperService.appLogger(this.helperService.constants.status.ERROR,
+          'entities fail');
+      } else {
+        this.profileModel.noEntity = true;
+      }
+    });
   }
+
   /**
    * this function is used for hiding all the debugging messages and also used for unsubscribing the
    * observables.
@@ -197,7 +218,7 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
 
   uploadProfileImage(event) {
     this.profileModel.imageFile = <File>event.target.files[0];
-    let blob = new Blob([this.profileModel.imageFile], { type: 'image/*' });
+    let blob = new Blob([this.profileModel.imageFile], {type: 'image/*'});
     let formData = new FormData();
     formData.append('profileImage', blob, this.profileModel.imageFile.name);
     this.profileService.profilePicUpdate(formData).subscribe((res) => {
@@ -231,7 +252,7 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
   viewActivities(userId: number) {
-    this.profile.viewRecentActivities({ userId: userId }).subscribe((res) => {
+    this.profile.viewRecentActivities({userId: userId}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
           this.profileModel.noActivity = true;
@@ -249,9 +270,10 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
   getUserConnections(userId: number) {
-
-    this.adminService.allConnections({ userId: userId }).subscribe((res) => {
+    this.profileModel.allConnectionsData = [];
+    this.adminService.allConnections({userId: userId}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.profileModel.connectionCount = res.data.length;
         this.profileModel.allConnectionsRes = res;
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
@@ -263,30 +285,37 @@ export class ProfileComponent implements OnInit, OnDestroy,AfterViewInit {
       }
     });
   }
-  removeConnection(sentToUserId: number) {
-    this.memberService.removeConnection({ receivedBy: sentToUserId }).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
-        this.getUserConnections(this.profileModel.userId);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
-          res.responseDetails.message);
-      }
-    }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
-        this.helperService.constants.status.ERROR);
-    });
 
+  removeConnection(sentToUserId: number) {
+    this.profileModel.connectionCount = 0;
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.REMOVE_CONNECTION}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
+          if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
+              this.helperService.constants.status.SUCCESS);
+            this.getUserConnections(this.profileModel.userId);
+          } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+              res.responseDetails.message);
+          }
+        }, (error) => {
+          this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+            this.helperService.constants.status.ERROR);
+        });
+      }
+    });
   }
 
   viewSite(longitude, latitude, siteName, location) {
-    let data = { 'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location }
-    this.helperService.createDialog(SiteMapComponent, { disableClose: true, data: { siteData: data, type: true } });
+    let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location};
+    this.helperService.createDialog(SiteMapComponent, {disableClose: true, data: {siteData: data, type: true}});
   }
 }
-
 
 
 /**
@@ -300,9 +329,9 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
 ];

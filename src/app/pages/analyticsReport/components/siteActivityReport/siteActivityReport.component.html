@@ -44,6 +44,14 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Select filter</mat-label>
+        <mat-select [formControlName]="helperService.appConstants.filter" (selectionChange)="filteredReport($event.value)">
+          <mat-option *ngFor="let filter of actionReportObj.filters" [value]="filter">
+            {{ filter }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <br>
       <button mat-raised-button custom-btn btn-primary color="primary">
         {{helperService.translated.BUTTONS.GENERATE_REPORT}}

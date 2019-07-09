@@ -7,7 +7,7 @@ import {FixedNavComponent} from './components/fixedNav/fixedNav.component';
 import {NavListComponent} from './components/navList/navList.component';
 import {NotificationNavComponent} from './components/notificationNav/notificationNav.component';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-
+import {FormsModule} from '@angular/forms';
 @NgModule({
   declarations: [
     FixedNavComponent,
@@ -18,7 +18,8 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
   imports: [
     CommonModule,
     NavigationRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [
     CompilerProvider

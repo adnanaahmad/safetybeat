@@ -21,9 +21,23 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field full-width appearance="outline">
+        <mat-label>Location</mat-label>
+        <input matInput type="text" formControlName="location" required />
+        <mat-error class="text-right" *ngIf="addHazardControls.location.errors">
+          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field full-width appearance="outline">
         <mat-label>Description</mat-label>
         <input matInput type="text" formControlName="description" required />
         <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
+          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field full-width appearance="outline">
+        <mat-label>Precautionary Note</mat-label>
+        <input matInput type="text" formControlName="note" required />
+        <mat-error class="text-right" *ngIf="addHazardControls.note.errors">
           <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>
       </mat-form-field>

@@ -21,10 +21,18 @@ export class AnalyticsReportService {
     );
   }
 
-  actionReportForUser(data: any) {
+  getHazardReport(data) {
     return this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.actionsReportForUser,
+      this.apiRoutes.hazardReport,
+      data
+    );
+  }
+
+  siteActivityReport(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.siteActivityReport,
       data
     );
   }

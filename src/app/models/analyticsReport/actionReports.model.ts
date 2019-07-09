@@ -1,27 +1,27 @@
 import {FormGroup} from '@angular/forms';
 import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
-import {SitesInfo} from '../site.model';
+import {Site, SitesInfo} from '../site.model';
 
 
 export interface ActionReport {
   entityId: number;
   showChart: boolean;
   userActionReportData: UserActionReportData;
-  sitesData: SitesInfo[];
+  sitesData: Site[];
   entityName: string;
   entityUserData: EntityUserData;
   allEntitiesData: any;
   subscription: Subscription;
   actionReportForm: FormGroup;
   actionReportData: ActionReportData[];
-  filters: any;
+  filters: string[];
   noSites: boolean;
 }
 
 export interface ActionReportApiData {
   entityName: string;
-  dateFrom: string;
+  dateFrom: Date;
   dateTo: Date;
   site: number;
   filter: string;
