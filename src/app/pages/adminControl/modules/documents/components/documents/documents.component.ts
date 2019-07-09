@@ -22,7 +22,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private navService: NavigationService,
     public compiler: CompilerProvider,
-    private router: Router
   ) {
     this.initialize();
   }
@@ -42,13 +41,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   ngOnDestroy(): void {
     this.documentsData.subscription.unsubscribe();
   }
 
   /**
    * Get and refresh all folders from DB
-   * @param entityID 
+   * @param entityID
    */
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
@@ -68,7 +68,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   /**
    * Get all root docs
-   * @param entityId 
+   * @params entityId
    */
   getRootDocuments(entityId: number) {
     this.documentsData.rootDocs = [];
@@ -79,7 +79,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.rootDocs = this.compiler.constructDocuments(res);
         this.navService.updateDocument(this.documentsData.docList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.documentsData.documentExist = false;
+        this.documentsData.documentExist = false;
       } else {
         this.documentsData.documentExist = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
@@ -116,20 +116,20 @@ export class DocumentsComponent implements OnInit, OnDestroy {
 
   /**
    * Refresh Folders data after renaming or removing
-   * @param status 
+   * @params status
    */
-  refreshFolders(status: boolean){
-    if(status) {
+  refreshFolders(status: boolean) {
+    if (status) {
       this.getAllFolders(this.documentsData.entityID);
     }
   }
 
   /**
    * Refresh Files data after renaming or removing
-   * @param status 
+   * @params status
    */
-  refreshFiles(status: boolean){
-    if(status) {
+  refreshFiles(status: boolean) {
+    if (status) {
       this.getRootDocuments(this.documentsData.entityID);
     }
   }

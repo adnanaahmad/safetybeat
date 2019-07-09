@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {Permissions} from '../../../models/adminControl/permissions.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,8 @@ export class NavigationService {
   newDoc = this.doc.asObservable();
   private folder = new BehaviorSubject<any>(1);
   allFoldersList = this.folder.asObservable();
+  private permissions = new BehaviorSubject<any>(1);
+  entityPermissions = this.permissions.asObservable();
 
 
   constructor(
@@ -109,6 +112,10 @@ export class NavigationService {
 
   changeEntites(entitiesInfo: any) {
     this.dataSource.next(entitiesInfo);
+  }
+
+  changePermissions(permissions: Permissions) {
+    this.permissions.next(permissions);
   }
 
   /**

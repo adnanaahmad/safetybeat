@@ -285,131 +285,6 @@ export class CompilerProvider {
     } as RegUserData
   }
 
-  switchSideMenu(data, name) {
-    this.navList = [
-      {
-        route: '/home',
-        iconName: this.appIcons.dashboard,
-        displayName: 'Dashboard',
-        disabled: data.permissions.dashboard
-      },
-      {
-        displayName: 'Member Center',
-        route: '/home/adminControl/memberCenter',
-        disabled: data.permissions.myTeam
-      },
-      // {
-      //   route: '/home/profile/user',
-      //   iconName: this.appIcons.group,
-      //   displayName: 'Users',
-      //   disabled: data.permissions.allUsers
-      // },
-      {
-        displayName: 'Entity Control',
-        route: '/home/adminControl/entityControl',
-        disabled: data.permissions.entityControl
-      },
-      {
-        displayName: 'My Team',
-        route: '/home/adminControl/myTeam',
-        disabled: data.permissions.myTeam
-      },
-      {
-        displayName: 'Site Center',
-        route: '/home/adminControl/siteCenter',
-        disabled: data.permissions.siteCenter
-      },
-      {
-        displayName: 'Question Center',
-        route: '/home/adminControl/questionCenter',
-        disabled: data.permissions.questionCenter
-      },
-      {
-        displayName: 'Permission Center',
-        route: '/home/adminControl/permissionCenter',
-        disabled: data.permissions.permissionCenter
-      },
-      {
-        displayName: 'Hazard Center',
-        route: '/home/adminControl/hazardCenter',
-        disabled: data.permissions.hazardCenter
-      },
-      // {
-      //   displayName: 'Invite Users',
-      //   disabled: data.permissions.inviteUsers
-      // },
-      {
-        route: '/home/documents',
-        iconName: this.appIcons.insertDriveFile,
-        displayName: 'Documents',
-        disabled: data.permissions.documents
-      },
-      {
-        displayName: 'Analytics Reports',
-        disabled: data.permissions.analyticsReports,
-        children: [
-          {
-            displayName: 'Action Report',
-            route: '/home/analyticsReport/actionReport',
-            disabled: data.reportAccess.actionReport
-          },
-          {
-            displayName: 'Average Daily Actions',
-            route: '/home/analyticsReport/averageDailyActionsReport',
-            disabled: data.reportAccess.averageDailyReport
-          },
-          {
-            displayName: 'Checkin by Activity',
-            route: '/home/analyticsReport/checkInActivityReport',
-            disabled: data.reportAccess.checkinByActivity
-          },
-          {
-            displayName: 'Checkin and Alert by Person',
-            route: '/home/analyticsReport/alertsPersonReport',
-            disabled: data.reportAccess.checkinAndAlertByPerson
-          },
-          {
-            displayName: 'Actions vs Alerts',
-            route: '/home/analyticsReport/actionAlertsReport',
-            disabled: data.reportAccess.actionsVsAlerts
-          },
-          {
-            displayName: 'Pulse Report by Entity',
-            route: '/home/analyticsReport/entityPulseReport',
-            disabled: data.reportAccess.pulseReportByEntity
-          },
-          {
-            displayName: 'Pulse Report by Person',
-            route: '/home/analyticsReport/personPulseReport',
-            disabled: data.reportAccess.pulseReportByPerson
-          },
-          {
-            displayName: 'Compliant Checkout',
-            route: '/home/analyticsReport/compliantCheckoutReport',
-            disabled: data.reportAccess.compliantCheckOut
-          },
-          {
-            displayName: 'Site Activity Report',
-            route: '/home/analyticsReport/siteActivityReport',
-            disabled: data.reportAccess.siteActivityReport
-          },
-          {
-            displayName: 'Hazard Reports',
-            route: '/home/analyticsReport/hazardReport',
-            disabled: data.reportAccess.hazardReports
-          }
-        ]
-      }
-    ];
-    let self = this;
-    this.helperService.iterations(this.navList, function (obj) {
-      if (obj.displayName === name) {
-        self.newMenu = obj.children;
-      }
-    });
-    return this.newMenu;
-  }
-
   /**
    * this function returns the default side menu
    * @params data
@@ -421,108 +296,112 @@ export class CompilerProvider {
         route: '/home',
         iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
-        disabled: data.permissions.dashboard
+        disabled: true
       },
       {
         displayName: 'Member Centre',
         route: '/home/adminControl/memberCenter',
-        disabled: data.permissions.myTeam
+        iconName: this.appIcons.person,
+        toolTip: 'Member Center',
+        disabled: data.permissions.memberCentre
       },
-      // {
-      //   route: '/home/profile/user',
-      //   iconName: this.appIcons.group,
-      //   displayName: 'Users',
-      //   disabled: data.permissions.allUsers
-      // },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',
+        iconName: this.appIcons.log,
+        toolTip: 'Entity Control Center',
         disabled: data.permissions.entityControl
       },
       {
         displayName: 'My Team',
         route: '/home/adminControl/myTeam',
+        iconName: this.appIcons.group,
+        toolTip: 'My Team',
         disabled: data.permissions.myTeam
       },
       {
         displayName: 'Site Centre',
         route: '/home/adminControl/siteCenter',
+        iconName: this.appIcons.domain,
+        toolTip: 'Site Center',
         disabled: data.permissions.siteCentre
       },
       {
         displayName: 'Question Centre',
         route: '/home/adminControl/questionCenter',
+        iconName: this.appIcons.help,
+        toolTip: 'Question Center',
         disabled: data.permissions.questionCentre
-      },
-      {
-        displayName: 'Permission Centre',
-        route: '/home/adminControl/permissionCenter',
-        disabled: data.permissions.permissionCentre
       },
       {
         displayName: 'Hazard Centre',
         route: '/home/adminControl/hazardCenter',
+        iconName: this.appIcons.warning,
+        toolTip: 'Hazard Center',
         disabled: data.permissions.hazardCentre
       },
       {
         route: '/home/adminControl/documents',
         iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
+        toolTip: 'Documents',
         disabled: data.permissions.documents
       },
       {
         displayName: 'Analytics Reports',
         disabled: data.permissions.analyticsReports,
+        iconName: this.appIcons.showReports,
+        toolTip: 'Reports',
         children: [
           {
             displayName: 'Action Report',
             route: '/home/analyticsReport/actionReport',
-            disabled: data.reportAccess.actionReport
+            disabled: data.permissions.actionReport
           },
           {
             displayName: 'Average Daily Actions',
             route: '/home/analyticsReport/averageDailyActionsReport',
-            disabled: data.reportAccess.averageDailyReport
+            disabled: data.permissions.averageDailyReport
           },
           {
             displayName: 'Checkin by Activity',
             route: '/home/analyticsReport/checkInActivityReport',
-            disabled: data.reportAccess.checkinByActivity
+            disabled: data.permissions.checkinByActivity
           },
           {
             displayName: 'Checkin and Alert by Person',
             route: '/home/analyticsReport/alertsPersonReport',
-            disabled: data.reportAccess.checkinAndAlertByPerson
+            disabled: data.permissions.checkinAndAlertByPerson
           },
           {
             displayName: 'Actions vs Alerts',
             route: '/home/analyticsReport/actionAlertsReport',
-            disabled: data.reportAccess.actionsVsAlerts
+            disabled: data.permissions.actionsVsAlerts
           },
           {
             displayName: 'Pulse Report by Entity',
             route: '/home/analyticsReport/entityPulseReport',
-            disabled: data.reportAccess.pulseReportByEntity
+            disabled: data.permissions.pulseReportByEntity
           },
           {
             displayName: 'Pulse Report by Person',
             route: '/home/analyticsReport/personPulseReport',
-            disabled: data.reportAccess.pulseReportByPerson
+            disabled: data.permissions.pulseReportByPerson
           },
           {
             displayName: 'Compliant Checkout',
             route: '/home/analyticsReport/compliantCheckoutReport',
-            disabled: data.reportAccess.compliantCheckOut
+            disabled: data.permissions.compliantCheckOut
           },
           {
             displayName: 'Site Activity Report',
             route: '/home/analyticsReport/siteActivityReport',
-            disabled: data.reportAccess.siteActivityReport
+            disabled: data.permissions.siteActivityReport
           },
           {
             displayName: 'Hazard Reports',
             route: '/home/analyticsReport/hazardReport',
-            disabled: data.reportAccess.hazardReports
+            disabled: data.permissions.hazardReports
           }
         ]
       }

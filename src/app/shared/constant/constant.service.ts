@@ -243,6 +243,7 @@ export class ConstantService {
    * all the material icon names are declared here.
    */
   static appIcons = {
+    showReports: 'bar_chart',
     skipNext: 'skip_next',
     group: 'group',
     moveVert: 'more_vert',
