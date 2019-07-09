@@ -6,6 +6,7 @@ import {Site, SitesInfo} from 'src/app/models/site.model';
 import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
+import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
 import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
@@ -166,7 +167,7 @@ export class CompilerProvider {
 
   constructHazardArray(hazardResponse: any): Hazard[] {
     let hazardArray: Hazard[] = [];
-    this.helperService.iterations(hazardResponse.data, function (hazard) {
+    this.helperService.iterations(hazardResponse.data, function (hazard : Hazard) {
       let obj: Hazard = {
         hazard: hazard.hazard,
         site: hazard.site,
@@ -251,8 +252,37 @@ export class CompilerProvider {
   }
 
   constructGeneralInfoObject(generalApiResponse: any): GeneralInfo {
-    let generalData: GeneralInfo = generalApiResponse.data;
-    return generalData;
+    // let generalData: GeneralInfo = generalApiResponse.data;
+    // return generalData;
+    return generalApiResponse.data as GeneralInfo;
+  }
+
+
+  constructOrgdata(orgForm: OrgFormData, userForm: UserFormData, registerObj: RegistrationObject): OrgData {
+    return {
+      'name': orgForm.name,
+      'address': this.helperService.address,
+      'accountNo': '12344532',
+      'billingEmail': registerObj.userEmail.email,
+      'phoneNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
+      'type': registerObj.organizationTypeForm.value.type
+    } as OrgData
+  }
+
+  constructRegUserdata(registerObj: RegistrationObject, userForm: UserFormData): RegUserData {
+    return {
+      'email': registerObj.userEmail.email,
+      'first_name': userForm.first_name,
+      'last_name': userForm.last_name,
+      'password1': userForm.password1,
+      'password2': userForm.password2,
+      'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
+      'organization': registerObj.organizationData,
+      'invitation': false,
+      'moduleName': 'Safetybeat',
+      'package': 'Trial',
+      'roleId': 'Owner'
+    } as RegUserData
   }
 
   /**
@@ -311,7 +341,7 @@ export class CompilerProvider {
         disabled: data.permissions.hazardCentre
       },
       {
-        route: '/home/documents',
+        route: '/home/adminControl/documents',
         iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         toolTip: 'Documents',

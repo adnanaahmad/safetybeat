@@ -5,15 +5,14 @@ import {Documents} from 'src/app/models/navigation/documents.model';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {Location} from '@angular/common';
-import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc.component';
-import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/uploadDoc.component';
+import {UploadDocComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/uploadDoc/uploadDoc.component';
 
 @Component({
   selector: 'app-showDocuments',
-  templateUrl: './showDocuments.component.html',
-  styleUrls: ['./showDocuments.component.scss']
+  templateUrl: './showFolderDocuments.component.html',
+  styleUrls: ['./showFolderDocuments.component.scss']
 })
-export class ShowDocumentsComponent implements OnInit {
+export class ShowFolderDocumentsComponent implements OnInit {
   documentsData: Documents = <Documents>{};
 
   constructor(public helperService: HelperService,
@@ -35,10 +34,10 @@ export class ShowDocumentsComponent implements OnInit {
     this.location.back();
   }
 
-  viewDoc(doc: any) {
-    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
-  }
-
+  /**
+   * Get folder docs and refresh variables
+   * @param folderID 
+   */
   docsOfFolder(folderID: number) {
     this.documentsData.docList = [];
     this.documentsData.panelOpenState = true;
@@ -62,6 +61,9 @@ export class ShowDocumentsComponent implements OnInit {
     });
   }
 
+  /**
+   * Upload new doc within a folder
+   */
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {
       disableClose: true, data: {
@@ -73,5 +75,15 @@ export class ShowDocumentsComponent implements OnInit {
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.docsOfFolder(this.documentsData.folderId);
     });
+  }
+
+  /**
+   * Refresh Files data after renaming or removing
+   * @param status 
+   */
+  refreshFiles(status: boolean){
+    if(status) {
+      this.docsOfFolder(this.documentsData.folderId);
+    }
   }
 }

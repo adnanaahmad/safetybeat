@@ -24,6 +24,7 @@ export interface Strings {
   CHANGETHEME: string;
   EXPAND: string;
   REMOVE: string;
+  ADD: string;
   USERINFO: string;
   SITEADDRESS: string;
   SITESAFETYPLAN: string;
@@ -94,7 +95,13 @@ export interface Strings {
   SELECT_TEAM: string;
   SEARCH: string;
   SELECT_FILTER: string;
-
+  ALLTEAMS: string;
+  RANGE: string;
+  DATE_TO: string;
+  DATE_FROM: string;
+  SELECTED_USERS: string;
+  MAKE_TEAMLEAD: string;
+  REMOVE_TEAMLEAD: string;
 }
 
 export interface Auth {
@@ -251,6 +258,7 @@ export interface Messages {
   RESET_MSG: string;
   EMAIL_MSG: string;
   ORGANIZATION_MSG: string;
+  EMAIL_ALREADY_EXISTS: string;
   TYPE_MSG: string;
   MODULE_MSG: string;
   MODULESELECT_MSG: string;
@@ -520,7 +528,17 @@ export interface SiteTitle {
   DOCUMENTS: string;
   MY_TEAM: string;
   ACCOUNTINFO: string;
-  ACTION_REPORT: string
+  ACTION_REPORT: string;
+  AVERAGE_DAILY_ACTION_REPORT: string;
+  NUMBER_CHECKINS_BY_ACTIVITY: string;
+  HOURS_CHECKINS_BY_ACTIVITY: string;
+  CHECKIN_BY_PERSON: string;
+  ACTIONS_VS_ALERTS: string;
+  PULSE_REPORT_BY_ENTITY: string;
+  PULSE_REPORT_BY_PERSON: string;
+  COMPLIANT_CHECKOUT: string;
+  SITE_ACTIVITY_REPORT: string;
+  HAZARD_REPORTS: string;
 }
 
 export interface TableHeadings {

@@ -182,7 +182,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
       this.navService.changeSelectedEntity(this.navModel.selectedEntity);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
-      console.log(this.navModel);
     }
 
   }

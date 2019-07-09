@@ -155,25 +155,28 @@ export class QuestionCenterComponent implements OnInit {
       'search': search
     }
     this.questionCenterService.viewAllEntityQuestions(data).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.QuestionObj.pageCount = res.data.pageCount;
         if (pageIndex === 0) {
           this.entityQuestionPaginator.pageIndex = 0;
         }
         this.QuestionObj.entityQuestionsResponse = this.compiler.constructAllEntityQuestionsData(res);
-        if (res.data.entityQuestionList.length > 0) {
+        if (res && res.data.entityQuestionList.length > 0) {
           this.QuestionObj.entityQuestions = new MatTableDataSource(this.QuestionObj.entityQuestionsResponse.entityQuestionList);
-        } else if (res.data.entityQuestionList.length === 0) {
+        } else if (res && res.data.entityQuestionList.length === 0) {
           this.QuestionObj.entityQuestions = null;
         }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.QuestionObj.entityQuestions = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
+      } else {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+          this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.QuestionObj.entityQuestions = null;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+      this.helperService.createSnack(error.error,
         this.helperService.constants.status.ERROR);
     });
   }

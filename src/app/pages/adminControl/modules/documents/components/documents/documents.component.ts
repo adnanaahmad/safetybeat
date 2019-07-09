@@ -4,10 +4,8 @@ import {MatDialog} from '@angular/material';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {Documents} from 'src/app/models/navigation/documents.model';
 import {CompilerProvider} from 'src/app//shared/compiler/compiler';
-import {UploadDocComponent} from 'src/app/pages/navigation/dialogs/uploadDoc/uploadDoc.component';
-import {CreateFolderComponent} from 'src/app/pages/navigation/dialogs/createFolder/createFolder.component';
-import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
-import {ViewDocComponent} from 'src/app/pages/navigation/dialogs/viewDoc/viewDoc.component';
+import {UploadDocComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/uploadDoc/uploadDoc.component';
+import {CreateFolderComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
 import {Router} from '@angular/router';
 
 
@@ -24,7 +22,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private navService: NavigationService,
     public compiler: CompilerProvider,
-    private router: Router
   ) {
     this.initialize();
   }
@@ -39,15 +36,20 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.documentsData.entityID = res.entityInfo.id;
-        this.getAllFolders(this.documentsData.entityID);
-        this.getRootDocuments(this.documentsData.entityID);
+        this.refreshFiles(true);
+        this.refreshFolders(true);
       }
     });
   }
+
   ngOnDestroy(): void {
     this.documentsData.subscription.unsubscribe();
   }
 
+  /**
+   * Get and refresh all folders from DB
+   * @param entityID
+   */
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -64,7 +66,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  getRootDocuments(entityId) {
+  /**
+   * Get all root docs
+   * @params entityId
+   */
+  getRootDocuments(entityId: number) {
     this.documentsData.rootDocs = [];
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
@@ -73,7 +79,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.rootDocs = this.compiler.constructDocuments(res);
         this.navService.updateDocument(this.documentsData.docList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.documentsData.documentExist = false;
+        this.documentsData.documentExist = false;
       } else {
         this.documentsData.documentExist = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
@@ -82,6 +88,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Upload new document at root folder
+   */
   uploadDoc() {
     this.helperService.createDialog(UploadDocComponent, {
       disableClose: true, data: {
@@ -91,60 +100,37 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       }
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getRootDocuments(this.documentsData.entityID);
-      this.getAllFolders(this.documentsData.entityID);
+      this.refreshFiles(true);
     });
   }
-  newFolder() {
+
+  /**
+   * Create new folder
+   */
+  createFolder() {
     this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getAllFolders(this.documentsData.entityID);
     });
   }
 
-  deleteDoc(id) {
-    this.helperService.createDialog(ConfirmationModalComponent,
-      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_DOCUMENT}});
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
-        this.helperService.toggleLoader(true);
-        this.navService.deleteDoc(id).subscribe((res) => {
-          this.getAllFolders(this.documentsData.entityID);
-          this.getRootDocuments(this.documentsData.entityID);
-        });
-      }
-    });
-  }
-// this function opens and shows a document in a dialog
-  viewDoc(doc: any) {
-    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
-  }
-// this function is used to delete the existing folder
-  deleteFolder(id) {
-    this.helperService.createDialog(ConfirmationModalComponent,
-      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_FOLDER}});
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
-        this.helperService.toggleLoader(true);
-        this.navService.deleteFolder(id).subscribe((res) => {
-          this.getAllFolders(this.documentsData.entityID);
-        });
-      }
-    });
-  }
-// this function opens dialog to rename folder
-  renameFolder(folderInfo) {
-    this.helperService.createDialog(CreateFolderComponent, {
-      disableClose: true,
-      data: {type: false, folderId: folderInfo.id, name: folderInfo.name}
-    });
-    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+  /**
+   * Refresh Folders data after renaming or removing
+   * @params status
+   */
+  refreshFolders(status: boolean) {
+    if (status) {
       this.getAllFolders(this.documentsData.entityID);
-    });
+    }
   }
-// this function opens another component to show a folder's file
-  showDocs(folderId: number) {
-    this.router.navigate(['/home/viewDocs', {folderId: JSON.stringify(folderId),
-      entityId: JSON.stringify(this.documentsData.entityID)}], {skipLocationChange: false});
+
+  /**
+   * Refresh Files data after renaming or removing
+   * @params status
+   */
+  refreshFiles(status: boolean) {
+    if (status) {
+      this.getRootDocuments(this.documentsData.entityID);
+    }
   }
 }

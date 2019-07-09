@@ -86,7 +86,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
           this.memberCenter.permissions = data;
         }
       });
-      console.log(this.memberCenter.permissions);
       this.memberCenter.elements = this.compiler.entityUser(response.allUser);
       this.memberService.changeEntityUsers(this.memberCenter.elements);
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);

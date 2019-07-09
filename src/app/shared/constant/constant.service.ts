@@ -327,7 +327,9 @@ export class ConstantService {
     createFolder: 'create_new_folder',
     phone: 'phone',
     activities: 'tab_unselected',
-    connections: 'linear_scale'
+    connections: 'linear_scale',
+    userCircled: 'account_circle',
+    teamLead: 'stars'
   };
   /**
    * all the particle container icon names are declared here.
