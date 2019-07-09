@@ -8,7 +8,7 @@
   <form [formGroup]="documentsData.folderForm" (ngSubmit)="folderFormSubmit(documentsData.folderForm)">
     <mat-form-field  appearance="outline" full-width>
       <mat-label>{{helperService.translated.STRINGS.FOLDER_NAME}}</mat-label>
-      <input formControlName="title" matInput type="text" required />
+      <input formControlName="title" matInput type="text" required autofocus/>
           <mat-error class="text-right" *ngIf="folderFormControls.title.errors">
                   <span
                     *ngIf="folderFormControls.title.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>

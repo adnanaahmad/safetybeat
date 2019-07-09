@@ -1,0 +1,26 @@
+<ng-container>
+  <mat-card class="file-inline">
+    <button class="file-options" mat-icon-button [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="renameFile(docData)">
+        <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+        <span>{{helperService.translated.BUTTONS.RENAME}}</span>
+      </button>
+      <button mat-menu-item (click)="deleteDoc(docData.id)">
+        <mat-icon>{{ helperService.appIcons.deleteForever }}</mat-icon>
+        <span>{{helperService.translated.BUTTONS.DELETE}}</span>
+      </button>
+    </mat-menu>
+    <div class="content" (click)="viewDoc(docData.file)">
+      <div class="filetype">
+        <span>{{(docData.title.split('.'))[1]}}</span>
+      </div>
+      <!-- <span class="file-label mat-caption">{{(doc.title.split('.'))[1]}}</span> -->
+      <!--          <iframe src="https://docs.google.com/spreadsheets/d/1LF_fQTyzS9woI4nG4MkAvbNFhKWgQPnfhoQDsdCKBEc/edit#gid=1243096096" width='100%' height='140'></iframe>-->
+      <span class="mat-body-2 mat-small">{{docData.title}}</span>
+    </div>
+  </mat-card>
+</ng-container>
