@@ -1,6 +1,19 @@
 @mixin amte-profile($primary, $accent, $warn) {
   :host,
   app-profile {
+    .not-checked{
+      color: mat-color($warn-pallete, 500);
+    }
+    .viewsite{
+      color: mat-color($primary);
+      mat-icon{
+        font-size: 18px;
+        height: auto;
+        width: auto;
+        position: relative;
+        top: 4px;
+      }
+    }
     $boxShadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.18);
     .settings-btn {
       margin-left: auto;

@@ -18,6 +18,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {SiteMapComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 
 @Component({
   selector: 'app-profile',
@@ -30,11 +31,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
   entitiesColumn: string[] = ['name', 'headOffice', 'access', 'managedBy'];
-  connectionsColumns: string[] = ['img', 'name', 'email', 'contact'];
+  connectionsColumns: string[];
 
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // cards: any;
 
   profileFeatures = {
     activities: true,
@@ -81,7 +81,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     this.route.params.subscribe((data) => {
       if (!helperService.isEmpty(data)) {
-
         this.profileModel.receivedData = JSON.parse(data.data);
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.userId = this.profileModel.receivedData.id;
@@ -95,6 +94,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
+          } else {
+            // do something here
           }
         });
       }
@@ -106,10 +107,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * to the behavior subject of the profile data.
    */
   ngOnInit() {
-    // this.dataSource.paginator = this.paginator;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
+          this.connectionsColumns = ['img', 'name', 'email', 'contact', 'remove_connection'];
           this.profileModel.profileData = res;
           this.profileModel.contactNo = this.profileModel.profileData.contactNo;
           this.profileModel.name = this.profileModel.profileData.first_name + ' ' + this.profileModel.profileData.last_name;
@@ -121,6 +122,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.viewActivities(this.profileModel.userId);
           this.viewAllEntities(this.profileModel.userId);
         } else {
+          this.connectionsColumns = ['img', 'name', 'email', 'contact'];
           this.profileModel.contactNo = this.profileModel.receivedData.contact;
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.name = this.profileModel.receivedData.name;
@@ -141,6 +143,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   initialize() {
+    this.profileModel.entityCount = 0;
+    this.profileModel.connectionCount = 0;
+    this.profileModel.noTeam = false;
     this.profileModel.translated = this.helperService.translated;
     this.profileModel.appIcons = this.helperService.constants.appIcons;
     this.profileModel.appConstants = this.helperService.constants.appConstant;
@@ -180,6 +185,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         if (res.data.length === 0) {
           this.profileModel.noEntity = true;
         } else {
+            this.profileModel.entityCount = res.data.length;
             this.helperService.toggleLoader(false);
             this.profileModel.entitiesList = res.data;
             this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList);
@@ -193,7 +199,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.noEntity = true;
       }
     });
-
   }
 
   /**
@@ -265,12 +270,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getUserConnections(userId: number) {
-
+    this.profileModel.allConnectionsData = [];
     this.adminService.allConnections({userId: userId}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.profileModel.connectionCount = res.data.length;
         this.profileModel.allConnectionsRes = res;
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
-        console.log(this.profileModel.allConnectionsData);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noConnection = true;
       } else {
@@ -282,21 +287,28 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   removeConnection(sentToUserId: number) {
-    this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
-        this.getUserConnections(this.profileModel.userId);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
-          res.responseDetails.message);
+    this.profileModel.connectionCount = 0;
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.REMOVE_CONNECTION}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.memberService.removeConnection({receivedBy: sentToUserId}).subscribe((res) => {
+          if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
+              this.helperService.constants.status.SUCCESS);
+            this.getUserConnections(this.profileModel.userId);
+          } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+              res.responseDetails.message);
+          }
+        }, (error) => {
+          this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
+            this.helperService.constants.status.ERROR);
+        });
       }
-    }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
-        this.helperService.constants.status.ERROR);
     });
-
   }
 
   viewSite(longitude, latitude, siteName, location) {

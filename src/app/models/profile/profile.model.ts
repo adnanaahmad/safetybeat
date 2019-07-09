@@ -2,8 +2,13 @@ import {FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
+import {TeamList} from '../adminControl/myTeam.model';
 
 export interface ProfileModel {
+  teamsData: TeamList;
+  noTeam: boolean;
+  connectionCount: number;
+  entityCount: number;
   noEntity: boolean;
   imageFile: File;
   profileImage: Blob;

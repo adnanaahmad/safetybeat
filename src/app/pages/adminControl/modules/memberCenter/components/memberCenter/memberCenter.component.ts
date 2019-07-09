@@ -45,17 +45,12 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     this.navService.selectedEntityData.subscribe((res) => {
       this.memberCenter.currentRole = res.role;
     });
-    this.memberCenter.subscription = this.memberService.entityUserObserver.subscribe((res) => {
-      if (res !== 1) {
-        this.memberCenter.dataSource = res;
-      } else {
-        this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
-      }
-    });
+
+    this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
   }
 
   ngOnDestroy() {
-    this.memberCenter.subscription.unsubscribe();
+    // this.memberCenter.subscription.unsubscribe();
   }
 
   initialize() {
@@ -73,9 +68,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       'entityId': this.memberCenter.entityId,
       'search': search,
       'pageIndex': pageIndex,
-    }
+    };
     this.memberService.entityUsers(data).subscribe((res) => {
-      let response: allUserResponse = res.data
+      let response: allUserResponse = res.data;
       this.memberCenter.pageCount = response.pageCount;
       if (pageIndex === 0) {
         this.paginator.pageIndex = 0;

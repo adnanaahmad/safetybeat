@@ -330,7 +330,8 @@ export class ConstantService {
     activities: 'tab_unselected',
     connections: 'linear_scale',
     userCircled: 'account_circle',
-    teamLead: 'stars'
+    teamLead: 'stars',
+    Launch: 'launch'
   };
   /**
    * all the particle container icon names are declared here.

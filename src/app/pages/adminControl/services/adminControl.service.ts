@@ -109,8 +109,8 @@ export class AdminControlService {
    */
 
   inviteTeam(data: InviteTeamData): Observable<InviteTeamResponse> {
-    this.inviteTeamResponse$ = this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.inviteTeam, data);
-    return this.inviteTeamResponse$;
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.inviteTeam, data);
+
   }
 
   /**
