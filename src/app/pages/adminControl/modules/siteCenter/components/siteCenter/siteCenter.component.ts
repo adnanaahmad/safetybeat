@@ -65,7 +65,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   ngOnDestroy() {
-    this.siteCentreObj.subscription.unsubscribe();
+    // this.siteCentreObj.subscription.unsubscribe();
   }
 
   /**

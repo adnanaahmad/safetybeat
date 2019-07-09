@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {DocumentsComponent} from './components/documents/documents.component';
-import {ShowDocumentsComponent} from './components/showDocuments/showDocuments.component';
+import {ShowFolderDocumentsComponent} from './components/showFolderDocuments/showFolderDocuments.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'viewDocs',
-    component: ShowDocumentsComponent
+    component: ShowFolderDocumentsComponent
   }
 ];
 

@@ -9,6 +9,7 @@ import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/mem
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
+import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
 
 
 @Component({
@@ -75,6 +76,11 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       if (pageIndex === 0) {
         this.paginator.pageIndex = 0;
       }
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.memberCenter.permissions = data;
+        }
+      });
       this.memberCenter.elements = this.compiler.entityUser(response.allUser);
       this.memberService.changeEntityUsers(this.memberCenter.elements);
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
