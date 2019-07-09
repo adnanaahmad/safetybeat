@@ -25,8 +25,9 @@
     </div>
   </form>
   <mat-dialog-actions>
-    <button mat-raised-button cdkFocusInitial custom-btn btn-primary
-      color="primary">{{helperService.translated.BUTTONS.SHOW_RESULTS}}</button>
+    <button mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary">
+      <mat-icon>{{helperService.appIcons.search}}</mat-icon> {{helperService.translated.BUTTONS.SHOW_RESULTS}}
+    </button>
     <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
   </mat-dialog-actions>
 </div>

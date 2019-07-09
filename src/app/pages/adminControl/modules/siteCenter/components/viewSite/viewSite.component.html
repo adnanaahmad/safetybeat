@@ -11,7 +11,7 @@
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="300px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='activity'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='Activity'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
@@ -87,23 +87,29 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='information'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='Information'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div *ngIf="viewSiteObj.siteInfo">
             <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
-              <mat-icon>{{helperService.appIcons.permIdentity}}</mat-icon>
+              <span>
+                <mat-icon color="primary">{{helperService.appIcons.permIdentity}}</mat-icon>
+              </span>
               <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
               <p>{{viewSiteObj.siteSafetyManager.first_name}} {{viewSiteObj.siteSafetyManager.last_name}}</p>
             </div>
             <mat-divider></mat-divider>
             <div class="siteinfo-row">
-              <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.check}}
-              </mat-icon>
-              <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">
-                {{helperService.appIcons.clear}}</mat-icon>
+              <span>
+                <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.check}}
+                </mat-icon>
+              </span>
+              <span>
+                <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">
+                  {{helperService.appIcons.clear}}</mat-icon>
+              </span>
               <strong>{{helperService.translated.STRINGS.SAFEZONE}}</strong>
               <p *ngIf="viewSiteObj.siteInfo.safeZone">
                 {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
@@ -112,20 +118,20 @@
             </div>
             <mat-divider></mat-divider>
             <div class="siteinfo-row">
-              <mat-icon>{{helperService.appIcons.security}}</mat-icon>
+              <mat-icon color="primary">{{helperService.appIcons.security}}</mat-icon>
               <strong>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</strong>
               <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
             </div>
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='hazards'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='Hazards'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div *ngIf="viewSiteObj.siteInfo">
-            <div class="activity-card mat-elevation-z1">
+            <div class="activity-card">
               <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                     <mat-icon>link</mat-icon> View Site
                   </a></span></div>
@@ -133,7 +139,8 @@
               <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
               <div class="row"><strong>Duration</strong><span>10 days</span></div>
             </div>
-            <div class="activity-card mat-elevation-z1">
+            <mat-divider></mat-divider>
+            <div class="activity-card">
               <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                     <mat-icon>link</mat-icon> View Site
                   </a></span></div>
@@ -141,7 +148,8 @@
               <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
               <div class="row"><strong>Duration</strong><span>10 days</span></div>
             </div>
-            <div class="activity-card mat-elevation-z1">
+            <mat-divider></mat-divider>
+            <div class="activity-card">
               <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                     <mat-icon>link</mat-icon> View Site
                   </a></span></div>
@@ -149,7 +157,8 @@
               <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
               <div class="row"><strong>Duration</strong><span>10 days</span></div>
             </div>
-            <div class="activity-card mat-elevation-z1">
+            <mat-divider></mat-divider>
+            <div class="activity-card">
               <div class="row"><strong>BlueSky Hardware</strong><span><a routerLink="">
                     <mat-icon>link</mat-icon> View Site
                   </a></span></div>
@@ -160,7 +169,7 @@
           </div>
         </mat-card-content>
       </mat-card>
-      <mat-card class="dashboard-card activities" *ngIf="card.title==='location'">
+      <mat-card class="dashboard-card activities" *ngIf="card.title==='Location'">
         <mat-card-header class="infoTitle">
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>

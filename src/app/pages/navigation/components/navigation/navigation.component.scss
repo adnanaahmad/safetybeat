@@ -130,6 +130,16 @@
     }
     mat-sidenav {
       width: 200px;
+      overflow-y: hidden;
+      app-nav-list {
+        overflow-y: auto;
+        height: 100%;
+        display: block;
+        width: 218px;
+      }
+      .mat-drawer-inner-container {
+        overflow: hidden;
+      }
       .nav-link {
         font-size: 14px;
         height: 100%;
@@ -137,6 +147,15 @@
       }
       .mat-list-base {
         padding-top: 0;
+      }
+      mat-accordion {
+        .mat-expansion-indicator {
+          position: absolute;
+          right: 14px;
+        }
+        mat-expansion-panel-header{
+          position: relative;
+        }
       }
     }
     mat-sidenav-container {
