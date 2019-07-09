@@ -27,17 +27,17 @@ export class ViewSiteComponent implements OnInit {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'activity', cols: 2, rows: 1 },
-          { title: 'information', cols: 2, rows: 1 },
-          { title: 'hazards', cols: 2, rows: 1 },
-          { title: 'location', cols: 2, rows: 1 }
+          { title: 'Activity', cols: 2, rows: 1 },
+          { title: 'Information', cols: 2, rows: 1 },
+          { title: 'Hazards', cols: 2, rows: 1 },
+          { title: 'Location', cols: 2, rows: 1 }
         ];
       } else {
         return [
-          { title: 'activity', cols: 1, rows: 1 },
-          { title: 'information', cols: 1, rows: 1 },
-          { title: 'hazards', cols: 1, rows: 1 },
-          { title: 'location', cols: 1, rows: 1 }
+          { title: 'Activity', cols: 1, rows: 1 },
+          { title: 'Information', cols: 1, rows: 1 },
+          { title: 'Hazards', cols: 1, rows: 1 },
+          { title: 'Location', cols: 1, rows: 1 }
         ];
       }
     })

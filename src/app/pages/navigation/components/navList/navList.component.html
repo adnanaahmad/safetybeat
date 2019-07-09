@@ -7,7 +7,7 @@
   <mat-accordion class="nav-accordion"
                  *ngIf="link.disabled&&link.displayName===helperService.translated.MESSAGES.ANALYTICS_REPORTS">
     <mat-expansion-panel>
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header [expandedHeight]="'48px'">
         <mat-panel-title>
           {{link.displayName}}
         </mat-panel-title>

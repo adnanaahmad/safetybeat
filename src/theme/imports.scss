@@ -93,7 +93,6 @@
   @include amte-addQuestion($primary, $accent, $warn);
   @include amte-createQuestion($primary, $accent, $warn);
   @include amte-documents($primary, $accent, $warn);
-  @include amte-showDocuments($primary, $accent, $warn);
   @include amte-viewDoc($primary, $accent, $warn);
   @include amte-action-report($primary, $accent, $warn);
   @include amte-siteActivityReport($primary, $accent, $warn);

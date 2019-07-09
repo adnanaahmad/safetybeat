@@ -27,10 +27,13 @@ export class HazardDetailsComponent implements OnInit {
     this.hazardInfo = this.data;
   }
 
-  testingFunc() {
+  testingFunc(image) {
+    console.log(image)
     this.helperService.createDialog(ImageLightboxComponent,
-      { data:
-        { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD }
+      {
+        data:
+          { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD,
+          imageData:image }
       });
   }
 }

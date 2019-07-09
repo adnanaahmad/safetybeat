@@ -12,6 +12,7 @@
         <h1>{{helperService.translated.MESSAGES.ANONYMOUS}}</h1>
         <p>{{helperService.translated.MESSAGES.WELCOME_MSG}}</p>
       </div>
+      <app-particle-container></app-particle-container>
     </mat-card>
     <mat-card class="midbox loginbox mat-elevation-z10" *ngIf="card.title == 'loginForm'">
       <mat-card-title>{{helperService.translated.BUTTONS.LOGIN}}</mat-card-title>
@@ -62,5 +63,4 @@
       </form>
     </mat-card>
   </mat-grid-tile>
-  <app-particle-container></app-particle-container>
 </mat-grid-list>
