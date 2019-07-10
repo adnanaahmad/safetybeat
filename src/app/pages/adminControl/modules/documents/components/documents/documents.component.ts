@@ -114,7 +114,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * Create new folder
    */
   createFolder() {
-    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID}});
+    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID,
+      folderList: this.documentsData.folderList}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getAllFolders(this.documentsData.entityID);
     });

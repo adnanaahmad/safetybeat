@@ -14,7 +14,7 @@ import {CreateFolderComponent} from 'src/app/pages/adminControl/modules/document
 export class FileComponent implements OnInit {
 
   @Input() docData: Object;
-  @Output() processAction:EventEmitter<any> = new EventEmitter<any>();
+  @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
 
 
   constructor( public dialog: MatDialog,
@@ -26,7 +26,7 @@ export class FileComponent implements OnInit {
 
   /**
    * Delete Document
-   * @param id 
+   * @params id
    */
   deleteDoc(id: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
@@ -45,7 +45,7 @@ export class FileComponent implements OnInit {
 
   /**
    * This is to rename the file
-   * @param fileInfo 
+   * @params fileInfo
    */
   renameFile(fileInfo: any) {
     this.helperService.createDialog(CreateFolderComponent, {
