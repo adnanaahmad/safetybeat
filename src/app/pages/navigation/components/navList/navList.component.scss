@@ -18,11 +18,19 @@
           right: 0;
         }
       }
-      &.active,
-      &:hover {
+      &.active {     
         background: #fff !important;
         .nav-link{
           color: mat-color($primary) !important;
+        }
+      }
+      &:hover {
+        background: mat-color($primary-pallet, 500) !important;
+        &.active {     
+          background: #fff !important;
+          .nav-link{
+            color: mat-color($primary) !important;
+          }
         }
       }
     }
