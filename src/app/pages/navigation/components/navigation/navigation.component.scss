@@ -35,6 +35,13 @@
       button {
         @include ellipsis;
         width: $fullValue;
+        margin-right: 20px;
+        text-align: left;
+        mat-icon {
+          position: absolute;
+          right: 0;
+          top: 7px;
+        }
       }
     }
     .profile-menu {
@@ -123,6 +130,16 @@
     }
     mat-sidenav {
       width: 200px;
+      overflow-y: hidden;
+      app-nav-list {
+        overflow-y: auto;
+        height: 90vh;
+        display: block;
+        width: 218px;
+      }
+      .mat-drawer-inner-container {
+        overflow: hidden;
+      }
       .nav-link {
         font-size: 14px;
         height: 100%;
@@ -130,6 +147,16 @@
       }
       .mat-list-base {
         padding-top: 0;
+      }
+      mat-accordion {
+        .mat-expansion-indicator {
+          position: absolute;
+          right: 35px;
+          transform-origin: 14px 50% 0;
+        }
+        mat-expansion-panel-header{
+          position: relative;
+        }
       }
     }
     mat-sidenav-container {

@@ -4,11 +4,12 @@ import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCent
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
-import {allUserResponse, MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
+import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
+import {entityUserApiData} from '../../../../../../models/entity.model';
 
 
 @Component({
@@ -45,17 +46,11 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     this.navService.selectedEntityData.subscribe((res) => {
       this.memberCenter.currentRole = res.role;
     });
-    this.memberCenter.subscription = this.memberService.entityUserObserver.subscribe((res) => {
-      if (res !== 1) {
-        this.memberCenter.dataSource = res;
-      } else {
-        this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
-      }
-    });
+
+    this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
   }
 
   ngOnDestroy() {
-    this.memberCenter.subscription.unsubscribe();
   }
 
   initialize() {
@@ -70,11 +65,14 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
 
   getAllUsers(pageIndex, search) {
     let data = {
-      'entityId': this.memberCenter.entityId,
-      'search': search,
-      'pageIndex': pageIndex,
-    }
-    this.memberService.entityUsers(data).subscribe((res) => {
+      search: search,
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit
+    };
+    let entityId = {
+      entityId: this.memberCenter.entityId,
+    };
+    this.memberService.entityUsers(entityId, data).subscribe((res) => {
       this.memberCenter.pageCount = res.data.pageCount;
       if (pageIndex === 0) {
         this.paginator.pageIndex = 0;

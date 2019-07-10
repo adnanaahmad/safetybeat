@@ -37,7 +37,8 @@
           {{ helperService.translated.STRINGS.IMAGE }}
         </th>
         <td mat-cell *matCellDef="let element">
-          <img class="table-img"
+          <img (click)="testingFunc(element.hazard.image ? element.hazard.image : helperService.appConstants.noHazard)"
+            class="table-img pointer"
             src="{{ element.hazard.image ? element.hazard.image : helperService.appConstants.noHazard}}" />
         </td>
       </ng-container>

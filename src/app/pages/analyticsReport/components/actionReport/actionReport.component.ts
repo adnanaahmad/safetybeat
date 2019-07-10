@@ -15,7 +15,7 @@ import * as Highcharts from 'highcharts';
 })
 export class ActionReportComponent implements OnInit, OnDestroy {
 
-  siteActivityObj: ActionReport = <ActionReport>{};
+  actionReportObj: ActionReport = <ActionReport>{};
 
   constructor(
     public helperService: HelperService,
@@ -25,41 +25,53 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     public compiler: CompilerProvider,
     private highChartSettings: HighchartService
   ) {
-    this.siteActivityObj.filters = ['Choose a Range', 'weekly', 'monthly', 'yearly', 'Lifetime'];
-    this.siteActivityObj.noSites = false;
+    this.actionReportObj.filters = ['Choose a Range', 'weekly', 'monthly', 'yearly', 'Lifetime'];
+    this.actionReportObj.noSites = false;
   }
 
   ngOnInit() {
-    this.siteActivityObj.actionReportForm = this.formBuilder.group({
+    this.actionReportObj.actionReportForm = this.formBuilder.group({
       filter: [''],
       entityName: ['', Validators.required],
       dateTo: ['', Validators.required],
       dateFrom: ['', Validators.required]
     });
-    this.siteActivityObj.subscription = this.navService.data.subscribe((res) => {
+    // this.actionReportObj.subscription = this.navService.data.subscribe((res) => {
+    //   if (res !== 1) {
+    //     console.log(res);
+    //     this.actionReportObj.allEntitiesData = res;
+    //     this.actionReportObj.entityUserData = this.actionReportObj.allEntitiesData.entities;
+    //     this.actionReportObj.entityName = this.actionReportObj.entityUserData[0].entityInfo.name;
+    //     this.actionReportObj.entityId = this.actionReportObj.entityUserData[0].entityInfo.id;
+    //     this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
+    //     this.actionFormValidations['entityName'].disable();
+    //   }
+    // });
+    this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
-        this.siteActivityObj.allEntitiesData = res;
-        this.siteActivityObj.entityUserData = this.siteActivityObj.allEntitiesData.entities;
-        this.siteActivityObj.entityName = this.siteActivityObj.entityUserData[0].entityInfo.name;
-        this.siteActivityObj.entityId = this.siteActivityObj.entityUserData[0].entityInfo.id;
-        this.actionFormValidations['entityName'].setValue(this.siteActivityObj.entityName);
+
+        this.actionReportObj.allEntitiesData = res;
+        this.actionReportObj.entityUserData = this.actionReportObj.allEntitiesData.entities;
+        this.actionReportObj.entityId = res.entityInfo.id;
+        this.actionReportObj.entityName = res.entityInfo.name;
+        this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
         this.actionFormValidations['entityName'].disable();
       }
     });
-    this.actionFormValidations[this.helperService.appConstants.filter].setValue(this.siteActivityObj.filters[4]);
-    this.siteActivityObj.entityId = JSON.parse(this.helperService.decrypt
+    this.actionFormValidations[this.helperService.appConstants.filter].setValue(this.actionReportObj.filters[4]);
+    this.actionReportObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.defaultReport();
   }
 
   get actionFormValidations() {
-    return this.siteActivityObj.actionReportForm.controls;
+    return this.actionReportObj.actionReportForm.controls;
   }
 
   defaultReport() {
     let data = {
-      'entityId': this.siteActivityObj.entityId,
+      'entityId': this.actionReportObj.entityId,
       'dateTo': null,
       'dateFrom': null,
       'filter': null
@@ -69,18 +81,19 @@ export class ActionReportComponent implements OnInit, OnDestroy {
 
   makeReport(data) {
     this.analyticsService.actionReport(data).subscribe((res) => {
+      console.log(res);
       if (res.responseDetails.code === 100) {
-        this.siteActivityObj.actionReportData = this.compiler.constructActionReportData(res.data);
+        this.actionReportObj.actionReportData = this.compiler.constructActionReportData(res.data);
         let chartType: HighChartType = {
           type: 'column',
           title: 'Action Report',
           subtitle: ''
         };
         let userChart = 0;
-        let data = this.highChartSettings.reportSettings(chartType, [], this.siteActivityObj.actionReportData, userChart);
+        let data = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.actionReportData, userChart);
         Highcharts.chart('container', data);
       } else {
-        this.siteActivityObj.noSites = true;
+        this.actionReportObj.noSites = true;
       }
     });
   }
@@ -92,14 +105,14 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     let data;
     if (value.filter !== 'Choose a Range') {
       data = {
-        'entityId': this.siteActivityObj.entityId,
+        'entityId': this.actionReportObj.entityId,
         'dateTo': null,
         'dateFrom': null,
         'filter': value.filter
       };
     } else {
       data = {
-        'entityId': this.siteActivityObj.entityId,
+        'entityId': this.actionReportObj.entityId,
         'dateTo': value.dateTo,
         'dateFrom': value.dateFrom,
         'filter': null
@@ -109,7 +122,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.siteActivityObj.subscription.unsubscribe();
+    this.actionReportObj.subscription.unsubscribe();
   }
 
   filteredReport(value: any) {

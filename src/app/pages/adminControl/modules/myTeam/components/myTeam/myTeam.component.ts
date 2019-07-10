@@ -36,12 +36,20 @@ export class MyTeamComponent implements OnInit {
   }
 
   getAllUsers() {
+    debugger
     let data = {
       entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
     };
-    this.memberService.entityUsers(data).subscribe((res) => {
-      this.allUsers = this.compiler.entityUser(res);
+    let paginationData = {
+      limit: null,
+      offset: null,
+      search: null
+    };
+    this.memberService.entityUsers(data, paginationData).subscribe((res) => {
+      if (res) {
+        this.allUsers = this.compiler.entityUser(res.data.allUser);
+      }
     });
   }
 
@@ -51,6 +59,8 @@ export class MyTeamComponent implements OnInit {
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getAllTeams();
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -58,9 +68,8 @@ export class MyTeamComponent implements OnInit {
     let data: GetAllTeamsData = {
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
-    }
+    };
     this.adminServices.allTeamsData(data).subscribe(res => {
-      debugger
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.myTeam.allTeams = this.compiler.constructAllTeamsData(res);
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);

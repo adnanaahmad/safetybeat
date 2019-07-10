@@ -83,11 +83,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   initialize() {
     this.navModel.translated = this.helperService.translated;
-    this.navModel.navLinks = [];
+    this.navModel.navLinks = null;
     this.navModel.defaultList = [];
     this.navModel.empty = true;
     this.navModel.appIcons = this.helperService.constants.appIcons;
-    this.navModel.navLinks = this.navModel.defaultList;
     this.navModel.logoutDisable = false;
     this.packageInfo = {
       days: 0,
@@ -115,7 +114,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.navModel.selectedEntity =
           index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
         this.switchSideMenu(this.navModel.selectedEntity);
-        console.log(this.navModel.selectedEntity);
+        this.navService.changePermissions(this.navModel.selectedEntity.permissions)
       } else {
         this.adminServices
           .viewEntities(this.moduleData)
@@ -168,81 +167,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  /**
-   * this function is used to change the reports menu. when the user clicks on analytics report.
-   */
-
-  switchList() {
-    this.navModel.navLinks = [
-      {
-        route: '/home',
-        iconName: this.navModel.appIcons.dashboard,
-        displayName: 'Dashboard',
-        disabled: true
-      },
-      {
-        displayName: 'Action Report',
-        route: '/home/analyticsReport/actionReport',
-        disabled: true
-      },
-      {
-        displayName: 'Average Daily Actions',
-        route: '/home/analyticsReport/averageDailyActionsReport',
-        disabled: true
-      },
-      {
-        displayName: 'Checkin by Activity',
-        route: '/home/analyticsReport/checkInActivityReport',
-        disabled: true
-      },
-      {
-        displayName: 'Checkin and Alert by Person',
-        route: '/home/analyticsReport/alertsPersonReport',
-        disabled: true
-      },
-      {
-        displayName: 'Actions vs Alerts',
-        route: '/home/analyticsReport/actionAlertsReport',
-        disabled: true
-      },
-      {
-        displayName: 'Pulse Report by Entity',
-        route: '/home/analyticsReport/entityPulseReport',
-        disabled: true
-      },
-      {
-        displayName: 'Pulse Report by Person',
-        route: '/home/analyticsReport/personPulseReport',
-        disabled: true
-      },
-      {
-        displayName: 'Compliant Checkout',
-        route: '/home/analyticsReport/compliantCheckoutReport',
-        disabled: true
-      },
-      {
-        displayName: 'Site Activity Report',
-        route: '/home/analyticsReport/siteActivityReport',
-        disabled: true
-      },
-      {
-        displayName: 'Hazard Reports',
-        route: '/home/analyticsReport/hazardReport',
-        disabled: true
-      }
-    ];
-  }
-
-  /**
-   * this function takes the data against the user and shows the menu according to user privileges.
-   * @params data
-   */
-
-  switchListDefault(data) {
-    this.navModel.navLinks = this.compiler.switchSideMenuDefault(this.navModel.entityUserData);
-  }
-
   /**
    * this function is used for switching the side menu when the selected entity is changed
    * and when the selected entity is changed then selected entity and role of the user is changed using
@@ -257,11 +181,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
       localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
         this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
       this.navService.changeSelectedEntity(this.navModel.selectedEntity);
-      this.navService.changeRole(this.navModel.selectedEntity.role);
-      this.getRoleFromStorage();
-      this.navService.changeRoleId(this.navModel.selectedEntity.permissions.role);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
+
   }
 
   /**
@@ -280,16 +202,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.navModel.logoutDisable = false;
       this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
     });
-  }
-
-  /**
-   * this function is used for getting the role of the user in the selected entity and is gotten from the local storage.
-   */
-
-  getRoleFromStorage() {
-    let currentRole = this.helperService.decrypt(localStorage.getItem
-    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
-    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 
   /**

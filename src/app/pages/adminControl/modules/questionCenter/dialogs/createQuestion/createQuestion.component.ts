@@ -54,7 +54,6 @@ export class CreateQuestionComponent implements OnInit {
 
 
   generateQuestionData(value) {
-    console.log(value);
     let questionData: any = {
       description: value.questionDescription,
       parent: value.parent,
@@ -95,7 +94,6 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   questionFormSubmit({value, valid}: { value: AddQuestionData; valid: boolean; }) {
-    console.log(value);
     this.data.edit ? this.editQuestion(value) : this.addQuestion(value);
     if (!valid) {
       this.helperService.appLoggerDev(

@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {entityUsersApiResponse} from 'src/app/models/entity.model';
+import {entityUserApiData, entityUsersApiResponse} from 'src/app/models/entity.model';
+import {PaginationData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from '../../../../../models/site.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +24,18 @@ export class MemberCenterService {
 
 
   /**
-   * this function is used to...
+   *
+   * @params entityId
    * @params data
    */
-  entityUsers(data): Observable<entityUsersApiResponse> {
+  entityUsers(entityId: ViewAllSiteEntityData, data?: PaginationData): Observable<entityUsersApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.entitiesUsers,
-      data
+      `${this.apiRoutes.entitiesUsers}?limit=${data.limit}&offset=${data.offset}&search=${data.search}`,
+      entityId
     );
   }
+
 
   /**
    * this function is used for adding members of the entities as connections
@@ -50,6 +53,7 @@ export class MemberCenterService {
   confirmConnection(data) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.connectionConfirm, data);
   }
+
   deactivateUser(data) {
     return this.helperService.requestCall(this.method.put, this.apiRoutes.deactivateUser, data);
   }

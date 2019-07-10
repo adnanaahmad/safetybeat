@@ -138,7 +138,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   viewAllEntities() {
     this.helperService.toggleLoader(true);
     this.entityControl.subscription = this.navService.data.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
         this.helperService.toggleLoader(false);
         this.entityControl.allEntitiesData = res.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
@@ -148,6 +148,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       }
     }, (error) => {
       this.helperService.toggleLoader(false);
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 

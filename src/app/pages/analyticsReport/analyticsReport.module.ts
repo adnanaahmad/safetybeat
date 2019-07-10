@@ -33,10 +33,9 @@ import {MaterialModule} from '../../shared/material/material.module';
     PersonPulseReportComponent,
     CompliantCheckoutReportComponent,
     SiteActivityReportComponent,
-    HazardReportComponent
-  ],
+    HazardReportComponent],
   exports: [
-
+    SiteActivityReportComponent
   ]
 })
 export class AnalyticsReportModule {

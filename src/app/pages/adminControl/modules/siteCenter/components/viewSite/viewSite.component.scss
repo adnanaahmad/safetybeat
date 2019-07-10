@@ -1,17 +1,17 @@
 @mixin amte-viewSite($primary, $accent, $warn) {
   :host,
   app-viewSite {
-    $boxShadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.18);
+    mat-divider {
+      position: relative !important;
+    }
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
       .siteicon {
         font-size: 75px;
         opacity: 0.2;
-        display: block;
         width: 60px;
         line-height: 0.4;
-        color: mat-color($primary, 500);
       }
       .user-info {
         padding: 5px 30px;
@@ -23,13 +23,6 @@
           font-size: 14px;
         }
       }
-    }
-    mat-grid-list {
-      height: 80vh;
-    }
-    .siteinfo-row,
-    .activity-card {
-      box-shadow: $boxShadow;
     }
     .site-map {
       width: 100%;
@@ -61,28 +54,25 @@
         overflow: auto;
       }
       .siteinfo-row {
+        display: flex;
         padding: 10px;
+        align-items: center;
         .safe-icon {
           color: #fff;
           &.safe {
             background-color: green;
           }
           &.unsafe {
-            background-color: mat-color($warn, 400);
+            background-color: mat-color($warn);
           }
         }
         mat-icon {
-          box-shadow: $boxShadow;
           border-radius: 100px;
           padding: 5px;
-          width: auto;
-          height: auto;
-          color: mat-color($primary, 500);
         }
         strong {
           width: 100%;
-          display: block;
-          margin: 10px 0;
+          padding: 10px;
         }
         p {
           margin: 0;
@@ -102,16 +92,6 @@
         .mat-card-header-text {
           margin: 0;
           width: 100%;
-        }
-        &:before {
-          content: "";
-          display: block;
-          width: 10px;
-          height: 3px;
-          border-radius: 100px;
-          float: left;
-          margin-right: 8px;
-          background: #fff;
         }
       }
       mat-list {
@@ -181,15 +161,19 @@
       }
     }
     .mat-card {
-      background: transparent;
       margin: 3px;
     }
-    @media (max-width: 768px) {
-      .grid-container {
-        .mat-grid-tile {
-          // width: 100% !important;
-          // left: 0 !important;
-          // position: relative;
+    @media (max-width: 575px) {
+      .pagehead {
+        display: block;
+        text-align: center;
+        .siteicon {
+          width: 100%;
+          margin: 20px 0;
+          font-size: 55px;
+        }
+        .user-info {
+          padding: 0;
         }
       }
     }

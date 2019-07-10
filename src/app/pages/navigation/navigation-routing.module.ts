@@ -11,7 +11,6 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: '../dashboard/dashboard.module#DashboardModule',
       },
-      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       {
         path: 'profile',
         loadChildren: '../profile/profile.module#ProfileModule'
@@ -27,7 +26,8 @@ const routes: Routes = [
       {
         path: 'analyticsReport',
         loadChildren: '../analyticsReport/analyticsReport.module#AnalyticsReportModule'
-      }
+      },
+      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     ]
   }
 

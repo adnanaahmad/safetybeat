@@ -43,3 +43,9 @@ export interface entityUsersApiResponseData {
   allUser: Array<entityUsersApiResponseUserData>;
   pageCount: number;
 }
+
+export interface entityUserApiData {
+  search?: string;
+  offset?: number;
+  limit?: number
+}
