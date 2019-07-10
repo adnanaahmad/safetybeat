@@ -51,11 +51,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * @params entityID
    */
   getAllFolders(entityID: number) {
-    this.documentsData.folderList = [];
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
           this.documentsData.folderExist = false;
+          this.documentsData.folderList = [];
         } else {
           this.documentsData.folderExist = true;
           this.documentsData.folderList = res.data;
@@ -106,7 +106,9 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       }
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.refreshFiles(true);
+      if (res !== 'cancel') {
+        this.refreshFiles(true);
+      }
     });
   }
 
@@ -117,9 +119,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID,
       folderList: this.documentsData.folderList}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllFolders(this.documentsData.entityID);
+      if (res !== 'cancel') {
+        this.getAllFolders(this.documentsData.entityID);
+      }
     });
-  }
+}
 
   /**
    * Refresh Folders data after renaming or removing
@@ -140,4 +144,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       this.getRootDocuments(this.documentsData.entityID);
     }
   }
+
+
 }

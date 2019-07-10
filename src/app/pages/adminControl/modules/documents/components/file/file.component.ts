@@ -1,10 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MatDialog} from '@angular/material';
-import {ViewDocComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/viewDoc/viewDoc.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {CreateFolderComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
 
 @Component({
   selector: 'app-file',
@@ -15,6 +13,8 @@ export class FileComponent implements OnInit {
 
   @Input() docData: Object;
   @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
+  private fileName: string;
+  editable: boolean;
 
 
   constructor( public dialog: MatDialog,
@@ -44,27 +44,32 @@ export class FileComponent implements OnInit {
   }
 
   /**
-   * This is to rename the file
-   * @params fileInfo
+   * View Document
+   * @params doc
    */
-  renameFile(fileInfo: any) {
-    this.helperService.createDialog(CreateFolderComponent, {
-      disableClose: true,
-      data: {type: false, folderId: fileInfo.id, name: fileInfo.title}
-    });
-    this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.processAction.emit(true);
-    }, (error) => {
-      this.processAction.emit(false);
-    });
+  // viewDoc(doc: any) {
+  //   this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
+  // }
+  renameDoc (doc) {
+    this.editable = true;
+    this.fileName = doc.title.split('.')[0];
   }
 
-  /**
-   * View Document
-   * @param doc 
-   */
-  viewDoc(doc: any) {
-    this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
+  editedValue(value, doc) {
+    this.editable = false;
+    value = value + '.' + (doc.title.split('.'))[1];
+    let blob = new Blob([doc.file]);
+    let formData = new FormData();
+    formData.append('title' , value);
+    formData.append('file', blob);
+    formData.append('uploadedBy', doc.uploadedBy);
+    this.navService.renameDocument(doc.id, formData).subscribe((res) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.DOCUMENT_RENAMED, this.helperService.constants.status.SUCCESS);
+      this.processAction.emit(true);
+    }, (error) => {
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DOC_RENAME_FAIL);
+      this.processAction.emit(false);
+    });
   }
 
 }

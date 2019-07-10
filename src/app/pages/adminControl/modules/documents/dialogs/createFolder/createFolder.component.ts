@@ -43,7 +43,7 @@ export class CreateFolderComponent implements OnInit {
   createFolder(value: Folders) {
     if (value.title === this.helperService.appConstants.Root) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CANT_CREATE_ROOT, this.helperService.constants.status.WARNING);
-    } else if (this.checkFolderName(value.title)) {
+    } else if (this.data.folderList && this.checkFolderName(value.title)) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.SAME_FOLDER_NAME,
         this.helperService.constants.status.WARNING);
       this.dialogRef.close();
@@ -68,14 +68,20 @@ export class CreateFolderComponent implements OnInit {
    * @params value
    */
   renameFolder(value: Folders) {
-    let data = {name: value.title, entity: this.data.id};
-    this.navService.renameFolder(this.data.folderId, data).subscribe((res) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_RENAMED, this.helperService.constants.status.SUCCESS);
+    if (this.checkFolderName(value.title)) {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.SAME_FOLDER_NAME,
+        this.helperService.constants.status.WARNING);
       this.dialogRef.close();
-    }, (error) => {
-      this.dialogRef.close();
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.RENAME_FAIL);
-    });
+    } else {
+      let data = {name: value.title, entity: this.data.id};
+      this.navService.renameFolder(this.data.folderId, data).subscribe((res) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_RENAMED, this.helperService.constants.status.SUCCESS);
+        this.dialogRef.close();
+      }, (error) => {
+        this.dialogRef.close();
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.RENAME_FAIL);
+      });
+    }
   }
 
   /**

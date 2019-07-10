@@ -21,7 +21,7 @@
       <button *ngIf="!documentsData.modalType" mat-raised-button type="submit"  [disabled]="!documentsData.folderForm.valid" custom-btn btn-primary color="primary">
         {{helperService.translated.STRINGS.RENAME_FOLDER}}
       </button>
-      <button mat-button mat-dialog-close type="button">
+      <button mat-button [mat-dialog-close]="'cancel'" type="button">
         {{helperService.translated.BUTTONS.CANCEL}}
       </button>
     </mat-dialog-actions>
