@@ -1,8 +1,7 @@
 <mat-toolbar class="pagehead mat-elevation-z6">
   <div>
     <div class="user-avatar mat-elevation-z2">
-      <img
-        src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}" />
+      <img src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}" /> 
       <span class="change-avatar" *ngIf="profileModel.currentUserProfile">
         <input type='file' name="{{helperService.appConstants.profileImage}}"
           id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />
