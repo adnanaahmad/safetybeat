@@ -31,7 +31,8 @@
     <p class="no-data mat-caption" *ngIf="!documentsData.folderExist">No folders
       found.</p>
     <div class="content-area">
-        <app-folder *ngFor="let folder of documentsData.folderList" [documentsData]="documentsData" [folderData] = "folder" (processAction) = "refreshFolders($event)"></app-folder>
+        <app-folder *ngFor="let folder of documentsData.folderList" [documentsData]="documentsData" [folderData] = "folder"
+                    [folderList]="documentsData.folderList" (processAction) = "refreshFolders($event)"></app-folder>
     </div>
   </div>
   <!--/Folders-->

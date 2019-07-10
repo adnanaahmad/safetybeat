@@ -40,7 +40,7 @@
           <span class="loader3"></span>
         </div>
       </button>
-      <button mat-button mat-dialog-close type="button" [disabled]="newDoc.disableButton">
+      <button mat-button [mat-dialog-close]="'cancel'" type="button" [disabled]="newDoc.disableButton">
         {{helperService.translated.BUTTONS.CANCEL}}
       </button>
     </mat-dialog-actions>
