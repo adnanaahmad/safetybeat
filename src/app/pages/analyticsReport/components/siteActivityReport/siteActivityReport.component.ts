@@ -91,9 +91,9 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
     };
-    this.adminServices.viewSites(entityData).subscribe((res) => {
-      this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res);
-    });
+    // this.adminServices.viewSites(entityData).subscribe((res) => {
+    //   this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res);
+    // });
   }
 
   ngOnDestroy() {

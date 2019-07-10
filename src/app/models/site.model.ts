@@ -6,9 +6,9 @@ export interface Site {
   location: string,
   safeZone: boolean,
   siteSafetyPlan: string,
-  createdBy: number,
+  createdBy: Array<User>,
   entity: number,
-  siteSafetyManager: number
+  siteSafetyManager: Array<User>
 }
 
 export interface SitesInfo {
@@ -33,8 +33,8 @@ export interface AddSiteData {
   name: string;
   safeZone: boolean;
   siteSafetyPlan: string;
-  createdBy?: number;
-  siteSafetyManager?: number;
+  createdBy?: Array<User>;
+  siteSafetyManager?: User;
 }
 
 export interface AddSiteApiResponse {
@@ -42,21 +42,22 @@ export interface AddSiteApiResponse {
   responseDetails: responseDetails;
 }
 
-// export interface EditSiteApiResponse {
-//   createdBy: number;
-//   entity: number;
-//   gpsTrackEnabled: boolean;
-//   id: number;
-//   latitude: number;
-//   longitude: number;
-//   location: string;
-//   name: string;
-//   radius: number;
-//
-// }
-
-export interface ViewAllSitesData {
+export interface PaginationData {
   offset: number;
-  entityId: number;
+  search: string;
   limit: number;
+}
+
+export interface ViewAllSiteEntityData {
+  entityId: number;
+}
+
+export interface ViewAllSitesApiResponse {
+  data: ViewAllSitesApiData;
+  responseDetails: responseDetails;
+}
+
+export interface ViewAllSitesApiData {
+  pageCount: number;
+  sitesList: Array<Site>
 }

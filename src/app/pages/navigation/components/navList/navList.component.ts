@@ -54,11 +54,11 @@ export class NavListComponent implements OnInit {
   }
 
   applyActiveClass(displayName) {
-    if(displayName=="Dashboard") {
-      return "active"
+    if (displayName === 'Dashboard') {
+      return 'active'
     } else {
       this.navLinks[0].active = false
-      return displayName!=="Dashboard" ? "active": "null"
+      return displayName !== 'Dashboard' ? 'active' : 'null'
     }
   }
 

@@ -18,7 +18,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 export class MyTeamComponent implements OnInit {
 
   myTeam: MyTeamModel = <MyTeamModel>{};
-  displayedColumns: string[] = ['title', 'teamLead', 'symbol'];
+  displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private allUsers: any[];
 

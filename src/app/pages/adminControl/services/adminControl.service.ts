@@ -3,11 +3,15 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {ViewAllEntitiesResponse} from '../../../models/adminControl/entityControl.model';
-import {CreateEntityResponse} from '../../../models/adminControl/createEntity.model';
-import {AllHazardsApiData, DeleteHazardApiResponse, Hazard, RiskType} from '../../../models/hazard.model';
-import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from '../../../models/adminControl/myTeam.model';
-import {AddSiteApiResponse, AddSiteData, ViewAllSitesData} from '../../../models/site.model';
+import {ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
+import {CreateEntityResponse} from 'src/app/models/adminControl/createEntity.model';
+import {AllHazardsApiData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
+import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
+import {
+  AddSiteApiResponse,
+  AddSiteData, PaginationData,
+  ViewAllSiteEntityData, ViewAllSitesApiResponse,
+} from 'src/app/models/site.model';
 
 @Injectable({
   providedIn: 'root'
@@ -79,11 +83,11 @@ export class AdminControlService {
    * this function is used to return the response for viewAllSites api call.
    * @params data
    */
-  viewSites(data: any, data1: any) {
+  viewSites(entityData: ViewAllSiteEntityData, paginationData: PaginationData): Observable<ViewAllSitesApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
-      `${this.apiRoutes.viewAllSites}?limit=${data1.limit}&offset=${data1.offset}`,
-      data
+      `${this.apiRoutes.viewAllSites}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      entityData
     );
   }
 
@@ -127,10 +131,7 @@ export class AdminControlService {
    * @params data
    */
 
-  importSite(data
-               :
-               FormData
-  ) {
+  importSite(data: FormData) {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.importSite,

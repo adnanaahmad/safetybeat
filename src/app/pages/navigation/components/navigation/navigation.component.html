@@ -1,7 +1,6 @@
 <div class="container">
 
-  <app-fixed-nav class="mini-sidenav mat-elevation-z4" (sidenavToggle)="sideNav.toggle()" (switchNavList)="switchList()"
-    (switchNavListDefault)="switchListDefault(navModel.Entity)" [selectedEntity]="navModel.Entity"></app-fixed-nav>
+  <app-fixed-nav class="mini-sidenav mat-elevation-z4" (sidenavToggle)="sideNav.toggle()" [selectedEntity]="navModel.Entity"></app-fixed-nav>
   <mat-sidenav-container hasBackdrop="false">
     <mat-sidenav color="primary" #sideNav mode="side" class="mat-sidenav">
       <div class="sb-logo mat-elevation-z4">

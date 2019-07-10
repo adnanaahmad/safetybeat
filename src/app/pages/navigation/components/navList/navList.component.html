@@ -1,5 +1,5 @@
 <mat-nav-list *ngFor="let link of navLinks">
-  <mat-list-item mat-button 
+  <mat-list-item mat-button
     *ngIf="link.disabled&&link.displayName!==helperService.translated.MESSAGES.ANALYTICS_REPORTS"
     [routerLink]="link.route" [routerLinkActive]='applyActiveClass(link.displayName)'>
     <a class="nav-link" (click)="customActions(link.displayName)">{{link.displayName}}</a>

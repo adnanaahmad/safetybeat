@@ -31,9 +31,11 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.addSiteObj.loading = false;
     this.addSiteObj.modalType = data.Modal;
-    this.addSiteObj.site = data.site;
-    this.addSiteObj.siteSafetyManager = data.siteSafetyManager;
-    this.addSiteObj.createdBy = data.createdBy;
+    if (data && data.site) {
+      this.addSiteObj.site = data.site;
+      this.addSiteObj.siteSafetyManager = data.site.siteSafetyManager;
+      this.addSiteObj.createdBy = data.site.createdBy;
+    }
   }
 
   /**
@@ -119,7 +121,6 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
         this.helperService.appConstants.key))
     };
     this.memberService.entityUsers(data).subscribe((res) => {
-      debugger
       this.addSiteObj.entityUsers = this.compiler.entityUser(res.data.allUser);
     });
   }

@@ -52,6 +52,7 @@ export class ProfileService {
   }
 
   userInfo(id: number) {
+    debugger
     return this.helperService.requestCall(
       this.method.get,
       `${this.apiRoutes.userInfo}${id}/`

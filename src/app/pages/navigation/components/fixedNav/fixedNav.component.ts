@@ -2,9 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NavItem } from 'src/app/models/navItems.model';
 import { HelperService } from 'src/app/shared/helperService/helper.service';
 import { FixedNavModel } from 'src/app/models/navigation/fixedNav.model';
-import { Observable } from 'rxjs';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fixed-nav',
@@ -32,11 +29,6 @@ export class FixedNavComponent implements OnInit {
       iconName: this.helperService.constants.appIcons.person,
       toolTip: 'Member Center'
     },
-    // {
-    //   route: '/home/profile/user',
-    //   iconName: this.helperService.constants.appIcons.supervisedUserCircle,
-    //   toolTip: 'Users'
-    // },
     {
       route: '/home/adminControl/entityControl',
       iconName: this.helperService.constants.appIcons.log,
@@ -141,7 +133,6 @@ export class FixedNavComponent implements OnInit {
 
   constructor(
     public helperService: HelperService,
-    public breakpointObserver: BreakpointObserver
   ) {
     this.fixedNav.translated = this.helperService.translated;
     this.fixedNav.appIcons = this.helperService.constants.appIcons;

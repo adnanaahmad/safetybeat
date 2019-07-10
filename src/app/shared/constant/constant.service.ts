@@ -48,7 +48,7 @@ export class ConstantService {
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
     updatePackage: `${environment.apiUrl}/packages/updatePackage/`,
-    importSite: `${environment.apiUrl}/api/uploadFile/importSite/`,
+    importSite: `${environment.apiUrl}/api/sites/importSite/`,
     getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
     editOrganization: `${environment.apiUrl}/organization`,
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,

@@ -184,18 +184,18 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
     };
-    this.adminServices.viewSites(entityData).subscribe((res) => {
-      this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res);
-      this.removeRole();
-      this.adminServices.changeSites(this.inviteUserModal.siteList);
-      let index = this.helperService.findIndex(this.inviteUserModal.siteList, function (site) {
-        return site;
-      });
-      if (index >= 0) {
-        this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[index].site;
-        this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
-      }
-    });
+    // this.adminServices.viewSites(entityData).subscribe((res) => {
+    //   this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res);
+    //   this.removeRole();
+    //   this.adminServices.changeSites(this.inviteUserModal.siteList);
+    //   let index = this.helperService.findIndex(this.inviteUserModal.siteList, function (site) {
+    //     return site;
+    //   });
+    //   if (index >= 0) {
+    //     this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[index].site;
+    //     this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
+    //   }
+    // });
   }
 
   removeRole() {

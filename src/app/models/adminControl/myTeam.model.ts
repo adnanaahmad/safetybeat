@@ -5,7 +5,7 @@ import {MatTableDataSource} from '@angular/material';
 
 export interface MyTeamModel {
   subscription: Subscription;
-  allTeams: TeamList[];
+  allTeams: Array<TeamList>;
   dataSource: MatTableDataSource<TeamList>;
 }
 
