@@ -11,9 +11,9 @@ import {Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
-import {AllTeamsApiResponse, Team, TeamList} from 'src/app/models/adminControl/myTeam.model';
+import {TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {EntityQuestion} from '../../models/adminControl/questionCenter.model';
-import { EntityQuestionResponse, QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
+import {QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -136,6 +136,7 @@ export class CompilerProvider {
   constructAllSitesData(siteApiResponse: any): Array<SitesInfo> {
     return siteApiResponse;
   }
+
   constructSiteList(siteApiResponse: any): Site[] {
     return siteApiResponse.data;
   }
@@ -201,6 +202,12 @@ export class CompilerProvider {
   entityUser(users) {
     let usersArray = [];
     this.helperService.iterations(users, function (obj) {
+      let buttonText = 'Add Connection';
+      if (obj.pendingConnection) {
+        buttonText = (obj.nature) ? 'Confirm Connection' : 'Cancel Request';
+      } else {
+        buttonText = (obj.nature) ? 'Add Connection' : 'Remove Connection';
+      }
       let user = {
         name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,
@@ -210,8 +217,8 @@ export class CompilerProvider {
         id: obj.user.id,
         status: obj.status,
         pendingConnection: obj.pendingConnection,
-        acceptedConnection: obj.acceptedConnection,
-        nature: obj.nature
+        nature: obj.nature,
+        buttonText: buttonText
       };
       usersArray.push(user);
     });
@@ -274,7 +281,7 @@ export class CompilerProvider {
       'billingEmail': registerObj.userEmail.email,
       'phoneNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
       'type': registerObj.organizationTypeForm.value.type
-    } as OrgData
+    } as OrgData;
   }
 
   constructRegUserdata(registerObj: RegistrationObject, userForm: UserFormData): RegUserData {
@@ -284,13 +291,13 @@ export class CompilerProvider {
       'last_name': userForm.last_name,
       'password1': userForm.password1,
       'password2': userForm.password2,
-      'contactNo': '+' + userForm.countryCode  + '-' + userForm.contactNo,
+      'contactNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
       'organization': registerObj.organizationData,
       'invitation': false,
       'moduleName': 'Safetybeat',
       'package': 'Trial',
       'roleId': 'Owner'
-    } as RegUserData
+    } as RegUserData;
   }
 
   /**

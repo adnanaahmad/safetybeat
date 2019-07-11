@@ -9,7 +9,6 @@ import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/mem
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
-import {entityUserApiData} from '../../../../../../models/entity.model';
 
 
 @Component({
@@ -95,39 +94,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
    * this function is used for calling  the functions on the basis of adding removing connections
    */
 
-  connections(type, params?: any) {
-    switch (type) {
-      case this.helperService.appConstants.connections.add:
-        this.addConnections(params.userId);
-
-        break;
-      case this.helperService.appConstants.connections.remove:
-        this.helperService.createDialog(ConfirmationModalComponent, {
-          data: {
-            message: this.helperService.translated.CONFIRMATION.REMOVE_CONNECTION
-          }
-        });
-        this.helperService.dialogRef.afterClosed().subscribe(res => {
-          if (res === this.helperService.appConstants.yes) {
-            this.removeConnections(params.userId);
-          }
-        });
-        break;
-      case this.helperService.appConstants.connections.confirm:
-        this.helperService.createDialog(ConfirmationModalComponent, {
-          data: {
-            message: this.helperService.translated.CONFIRMATION.CONFIRM_CONNECTION
-          }
-        });
-        this.helperService.dialogRef.afterClosed().subscribe(res => {
-          if (res === this.helperService.appConstants.yes) {
-            this.confirmConnections(params.userId);
-          }
-        });
-        break;
-      default:
-        break;
-    }
+  connections(userObj: any) {
+    (userObj.pendingConnection) ? ((userObj.nature) ? this.confirmConnections(userObj.id) :
+      this.removeConnections(userObj.id)) : ((userObj.nature) ? this.addConnections(userObj.id) : this.removeConnections(userObj.id));
   }
 
   accessLevel() {
