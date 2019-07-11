@@ -54,14 +54,14 @@
             {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="editHazard(element)">
+            <button mat-menu-item *ngIf="hazardTable.permissions.editHazard" (click)="editHazard(element)">
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>Edit
             </button>
-            <button mat-menu-item (click)="viewHazard(element)">
+            <button mat-menu-item *ngIf="hazardTable.permissions.viewHazard" (click)="viewHazard(element)">
               <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
             </button>
-            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="confirmationModal(element.hazard.id)">
+            <button mat-menu-item *ngIf="hazardTable.permissions.deleteHazard" (click)="confirmationModal(element.hazard.id)">
               <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
               Delete
             </button>

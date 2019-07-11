@@ -7,6 +7,8 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ConfirmationModalComponent} from '../../../../../../Dialogs/conformationModal/confirmationModal.component';
+import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-questionCenter',
@@ -24,6 +26,7 @@ export class QuestionCenterComponent implements OnInit {
     public helperService: HelperService,
     private questionCenterService: QuestionCenterService,
     private compiler: CompilerProvider,
+    private navService: NavigationService
   ) {
     this.initialize();
 
@@ -32,6 +35,11 @@ export class QuestionCenterComponent implements OnInit {
   ngOnInit() {
     this.getAllQuestions(this.QuestionObj.firstIndex);
     this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.QuestionObj.permissions = data;
+      }
+    });
   }
 
   /**

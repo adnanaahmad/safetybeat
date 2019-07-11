@@ -54,5 +54,9 @@ export interface PermissionsModel {
   viewTeam: boolean,
   viewUserProfile: boolean,
   joinEntity: boolean,
-  inviteMember: boolean
+  inviteMember: boolean,
+  addQuestion: boolean,
+  createQuestion: boolean,
+  deleteQuestion: boolean,
+  editQuestion: boolean,
 }

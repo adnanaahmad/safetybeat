@@ -1,8 +1,10 @@
 import {FormGroup} from '@angular/forms';
 import {Site} from './site.model';
 import {User} from './user.model';
+import {PermissionsModel} from './adminControl/permissions.model';
 
 export interface HazardModel {
+  permissions: PermissionsModel;
   hazardOption: boolean;
   entitySelectedRole: string;
   entityId: number;

@@ -7,6 +7,7 @@ import {CompilerProvider} from 'src/app//shared/compiler/compiler';
 import {UploadDocComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/uploadDoc/uploadDoc.component';
 import {CreateFolderComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
 import {Router} from '@angular/router';
+import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
 
 
 @Component({
@@ -38,6 +39,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.entityID = res.entityInfo.id;
         this.refreshFiles(true);
         this.refreshFolders(true);
+      }
+    });
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.documentsData.permissions = data;
       }
     });
   }
