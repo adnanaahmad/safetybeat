@@ -6,11 +6,10 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 import {EntityCodeModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import {InviteTeamModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
-import {share} from 'rxjs/operators';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
-import {EntityControl} from 'src/app/models/adminControl/entityControl.model';
+import {EntityControl, InviteTeamData} from 'src/app/models/adminControl/entityControl.model';
 import {JoinEntityModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
 
@@ -33,17 +32,21 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     private compiler: CompilerProvider
   ) {
     this.initialize();
-    this.helperService.toggleLoader(true)
+    this.helperService.toggleLoader(true);
     this.helperService.appLogger(
       this.helperService.constants.status.SUCCESS,
       this.helperService.translated.LOGGER.MESSAGES.ENTITYCONTROL
     );
+
+    this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
+      this.entityControl.currentUserData = res;
+    });
     this.entityControl.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {
         this.getUsers();
       } else {
         this.entityControl.allUsersList = res;
-        this.helperService.toggleLoader(false)
+        this.helperService.toggleLoader(false);
       }
     });
   }
@@ -71,13 +74,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
 
   initialize() {
     this.entityControl.createEntityOption = false;
-    this.entityControl.dialogConfig = new MatDialogConfig();
-    this.entityControl.dataSource = [];
     this.entityControl.allEntitiesData = [];
-    this.entityControl.entitiesList = [];
     this.entityControl.empty = false;
     this.entityControl.createEntityOption = false;
     this.entityControl.joinOption = false;
+    this.entityControl.allUsersData = [];
     this.entityControl.displayedColumns = [
       'name',
       'headOffice',
@@ -141,10 +142,9 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   viewAllEntities() {
     this.helperService.toggleLoader(true);
     this.entityControl.subscription = this.navService.data.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
         this.helperService.toggleLoader(false);
-        this.entityControl.entitiesList = res;
-        this.entityControl.allEntitiesData = this.entityControl.entitiesList.entities;
+        this.entityControl.allEntitiesData = res.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
         this.entityControl.dataSource.paginator = this.paginator;
       } else {
@@ -152,6 +152,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       }
     }, (error) => {
       this.helperService.toggleLoader(false);
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -160,16 +161,14 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
 
   getUsers() {
-    this.helperService.toggleLoader(true)
-    this.entityControl.allUsers = this.userService.getAllUsers().pipe(share());
-    this.entityControl.allUsers.subscribe(
+    this.helperService.toggleLoader(true);
+    this.userService.getAllUsers().subscribe(
       result => {
         this.helperService.toggleLoader(false);
-        this.entityControl.allUsersList = result.data;
-        this.userService.updateUsers(this.entityControl.allUsersList);
+        this.userService.updateUsers(result.data);
       },
-      error => {
-        this.helperService.toggleLoader(false)
+      (error) => {
+        this.helperService.toggleLoader(false);
       }
     );
   }
@@ -179,11 +178,17 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * @params entityData
    */
 
-  inviteTeam(entityData: any) {
+  inviteTeam(entityData: InviteTeamData) {
     if (this.entityControl.allUsersList.length !== 0) {
+      let self = this;
+      this.helperService.iterations(this.entityControl.allUsersList, function (value) {
+        if (value.email !== self.entityControl.currentUserData.email) {
+          self.entityControl.allUsersData.push(value);
+        }
+      });
       let inviteTeamData = {
         entityData: entityData.entityInfo.code,
-        usersData: this.entityControl.allUsersList
+        usersData: this.entityControl.allUsersData
       };
       this.helperService.createDialog(InviteTeamModalComponent, {
         data: {inviteTeamData},
@@ -205,9 +210,10 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     };
     this.adminServices.viewEntities(data).subscribe((res) => {
       this.helperService.toggleLoader(false);
-      this.entityControl.entitiesList = res;
-      let entityUserData = this.compiler.constructUserEntityData(this.entityControl.entitiesList.data);
+      let entityUserData = this.compiler.constructUserEntityData(res.data);
       this.navService.changeEntites(entityUserData);
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL, this.helperService.translated.STATUS.ERROR);
     });
   }
 
@@ -216,7 +222,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * @params entityId
    */
 
-  deleteEntity(entityId: any) {
+  deleteEntity(entityId: number) {
     this.helperService.toggleLoader(true);
     this.adminServices.deleteEntity(entityId).subscribe(res => {
       this.viewEntitiesApiCall();

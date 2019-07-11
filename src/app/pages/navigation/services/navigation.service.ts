@@ -3,6 +3,8 @@ import {BehaviorSubject} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Permissions} from '../../../models/adminControl/permissions.model';
+import {EntityUserData} from '../../../models/userEntityData.model';
+import {User} from '../../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -110,7 +112,7 @@ export class NavigationService {
    * @params entitiesInfo
    */
 
-  changeEntites(entitiesInfo: any) {
+  changeEntites(entitiesInfo: EntityUserData) {
     this.dataSource.next(entitiesInfo);
   }
 
@@ -154,7 +156,7 @@ export class NavigationService {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.logout);
   }
 
-  updateCurrentUser(data: any) {
+  updateCurrentUser(data: User) {
     this.currentUser.next(data);
   };
 

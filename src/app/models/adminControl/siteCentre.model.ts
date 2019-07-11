@@ -5,7 +5,7 @@ import {PermissionsModel} from './permissions.model';
 
 export interface SiteCentre {
   permissions: PermissionsModel;
-  dataSource: MatTableDataSource<SitesInfo[]>;
+  dataSource: MatTableDataSource<SitesInfo>;
   pageCount: number;
   pageSize: number;
   search: string;

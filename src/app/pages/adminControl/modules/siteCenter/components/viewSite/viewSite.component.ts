@@ -1,15 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
-import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
-import { CompilerProvider } from 'src/app//shared/compiler/compiler';
-import { ViewSite } from 'src/app/models/adminControl/viewSite.model';
-import { HelperService } from 'src/app//shared/helperService/helper.service';
-import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { ConfirmationModalComponent } from 'src/app/Dialogs/conformationModal/confirmationModal.component';
-import { ProfileService } from 'src/app/pages/profile/services/profile.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material';
+import {ActivatedRoute} from '@angular/router';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CompilerProvider} from 'src/app//shared/compiler/compiler';
+import {ViewSite} from 'src/app/models/adminControl/viewSite.model';
+import {HelperService} from 'src/app//shared/helperService/helper.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-ViewSite',
@@ -17,26 +15,25 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./viewSite.component.scss']
 })
 export class ViewSiteComponent implements OnInit {
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   viewSiteObj: ViewSite = <ViewSite>{};
   @ViewChild('gmap') gMapElement: ElementRef;
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
+    map(({matches}) => {
       if (matches) {
         return [
-          { title: 'Activity', cols: 2, rows: 1 },
-          { title: 'Information', cols: 2, rows: 1 },
-          { title: 'Hazards', cols: 2, rows: 1 },
-          { title: 'Location', cols: 2, rows: 1 }
+          {title: 'activity', cols: 2, rows: 1},
+          {title: 'information', cols: 2, rows: 1},
+          {title: 'hazards', cols: 2, rows: 1},
+          {title: 'location', cols: 2, rows: 1}
         ];
       } else {
         return [
-          { title: 'Activity', cols: 1, rows: 1 },
-          { title: 'Information', cols: 1, rows: 1 },
-          { title: 'Hazards', cols: 1, rows: 1 },
-          { title: 'Location', cols: 1, rows: 1 }
+          {title: 'activity', cols: 1, rows: 1},
+          {title: 'information', cols: 1, rows: 1},
+          {title: 'hazards', cols: 1, rows: 1},
+          {title: 'location', cols: 1, rows: 1}
         ];
       }
     })
@@ -48,86 +45,44 @@ export class ViewSiteComponent implements OnInit {
     public compiler: CompilerProvider,
     public helperService: HelperService,
     private navService: NavigationService,
-    public profileService: ProfileService,
     private breakpointObserver: BreakpointObserver
   ) {
+    /**
+     * site id is passed when we want to view any site here and in the following we are getting the siteId that is in form of
+     * site.data
+     */
     this.route.params.subscribe((site) => {
-      this.viewSiteObj.siteId = JSON.parse(this.helperService.decrypt(site.data,
-        this.helperService.appConstants.key));
+      if (site.data) {
+        this.viewSiteObj.siteId = JSON.parse(this.helperService.decrypt(site.data,
+          this.helperService.appConstants.key));
+      }
     });
   }
 
-
-
+  /**
+   * this function is called after constructor as we want to call these funcitons after getting siteId in the constructor
+   */
   ngOnInit() {
     this.viewSiteInfo();
-    this.siteDeleteEnable();
   }
 
+  /**
+   * this function is used for viewing site information that is then rendered to the html and we see all the info related to
+   * the site on the view site page
+   */
   viewSiteInfo() {
     this.adminServices.viewSiteInfo(this.viewSiteObj.siteId).subscribe((res) => {
-      this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
-      this.viewUser(this.viewSiteObj.siteInfo.siteSafetyManager);
-      this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location, this.helperService.createMap(this.gMapElement));
-       // let cityCircle = new google.maps.Circle({
-       //    strokeColor: '#FF0000',
-       //    strokeOpacity: 0.8,
-       //    strokeWeight: 2,
-       //    fillColor: '#FF0000',
-       //    fillOpacity: 0.35,
-       //    map: this.helperService.createMap(this.gMapElement),
-       //    radius: 30
-       //  });
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.VIEW_SITE_SUCCESS);
-    }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.VIEW_SITE_FAILURE);
-    });
-  }
-
-  siteDeleteEnable() {
-    this.navService.currentRole.subscribe(res => {
-      this.viewSiteObj.entitySelectedRole = res;
-      if (
-        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.owner ||
-        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
-        this.viewSiteObj.entitySelectedRole === this.helperService.appConstants.roles.entityManager
-      ) {
-        this.viewSiteObj.siteOption = true;
+      if (res) {
+        this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
+        this.viewSiteObj.siteSafetyManager = res.siteSafetyManager;
+        this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location, this.helperService.createMap(this.gMapElement));
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.VIEW_SITE_SUCCESS);
       } else {
-        this.viewSiteObj.siteOption = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.VIEW_SITE_FAILURE, this.helperService.constants.status.ERROR);
       }
-    });
-  }
-
-  confirmationModal(siteId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent, { data: { message: this.helperService.translated.CONFIRMATION.DELETE_SITE } });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
-        this.helperService.toggleLoader(true);
-        this.deleteSite(siteId);
-      }
-    });
-  }
-
-  deleteSite(siteId) {
-    this.adminServices.deleteSite(siteId).subscribe((res) => {
-      this.helperService.navigateTo(['/home/adminControl/siteCenter/']);
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.DELETE_SITE_SUCCESS);
-
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DELETE_SITE_FAILURE);
-
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
-  }
-
-  viewUser(userId) {
-    this.profileService.userInfo(userId).subscribe((res) => {
-      this.viewSiteObj.siteSafetyManager = this.compiler.constructUserInfo(res);
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.USERDETAILS_MSG);
-    }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.USER_NOT_FOUND);
-
-    })
   }
 
 }

@@ -159,7 +159,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       'role',
       'administrator'
     ];
-    console.log('these are dimensions', this.helperService.dimensions);
   }
 
 

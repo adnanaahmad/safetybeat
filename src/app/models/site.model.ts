@@ -1,4 +1,4 @@
-import {User} from './user.model';
+import {responseDetails, User} from './user.model';
 
 export interface Site {
   id: number,
@@ -6,9 +6,9 @@ export interface Site {
   location: string,
   safeZone: boolean,
   siteSafetyPlan: string,
-  createdBy: number,
+  createdBy: Array<User>,
   entity: number,
-  siteSafetyManager: number
+  siteSafetyManager: Array<User>
 }
 
 export interface SitesInfo {
@@ -18,8 +18,46 @@ export interface SitesInfo {
 }
 
 export interface SiteAddData {
-  siteName: string,
-  siteAddress: string,
-  safeZone: boolean,
-  siteSafetyPlan: string,
+  siteName: string;
+  siteAddress: string;
+  safeZone: boolean;
+  siteSafetyPlan: string;
+  siteSafetyManager?: number;
+}
+
+export interface AddSiteData {
+  entity: number;
+  latitude: number;
+  longitude: number;
+  location: string;
+  name: string;
+  safeZone: boolean;
+  siteSafetyPlan: string;
+  createdBy?: Array<User>;
+  siteSafetyManager?: User;
+}
+
+export interface AddSiteApiResponse {
+  data: object;
+  responseDetails: responseDetails;
+}
+
+export interface PaginationData {
+  offset: number;
+  search: string;
+  limit: number;
+}
+
+export interface ViewAllSiteEntityData {
+  entityId: number;
+}
+
+export interface ViewAllSitesApiResponse {
+  data: ViewAllSitesApiData;
+  responseDetails: responseDetails;
+}
+
+export interface ViewAllSitesApiData {
+  pageCount: number;
+  sitesList: Array<Site>
 }

@@ -57,7 +57,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.matcher = this.mediaMatcher.matchMedia('(min-width: 500px)');
-    console.log('i am matcher', this.matcher);
     this.getProfileData();
   }
 

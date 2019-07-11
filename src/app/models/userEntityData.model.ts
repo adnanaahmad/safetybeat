@@ -1,7 +1,4 @@
-import {User} from './user.model';
-
 export interface EntityUserData {
-  // user: User;
   entities: Entity[];
 }
 
@@ -13,7 +10,7 @@ export interface Entity {
   managedBy: Administrator;
   active: boolean;
   role: string;
-  manDown: any;
+  manDown: string;
 }
 
 export interface Administrator {
