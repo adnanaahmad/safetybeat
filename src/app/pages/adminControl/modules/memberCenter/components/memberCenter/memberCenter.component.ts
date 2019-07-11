@@ -4,12 +4,11 @@ import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCent
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
-import {allUserResponse, MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
+import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
 import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
-import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
 
 
 @Component({
@@ -51,7 +50,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.memberCenter.subscription.unsubscribe();
   }
 
   initialize() {
@@ -66,25 +64,24 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
 
   getAllUsers(pageIndex, search) {
     let data = {
-      'entityId': this.memberCenter.entityId,
-      'search': search,
-      'pageIndex': pageIndex,
+      search: search,
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit
     };
-    this.memberService.entityUsers(data).subscribe((res) => {
-      let response: allUserResponse = res.data;
-      this.memberCenter.pageCount = response.pageCount;
+    let entityId = {
+      entityId: this.memberCenter.entityId,
+    };
+    this.memberService.entityUsers(entityId, data).subscribe((res) => {
+      this.memberCenter.pageCount = res.data.pageCount;
       if (pageIndex === 0) {
         this.paginator.pageIndex = 0;
       }
-      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-        if (data) {
-          this.memberCenter.permissions = data;
-        }
-      });
-      this.memberCenter.elements = this.compiler.entityUser(response.allUser);
+      this.memberCenter.elements = this.compiler.entityUser(res.data.allUser);
       this.memberService.changeEntityUsers(this.memberCenter.elements);
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
       this.memberCenter.dataSource.paginator = this.paginator;
+    }, error => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -97,39 +94,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
    * this function is used for calling  the functions on the basis of adding removing connections
    */
 
-  connections(type, params?: any) {
-    switch (type) {
-      case this.helperService.appConstants.connections.add:
-        this.addConnections(params.userId);
-
-        break;
-      case this.helperService.appConstants.connections.remove:
-        this.helperService.createDialog(ConfirmationModalComponent, {
-          data: {
-            message: this.helperService.translated.CONFIRMATION.REMOVE_CONNECTION
-          }
-        });
-        this.helperService.dialogRef.afterClosed().subscribe(res => {
-          if (res === this.helperService.appConstants.yes) {
-            this.removeConnections(params.userId);
-          }
-        });
-        break;
-      case this.helperService.appConstants.connections.confirm:
-        this.helperService.createDialog(ConfirmationModalComponent, {
-          data: {
-            message: this.helperService.translated.CONFIRMATION.CONFIRM_CONNECTION
-          }
-        });
-        this.helperService.dialogRef.afterClosed().subscribe(res => {
-          if (res === this.helperService.appConstants.yes) {
-            this.confirmConnections(params.userId);
-          }
-        });
-        break;
-      default:
-        break;
-    }
+  connections(userObj: any) {
+    (userObj.pendingConnection) ? ((userObj.nature) ? this.confirmConnections(userObj.id) :
+      this.removeConnections(userObj.id)) : ((userObj.nature) ? this.addConnections(userObj.id) : this.removeConnections(userObj.id));
   }
 
   accessLevel() {

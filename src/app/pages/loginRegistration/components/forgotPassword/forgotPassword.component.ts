@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ForgotPasswordComp} from 'src/app/models/loginRegistration/forgotPassword.model';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
-import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {ForgotPassword} from 'src/app/models/user.model';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -62,27 +61,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function is used to validate the email if user forgets the password
-   * @params group
-   */
-  checkEmail(group) {
-    this.forgotPassObj.email = this.formBuilder.group({
-      'email': [group.value.email, Validators.email]
-    });
-    if (this.forgotPassObj.email.status === this.helperService.appConstants.emailValid) {
-      const email = {email: group.value.email};
-      this.forgotService.checkEmail(email).pipe().subscribe((res) => {
-        this.forgotPassObj.success = res;
-        if (this.forgotPassObj.success.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          group.controls.email.setErrors({exists: true});
-        }
-      });
-    } else {
-      group.controls.email.setErrors({invalid: true});
-    }
-  }
-
-  /**
    * in this function login form controls are checked whether they are valid or not and this is basically builtin fucntionality
    */
   get formValidation() {
@@ -104,7 +82,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.forgotService.forgotPassword(value).subscribe(
       data => {
         let res = data;
-        if (res.responseDetails.code !== this.helperService.appConstants.codeValidations[1]) {
+        if (res && res.responseDetails.code !== this.helperService.appConstants.codeValidations[1]) {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS, this.helperService.constants.status.SUCCESS);
           this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
             this.helperService.translated.LOGGER.MESSAGES.FORGOTSUCCESS);
@@ -112,9 +90,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         }
       },
       error => {
-        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
-          `${this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
       }
     );
 

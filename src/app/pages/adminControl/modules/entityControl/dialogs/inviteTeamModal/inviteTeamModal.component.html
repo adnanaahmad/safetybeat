@@ -13,7 +13,7 @@
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
       <mat-option *ngFor="let user of inviteTeamModel.filteredUsers | async" [value]="user">
-        {{user.first_name}}
+        {{user.first_name}}  {{user.last_name}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

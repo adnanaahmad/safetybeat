@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { HelperService } from 'src/app/shared/helperService/helper.service';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ImageLightboxComponent } from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
+import {Component, Inject, OnInit} from '@angular/core';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ImageLightboxComponent} from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
+import {Hazard} from 'src/app/models/hazard.model';
 
 @Component({
   selector: 'app-hazard-details',
@@ -10,12 +11,14 @@ import { ImageLightboxComponent } from 'src/app/Dialogs/imageLightbox/imageLight
   styleUrls: ['./hazardDetails.component.scss']
 })
 export class HazardDetailsComponent implements OnInit {
-  hazardDetailForm: any;
-  hazardInfo: any;
+  hazardDetailForm: FormGroup;
+  hazardInfo: Hazard;
 
   constructor(public helperService: HelperService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public formBuilder: FormBuilder) {
+              @Inject(MAT_DIALOG_DATA) public data: Hazard,
+              public formBuilder: FormBuilder) {
+    this.hazardInfo = this.data;
+
   }
 
   ngOnInit() {
@@ -24,16 +27,10 @@ export class HazardDetailsComponent implements OnInit {
       resolvedBy: ['', Validators.required],
       addedBy: ['', Validators.required]
     });
-    this.hazardInfo = this.data;
   }
 
-  testingFunc(image) {
-    console.log(image)
-    this.helperService.createDialog(ImageLightboxComponent,
-      {
-        data:
-          { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD,
-          imageData:image }
-      });
+  imageView() {
+      this.helperService.createDialog(ImageLightboxComponent,
+        {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD, image: this.hazardInfo.hazard.image}});
   }
 }

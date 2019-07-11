@@ -1,5 +1,6 @@
-import { Component,Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-imageLightbox',
@@ -9,9 +10,12 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 export class ImageLightboxComponent implements OnInit {
   image: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data) {
-    this.image = data.imageData;
-   }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public helperService: HelperService
+  ) {
+    this.image = this.data.image;
+  }
 
   ngOnInit() {
   }

@@ -60,7 +60,6 @@ export class HazardReportComponent implements OnInit {
 
   getHazardReport(data) {
     this.analyticsService.getHazardReport(data).subscribe(res => {
-      console.log(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAMS_NOT_FOUND,
