@@ -11,7 +11,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {EntityControl, InviteTeamData} from 'src/app/models/adminControl/entityControl.model';
 import {JoinEntityModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
-import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-entityControl',

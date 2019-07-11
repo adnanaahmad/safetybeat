@@ -6,8 +6,7 @@ import {Documents} from 'src/app/models/navigation/documents.model';
 import {CompilerProvider} from 'src/app//shared/compiler/compiler';
 import {UploadDocComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/uploadDoc/uploadDoc.component';
 import {CreateFolderComponent} from 'src/app/pages/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
-import {Router} from '@angular/router';
-import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 
 @Component({

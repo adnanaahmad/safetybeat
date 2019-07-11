@@ -13,7 +13,7 @@ import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/conf
 import {SiteMapComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AdvanceSearchComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
-import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-siteCenter',

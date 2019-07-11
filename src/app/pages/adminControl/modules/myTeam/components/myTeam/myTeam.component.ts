@@ -9,7 +9,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ViewTeamComponent} from 'src/app/pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
-import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-my-team',
