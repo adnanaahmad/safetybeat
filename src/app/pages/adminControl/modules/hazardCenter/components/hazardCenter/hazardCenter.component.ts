@@ -9,6 +9,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { AddHazardComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 import { ConfirmationModalComponent } from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import { ImageLightboxComponent } from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -29,6 +30,11 @@ export class HazardCenterComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.hazardTable.permissions = data;
+      }
+    });
   }
 
   initialize() {

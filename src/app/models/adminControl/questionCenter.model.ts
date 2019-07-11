@@ -1,6 +1,7 @@
 import {FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
+import {PermissionsModel} from './permissions.model';
 
 
 export class QuestionCenter {
@@ -26,6 +27,7 @@ export class QuestionCenter {
   search: string;
   questionId: number;
   edit: boolean;
+  permissions: PermissionsModel;
 }
 
 

@@ -1,7 +1,9 @@
 import {Subscription} from 'rxjs';
 import {FormGroup} from '@angular/forms';
+import {PermissionsModel} from '../adminControl/permissions.model';
 
 export interface Documents {
+  permissions: PermissionsModel;
   folderLength: number;
   subscription: Subscription;
   docList: DocumentObj[];

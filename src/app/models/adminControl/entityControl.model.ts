@@ -1,9 +1,11 @@
 import {Subscription} from 'rxjs';
+import {PermissionsModel} from './permissions.model';
 import {responseDetails, User} from '../user.model';
 import {Administrator, Entity, EntityInfo, EntityPermissions, ReportAccess} from '../userEntityData.model';
 import {MatTableDataSource} from '@angular/material';
 
 export interface EntityControl {
+  permissions: PermissionsModel;
   dataSource: MatTableDataSource<Entity>;
   allUsersData: Array<User>;
   currentUserData: User;

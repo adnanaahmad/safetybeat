@@ -2,11 +2,11 @@
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.QUESTION_CENTER }}</h3>
     <div class="buttonRow">
-      <button class="mat-elevation-z1" (click)="addQuestion()" btn-primary mat-raised-button color="primary">
+      <button class="mat-elevation-z1" *ngIf="QuestionObj.permissions.addQuestion" (click)="addQuestion()" btn-primary mat-raised-button color="primary">
         <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
         {{ helperService.translated.BUTTONS.ADD_QUESTION}}
       </button>
-      <button class="mat-elevation-z1" (click)="createQuestion()" btn-primary mat-raised-button color="primary">
+      <button class="mat-elevation-z1" *ngIf="QuestionObj.permissions.createQuestion" (click)="createQuestion()" btn-primary mat-raised-button color="primary">
         <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
         {{ helperService.translated.BUTTONS.CREATE_QUESTION}}
       </button>
@@ -55,11 +55,11 @@
                 Actions
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editParentChildQuestion(element)">
+                <button mat-menu-item *ngIf="QuestionObj.permissions.editQuestion" (click)="editParentChildQuestion(element)">
                   <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
                   Edit
                 </button>
-                <button mat-menu-item (click)="confirmationModal(element.id,true)">
+                <button mat-menu-item *ngIf="QuestionObj.permissions.deleteQuestion" (click)="confirmationModal(element.id,true)">
                   <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
                   Delete
                 </button>
@@ -98,11 +98,11 @@
                 Actions
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editQuestion(element)">
+                <button mat-menu-item *ngIf="QuestionObj.permissions.editQuestion" (click)="editQuestion(element)">
                   <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
                   Edit
                 </button>
-                <button mat-menu-item (click)=" confirmationModal(element.id, false)">
+                <button mat-menu-item *ngIf="QuestionObj.permissions.deleteQuestion" (click)=" confirmationModal(element.id, false)">
                   <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
                   Delete
                 </button>

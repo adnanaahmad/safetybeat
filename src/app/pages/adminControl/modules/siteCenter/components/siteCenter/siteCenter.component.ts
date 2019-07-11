@@ -13,6 +13,7 @@ import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/conf
 import {SiteMapComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AdvanceSearchComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-siteCenter',
@@ -54,7 +55,11 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
-    this.siteAddorImportEnable();
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.siteCentreObj.permissions = data;
+      }
+    });
 
   }
 
@@ -137,25 +142,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function allows specific user to have permission to add or import site
-   */
-
-  siteAddorImportEnable() {
-    this.navService.currentRole.subscribe(res => {
-      this.siteCentreObj.entitySelectedRole = res;
-      if (
-        this.siteCentreObj.entitySelectedRole === this.helperService.appConstants.roles.owner ||
-        this.siteCentreObj.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
-        this.siteCentreObj.entitySelectedRole === this.helperService.appConstants.roles.entityManager
-      ) {
-        this.siteCentreObj.siteOption = true;
-      } else {
-        this.siteCentreObj.siteOption = false;
-      }
-    });
-  }
-
-  /**
    * this function is called when the user clicks on the view site button and then this function navigates the users
    * to the view site component in which all the details of the particular site is shown.
    */
@@ -173,6 +159,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       data: {disableClose: true}
     });
   }
+
 
   /**
    * this function is used to open add hazard dialog.

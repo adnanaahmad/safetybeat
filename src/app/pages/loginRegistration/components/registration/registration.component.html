@@ -125,7 +125,7 @@
             <div class="input">
               <mat-form-field appearance="outline" full-width>
                 <mat-label>{{helperService.translated.MESSAGES.ORG_NAME}}</mat-label>
-                <input matInput type="text" [errorStateMatcher]="helperService.formErrorMatcher"
+                <input matInput type="text"
                   [formControlName]="helperService.appConstants.name" />
                 <mat-error *ngIf="orgForm.name.errors">
                   <span *ngIf="orgForm.name.errors.required">{{
