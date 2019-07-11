@@ -43,34 +43,58 @@ export class CreateFolderComponent implements OnInit {
   createFolder(value: Folders) {
     if (value.title === this.helperService.appConstants.Root) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CANT_CREATE_ROOT, this.helperService.constants.status.WARNING);
+    } else if (this.data.folderList && this.checkFolderName(value.title)) {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.SAME_FOLDER_NAME,
+        this.helperService.constants.status.WARNING);
+      this.dialogRef.close();
     } else {
       let data = {name: value.title, entity: this.data.id};
       this.navService.createFolder(data).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.NEW_FOLDER, this.helperService.constants.status.SUCCESS);
           this.dialogRef.close();
-        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.SAME_FOLDER_NAME,
-            this.helperService.constants.status.WARNING);
-          this.dialogRef.close();
         } else {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_FAIL, this.helperService.constants.status.WARNING);
           this.dialogRef.close();
         }
-      }, error => {
+      }, (error) => {
         this.dialogRef.close();
       });
     }
   }
-// this function opens a dialog to rename existing folder
+
+  /**
+   * this function opens a dialog to rename existing folder
+   * @params value
+   */
   renameFolder(value: Folders) {
-    let data = {name: value.title, entity: this.data.id};
-    this.navService.renameFolder(this.data.folderId, data).subscribe((res) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_RENAMED, this.helperService.constants.status.SUCCESS);
+    if (this.checkFolderName(value.title)) {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.SAME_FOLDER_NAME,
+        this.helperService.constants.status.WARNING);
       this.dialogRef.close();
-    }, (error) => {
-      this.dialogRef.close();
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.RENAME_FAIL);
-    });
+    } else {
+      let data = {name: value.title, entity: this.data.id};
+      this.navService.renameFolder(this.data.folderId, data).subscribe((res) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.FOLDER_RENAMED, this.helperService.constants.status.SUCCESS);
+        this.dialogRef.close();
+      }, (error) => {
+        this.dialogRef.close();
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.RENAME_FAIL);
+      });
+    }
+  }
+
+  /**
+   * this function checks if the new folder name already exists or not
+   * @params title
+   */
+  checkFolderName (title: string) {
+    let length = this.data.folderList.length;
+    for ( let i = 0; i < length; i++) {
+      if (this.data.folderList[i].name === title) {
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -36,7 +36,6 @@ export class MyTeamComponent implements OnInit {
   }
 
   getAllUsers() {
-    debugger
     let data = {
       entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))

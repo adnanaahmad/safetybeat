@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import * as Highcharts from 'highcharts';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {HighchartService} from '../../../../shared/highchart/highchart.service';
+import {HighchartService} from 'src/app/shared/highchart/highchart.service';
 
 @Component({
   selector: 'app-dashboard',

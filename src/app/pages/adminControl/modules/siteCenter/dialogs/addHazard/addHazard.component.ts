@@ -133,7 +133,6 @@ export class AddHazardComponent implements OnInit {
   }
 
   editHazard(value) {
-    debugger
     this.service.editHazard(this.hazardInfo.hazard.id, this.generateHazardData(value, true)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.onNoClick();

@@ -308,7 +308,7 @@ export class CompilerProvider {
   switchSideMenuDefault(data) {
     this.navList = [
       {
-        route: '/home',
+        route: '/home/adminControl/dashboard',
         iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
         disabled: true
