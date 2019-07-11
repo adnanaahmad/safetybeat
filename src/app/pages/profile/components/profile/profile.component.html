@@ -1,8 +1,7 @@
 <mat-toolbar class="pagehead mat-elevation-z6">
   <div>
     <div class="user-avatar mat-elevation-z2">
-      <img
-        src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}" />
+      <img src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}" /> 
       <span class="change-avatar" *ngIf="profileModel.currentUserProfile">
         <input type='file' name="{{helperService.appConstants.profileImage}}"
           id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event) />
@@ -11,13 +10,13 @@
   </div>
   <div class="user-info" *ngIf="profileModel.profileData">
     <h3 class="mat-body-strong" matTooltipPosition="after" matTooltip="{{profileModel.email}}"
-      aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.username }}
+      aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.name }}
     </h3>
     <p>{{profileModel.role}} <strong>{{profileModel.entityName}}</strong></p>
   </div>
   <div class="data-counts">
     <div class="countbox">
-      <h4 class="mat-display-1 mat-body-strong">30</h4>
+      <h4 class="mat-display-1 mat-body-strong">{{profileModel.connectionCount}}</h4>
       <p class="mat-small">{{helperService.translated.MESSAGES.CONNECTIONS}}</p>
     </div>
     <div class="countbox">
@@ -25,7 +24,7 @@
       <p class="mat-small">{{helperService.translated.MESSAGES.LEAVES}}</p>
     </div>
     <div class="countbox">
-      <h4 class="mat-display-1 mat-body-strong">30</h4>
+      <h4 class="mat-display-1 mat-body-strong">{{profileModel.entityCount}}</h4>
       <p class="mat-small">{{helperService.translated.MESSAGES.ENTITIES}}</p>
     </div>
   </div>
@@ -56,10 +55,6 @@
                 <mat-icon color="primary">{{helperService.appIcons.business}}</mat-icon>
                 {{ helperService.translated.MESSAGES.ENTITIES }}
               </mat-list-item>
-              <mat-list-item class="mat-body-strong" role="listitem" matRipple (click)="onChangeFeatures('myTeam')">
-                <mat-icon color="primary">{{helperService.appIcons.permSettings}}</mat-icon>
-                {{ helperService.translated.SITETITLE.MY_TEAM }}
-              </mat-list-item>
             </mat-list>
           </div>
         </mat-card>
@@ -68,16 +63,13 @@
           <mat-card-title>{{ helperService.translated.SITETITLE.ACCOUNTINFO }}</mat-card-title>
           <mat-list role="list">
             <mat-list-item role="listitem">
-              <span class="mat-body-strong">Email: info@example.com</span>
+              <span class="mat-body-strong">{{helperService.translated.STRINGS.EMAIL +' '+ profileModel.email}}</span>
             </mat-list-item>
             <mat-divider></mat-divider>
             <mat-list-item role="listitem">
-              <span class="mat-body-strong">Emergency Contact: 00 123 456 78</span>
+              <span class="mat-body-strong">{{helperService.translated.STRINGS.PHONENO + ': ' + profileModel.contactNo}}</span>
             </mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item role="listitem">
-              <span class="mat-body-strong">Medical Condition: N/A</span>
-            </mat-list-item>
           </mat-list>
         </mat-card>
 
@@ -112,60 +104,72 @@
           </mat-card-content>
 
           <!-- ========================================================================================== -->
-          <!-- for activites insert data here -->
+          <!-- for activities insert data here -->
 
           <mat-card-content *ngIf="profileFeatures.activities">
             <div class="table-wrap">
               <mat-card-title>Your Activities</mat-card-title>
-              <table mat-table [dataSource]="dataSource" class="customTable">
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
+              <table mat-table [dataSource]="profileModel.recentActivities" class="customTable">
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  <td class="viewsite pointer" mat-cell *matCellDef="let element"
+                      (click)="viewSite(element.siteData.longitude, element.siteData.latitude, element.siteData.name, element.siteData.location)">{{element.siteData.name}} <mat-icon>{{helperService.appIcons.Launch}}</mat-icon></td>
                 </ng-container>
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                <ng-container matColumnDef="checkIn">
+                  <th mat-header-cell *matHeaderCellDef> Check-in </th>
+                  <td mat-cell *matCellDef="let element"> {{element.checkInCheckOut.checkedInAt | date:'medium'}} </td>
                 </ng-container>
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                <ng-container matColumnDef="checkOut">
+                  <th mat-header-cell *matHeaderCellDef> Check-Out </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="{'not-checked' : !element.checkInCheckOut.checkedOutAt}">
+                    {{element.checkInCheckOut.checkedOutAt ? (element.checkInCheckOut.checkedOutAt | date:'medium') : helperService.translated.MESSAGES.NOT_CHECKED_OUT}} </td>
+                </ng-container>
+                <ng-container matColumnDef="duration">
+                  <th mat-header-cell *matHeaderCellDef> Duration </th>
+                  <td mat-cell *matCellDef="let element" [ngClass]="{'not-checked' : !element.duration}"> {{element.duration ? element.duration :  helperService.translated.MESSAGES.NOT_CHECKED_OUT}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="activitiesColumn"></tr>
+                <tr mat-row *matRowDef="let row; columns: activitiesColumn;"></tr>
               </table>
+              <mat-card *ngIf="profileModel.noActivity" class="text-center">{{helperService.translated.STRINGS.NO_ACTIVITIES}}</mat-card>
             </div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </mat-card-content>
+
           <!-- ================================================================================================= -->
           <!-- for connections insert data here -->
           <mat-card-content *ngIf="profileFeatures.connections">
             <div class="table-wrap">
               <mat-card-title>Your Connections</mat-card-title>
-              <table mat-table [dataSource]="dataSource" class="customTable">
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              <table mat-table [dataSource]="profileModel.allConnectionsData" class="customTable">
+                <ng-container matColumnDef="img">
+                  <th mat-header-cell *matHeaderCellDef><mat-icon>person</mat-icon></th>
+                  <td mat-cell *matCellDef="let element">
+                    <img class="table-img" src="{{ element.profileImage != null ? element.profileImage : helperService.appConstants.avatar}}" />
+                  </td>
                 </ng-container>
                 <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <th mat-header-cell *matHeaderCellDef>Name</th>
                   <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef> Email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                 </ng-container>
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                <ng-container matColumnDef="contact">
+                  <th mat-header-cell *matHeaderCellDef>{{helperService.translated.STRINGS.PHONENO}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
                 </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <ng-container matColumnDef="remove_connection">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell class="pointer" *matCellDef="let element" (click)="removeConnection(element.id)">
+                    <mat-icon>remove_circle_outline</mat-icon></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="connectionsColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: connectionsColumns;"></tr>
               </table>
+              <mat-card *ngIf="profileModel.noConnection" class="text-center">{{helperService.translated.MESSAGES.NO_CONNECTIONS}}</mat-card>
             </div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </mat-card-content>
@@ -175,55 +179,32 @@
           <mat-card-content *ngIf="profileFeatures.entities">
             <div class="table-wrap">
               <mat-card-title>Your Entities</mat-card-title>
-              <table mat-table [dataSource]="dataSource" class="customTable">
+              <table mat-table [dataSource]="profileModel.dataSource" class="customTable">
                 <ng-container matColumnDef="position">
                   <th mat-header-cell *matHeaderCellDef> No. </th>
                   <td mat-cell *matCellDef="let element"> {{element.position}} </td>
                 </ng-container>
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  <td mat-cell *matCellDef="let element">{{element.entityInfo.name}}</td>
                 </ng-container>
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                <ng-container matColumnDef="headOffice">
+                  <th mat-header-cell *matHeaderCellDef> Head Office </th>
+                  <td mat-cell *matCellDef="let element"> {{element.entityInfo.headOffice}} </td>
                 </ng-container>
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                <ng-container matColumnDef="access">
+                  <th mat-header-cell *matHeaderCellDef> Access Level </th>
+                  <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                </ng-container>
+                <ng-container matColumnDef="managedBy">
+                  <th mat-header-cell *matHeaderCellDef> Managed By </th>
+                  <td mat-cell *matCellDef="let element"> {{element.administrator.first_name+' '+element.administrator.last_name}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="entitiesColumn"></tr>
+                <tr mat-row *matRowDef="let row; columns: entitiesColumn;"></tr>
               </table>
-            </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-          </mat-card-content>
-          <!-- ================================================================================================= -->
-          <!-- for myTeam insert data here -->
-          <mat-card-content *ngIf="profileFeatures.myTeam">
-            <div class="table-wrap">
-              <mat-card-title>My team</mat-card-title>
-              <table mat-table [dataSource]="dataSource" class="customTable">
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-                </ng-container>
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
+              <mat-card *ngIf="profileModel.noEntity" class="text-center">No Entities</mat-card>
             </div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </mat-card-content>

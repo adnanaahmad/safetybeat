@@ -7,6 +7,7 @@ import { MaterialModule} from '../../../../shared/material/material.module';
 import { ShowFolderDocumentsComponent } from './components/showFolderDocuments/showFolderDocuments.component';
 import { FileComponent } from './components/file/file.component';
 import { FolderComponent } from './components/folder/folder.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FolderComponent } from './components/folder/folder.component';
   imports: [
     CommonModule,
     DocumentsRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ]
 })
 export class DocumentsModule { }

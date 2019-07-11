@@ -17,8 +17,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./viewSite.component.scss']
 })
 export class ViewSiteComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   viewSiteObj: ViewSite = <ViewSite>{};
   @ViewChild('gmap') gMapElement: ElementRef;
@@ -27,17 +26,17 @@ export class ViewSiteComponent implements OnInit {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'activity', cols: 2, rows: 1 },
-          { title: 'information', cols: 2, rows: 1 },
-          { title: 'hazards', cols: 2, rows: 1 },
-          { title: 'location', cols: 2, rows: 1 }
+          { title: 'Activity', cols: 2, rows: 1 },
+          { title: 'Information', cols: 2, rows: 1 },
+          { title: 'Hazards', cols: 2, rows: 1 },
+          { title: 'Location', cols: 2, rows: 1 }
         ];
       } else {
         return [
-          { title: 'activity', cols: 1, rows: 1 },
-          { title: 'information', cols: 1, rows: 1 },
-          { title: 'hazards', cols: 1, rows: 1 },
-          { title: 'location', cols: 1, rows: 1 }
+          { title: 'Activity', cols: 1, rows: 1 },
+          { title: 'Information', cols: 1, rows: 1 },
+          { title: 'Hazards', cols: 1, rows: 1 },
+          { title: 'Location', cols: 1, rows: 1 }
         ];
       }
     })
@@ -70,6 +69,15 @@ export class ViewSiteComponent implements OnInit {
       this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
       this.viewUser(this.viewSiteObj.siteInfo.siteSafetyManager);
       this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location, this.helperService.createMap(this.gMapElement));
+       // let cityCircle = new google.maps.Circle({
+       //    strokeColor: '#FF0000',
+       //    strokeOpacity: 0.8,
+       //    strokeWeight: 2,
+       //    fillColor: '#FF0000',
+       //    fillOpacity: 0.35,
+       //    map: this.helperService.createMap(this.gMapElement),
+       //    radius: 30
+       //  });
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.VIEW_SITE_SUCCESS);
     }, (error) => {
       this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.VIEW_SITE_FAILURE);
@@ -123,35 +131,3 @@ export class ViewSiteComponent implements OnInit {
   }
 
 }
-
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-];

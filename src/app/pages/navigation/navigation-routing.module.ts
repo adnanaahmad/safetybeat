@@ -7,11 +7,7 @@ const routes: Routes = [
     path: '',
     component: NavigationComponent,
     children: [
-      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-      {
-        path: 'dashboard',
-        loadChildren: '../dashboard/dashboard.module#DashboardModule',
-      },
+      {path: '', redirectTo: 'adminControl', pathMatch: 'full'},
       {
         path: 'profile',
         loadChildren: '../profile/profile.module#ProfileModule'

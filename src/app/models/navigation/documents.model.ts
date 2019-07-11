@@ -1,22 +1,19 @@
 import {Subscription} from 'rxjs';
+import {FormGroup} from '@angular/forms';
 
 export interface Documents {
   folderLength: number;
   subscription: Subscription;
-  docResponse: any;
-  dataSource: any;
-  docList: any;
-  rootDocs: any;
+  docList: DocumentObj[];
+  rootDocs: DocumentObj[];
   documentExist: boolean;
   folderExist: boolean;
-  folderList: any;
+  folderList: Folder[];
   entityID: number;
-  rootOnly: boolean;
-  folderForm: any;
+  folderForm: FormGroup;
   modalType: boolean;
   panelOpenState: boolean;
   loader: boolean;
-  folderShow: boolean;
   folderDoc: boolean;
   folderId: number;
 }
@@ -27,11 +24,12 @@ export interface DocList {
 }
 
 export interface DocumentObj {
+  editable?: boolean
   title: string,
-  file: any,
-  uploadedBy: any,
-  folder: any,
-  id: any,
+  file: File,
+  uploadedBy: number,
+  folder: number,
+  id: number,
 
 }
 
@@ -45,15 +43,15 @@ export interface NewDoc {
 }
 
 export interface UploadDocForm {
+  disableButton: boolean;
+  fileName: string;
+  isEnabled: boolean;
   modalType: boolean;
-  rootID: any;
-  docList: any;
-  documentExist: boolean;
-  docResponse: any;
-  file: any,
+  docList: DocumentObj[];
+  file: File,
   entityId: number,
-  folderList: any[],
-  uploadDocForm: any
+  folderList: Folder[],
+  uploadDocForm: FormGroup
 }
 
 export interface Folder {

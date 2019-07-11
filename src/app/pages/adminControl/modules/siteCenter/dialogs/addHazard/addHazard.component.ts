@@ -32,8 +32,10 @@ export class AddHazardComponent implements OnInit {
   ngOnInit() {
     this.hazardObj.addHazardForm = this.formBuilder.group({
       title: ['', Validators.required],
+      location: ['', Validators.required],
       description: ['', Validators.required],
-      risk: ['']
+      risk: [''],
+      note: ['', Validators.required]
     });
     this.getRisks();
     if (this.hazardObj.editModal) {

@@ -10,6 +10,7 @@ import {PermissionCenterModule} from './modules/permissionCenter/permissionCente
 import {QuestionCenterModule} from './modules/questionCenter/questionCenter.module';
 import {SiteCenterModule} from './modules/siteCenter/siteCenter.module';
 import {MyTeamModule} from './modules/myTeam/myTeam.module';
+import { DashboardModule } from 'src/app/pages/adminControl/modules/dashboard/dashboard.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {MyTeamModule} from './modules/myTeam/myTeam.module';
     PermissionCenterModule,
     QuestionCenterModule,
     SiteCenterModule,
-    MyTeamModule
+    MyTeamModule,
+    DashboardModule
   ],
   providers: [
     CompilerProvider

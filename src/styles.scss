@@ -52,8 +52,28 @@ notifier-notification,
 app-toaster {
   font-family: $fontFamily;
 }
+.m-0 {
+  margin: 0;
+}
+.p-0 {
+  padding: 0;
+}
 .pointer {
   cursor: $cursor-pointer;
+}
+.spinner-wrap {
+  background: rgba(255, 255, 255, 0.5);
+  @include midBlock;
+  height: $fullValue;
+  width: $fullValue;
+  z-index: 10;
+  .mat-spinner {
+    @include midBlock;
+    top: 40%;
+  }
+}
+.mat-paginator-range-label {
+  margin: 0 !important;
 }
 .clearfix {
   clear: both;
@@ -127,6 +147,7 @@ mat-dialog-container {
     margin: 0 !important;
     max-height: 85vh;
     width: 500px;
+    position: relative;
   }
   .subheading {
     padding: 0 20px;
@@ -160,7 +181,15 @@ mat-dialog-container {
   .buttonRow {
     margin-left: auto;
     button {
-      margin-left: 10px;
+      padding: 0px 6px;
+      margin-left: 4px;
+      font-size: 12px;
+      mat-icon {
+        width: auto;
+        height: auto;
+        line-height: unset;
+        font-size: 18px;
+      }
     }
   }
 }
@@ -860,6 +889,11 @@ input:-internal-autofill-selected {
   }
 }
 @media (max-width: 575px) {
+  app-hazard-details {
+    .hazard-detail-grid {
+      display: block;
+    }
+  }
   .data-filter {
     width: $fullValue !important;
     padding: 0 !important;
