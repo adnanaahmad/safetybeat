@@ -160,6 +160,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     });
   }
 
+
   /**
    * this function is used to open add hazard dialog.
    */
