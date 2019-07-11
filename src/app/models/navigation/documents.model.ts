@@ -2,6 +2,7 @@ import {Subscription} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 
 export interface Documents {
+  fileRenameForm: FormGroup;
   folderLength: number;
   subscription: Subscription;
   docList: DocumentObj[];

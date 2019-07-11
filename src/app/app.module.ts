@@ -49,6 +49,7 @@ import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
 import { ProfileImagePipe } from './pipes/profileImage/profile-image.pipe';
 import { AdvanceSearchComponent } from './pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import { ImageLightboxComponent } from './Dialogs/imageLightbox/imageLightbox.component';
+import { FileRenameComponent } from './pages/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -83,7 +84,8 @@ export function createTranslateLoader(http: HttpClient) {
     CreateQuestionComponent,
     ProfileImagePipe,
     AdvanceSearchComponent,
-    ImageLightboxComponent
+    ImageLightboxComponent,
+    FileRenameComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -158,7 +160,8 @@ export function createTranslateLoader(http: HttpClient) {
     RegisterTeamComponent,
     ViewTeamComponent,
     AdvanceSearchComponent,
-    ImageLightboxComponent
+    ImageLightboxComponent,
+    FileRenameComponent
   ]
 })
 export class AppModule {

@@ -44,6 +44,7 @@ export interface Strings {
   IMAGE: string;
   VIEW_DOC: string;
   RENAME_FOLDER: string;
+  RENAME_FILE: string;
   FOLDER_NAME: string;
   CHECK_IN: string;
   CHECK_OUT: string;
