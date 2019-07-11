@@ -2,7 +2,8 @@
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.MY_TEAM}}</h3>
     <div class="buttonRow">
-      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary" (click)="registerTeam()">
+      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary" *ngIf="myTeam.permissions.registerTeam"
+              (click)="registerTeam()">
         <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
         {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM}}
       </button>
@@ -36,15 +37,15 @@
             Actions
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)='viewTeam(element)'>
+            <button mat-menu-item *ngIf="myTeam.permissions.viewTeam" (click)='viewTeam(element)'>
               <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
               View Team
             </button>
-            <button mat-menu-item (click)='editTeam(element)'>
+            <button mat-menu-item *ngIf="myTeam.permissions.editTeam" (click)='editTeam(element)'>
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
               Edit Team
             </button>
-            <button mat-menu-item (click)="confirmationModal(element.team.id)">
+            <button mat-menu-item *ngIf="myTeam.permissions.deleteTeam" (click)="confirmationModal(element.team.id)">
               <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
               Delete
             </button>

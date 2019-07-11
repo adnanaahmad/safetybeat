@@ -1,6 +1,8 @@
 import {Subscription} from 'rxjs';
+import {PermissionsModel} from './permissions.model';
 
 export interface EntityControl {
+  permissions: PermissionsModel;
   subscription: Subscription;
   displayLoader: boolean;
   entitySelectedRole: string;

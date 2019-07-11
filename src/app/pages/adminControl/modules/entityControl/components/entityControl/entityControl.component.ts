@@ -12,6 +12,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {EntityControl} from 'src/app/models/adminControl/entityControl.model';
 import {JoinEntityModalComponent} from 'src/app/pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
+import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-entityControl',
@@ -53,8 +54,6 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.viewAllEntities();
-    this.creationEnable();
-    this.joinEnable();
   }
 
   /**
@@ -87,6 +86,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       'administrator',
       'symbol'
     ];
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.entityControl.permissions = data;
+      }
+    });
   }
 
   /**
@@ -148,39 +152,6 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       }
     }, (error) => {
       this.helperService.toggleLoader(false);
-    });
-  }
-
-  /**
-   * this function is used to enable the create entity button on the basis of role
-   * because in our case, owner will be allowed to create the entity.
-   */
-  creationEnable() {
-    this.entityControl.subscription = this.navService.currentRole.subscribe(res => {
-      this.entityControl.entitySelectedRole = res;
-      if (this.entityControl.entitySelectedRole === this.helperService.appConstants.roles.owner) {
-        this.entityControl.createEntityOption = true;
-      } else {
-        this.entityControl.createEntityOption = false;
-      }
-    });
-  }
-
-  /**
-   * this function is used to enable the join entity button on the basis of roles because the owner,teamlead and
-   * entity manager are allowed to join the entity and the user will not be able to join the entity of others.
-   */
-
-  joinEnable() {
-    this.entityControl.subscription = this.navService.currentRole.subscribe(res => {
-      this.entityControl.entitySelectedRole = res;
-      if (
-        this.entityControl.entitySelectedRole !== this.helperService.appConstants.roles.owner
-      ) {
-        this.entityControl.joinOption = true;
-      } else {
-        this.entityControl.joinOption = false;
-      }
     });
   }
 
