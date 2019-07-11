@@ -15,7 +15,7 @@ import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
 export class ImportSiteModalComponent implements OnInit {
 
   importSiteModal: ImportSite = <ImportSite>{};
-  private fileName: any;
+  private fileName: string;
 
   constructor(
     public helperService: HelperService,
@@ -27,8 +27,10 @@ export class ImportSiteModalComponent implements OnInit {
   ) {
     this.initialize();
     this.navService.selectedEntityData.subscribe((res) => {
-      this.importSiteModal.entityData = res;
-      this.importSiteModal.entityId = this.importSiteModal.entityData.entityInfo.id;
+      if (res && res !== 1) {
+        this.importSiteModal.entityData = res;
+        this.importSiteModal.entityId = this.importSiteModal.entityData.entityInfo.id;
+      }
     });
   }
 

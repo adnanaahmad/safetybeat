@@ -11,7 +11,7 @@ export class QuestionCenter {
   allQuestions: QuestionsData;
   parentQuestions: Questions[];
   childQuestions: Questions[];
-  entityQuestionsResponse: EntityQuestionResponse;
+  entityQuestionsResponse: any;
   filteredParentQuestion: Questions[];
   filteredChildNoQuestion: Questions[];
   filteredChildYesQuestion: Questions[];
@@ -58,7 +58,7 @@ export interface Questions {
 }
 
 export interface EntityQuestionResponse {
-  pageCount: number,
+  // pageCount: number,
   entityQuestionList: EntityQuestion[]
 }
 
@@ -68,5 +68,5 @@ export interface EntityQuestion {
   childYes: Questions,
   childNo: Questions,
   childYesSafe: boolean,
-  childNoSafe: boolean
+  childNoSafe: boolean,
 }

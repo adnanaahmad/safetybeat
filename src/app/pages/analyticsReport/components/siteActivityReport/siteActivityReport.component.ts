@@ -122,7 +122,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     };
     this.adminServices.getSiteList(entityData).subscribe((res) => {
       this.actionReportObj.sitesData = this.compiler.constructSiteList(res);
-      console.log(this.actionReportObj.sitesData);
     });
   }
 

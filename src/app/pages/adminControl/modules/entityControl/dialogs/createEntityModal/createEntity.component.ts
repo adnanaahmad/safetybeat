@@ -1,4 +1,4 @@
-import {Component, OnInit, NgZone, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, NgZone, AfterViewInit, ElementRef, ViewChild, OnDestroy} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {entityData} from 'src/app/models/entity.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
@@ -13,7 +13,7 @@ import {CreateEntity} from 'src/app/models/adminControl/createEntity.model';
   templateUrl: './createEntity.component.html',
   styleUrls: ['./createEntity.component.scss']
 })
-export class CreateEntityComponent implements OnInit, AfterViewInit {
+export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
   createEntity: CreateEntity = <CreateEntity>{};
   @ViewChild('gmap') gMapElement: ElementRef;
 
@@ -43,9 +43,14 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
    * this function is used to get the role of the user in the current entity.
    */
   ngAfterViewInit() {
-    this.navService.currentRoleId.subscribe((res) => {
+    this.createEntity.subscription = this.navService.currentRoleId.subscribe((res) => {
       this.createEntity.roleId = res;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.onNoClick();
+    this.createEntity.subscription.unsubscribe();
   }
 
   /**
@@ -74,7 +79,9 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     value.headOffice = this.helperService.address;
     this.createEntity.entityDetails = {
       moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,
-      entityData: value,
+      name: value.name,
+      headOffice: value.headOffice,
+      status: value.status,
       active: true
     };
     if (!valid) {
@@ -87,31 +94,30 @@ export class CreateEntityComponent implements OnInit, AfterViewInit {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.createEntity.loading = true;
     this.adminServices.createEntity(this.createEntity.entityDetails).subscribe((result) => {
-        this.createEntity.entityResponse = result;
-        if (this.createEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           let data = {
             'moduleName': 'Safetybeat'
           };
           this.adminServices.viewEntities(data).subscribe(res => {
             this.createEntity.loading = false;
-            this.createEntity.entities = res;
-            let entityUserData = this.compiler.constructUserEntityData(this.createEntity.entities.data);
+            let entityUserData = this.compiler.constructUserEntityData(res.data);
             this.navService.changeEntites(entityUserData);
             this.onNoClick();
             this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-              this.createEntity.entityResponse.responseDetails.message);
+              result.responseDetails.message);
           });
-        } else if (this.createEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
+        } else if (result.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
           this.helperService.appConstants.codeValidations[4]) {
           this.createEntity.loading = false;
           this.helperService.appLogger(this.helperService.constants.status.ERROR,
-            this.createEntity.entityResponse.responseDetails.message);
-        } else if (this.createEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+            result.responseDetails.message);
+        } else if (result.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.createEntity.loading = false;
           this.helperService.appLogger(this.helperService.constants.status.ERROR,
-            this.createEntity.entityResponse.responseDetails.message);
+            result.responseDetails.message);
         }
-      }, (error => {
+      }, ((error) => {
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.ERROR,
           this.helperService.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
         this.createEntity.loading = false;
