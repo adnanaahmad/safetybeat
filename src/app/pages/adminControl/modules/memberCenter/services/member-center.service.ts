@@ -3,7 +3,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {entityUserApiData, entityUsersApiResponse} from 'src/app/models/entity.model';
-import {PaginationData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from '../../../../../models/site.model';
+import {PaginationData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
 
 @Injectable({
   providedIn: 'root'

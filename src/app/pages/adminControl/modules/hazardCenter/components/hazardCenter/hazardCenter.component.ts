@@ -113,7 +113,6 @@ export class HazardCenterComponent implements OnInit {
     );
   }
   testingFunc(image) {
-    console.log(image)
     this.helperService.createDialog(ImageLightboxComponent,
       {
         data:

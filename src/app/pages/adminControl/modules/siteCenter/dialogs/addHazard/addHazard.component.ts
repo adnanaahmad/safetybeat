@@ -108,7 +108,6 @@ export class AddHazardComponent implements OnInit {
   }
 
   addHazard(value: AddHazardData) {
-    console.log(this.generateHazardData(value, false));
     this.service.addHazard(this.generateHazardData(value, false)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.onNoClick();

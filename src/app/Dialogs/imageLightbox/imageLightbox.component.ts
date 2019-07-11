@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
-import {HelperService} from '../../shared/helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 
 @Component({
   selector: 'app-imageLightbox',

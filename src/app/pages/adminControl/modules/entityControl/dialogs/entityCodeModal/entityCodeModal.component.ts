@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {EntityCodeData} from '../../../../../../models/adminControl/entityControl.model';
+import {EntityCodeData} from 'src/app/models/adminControl/entityControl.model';
 
 @Component({
   selector: 'app-entityCodeModal',
