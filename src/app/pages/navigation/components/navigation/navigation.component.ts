@@ -114,6 +114,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
           index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
         this.switchSideMenu(this.navModel.selectedEntity);
         this.navService.changePermissions(this.navModel.selectedEntity.permissions)
+        this.navService.changeRole(this.navModel.selectedEntity.role)
       } else {
         this.adminServices
           .viewEntities(this.moduleData)

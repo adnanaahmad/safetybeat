@@ -16,6 +16,7 @@ import {CreateEntity} from 'src/app/models/adminControl/createEntity.model';
 export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
   createEntity: CreateEntity = <CreateEntity>{};
   @ViewChild('gmap') gMapElement: ElementRef;
+  private role: string;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -36,6 +37,12 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.createEntity.createEntityForm = this.formBuilder.group({
       name: ['', Validators.required],
       headOffice: ['', Validators.required]
+    });
+    this.navService.currentRole.subscribe((data) => {
+      console.log(data)
+      if (data) {
+        this.role = data;
+      }
     });
   }
 
@@ -82,7 +89,8 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
       name: value.name,
       headOffice: value.headOffice,
       status: value.status,
-      active: true
+      role: this.role,
+      active: false
     };
     if (!valid) {
       this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
