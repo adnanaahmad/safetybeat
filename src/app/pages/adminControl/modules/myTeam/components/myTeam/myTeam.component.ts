@@ -49,7 +49,7 @@ export class MyTeamComponent implements OnInit {
     let paginationData = {
       limit: null,
       offset: null,
-      search: null
+      search: ''
     };
     this.memberService.entityUsers(data, paginationData).subscribe((res) => {
       if (res) {

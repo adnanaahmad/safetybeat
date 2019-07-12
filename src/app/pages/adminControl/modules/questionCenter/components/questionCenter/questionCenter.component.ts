@@ -29,7 +29,6 @@ export class QuestionCenterComponent implements OnInit {
     private navService: NavigationService
   ) {
     this.initialize();
-
   }
 
   ngOnInit() {
@@ -61,7 +60,7 @@ export class QuestionCenterComponent implements OnInit {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
       'pageIndex': pageIndex,
-    }
+    };
 
     this.questionCenterService.getAllQuestions(data).subscribe((res) => {
       this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);

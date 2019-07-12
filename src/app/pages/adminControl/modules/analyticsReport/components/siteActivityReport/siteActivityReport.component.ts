@@ -54,16 +54,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     return this.actionReportObj.actionReportForm.controls;
   }
 
-  // defaultReport() {
-  //   let data = {
-  //     'entityId': this.siteActivityObj.entityId,
-  //     'dateTo': null,
-  //     'dateFrom': null,
-  //     'filter': null
-  //   };
-  //   this.makeReport(data);
-  // }
-
   makeReport(data) {
     this.analyticsService.siteActivityReport(data).subscribe((res) => {
       this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
