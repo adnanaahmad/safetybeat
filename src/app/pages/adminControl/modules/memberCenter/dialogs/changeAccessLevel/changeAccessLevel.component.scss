@@ -1,0 +1,14 @@
+@mixin amte-changeAccessLevel($primary, $accent, $warn) {
+  :host,
+  app-changeAccessLevel {
+    .mat-dialog-content{
+      height: 400px;
+    }
+    mat-card {
+      margin: 3px;
+    }
+    .permission-wrap {
+      padding: 6px 16px;
+    }
+  }
+}

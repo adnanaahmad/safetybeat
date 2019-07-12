@@ -5,7 +5,6 @@ import {Reset} from 'src/app/models/profile.model';
 import {LoginRegistrationService} from 'src/app/pages/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {PasswordRecovery} from 'src/app/models/loginRegistration/passwordRecovery.model';
-import {FormErrorHandler} from 'src/app/shared/FormErrorHandler/FormErrorHandler';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 @Component({

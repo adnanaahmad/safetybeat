@@ -19,10 +19,6 @@ const routes: Routes = [
       {
         path: 'adminControl',
         loadChildren: '../adminControl/adminControl.module#AdminControlModule'
-      },
-      {
-        path: 'analyticsReport',
-        loadChildren: '../analyticsReport/analyticsReport.module#AnalyticsReportModule'
       }
     ]
   }

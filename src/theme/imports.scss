@@ -20,7 +20,7 @@
 @import "src/app/core/components/pageNotFound/pageNotFound.component.scss";
 @import "src/app/pages/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "src/app/pages/welcomeScreen/components/createEntity/createEntity.component.scss";
-@import "src/app/common/toaster/toaster.component.scss";
+@import "src/app/shared/toaster/toaster.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/components/entityControl/entityControl.component.scss";
 @import "src/app/pages/adminControl/modules/documents/components/documents/documents.component.scss";
 @import "src/app/pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component.scss";
@@ -38,15 +38,15 @@
 @import "src/app/pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component.scss";
 @import "src/app/pages/adminControl/modules/documents/components/showFolderDocuments/showFolderDocuments.component.scss";
 @import "src/app/pages/adminControl/modules/documents/dialogs/viewDoc/viewDoc.component.scss";
-
-@import "src/app/pages/analyticsReport/components/actionReport/actionReport.component.scss";
-@import "src/app/pages/analyticsReport/components/siteActivityReport/siteActivityReport.component.scss";
+@import "src/app/pages/adminControl/modules/analyticsReport/components/actionReport/actionReport.component.scss";
+@import "src/app/pages/adminControl/modules/analyticsReport/components/siteActivityReport/siteActivityReport.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component.scss";
 @import "src/app/pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/components/siteCenter/siteCenter.component.scss";
 @import "src/app/Dialogs/conformationModal/confirmationModal.component.scss";
 @import "src/app/pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component.scss";
+@import "src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -102,4 +102,5 @@
   @include amte-confirmationModal($primary, $accent, $warn);
   @include amte-register-team($primary, $accent, $warn);
   @include amte-advanceSearch($primary, $accent, $warn);
+  @include amte-changeAccessLevel($primary, $accent, $warn);
 }
