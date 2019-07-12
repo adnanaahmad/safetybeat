@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './shared/material/material.module';
+import { MaterialModule } from './material.module';
 import {
   TranslateModule,
   TranslateLoader,
@@ -13,42 +13,44 @@ import {
 } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AuthGuard } from './core/services/guards/auth.guard';
-import { TokenInterceptorService } from './core/services/interceptors/tokenInterceptor';
+import { AuthGuard } from './services/core/guards/auth.guard';
+import { TokenInterceptorService } from './services/core/interceptors/tokenInterceptor';
 import { NotifierModule } from 'angular-notifier';
-import { CoreService } from './core/services/authorization/core.service';
+import { CoreService } from './services/core/authorization/core.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { CreateEntityComponent } from './pages/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
-import { JoinEntityModalComponent } from './pages/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
-import { InviteUserModalComponent } from './Dialogs/inviteUserModal/inviteUserModal.component';
-import { VerificationComponent } from './Dialogs/verification/verification.component';
-import { CompilerProvider } from './shared/compiler/compiler';
-import { InviteTeamModalComponent } from './pages/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
+import { CreateEntityComponent } from './features/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
+import { JoinEntityModalComponent } from './features/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
+import { InviteUserModalComponent } from './shared/dialogs/inviteUserModal/inviteUserModal.component';
+import { VerificationComponent } from './shared/dialogs/verification/verification.component';
+import { CompilerProvider } from './services/common/compiler/compiler';
+import { InviteTeamModalComponent } from './features/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatNativeDateModule} from '@angular/material';
-import { ToasterComponent } from './common/toaster/toaster.component';
-import { AddSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
-import { ImportSiteModalComponent } from './pages/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
-import { ConfirmationModalComponent } from './Dialogs/conformationModal/confirmationModal.component';
-import { ChangeAccessLevelComponent } from './pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
-import { EntityCodeModalComponent } from './pages/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
-import { AddHazardComponent } from './pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
-import { HazardDetailsComponent } from './pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
+import { ToasterComponent } from './shared/components/toaster/toaster.component';
+import { AddSiteModalComponent } from './features/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
+import { ImportSiteModalComponent } from './features/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
+import { ConfirmationModalComponent } from './shared/dialogs/conformationModal/confirmationModal.component';
+import { ChangeAccessLevelComponent } from './features/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
+import { EntityCodeModalComponent } from './features/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
+import { AddHazardComponent } from './features/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
+import { HazardDetailsComponent } from './features/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { GeneralComponent } from './pages/settings/components/general/general.component';
-import { SecurityComponent } from './pages/settings/components/security/security.component';
-import { AddQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
-import { CreateFolderComponent } from 'src/app/pages/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
-import { UploadDocComponent } from 'src/app/pages/adminControl/modules/documents/dialogs/uploadDoc/uploadDoc.component';
-import { SiteMapComponent } from './pages/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
-import { ViewDocComponent } from 'src/app/pages/adminControl/modules/documents/dialogs/viewDoc/viewDoc.component';
-import { RegisterTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
-import { ViewTeamComponent } from './pages/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
-import { CreateQuestionComponent } from './pages/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
-import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
+import { GeneralComponent } from './features/settings/components/general/general.component';
+import { SecurityComponent } from './features/settings/components/security/security.component';
+import { AddQuestionComponent } from './features/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
+import { CreateFolderComponent } from 'src/app/features/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
+import { UploadDocComponent } from 'src/app/features/adminControl/modules/documents/dialogs/uploadDoc/uploadDoc.component';
+import { SiteMapComponent } from './features/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import { ViewDocComponent } from 'src/app/features/adminControl/modules/documents/dialogs/viewDoc/viewDoc.component';
+import { RegisterTeamComponent } from './features/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
+import { ViewTeamComponent } from './features/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
+import { CreateQuestionComponent } from './features/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import {MyTeamModule} from './features/adminControl/modules/myTeam/myTeam.module';
 import { ProfileImagePipe } from './pipes/profileImage/profile-image.pipe';
-import { AdvanceSearchComponent } from './pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
-import {ImageLightboxComponent} from './Dialogs/imageLightbox/imageLightbox.component';
+import { AdvanceSearchComponent } from './features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
+import {ImageLightboxComponent} from './shared/dialogs/imageLightbox/imageLightbox.component';
+import {PageNotFoundComponent} from './shared/components/pageNotFound/pageNotFound.component';
+import {ParticleContainer2Component} from './shared/components/particleContainer/particleContainer2.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -82,7 +84,9 @@ export function createTranslateLoader(http: HttpClient) {
     CreateQuestionComponent,
     ProfileImagePipe,
     AdvanceSearchComponent,
-    ImageLightboxComponent
+    ImageLightboxComponent,
+    PageNotFoundComponent,
+    ParticleContainer2Component
   ],
   imports: [
     MatDatepickerModule,

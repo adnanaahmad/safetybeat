@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, Renderer2, HostBinding } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SettingService } from 'src/app/shared/settings/setting.service';
+import { SettingService } from 'src/app/services/common/settings/setting.service';
 import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
