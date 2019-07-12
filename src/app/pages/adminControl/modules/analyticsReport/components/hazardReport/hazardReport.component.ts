@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HazardReport} from '../../../../../../models/analyticsReport/averageDailyActions.model';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
-import {MemberCenterService} from '../../../memberCenter/services/member-center.service';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
-import {AdminControlService} from '../../../../services/adminControl.service';
-import {AnalyticsReportService} from '../../services/analyticsReport.service';
-import {HighChartType} from '../../../../../../models/analyticsReport/actionReports.model';
+import {HazardReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {AnalyticsReportService} from 'src/app/pages/adminControl/modules/analyticsReport/services/analyticsReport.service';
+import {HighChartType} from 'src/app/models/analyticsReport/actionReports.model';
 import * as Highcharts from 'highcharts';
-import {HighchartService} from '../../../../../../shared/highchart/highchart.service';
+import {HighchartService} from 'src/app/shared/highchart/highchart.service';
 
 @Component({
   selector: 'app-hazarReport',

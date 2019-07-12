@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-averageDailyActionsReport',

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {HelperService} from '../../../../../../shared/helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MemberCenterService} from '../../../memberCenter/services/member-center.service';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
-import {AdminControlService} from '../../../../services/adminControl.service';
-import {PulsePersonReport} from '../../../../../../models/analyticsReport/averageDailyActions.model';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {PulsePersonReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
 
 @Component({
   selector: 'app-person-pulse-report',

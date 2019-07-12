@@ -13,7 +13,7 @@ import {CompliantCheckoutReportComponent} from './components/compliantCheckoutRe
 import {SiteActivityReportComponent} from './components/siteActivityReport/siteActivityReport.component';
 import {HazardReportComponent} from './components/hazardReport/hazardReport.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MaterialModule} from '../../../../shared/material/material.module';
+import {MaterialModule} from 'src/app/shared/material/material.module';
 
 @NgModule({
   imports: [

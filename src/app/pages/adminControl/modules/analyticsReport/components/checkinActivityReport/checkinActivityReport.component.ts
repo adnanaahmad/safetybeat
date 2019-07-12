@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CheckInActivityReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
-import {AdminControlService} from '../../../../services/adminControl.service';
-import {CompilerProvider} from '../../../../../../shared/compiler/compiler';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 
 @Component({
   selector: 'app-checkinActivityReport',
