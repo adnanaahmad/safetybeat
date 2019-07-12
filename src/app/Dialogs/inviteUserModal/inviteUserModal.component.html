@@ -56,8 +56,19 @@
       <mat-form-field appearance="outline" full-width *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">
         <mat-label>{{helperService.translated.AUTH.SITE}}</mat-label>
         <mat-select [(value)]="inviteUserModal.selectedSite.id" [formControlName]=helperService.appConstants.sites>
-          <mat-option *ngFor="let site of inviteUserModal.siteList" [value]="site.site.id">
-            {{ site.site.name}}
+          <mat-option *ngFor="let site of inviteUserModal.siteList" [value]="site.id">
+            {{ site.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formValidation.sites.errors">
+          <span *ngIf="formValidation.sites.errors.required">{{helperService.translated.AUTH.SITE_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" full-width *ngIf="inviteUserModal.showTeams && inviteUserModal.selectedTeam">
+        <mat-label>{{helperService.translated.MESSAGES.TEAM}}</mat-label>
+        <mat-select [(value)]="inviteUserModal.selectedTeam.team.id" [formControlName]=helperService.appConstants.team>
+          <mat-option *ngFor="let team of inviteUserModal.teamsList.team" [value]="team.id">
+            {{ team.title}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="formValidation.sites.errors">

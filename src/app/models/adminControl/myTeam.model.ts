@@ -25,7 +25,7 @@ export interface TeamList {
 }
 
 export interface GetAllTeamsData {
-  entity: number;
+  entityId: number;
 }
 
 export interface AllTeamsApiResponse {

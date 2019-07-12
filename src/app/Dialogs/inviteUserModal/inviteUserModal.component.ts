@@ -10,6 +10,7 @@ import {EntityInfo} from '../../models/userEntityData.model';
 import {share} from 'rxjs/operators';
 import {ProfileService} from '../../pages/profile/services/profile.service';
 import {MemberCenterService} from '../../pages/adminControl/modules/memberCenter/services/member-center.service';
+import {PaginationData} from '../../models/site.model';
 
 @Component({
   selector: 'app-inviteUserModal',
@@ -36,11 +37,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY);
     this.inviteUserModal.roleList = Object.assign([], this.data.role);
     this.inviteUserModal.entityID = this.data.entityId;
-    let index = this.helperService.findIndex(this.inviteUserModal.roleList, function (role) {
-      return role;
-    });
-    this.inviteUserModal.selectedRole =
-      index !== -1 ? this.inviteUserModal.roleList[index] : this.inviteUserModal.roleList[0];
+    this.inviteUserModal.selectedRole = this.inviteUserModal.roleList[0];
     this.changeSelection(this.inviteUserModal.selectedRole);
   }
 
@@ -59,14 +56,15 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
-      sites: ['']
+      sites: [''],
+      teams:['']
     });
     this.formValidation['role'].setValue(this.inviteUserModal.selectedRole);
     this.viewSitesData();
+    this.viewTeamsData();
   }
 
   initialize() {
-    this.inviteUserModal.showSites = false;
   }
 
   ngOnDestroy(): void {
@@ -172,11 +170,8 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
   }
 
   changeSelection(role: any) {
-    if (role.name === this.helperService.appConstants.roles.siteSafetyManager) {
-      this.inviteUserModal.showSites = true;
-    } else {
-      this.inviteUserModal.showSites = false;
-    }
+    this.inviteUserModal.showSites = role.name === this.helperService.appConstants.roles.siteSafetyManager ? true : false;
+    this.inviteUserModal.showTeams = role.name === this.helperService.appConstants.roles.teamLead ? true : false;
   }
 
   viewSitesData() {
@@ -184,24 +179,41 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
     };
-    // this.adminServices.viewSites(entityData).subscribe((res) => {
-    //   this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res);
-    //   this.removeRole();
-    //   this.adminServices.changeSites(this.inviteUserModal.siteList);
-    //   let index = this.helperService.findIndex(this.inviteUserModal.siteList, function (site) {
-    //     return site;
-    //   });
-    //   if (index >= 0) {
-    //     this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[index].site;
-    //     this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
-    //   }
-    // });
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
+      this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res.data.sitesList);
+      // this.removeRole();
+      this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[0];
+      this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
+    });
   }
 
-  removeRole() {
-    if (this.inviteUserModal.siteList.length === 0) {
-      this.helperService.remove(this.inviteUserModal.roleList,
-        {name: this.helperService.appConstants.roles.siteSafetyManager});
-    }
+  viewTeamsData() {
+    let entityData = {
+      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+    };
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.allTeamsData(entityData, paginationData).subscribe((res) => {
+      this.inviteUserModal.teamsList = this.compiler.constructAllTeamsData(res);
+      // this.removeRole();
+      this.inviteUserModal.selectedTeam = this.inviteUserModal.teamsList[0];
+      this.formValidation['teams'].setValue(this.inviteUserModal.selectedTeam.team.id);
+    });
   }
+
+  // removeRole() {
+  //   if (this.inviteUserModal.siteList.length === 0) {
+  //     this.helperService.remove(this.inviteUserModal.roleList,
+  //       {name: this.helperService.appConstants.roles.siteSafetyManager});
+  //   }
+  // }
 }

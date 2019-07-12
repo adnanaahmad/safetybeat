@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CheckInActivityReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-checkinActivityReport',
@@ -16,7 +17,8 @@ export class CheckInActivityReportComponent implements OnInit {
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
               public compiler: CompilerProvider,
-              private adminServices: AdminControlService) { }
+              private adminServices: AdminControlService) {
+  }
 
   ngOnInit() {
     this.checkInActivityObj.checkInActivityForm = this.formBuilder.group({
@@ -26,14 +28,19 @@ export class CheckInActivityReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.checkInActivityObj.entityId =  JSON.parse(this.helperService.decrypt
+    this.checkInActivityObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.getAllTeams({entityId: this.checkInActivityObj.entityId});
   }
 
   getAllTeams(data) {
-    this.adminServices.allTeamsData(data).subscribe(res => {
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.checkInActivityObj.allTeams = this.compiler.constructAllTeamsData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {

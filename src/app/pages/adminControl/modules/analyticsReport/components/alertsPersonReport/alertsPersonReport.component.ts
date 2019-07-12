@@ -5,6 +5,7 @@ import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {AlertPersonReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-alerts-person-report',
@@ -48,7 +49,12 @@ export class AlertsPersonReportComponent implements OnInit {
   }
 
   getAllTeams(data) {
-    this.adminServices.allTeamsData(data).subscribe(res => {
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.alertPersonObj.allTeams = this.compiler.constructAllTeamsData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {

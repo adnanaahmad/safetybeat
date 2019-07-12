@@ -39,7 +39,6 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
       headOffice: ['', Validators.required]
     });
     this.navService.currentRole.subscribe((data) => {
-      console.log(data)
       if (data) {
         this.role = data;
       }
