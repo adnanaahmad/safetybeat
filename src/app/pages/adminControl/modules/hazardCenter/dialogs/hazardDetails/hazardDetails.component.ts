@@ -33,7 +33,13 @@ export class HazardDetailsComponent implements OnInit {
    * this function is used to view the image in dialog
    */
   imageView() {
-    this.helperService.createDialog(ImageLightboxComponent,
-      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD, image: this.hazardInfo.image}});
+      if (this.hazardInfo.image) {
+          this.helperService.createDialog(ImageLightboxComponent,
+              {
+                  data: {
+                      image: this.hazardInfo.image
+                  }
+              });
+      }
   }
 }

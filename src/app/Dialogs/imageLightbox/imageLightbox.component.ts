@@ -9,6 +9,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 })
 export class ImageLightboxComponent implements OnInit {
   image: any;
+  disable: boolean;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

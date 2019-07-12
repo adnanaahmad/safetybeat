@@ -48,7 +48,7 @@
           {{ helperService.translated.STRINGS.IMAGE }}
         </th>
         <td mat-cell *matCellDef="let element">
-          <img (click)="testingFunc(element.image ? element.image : helperService.appConstants.noHazard)"
+          <img (click)="testingFunc(element.image ? element.image : null)"
                class="table-img pointer"
                src="{{ element.image ? element.image : helperService.appConstants.noHazard}}"/>
         </td>
