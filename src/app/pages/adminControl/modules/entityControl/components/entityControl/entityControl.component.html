@@ -3,13 +3,13 @@
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
     <div class="buttonRow">
-      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary" *ngIf="entityControl.joinOption"
+      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary" *ngIf="entityControl.permissions?.joinEntity"
         (click)="joinEntity()">
         <mat-icon>{{ helperService.appIcons.joinEntity }}</mat-icon>
         {{ helperService.translated.BUTTONS.JOIN_ENTITY }}
       </button>
       <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary"
-        *ngIf="entityControl.createEntityOption" (click)="createEntity()">
+        *ngIf="entityControl.permissions?.createEntity" (click)="createEntity()">
         <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
         {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
       </button>
@@ -72,11 +72,11 @@
               <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.ENTITYCODE }}
             </button>
-            <button mat-menu-item *ngIf="entityControl.joinOption" (click)='inviteTeam(element)'>
+            <button mat-menu-item *ngIf="entityControl.permissions.inviteMember" (click)='inviteTeam(element)'>
               <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
               {{ helperService.translated.MESSAGES.INVITEMEMBERTITLE }}
             </button>
-            <button mat-menu-item *ngIf="entityControl.createEntityOption"
+            <button mat-menu-item *ngIf="entityControl.permissions.deleteEntity"
               (click)="confirmationModal(element.entityInfo.id)">
               <mat-icon>{{ helperService.constants.appIcons.deleteSweep }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.DELETE_ENTITY }}

@@ -505,6 +505,7 @@ export interface Messages {
   TEAM_TITLE_REQUIRED: string;
   TEAM_SELECTION_REQUIRED: string;
   TEAM_MEMBERS_REQUIRED: string;
+  COMMON_PASSWORD: string;
 }
 
 export interface Logger {

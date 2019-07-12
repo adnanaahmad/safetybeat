@@ -9,6 +9,7 @@ import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/mem
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 
 @Component({
@@ -45,7 +46,11 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     this.navService.selectedEntityData.subscribe((res) => {
       this.memberCenter.currentRole = res.role;
     });
-
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.memberCenter.permissions = data;
+      }
+    });
     this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
   }
 

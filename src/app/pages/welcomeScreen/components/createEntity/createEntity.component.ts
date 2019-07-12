@@ -61,7 +61,9 @@ export class CreateEntityComponent implements OnInit {
     this.createEntityObj.loading = true;
     this.createEntityObj.entityDetails = {
       moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,
-      entityData: value,
+      name: value.name,
+      headOffice: value.headOffice,
+      role: 'Owner',
       active: true
     };
     let data = {

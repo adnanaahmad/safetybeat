@@ -10,7 +10,7 @@ import {AddHazardComponent} from 'src/app/pages/adminControl/modules/siteCenter/
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ImageLightboxComponent} from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
 import {PaginationData} from 'src/app/models/site.model';
-import {AdvanceSearchComponent} from '../../../siteCenter/dialogs/advanceSearch/advanceSearch.component';
+import {AdvanceSearchComponent} from 'src/app/pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -57,6 +57,7 @@ export class HazardCenterComponent implements OnInit {
   }
 
   getHazardList(pageIndex, search) {
+    debugger
     let entityData = {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),

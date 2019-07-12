@@ -12,7 +12,7 @@ import {AdminControlService} from 'src/app/pages/adminControl/services/adminCont
 export class AddHazardComponent implements OnInit {
   @ViewChild('gmap') gMapElement: ElementRef;
   hazardObj: AddHazardModel = <AddHazardModel>{};
-  hazardInfo: Hazard = <Hazard>{};
+  hazardInfo: any;
   public url: any;
   private risks: Array<RiskType>;
 
@@ -23,6 +23,7 @@ export class AddHazardComponent implements OnInit {
     public dialogRef: MatDialogRef<AddHazardComponent>,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
+    debugger;
     this.hazardObj.editModal = data.Modal;
     this.hazardInfo = data.hazardInfo;
     this.url = helperService.appConstants.noHazard
@@ -31,10 +32,8 @@ export class AddHazardComponent implements OnInit {
   ngOnInit() {
     this.hazardObj.addHazardForm = this.formBuilder.group({
       title: ['', Validators.required],
-      location: ['', Validators.required],
       description: ['', Validators.required],
-      risk: [''],
-      note: ['', Validators.required]
+      risk: ['']
     });
     this.getRisks();
     if (this.hazardObj.editModal) {
@@ -43,12 +42,12 @@ export class AddHazardComponent implements OnInit {
   }
 
   viewHazardInfo() {
-    if (this.hazardInfo.hazard.image) {
-      this.url = this.hazardInfo.hazard.image;
+    if (this.hazardInfo.image) {
+      this.url = this.hazardInfo.image;
     }
     this.hazardObj.addHazardForm = this.formBuilder.group({
-      title: this.hazardInfo.hazard.title,
-      description: this.hazardInfo.hazard.description,
+      title: this.hazardInfo.title,
+      description: this.hazardInfo.description,
       risk: this.hazardInfo.risk.id
     })
   }
@@ -99,8 +98,8 @@ export class AddHazardComponent implements OnInit {
       formData.append('image', blob, this.hazardObj.image.name);
     }
     if (editHazard) {
-      formData.append('site', this.hazardInfo.hazard.site);
-      formData.append('addedBy', this.hazardInfo.hazard.addedBy);
+      formData.append('site', this.hazardInfo.site.id);
+      formData.append('addedBy', this.hazardInfo.addedBy.id);
     } else {
       formData.append('site', this.data.siteId);
     }
@@ -132,7 +131,7 @@ export class AddHazardComponent implements OnInit {
   }
 
   editHazard(value) {
-    this.service.editHazard(this.hazardInfo.hazard.id, this.generateHazardData(value, true)).subscribe((res) => {
+    this.service.editHazard(this.hazardInfo.id, this.generateHazardData(value, true)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_SUCCESS,

@@ -1,9 +1,11 @@
 import {FormGroup} from '@angular/forms';
 import {Site} from './site.model';
+import {PermissionsModel} from './adminControl/permissions.model';
 import {responseDetails, User} from './user.model';
 import {MatTableDataSource} from '@angular/material';
 
 export interface HazardModel {
+  permissions: PermissionsModel;
   hazardOption: boolean;
   entityId: number;
   dataSource: MatTableDataSource<any>;
