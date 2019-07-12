@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {Hazard, HazardModel} from 'src/app/models/hazard.model';
+import {HazardList, HazardModel} from 'src/app/models/hazard.model';
 import {HazardDetailsComponent} from 'src/app/pages/adminControl/modules/hazardCenter/dialogs/hazardDetails/hazardDetails.component';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
@@ -26,7 +26,6 @@ export class HazardCenterComponent implements OnInit {
   dataSource: any;
   pageCount: number;
 
-
   constructor(
     public helperService: HelperService,
     private navService: NavigationService,
@@ -40,6 +39,10 @@ export class HazardCenterComponent implements OnInit {
 
   }
 
+  /**
+   * this function is used for initializing all the variables if we have to insert values into it when component is loaded
+   */
+
   initialize() {
     this.hazardTable.displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
     this.editorDeleteEnable();
@@ -49,15 +52,24 @@ export class HazardCenterComponent implements OnInit {
     this.dataSource = null;
   }
 
-  viewHazard(hazard: Hazard) {
+  /**
+   * this function is used for viewing the particular hazard's information
+   * @params hazard
+   */
+
+  viewHazard(hazard: HazardList) {
     this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
       data: hazard
     });
   }
 
+  /**
+   * this function is used for getting all the hazards list and then it renders to the html after assigning the response to dataSource.
+   * @params pageIndex
+   * @params search
+   */
   getHazardList(pageIndex, search) {
-    debugger
     let entityData = {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
@@ -71,7 +83,6 @@ export class HazardCenterComponent implements OnInit {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pageCount = res.data.pageCount;
         this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
-        this.hazardTable.dataSource.paginator = this.paginator;
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.hazardTable.dataSource = null;
       }
@@ -103,7 +114,11 @@ export class HazardCenterComponent implements OnInit {
     });
   }
 
-  editHazard(hazard: Hazard) {
+  /**
+   * this function is used for editing hazards
+   * @params hazard
+   */
+  editHazard(hazard: HazardList) {
     this.helperService.createDialog(AddHazardComponent, {
       disableClose: true,
       data: {Modal: true, hazardInfo: hazard}
@@ -115,6 +130,11 @@ export class HazardCenterComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is called when we have to delete hazard ifn the user press yes then do delete otherwise cancel
+   * @params id
+   */
+
   confirmationModal(id: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD}});
@@ -125,6 +145,11 @@ export class HazardCenterComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * this function is used for deleting the hazard
+   * @params id
+   */
 
   deleteHazard(id: number) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
@@ -142,6 +167,11 @@ export class HazardCenterComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * this function is used for viewing the image
+   * @params image
+   */
 
   testingFunc(image) {
     this.helperService.createDialog(ImageLightboxComponent,

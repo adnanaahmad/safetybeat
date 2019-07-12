@@ -47,8 +47,8 @@
         </th>
         <td mat-cell *matCellDef="let element">
           <img (click)="testingFunc(element.image ? element.image : helperService.appConstants.noHazard)"
-            class="table-img pointer"
-            src="{{ element.image ? element.image : helperService.appConstants.noHazard}}" />
+               class="table-img pointer"
+               src="{{ element.image ? element.image : helperService.appConstants.noHazard}}"/>
         </td>
       </ng-container>
 
@@ -58,13 +58,14 @@
         </th>
         <td mat-cell *matCellDef="let element">
           &nbsp;<button class="btn-table" btn-primary mat-raised-button color="primary" mat-button
-            [matMenuTriggerFor]="menu">
-            <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
-            {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
-          </button>
+                        [matMenuTriggerFor]="menu">
+          <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
+          {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
+        </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="editHazard(element)">
-              <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>Edit
+              <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+              Edit
             </button>
             <button mat-menu-item (click)="viewHazard(element)">
               <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
@@ -85,5 +86,6 @@
   <div class="paddingbox text-center" *ngIf="hazardTable.dataSource === null">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
 
-  <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount" (page)="getHazardList(paginator.pageIndex, search)"></mat-paginator>
+  <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount"
+                 (page)="getHazardList(paginator.pageIndex, search)"></mat-paginator>
 </div>

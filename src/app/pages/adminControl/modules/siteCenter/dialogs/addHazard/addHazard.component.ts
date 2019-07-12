@@ -2,7 +2,7 @@ import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {AddHazardData, AddHazardModel, Hazard, NewHazard, RiskType} from 'src/app/models/hazard.model';
+import {AddHazardData, AddHazardModel, NewHazard, RiskType} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
 @Component({
   selector: 'app-addHazard',
@@ -23,7 +23,6 @@ export class AddHazardComponent implements OnInit {
     public dialogRef: MatDialogRef<AddHazardComponent>,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    debugger;
     this.hazardObj.editModal = data.Modal;
     this.hazardInfo = data.hazardInfo;
     this.url = helperService.appConstants.noHazard
