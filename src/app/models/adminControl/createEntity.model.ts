@@ -1,5 +1,4 @@
 import {FormGroup} from '@angular/forms';
-import {entityData} from '../entity.model';
 import {responseDetails} from '../user.model';
 import {Subscription} from 'rxjs';
 
@@ -17,6 +16,7 @@ export interface EntityDetails {
   headOffice: string;
   status: boolean;
   active: boolean;
+  role: string;
 }
 
 export interface CreateEntityResponse {
