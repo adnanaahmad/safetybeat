@@ -7,7 +7,7 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
-import {Hazard} from 'src/app/models/hazard.model';
+import {AllHazardsApiData, Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
@@ -171,22 +171,6 @@ export class CompilerProvider {
 
   constructAllEntityQuestionsData(questionsApiResponse: any): Array<EntityQuestion> {
     return questionsApiResponse.data;
-  }
-
-
-  constructHazardArray(hazardResponse: any): Array<Hazard> {
-    let hazardArray: Array<Hazard> = [];
-    this.helperService.iterations(hazardResponse.data, function (hazard) {
-      let obj: Hazard = {
-        hazard: hazard.hazard,
-        site: hazard.site,
-        addedBy: hazard.addedBy,
-        resolvedBy: hazard.resolvedBy,
-        risk: hazard.risk
-      };
-      hazardArray.push(obj);
-    });
-    return hazardArray;
   }
 
   /**
@@ -370,52 +354,52 @@ export class CompilerProvider {
         children: [
           {
             displayName: 'Action Report',
-            route: '/home/analyticsReport/actionReport',
+            route: '/home/adminControl/analyticsReport/actionReport',
             disabled: data.permissions.actionReport
           },
           {
             displayName: 'Average Daily Actions',
-            route: '/home/analyticsReport/averageDailyActionsReport',
+            route: '/home/adminControl/analyticsReport/averageDailyActionsReport',
             disabled: data.permissions.averageDailyReport
           },
           {
             displayName: 'Checkin by Activity',
-            route: '/home/analyticsReport/checkInActivityReport',
+            route: '/home/adminControl/analyticsReport/checkInActivityReport',
             disabled: data.permissions.checkinByActivity
           },
           {
             displayName: 'Checkin and Alert by Person',
-            route: '/home/analyticsReport/alertsPersonReport',
+            route: '/home/adminControl/analyticsReport/alertsPersonReport',
             disabled: data.permissions.checkinAndAlertByPerson
           },
           {
             displayName: 'Actions vs Alerts',
-            route: '/home/analyticsReport/actionAlertsReport',
+            route: '/home/adminControl/analyticsReport/actionAlertsReport',
             disabled: data.permissions.actionsVsAlerts
           },
           {
             displayName: 'Pulse Report by Entity',
-            route: '/home/analyticsReport/entityPulseReport',
+            route: '/home/adminControl/analyticsReport/entityPulseReport',
             disabled: data.permissions.pulseReportByEntity
           },
           {
             displayName: 'Pulse Report by Person',
-            route: '/home/analyticsReport/personPulseReport',
+            route: '/home/adminControl/analyticsReport/personPulseReport',
             disabled: data.permissions.pulseReportByPerson
           },
           {
             displayName: 'Compliant Checkout',
-            route: '/home/analyticsReport/compliantCheckoutReport',
+            route: '/home/adminControl/analyticsReport/compliantCheckoutReport',
             disabled: data.permissions.compliantCheckOut
           },
           {
             displayName: 'Site Activity Report',
-            route: '/home/analyticsReport/siteActivityReport',
+            route: '/home/adminControl/analyticsReport/siteActivityReport',
             disabled: data.permissions.siteActivityReport
           },
           {
             displayName: 'Hazard Reports',
-            route: '/home/analyticsReport/hazardReport',
+            route: '/home/adminControl/analyticsReport/hazardReport',
             disabled: data.permissions.hazardReports
           }
         ]

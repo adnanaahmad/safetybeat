@@ -120,8 +120,12 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
     };
-    this.memberService.entityUsers(data).subscribe((res) => {
-      this.addSiteObj.entityUsers = this.compiler.entityUser(res.data.allUser);
+    this.memberService.allEntityUsers(data).subscribe((res) => {
+      if (res) {
+        this.addSiteObj.entityUsers = this.compiler.entityUser(res.data);
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -158,7 +162,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.adminServices.editSite(this.addSiteObj.site.id, this.generateSiteData(value, true)).subscribe((res) => {
       this.addSiteObj.loading = false;
       this.onNoClick();
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
       } else {
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
