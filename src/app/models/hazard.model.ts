@@ -6,7 +6,7 @@ import {MatTableDataSource} from '@angular/material';
 export interface HazardModel {
   hazardOption: boolean;
   entityId: number;
-  dataSource: MatTableDataSource<Hazard>;
+  dataSource: MatTableDataSource<any>;
   displayedColumns: Array<string>;
 }
 
@@ -44,7 +44,7 @@ export interface RiskType {
 }
 
 export interface AllHazardsApiData {
-  data: Array<Hazard>;
+  data: AllHazardsApiResponseData;
   responseDetails: responseDetails;
 }
 
@@ -57,6 +57,24 @@ export interface DeleteHazardApiResponse {
 export interface AddHazardData {
   description: string;
   risk: string;
+  title: string;
+}
+
+export interface AllHazardsApiResponseData {
+  hazardList: Array<HazardList>;
+  pageCount: number;
+}
+
+export interface HazardList {
+  addedBy: User;
+  dateTime: Date;
+  description: string;
+  id: number;
+  image: Blob;
+  resolved: boolean;
+  resolvedBy: User;
+  risk: RiskType;
+  site: Site;
   title: string;
 }
 

@@ -11,7 +11,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-nav-list *ngFor="let childLinks of link.children">
-        <mat-list-item mat-button *ngIf="childLinks.disabled" [routerLink]="childLinks.route">
+        <mat-list-item mat-button *ngIf="childLinks.disabled" [routerLink]="childLinks.route" routerLinkActive="active">
           <a class="nav-link">{{childLinks.displayName}}</a>
         </mat-list-item>
       </mat-nav-list>

@@ -42,7 +42,11 @@ const routes: Routes = [
     {
       path: 'myTeam',
       loadChildren: './modules/myTeam/myTeam.module#MyTeamModule'
-    }
+    },
+  {
+    path: 'analyticsReport',
+    loadChildren: './modules/analyticsReport/analyticsReport.module#AnalyticsReportModule'
+  }
   ]
 ;
 

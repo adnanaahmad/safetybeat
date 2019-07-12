@@ -22,7 +22,7 @@
       </mat-form-field>
       <mat-form-field full-width appearance="outline">
         <mat-label>Location</mat-label>
-        <input matInput type="text" formControlName="location" required />
+        <input matInput appGooglePlaces type="text" formControlName="location" required />
         <mat-error class="text-right" *ngIf="addHazardControls.location.errors">
           <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
         </mat-error>

@@ -1,16 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AddHazardData, AddHazardModel, Hazard, NewHazard, RiskType} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-
 @Component({
   selector: 'app-addHazard',
   templateUrl: './addHazard.component.html',
   styleUrls: ['./addHazard.component.scss']
 })
 export class AddHazardComponent implements OnInit {
+  @ViewChild('gmap') gMapElement: ElementRef;
   hazardObj: AddHazardModel = <AddHazardModel>{};
   hazardInfo: Hazard = <Hazard>{};
   public url: any;

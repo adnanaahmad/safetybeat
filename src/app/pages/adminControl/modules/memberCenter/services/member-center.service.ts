@@ -36,6 +36,17 @@ export class MemberCenterService {
     );
   }
 
+  /**
+   *
+   * @params entityId
+   */
+
+  allEntityUsers(entityId: ViewAllSiteEntityData) {
+    return this.helperService.requestCall(
+      this.method.post, this.apiRoutes.allEntityUsers, entityId
+    );
+  }
+
 
   /**
    * this function is used for adding members of the entities as connections

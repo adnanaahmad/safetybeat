@@ -3,7 +3,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ImageLightboxComponent} from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
-import {Hazard} from 'src/app/models/hazard.model';
+import {Hazard, HazardList} from 'src/app/models/hazard.model';
 
 @Component({
   selector: 'app-hazard-details',
@@ -12,10 +12,10 @@ import {Hazard} from 'src/app/models/hazard.model';
 })
 export class HazardDetailsComponent implements OnInit {
   hazardDetailForm: FormGroup;
-  hazardInfo: Hazard;
+  hazardInfo: HazardList;
 
   constructor(public helperService: HelperService,
-              @Inject(MAT_DIALOG_DATA) public data: Hazard,
+              @Inject(MAT_DIALOG_DATA) public data: HazardList,
               public formBuilder: FormBuilder) {
     this.hazardInfo = this.data;
 
@@ -31,6 +31,6 @@ export class HazardDetailsComponent implements OnInit {
 
   imageView() {
       this.helperService.createDialog(ImageLightboxComponent,
-        {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD, image: this.hazardInfo.hazard.image}});
+        {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD, image: this.hazardInfo.image}});
   }
 }
