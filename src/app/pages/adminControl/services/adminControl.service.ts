@@ -255,22 +255,15 @@ export class AdminControlService {
     );
   }
 
-  allTeamsData(data
-                 :
-                 GetAllTeamsData
-  ):
-    Observable<AllTeamsApiResponse> {
+  allTeamsData(entityData: GetAllTeamsData, paginationData: PaginationData): Observable<AllTeamsApiResponse> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
-      this.apiRoutes.viewAllTeams,
-      data
+      `${this.apiRoutes.viewAllTeams}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      entityData
     );
   }
 
-  editTeam(id
-             :
-             number, data
-  ) {
+  editTeam(id: number, data) {
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.team}${id}/`,

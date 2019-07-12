@@ -2,8 +2,12 @@ import {responseDetails} from '../user.model';
 import {FormGroup} from '@angular/forms';
 import {SitesInfo} from '../site.model';
 import {Subscription} from 'rxjs';
+import {TeamList} from './myTeam.model';
 
 export interface InviteUser {
+  selectedTeam: any;
+  teamsList: Array<TeamList>;
+  showTeams: boolean;
   elements: any;
   dataSource: any;
   selectedSite: any;
