@@ -9,7 +9,7 @@ import {ChangeAccessLevelComponent} from 'src/app/pages/adminControl/modules/mem
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/pages/profile/services/profile.service';
 import {InviteUserModalComponent} from 'src/app/Dialogs/inviteUserModal/inviteUserModal.component';
-import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 
 @Component({
