@@ -1,7 +1,9 @@
 import {FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 
 export interface AverageDailyActions {
+  subscription: Subscription;
   averageActionForm: FormGroup;
   allUserList: any;
   entityId: number;

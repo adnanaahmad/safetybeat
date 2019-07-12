@@ -233,6 +233,16 @@
       .mat-list-item {
         font-size: 14px;
       }
+      .tab-switcher{
+        text-indent: 10px;
+        &.active{
+          background: mat-color($primary);
+          color:#fff;
+          mat-icon{
+            color:#fff;
+          }
+        }
+      }
       .activity-card {
         padding: 10px;
         position: relative;
