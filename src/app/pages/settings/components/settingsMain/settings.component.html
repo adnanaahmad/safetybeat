@@ -3,34 +3,34 @@
   <div class="navigator">
     <mat-list role="list">
       <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.organization ? 'settingNav' : 'abc'" (click)="changeSetting('organization')">
+        <span [ngClass]="settingFeatures.organization ? 'settingNav' : ''" (click)="changeSetting('organization')">
           <mat-icon>{{ helperService.appIcons.business }}</mat-icon> {{ helperService.translated.MESSAGES.ORGSIGNUP }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.allUsers ? 'settingNav' : 'abc'" (click)="changeSetting('allUsers')">
+        <span [ngClass]="settingFeatures.allUsers ? 'settingNav' : ''" (click)="changeSetting('allUsers')">
           <mat-icon>{{helperService.appIcons.group}}</mat-icon> {{ helperService.translated.SITETITLE.USERS_TITLE }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.group ? 'settingNav' : 'abc'" (click)="changeSetting('group')">
+        <span [ngClass]="settingFeatures.group ? 'settingNav' : ''" (click)="changeSetting('group')">
           <mat-icon>{{helperService.appIcons.groupAdd}}</mat-icon> {{ helperService.translated.MESSAGES.CREATEGROUP }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.entity ? 'settingNav' : 'abc'" (click)="changeSetting('entity')">
+        <span [ngClass]="settingFeatures.entity ? 'settingNav' : ''" (click)="changeSetting('entity')">
           <mat-icon>{{helperService.appIcons.screenLock}}</mat-icon>
           {{ helperService.translated.MESSAGES.ENTITY_SETTINGS }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.permission ? 'settingNav' : 'abc'" (click)="changeSetting('permission')">
+        <span [ngClass]="settingFeatures.permission ? 'settingNav' : ''" (click)="changeSetting('permission')">
           <mat-icon>{{helperService.appIcons.permSettings}}</mat-icon>
           {{ helperService.translated.MESSAGES.PERMISSION_SETTINGS }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.theme ? 'settingNav' : 'abc'" (click)="changeSetting('theme')">
+        <span [ngClass]="settingFeatures.theme ? 'settingNav' : ''" (click)="changeSetting('theme')">
           <mat-icon>{{helperService.appIcons.themeSettings}}</mat-icon>
           {{ helperService.translated.MESSAGES.THEME_SETTINGS }}
         </span>

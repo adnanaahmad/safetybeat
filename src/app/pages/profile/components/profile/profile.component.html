@@ -37,21 +37,21 @@
         <mat-card class="dashboard-card" fullWidth *ngIf="card.title=='links'">
           <div class="navigator">
             <mat-list role="list">
-              <mat-list-item class="mat-body-strong" role="listitem" matRipple [matRippleColor]="red"
+              <mat-list-item [ngClass]="profileFeatures.activities ? 'active' : ''" class="mat-body-strong tab-switcher" role="listitem" matRipple [matRippleColor]="red"
                 (click)="onChangeFeatures('activities')">
                 <mat-icon color="primary">{{ helperService.appIcons.activities }}</mat-icon>
                 {{ helperService.translated.MESSAGES.ACTIVITIES }}
               </mat-list-item>
-              <mat-list-item class="mat-body-strong" role="listitem" matRipple
+              <mat-list-item [ngClass]="profileFeatures.connections ? 'active' : ''" class="mat-body-strong tab-switcher" role="listitem" matRipple
                 (click)="onChangeFeatures('connections')">
                 <mat-icon color="primary">{{helperService.appIcons.connections}}</mat-icon>
                 {{ helperService.translated.MESSAGES.CONNECTIONS }}
               </mat-list-item>
-              <mat-list-item class="mat-body-strong" role="listitem" matRipple (click)="onChangeFeatures('leaves')">
+              <mat-list-item [ngClass]="profileFeatures.leaves ? 'active' : ''" class="mat-body-strong tab-switcher" role="listitem" matRipple (click)="onChangeFeatures('leaves')">
                 <mat-icon color="primary">{{helperService.appIcons.groupAdd}}</mat-icon>
                 {{ helperService.translated.MESSAGES.LEAVES }}
               </mat-list-item>
-              <mat-list-item class="mat-body-strong" role="listitem" matRipple (click)="onChangeFeatures('entities')">
+              <mat-list-item [ngClass]="profileFeatures.entities ? 'active' : ''" class="mat-body-strong tab-switcher" role="listitem" matRipple (click)="onChangeFeatures('entities')">
                 <mat-icon color="primary">{{helperService.appIcons.business}}</mat-icon>
                 {{ helperService.translated.MESSAGES.ENTITIES }}
               </mat-list-item>
