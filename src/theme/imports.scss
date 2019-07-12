@@ -47,6 +47,7 @@
 @import "src/app/Dialogs/conformationModal/confirmationModal.component.scss";
 @import "src/app/pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component.scss";
 @import "src/app/pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component.scss";
+@import "src/app/pages/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -102,4 +103,5 @@
   @include amte-confirmationModal($primary, $accent, $warn);
   @include amte-register-team($primary, $accent, $warn);
   @include amte-advanceSearch($primary, $accent, $warn);
+  @include amte-changeAccessLevel($primary, $accent, $warn);
 }
