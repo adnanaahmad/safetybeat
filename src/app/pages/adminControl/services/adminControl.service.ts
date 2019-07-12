@@ -5,7 +5,7 @@ import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
 import {ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
 import {CreateEntityResponse} from 'src/app/models/adminControl/createEntity.model';
-import {AllHazardsApiData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
+import {AllHazardsApiData, AllHazardsApiResponseData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {
   AddSiteApiResponse,
@@ -221,13 +221,11 @@ export class AdminControlService {
     );
   }
 
-  allHazards(entityId)
-    :
-    Observable<AllHazardsApiData> {
+  allHazards(entityData: ViewAllSiteEntityData, paginationData: PaginationData): Observable<AllHazardsApiData> {
     return this.helperService.requestCall(
-      this.helperService.constants.apiMethod.post,
-      `${this.apiRoutes.allHazards}`,
-      entityId
+      this.method.post,
+      `${this.apiRoutes.allHazards}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      entityData
     );
   }
 
