@@ -409,7 +409,12 @@
     "NO_SITES": "No Sites",
     "DELETE_QUESTION_SUCCESS": "Question has been delete successfully.",
     "DELETE_QUESTION_FAILURE": "Question deletion failed.",
-    "EDITQUESTION_MSG": "Edit Question"
+    "EDITQUESTION_MSG": "Edit Question",
+    "PARENT_QUESTION_REQ": "Parent Question is required",
+    "TEAM_TITLE_REQUIRED": "Team title is required.",
+    "TEAM_SELECTION_REQUIRED": "Team selection is required.",
+    "TEAM_MEMBERS_REQUIRED": "Team members selection is required.",
+    "COMMON_PASSWORD": "Password is too common"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -515,7 +520,8 @@
       "ORG_SUCCESS": "Organization Data Edited.",
       "QUESTION_DATA_REQ": "Question data is required",
       "ALL_QUESTION_RECEIVED": "All Questions of Entity received",
-      "ALL_QUESTION_RECEIVED_ERROR": "No Questions of Entity exits"
+      "ALL_QUESTION_RECEIVED_ERROR": "No Questions of Entity exits",
+      "ENTITYNOTDELETED": "Entity is not deleted. Check your internet connection or try again."
     }
   },
   "STATUS": {

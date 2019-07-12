@@ -1,9 +1,11 @@
 import {SitesInfo} from '../site.model';
 import {Subscription} from 'rxjs';
 import {MatTableDataSource} from '@angular/material';
+import {PermissionsModel} from './permissions.model';
 
 export interface SiteCentre {
-  dataSource: MatTableDataSource<SitesInfo[]>;
+  permissions: PermissionsModel;
+  dataSource: MatTableDataSource<SitesInfo>;
   pageCount: number;
   pageSize: number;
   search: string;

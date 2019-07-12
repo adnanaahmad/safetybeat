@@ -10,7 +10,9 @@ import {FormControl} from '@angular/forms';
 import {startWith, map} from 'rxjs/operators';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
-import {InviteTeamModel} from 'src/app/models/adminControl/inviteTeam.model';
+import {InviteTeamModel, InviteTeamModelData} from 'src/app/models/adminControl/inviteTeam.model';
+import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
+import {User} from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-inviteTeamModal',
@@ -27,7 +29,8 @@ export class InviteTeamModalComponent implements OnInit {
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
     public helperService: HelperService,
     private adminServices: AdminControlService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    private navService: NavigationService,
+    @Inject(MAT_DIALOG_DATA) public data: InviteTeamModelData,
   ) {
     this.initialize();
     this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData
@@ -35,7 +38,7 @@ export class InviteTeamModalComponent implements OnInit {
       : [];
     this.inviteTeamModel.filteredUsers = this.inviteTeamModel.userCtrl.valueChanges.pipe(
       startWith(null),
-      map((user: any | null) => {
+      map((user: User | null) => {
         return user
           ? this._filter(user)
           : this.inviteTeamModel.allUsers.slice();
@@ -66,7 +69,7 @@ export class InviteTeamModalComponent implements OnInit {
    * @params user
    */
 
-  remove(user: any): void {
+  remove(user: User): void {
     const index = this.inviteTeamModel.users.indexOf(user);
     if (index >= 0) {
       this.inviteTeamModel.users.splice(index, 1);
@@ -99,10 +102,10 @@ export class InviteTeamModalComponent implements OnInit {
    * @params value
    */
 
-  private _filter(value: any): any[] {
+  private _filter(value): Array<User> {
     const filterValue = value && value.first_name
-        ? value.first_name.toLowerCase()
-        : value.toLowerCase();
+      ? value.first_name.toLowerCase()
+      : value.toLowerCase();
     return this.inviteTeamModel.allUsers.filter(user => {
       return user.first_name.toLowerCase().indexOf(filterValue) === 0;
     });
@@ -122,7 +125,7 @@ export class InviteTeamModalComponent implements OnInit {
    */
 
   inviteTeam() {
-    let userEmails: any = [];
+    let userEmails: Array<string> = [];
     this.helperService.iterations(this.inviteTeamModel.users, function (obj) {
       userEmails.push(obj.email);
     });
@@ -133,24 +136,22 @@ export class InviteTeamModalComponent implements OnInit {
     this.inviteTeamModel.loading = true;
     this.adminServices.inviteTeam(inviteTeamData).subscribe(
       res => {
-        let responseData = res;
-        // '0029'
-        if (responseData.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
           this.helperService.createSnack(
-            responseData.responseDetails.message,
+            res.responseDetails.message,
             this.helperService.constants.status.SUCCESS
           );
           this.onNoClick();
         } else {
           this.helperService.createSnack(
-            responseData.responseDetails.message,
+            res.responseDetails.message,
             this.helperService.constants.status.ERROR
           );
           this.onNoClick();
         }
         this.inviteTeamModel.loading = false;
       },
-      error => {
+      (error) => {
         this.inviteTeamModel.loading = false;
         this.helperService.handleError(error, this);
       }

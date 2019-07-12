@@ -48,7 +48,7 @@ import { CreateQuestionComponent } from './pages/adminControl/modules/questionCe
 import {MyTeamModule} from './pages/adminControl/modules/myTeam/myTeam.module';
 import { ProfileImagePipe } from './pipes/profileImage/profile-image.pipe';
 import { AdvanceSearchComponent } from './pages/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
-import { ImageLightboxComponent } from './Dialogs/imageLightbox/imageLightbox.component';
+import {ImageLightboxComponent} from './Dialogs/imageLightbox/imageLightbox.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -73,7 +73,6 @@ export function createTranslateLoader(http: HttpClient) {
     SecurityComponent,
     AddQuestionComponent,
     SiteMapComponent,
-    UploadDocComponent,
     UploadDocComponent,
     CreateFolderComponent,
     ViewDocComponent,

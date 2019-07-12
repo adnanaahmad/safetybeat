@@ -4,35 +4,35 @@
   </div>
   <div class="table-wrap">
     <table mat-table [dataSource]="hazardTable.dataSource" class="customTable mat-elevation-z3">
-      <ng-container [matColumnDef]="displayedColumns[0]">
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[0]">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.SITE }}
         </th>
         <td mat-cell *matCellDef="let element">{{ element.site.name }}</td>
       </ng-container>
 
-      <ng-container [matColumnDef]="displayedColumns[1]">
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[1]">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.TITLE }}
         </th>
         <td mat-cell *matCellDef="let element">{{ element.hazard.title }}</td>
       </ng-container>
 
-      <ng-container [matColumnDef]="displayedColumns[2]">
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[2]">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.STRINGS.RESOLVED }}
         </th>
         <td mat-cell *matCellDef="let element">{{ element.hazard.resolved }}</td>
       </ng-container>
 
-      <ng-container [matColumnDef]="displayedColumns[3]">
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[3]">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.STRINGS.DATE_TIME }}
         </th>
         <td mat-cell *matCellDef="let element">{{ element.hazard.dateTime | date }}</td>
       </ng-container>
 
-      <ng-container [matColumnDef]="displayedColumns[4]">
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[4]">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.STRINGS.IMAGE }}
         </th>
@@ -43,7 +43,7 @@
         </td>
       </ng-container>
 
-      <ng-container [matColumnDef]="displayedColumns[5]">
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[5]">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
         </th>
@@ -54,14 +54,14 @@
             {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="editHazard(element)">
+            <button mat-menu-item *ngIf="hazardTable.permissions.editHazard" (click)="editHazard(element)">
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>Edit
             </button>
-            <button mat-menu-item (click)="viewHazard(element)">
+            <button mat-menu-item *ngIf="hazardTable.permissions.viewHazard" (click)="viewHazard(element)">
               <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
             </button>
-            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="confirmationModal(element.hazard.id)">
+            <button mat-menu-item *ngIf="hazardTable.permissions.deleteHazard" (click)="confirmationModal(element.hazard.id)">
               <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
               Delete
             </button>
@@ -69,11 +69,11 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="hazardTable.displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: hazardTable.displayedColumns"></tr>
     </table>
   </div>
-  <div class="paddingbox text-center" *ngIf="hazardTable.dataSource === 0">
+  <div class="paddingbox text-center" *ngIf="hazardTable.dataSource === null">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
 
   <mat-paginator class="mat-elevation-z1" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

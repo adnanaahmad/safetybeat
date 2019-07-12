@@ -3,8 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {ConstantService} from 'src/app/shared/constant/constant.service';
 import {CoreService} from 'src/app/core/services/authorization/core.service';
 import {catchError} from 'rxjs/operators';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {HelperService} from '../../../shared/helperService/helper.service';
+import {AllUsersOfEntityResponse} from '../../../models/adminControl/entityControl.model';
+import {User} from '../../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +37,7 @@ export class ProfileService {
    * this api function is used to return all the users of the organization.
    */
 
-  getAllUsers() {
+  getAllUsers(): Observable<AllUsersOfEntityResponse> {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
       this.helperService.constants.apiRoutes.allUsersOfOrganization);
   }
@@ -45,7 +47,7 @@ export class ProfileService {
    * @params data
    */
 
-  updateUsers(data: any) {
+  updateUsers(data: Array<User>) {
     this.orgUsers.next(data);
   }
 

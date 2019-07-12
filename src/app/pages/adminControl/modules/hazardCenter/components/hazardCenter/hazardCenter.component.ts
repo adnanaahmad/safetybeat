@@ -9,6 +9,7 @@ import { CompilerProvider } from 'src/app/shared/compiler/compiler';
 import { AddHazardComponent } from 'src/app/pages/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 import { ConfirmationModalComponent } from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import { ImageLightboxComponent } from 'src/app/Dialogs/imageLightbox/imageLightbox.component';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-hazardCenter',
@@ -18,7 +19,6 @@ import { ImageLightboxComponent } from 'src/app/Dialogs/imageLightbox/imageLight
 export class HazardCenterComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   hazardTable: HazardModel = <HazardModel>{};
-  displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
 
 
   constructor(
@@ -30,14 +30,20 @@ export class HazardCenterComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.hazardTable.permissions = data;
+      }
+    });
   }
 
   initialize() {
+    this.hazardTable.displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
     this.getHazardList();
     this.editorDeleteEnable();
   }
 
-  viewHazard(hazard) {
+  viewHazard(hazard: Hazard) {
     this.helperService.createDialog(HazardDetailsComponent, {
       disableClose: true,
       data: hazard
@@ -50,23 +56,21 @@ export class HazardCenterComponent implements OnInit {
         this.helperService.appConstants.key)),
     };
     this.adminControlService.allHazards(entityData).subscribe((res) => {
-      console.log(res);
-      if (res !== 1 && res.data.length !== 0) {
+      if (res && res.data.length !== 0) {
         this.hazardTable.dataSource = new MatTableDataSource(this.compiler.constructHazardArray(res));
         this.hazardTable.dataSource.paginator = this.paginator;
       } else if (res.data.length === 0) {
-        this.hazardTable.dataSource = 0;
+        this.hazardTable.dataSource = null;
       }
     });
   }
 
   editorDeleteEnable() {
     this.navService.currentRole.subscribe(res => {
-      this.hazardTable.entitySelectedRole = res;
-      if (
-        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.owner ||
-        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.teamLead ||
-        this.hazardTable.entitySelectedRole === this.helperService.appConstants.roles.entityManager
+      if ( res &&
+        res === this.helperService.appConstants.roles.owner ||
+        res === this.helperService.appConstants.roles.teamLead ||
+        res === this.helperService.appConstants.roles.entityManager
       ) {
         this.hazardTable.hazardOption = true;
       } else {
@@ -81,39 +85,40 @@ export class HazardCenterComponent implements OnInit {
       data: { Modal: true, hazardInfo: hazard }
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getHazardList();
+      if (res && res === this.helperService.appConstants.yes) {
+        this.getHazardList();
+      }
     });
   }
 
-  confirmationModal(id) {
+  confirmationModal(id: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
       { data: { message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD } });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
+      if (res && res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.deleteHazard(id);
       }
     });
   }
 
-  deleteHazard(id) {
+  deleteHazard(id: number) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
-      this.getHazardList();
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.getHazardList();
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
+            this.helperService.constants.status.SUCCESS);
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
+            this.helperService.constants.status.ERROR);
+        }
+      }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
           this.helperService.constants.status.ERROR);
       }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
-        this.helperService.constants.status.ERROR);
-    }
     );
   }
   testingFunc(image) {
-    console.log(image)
     this.helperService.createDialog(ImageLightboxComponent,
       {
         data:

@@ -1,6 +1,7 @@
 import {FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
+import {PermissionsModel} from './permissions.model';
 
 
 export class QuestionCenter {
@@ -10,7 +11,7 @@ export class QuestionCenter {
   allQuestions: QuestionsData;
   parentQuestions: Questions[];
   childQuestions: Questions[];
-  entityQuestionsResponse: EntityQuestionResponse;
+  entityQuestionsResponse: any;
   filteredParentQuestion: Questions[];
   filteredChildNoQuestion: Questions[];
   filteredChildYesQuestion: Questions[];
@@ -26,6 +27,7 @@ export class QuestionCenter {
   search: string;
   questionId: number;
   edit: boolean;
+  permissions: PermissionsModel;
 }
 
 
@@ -56,7 +58,7 @@ export interface Questions {
 }
 
 export interface EntityQuestionResponse {
-  pageCount: number,
+  // pageCount: number,
   entityQuestionList: EntityQuestion[]
 }
 
@@ -66,5 +68,5 @@ export interface EntityQuestion {
   childYes: Questions,
   childNo: Questions,
   childYesSafe: boolean,
-  childNoSafe: boolean
+  childNoSafe: boolean,
 }

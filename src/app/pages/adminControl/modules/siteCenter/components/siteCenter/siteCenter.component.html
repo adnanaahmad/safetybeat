@@ -2,15 +2,15 @@
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
     <div class="buttonRow">
-      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.sitesData" (click)="viewMap()">
+      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.permissions.viewSite" (click)="viewMap()">
         <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
         {{ helperService.translated.BUTTONS.VIEW_MAP }}
       </button>
-      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="addSite()">
+      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.permissions.addSite" (click)="addSite()">
         <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
         {{ helperService.translated.BUTTONS.ADD_SITE }}
       </button>
-      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.siteOption" (click)="importSite()">
+      <button btn-primary mat-raised-button color="primary" *ngIf="siteCentreObj.permissions.ImportSite" (click)="importSite()">
         <mat-icon>{{ helperService.appIcons.import }}</mat-icon>
         {{ helperService.translated.BUTTONS.IMPORT_SITE }}
       </button>
@@ -33,21 +33,21 @@
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.SITE_NAME }}
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.site.name }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="location">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.SITE_ADDRESS }}
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.site.location }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.location }}</td>
       </ng-container>
 
       <ng-container matColumnDef="safeZone">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.SITE_SAFE_ZONE }}
         </th>
-        <td mat-cell *matCellDef="let element">{{ element.site.safeZone }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.safeZone }}</td>
       </ng-container>
 
       <ng-container matColumnDef="createdBy">
@@ -77,15 +77,15 @@
             Actions
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="siteCentreObj.siteOption" (click)='editSite(element)'>
+            <button mat-menu-item *ngIf="siteCentreObj.permissions.editSite" (click)='editSite(element)'>
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
               Edit Site
             </button>
-            <button mat-menu-item (click)='goToViewSite(element.site.id)'>
+            <button mat-menu-item *ngIf="siteCentreObj.permissions.viewSite"  (click)='goToViewSite(element.id)'>
               <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
               View Site
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item *ngIf="siteCentreObj.permissions.questionCentre">
               <mat-icon>{{ helperService.appIcons.siteQuestionCenter }}</mat-icon>
               Site Question Control
             </button>
@@ -93,11 +93,11 @@
               <mat-icon>{{ helperService.appIcons.log }}</mat-icon>
               Log
             </button>
-            <button mat-menu-item (click)="addHazard(element.site.id)">
+            <button mat-menu-item *ngIf="siteCentreObj.permissions.addHazard" (click)="addHazard(element.id)">
               <mat-icon>{{ helperService.appIcons.warning }}</mat-icon>
               Add Hazard
             </button>
-            <button mat-menu-item *ngIf="siteCentreObj.siteOption" (click)="confirmationModal(element.site.id)">
+            <button mat-menu-item *ngIf="siteCentreObj.permissions.deleteSite" (click)="confirmationModal(element.id)">
               <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
               Delete
             </button>

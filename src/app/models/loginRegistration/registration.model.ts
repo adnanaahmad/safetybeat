@@ -33,6 +33,7 @@ export interface RegistrationObject {
 }
 
 export interface RegistrationResponseObject {
+  password1: string;
   data: {
     token: string;
     userData: {

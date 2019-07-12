@@ -10,5 +10,5 @@ export interface ImportSite {
   csvFile: File;
   type: 'multipart/form-data';
   sitesList: any;
-  sitesData: SitesInfo[];
+  sitesData: Array<SitesInfo>;
 }

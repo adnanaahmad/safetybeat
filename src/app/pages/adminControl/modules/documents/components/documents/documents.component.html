@@ -2,11 +2,11 @@
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
     <div class="buttonRow">
-      <button btn-primary mat-raised-button color="primary" (click)="uploadDoc()">
+      <button *ngIf="documentsData.permissions.uploadDocument" btn-primary mat-raised-button color="primary" (click)="uploadDoc()">
         <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
         {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
       </button>
-      <button btn-primary mat-raised-button color="primary" (click)="createFolder()">
+      <button *ngIf="documentsData.permissions.createFolder" btn-primary mat-raised-button color="primary" (click)="createFolder()">
         <mat-icon>{{ helperService.appIcons.createFolder }}</mat-icon>
         {{ helperService.translated.BUTTONS.CREATE_FOLDER }}
       </button>
