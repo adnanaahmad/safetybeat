@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {HelperService} from '../../../../shared/helperService/helper.service';
+import {Component, OnInit} from '@angular/core';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-import {AdminControlService} from '../../../adminControl/services/adminControl.service';
-import {PulsePersonReport} from '../../../../models/analyticsReport/averageDailyActions.model';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {PulsePersonReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
+import {PaginationData} from '../../../../models/site.model';
 
 @Component({
   selector: 'app-person-pulse-report',
@@ -19,7 +20,8 @@ export class PersonPulseReportComponent implements OnInit {
               public formBuilder: FormBuilder,
               public memberService: MemberCenterService,
               public compiler: CompilerProvider,
-              private adminServices: AdminControlService) { }
+              private adminServices: AdminControlService) {
+  }
 
   ngOnInit() {
     this.pulsePersonObj.pulsePersonForm = this.formBuilder.group({
@@ -29,7 +31,7 @@ export class PersonPulseReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.pulsePersonObj.entityId =  JSON.parse(this.helperService.decrypt
+    this.pulsePersonObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.getAllUsers({entityId: this.pulsePersonObj.entityId});
@@ -43,7 +45,12 @@ export class PersonPulseReportComponent implements OnInit {
   }
 
   getAllTeams(data) {
-    this.adminServices.allTeamsData(data).subscribe(res => {
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pulsePersonObj.allTeams = this.compiler.constructAllTeamsData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {

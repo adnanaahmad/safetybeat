@@ -10,6 +10,7 @@ import {ViewTeamComponent} from 'src/app/pages/adminControl/modules/myTeam/dialo
 import {ConfirmationModalComponent} from 'src/app/Dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/pages/navigation/services/navigation.service';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
+import {PaginationData} from '../../../../../../models/site.model';
 
 @Component({
   selector: 'app-my-team',
@@ -49,7 +50,7 @@ export class MyTeamComponent implements OnInit {
     let paginationData = {
       limit: null,
       offset: null,
-      search: null
+      search: ''
     };
     this.memberService.entityUsers(data, paginationData).subscribe((res) => {
       if (res) {
@@ -71,10 +72,15 @@ export class MyTeamComponent implements OnInit {
 
   getAllTeams() {
     let data: GetAllTeamsData = {
-      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
     };
-    this.adminServices.allTeamsData(data).subscribe(res => {
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.myTeam.allTeams = this.compiler.constructAllTeamsData(res);
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);

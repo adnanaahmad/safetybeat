@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {HelperService} from '../../../../shared/helperService/helper.service';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-import {AdminControlService} from '../../../adminControl/services/adminControl.service';
-import {AlertPersonReport} from '../../../../models/analyticsReport/averageDailyActions.model';
-import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {AlertPersonReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-alerts-person-report',
@@ -43,7 +44,12 @@ export class AlertsPersonReportComponent implements OnInit {
   }
 
   getAllTeams(data) {
-    this.adminServices.allTeamsData(data).subscribe(res => {
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.alertPersonObj.allTeams = this.compiler.constructAllTeamsData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {

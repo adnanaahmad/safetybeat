@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HazardReport} from '../../../../models/analyticsReport/averageDailyActions.model';
-import {HelperService} from '../../../../shared/helperService/helper.service';
-import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
-import {CompilerProvider} from '../../../../shared/compiler/compiler';
-import {AdminControlService} from '../../../adminControl/services/adminControl.service';
-import {AnalyticsReportService} from '../../services/analyticsReport.service';
-import {HighChartType} from '../../../../models/analyticsReport/actionReports.model';
-import * as Highcharts from 'highcharts';
-import {HighchartService} from '../../../../shared/highchart/highchart.service';
+import {HazardReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
+import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
+import {CompilerProvider} from 'src/app/shared/compiler/compiler';
+import {AdminControlService} from 'src/app/pages/adminControl/services/adminControl.service';
+import {AnalyticsReportService} from 'src/app/pages/analyticsReport/services/analyticsReport.service';
+import {HighchartService} from 'src/app/shared/highchart/highchart.service';
+import {PaginationData} from '../../../../models/site.model';
 
 @Component({
   selector: 'app-hazarReport',
@@ -25,7 +24,8 @@ export class HazardReportComponent implements OnInit {
               public analyticsService: AnalyticsReportService,
               public compiler: CompilerProvider,
               private adminServices: AdminControlService,
-              private highChartSettings: HighchartService) { }
+              private highChartSettings: HighchartService) {
+  }
 
   ngOnInit() {
     this.hazardObj.hazardReportForm = this.formBuilder.group({
@@ -34,18 +34,25 @@ export class HazardReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.hazardObj.entityId =  JSON.parse(this.helperService.decrypt
+    this.hazardObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.getAllTeams({entity: this.hazardObj.entityId});
-    this.getHazardReport({entityId: this.hazardObj.entityId,
+    this.getHazardReport({
+      entityId: this.hazardObj.entityId,
       'dateTo': null,
       'dateFrom': null,
-      'filter': 'Lifetime'});
+      'filter': 'Lifetime'
+    });
   }
 
   getAllTeams(data) {
-    this.adminServices.allTeamsData(data).subscribe(res => {
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.hazardObj.allTeams = this.compiler.constructAllTeamsData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
@@ -70,7 +77,6 @@ export class HazardReportComponent implements OnInit {
         this.helperService.constants.status.ERROR);
     });
   }
-
 
 
   formSubmit(hazardReportForm: FormGroup) {
