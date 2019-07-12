@@ -1,16 +1,18 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.HAZARD_CENTER }}</h3>
-  </div>
-  <!--Filter-->
-  <div class="data-filter">
-    <div class="input-wrap">
-      <input class="search-input" autocomplete="off" matInput placeholder="Search"
-             (keyup)=getHazardList(firstIndex,$event.target.value)>
-      <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+    <!--Filter-->
+    <div class="data-filter">
+      <div class="input-wrap">
+        <input class="search-input" autocomplete="off" matInput placeholder="Search"
+               (keyup)=getHazardList(firstIndex,$event.target.value)>
+        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+      </div>
+      <a (click)="advanceSearch()" class="mat-body-strong mat-small pointer">{{helperService.translated.STRINGS.ADVSEARCH}}</a>
     </div>
+    <!--/Filter-->
   </div>
-  <!--/Filter-->
+
   <div class="table-wrap">
     <table mat-table [dataSource]="hazardTable.dataSource" class="customTable mat-elevation-z3">
       <ng-container [matColumnDef]="hazardTable.displayedColumns[0]">
