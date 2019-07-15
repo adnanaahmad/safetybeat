@@ -10,7 +10,6 @@ export interface AddSite {
   createdBy: User;
   modalType: boolean;
   addSiteForm: FormGroup;
-  addSiteResponse: any;
   loading: boolean;
 }
 

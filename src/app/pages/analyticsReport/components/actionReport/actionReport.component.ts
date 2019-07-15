@@ -38,7 +38,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     });
     // this.actionReportObj.subscription = this.navService.data.subscribe((res) => {
     //   if (res !== 1) {
-    //     console.log(res);
     //     this.actionReportObj.allEntitiesData = res;
     //     this.actionReportObj.entityUserData = this.actionReportObj.allEntitiesData.entities;
     //     this.actionReportObj.entityName = this.actionReportObj.entityUserData[0].entityInfo.name;
@@ -81,7 +80,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
 
   makeReport(data) {
     this.analyticsService.actionReport(data).subscribe((res) => {
-      console.log(res);
       if (res.responseDetails.code === 100) {
         this.actionReportObj.actionReportData = this.compiler.constructActionReportData(res.data);
         let chartType: HighChartType = {

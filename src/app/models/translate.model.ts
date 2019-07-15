@@ -180,6 +180,46 @@ export interface Icons {
   TEXTURE: string;
 }
 
+export interface Strings {
+  EXPAND: string;
+  REMOVE: string;
+  EMAIL: string;
+  USERNAME: string;
+  PASSWORD: string;
+  FIRSTNAME: string;
+  LASTNAME: string;
+  MOBILENO: string;
+  PASSWORD1: string;
+  PASSWORD2: string;
+  NAME: string;
+  TYPE: string;
+  ADDRESS: string;
+  CITY: string;
+  COUNTRY: string;
+  ZIPCODE: string;
+  BILLINGEMAIL: string;
+  ACCOUNTNO: string;
+  PHONENO: string;
+  FAX: string;
+  PACKAGE_DESCRIPTION_1: string;
+  PACKAGE_DESCRIPTION_2: string;
+  PACKAGE_DESCRIPTION_3: string;
+  QUESTION_NAME: string;
+  QUESTION_WARNING: string;
+  SELECT_QUESTION_TYPE: string;
+  SAFE_QUESTION: string;
+  PARENT: string;
+  SAFE_QUESTION_YES: string;
+  SAFE_QUESTION_NO: string;
+  SAFE_QUESTION_BOTH: string;
+  CAN_PROCEED_QUESTION: string;
+  CAN_PROCEED_QUESTION_YES: string;
+  CAN_PROCEED_QUESTION_NO: string;
+  RENAME: string;
+  DELETE_FOLDER: string;
+
+}
+
 export interface Buttons {
   DOWNLOAD: string;
   LOGIN: string;
@@ -340,6 +380,7 @@ export interface Messages {
   ENTITY_DELETE: string;
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
+  ENTITYNOTDELETED: string;
   ENTITY_DELETE_FAIL_TITLE: string;
   SITE_IMPORT_SUCCESS: string;
   SITE_IMPORT_FAILURE: string;
@@ -462,6 +503,9 @@ export interface Messages {
   HAZARD_REPORT_MSG: string;
   NO_SITES: string;
   PARENT_QUESTION_REQ: string;
+  TEAM_TITLE_REQUIRED: string;
+  TEAM_SELECTION_REQUIRED: string;
+  TEAM_MEMBERS_REQUIRED: string;
 }
 
 export interface Logger {

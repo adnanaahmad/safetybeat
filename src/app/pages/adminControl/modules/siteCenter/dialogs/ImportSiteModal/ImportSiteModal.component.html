@@ -17,11 +17,11 @@
           {{fileName ? fileName : 'Choose File'}}
         </button>
         <input type='file' name="{{helperService.appConstants.importSite}}"
-               id="{{helperService.appConstants.importSite}}" accept='.csv' (change)=onFileSelected($event)/>
+               id="{{helperService.appConstants.importSite}}" accept='.csv' (change)=onFileSelected($event)>
       </div>
     </div>
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="!fileName"
+      <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="!fileName || importSiteModal.loading"
               color="primary">{{ helperService.translated.BUTTONS.IMPORT_SITE }}
         <div class="main-loader" *ngIf="importSiteModal.loading">
           <span class="loader1"></span>

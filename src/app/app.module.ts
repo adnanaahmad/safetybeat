@@ -75,7 +75,6 @@ export function createTranslateLoader(http: HttpClient) {
     AddQuestionComponent,
     SiteMapComponent,
     UploadDocComponent,
-    UploadDocComponent,
     CreateFolderComponent,
     ViewDocComponent,
     ViewDocComponent,

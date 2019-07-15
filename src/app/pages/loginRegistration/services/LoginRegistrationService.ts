@@ -43,10 +43,7 @@ export class LoginRegistrationService {
    * and fork join is used when you have a group of observables and only care about the final emitted value of each.
    */
   registrationData(): Observable<any> {
-    const companyTypes = this.helperService.requestCall(this.method.get, this.apiRoutes.companyTypes);
-    const modules = 'Safetybeat';
-    const packages = this.helperService.requestCall(this.method.get, this.apiRoutes.packages);
-    return forkJoin([companyTypes, modules, packages]);
+    return this.helperService.requestCall(this.method.get, this.apiRoutes.companyTypes);
   }
 
   /**

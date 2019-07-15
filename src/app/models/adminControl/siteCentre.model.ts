@@ -3,7 +3,7 @@ import {Subscription} from 'rxjs';
 import {MatTableDataSource} from '@angular/material';
 
 export interface SiteCentre {
-  dataSource: MatTableDataSource<SitesInfo[]>;
+  dataSource: MatTableDataSource<SitesInfo>;
   pageCount: number;
   pageSize: number;
   search: string;

@@ -46,6 +46,6 @@ export interface InviteTeamResponse {
 }
 
 export interface InviteTeamData {
-  email: string[];
+  email: Array<string>;
   entityCode: string;
 }

@@ -32,7 +32,7 @@ export class ConstantService {
     editEntity: `${environment.apiUrl}/entity`,
     changePassword: `${environment.apiUrl}/users/changePassword/`,
     getInvite: `${environment.apiUrl}/registration/`,
-    createEntity: `${environment.apiUrl}/entity/createEntity/`,
+    createEntity: `${environment.apiUrl}/entity/`,
     viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
     viewAllEntitiesOfUser: `${environment.apiUrl}/entity/viewAllEntitiesOfUser/`,
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
@@ -44,12 +44,11 @@ export class ConstantService {
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
-    getAllSites: `${environment.apiUrl}/api/sites/getSiteList/`,
-    addSite: `${environment.apiUrl}/api/sites/addSite/`,
+    addSite: `${environment.apiUrl}/api/sites/`,
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
     updatePackage: `${environment.apiUrl}/packages/updatePackage/`,
-    importSite: `${environment.apiUrl}/api/uploadFile/importSite/`,
+    importSite: `${environment.apiUrl}/api/sites/importSite/`,
     getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
     editOrganization: `${environment.apiUrl}/organization`,
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
@@ -137,6 +136,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    paginationLimit: 10,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',

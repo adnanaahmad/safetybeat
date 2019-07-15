@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/shared/helperService/helper.service';
-import {MyTeamModel, TeamList} from 'src/app/models/adminControl/myTeam.model';
+import {GetAllTeamsData, MyTeamModel, TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {RegisterTeamComponent} from 'src/app/pages/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import {CompilerProvider} from 'src/app/shared/compiler/compiler';
 import {MemberCenterService} from 'src/app/pages/adminControl/modules/memberCenter/services/member-center.service';
@@ -18,7 +18,7 @@ import {NavigationService} from 'src/app/pages/navigation/services/navigation.se
 export class MyTeamComponent implements OnInit {
 
   myTeam: MyTeamModel = <MyTeamModel>{};
-  displayedColumns: string[] = ['title', 'teamLead', 'symbol'];
+  displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   private allUsers: any[];
 
@@ -40,8 +40,15 @@ export class MyTeamComponent implements OnInit {
       entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
     };
-    this.memberService.entityUsers(data).subscribe((res) => {
-      this.allUsers = this.compiler.entityUser(res);
+    let paginationData = {
+      limit: null,
+      offset: null,
+      search: null
+    };
+    this.memberService.entityUsers(data, paginationData).subscribe((res) => {
+      if (res) {
+        this.allUsers = this.compiler.entityUser(res.data.allUser);
+      }
     });
   }
 
@@ -51,14 +58,16 @@ export class MyTeamComponent implements OnInit {
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getAllTeams();
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
   getAllTeams() {
-    let data = {
+    let data: GetAllTeamsData = {
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
-    }
+    };
     this.adminServices.allTeamsData(data).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.myTeam.allTeams = this.compiler.constructAllTeamsData(res);
@@ -67,12 +76,12 @@ export class MyTeamComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.myTeam.dataSource = 0;
+        this.myTeam.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAMS_NOT_FOUND,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-      this.myTeam.dataSource = 0;
+      this.myTeam.dataSource = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
         this.helperService.constants.status.ERROR);
     });

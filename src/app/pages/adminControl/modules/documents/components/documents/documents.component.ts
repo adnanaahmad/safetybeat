@@ -16,6 +16,8 @@ import {Router} from '@angular/router';
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   documentsData: Documents = <Documents>{};
+  noDocs: String = '';
+
 
   constructor(
     public dialog: MatDialog,
@@ -27,8 +29,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   initialize() {
-    this.documentsData.documentExist = false;
-    this.documentsData.folderExist = false;
+    this.documentsData.documentExist = true;
+    this.documentsData.folderExist = true;
     this.documentsData.panelOpenState = false;
   }
 
@@ -57,6 +59,10 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           this.documentsData.folderExist = false;
           this.documentsData.folderList = [];
         } else {
+          // setTimeout(() => {
+          //   this.noDocs = 'No Folder exists';
+          // }, 2000)
+
           this.documentsData.folderExist = true;
           this.documentsData.folderList = res.data;
         }

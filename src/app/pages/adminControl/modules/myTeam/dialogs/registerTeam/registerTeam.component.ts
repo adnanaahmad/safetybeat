@@ -9,7 +9,6 @@ import { map, startWith } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { AdminControlService } from 'src/app/pages/adminControl/services/adminControl.service';
 import { NavigationService } from 'src/app/pages/navigation/services/navigation.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 
 @Component({
