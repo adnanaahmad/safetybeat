@@ -48,6 +48,7 @@
 @import "~src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component.scss";
 @import "~src/app/features/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component.scss";
 @import "~src/app/features/adminControl/modules/documents/components/file/file.component.scss";
+@import "~src/app/features/adminControl/modules/documents/components/showFolderDocuments/showFolderDocuments.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -105,4 +106,6 @@
   @include amte-advanceSearch($primary, $accent, $warn);
   @include amte-changeAccessLevel($primary, $accent, $warn);
   @include amte-appfile($primary, $accent, $warn);
+  @include amte-appfile($primary, $accent, $warn);
+  @include amte-showDocuments($primary, $accent, $warn);
 }

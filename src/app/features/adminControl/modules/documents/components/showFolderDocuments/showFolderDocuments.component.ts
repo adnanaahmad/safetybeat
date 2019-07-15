@@ -53,8 +53,10 @@ export class ShowFolderDocumentsComponent implements OnInit {
           obj.sourceUrl = 'https//docs.google.com/gview?url=' + obj.file + '&embedded=true';
         });
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.documentsData.docList = [];
         this.documentsData.folderDoc = false;
       } else {
+        this.documentsData.docList = [];
         this.documentsData.folderDoc = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
