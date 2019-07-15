@@ -16,6 +16,9 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   documentsData: Documents = <Documents>{};
+  noDocs: String = '';
+
+
 
   constructor(
     public dialog: MatDialog,
@@ -27,12 +30,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   initialize() {
+    
     this.documentsData.documentExist = false;
     this.documentsData.folderExist = false;
     this.documentsData.panelOpenState = false;
   }
 
   ngOnInit() {
+    
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.documentsData.entityID = res.entityInfo.id;
@@ -59,16 +64,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
-          this.documentsData.folderExist = false;
           this.documentsData.folderList = [];
         } else {
-          this.documentsData.folderExist = true;
           this.documentsData.folderList = res.data;
         }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.documentsData.folderExist = false;
+        this.documentsData.folderList = [];
       } else {
-        this.documentsData.folderExist = false;
+        this.documentsData.folderList = [];
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_FOLDER_FAILURE,
           this.helperService.constants.status.ERROR);
       }
@@ -80,7 +83,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * @params entityId
    */
   getRootDocuments(entityId: number) {
-    this.documentsData.rootDocs = [];
+    // this.documentsData.rootDocs = [];
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {

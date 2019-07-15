@@ -13,7 +13,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
   styleUrls: ['./folder.component.scss']
 })
 export class FolderComponent implements OnInit {
-
+  showLoader: boolean;
   @Input() folderData: any;
   @Input() documentsData: any;
   @Input() folderList: any[];
@@ -28,6 +28,7 @@ export class FolderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showLoader= false;
     let id = this.folderData.id;
     this.folders = this.folderList.filter(folder => {
       return folder.id !== id;
@@ -43,11 +44,14 @@ export class FolderComponent implements OnInit {
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_FOLDER}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
+        this.showLoader = true;
         this.helperService.toggleLoader(true);
         this.navService.deleteFolder(id).subscribe((res) => {
+          this.showLoader = false;
           this.processAction.emit(true);
         });
       } else {
+        this.showLoader = false;
         this.processAction.emit(false);
       }
     });

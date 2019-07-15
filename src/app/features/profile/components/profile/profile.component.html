@@ -23,10 +23,6 @@
       <h4 class="mat-display-1 mat-body-strong">30</h4>
       <p class="mat-small">{{helperService.translated.MESSAGES.LEAVES}}</p>
     </div>
-    <div class="countbox">
-      <h4 class="mat-display-1 mat-body-strong">{{profileModel.entityCount}}</h4>
-      <p class="mat-small">{{helperService.translated.MESSAGES.ENTITIES}}</p>
-    </div>
   </div>
 </mat-toolbar>
 
@@ -50,10 +46,6 @@
               <mat-list-item [ngClass]="profileFeatures.leaves ? 'active' : ''" class="mat-body-strong tab-switcher" role="listitem" matRipple (click)="onChangeFeatures('leaves')">
                 <mat-icon color="primary">{{helperService.appIcons.groupAdd}}</mat-icon>
                 {{ helperService.translated.MESSAGES.LEAVES }}
-              </mat-list-item>
-              <mat-list-item [ngClass]="profileFeatures.entities ? 'active' : ''" class="mat-body-strong tab-switcher" role="listitem" matRipple (click)="onChangeFeatures('entities')">
-                <mat-icon color="primary">{{helperService.appIcons.business}}</mat-icon>
-                {{ helperService.translated.MESSAGES.ENTITIES }}
               </mat-list-item>
             </mat-list>
           </div>
@@ -174,40 +166,6 @@
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </mat-card-content>
 
-          <!-- ================================================================================================= -->
-          <!-- for entities insert data here -->
-          <mat-card-content *ngIf="profileFeatures.entities">
-            <div class="table-wrap">
-              <mat-card-title>Your Entities</mat-card-title>
-              <table mat-table [dataSource]="profileModel.dataSource" class="customTable">
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element">{{element.entityInfo.name}}</td>
-                </ng-container>
-                <ng-container matColumnDef="headOffice">
-                  <th mat-header-cell *matHeaderCellDef> Head Office </th>
-                  <td mat-cell *matCellDef="let element"> {{element.entityInfo.headOffice}} </td>
-                </ng-container>
-                <ng-container matColumnDef="access">
-                  <th mat-header-cell *matHeaderCellDef> Access Level </th>
-                  <td mat-cell *matCellDef="let element"> {{element.role}} </td>
-                </ng-container>
-                <ng-container matColumnDef="managedBy">
-                  <th mat-header-cell *matHeaderCellDef> Managed By </th>
-                  <td mat-cell *matCellDef="let element"> {{element.administrator.first_name+' '+element.administrator.last_name}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="entitiesColumn"></tr>
-                <tr mat-row *matRowDef="let row; columns: entitiesColumn;"></tr>
-              </table>
-              <mat-card *ngIf="profileModel.noEntity" class="text-center">No Entities</mat-card>
-            </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-          </mat-card-content>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>

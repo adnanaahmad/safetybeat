@@ -1,6 +1,8 @@
 @mixin amte-documents($primary, $accent, $warn) {
     :host,
     app-documents {
+      position: relative;
+      height: 100%;
       .document-inline,
       .file-inline {
         display: inline-block;

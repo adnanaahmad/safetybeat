@@ -28,7 +28,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   ) {
     this.actionReportObj.filters = ['range', 'weekly', 'monthly', 'yearly', 'Lifetime']
     this.actionReportObj.showChart = true;
-    this.getAllSites();
   }
 
   ngOnInit() {
@@ -105,15 +104,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   }
 
-  getAllSites() {
-    let entityData = {
-      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
-    };
-    this.adminServices.getSiteList(entityData).subscribe((res) => {
-      this.actionReportObj.sitesData = this.compiler.constructSiteList(res);
-    });
-  }
 
   filteredReport(value: any) {
     if (value !== 'range') {

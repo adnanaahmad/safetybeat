@@ -28,10 +28,6 @@
                 <div class="product-notice" *ngIf="!isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">
                     {{helperService.translated.MESSAGES.TRIAL_EXP_USER}}
                 </div>
-                <div class="product-notice">
-                    {{helperService.translated.MESSAGES.TRIAL_LEFT_1}}{{packageInfo.daysLeft}}{{helperService.translated.MESSAGES.TRIAL_LEFT_2}}
-                    <button>{{helperService.translated.BUTTONS.UPGRADE}}</button>
-                </div>
                 <div class="top-btns">
                     <div class="entity-switch-wrap" *ngIf="navModel.showEntitySwitcher">
                         <button mat-button [matMenuTriggerFor]="menu1">
