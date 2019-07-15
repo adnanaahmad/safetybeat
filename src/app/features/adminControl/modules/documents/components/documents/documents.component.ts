@@ -87,16 +87,16 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.documentsData.documentExist = true;
-        this.documentsData.rootDocs = this.compiler.constructDocuments(res);
+        this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);  
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.documentsData.documentExist = false;
+        this.documentsData.rootDocs = [];
       } else {
-        this.documentsData.documentExist = false;
+        this.documentsData.rootDocs = [];
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.documentsData.rootDocs = [];
       this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
         this.helperService.constants.status.ERROR);
     });
