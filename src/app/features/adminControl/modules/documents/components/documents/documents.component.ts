@@ -16,6 +16,8 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   documentsData: Documents = <Documents>{};
+  noDocs: String = '';
+
 
 
   constructor(
@@ -28,14 +30,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   initialize() {
-    this.documentsData.folderList = [];
-    this.documentsData.rootDocs = [];
+    
     this.documentsData.documentExist = false;
     this.documentsData.folderExist = false;
     this.documentsData.panelOpenState = false;
   }
 
   ngOnInit() {
+    
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.documentsData.entityID = res.entityInfo.id;
@@ -81,7 +83,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * @params entityId
    */
   getRootDocuments(entityId: number) {
-    this.documentsData.rootDocs = [];
+    // this.documentsData.rootDocs = [];
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {

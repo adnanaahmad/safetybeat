@@ -3,6 +3,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {MatDialog} from '@angular/material';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
+import {FileRenameComponent} from '../../dialogs/fileRename/fileRename.component';
 
 @Component({
   selector: 'app-file',
@@ -13,9 +14,6 @@ export class FileComponent implements OnInit {
   showLoader: boolean;
   @Input() docData: Object;
   @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
-  private fileName: string;
-  editable: boolean;
-
 
   constructor( public dialog: MatDialog,
               public helperService: HelperService,
@@ -37,7 +35,7 @@ export class FileComponent implements OnInit {
         this.showLoader = true;
         this.helperService.toggleLoader(true);
         this.navService.deleteDoc(id).subscribe((res: Object) => {
-          this.showLoader = true;
+          this.showLoader = false;
           this.processAction.emit(true);
         });
       } else {
@@ -55,25 +53,15 @@ export class FileComponent implements OnInit {
   //   this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
   // }
   renameDoc (doc) {
-    this.editable = true;
-    this.fileName = doc.title.split('.')[0];
-  }
-
-  editedValue(value, doc) {
-    this.editable = false;
-    value = value + '.' + (doc.title.split('.'))[1];
-    let blob = new Blob([doc.file]);
-    let formData = new FormData();
-    formData.append('title' , value);
-    formData.append('file', blob);
-    formData.append('uploadedBy', doc.uploadedBy);
-    this.navService.renameDocument(doc.id, formData).subscribe((res) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.DOCUMENT_RENAMED, this.helperService.constants.status.SUCCESS);
-      this.processAction.emit(true);
-    }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DOC_RENAME_FAIL);
-      this.processAction.emit(false);
+    this.helperService.createDialog(FileRenameComponent, {disableClose: true, data : {docInfo: doc}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res !== 'cancel') {
+        this.processAction.emit(true);
+      } else {
+        this.showLoader = false;
+      }
     });
   }
+
 
 }

@@ -44,7 +44,6 @@ export class ConstantService {
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
-    getAllSites: `${environment.apiUrl}/api/sites/getSiteList/`,
     addSite: `${environment.apiUrl}/api/sites/`,
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,

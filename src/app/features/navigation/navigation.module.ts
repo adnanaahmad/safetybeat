@@ -8,15 +8,12 @@ import {NavListComponent} from './components/navList/navList.component';
 import {NotificationNavComponent} from './components/notificationNav/notificationNav.component';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {FormsModule} from '@angular/forms';
-
-import { NavHighlighterDirective } from 'src/app/directives/navHighlighter/nav-highlighter.directive';
 @NgModule({
   declarations: [
     FixedNavComponent,
     NavListComponent,
     NavigationComponent,
-    NotificationNavComponent,
-    NavHighlighterDirective
+    NotificationNavComponent
   ],
   imports: [
     CommonModule,

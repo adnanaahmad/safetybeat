@@ -51,6 +51,7 @@ import { AdvanceSearchComponent } from './features/adminControl/modules/siteCent
 import {ImageLightboxComponent} from './dialogs/imageLightbox/imageLightbox.component';
 import {PageNotFoundComponent} from './components/pageNotFound/pageNotFound.component';
 import {ParticleContainer2Component} from './components/particleContainer/particleContainer2.component';
+import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -85,6 +86,7 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileImagePipe,
     AdvanceSearchComponent,
     ImageLightboxComponent,
+    FileRenameComponent,
     PageNotFoundComponent,
     ParticleContainer2Component
   ],
@@ -161,7 +163,8 @@ export function createTranslateLoader(http: HttpClient) {
     RegisterTeamComponent,
     ViewTeamComponent,
     AdvanceSearchComponent,
-    ImageLightboxComponent
+    ImageLightboxComponent,
+    FileRenameComponent
   ]
 })
 export class AppModule {
