@@ -1,6 +1,8 @@
 @mixin amte-showDocuments($primary, $accent, $warn) {
     :host,
     app-showDocuments {
+      position: relative;
+      height: 100%;
       .go-back {
         padding: 0;
       }

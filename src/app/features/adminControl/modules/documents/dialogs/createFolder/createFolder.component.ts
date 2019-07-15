@@ -41,6 +41,7 @@ export class CreateFolderComponent implements OnInit {
 
 // this function opens a dialog to create new folder
   createFolder(value: Folders) {
+    this.documentsData.loader = true;
     if (value.title === this.helperService.appConstants.Root) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CANT_CREATE_ROOT, this.helperService.constants.status.WARNING);
     } else if (this.data.folderList && this.checkFolderName(value.title)) {
@@ -68,6 +69,7 @@ export class CreateFolderComponent implements OnInit {
    * @params value
    */
   renameFolder(value: Folders) {
+    this.documentsData.loader = true;
     if (this.checkFolderName(value.title)) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.SAME_FOLDER_NAME,
         this.helperService.constants.status.WARNING);

@@ -14,7 +14,7 @@
   </div>
 
   <!--Search-->
-  <div class="search-bar">
+  <div class="search-bar" *ngIf="documentsData.folderList && documentsData.rootDocs && (documentsData.folderList.length || documentsData.rootDocs.length)">
     <form autocomplete="off">
       <mat-form-field fullWidth autocomplete="off" appearance="outline">
         <mat-label>Search file or folder</mat-label>
@@ -26,9 +26,10 @@
   <!--/Search-->
 
   <!-- Folders -->
-  <div class="folders-wrapper">
+  <div class="folders-wrapper" *ngIf="documentsData.folderList && documentsData.folderList.length">
     <h4 class="wrapper-heading">Folders</h4>
-    <p class="no-data mat-caption" *ngIf="!documentsData.folderExist">No folders</p>
+    <!-- <p class="no-data mat-caption" *ngIf="!documentsData.folderExist">No folders
+      found.</p> -->
     <div class="content-area">
         <app-folder *ngFor="let folder of documentsData.folderList" [documentsData]="documentsData" [folderData] = "folder"
                     [folderList]="documentsData.folderList" (processAction) = "refreshFolders($event)"></app-folder>
@@ -37,11 +38,22 @@
   <!--/Folders-->
 
   <!--Files-->
-  <div class="files-wrapper">
+  <div class="files-wrapper" *ngIf="documentsData.rootDocs && documentsData.rootDocs.length">
     <h4 class="wrapper-heading">Files</h4>
-    <p class="no-data mat-caption" *ngIf="!documentsData.documentExist">No documents</p>
+    <!-- <p class="no-data mat-caption" *ngIf="!documentsData.documentExist">No documents
+      found.</p> -->
     <div class="content-area">
-      <app-file *ngFor="let doc of documentsData.rootDocs" [docData]="doc" (processAction) = "refreshFiles($event)"></app-file>
+      <app-file *ngFor="let doc of documentsData.rootDocs; let i = index" [docData]="doc" (processAction) = "refreshFiles($event, i)" ></app-file>
     </div>
   </div>
+</div>
+
+<div class="spinner-wrap" *ngIf="!documentsData.rootDocs || !documentsData.folderList">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="folders-wrapper" *ngIf="documentsData.folderList && documentsData.rootDocs && !documentsData.folderList.length && !documentsData.rootDocs.length">
+    <h4>
+      No folders or files exists
+    </h4>
 </div>

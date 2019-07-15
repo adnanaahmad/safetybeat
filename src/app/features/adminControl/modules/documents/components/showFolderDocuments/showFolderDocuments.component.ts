@@ -27,6 +27,7 @@ export class ShowFolderDocumentsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.documentsData.docList = [];
     this.docsOfFolder(this.documentsData.folderId);
   }
 
@@ -39,7 +40,7 @@ export class ShowFolderDocumentsComponent implements OnInit {
    * @params folderID
    */
   docsOfFolder(folderID: number) {
-    this.documentsData.docList = [];
+    // this.documentsData.docList = [];
     this.documentsData.panelOpenState = true;
     let data = {
       'folderId': folderID

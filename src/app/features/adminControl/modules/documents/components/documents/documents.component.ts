@@ -19,6 +19,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   noDocs: String = '';
 
 
+
   constructor(
     public dialog: MatDialog,
     public helperService: HelperService,
@@ -29,8 +30,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   initialize() {
-    this.documentsData.documentExist = true;
-    this.documentsData.folderExist = true;
+    this.documentsData.documentExist = false;
+    this.documentsData.folderExist = false;
     this.documentsData.panelOpenState = false;
   }
 
@@ -61,20 +62,14 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.length === 0) {
-          this.documentsData.folderExist = false;
           this.documentsData.folderList = [];
         } else {
-          // setTimeout(() => {
-          //   this.noDocs = 'No Folder exists';
-          // }, 2000)
-
-          this.documentsData.folderExist = true;
           this.documentsData.folderList = res.data;
         }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.documentsData.folderExist = false;
+        this.documentsData.folderList = [];
       } else {
-        this.documentsData.folderExist = false;
+        this.documentsData.folderList = [];
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_FOLDER_FAILURE,
           this.helperService.constants.status.ERROR);
       }
@@ -86,7 +81,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * @params entityId
    */
   getRootDocuments(entityId: number) {
-    this.documentsData.rootDocs = [];
+    // this.documentsData.rootDocs = [];
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {

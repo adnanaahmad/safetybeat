@@ -5,6 +5,9 @@
   {{helperService.translated.STRINGS.RENAME_FOLDER}}
 </mat-card-title>
 <div mat-dialog-content>
+    <div class="spinner-wrap" *ngIf="documentsData.loader">
+        <mat-spinner color="primary" [diameter]="30"></mat-spinner>
+      </div>
   <form [formGroup]="documentsData.folderForm" (ngSubmit)="folderFormSubmit(documentsData.folderForm)">
     <mat-form-field  appearance="outline" full-width>
       <mat-label>{{helperService.translated.STRINGS.FOLDER_NAME}}</mat-label>
