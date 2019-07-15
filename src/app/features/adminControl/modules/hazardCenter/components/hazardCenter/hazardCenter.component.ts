@@ -7,8 +7,8 @@ import {AdminControlService} from 'src/app/features/adminControl/services/adminC
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {AddHazardComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
-import {ConfirmationModalComponent} from 'src/app/shared/dialogs/conformationModal/confirmationModal.component';
-import {ImageLightboxComponent} from 'src/app/shared/dialogs/imageLightbox/imageLightbox.component';
+import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
+import {ImageLightboxComponent} from 'src/app/dialogs/imageLightbox/imageLightbox.component';
 import {PaginationData} from 'src/app/models/site.model';
 import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 

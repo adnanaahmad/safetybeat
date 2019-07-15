@@ -6,7 +6,7 @@ import {QuestionCenterService} from 'src/app/features/adminControl/modules/quest
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {ConfirmationModalComponent} from 'src/app/shared/dialogs/conformationModal/confirmationModal.component';
+import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {PaginationData} from '../../../../../../models/site.model';

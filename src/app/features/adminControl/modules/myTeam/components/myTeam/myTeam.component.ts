@@ -7,7 +7,7 @@ import {MemberCenterService} from 'src/app/features/adminControl/modules/memberC
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ViewTeamComponent} from 'src/app/features/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
-import {ConfirmationModalComponent} from 'src/app/shared/dialogs/conformationModal/confirmationModal.component';
+import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {PaginationData} from '../../../../../../models/site.model';

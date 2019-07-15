@@ -21,15 +21,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CreateEntityComponent } from './features/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import { JoinEntityModalComponent } from './features/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
-import { InviteUserModalComponent } from './shared/dialogs/inviteUserModal/inviteUserModal.component';
-import { VerificationComponent } from './shared/dialogs/verification/verification.component';
+import { InviteUserModalComponent } from './dialogs/inviteUserModal/inviteUserModal.component';
+import { VerificationComponent } from './dialogs/verification/verification.component';
 import { CompilerProvider } from './services/common/compiler/compiler';
 import { InviteTeamModalComponent } from './features/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatNativeDateModule} from '@angular/material';
-import { ToasterComponent } from './shared/components/toaster/toaster.component';
+import { ToasterComponent } from './components/toaster/toaster.component';
 import { AddSiteModalComponent } from './features/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import { ImportSiteModalComponent } from './features/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
-import { ConfirmationModalComponent } from './shared/dialogs/conformationModal/confirmationModal.component';
+import { ConfirmationModalComponent } from './dialogs/conformationModal/confirmationModal.component';
 import { ChangeAccessLevelComponent } from './features/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
 import { EntityCodeModalComponent } from './features/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import { AddHazardComponent } from './features/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
@@ -48,9 +48,9 @@ import { CreateQuestionComponent } from './features/adminControl/modules/questio
 import {MyTeamModule} from './features/adminControl/modules/myTeam/myTeam.module';
 import { ProfileImagePipe } from './pipes/profileImage/profile-image.pipe';
 import { AdvanceSearchComponent } from './features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
-import {ImageLightboxComponent} from './shared/dialogs/imageLightbox/imageLightbox.component';
-import {PageNotFoundComponent} from './shared/components/pageNotFound/pageNotFound.component';
-import {ParticleContainer2Component} from './shared/components/particleContainer/particleContainer2.component';
+import {ImageLightboxComponent} from './dialogs/imageLightbox/imageLightbox.component';
+import {PageNotFoundComponent} from './components/pageNotFound/pageNotFound.component';
+import {ParticleContainer2Component} from './components/particleContainer/particleContainer2.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

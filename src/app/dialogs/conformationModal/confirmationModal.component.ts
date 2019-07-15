@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Translation } from '../../../models/translate.model';
-import { HelperService } from '../../../services/common/helperService/helper.service';
+import { Translation } from '../../models/translate.model';
+import { HelperService } from '../../services/common/helperService/helper.service';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({

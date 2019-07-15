@@ -6,7 +6,7 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
 import {EntityCodeModalComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/entityCodeModal/entityCodeModal.component';
 import {InviteTeamModalComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
-import {ConfirmationModalComponent} from 'src/app/shared/dialogs/conformationModal/confirmationModal.component';
+import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {EntityControl, InviteTeamData} from 'src/app/models/adminControl/entityControl.model';

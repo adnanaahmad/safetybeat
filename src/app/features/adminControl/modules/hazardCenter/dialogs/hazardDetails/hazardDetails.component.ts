@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ImageLightboxComponent} from 'src/app/shared/dialogs/imageLightbox/imageLightbox.component';
+import {ImageLightboxComponent} from 'src/app/dialogs/imageLightbox/imageLightbox.component';
 import {Hazard, HazardList} from 'src/app/models/hazard.model';
 
 @Component({

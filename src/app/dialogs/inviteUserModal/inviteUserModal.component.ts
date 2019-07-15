@@ -4,13 +4,13 @@ import {Validators, FormBuilder} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {AdminControlService} from '../../../features/adminControl/services/adminControl.service';
-import {CompilerProvider} from '../../../services/common/compiler/compiler';
-import {EntityInfo} from '../../../models/userEntityData.model';
+import {AdminControlService} from '../../features/adminControl/services/adminControl.service';
+import {CompilerProvider} from '../../services/common/compiler/compiler';
+import {EntityInfo} from '../../models/userEntityData.model';
 import {share} from 'rxjs/operators';
-import {ProfileService} from '../../../features/profile/services/profile.service';
-import {MemberCenterService} from '../../../features/adminControl/modules/memberCenter/services/member-center.service';
-import {PaginationData} from '../../../models/site.model';
+import {ProfileService} from '../../features/profile/services/profile.service';
+import {MemberCenterService} from '../../features/adminControl/modules/memberCenter/services/member-center.service';
+import {PaginationData} from '../../models/site.model';
 
 @Component({
   selector: 'app-inviteUserModal',

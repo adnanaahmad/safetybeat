@@ -6,9 +6,9 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {MemberCenter} from 'src/app/models/adminControl/memberCenter/memberCenter.model';
 import {ChangeAccessLevelComponent} from 'src/app/features/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component';
-import {ConfirmationModalComponent} from 'src/app/shared/dialogs/conformationModal/confirmationModal.component';
+import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
-import {InviteUserModalComponent} from 'src/app/shared/dialogs/inviteUserModal/inviteUserModal.component';
+import {InviteUserModalComponent} from 'src/app/dialogs/inviteUserModal/inviteUserModal.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 
