@@ -60,7 +60,7 @@ export class MyTeamComponent implements OnInit {
   }
 
   registerTeam() {
-    this.helperService.createDialog(RegisterTeamComponent, {
+    this.helperService.createDialog(RegisterTeamComponent, {disableClose: true,
       data: {Modal: false, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {

@@ -90,8 +90,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.documentsData.documentExist = true;
-        this.documentsData.rootDocs = this.compiler.constructDocuments(res);
+        if (res.data.length === 0) {
+          this.documentsData.documentExist = false;
+        } else {
+          this.documentsData.documentExist = true;
+          this.documentsData.rootDocs = this.compiler.constructDocuments(res);
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.documentsData.documentExist = false;
       } else {
@@ -127,14 +131,18 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * Create new folder
    */
   createFolder() {
-    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID,
-      folderList: this.documentsData.folderList}});
+    this.helperService.createDialog(CreateFolderComponent, {
+      disableClose: true, data: {
+        type: true, id: this.documentsData.entityID,
+        folderList: this.documentsData.folderList
+      }
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res !== 'cancel') {
         this.getAllFolders(this.documentsData.entityID);
       }
     });
-}
+  }
 
   /**
    * Refresh Folders data after renaming or removing

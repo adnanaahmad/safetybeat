@@ -39,8 +39,7 @@
   <!--Files-->
   <div class="files-wrapper">
     <h4 class="wrapper-heading">Files</h4>
-    <p class="no-data mat-caption" *ngIf="!documentsData.documentExist">No documents
-      found.</p>
+    <p class="no-data mat-caption" *ngIf="!documentsData.documentExist">No documents</p>
     <div class="content-area">
       <app-file *ngFor="let doc of documentsData.rootDocs" [docData]="doc" (processAction) = "refreshFiles($event)"></app-file>
     </div>

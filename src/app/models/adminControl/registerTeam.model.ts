@@ -4,6 +4,8 @@ import {TeamList} from './myTeam.model';
 
 
 export interface RegisterTeamModel {
+  teamLead: any;
+  selectedUser: any[];
   addedUsers: any[];
   removeUsers: any[];
   teamInfo: TeamList;
