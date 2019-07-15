@@ -100,6 +100,7 @@
     "DELETE_FOLDER": "Delete Folder",
     "VIEW_DOC": "View Document",
     "RENAME_FOLDER": "Rename Folder",
+    "RENAME_FILE": "Rename Document",
     "IMAGE": "Image",
     "CHECK_IN": "Check-in",
     "CHECK_OUT": "Check-Out",

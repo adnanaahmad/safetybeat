@@ -18,8 +18,7 @@
       <div class="filetype">
         <span>{{(docData.title.split('.'))[1]}}</span>
       </div>
-      <input type="text" (keyup.enter)="editedValue($event.target.value, docData)" *ngIf="editable" [(ngModel)]="fileName"/>
-      <span class="mat-body-2 mat-small" *ngIf="!editable">{{docData.title}}</span>
+      <span class="mat-body-2 mat-small">{{docData.title}}</span>
     </div>
   </mat-card>
 </ng-container>
