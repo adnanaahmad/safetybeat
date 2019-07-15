@@ -5,7 +5,7 @@
 <div class="mat-dialog-content">
   <!-- <form [formGroup]="registerTeamObj.registerTeamForm" (ngSubmit)="teamFormSubmit(registerTeamObj.registerTeamForm)">
     <div class="input">
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.MESSAGES.TEAM_TITLE}}</mat-label>
         <input matInput type="text" [formControlName]=helperService.appConstants.title required />
         <mat-error *ngIf="formValidation.title.errors">
@@ -15,7 +15,7 @@
       </mat-form-field>
     </div>
     <div class="input">
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.MESSAGES.TEAM_LEAD}}</mat-label>
         <mat-select [formControlName]="helperService.appConstants.teamLead">
           <mat-option *ngFor="let user of registerTeamObj.allUsersList" [value]="user.id">
@@ -29,7 +29,7 @@
       </mat-form-field>
     </div>
     <div class="input">
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.MESSAGES.TEAM_MEMBER}}</mat-label>
         <mat-chip-list #chipList>
           <mat-chip *ngFor="let user of registerTeamObj.users" [removable]="registerTeamObj.removable"

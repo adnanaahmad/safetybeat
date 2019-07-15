@@ -42,9 +42,6 @@ body {
 }
 
 // Define font-family explicitly
-.mat-card-title {
-  line-height: inherit;
-}
 
 h1,
 h2,
@@ -95,54 +92,8 @@ app-toaster {
   height: 1px;
 }
 
-app-entityCodeModal {
-  .entity-code {
-    font-family: $fontFamily;
-  }
-}
-
 .app-content {
   overflow-x: hidden !important;
-}
-
-.paragraph {
-  line-height: 1.7;
-}
-
-.full-width {
-  width: $fullValue;
-}
-
-.mat-input-element:disabled {
-  cursor: not-allowed;
-}
-
-.settings-btn {
-  width: 40px;
-  padding: 0 !important;
-  display: block;
-  max-width: none;
-  min-width: auto !important;
-  height: 30px;
-  line-height: 1.4 !important;
-  mat-icon {
-    width: auto;
-    height: auto;
-    font-size: 18px;
-  }
-}
-
-[edit-btn] {
-  width: 30px;
-  min-width: 25px !important;
-  padding: 0 !important;
-  height: 25px;
-  mat-icon {
-    font-size: 1rem;
-    height: auto;
-    width: auto;
-    display: block;
-  }
 }
 
 .sb-logo {
@@ -154,7 +105,7 @@ app-entityCodeModal {
 mat-dialog-container {
   padding: 0 !important;
   mat-card-title {
-    padding: 15px 20px;
+    padding: 10px 20px;
     color: $hexWhite;
     text-transform: capitalize;
     font-size: 16px !important;
@@ -230,10 +181,6 @@ mat-dialog-container {
     justify-content: center;
     align-items: center;
   }
-}
-
-[full-width] {
-  width: $fullValue !important;
 }
 
 .marginGrid {

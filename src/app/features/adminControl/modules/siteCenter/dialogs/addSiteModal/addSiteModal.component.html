@@ -9,7 +9,7 @@
     (keydown.enter)="$event.preventDefault()">
     <div class="flexbox">
       <mat-card>
-        <mat-form-field appearance="outline" full-width>
+        <mat-form-field appearance="outline" fullWidth>
           <mat-label>{{helperService.translated.TABLEHEADINGS.SITE_NAME}}</mat-label>
           <input matInput type="text" [formControlName]="helperService.appConstants.siteName" required />
           <mat-error *ngIf="formValidation.siteName.errors">
@@ -17,7 +17,7 @@
               *ngIf="formValidation.siteName.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline" full-width>
+        <mat-form-field appearance="outline" fullWidth>
           <mat-label>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</mat-label>
           <textarea matTooltip="Add Safety Plan here." matTooltipPosition="below" maxlength="2000" rows="6" cols="6"
             matInput [formControlName]="helperService.appConstants.siteSafetyPlan" required>
@@ -27,7 +27,7 @@
               *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline" full-width>
+        <mat-form-field appearance="outline" fullWidth>
           <mat-label>{{helperService.translated.STRINGS.SITEADDRESS}}</mat-label>
           <input matInput type="text" appGooglePlaces
             (onSelect)="helperService.setAddress($event,gMapElement,formValidation.siteAddress)"
@@ -40,7 +40,7 @@
               *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline" full-width *ngIf="!addSiteObj.modalType">
+        <mat-form-field appearance="outline" fullWidth *ngIf="!addSiteObj.modalType">
           <mat-label>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</mat-label>
           <mat-select [(value)]="addSiteObj.siteSafetyManager.id"
             [formControlName]="helperService.appConstants.siteSafetyManager">

@@ -17,7 +17,7 @@
     </div>
     <mat-checkbox *ngIf="data.modalType" (change)="showFolderList()" [disabled]="!documentsData.folderExist || newDoc.disableButton">Save in Folder</mat-checkbox>
     <ng-container *ngIf="data.modalType">
-    <mat-form-field appearance="outline" full-width *ngIf="newDoc.isEnabled" >
+    <mat-form-field appearance="outline" fullWidth *ngIf="newDoc.isEnabled" >
       <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
       <mat-select formControlName="folders" [disabled]="newDoc.disableButton">
         <ng-container *ngFor="let folder of newDoc.folderList" >

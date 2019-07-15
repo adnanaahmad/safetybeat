@@ -9,7 +9,7 @@
         <mat-spinner color="primary" [diameter]="30"></mat-spinner>
       </div>
   <form [formGroup]="documentsData.folderForm" (ngSubmit)="folderFormSubmit(documentsData.folderForm)">
-    <mat-form-field  appearance="outline" full-width>
+    <mat-form-field  appearance="outline" fullWidth>
       <mat-label>{{helperService.translated.STRINGS.FOLDER_NAME}}</mat-label>
       <input formControlName="title" matInput type="text" required autofocus/>
           <mat-error class="text-right" *ngIf="folderFormControls.title.errors">

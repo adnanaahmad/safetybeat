@@ -4,7 +4,7 @@
 <div mat-dialog-content>
   <form [formGroup]="QuestionObj.addQuestionForm" (ngSubmit)=questionFormSubmit(QuestionObj.addQuestionForm)>
     <div class="form-group">
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.STRINGS.PARENT_QUESTION}}</mat-label>
         <input [disabled] matInput type="text" [formControlName]="helperService.appConstants.parent" [matAutocomplete]="autoParent"
           (keyup)=filterParentQuestion($event.target.value)>

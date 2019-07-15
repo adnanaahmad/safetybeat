@@ -1,84 +1,88 @@
-<h3 class="setting-title">
-  <button btn-primary mat-raised-button edit-btn color="primary" (click)="editOrgForm()">
-    <mat-icon>edit</mat-icon>
-  </button>
-</h3>
+<button mat-mini-fab edit (click)="editOrgForm()">
+    <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+</button>
+<br><br><mat-divider></mat-divider><br><br>
 <form [formGroup]="orgObj.organizationForm" class="settings-list"
-  (ngSubmit)="updateOrganization(orgObj.organizationForm)">
-  <div class="form-row">
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" [formControlName]="helperService.appConstants.name" class="showonly" required />
-      <mat-error class="text-right" *ngIf="organizationViewForm.name.errors">
-        <span>Field is Required</span>
-      </mat-error>
+      (ngSubmit)="updateOrganization(orgObj.organizationForm)">
+    <div class="form-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [formControlName]="helperService.appConstants.name" class="showonly" required/>
+            <mat-error class="text-right" *ngIf="organizationViewForm.name.errors">
+                <span>Field is Required</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Billing Email</mat-label>
+            <input matInput type="text" [formControlName]="helperService.appConstants.billingEmail" class="showonly"
+                   required/>
+            <mat-error class="text-right" *ngIf="organizationViewForm.billingEmail.errors">
+                <span *ngIf="organizationViewForm.billingEmail.errors.required">Field is Required</span>
+                <span *ngIf="organizationViewForm.billingEmail.errors.email">Enter Valid Email</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-row">
+        <mat-form-field class="number-fields" appearance="outline">
+            <mat-label>Contact Number</mat-label>
+            <input class="country-code" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
+                   (keypress)="numberOnly($event)&&phoneNumberValid(orgObj.organizationForm)" maxlength="3"
+                   onPaste="return false"
+                   autocomplete="off"/>
+            <mat-error *ngIf="organizationViewForm.countryCode.errors">
+            </mat-error>
+            <input matInput type="text" [formControlName]="helperService.appConstants.phoneNo"
+                   class="showonly number-input"
+                   (keypress)="numberOnly($event)" autocomplete="off" required/>
+            <mat-error class="text-right" *ngIf="organizationViewForm.phoneNo.errors">
+                <span *ngIf="organizationViewForm.phoneNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+                <span *ngIf="organizationViewForm.phoneNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Account Number</mat-label>
+            <input matInput type="text" [formControlName]="helperService.appConstants.accountNo" class="showonly"
+                   required/>
+            <mat-error class="text-right" *ngIf="organizationViewForm.accountNo.errors">
+                <span>Field is Required</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select [formControlName]="helperService.appConstants.type" required>
+                <mat-option *ngFor="let type of orgObj.types" [value]="type.id">
+                    {{ type.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Date Joined</mat-label>
+            <input matInput type="text" [readonly]="true" [formControlName]="helperService.appConstants.dateJoined"
+                   class="showonly"/>
+        </mat-form-field>
+    </div>
+    <mat-form-field fullWidth appearance="outline">
+        <mat-label>Address</mat-label>
+        <input matInput type="text" appGooglePlaces [formControlName]="helperService.appConstants.address"
+               class="showonly"
+               (onSelect)="helperService.setAddress($event,gMapElement,organizationViewForm.address)"
+               (keyup)="helperService.setFalse($event)" required/>
+        <mat-error class="text-right" *ngIf="organizationViewForm.address.errors">
+            <span>Field is Required</span>
+        </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Billing Email</mat-label>
-      <input matInput type="text" [formControlName]="helperService.appConstants.billingEmail" class="showonly"
-        required />
-      <mat-error class="text-right" *ngIf="organizationViewForm.billingEmail.errors">
-        <span *ngIf="organizationViewForm.billingEmail.errors.required">Field is Required</span>
-        <span *ngIf="organizationViewForm.billingEmail.errors.email">Enter Valid Email</span>
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="form-row">
-    <mat-form-field class="number-fields" appearance="outline">
-      <mat-label>Contact Number</mat-label>
-      <input class="country-code" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
-        (keypress)="numberOnly($event)&&phoneNumberValid(orgObj.organizationForm)" maxlength="3" onPaste="return false"
-        autocomplete="off" />
-      <mat-error *ngIf="organizationViewForm.countryCode.errors">
-      </mat-error>
-      <input matInput type="text" [formControlName]="helperService.appConstants.phoneNo" class="showonly number-input"
-        (keypress)="numberOnly($event)" autocomplete="off" required />
-      <mat-error class="text-right" *ngIf="organizationViewForm.phoneNo.errors">
-        <span *ngIf="organizationViewForm.phoneNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-        <span *ngIf="organizationViewForm.phoneNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Account Number</mat-label>
-      <input matInput type="text" [formControlName]="helperService.appConstants.accountNo" class="showonly" required />
-      <mat-error class="text-right" *ngIf="organizationViewForm.accountNo.errors">
-        <span>Field is Required</span>
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="form-row">
-    <mat-form-field appearance="outline">
-      <mat-label>Type</mat-label>
-      <mat-select [formControlName]="helperService.appConstants.type" required>
-        <mat-option *ngFor="let type of orgObj.types" [value]="type.id">
-          {{ type.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Date Joined</mat-label>
-      <input matInput type="text" [readonly]="true" [formControlName]="helperService.appConstants.dateJoined"
-        class="showonly" />
-    </mat-form-field>
-  </div>
-  <mat-form-field full-width appearance="outline">
-    <mat-label>Address</mat-label>
-    <input matInput type="text" appGooglePlaces [formControlName]="helperService.appConstants.address" class="showonly"
-      (onSelect)="helperService.setAddress($event,gMapElement,organizationViewForm.address)"
-      (keyup)="helperService.setFalse($event)" required />
-    <mat-error class="text-right" *ngIf="organizationViewForm.address.errors">
-      <span>Field is Required</span>
-    </mat-error>
-  </mat-form-field>
-  <mat-card>
-    <div #gmap class="site-map"></div>
-  </mat-card>
-  <div class="btn-grp" *ngIf="orgObj.enabled">
-    <button type="submit" mat-raised-button custom-btn btn-primary
-      [disabled]="orgObj.organizationForm.pristine">
-      <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
-      Save
-    </button>
-    <button type="button" mat-raised-button color="warn" custom-btn btn-danger (click)="cancelOrgForm()">Cancel</button>
-  </div>
+    <mat-card>
+        <div #gmap class="site-map"></div>
+    </mat-card>
+    <div class="btn-grp" *ngIf="orgObj.enabled">
+        <button type="submit" mat-raised-button custom-btn btn-primary
+                [disabled]="orgObj.organizationForm.pristine">
+            <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
+            Save
+        </button>
+        <button type="button" mat-raised-button color="warn" custom-btn btn-danger (click)="cancelOrgForm()">Cancel
+        </button>
+    </div>
 </form>

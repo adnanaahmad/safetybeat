@@ -3,7 +3,7 @@
     <form [formGroup]="createEntity.createEntityForm" (ngSubmit)="entityCreation(createEntity.createEntityForm)"
           (keydown.enter)="$event.preventDefault()">
         <div class="form-group">
-            <mat-form-field appearance="outline" full-width>
+            <mat-form-field appearance="outline" fullWidth>
                 <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
                 <input matInput type="text" [formControlName]="helperService.appConstants.name" required/>
                 <mat-error *ngIf="formValidation.name.errors">
@@ -12,7 +12,7 @@
             </mat-form-field>
         </div>
         <div class="form-group">
-            <mat-form-field appearance="outline" full-width>
+            <mat-form-field appearance="outline" fullWidth>
                 <mat-label>{{helperService.translated.MESSAGES.HEADOFFICE_LOCATION}}</mat-label>
                 <input matInput type="text" appGooglePlaces
                        (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice)"
