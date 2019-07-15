@@ -1,5 +1,8 @@
 <ng-container>
   <mat-card class="file-inline">
+      <div class="spinner-wrap" *ngIf="this.showLoader">
+          <mat-spinner color="primary" [diameter]="20"></mat-spinner>
+        </div>
     <button class="file-options" mat-icon-button [matMenuTriggerFor]="menu"
       aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>

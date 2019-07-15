@@ -10,7 +10,7 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
   styleUrls: ['./file.component.scss']
 })
 export class FileComponent implements OnInit {
-
+  showLoader: boolean;
   @Input() docData: Object;
   @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
   private fileName: string;
@@ -22,6 +22,7 @@ export class FileComponent implements OnInit {
               public navService: NavigationService) { }
 
   ngOnInit() {
+    this.showLoader = false;
   }
 
   /**
@@ -33,11 +34,14 @@ export class FileComponent implements OnInit {
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_DOCUMENT}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
+        this.showLoader = true;
         this.helperService.toggleLoader(true);
         this.navService.deleteDoc(id).subscribe((res: Object) => {
+          this.showLoader = true;
           this.processAction.emit(true);
         });
       } else {
+        this.showLoader = false;
         this.processAction.emit(false);
       }
     });
