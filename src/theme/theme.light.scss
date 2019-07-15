@@ -1,99 +1,100 @@
 @import "./imports.scss";
+
 $primary-pallet: (
-  50: #e1ecef,
-  100: #b4d1d8,
-  200: #82b2be,
-  300: #5093a3,
-  400: #2b7b90,
-  500: #05647c,
-  600: #045c74,
-  700: #045269,
-  800: #03485f,
-  900: #01364c,
-  A100: #80d2ff,
-  A200: #4dc1ff,
-  A400: #1aafff,
-  A700: #00a6ff,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #ffffff
-  )
+        50: #e1ecef,
+        100: #b4d1d8,
+        200: #82b2be,
+        300: #5093a3,
+        400: #2b7b90,
+        500: #05647c,
+        600: #045c74,
+        700: #045269,
+        800: #03485f,
+        900: #01364c,
+        A100: #80d2ff,
+        A200: #4dc1ff,
+        A400: #1aafff,
+        A700: #00a6ff,
+        contrast: (
+                50: #000000,
+                100: #000000,
+                200: #000000,
+                300: #000000,
+                400: #ffffff,
+                500: #ffffff,
+                600: #ffffff,
+                700: #ffffff,
+                800: #ffffff,
+                900: #ffffff,
+                A100: #000000,
+                A200: #000000,
+                A400: #000000,
+                A700: #ffffff
+        )
 );
 $secondary-pallet: (
-  50: #e0e7ea,
-  100: #b3c4cb,
-  200: #809da8,
-  300: #4d7585,
-  400: #26586a,
-  500: #003a50,
-  600: #003449,
-  700: #002c40,
-  800: #002537,
-  900: #001827,
-  A100: #62b4ff,
-  A200: #2f9bff,
-  A400: #0082fb,
-  A700: #0075e1,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #ffffff,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #ffffff,
-    A700: #ffffff
-  )
+        50: #e0e7ea,
+        100: #b3c4cb,
+        200: #809da8,
+        300: #4d7585,
+        400: #26586a,
+        500: #003a50,
+        600: #003449,
+        700: #002c40,
+        800: #002537,
+        900: #001827,
+        A100: #62b4ff,
+        A200: #2f9bff,
+        A400: #0082fb,
+        A700: #0075e1,
+        contrast: (
+                50: #000000,
+                100: #000000,
+                200: #000000,
+                300: #ffffff,
+                400: #ffffff,
+                500: #ffffff,
+                600: #ffffff,
+                700: #ffffff,
+                800: #ffffff,
+                900: #ffffff,
+                A100: #000000,
+                A200: #000000,
+                A400: #ffffff,
+                A700: #ffffff
+        )
 );
 $warn-pallete: (
-  50: #fae6e6,
-  100: #f2c1c1,
-  200: #e99797,
-  300: #e06d6d,
-  400: #da4e4e,
-  500: #d32f2f,
-  600: #ce2a2a,
-  700: #c82323,
-  800: #c21d1d,
-  900: #b71212,
-  A100: #ffe7e7,
-  A200: #ffb4b4,
-  A400: #ff8181,
-  A700: #ff6868,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000
-  )
+        50: #fae6e6,
+        100: #f2c1c1,
+        200: #e99797,
+        300: #e06d6d,
+        400: #da4e4e,
+        500: #d32f2f,
+        600: #ce2a2a,
+        700: #c82323,
+        800: #c21d1d,
+        900: #b71212,
+        A100: #ffe7e7,
+        A200: #ffb4b4,
+        A400: #ff8181,
+        A700: #ff6868,
+        contrast: (
+                50: #000000,
+                100: #000000,
+                200: #000000,
+                300: #000000,
+                400: #ffffff,
+                500: #ffffff,
+                600: #ffffff,
+                700: #ffffff,
+                800: #ffffff,
+                900: #ffffff,
+                A100: #000000,
+                A200: #000000,
+                A400: #000000,
+                A700: #000000
+        )
 );
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
@@ -154,11 +155,6 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
     }
   }
 
-  .notification-icon {
-    .notifcount {
-      background: mat-color($warn-pallete, 600);
-    }
-  }
   .customTable {
     .mat-header-row {
       background-color: mat-color($primary);

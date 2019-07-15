@@ -150,11 +150,6 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
-  .notification-icon {
-    .notifcount {
-      background: mat-color($warn-pallete, 600);
-    }
-  }
   app-notificationnav {
     mat-list-item[role="listitem"] {
       border-bottom: 1px solid rgba(221, 221, 221, 0.2) !important;

@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/theming";
 @import "~angular-notifier/styles";
+
 @include mat-core();
 @import "./theme/theme.light.scss";
 @import "./theme/theme.dark.scss";
@@ -35,13 +36,16 @@ body {
   margin: $centered;
   font-family: $fontFamily;
 }
+
 *[fullWidth] {
   width: $fullValue !important;
 }
+
 // Define font-family explicitly
 .mat-card-title {
   line-height: inherit;
 }
+
 h1,
 h2,
 h3,
@@ -52,60 +56,70 @@ notifier-notification,
 app-toaster {
   font-family: $fontFamily;
 }
+
 .m-0 {
   margin: 0;
 }
+
 .p-0 {
   padding: 0;
 }
+
 .pointer {
   cursor: $cursor-pointer;
 }
+
+.midbox {
+  min-width: 60%;
+}
+
 .spinner-wrap {
-  background: rgba(255, 255, 255, 0.5);
   @include midBlock;
+  background: rgba(255, 255, 255, 0.5);
   height: $fullValue;
   width: $fullValue;
   z-index: 10;
-  .mat-spinner {
-    @include midBlock;
-    top: 40%;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .mat-paginator-range-label {
   margin: 0 !important;
 }
+
 .clearfix {
   clear: both;
   display: block;
   width: $fullValue;
   height: 1px;
 }
-.notification-icon {
-  .notifcount {
-    font-family: $fontFamily;
-  }
-}
+
 app-entityCodeModal {
   .entity-code {
     font-family: $fontFamily;
   }
 }
+
 .app-content {
   overflow-x: hidden !important;
 }
+
 .paragraph {
   line-height: 1.7;
 }
+
 .full-width {
   width: $fullValue;
 }
+
 .mat-input-element:disabled {
   cursor: not-allowed;
 }
+
 .settings-btn {
   width: 40px;
-  padding: 0px !important;
+  padding: 0 !important;
   display: block;
   max-width: none;
   min-width: auto !important;
@@ -117,6 +131,7 @@ app-entityCodeModal {
     font-size: 18px;
   }
 }
+
 [edit-btn] {
   width: 30px;
   min-width: 25px !important;
@@ -129,11 +144,13 @@ app-entityCodeModal {
     display: block;
   }
 }
+
 .sb-logo {
   path {
     fill-rule: evenodd;
   }
 }
+
 mat-dialog-container {
   padding: 0 !important;
   mat-card-title {
@@ -153,6 +170,7 @@ mat-dialog-container {
     padding: 0 20px;
   }
 }
+
 .monogram {
   @include midBlock;
   width: 120px;
@@ -171,6 +189,7 @@ mat-dialog-container {
     }
   }
 }
+
 .page-title {
   padding: 0 0 20px;
   display: flex;
@@ -197,10 +216,12 @@ mat-dialog-container {
 .topbar {
   z-index: 2;
 }
+
 .noflex {
   display: block !important;
   height: auto !important;
 }
+
 .flexbox {
   display: flex;
   & > div {
@@ -210,9 +231,11 @@ mat-dialog-container {
     align-items: center;
   }
 }
+
 [full-width] {
   width: $fullValue !important;
 }
+
 .marginGrid {
   margin-bottom: 20px;
   .mat-figure {
@@ -220,55 +243,26 @@ mat-dialog-container {
     align-items: normal !important;
   }
 }
+
 .text-right {
   text-align: right;
 }
+
 .paddingbox {
   padding: 16px;
 }
+
 .text-center {
   text-align: center;
 }
+
 .sideLegend {
   padding: 0 !important;
   border-radius: 0 !important;
 }
+
 .mat-drawer-side {
   border-right: 0 !important;
-}
-.centerbox {
-  width: 70%;
-  margin: $centered;
-  .midbox {
-    width: $fullValue;
-    margin: 50px auto;
-  }
-}
-.midbox {
-  border-top: 4px solid;
-  .mat-form-field-underline {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  width: 60%;
-  margin: 100px auto;
-  border-radius: 10px !important;
-  &:before {
-    content: "";
-    height: 4px;
-    width: 32%;
-    position: absolute;
-    left: 20%;
-    top: -4px;
-  }
-  &:after {
-    content: "";
-    background: #66cdaa;
-    height: 4px;
-    width: 30%;
-    position: absolute;
-    left: 50%;
-    top: -4px;
-  }
 }
 
 .notifier__notification-button {
@@ -280,14 +274,13 @@ mat-dialog-container {
     opacity: 1 !important;
   }
 }
-[no-box-shadow] {
-  box-shadow: none !important;
-}
+
 .mat-dialog-actions {
   margin-bottom: 0 !important;
 }
+
 .loginbox {
-  padding: 40px !important;
+  padding: 30px !important;
   mat-card-title {
     text-transform: uppercase;
     font-weight: 700;
@@ -307,20 +300,24 @@ mat-dialog-container {
     }
   }
 }
+
 [custom-btn] {
   padding: 6px 15px !important;
   text-transform: capitalize;
   line-height: 30px !important;
 }
+
 [btn-white] {
   background-color: $hexWhite !important;
 }
+
 .clearsep {
   clear: both;
   display: block;
   width: $fullValue;
   height: 20px;
 }
+
 @for $i from 1 through 30 {
   @keyframes particle-animation-#{$i} {
     100% {
@@ -348,6 +345,7 @@ mat-dialog-container {
     }
   }
 }
+
 #particle-container {
   position: fixed;
   left: 0;
@@ -370,6 +368,7 @@ mat-dialog-container {
     }
   }
 }
+
 .package-selectors {
   .mat-radio-container {
     display: none;
@@ -412,6 +411,7 @@ mat-dialog-container {
     padding: 0 !important;
   }
 }
+
 .legend-title {
   margin: 10px 0 20px !important;
   font-size: 0.8rem !important;
@@ -437,6 +437,7 @@ mat-dialog-container {
     right: -70px;
   }
 }
+
 .package-selectors {
   .circ {
     stroke: $hexWhite !important;
@@ -479,9 +480,11 @@ hr.forheading {
   width: 30%;
   opacity: 0.4;
 }
+
 .mat-paginator {
   border-radius: 0 0 $borderRadius $borderRadius;
 }
+
 .customTable {
   width: $fullValue;
   border-radius: $borderRadius;
@@ -526,6 +529,7 @@ hr.forheading {
     }
   }
 }
+
 .verify-modal {
   mat-dialog-container {
     background: transparent !important;
@@ -558,13 +562,16 @@ hr.forheading {
     }
   }
 }
+
 snack-bar-container {
   padding: 0 !important;
 }
+
 .mat-expansion-indicator::after {
   top: -4px;
   position: relative;
 }
+
 input:-internal-autofill-selected {
   background-color: transparent;
 }
@@ -581,6 +588,7 @@ input:-internal-autofill-selected {
     transform: scale3d(0.2, 0.2, 0.2);
   }
 }
+
 @keyframes pulse {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -591,6 +599,7 @@ input:-internal-autofill-selected {
     transform: scale3d(0.2, 0.2, 0.2);
   }
 }
+
 @-webkit-keyframes pulse2 {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -601,6 +610,7 @@ input:-internal-autofill-selected {
     transform: scale3d(0, 0, 0);
   }
 }
+
 @keyframes pulse2 {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -615,6 +625,7 @@ input:-internal-autofill-selected {
     transform: scale3d(1, 1, 1);
   }
 }
+
 @-webkit-keyframes pulse3 {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -629,6 +640,7 @@ input:-internal-autofill-selected {
     transform: scale3d(1, 1, 1);
   }
 }
+
 @keyframes pulse3 {
   from {
     -webkit-transform: scale3d(1, 1, 1);
@@ -643,71 +655,7 @@ input:-internal-autofill-selected {
     transform: scale3d(1, 1, 1);
   }
 }
-.main-loader {
-  width: 30px;
-  height: 30px;
-  position: relative;
-  display: inline-block;
-  margin-left: 5px;
-  transform: scale(0.8);
-}
-.loader1 {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  float: left;
-  z-index: 9;
-  opacity: 0.5;
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  background-color: #fff;
-  -webkit-animation-name: pulse;
-  animation-name: pulse;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  transform-origin: center;
-  animation-delay: 0s;
-  transition: transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.loader2 {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  float: left;
-  z-index: 8;
-  opacity: 0.3;
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  background-color: #fff;
-  -webkit-animation-name: pulse2;
-  animation-name: pulse2;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-delay: 0.3s;
-  transform-origin: center;
-  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.loader3 {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  float: left;
-  z-index: 7;
-  opacity: 0.1;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-color: #fff;
-  -webkit-animation-name: pulse3;
-  animation-name: pulse3;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-delay: 0.5s;
-  transform-origin: center;
-  transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
+
 .table-wrap {
   overflow: auto;
   width: $fullValue;
@@ -722,6 +670,7 @@ input:-internal-autofill-selected {
     }
   }
 }
+
 .file-uploader {
   position: relative;
   cursor: pointer;
@@ -756,10 +705,8 @@ input:-internal-autofill-selected {
     z-index: 2;
   }
 }
+
 @media (max-width: 992px) {
-  .midbox {
-    width: 60% !important;
-  }
   .sideLegend {
     .legendContent {
       h1 {
@@ -775,6 +722,7 @@ input:-internal-autofill-selected {
     display: none;
   }
 }
+
 @media (max-width: 768px) {
   app-settings {
     .settings-parent {
@@ -861,9 +809,6 @@ input:-internal-autofill-selected {
       }
     }
   }
-  .midbox {
-    width: 70% !important;
-  }
   .loginbox {
     .subheading {
       font-size: 14px;
@@ -888,6 +833,7 @@ input:-internal-autofill-selected {
     float: none;
   }
 }
+
 @media (max-width: 575px) {
   app-hazard-details {
     .hazard-detail-grid {
@@ -966,10 +912,6 @@ input:-internal-autofill-selected {
       border-radius: 0;
       padding: 0;
     }
-  }
-  .midbox {
-    width: 80% !important;
-    padding: 20px !important;
   }
   app-login,
   app-forgot-password {

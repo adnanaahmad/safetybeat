@@ -178,11 +178,6 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
-  .notification-icon {
-    .notifcount {
-      background: mat-color($warn-pallete, 600);
-    }
-  }
   mat-dialog-container {
     mat-card-title {
       background-color: mat-color($primary, 700);
