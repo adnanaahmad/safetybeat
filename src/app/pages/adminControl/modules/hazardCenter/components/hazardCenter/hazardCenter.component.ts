@@ -174,13 +174,14 @@ export class HazardCenterComponent implements OnInit {
    */
 
   testingFunc(image) {
-    this.helperService.createDialog(ImageLightboxComponent,
-      {
-        data:
-          {
-            message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD,
-            imageData: image
-          }
-      });
+      if (image) {
+          this.helperService.createDialog(ImageLightboxComponent,
+              {
+                  data:
+                      {
+                          image: image
+                      }
+              });
+      }
   }
 }
