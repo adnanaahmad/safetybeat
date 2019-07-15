@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {HelperService} from 'src/app/shared/helperService/helper.service';
+import {HelperService} from 'src/app/services/common/helperService/helper.service';
 
 @Pipe({
   name: 'profileImage'

@@ -1,0 +1,93 @@
+<div class="paddingbox">
+  <div class="page-title">
+    <h3>{{ helperService.translated.SITETITLE.HAZARD_CENTER }}</h3>
+    <!--Filter-->
+    <div class="data-filter">
+      <div class="input-wrap">
+        <input class="search-input" autocomplete="off" matInput placeholder="Search"
+               (keyup)=getHazardList(firstIndex,$event.target.value)>
+        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+      </div>
+      <a (click)="advanceSearch()" class="mat-body-strong mat-small pointer">{{helperService.translated.STRINGS.ADVSEARCH}}</a>
+    </div>
+    <!--/Filter-->
+  </div>
+
+  <div class="table-wrap">
+    <table mat-table [dataSource]="hazardTable.dataSource" class="customTable mat-elevation-z3">
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[0]">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.SITE }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.site.name }}</td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[1]">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.TITLE }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[2]">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.STRINGS.RESOLVED }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.resolved }}</td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[3]">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.STRINGS.DATE_TIME }}
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.dateTime | date }}</td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[4]">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.STRINGS.IMAGE }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <img (click)="testingFunc(element.image ? element.image : null)"
+               class="table-img pointer"
+               src="{{ element.image ? element.image : helperService.appConstants.noHazard}}"/>
+        </td>
+      </ng-container>
+
+      <ng-container [matColumnDef]="hazardTable.displayedColumns[5]">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          &nbsp;<button class="btn-table" btn-primary mat-raised-button color="primary" mat-button
+                        [matMenuTriggerFor]="menu">
+          <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
+          {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
+        </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="editHazard(element)">
+              <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+              Edit
+            </button>
+            <button mat-menu-item (click)="viewHazard(element)">
+              <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
+              {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
+            </button>
+            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="confirmationModal(element.id)">
+              <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
+              Delete
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="hazardTable.displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: hazardTable.displayedColumns"></tr>
+    </table>
+  </div>
+  <div class="paddingbox text-center" *ngIf="hazardTable.dataSource === null">
+    {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
+
+  <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount"
+                 (page)="getHazardList(paginator.pageIndex, search)"></mat-paginator>
+</div>

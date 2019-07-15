@@ -1,9 +1,11 @@
 import {responseDetails, User} from '../user.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model'
 import {Subscription} from 'rxjs';
+import {PermissionsModel} from './permissions.model';
 import {MatTableDataSource} from '@angular/material';
 
 export interface MyTeamModel {
+  permissions: PermissionsModel;
   subscription: Subscription;
   allTeams: Array<TeamList>;
   dataSource: MatTableDataSource<TeamList>;
@@ -23,7 +25,7 @@ export interface TeamList {
 }
 
 export interface GetAllTeamsData {
-  entity: number;
+  entityId: number;
 }
 
 export interface AllTeamsApiResponse {

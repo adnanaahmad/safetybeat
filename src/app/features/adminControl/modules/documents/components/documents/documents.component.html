@@ -1,0 +1,48 @@
+<div class="paddingbox">
+  <div class="page-title">
+    <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
+    <div class="buttonRow">
+      <button *ngIf="documentsData.permissions.uploadDocument" btn-primary mat-raised-button color="primary" (click)="uploadDoc()">
+        <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
+        {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
+      </button>
+      <button *ngIf="documentsData.permissions.createFolder" btn-primary mat-raised-button color="primary" (click)="createFolder()">
+        <mat-icon>{{ helperService.appIcons.createFolder }}</mat-icon>
+        {{ helperService.translated.BUTTONS.CREATE_FOLDER }}
+      </button>
+    </div>
+  </div>
+
+  <!--Search-->
+  <div class="search-bar">
+    <form autocomplete="off">
+      <mat-form-field fullWidth autocomplete="off" appearance="outline">
+        <mat-label>Search file or folder</mat-label>
+        <input matInput placeholder="Search file or folder">
+        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+      </mat-form-field>
+    </form>
+  </div>
+  <!--/Search-->
+
+  <!-- Folders -->
+  <div class="folders-wrapper">
+    <h4 class="wrapper-heading">Folders</h4>
+    <p class="no-data mat-caption" *ngIf="!documentsData.folderExist">No folders</p>
+    <div class="content-area">
+        <app-folder *ngFor="let folder of documentsData.folderList" [documentsData]="documentsData" [folderData] = "folder"
+                    [folderList]="documentsData.folderList" (processAction) = "refreshFolders($event)"></app-folder>
+    </div>
+  </div>
+  <!--/Folders-->
+
+  <!--Files-->
+  <div class="files-wrapper">
+    <h4 class="wrapper-heading">Files</h4>
+    <p class="no-data mat-caption" *ngIf="!documentsData.documentExist">No documents
+      found.</p>
+    <div class="content-area">
+      <app-file *ngFor="let doc of documentsData.rootDocs" [docData]="doc" (processAction) = "refreshFiles($event)"></app-file>
+    </div>
+  </div>
+</div>

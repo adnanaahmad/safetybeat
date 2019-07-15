@@ -67,7 +67,7 @@
     "EXPAND": "Expand",
     "REMOVE": "Remove",
     "ADD": "Add",
-    "PHONENO" : "Contact Number",
+    "PHONENO": "Contact Number",
     "SITEADDRESS": "Site Address",
     "PACKAGE_DESCRIPTION_1": "For startup business",
     "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
@@ -183,7 +183,9 @@
     "VIEW_MAP": "View Map",
     "CLOSE": "Close",
     "CREATE_FOLDER": "Create Folder",
-    "SHOW_RESULTS": "Show Results"
+    "SHOW_RESULTS": "Show Results",
+    "PERMISSIONS": "Permissions",
+    "REPORTS": "Reports"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -414,7 +416,8 @@
     "PARENT_QUESTION_REQ": "Parent Question is required",
     "TEAM_TITLE_REQUIRED": "Team title is required.",
     "TEAM_SELECTION_REQUIRED": "Team selection is required.",
-    "TEAM_MEMBERS_REQUIRED": "Team members selection is required."
+    "TEAM_MEMBERS_REQUIRED": "Team members selection is required.",
+    "COMMON_PASSWORD": "Password is too common"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

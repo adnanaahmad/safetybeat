@@ -6,7 +6,7 @@ export interface Site {
   location: string,
   safeZone: boolean,
   siteSafetyPlan: string,
-  createdBy: Array<User>,
+  createdBy: User,
   entity: number,
   siteSafetyManager: Array<User>
 }
@@ -33,7 +33,7 @@ export interface AddSiteData {
   name: string;
   safeZone: boolean;
   siteSafetyPlan: string;
-  createdBy?: Array<User>;
+  createdBy?: any;
   siteSafetyManager?: User;
 }
 
