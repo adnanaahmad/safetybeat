@@ -172,7 +172,6 @@ export class QuestionCenterComponent implements OnInit {
     }
     this.questionCenterService.viewAllEntityQuestions(data, paginationData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        debugger
         this.QuestionObj.pageCount = res.data.pageCount;
         this.QuestionObj.entityQuestionsResponse = this.compiler.constructAllEntityQuestionsData(res);
         if (res && res.data.entityQuestionList.length > 0) {
