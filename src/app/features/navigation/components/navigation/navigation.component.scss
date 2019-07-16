@@ -1,6 +1,9 @@
 @mixin amte-navigation($primary, $accent, $warn) {
   :host,
   app-navigation {
+    .topbar {
+      z-index: 2;
+    }
     .notification-drawer {
       .mat-drawer-inner-container {
         overflow: hidden;

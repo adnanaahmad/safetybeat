@@ -1,4 +1,4 @@
-<mat-card-title class="mat-dialog-title">
+<mat-card-title class="mat-dialog-title mat-elevation-z6">
     {{data.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG :
     helperService.translated.MESSAGES.CREATEQUESTION_MSG}}
 </mat-card-title>
@@ -33,7 +33,7 @@
             <br>
         </div>
         <mat-dialog-actions>
-            <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="QuestionObj.loading"
+            <button mat-raised-button cdkFocusInitial custom-btn [disabled]="QuestionObj.loading"
                     color="primary">
                 {{data.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG :
                 helperService.translated.MESSAGES.ADDQUESTION_MSG}}

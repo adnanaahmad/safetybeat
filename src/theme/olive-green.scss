@@ -186,16 +186,6 @@ $theme: mat-light-theme($primary, $secondary, $warn);
       color: mat-color($primary, 50) !important;
     }
   }
-  .package-selectors {
-    .mat-radio-button {
-      background-color: mat-color($primary, 50);
-      &.mat-radio-checked {
-        &:before {
-          background-color: mat-color($primary);
-        }
-      }
-    }
-  }
   .midbox:before {
     background-color: mat-color($warn);
   }

@@ -1,7 +1,7 @@
-<mat-card-title class="mat-dialog-title" *ngIf="data.modalType">
+<mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="data.modalType">
   {{helperService.translated.STRINGS.UPLOAD_DOC}}
 </mat-card-title>
-<mat-card-title class="mat-dialog-title" *ngIf="!data.modalType">
+<mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!data.modalType">
   {{helperService.translated.STRINGS.UPLOAD_DOC}}
 </mat-card-title>
 <div mat-dialog-content>
@@ -31,7 +31,7 @@
     </mat-form-field>
     </ng-container>
     <mat-dialog-actions>
-      <button mat-raised-button type="submit" custom-btn btn-primary color="primary"
+      <button mat-raised-button type="submit" custom-btn color="primary"
         [disabled]="!newDoc.uploadDocForm.valid || newDoc.disableButton">
         {{helperService.translated.STRINGS.UPLOAD_DOC}}
         <div class="main-loader" *ngIf="documentsData.loader">

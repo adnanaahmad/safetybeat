@@ -28,12 +28,13 @@
         <div #gmap class="site-map"></div>
     </mat-card>
     <div *ngIf="entitySettingObj.disabled" class="btn-grp">
-        <button mat-raised-button custom-btn btn-danger color="primary" type="submit"
+        <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
                 [disabled]="entitySettingObj.entityForm.pristine">
             <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
             {{ helperService.translated.BUTTONS.SAVE }}
         </button>
-        <button mat-raised-button btn-danger custom-btn color="warn" type="button" (click)="cancelEditEntity()">
+        <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
+                (click)="cancelEditEntity()">
             {{helperService.translated.BUTTONS.CANCEL}}
         </button>
     </div>

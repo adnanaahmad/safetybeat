@@ -108,7 +108,6 @@
                         </div>
                         <div class="button">
                             <button matStepperNext mat-raised-button [disabled]="registerObj.loading" custom-btn
-                                    btn-primary
                                     color="primary">
                                 {{helperService.translated.BUTTONS.NEXT}}
                                 <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
@@ -166,7 +165,7 @@
                             </button>
                             <button matStepperNext mat-raised-button
                                     (click)="orgForm.address.invalid&&helperService.setAddress({},gMapElement,orgForm.address)"
-                                    [disabled]="!helperService.displayButton" custom-btn btn-primary color="primary">
+                                    [disabled]="!helperService.displayButton" custom-btn color="primary">
                                 {{helperService.translated.BUTTONS.NEXT}}
                                 <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
                             </button>
@@ -206,7 +205,6 @@
                             {{helperService.translated.BUTTONS.BACK}}
                         </button>
                         <button mat-raised-button [disabled]="registerObj.loading||orgTypeForm.type.errors" custom-btn
-                                btn-primary
                                 color="primary" (click)='registration()'>
                             Submit
                             <div class="main-loader" *ngIf="registerObj.loading">
