@@ -22,7 +22,7 @@
   <!--Search-->
   <div class="search-bar" >
     <form autocomplete="off" *ngIf="documentsData.docList && documentsData.docList.length">
-      <mat-form-field autocomplete="off" appearance="outline">
+      <mat-form-field fullWidth autocomplete="off" appearance="outline">
         <mat-label>Search file or folder</mat-label>
         <input matInput placeholder="Search file or folder">
         <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
