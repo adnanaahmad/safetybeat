@@ -297,39 +297,6 @@ mat-dialog-container {
   }
 }
 
-.verify-modal {
-  mat-dialog-container {
-    background: transparent !important;
-    color: $hexWhite !important;
-    overflow: hidden;
-    position: relative;
-    box-shadow: none !important;
-    app-verification {
-      position: relative;
-      z-index: 2;
-      padding: 20px;
-      display: block;
-      text-align: center;
-      p {
-        line-height: 2;
-      }
-    }
-  }
-  .cdk-overlay-backdrop {
-    background-image: url(./assets/images/verify-bg.jpg);
-    background-size: cover;
-    &:after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: $fullValue;
-      height: $fullValue;
-      top: 0;
-      opacity: 0.9;
-    }
-  }
-}
-
 snack-bar-container {
   padding: 0 !important;
 }
@@ -341,86 +308,6 @@ snack-bar-container {
 
 input:-internal-autofill-selected {
   background-color: transparent;
-}
-
-// Preloader
-
-@-webkit-keyframes pulse {
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(0.2, 0.2, 0.2);
-    transform: scale3d(0.2, 0.2, 0.2);
-  }
-}
-
-@keyframes pulse {
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(0.2, 0.2, 0.2);
-    transform: scale3d(0.2, 0.2, 0.2);
-  }
-}
-
-@-webkit-keyframes pulse2 {
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(0, 0, 0);
-    transform: scale3d(0, 0, 0);
-  }
-}
-
-@keyframes pulse2 {
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(0, 0, 0);
-    transform: scale3d(0, 0, 0);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-@-webkit-keyframes pulse3 {
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(0, 0, 0);
-    transform: scale3d(0, 0, 0);
-  }
-  90% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-@keyframes pulse3 {
-  from {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(0, 0, 0);
-    transform: scale3d(0, 0, 0);
-  }
-  90% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
 }
 
 .table-wrap {
@@ -454,9 +341,6 @@ input:-internal-autofill-selected {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    &:hover {
-      border-color: mat-color($primary, 500);
-    }
     mat-icon {
       margin-right: 5px;
     }
