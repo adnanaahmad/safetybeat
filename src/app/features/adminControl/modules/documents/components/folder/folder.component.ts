@@ -17,9 +17,10 @@ export class FolderComponent implements OnInit {
   @Input() folderData: any;
   @Input() documentsData: any;
   @Input() folderList: any[];
-  folders: String[];
-
+  folders: Array<string>;
+  loader: boolean = false;
   @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(public dialog: MatDialog,
               public helperService: HelperService,
               public navService: NavigationService,
@@ -39,6 +40,7 @@ export class FolderComponent implements OnInit {
    * @params id
    */
   deleteFolder(id: number) {
+    this.loader = true;
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_FOLDER}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
@@ -46,12 +48,15 @@ export class FolderComponent implements OnInit {
         this.helperService.toggleLoader(true);
         this.navService.deleteFolder(id).subscribe((res) => {
           this.processAction.emit(true);
+          this.loader = false;
         });
       } else {
+        this.loader = false;
         this.processAction.emit(false);
       }
     });
   }
+
   /**
    * This is to rename folder
    * @params folderInfo
@@ -59,7 +64,7 @@ export class FolderComponent implements OnInit {
   renameFolder(folderInfo: any) {
     this.helperService.createDialog(CreateFolderComponent, {
       disableClose: true,
-      data: {type: false, folderId: folderInfo.id, name: folderInfo.name , folderList: this.folders}
+      data: {type: false, folderId: folderInfo.id, name: folderInfo.name, folderList: this.folders}
     });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       this.processAction.emit(true);

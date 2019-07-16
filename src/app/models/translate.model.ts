@@ -446,6 +446,7 @@ export interface Messages {
     SITE_HAZARD_DETAIL: string;
     EDITPROFILE: string;
     ENTITYCODE_FOR: string;
+    SITECODE_FOR: string;
     CREATEGROUP: string;
     ENTITY_SETTINGS: string;
     PERMISSION_SETTINGS: string;

@@ -2,6 +2,9 @@
   helperService.translated.MESSAGES.JOINENTITY_MSG
   }}</mat-card-title>
 <div mat-dialog-content>
+  <div class="spinner-wrap" *ngIf="joinEntity.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <form [formGroup]="joinEntity.joinEntityForm" (ngSubmit)="entityJoin(joinEntity.joinEntityForm)">
     <div class="form-group">
       <mat-form-field appearance="outline" full-width>

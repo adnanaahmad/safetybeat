@@ -15,6 +15,9 @@
       <app-particle-container></app-particle-container>
     </mat-card>
     <mat-card class="midbox loginbox mat-elevation-z10" *ngIf="card.title == 'loginForm'">
+      <div class="spinner-wrap" *ngIf="loginObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+      </div>
       <mat-card-title>{{helperService.translated.BUTTONS.LOGIN}}</mat-card-title>
       <p class="subheading">{{helperService.translated.MESSAGES.SIGNINMESSAGE}}</p>
       <form [formGroup]="loginObj.loginForm" (ngSubmit)="onSubmit(loginObj.loginForm)">
@@ -48,11 +51,6 @@
         <div class="button">
           <button class="mat-elevation-z1" mat-raised-button custom-btn btn-primary
                   color="primary" [disabled]="loginObj.loading">{{helperService.translated.BUTTONS.LOGIN}}
-            <div class="main-loader" *ngIf="loginObj.loading">
-              <span class="loader1"></span>
-              <span class="loader2"></span>
-              <span class="loader3"></span>
-            </div>
           </button>
           <!-- <img *ngIf="loginObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
         </div>

@@ -2,6 +2,9 @@
   {{data.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG : helperService.translated.MESSAGES.CREATEQUESTION_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
+  <div class="spinner-wrap" *ngIf="QuestionObj.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <form autocomplete="off" [formGroup]="QuestionObj.addQuestionForm" (ngSubmit)=questionFormSubmit(QuestionObj.addQuestionForm)>
     <div class="form-group">
       <mat-form-field appearance="outline" full-width>

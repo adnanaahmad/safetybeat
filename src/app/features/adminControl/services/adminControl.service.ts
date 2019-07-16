@@ -9,7 +9,7 @@ import {AllHazardsApiData, AllHazardsApiResponseData, DeleteHazardApiResponse, H
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {
   AddSiteApiResponse,
-  AddSiteData, PaginationData,
+  AddSiteData, PaginationData, RefreshSiteCodeApiResponse, sendSiteCodeApiData, SendSiteCodeApiResponse,
   ViewAllSiteEntityData, ViewAllSitesApiResponse,
 } from 'src/app/models/site.model';
 
@@ -127,9 +127,7 @@ export class AdminControlService {
    */
 
   deleteEntity(id) {
-    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.editEntity}
-/${id}
-/`);
+    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.editEntity}/${id}/`);
   }
 
   /**
@@ -271,4 +269,11 @@ export class AdminControlService {
     );
   }
 
+  sendSiteCode(data: sendSiteCodeApiData): Observable<SendSiteCodeApiResponse> {
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.sendSiteCode, data);
+  }
+
+  refreshSiteCode(data: object): Observable<RefreshSiteCodeApiResponse> {
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.refreshSiteCode, data);
+  }
 }

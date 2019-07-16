@@ -34,8 +34,8 @@ export class CreateQuestionComponent implements OnInit {
       questionDescription: ['', Validators.required],
       questionWarning: [''],
       safeQuestion: [''],
-      canProceed: [''],
-      parent: [''],
+      canProceed: [false],
+      parent: [false],
     });
     if (this.data.edit) {
       this.QuestionObj.addQuestionForm = this.formBuilder.group({
@@ -67,6 +67,7 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   addQuestion(value) {
+    this.QuestionObj.loading = true;
     this.questionCenterService.createQuestion(this.generateQuestionData(value)).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.QuestionObj.loading = false;
@@ -82,13 +83,22 @@ export class CreateQuestionComponent implements OnInit {
         this.helperService.appLogger(this.helperService.constants.status.ERROR,
           this.helperService.translated.MESSAGES.QUESTION_CREATION_FAILURE);
       }
+    }, (error) => {
+      this.QuestionObj.loading = false;
+      this.dialogRef.close();
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
   editQuestion(value) {
+    this.QuestionObj.loading = true;
     this.questionCenterService.editQuestionOfQuestionBank(this.generateQuestionData(value), this.data.questionData.id).subscribe((res) => {
-        this.QuestionObj.loading = false;
-        this.dialogRef.close();
+      this.QuestionObj.loading = false;
+      this.dialogRef.close();
+    }, (error) => {
+      this.QuestionObj.loading = false;
+      this.dialogRef.close();
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
 
   }

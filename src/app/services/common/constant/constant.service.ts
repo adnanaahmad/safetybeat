@@ -81,7 +81,8 @@ export class ConstantService {
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
     parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
     viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
-
+    sendSiteCode: `${environment.apiUrl}/api/sites/sendSiteCode/`,
+    refreshSiteCode: `${environment.apiUrl}/api/sites/refreshSiteCode/`
   };
   /**
    * all the api methods are declared here.
@@ -138,6 +139,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    spinnerConstant: 30,
     paginationLimit: 10,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
@@ -247,6 +249,7 @@ export class ConstantService {
    * all the material icon names are declared here.
    */
   static appIcons = {
+    refresh: 'refresh',
     showReports: 'bar_chart',
     skipNext: 'skip_next',
     group: 'group',

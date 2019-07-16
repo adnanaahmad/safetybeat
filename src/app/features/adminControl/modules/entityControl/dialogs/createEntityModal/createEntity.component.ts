@@ -27,8 +27,6 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
     private compiler: CompilerProvider,
     public dialogRef: MatDialogRef<CreateEntityComponent>
   ) {
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY);
   }
 
   ngOnInit() {
@@ -92,16 +90,13 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
       active: false
     };
     if (!valid) {
-      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR);
+      this.helperService.createSnack(
+        this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR, this.helperService.constants.status.ERROR);
       return;
     }
-    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
-    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.createEntity.loading = true;
     this.adminServices.createEntity(this.createEntity.entityDetails).subscribe((result) => {
-        if (result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           let data = {
             'moduleName': 'Safetybeat'
           };
@@ -110,24 +105,19 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
             let entityUserData = this.compiler.constructUserEntityData(res.data);
             this.navService.changeEntites(entityUserData);
             this.onNoClick();
-            this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-              result.responseDetails.message);
           });
-        } else if (result.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
+        } else if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
           this.helperService.appConstants.codeValidations[4]) {
           this.createEntity.loading = false;
-          this.helperService.appLogger(this.helperService.constants.status.ERROR,
-            result.responseDetails.message);
-        } else if (result.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+          this.helperService.createSnack(result.responseDetails.message, this.helperService.constants.status.ERROR);
+        } else if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.createEntity.loading = false;
-          this.helperService.appLogger(this.helperService.constants.status.ERROR,
-            result.responseDetails.message);
+          this.helperService.createSnack(result.responseDetails.message, this.helperService.constants.status.ERROR);
         }
       }, ((error) => {
         this.onNoClick();
-        this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.ERROR,
-          this.helperService.translated.LOGGER.MESSAGES.ENTITYNOTCREATED);
         this.createEntity.loading = false;
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
       })
     );
   }

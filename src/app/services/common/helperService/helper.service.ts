@@ -286,6 +286,13 @@ export class HelperService {
     });
   }
 
+  addCircle(radius) {
+    let circle = new google.maps.Circle({
+      radius: radius,
+      fillColor: '#AA0000'
+    });
+  }
+
   /**
    *  Return true if a object is empty
    */

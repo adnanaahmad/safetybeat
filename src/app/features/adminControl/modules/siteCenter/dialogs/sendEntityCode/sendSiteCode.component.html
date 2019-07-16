@@ -1,21 +1,21 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.INVITETEAMTITLE}}</mat-card-title>
 <div mat-dialog-content>
-  <div class="spinner-wrap" *ngIf="inviteTeamModel.loading">
+  <div class="spinner-wrap" *ngIf="sendSiteCode.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
   </div>
   <mat-form-field appearance="outline" class="example-chip-list">
     <mat-label>{{helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER}}</mat-label>
     <mat-chip-list #chipList>
-      <mat-chip *ngFor="let user of inviteTeamModel.users" [removable]="inviteTeamModel.removable"
+      <mat-chip *ngFor="let user of sendSiteCode.users" [removable]="sendSiteCode.removable"
                 (removed)="remove(user)">
         {{user.first_name}}
-        <mat-icon matChipRemove *ngIf="inviteTeamModel.removable">cancel</mat-icon>
+        <mat-icon matChipRemove *ngIf="sendSiteCode.removable">cancel</mat-icon>
       </mat-chip>
-      <input #userInput [formControl]="inviteTeamModel.userCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-             [matChipInputSeparatorKeyCodes]="inviteTeamModel.separatorKeysCodes">
+      <input #userInput [formControl]="sendSiteCode.userCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="sendSiteCode.separatorKeysCodes">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let user of inviteTeamModel.filteredUsers | async" [value]="user">
+      <mat-option *ngFor="let user of sendSiteCode.filteredUsers | async" [value]="user">
         {{user.first_name}}  {{user.last_name}}
       </mat-option>
     </mat-autocomplete>
@@ -23,7 +23,7 @@
 
   <mat-dialog-actions>
     <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
-            [disabled]="inviteTeamModel.loading" (click)='inviteTeam()'>
+            [disabled]="sendSiteCode.loading" (click)='sendUsersSiteCodes()'>
       {{ helperService.translated.BUTTONS.INVITETEAM }}
     </button>
 

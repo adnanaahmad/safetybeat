@@ -24,10 +24,7 @@ export class JoinEntityModalComponent implements OnInit {
     private compiler: CompilerProvider,
     private navService: NavigationService
   ) {
-    this.helperService.appLoggerDev(
-      this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.JOINENTITY
-    );
+    this.joinEntity.loading = false;
   }
 
   /**
@@ -62,28 +59,15 @@ export class JoinEntityModalComponent implements OnInit {
    */
   entityJoin({value, valid}: { value: entityCode; valid: boolean }) {
     if (!valid) {
-      this.helperService.appLoggerDev(
-        this.helperService.constants.status.WARNING,
-        valid
-      );
-      this.helperService.appLogger(
-        this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
-      );
+      this.helperService.createSnack(this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR,
+        this.helperService.constants.status.ERROR);
       return;
     }
+    this.joinEntity.loading = true;
     this.joinEntity.joinEntityData = {
       moduleName: this.helperService.translated.BUTTONS.SAFETYBEAT,
       entityCode: value.joinCode
     };
-    this.helperService.appLoggerDev(
-      this.helperService.constants.status.INFO,
-      valid
-    );
-    this.helperService.appLogger(
-      this.helperService.constants.status.INFO,
-      JSON.stringify(value)
-    );
     this.adminServices.joinEntity(this.joinEntity.joinEntityData).subscribe(
       res => {
         this.joinEntity.entityResponse = res;
@@ -95,28 +79,33 @@ export class JoinEntityModalComponent implements OnInit {
             let entityUserData = this.compiler.constructUserEntityData(
               res.data
             );
+            this.joinEntity.loading = false;
             this.onNoClick();
             this.navService.changeEntites(entityUserData);
           });
-          this.helperService.appLogger(
-            this.helperService.constants.status.SUCCESS,
-            this.helperService.translated.MESSAGES.JOINENTITY_SUCCESS
+          this.helperService.createSnack(
+            this.helperService.translated.MESSAGES.JOINENTITY_SUCCESS,
+            this.helperService.constants.status.SUCCESS
           );
         } else if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.helperService.appLogger(
-            this.helperService.constants.status.ERROR,
-            this.helperService.translated.MESSAGES.ALREADYJOINED_ENTITY
+          this.joinEntity.loading = false;
+          this.helperService.createSnack(
+            this.helperService.translated.MESSAGES.ALREADYJOINED_ENTITY,
+            this.helperService.constants.status.ERROR
           );
         } else if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-          this.helperService.appLogger(
-            this.helperService.constants.status.ERROR,
-            this.helperService.translated.MESSAGES.ENTITYNOTFOUND
+          this.joinEntity.loading = false;
+          this.helperService.createSnack(
+            this.helperService.translated.MESSAGES.ENTITYNOTFOUND,
+            this.helperService.constants.status.ERROR
           );
         }
       },
-      error => {
-        this.helperService.appLogger(
-          this.helperService.constants.status.ERROR,
+      (error) => {
+        this.joinEntity.loading = false;
+        this.onNoClick();
+        this.helperService.createSnack(
+          error.error,
           this.helperService.translated.MESSAGES.ENTITYJOINFIAL
         );
       }

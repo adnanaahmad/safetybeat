@@ -26,6 +26,7 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.editModal = data.Modal;
     this.hazardInfo = data.hazardInfo;
     this.url = helperService.appConstants.noHazard
+    this.hazardObj.loading = false;
   }
 
   ngOnInit() {
@@ -106,18 +107,22 @@ export class AddHazardComponent implements OnInit {
   }
 
   addHazard(value: AddHazardData) {
+    this.hazardObj.loading = true;
     this.service.addHazard(this.generateHazardData(value, false)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.hazardObj.loading = false;
           this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ADDED,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.hazardObj.loading = false;
           this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
-        this.onNoClick();
+      this.hazardObj.loading = false;
+      this.onNoClick();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
           this.helperService.constants.status.ERROR);
       }
@@ -130,17 +135,21 @@ export class AddHazardComponent implements OnInit {
   }
 
   editHazard(value) {
+    this.hazardObj.loading = true;
     this.service.editHazard(this.hazardInfo.id, this.generateHazardData(value, true)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.hazardObj.loading = false;
           this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.hazardObj.loading = false;
           this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
+      this.hazardObj.loading = false;
         this.onNoClick();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
           this.helperService.constants.status.ERROR);

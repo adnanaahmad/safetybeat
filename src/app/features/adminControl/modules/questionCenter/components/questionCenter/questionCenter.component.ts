@@ -1,15 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AddQuestionComponent} from 'src/app/features/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
-import {CreateQuestionComponent} from 'src/app/features/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import {CreateQuestionComponent}
+  from 'src/app/features/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
-import {QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
+import {QuestionCenter, Questions} from 'src/app/models/adminControl/questionCenter.model';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {PaginationData} from '../../../../../../models/site.model';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-questionCenter',
@@ -51,12 +52,14 @@ export class QuestionCenterComponent implements OnInit {
     this.QuestionObj.search = '';
     this.QuestionObj.firstIndex = 0;
     this.QuestionObj.pageSize = 10;
+    this.QuestionObj.parentQuestions = [];
+    this.QuestionObj.childQuestions = [];
   }
 
   /**
    * this function is used to call the api to get all the questions for Question bank by passing the entityId.
    */
-  getAllQuestions(pageIndex) {
+  getAllQuestions(pageIndex, search?: string) {
     let data = {
       'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
@@ -65,17 +68,15 @@ export class QuestionCenterComponent implements OnInit {
     let paginationData: PaginationData = {
       offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
       limit: this.helperService.constants.appConstant.paginationLimit,
-      search: ''
+      search: search ? search : ''
     };
 
     this.questionCenterService.getAllQuestions(data, paginationData).subscribe((res) => {
-      this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);
+        this.getParentChildQuestions(this.QuestionObj.allQuestions.questionList);
         this.QuestionObj.questionBankPageCount = res.data.pageCount;
-        if (pageIndex === 0) {
-          this.questionBankPaginator.pageIndex = 0;
-        }
-        this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList)
+        this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.QuestionObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
@@ -83,12 +84,21 @@ export class QuestionCenterComponent implements OnInit {
       }
     }, (err) => {
       this.QuestionObj.dataSource = null;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
+      this.helperService.createSnack(err.error,
         this.helperService.constants.status.ERROR);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.QuestionObj.translated.LOGGER.MESSAGES.ALL_QUESTION_RECEIVED_ERROR);
     });
 
+  }
+
+  getParentChildQuestions(questionsList: Array<Questions>) {
+    let self = this;
+    this.helperService.iterations(questionsList, function (questionObj) {
+      if (questionObj && questionObj.parent) {
+        self.QuestionObj.parentQuestions.push(questionObj);
+      } else if (questionObj && !questionObj.parent) {
+        self.QuestionObj.childQuestions.push(questionObj);
+      }
+    })
   }
 
   /**
@@ -100,8 +110,8 @@ export class QuestionCenterComponent implements OnInit {
     this.helperService.createDialog(AddQuestionComponent, {
       disableClose: true, data:
         {
-          parentQuestions: this.QuestionObj.allQuestions.parentQuestions,
-          childQuestions: this.QuestionObj.allQuestions.childQuestions,
+          parentQuestions: this.QuestionObj.parentQuestions,
+          childQuestions: this.QuestionObj.childQuestions,
           edit: false
         }
     });
@@ -114,8 +124,8 @@ export class QuestionCenterComponent implements OnInit {
     this.helperService.createDialog(AddQuestionComponent, {
       disableClose: true, data:
         {
-          parentQuestions: this.QuestionObj.allQuestions.parentQuestions,
-          childQuestions: this.QuestionObj.allQuestions.childQuestions,
+          parentQuestions: this.QuestionObj.parentQuestions,
+          childQuestions: this.QuestionObj.childQuestions,
           edit: true,
           questionData: questionsData
         }
@@ -168,15 +178,15 @@ export class QuestionCenterComponent implements OnInit {
     let paginationData: PaginationData = {
       offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
       limit: this.helperService.constants.appConstant.paginationLimit,
-      search: search
-    }
+      search: search ? search : ''
+    };
     this.questionCenterService.viewAllEntityQuestions(data, paginationData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.QuestionObj.pageCount = res.data.pageCount;
         this.QuestionObj.entityQuestionsResponse = this.compiler.constructAllEntityQuestionsData(res);
-        if (res && res.data.entityQuestionList.length > 0) {
+        if (res && res.data.entityQuestionList) {
           this.QuestionObj.entityQuestions = new MatTableDataSource(this.QuestionObj.entityQuestionsResponse.entityQuestionList);
-        } else if (res && res.data.entityQuestionList.length === 0) {
+        } else if (res && !res.data.entityQuestionList) {
           this.QuestionObj.entityQuestions = null;
         }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
@@ -197,22 +207,21 @@ export class QuestionCenterComponent implements OnInit {
   deleteQuestion(questionId) {
     this.questionCenterService.deleteQuestion(questionId).subscribe((res) => {
       this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-        this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
+        this.helperService.constants.status.SUCCESS);
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.helperService.translated.MESSAGES.DELETE_QUESTION_FAILURE);
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
   deleteQuestionFromQuestionBank(questionId) {
     this.questionCenterService.deleteQuestionFromQuestionBank(questionId).subscribe((res) => {
       this.getAllQuestions(this.questionBankPaginator.pageIndex);
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-        this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
+        this.helperService.constants.status.SUCCESS);
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.helperService.translated.MESSAGES.DELETE_QUESTION_FAILURE);
+      this.helperService.createSnack(
+        this.helperService.translated.MESSAGES.DELETE_QUESTION_FAILURE, this.helperService.constants.status.ERROR);
     });
   }
 

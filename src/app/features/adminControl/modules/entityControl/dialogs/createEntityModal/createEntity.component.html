@@ -1,14 +1,14 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CREATEENTITY_MSG}}</mat-card-title>
 <div mat-dialog-content>
-<!--  <div class="spinner-wrap">-->
-<!--    <mat-spinner></mat-spinner>-->
-<!--  </div>-->
+  <div class="spinner-wrap" *ngIf="createEntity.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <form [formGroup]="createEntity.createEntityForm" (ngSubmit)="entityCreation(createEntity.createEntityForm)"
-    (keydown.enter)="$event.preventDefault()">
+        (keydown.enter)="$event.preventDefault()">
     <div class="form-group">
       <mat-form-field appearance="outline" full-width>
         <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
-        <input matInput type="text" [formControlName]="helperService.appConstants.name" required />
+        <input matInput type="text" [formControlName]="helperService.appConstants.name" required/>
         <mat-error *ngIf="formValidation.name.errors">
           <span *ngIf="formValidation.name.errors.required">{{helperService.translated.MESSAGES.ENTITYNAME_REQ}}</span>
         </mat-error>
@@ -18,8 +18,9 @@
       <mat-form-field appearance="outline" full-width>
         <mat-label>{{helperService.translated.MESSAGES.HEADOFFICE_LOCATION}}</mat-label>
         <input matInput type="text" appGooglePlaces
-          (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice)"
-          [formControlName]="helperService.appConstants.headOffice" (keyup)="helperService.setFalse($event)" required />
+               (onSelect)="helperService.setAddress($event,gMapElement,formValidation.headOffice)"
+               [formControlName]="helperService.appConstants.headOffice" (keyup)="helperService.setFalse($event)"
+               required/>
         <mat-error *ngIf="formValidation.headOffice.errors">
           <span
             *ngIf="formValidation.headOffice.errors.required">{{helperService.translated.MESSAGES.OFFICELOCATION_REQ}}</span>
@@ -33,16 +34,9 @@
     </mat-card>
     <mat-dialog-actions>
       <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
-        [disabled]="!helperService.displayButton || createEntity.loading">
+              [disabled]="!helperService.displayButton || createEntity.loading">
         {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
-        <div class="main-loader" *ngIf="createEntity.loading">
-          <span class="loader1"></span>
-          <span class="loader2"></span>
-          <span class="loader3"></span>
-        </div>
       </button>
-
-      <!-- <img *ngIf="createEntity.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
       <button mat-button mat-dialog-close type="button">
         {{ helperService.translated.BUTTONS.CANCEL }}
       </button>

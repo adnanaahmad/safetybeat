@@ -33,13 +33,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   ) {
     this.initialize();
     this.helperService.toggleLoader(true);
-    this.helperService.appLogger(
-      this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.ENTITYCONTROL
-    );
 
     this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
-      this.entityControl.currentUserData = res;
+      if (res) {
+        this.entityControl.currentUserData = res;
+      }
     });
     this.entityControl.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {

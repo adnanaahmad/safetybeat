@@ -75,10 +75,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     public memberService: MemberCenterService
   ) {
     this.initialize();
-    this.helperService.appLoggerDev(
-      this.profileModel.translated.LOGGER.STATUS.SUCCESS,
-      this.profileModel.translated.LOGGER.MESSAGES.PROFILE_COMPONENT
-    );
     this.route.params.subscribe((data) => {
       if (!helperService.isEmpty(data)) {
         this.profileModel.receivedData = JSON.parse(data.data);
@@ -184,16 +180,14 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         if (res.data.length === 0) {
           this.profileModel.noEntity = true;
         } else {
-            this.profileModel.entityCount = res.data.length;
-            this.helperService.toggleLoader(false);
-            this.profileModel.entitiesList = res.data;
-            this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList);
-            this.profileModel.dataSource.paginator = this.paginator;
+          this.profileModel.entityCount = res.data.length;
+          this.helperService.toggleLoader(false);
+          this.profileModel.entitiesList = res.data;
+          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList);
+          this.profileModel.dataSource.paginator = this.paginator;
         }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noEntity = true;
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          'entities fail');
       } else {
         this.profileModel.noEntity = true;
       }
@@ -224,11 +218,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       let userData = this.compiler.constructProfileData(res.data);
       this.navService.updateCurrentUser(userData);
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_UPLOADED_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE);
+        this.helperService.createSnack(
+          this.helperService.translated.MESSAGES.PIC_UPLOADED_FAILURE, this.helperService.constants.status.ERROR);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
           this.helperService.constants.status.WARNING);
@@ -260,8 +254,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noActivity = true;
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          this.helperService.translated.MESSAGES.ACTIVITIES_FAIL);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ACTIVITIES_FAIL, this.helperService.constants.status.ERROR
+        );
       } else {
         this.profileModel.noActivity = true;
       }
@@ -279,8 +273,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.noConnection = true;
       } else {
         this.profileModel.noConnection = true;
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE);
+        this.helperService.createSnack(
+          this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE, this.helperService.constants.status.ERROR);
       }
     });
   }
@@ -302,9 +296,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
               res.responseDetails.message);
           }
         }, (error) => {
-          this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
-            this.helperService.constants.status.ERROR);
+          this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
         });
       }
     });
