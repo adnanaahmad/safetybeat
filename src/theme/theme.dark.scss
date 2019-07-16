@@ -150,11 +150,6 @@ $theme: createTheme($primary, $secondary, $warn);
       }
     }
   }
-  .notification-icon {
-    .notifcount {
-      background: mat-color($warn-pallete, 600);
-    }
-  }
   app-notificationnav {
     mat-list-item[role="listitem"] {
       border-bottom: 1px solid rgba(221, 221, 221, 0.2) !important;
@@ -204,29 +199,6 @@ $theme: createTheme($primary, $secondary, $warn);
   .mat-drawer {
     background-color: mat-color($primary, 500) !important;
   }
-  .package-selectors {
-    svg {
-      background-color: mat-color($primary, 200) !important;
-    }
-    .mat-radio-button {
-      background-color: mat-color($primary, 400);
-      .mat-radio-button {
-        &.mat-radio-checked {
-          &:before {
-            background-color: mat-color($primary, 400);
-          }
-        }
-      }
-      &.mat-radio-checked {
-        .trigger + svg {
-          background-color: mat-color($primary, 900) !important;
-        }
-        &:before {
-          background-color: mat-color($primary, 900);
-        }
-      }
-    }
-  }
   &.body-bg {
     background-color: mat-color($primary, 700);
   }
@@ -259,31 +231,6 @@ $theme: createTheme($primary, $secondary, $warn);
       mat-icon {
         background: mat-color($primary, 400) !important;
         color: #fff !important;
-      }
-    }
-  }
-  app-orgRegistration {
-    mat-horizontal-stepper {
-      [btn-primary] {
-        background: #fff !important;
-        color: mat-color($primary) !important;
-      }
-    }
-    .loginbox {
-      mat-step-header {
-        .mat-step-label {
-          mat-icon {
-            border-color: mat-color($primary, 50);
-            color: mat-color($primary, 50);
-          }
-        }
-        .mat-step-label-active {
-          mat-icon {
-            border-color: mat-color($primary, 400);
-            background-color: mat-color($primary, 400);
-            color: #fff !important;
-          }
-        }
       }
     }
   }

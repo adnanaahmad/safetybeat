@@ -1,41 +1,41 @@
-<h3 class="setting-title">
-  <button btn-primary mat-raised-button edit-btn color="primary" (click)="editEntity()">
-    <mat-icon>edit</mat-icon>
-  </button>
-</h3>
-
+<button mat-mini-fab edit (click)="editEntity()">
+    <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+</button>
+<br><br>
+<mat-divider></mat-divider><br><br>
 <form class="profile-form" [formGroup]="entitySettingObj.entityForm"
-  (ngSubmit)="updateEntity(entitySettingObj.entityForm)">
-  <div class="form-row">
-    <mat-form-field appearance="outline">
-      <mat-label>{{ helperService.translated.TABLEHEADINGS.NAME }} </mat-label>
-      <input matInput type="text" formControlName="{{ helperService.appConstants.name }}" required />
-      <mat-error class="text-right" *ngIf="entityFormValidations.errors">
-        <span *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-      </mat-error>
+      (ngSubmit)="updateEntity(entitySettingObj.entityForm)">
+    <div class="form-row">
+        <mat-form-field appearance="outline">
+            <mat-label>{{ helperService.translated.TABLEHEADINGS.NAME }}</mat-label>
+            <input matInput type="text" formControlName="{{ helperService.appConstants.name }}" required/>
+            <mat-error class="text-right" *ngIf="entityFormValidations.errors">
+                <span *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Entity Code</mat-label>
+            <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required/>
+        </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</mat-label>
+        <input matInput type="text" appGooglePlaces formControlName="{{ helperService.appConstants.headOffice }}"
+               (onSelect)="helperService.setAddress($event,gMapElement,entityFormValidations.headOffice)"
+               (keyup)="helperService.setFalse($event)" required/>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Entity Code</mat-label>
-      <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required />
-    </mat-form-field>
-  </div>
-  <mat-form-field appearance="outline" full-width>
-    <mat-label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</mat-label>
-    <input matInput type="text" appGooglePlaces formControlName="{{ helperService.appConstants.headOffice }}"
-      (onSelect)="helperService.setAddress($event,gMapElement,entityFormValidations.headOffice)"
-      (keyup)="helperService.setFalse($event)" required />
-  </mat-form-field>
-  <mat-card>
-    <div #gmap class="site-map"></div>
-  </mat-card>
-  <div *ngIf="entitySettingObj.disabled" class="btn-grp">
-    <button mat-raised-button custom-btn btn-danger color="primary" type="submit"
-      [disabled]="entitySettingObj.entityForm.pristine">
-      <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
-      {{ helperService.translated.BUTTONS.SAVE }}
-    </button>
-    <button mat-raised-button btn-danger custom-btn color="warn" type="button" (click)="cancelEditEntity()">
-      {{helperService.translated.BUTTONS.CANCEL}}
-    </button>
-  </div>
+    <mat-card>
+        <div #gmap class="site-map"></div>
+    </mat-card>
+    <div *ngIf="entitySettingObj.disabled" class="btn-grp">
+        <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
+                [disabled]="entitySettingObj.entityForm.pristine">
+            <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
+            {{ helperService.translated.BUTTONS.SAVE }}
+        </button>
+        <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
+                (click)="cancelEditEntity()">
+            {{helperService.translated.BUTTONS.CANCEL}}
+        </button>
+    </div>
 </form>

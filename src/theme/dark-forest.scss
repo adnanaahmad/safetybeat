@@ -151,22 +151,6 @@ $theme: createTheme($primary, $secondary, $warn);
   .monogram {
     border-color: mat-color($primary, 400) !important;
   }
-  .package-selectors {
-    svg {
-      background-color: mat-color($primary, 200) !important;
-    }
-    .mat-radio-button {
-      background-color: mat-color($primary, 500);
-      &.mat-radio-checked {
-        .trigger + svg {
-          background-color: mat-color($primary, 900) !important;
-        }
-        &:before {
-          background-color: mat-color($primary, 900);
-        }
-      }
-    }
-  }
   app-notificationnav {
     mat-list-item[role="listitem"] {
       border-bottom: 1px solid rgba(221, 221, 221, 0.2) !important;
@@ -176,11 +160,6 @@ $theme: createTheme($primary, $secondary, $warn);
       .read-notif {
         background: mat-color($primary-pallet, 100);
       }
-    }
-  }
-  .notification-icon {
-    .notifcount {
-      background: mat-color($warn-pallete, 600);
     }
   }
   mat-dialog-container {
