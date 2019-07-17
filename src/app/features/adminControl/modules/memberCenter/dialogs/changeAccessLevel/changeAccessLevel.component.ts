@@ -125,12 +125,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.entityControlPermission, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableEntityControl = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.entityControlPermission, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableEntityControl = true;
       })
     }
@@ -140,12 +140,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.memberCentrePermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableMemberCentre = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.memberCentrePermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableMemberCentre = true;
       })
     }
@@ -155,12 +155,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.myTeamPermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableMyTeam = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.myTeamPermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableMyTeam = true;
       })
     }
@@ -170,12 +170,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.sitesPermission, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableSiteCentre = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.sitesPermission, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableSiteCentre = true;
       })
     }
@@ -185,12 +185,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.hazardCentrePermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableHazardCentre = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.hazardCentrePermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableHazardCentre = true;
       })
     }
@@ -200,12 +200,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.questionCentrePermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableQuestionCentre = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.questionCentrePermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableQuestionCentre = true;
       })
     }
@@ -215,12 +215,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.documentsPermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableDocuments = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.documentsPermissions, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableDocuments = true;
       })
     }
@@ -230,12 +230,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     let self = this
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.reports, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(true)
+        self.permissions.permissionsForm.get(value.key).setValue(true)
         self.permissions.disableReports = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.reports, function (value) {
-        self.permissions.permissionsForm.get(value).setValue(false)
+        self.permissions.permissionsForm.get(value.key).setValue(false)
         self.permissions.disableReports = true;
       })
     }
