@@ -86,7 +86,6 @@ export class ChangeAccessLevelComponent implements OnInit {
     });
     this.permissions.permissionsForm.valueChanges.subscribe(result => {
       this.checkChange(this.permissions.permissionsForm)
-      console.log(this.permissions.unChanged)
     })
   }
 
@@ -119,7 +118,6 @@ export class ChangeAccessLevelComponent implements OnInit {
   }
 
   checkChange({value}: { value: PermissionsModel }) {
-    console.log(value)
     this.permissions.unChanged = this.helperService.isEqual(value, this.data.permissions) ? true : false;
   }
 
