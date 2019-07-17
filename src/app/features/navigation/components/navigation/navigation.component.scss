@@ -1,36 +1,27 @@
 @mixin amte-navigation($primary, $accent, $warn) {
   :host,
-  .example-container {
-    width: 400px;
-    height: 200px;
-    margin: 10px;
-    border: 1px solid #555;
-  }
-  .mdropdown {
-    margin-top: 13px;
-  }
-  .mdropdown2 {
-    margin-top: 20px;
-  }
-  .notification-drawer {
-    .mat-drawer-inner-container {
-      overflow: hidden;
+  app-navigation {
+    .topbar {
+      z-index: 2;
     }
-    .mat-tab-body-wrapper {
-      overflow-y: auto;
-      height: 100vh;
-      .mat-list-item:last-child {
-        margin-bottom: 100px;
+    .notification-drawer {
+      .mat-drawer-inner-container {
+        overflow: hidden;
+      }
+      .mat-tab-body-wrapper {
+        overflow-y: auto;
+        height: 100vh;
+        .mat-list-item:last-child {
+          margin-bottom: 100px;
+        }
       }
     }
-  }
-  app-navigation {
     .entity-switch-wrap {
       display: inline-block;
       font-size: 14px;
       background: rgba(255, 255, 255, 0.08);
       max-width: 110px;
-      margin-left: 10px;
+      margin-right: 10px;
       border-radius: 4px;
       button {
         @include ellipsis;
@@ -93,28 +84,6 @@
       flex-direction: row;
       height: 100%;
     }
-    .notification-icon {
-      top: 5px;
-      position: relative;
-      font-size: 22px;
-      height: auto;
-      width: auto;
-      cursor: pointer;
-      padding: 0 10px;
-      .notifcount {
-        font-size: 11px;
-        border-radius: 100px;
-        padding: 4px;
-        position: absolute;
-        top: -17px;
-        right: -3px;
-        width: 17px;
-        height: 17px;
-        text-align: center;
-        line-height: 1.7;
-        box-shadow: 0 3px 6px 0px rgba(0, 0, 0, 0.5);
-      }
-    }
     .close-notif {
       margin: 18px 16px;
       border-radius: 100px;
@@ -154,7 +123,7 @@
           right: 35px;
           transform-origin: 50% 50% 0;
         }
-        mat-expansion-panel-header{
+        mat-expansion-panel-header {
           position: relative;
         }
       }
@@ -185,8 +154,17 @@
       text-align: center;
     }
     .top-btns {
-      width: 100%;
-      text-align: right;
+      display: flex;
+      width: auto;
+      margin-left: auto;
+      align-items: center;
+      justify-content: flex-end;
     }
+  }
+  .mdropdown {
+    margin-top: 15px;
+  }
+  .mdropdown2 {
+    margin-top: 17px;
   }
 }

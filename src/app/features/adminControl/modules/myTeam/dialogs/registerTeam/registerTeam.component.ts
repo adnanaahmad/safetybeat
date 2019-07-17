@@ -28,6 +28,7 @@ export class RegisterTeamComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.initialize();
     this.registerTeamObj.editTeam = data.Modal;
+    this.registerTeamObj.allUsersList = this.data.allUsersOfTeam;
   }
 
   ngOnInit() {
@@ -36,7 +37,7 @@ export class RegisterTeamComponent implements OnInit {
     });
     if (this.registerTeamObj.editTeam) {
       this.getFormControls['title'].setValue(this.data.teamList.team.title);
-      this.registerTeamObj.teamLeadID =  this.data.teamList.teamLead.id;
+      this.registerTeamObj.teamLeadID = this.data.teamList.teamLead.id;
       this.registerTeamObj.selectedUsers = this.compiler.constructUserDataOfTeam(this.data.teamList.users);
     }
   }
@@ -44,15 +45,18 @@ export class RegisterTeamComponent implements OnInit {
   get getFormControls() {
     return this.registerTeamObj.registerTeamForm.controls;
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   initialize() {
+    this.registerTeamObj.filteredSelectedList = [];
     this.registerTeamObj.selectedUsers = [];
     this.registerTeamObj.teamLead = null;
     this.registerTeamObj.valid = false;
     this.registerTeamObj.loading = false;
+    this.registerTeamObj.allUsers = this.data.allUsersOfTeam;
   }
 
   // get formValidation() {
@@ -67,12 +71,17 @@ export class RegisterTeamComponent implements OnInit {
 
   teamFormSubmit({value, valid}: { value: any; valid: boolean }) {
     if (this.registerTeamObj.teamLead === null) {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.SELECT_TEAMLEAD, this.helperService.constants.status.WARNING)
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.SELECT_TEAMLEAD, this.helperService.constants.status.WARNING);
     } else {
       this.registerTeamObj.editTeam ? this.editTeam(value) : this.registerTeam(value);
     }
   }
 
+  filterAllUserList(value) {
+    let filterValue = value.toLowerCase();
+    this.registerTeamObj.allUsers = this.registerTeamObj.allUsersList.filter(
+      user => user.name.toLowerCase().includes(filterValue));
+  }
 
   editTeam(value) {
     this.registerTeamObj.loading = true;
@@ -136,6 +145,7 @@ export class RegisterTeamComponent implements OnInit {
    */
   addToSelected(user) {
     this.registerTeamObj.selectedUsers.push(user);
+    this.registerTeamObj.filteredSelectedList.push(user);
   }
 
   /**
@@ -163,7 +173,7 @@ export class RegisterTeamComponent implements OnInit {
    * this function takes the selected users list, title and team lead information to generate team data
    * @params value
    */
-  teamData (value) {
+  teamData(value) {
     let teamMembersIds: any = [];
     this.helperService.iterations(this.registerTeamObj.selectedUsers, function (obj) {
       teamMembersIds.push(obj.id);
@@ -193,6 +203,12 @@ export class RegisterTeamComponent implements OnInit {
 
   removeTeamLead() {
     this.registerTeamObj.teamLead = null;
+  }
+
+  filterSelectedUserList(value) {
+    let filterValue = value.toLowerCase();
+    this.registerTeamObj.filteredSelectedList = this.registerTeamObj.selectedUsers.filter(
+      user => user.name.toLowerCase().includes(filterValue));
   }
 }
 

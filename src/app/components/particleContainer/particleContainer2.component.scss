@@ -1,0 +1,27 @@
+@mixin amte-particle2Container($primary, $accent, $warn) {
+  :host,
+  app-particle2Container {
+    #particle-container {
+      position: fixed;
+      left: 0;
+      height: 100%;
+      top: 0;
+      overflow: hidden;
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        color: #fff;
+        mat-icon {
+          font-size: 30px;
+          transition: all cubic-bezier(0.45, 0.01, 0, 3) 0.3s;
+          transform: scale(1);
+        }
+        &:hover {
+          mat-icon {
+            transform: scale(1.3);
+          }
+        }
+      }
+    }
+  }
+}

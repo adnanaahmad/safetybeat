@@ -135,8 +135,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     };
     this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        console.log(res.data);
-        this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res);
+        this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
         console.log(this.actionReportObj.sitesData);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,

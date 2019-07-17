@@ -5,14 +5,9 @@
     $circle: 100px;
     .hazard-detail-grid {
       display: flex;
-      flex-wrap: wrap;
       mat-card {
-        width: 100%;
-        box-shadow: none !important;
-        border: 1px solid mat-color($primary-pallet, 50);
         flex: 1;
         margin: 3px;
-        padding: 10px;
         display: flex;
         flex-wrap: wrap;
         align-items: center;

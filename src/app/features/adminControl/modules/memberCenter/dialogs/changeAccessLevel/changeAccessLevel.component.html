@@ -1,6 +1,6 @@
-<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
+<mat-card-title class="mat-dialog-title mat-elevation-z6">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
 <div class="mat-dialog-content">
-    <!--<mat-form-field appearance="outline" class="full-width">-->
+    <!--<mat-form-field appearance="outline" fullWidth>-->
     <!--<mat-label>{{helperService.translated.STRINGS.CHOOSE_ROLE}}</mat-label>-->
     <!--<mat-select>-->
     <!--<mat-option value="Paratha Role">User</mat-option>-->
@@ -9,7 +9,7 @@
     <!--<mat-option value="Rock Role">Site Safety Manager</mat-option>-->
     <!--</mat-select>-->
     <!--</mat-form-field>-->
-    <!--<mat-form-field appearance="outline" class="full-width">-->
+    <!--<mat-form-field appearance="outline" fullWidth>-->
     <!--<mat-label>{{helperService.translated.STRINGS.SELECT_TEAM}}</mat-label>-->
     <!--<mat-select>-->
     <!--<mat-option value="Football Team">Team 1</mat-option>-->
@@ -137,8 +137,8 @@
         </mat-tab>
     </mat-tab-group>
     <mat-dialog-actions>
-        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
-                color="primary">{{helperService.translated.BUTTONS.SAVE}}
+        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn color="primary">
+            {{helperService.translated.BUTTONS.SAVE}}
         </button>
         <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
