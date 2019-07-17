@@ -3,13 +3,13 @@
   <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
     <mat-tab-group>
       <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
-        <div class="permission-wrap" *ngFor="let permission of helperService.appConstants.permissions">
-          <mat-checkbox [formControlName]="permission.key"
-                        (change)="checkEnable($event, permission.values)">{{permission.name}}
+        <div class="permission-wrap" *ngFor="let permissions of helperService.appConstants.permissions">
+          <mat-checkbox [formControlName]="permissions.key"
+                        (change)="checkEnable($event, permissions.values)">{{permissions.name}}
           </mat-checkbox>
           <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let p of permission.values">
-              <mat-checkbox [formControlName]="p.key">{{p.value}}
+            <mat-card-content *ngFor="let permissionObj of permissions.values">
+              <mat-checkbox [formControlName]="permissionObj.key">{{permissionObj.value}}
               </mat-checkbox>&nbsp;&nbsp;<br>
             </mat-card-content>
           </mat-card>
