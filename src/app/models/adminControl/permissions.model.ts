@@ -1,8 +1,11 @@
+import {FormGroup} from '@angular/forms';
+
 export interface Permissions {
   permissions: PermissionsModel
 }
 
 export interface PermissionsModel {
+  entityId: number;
   ImportSite: boolean,
   actionReport: boolean,
   actionsVsAlerts: boolean,
@@ -59,4 +62,23 @@ export interface PermissionsModel {
   createQuestion: boolean,
   deleteQuestion: boolean,
   editQuestion: boolean,
+  userId: number
+}
+
+export interface ChangePermissionsObj {
+  disableReports: boolean;
+  disableDocuments: boolean;
+  disableQuestionCentre: boolean;
+  disableHazardCentre: boolean;
+  disableSiteCentre: boolean;
+  disableMyTeam: boolean;
+  disableMemberCentre: boolean;
+  disableEntityControl: boolean;
+  checkAllEntityControls: boolean;
+  checkAllForMemberCentre: boolean;
+  unChanged: boolean;
+  permissionsForm: FormGroup;
+  permissionsData: PermissionsModel;
+  loading: boolean;
+
 }

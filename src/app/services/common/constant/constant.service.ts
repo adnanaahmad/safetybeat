@@ -80,7 +80,7 @@ export class ConstantService {
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
     parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
     viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
-
+    userPermissions: `${environment.apiUrl}/permissions/`,
   };
   /**
    * all the api methods are declared here.
@@ -229,6 +229,23 @@ export class ConstantService {
       confirm: 'confirm',
       nature: 'Outgoing'
     },
+    entityControl: 'entityControl',
+    entityControlPermission: ['createEntity', 'viewEntity', 'deleteEntity', 'joinEntity', 'inviteMember', 'viewEntityCode'],
+    siteCentre: 'siteCentre',
+    sitesPermission: ['ImportSite', 'viewSite', 'editSite', 'deleteSite', 'addSite', 'analyticsReports'],
+    reports: ['actionReport', 'actionsVsAlerts', 'averageDailyReport', 'checkinAndAlertByPerson', 'checkinByActivity',
+      'compliantCheckOut', 'pulseReportByEntity', 'pulseReportByPerson', 'siteActivityReport', 'hazardReports'],
+    analyticsReports: 'analyticsReports',
+    hazardCentre: 'hazardCentre',
+    hazardCentrePermissions: ['addHazard', 'editHazard', 'deleteHazard', 'viewHazard'],
+    documents: 'documents',
+    documentsPermissions: ['deleteDocument', 'uploadDocument', 'downloadDocument', 'createFolder', 'deleteFolder', 'renameFolder'],
+    myTeam: 'myTeam',
+    myTeamPermissions: ['registerTeam', 'editTeam', 'deleteTeam', 'viewTeam'],
+    memberCentre: 'memberCentre',
+    memberCentrePermissions: ['changeAccessLevel', 'viewUserProfile', 'inviteUser', 'deactivateUser'],
+    questionCentre: 'questionCentre',
+    questionCentrePermissions: ['addQuestion', 'createQuestion', 'deleteQuestion', 'editQuestion'],
     enterKey: 13,
     importSite: 'importSite',
     csvFile: 'csvFile',
@@ -245,7 +262,8 @@ export class ConstantService {
   /**
    * all the material icon names are declared here.
    */
-  static appIcons = {
+  static
+  appIcons = {
     showReports: 'bar_chart',
     skipNext: 'skip_next',
     group: 'group',
@@ -338,7 +356,8 @@ export class ConstantService {
   /**
    * all the particle container icon names are declared here.
    */
-  static particlesIcons = [
+  static
+  particlesIcons = [
     'more_vert',
     'data_usage',
     'change_history',
@@ -363,7 +382,8 @@ export class ConstantService {
   /**
    * status of the snackbar and toaster are declared here.
    */
-  static status = {
+  static
+  status = {
     CUSTOM: 'custom',
     DEFAULT: 'default',
     INFO: 'info',
@@ -375,7 +395,8 @@ export class ConstantService {
   /**
    * default map configuration is declared here.
    */
-  static defaultMapConfig = {
+  static
+  defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
     gestureHandling: 'none',

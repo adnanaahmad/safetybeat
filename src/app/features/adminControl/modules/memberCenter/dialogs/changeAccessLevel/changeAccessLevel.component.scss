@@ -1,8 +1,8 @@
 @mixin amte-changeAccessLevel($primary, $accent, $warn) {
   :host,
   app-changeAccessLevel {
-    .mat-dialog-content{
-      height: 400px;
+    .mat-tab-body-content{
+      height: 380px;
     }
     mat-card {
       margin: 3px;
