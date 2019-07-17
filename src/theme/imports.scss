@@ -47,6 +47,11 @@
 @import "~src/app/features/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component.scss";
 @import "~src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component.scss";
 @import "~src/app/features/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component.scss";
+@import "~src/app/features/adminControl/modules/documents/components/file/file.component.scss";
+@import "~src/app/features/adminControl/modules/documents/components/showFolderDocuments/showFolderDocuments.component.scss";
+@import "~src/app/features/loginRegistration/components/particleContainer/particleContainer.component.scss";
+@import "~src/app/components/particleContainer/particleContainer2.component.scss";
+
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -103,4 +108,9 @@
   @include amte-register-team($primary, $accent, $warn);
   @include amte-advanceSearch($primary, $accent, $warn);
   @include amte-changeAccessLevel($primary, $accent, $warn);
+  @include amte-appfile($primary, $accent, $warn);
+  @include amte-appfile($primary, $accent, $warn);
+  @include amte-showDocuments($primary, $accent, $warn);
+  @include amte-particle-container($primary, $accent, $warn);
+  @include amte-particle2Container($primary, $accent, $warn);
 }

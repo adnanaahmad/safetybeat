@@ -67,7 +67,6 @@
 
       <!--Change Theme-->
       <div *ngIf="settingFeatures.theme">
-        <h3 class="setting-title">{{ helperService.translated.STRINGS.CHANGETHEME }}</h3>
         <mat-list role="list" class="settings-list theme-selector">
           <mat-list-item>
             <mat-radio-group [(ngModel)]="themeSelected" (change)="changed()">

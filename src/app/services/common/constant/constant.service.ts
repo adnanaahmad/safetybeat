@@ -44,7 +44,6 @@ export class ConstantService {
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
-    getAllSites: `${environment.apiUrl}/api/sites/getSiteList/`,
     addSite: `${environment.apiUrl}/api/sites/`,
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
@@ -230,61 +229,23 @@ export class ConstantService {
       confirm: 'confirm',
       nature: 'Outgoing'
     },
-    permissions: {
-      ImportSite: 'ImportSite',
-      addHazard: 'addHazard',
-      addSite: 'addSite',
-      analyticsReports: 'analyticsReports',
-      actionReport: 'actionReport',
-      actionsVsAlerts: 'actionsVsAlerts',
-      averageDailyReport: 'averageDailyReport',
-      checkinAndAlertByPerson: 'checkinAndAlertByPerson',
-      checkinByActivity: 'checkinByActivity',
-      compliantCheckOut: 'compliantCheckOut',
-      pulseReportByEntity: 'pulseReportByEntity',
-      pulseReportByPerson: 'pulseReportByPerson',
-      siteActivityReport: 'siteActivityReport',
-      changeAccessLevel: 'changeAccessLevel',
-      changePermissions: 'changePermissions',
-      createEntity: 'createEntity',
-      createFolder: 'createFolder',
-      deactivateUser: 'deactivateUser',
-      deleteDocument: 'deleteDocument',
-      deleteEntity: 'deleteEntity',
-      deleteFolder: 'deleteFolder',
-      deleteHazard: 'deleteHazard',
-      deleteSite: 'deleteSite',
-      deleteTeam: 'deleteTeam',
-      documents: 'documents',
-      downloadDocument: 'downloadDocument',
-      editHazard: 'editHazard',
-      editSite: 'editSite',
-      editTeam: 'editTeam',
-      entityControl: 'entityControl',
-      hazardCentre: 'hazardCentre',
-      hazardReports: 'hazardReports',
-      inviteUser: 'inviteUser',
-      memberCentre: 'memberCentre',
-      myTeam: 'myTeam',
-      permissionCentre: 'permissionCentre',
-      questionCentre: 'questionCentre',
-      registerTeam: 'registerTeam',
-      renameFolder: 'renameFolder',
-      siteCentre: 'siteCentre',
-      uploadDocument: 'uploadDocument',
-      viewEntity: 'viewEntity',
-      viewEntityCode: 'viewEntityCode',
-      viewHazard: 'viewHazard',
-      viewSite: 'viewSite',
-      viewTeam: 'viewTeam',
-      viewUserProfile: 'viewUserProfile',
-      joinEntity: 'joinEntity',
-      inviteMember: 'inviteMember',
-      addQuestion: 'addQuestion',
-      createQuestion: 'createQuestion',
-      deleteQuestion: 'deleteQuestion',
-      editQuestion: 'editQuestion',
-    },
+    entityControl: 'entityControl',
+    entityControlPermission: ['createEntity', 'viewEntity', 'deleteEntity', 'joinEntity', 'inviteMember', 'viewEntityCode'],
+    siteCentre: 'siteCentre',
+    sitesPermission: ['ImportSite', 'viewSite', 'editSite', 'deleteSite', 'addSite', 'analyticsReports'],
+    reports: ['actionReport', 'actionsVsAlerts', 'averageDailyReport', 'checkinAndAlertByPerson', 'checkinByActivity',
+      'compliantCheckOut', 'pulseReportByEntity', 'pulseReportByPerson', 'siteActivityReport', 'hazardReports'],
+    analyticsReports: 'analyticsReports',
+    hazardCentre: 'hazardCentre',
+    hazardCentrePermissions: ['addHazard', 'editHazard', 'deleteHazard', 'viewHazard'],
+    documents: 'documents',
+    documentsPermissions: ['deleteDocument', 'uploadDocument', 'downloadDocument', 'createFolder', 'deleteFolder', 'renameFolder'],
+    myTeam: 'myTeam',
+    myTeamPermissions: ['registerTeam', 'editTeam', 'deleteTeam', 'viewTeam'],
+    memberCentre: 'memberCentre',
+    memberCentrePermissions: ['changeAccessLevel', 'viewUserProfile', 'inviteUser', 'deactivateUser'],
+    questionCentre: 'questionCentre',
+    questionCentrePermissions: ['addQuestion', 'createQuestion', 'deleteQuestion', 'editQuestion'],
     enterKey: 13,
     importSite: 'importSite',
     csvFile: 'csvFile',
@@ -301,7 +262,8 @@ export class ConstantService {
   /**
    * all the material icon names are declared here.
    */
-  static appIcons = {
+  static
+  appIcons = {
     showReports: 'bar_chart',
     skipNext: 'skip_next',
     group: 'group',
@@ -394,7 +356,8 @@ export class ConstantService {
   /**
    * all the particle container icon names are declared here.
    */
-  static particlesIcons = [
+  static
+  particlesIcons = [
     'more_vert',
     'data_usage',
     'change_history',
@@ -419,7 +382,8 @@ export class ConstantService {
   /**
    * status of the snackbar and toaster are declared here.
    */
-  static status = {
+  static
+  status = {
     CUSTOM: 'custom',
     DEFAULT: 'default',
     INFO: 'info',
@@ -431,7 +395,8 @@ export class ConstantService {
   /**
    * default map configuration is declared here.
    */
-  static defaultMapConfig = {
+  static
+  defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
     gestureHandling: 'none',

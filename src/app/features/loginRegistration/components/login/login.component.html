@@ -5,62 +5,55 @@
   </svg>
 </span>
 <mat-grid-list cols="2" rowHeight="fit">
-  <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-    <mat-card class="sideLegend" *ngIf="card.title == 'particleContainer'">
-      <div class="legendContent">
-        <h3>{{helperService.translated.MESSAGES.WELCOME}}</h3>
-        <h1>{{helperService.translated.MESSAGES.ANONYMOUS}}</h1>
-        <p>{{helperService.translated.MESSAGES.WELCOME_MSG}}</p>
-      </div>
-      <app-particle-container></app-particle-container>
-    </mat-card>
-    <mat-card class="midbox loginbox mat-elevation-z10" *ngIf="card.title == 'loginForm'">
-      <mat-card-title>{{helperService.translated.BUTTONS.LOGIN}}</mat-card-title>
-      <p class="subheading">{{helperService.translated.MESSAGES.SIGNINMESSAGE}}</p>
-      <form [formGroup]="loginObj.loginForm" (ngSubmit)="onSubmit(loginObj.loginForm)">
-        <div class="input">
-          <mat-form-field appearance="outline" full-width>
-            <mat-label>{{helperService.translated.AUTH.EMAIL}}</mat-label>
-            <input matInput type="email" [formControlName]="helperService.appConstants.email"
-                   [errorStateMatcher]="helperService.formErrorMatcher" required/>
-            <mat-icon color="primary" matSuffix>{{ helperService.appIcons.email }}</mat-icon>
-            <mat-error *ngIf="formValidation.email.errors">
-              <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
-              <span
-                *ngIf="formValidation.email.errors?.exists">{{helperService.translated.MESSAGES.NOT_REGISTETRED}}</span>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="password">
-          <mat-form-field appearance="outline" full-width>
-            <mat-label>{{helperService.translated.AUTH.PASSWORD}}</mat-label>
-            <input matInput type="password" [formControlName]="helperService.appConstants.password"
-                   [errorStateMatcher]="helperService.formErrorMatcher" required/>
-            <mat-icon color="primary" matSuffix>{{ helperService.appIcons.vpnKey }}</mat-icon>
-            <mat-error *ngIf="formValidation.password.errors">
-              <span
-                *ngIf="formValidation.password.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-              <span
-                *ngIf="formValidation.password.errors?.exists">{{helperService.translated.MESSAGES.INVALID_PASSWORD}}</span>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="button">
-          <button class="mat-elevation-z1" mat-raised-button custom-btn btn-primary
-                  color="primary" [disabled]="loginObj.loading">{{helperService.translated.BUTTONS.LOGIN}}
-            <div class="main-loader" *ngIf="loginObj.loading">
-              <span class="loader1"></span>
-              <span class="loader2"></span>
-              <span class="loader3"></span>
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+        <mat-card class="sideLegend" *ngIf="card.title == 'particleContainer'">
+            <div class="legendContent">
+                <h3>{{helperService.translated.MESSAGES.WELCOME}}</h3>
+                <h1>{{helperService.translated.MESSAGES.ANONYMOUS}}</h1>
+                <p>{{helperService.translated.MESSAGES.WELCOME_MSG}}</p>
             </div>
-          </button>
-          <!-- <img *ngIf="loginObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
-        </div>
-        <br>
-        <div class="link">
-          <a routerLink="/forgotPassword">{{helperService.translated.BUTTONS.FORGOTPASSWORD}}</a>
-        </div>
-      </form>
-    </mat-card>
-  </mat-grid-tile>
+            <app-particle-container></app-particle-container>
+        </mat-card>
+        <mat-card class="midbox loginbox mat-elevation-z10" *ngIf="card.title == 'loginForm'">
+            <mat-card-title>{{helperService.translated.BUTTONS.LOGIN}}</mat-card-title>
+            <p class="subheading">{{helperService.translated.MESSAGES.SIGNINMESSAGE}}</p>
+            <form [formGroup]="loginObj.loginForm" (ngSubmit)="onSubmit(loginObj.loginForm)">
+                <div class="input">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>{{helperService.translated.AUTH.EMAIL}}</mat-label>
+                        <input matInput type="email" [formControlName]="helperService.appConstants.email"
+                               [errorStateMatcher]="helperService.formErrorMatcher" required/>
+                        <mat-icon color="primary" matSuffix>{{ helperService.appIcons.email }}</mat-icon>
+                        <mat-error *ngIf="formValidation.email.errors">
+                            <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
+                            <span
+                                    *ngIf="formValidation.email.errors?.exists">{{helperService.translated.MESSAGES.NOT_REGISTETRED}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="password">
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>{{helperService.translated.AUTH.PASSWORD}}</mat-label>
+                        <input matInput type="password" [formControlName]="helperService.appConstants.password"
+                               [errorStateMatcher]="helperService.formErrorMatcher" required/>
+                        <mat-icon color="primary" matSuffix>{{ helperService.appIcons.vpnKey }}</mat-icon>
+                        <mat-error *ngIf="formValidation.password.errors">
+              <span
+                      *ngIf="formValidation.password.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                            <span
+                                    *ngIf="formValidation.password.errors?.exists">{{helperService.translated.MESSAGES.INVALID_PASSWORD}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="button">
+                    <button class="mat-elevation-z6" mat-raised-button custom-btn
+                            color="primary" [disabled]="loginObj.loading">{{helperService.translated.BUTTONS.LOGIN}}
+                    </button>
+                    <!-- <img *ngIf="loginObj.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
+                </div>
+                <br>
+                <a class="mat-body-strong" style="text-decoration: none;" routerLink="/forgotPassword">{{helperService.translated.BUTTONS.FORGOTPASSWORD}}</a>
+            </form>
+        </mat-card>
+    </mat-grid-tile>
 </mat-grid-list>

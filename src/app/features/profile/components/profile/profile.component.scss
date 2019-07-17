@@ -15,9 +15,6 @@
       }
     }
     $boxShadow: -1px 1px 2px 0 rgba(0, 0, 0, 0.18);
-    .settings-btn {
-      margin-left: auto;
-    }
     mat-grid-list {
       min-height: 550px;
     }
@@ -169,7 +166,6 @@
           padding: 0 20px;
           &:nth-child(2) {
             border-left: 1px solid rgba(0, 0, 0, 0.2);
-            border-right: 1px solid rgba(0, 0, 0, 0.2);
           }
           p {
             margin: 0;

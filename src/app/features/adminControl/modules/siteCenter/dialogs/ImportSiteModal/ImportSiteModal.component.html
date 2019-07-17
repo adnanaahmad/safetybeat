@@ -1,4 +1,4 @@
-<mat-card-title class="mat-dialog-title">
+<mat-card-title class="mat-dialog-title mat-elevation-z6">
   {{helperService.translated.MESSAGES.IMPORTSITE_MSG}}
   <mat-icon matTooltip="{{helperService.translated.MESSAGES.IMPORTSITE_NOTE}}"
             aria-label="Button that displays a tooltip when focused or hovered over">
@@ -21,7 +21,7 @@
       </div>
     </div>
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="!fileName || importSiteModal.loading"
+      <button mat-raised-button cdkFocusInitial custom-btn [disabled]="!fileName || importSiteModal.loading"
               color="primary">{{ helperService.translated.BUTTONS.IMPORT_SITE }}
         <div class="main-loader" *ngIf="importSiteModal.loading">
           <span class="loader1"></span>

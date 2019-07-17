@@ -30,7 +30,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
-  entitiesColumn: string[] = ['name', 'headOffice', 'access', 'managedBy'];
   connectionsColumns: string[];
 
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -87,7 +86,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id);
         this.viewActivities(this.profileModel.receivedData.id);
-        this.viewAllEntities(this.profileModel.userId);
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
@@ -120,7 +118,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.userId = this.profileModel.profileData.id;
           this.getUserConnections(this.profileModel.userId);
           this.viewActivities(this.profileModel.userId);
-          this.viewAllEntities(this.profileModel.userId);
         } else {
           this.connectionsColumns = ['img', 'name', 'email', 'contact'];
           this.profileModel.contactNo = this.profileModel.receivedData.contact;
@@ -173,32 +170,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  /**
-   * this function is used to return all the entities while subscribing to the behavior subject of the
-   * viewALLEntities.
-   */
-
-  viewAllEntities(userId) {
-    this.adminService.viewEntitiesOfUser({'userId': userId}).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        if (res.data.length === 0) {
-          this.profileModel.noEntity = true;
-        } else {
-            this.profileModel.entityCount = res.data.length;
-            this.helperService.toggleLoader(false);
-            this.profileModel.entitiesList = res.data;
-            this.profileModel.dataSource = new MatTableDataSource(this.profileModel.entitiesList);
-            this.profileModel.dataSource.paginator = this.paginator;
-        }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.profileModel.noEntity = true;
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          'entities fail');
-      } else {
-        this.profileModel.noEntity = true;
-      }
-    });
-  }
 
   /**
    * this function is used for hiding all the debugging messages and also used for unsubscribing the

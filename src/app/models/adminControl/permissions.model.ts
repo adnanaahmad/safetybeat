@@ -66,6 +66,14 @@ export interface PermissionsModel {
 }
 
 export interface ChangePermissionsObj {
+  disableReports: boolean;
+  disableDocuments: boolean;
+  disableQuestionCentre: boolean;
+  disableHazardCentre: boolean;
+  disableSiteCentre: boolean;
+  disableMyTeam: boolean;
+  disableMemberCentre: boolean;
+  disableEntityControl: boolean;
   checkAllEntityControls: boolean;
   checkAllForMemberCentre: boolean;
   unChanged: boolean;
