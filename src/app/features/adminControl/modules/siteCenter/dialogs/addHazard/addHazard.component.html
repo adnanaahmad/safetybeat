@@ -1,48 +1,82 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!hazardObj.editModal">
-  {{ helperService.translated.MESSAGES.ADD_HAZARD }}
+    {{ helperService.translated.MESSAGES.ADD_HAZARD }}
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="hazardObj.editModal">
-  {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
+    {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
 </mat-card-title>
 <div mat-dialog-content>
-  <form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="hazardFormSubmit(hazardObj.addHazardForm)">
-    <div class="form-group change-picture">
-      <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
-      <img [src]="url">
-      <input type='file' accept='image/*' (change)=onFileSelected($event.target.files) />
-      <mat-icon class="remove-picture" (click)="removePicture()">{{ helperService.appIcons.deleteForever }}</mat-icon>
-    </div>
-    <div class="form-group">
-      <mat-form-field fullWidth appearance="outline">
-        <mat-label>Title</mat-label>
-        <input matInput type="text" formControlName="title" required />
-        <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field fullWidth appearance="outline">
-        <mat-label>Description</mat-label>
-        <input matInput type="text" formControlName="description" required />
-        <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
-          <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field fullWidth appearance="outline">
-        <mat-label>Select Risk</mat-label>
-        <mat-select formControlName="risk" name="risk" required>
-          <mat-option *ngFor="let risk of risks" [value]="risk.id">
-            {{risk.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-dialog-actions>
-        <button mat-raised-button custom-btn color="primary" [disabled]="!hazardObj.addHazardForm.valid">
-          {{helperService.translated.BUTTONS.SAVE}}
-        </button>
-        <button mat-button [mat-dialog-close]="'CANCEL'">
-          {{ helperService.translated.BUTTONS.CANCEL }}
-        </button>
-      </mat-dialog-actions>
-    </div>
-  </form>
+    <!--<form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="hazardFormSubmit(hazardObj.addHazardForm)">-->
+    <!--<div class="form-group change-picture">-->
+    <!--<span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>-->
+    <!--<img [src]="url">-->
+    <!--<input type='file' accept='image/*' (change)=onFileSelected($event.target.files) />-->
+    <!--<mat-icon class="remove-picture" (click)="removePicture()">{{ helperService.appIcons.deleteForever }}</mat-icon>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<mat-form-field fullWidth appearance="outline">-->
+    <!--<mat-label>Title</mat-label>-->
+    <!--<input matInput type="text" formControlName="title" required />-->
+    <!--<mat-error class="text-right" *ngIf="addHazardControls.title.errors">-->
+    <!--<span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>-->
+    <!--</mat-error>-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field fullWidth appearance="outline">-->
+    <!--<mat-label>Description</mat-label>-->
+    <!--<input matInput type="text" formControlName="description" required />-->
+    <!--<mat-error class="text-right" *ngIf="addHazardControls.description.errors">-->
+    <!--<span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>-->
+    <!--</mat-error>-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field fullWidth appearance="outline">-->
+    <!--<mat-label>Select Risk</mat-label>-->
+    <!--<mat-select formControlName="risk" name="risk" required>-->
+    <!--<mat-option *ngFor="let risk of risks" [value]="risk.id">-->
+    <!--{{risk.name}}-->
+    <!--</mat-option>-->
+    <!--</mat-select>-->
+    <!--</mat-form-field>-->
+    <!--<mat-dialog-actions>-->
+    <!--<button mat-raised-button custom-btn color="primary" [disabled]="!hazardObj.addHazardForm.valid">-->
+    <!--{{helperService.translated.BUTTONS.SAVE}}-->
+    <!--</button>-->
+    <!--<button mat-button [mat-dialog-close]="'CANCEL'">-->
+    <!--{{ helperService.translated.BUTTONS.CANCEL }}-->
+    <!--</button>-->
+    <!--</mat-dialog-actions>-->
+    <!--</div>-->
+    <!--</form>-->
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="addHazardFormFirst">
+            <form [formGroup]="addHazardFormFirst">
+                <ng-template matStepLabel>Fill out your name</ng-template>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="title" required/>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="addHazardFormSecond">
+            <form [formGroup]="addHazardFormSecond">
+                <ng-template matStepLabel>Fill out your address</ng-template>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="title" required/>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+
 </div>
