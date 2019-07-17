@@ -1,145 +1,108 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
 <div class="mat-dialog-content">
-    <!--<mat-form-field appearance="outline" class="full-width">-->
-    <!--<mat-label>{{helperService.translated.STRINGS.CHOOSE_ROLE}}</mat-label>-->
-    <!--<mat-select>-->
-    <!--<mat-option value="Paratha Role">User</mat-option>-->
-    <!--<mat-option value="Cream Role">Entity Manager</mat-option>-->
-    <!--<mat-option value="Chicken Role">Team Lead</mat-option>-->
-    <!--<mat-option value="Rock Role">Site Safety Manager</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
-    <!--<mat-form-field appearance="outline" class="full-width">-->
-    <!--<mat-label>{{helperService.translated.STRINGS.SELECT_TEAM}}</mat-label>-->
-    <!--<mat-select>-->
-    <!--<mat-option value="Football Team">Team 1</mat-option>-->
-    <!--<mat-option value="Cricket Team">Team 2</mat-option>-->
-    <!--<mat-option value="SafetyBeat Team">Team 3</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
-    <mat-tab-group>
-        <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
-            <div class="permission-wrap">
-                <mat-checkbox>Sites</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
+  <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
+  <mat-tab-group>
+    <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.entityControl">Entity Control</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.createEntity">Create Entity</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.joinEntity">Join Entity</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deleteEntity">Delete Entity</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.inviteMember">Invite Member</mat-checkbox>&nbsp;&nbsp;
+        </mat-card>
+      </div>
 
-            <div class="permission-wrap">
-                <mat-checkbox>Hazards</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.memberCentre">Member Centre</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.inviteUser">Invite User</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.changeAccessLevel">Change Access Level</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deactivateUser">Deactivate User</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.viewUserProfile">View User Profile</mat-checkbox>&nbsp;&nbsp;
+        </mat-card>
+      </div>
 
-            <div class="permission-wrap">
-                <mat-checkbox>Access Level</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.myTeam">My Team</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.registerTeam">Register Team</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.editTeam">Edit Team</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deleteTeam">Delete Team</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.viewTeam">View Team</mat-checkbox>&nbsp;&nbsp;
+        </mat-card>
+      </div>
 
-            <div class="permission-wrap">
-                <mat-checkbox>Permissions</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.siteCentre">Sites</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.addSite">Add Sites</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.editSite">Edit Sites</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deleteSite">Delete Sites</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.viewSite">View Site</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.ImportSite">Import Sites</mat-checkbox>&nbsp;&nbsp;
+        </mat-card>
+      </div>
 
-            <div class="permission-wrap">
-                <mat-checkbox>Entities</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.hazardCentre">Hazards</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.addHazard">Add Hazards</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.editHazard">Edit Hazards</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deleteHazard">Delete Hazards</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.viewHazard">View Hazard</mat-checkbox>&nbsp;&nbsp;<br>
+        </mat-card>
+      </div>
 
-            <div class="permission-wrap">
-                <mat-checkbox>Documents</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-        </mat-tab>
-        <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
-            <div class="permission-wrap">
-                <mat-checkbox>Is main dekh lena kya kya add krna hai</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>You got my point?</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>She is dummy data</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>Good night</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>Dummy data</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>Lots of reports</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
-    <mat-dialog-actions>
-        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
-                color="primary">{{helperService.translated.BUTTONS.SAVE}}
-        </button>
-        <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
-    </mat-dialog-actions>
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.questionCentre">Question Centre</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.addQuestion">Create/Add Question</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.editQuestion">Edit Questions</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deleteQuestion">Delete Questions</mat-checkbox>&nbsp;&nbsp;<br>
+        </mat-card>
+      </div>
+
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.documents">Documents</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.uploadDocument">Upload Documents</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deleteQuestion">Delete Documents</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.createFolder">Create Folders</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.deleteFolder">Delete Folders</mat-checkbox>&nbsp;&nbsp;
+        </mat-card>
+      </div>
+
+    </mat-tab>
+    <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
+      <div class="permission-wrap">
+        <mat-checkbox [formControlName]="helperService.appConstants.permissions.analyticsReports"
+                      [checked]="permissions.permissionsData.analyticsReports">Reports</mat-checkbox>
+        <mat-card class="mat-elevation-z1">
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.actionReport">Action Reports</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.averageDailyReport">Average Daily Actions</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.checkinByActivity">Check-In by Activity</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.checkinAndAlertByPerson">Check-In and Alert by Person</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.actionsVsAlerts">Action Vs Alert</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.pulseReportByEntity">Pulse Report by Entity</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.pulseReportByPerson">Pulse Report by Person</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.compliantCheckOut">Compliant Check-Out</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.siteActivityReport">Site Activity Report</mat-checkbox>&nbsp;&nbsp;<br>
+          <mat-checkbox [formControlName]="helperService.appConstants.permissions.hazardReports">Hazard Reports</mat-checkbox>&nbsp;&nbsp;<br>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-dialog-actions>
+    <button [disabled]="permissions.unChanged" class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
+            color="primary">{{helperService.translated.BUTTONS.SAVE}}
+      <div class="main-loader" *ngIf="permissions.loading">
+        <span class="loader1"></span>
+        <span class="loader2"></span>
+        <span class="loader3"></span>
+      </div>
+    </button>
+    <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+  </mat-dialog-actions>
+  </form>
 </div>

@@ -75,12 +75,12 @@
               {{element.buttonText}}
             </button>
             <button mat-menu-item *ngIf="memberCenter.permissions?.changePermissions"
-                    (click)="accessLevel()">
-              <mat-icon>input</mat-icon>
+                    (click)="accessLevel(element)">
+              <mat-icon>{{helperService.appIcons.permSettings}}</mat-icon>
               Change Permissions
             </button>
             <button mat-menu-item *ngIf="memberCenter.permissions?.changeAccessLevel"
-                    (click)="accessLevel()">
+                    (click)="accessLevel(element)">
               <mat-icon>input</mat-icon>
               Change Access Level
             </button>

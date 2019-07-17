@@ -36,6 +36,7 @@ export interface inviteUserData {
   moduleName: string;
   entityId: number;
   sites: number;
+  team: number;
 }
 
 export interface Role {

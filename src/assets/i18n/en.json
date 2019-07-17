@@ -416,7 +416,9 @@
     "TEAM_TITLE_REQUIRED": "Team title is required.",
     "TEAM_SELECTION_REQUIRED": "Team selection is required.",
     "TEAM_MEMBERS_REQUIRED": "Team members selection is required.",
-    "COMMON_PASSWORD": "Password is too common"
+    "COMMON_PASSWORD": "Password is too common",
+    "PERMISSIONS_UPDATED": "Pemissions Updated Successfully",
+    "PERMISSIONS_UPDATION_FAILED": "Permission Updation Failed"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
