@@ -1,4 +1,5 @@
 import {responseDetails, User} from './user.model';
+import {PermissionsModel} from './adminControl/permissions.model';
 
 export interface entity {
   moduleName: string;
@@ -37,6 +38,7 @@ export interface entityUsersApiResponseUserData {
   role: string;
   status: boolean;
   user: User;
+  permissions: PermissionsModel
 }
 
 export interface entityUsersApiResponseData {

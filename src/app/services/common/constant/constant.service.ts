@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
+import {AverageDailyActions} from '../../../models/analyticsReport/averageDailyActions.model';
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +81,7 @@ export class ConstantService {
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
     parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
     viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
-
+    userPermissions: `${environment.apiUrl}/permissions/`,
   };
   /**
    * all the api methods are declared here.
@@ -229,6 +230,62 @@ export class ConstantService {
       confirm: 'confirm',
       nature: 'Outgoing'
     },
+    permissions: [{
+      name: 'Entity Control',
+      key: 'entityControl',
+      values: [{key: 'createEntity', value: 'Create Entity'}, {key: 'viewEntity', value: 'View Entity'},
+        {key: 'deleteEntity', value: 'Delete Entity'}, {key: 'joinEntity', value: 'Join Entity'},
+        {key: 'inviteMember', value: 'Invite Memeber'}, {key: 'viewEntityCode', value: 'View Entity Code'}]
+    },
+      {
+        name: 'Site Centre',
+        key: 'siteCentre',
+        values: [{key: 'ImportSite', value: 'Import Site'}, {key: 'viewSite', value: 'View Site'},
+          {key: 'editSite', value: 'Edit Site'}, {key: 'deleteSite', value: 'Delete Site'},
+          {key: 'addSite', value: 'Add Site'}]
+      },
+
+      {
+        name: 'Hazard Centre',
+        key: 'hazardCentre',
+        values: [{key: 'addHazard', value: 'Add Hazard'}, {key: 'editHazard', value: 'Edit Hazard'},
+          {key: 'deleteHazard', value: 'Delete Hazard'}, {key: 'viewHazard', value: 'View Hazard'}]
+      },
+      {
+        name: 'Documents',
+        key: 'documents',
+        values: [{key: 'deleteDocument', value: 'Delete Document'}, {key: 'uploadDocument', value: 'Upload Document'},
+          {key: 'downloadDocument', value: 'Download Document'}, {key: 'createFolder', value: 'Create Folder'},
+          {key: 'deleteFolder', value: 'Delete Folder'}, {key: 'renameFolder', value: 'Rename Folder'}]
+      },
+      {
+        name: 'My Team',
+        key: 'myTeam',
+        values: [{key: 'registerTeam', value: 'Register Team'}, {key: 'editTeam', value: 'Edit Team'},
+          {key: 'deleteTeam', value: 'Delete Team'}, {key: 'viewTeam', value: 'View Team'}]
+      },
+      {
+        name: 'MemberCentre',
+        key: 'memberCentre',
+        values: [{key: 'changeAccessLevel', value: 'Change Access Level'}, {key: 'viewUserProfile', value: 'View User Profile'},
+          {key: 'inviteUser', value: 'Invite User'}, {key: 'deactivateUser', value: 'Deactivate User'}]
+      },
+      {
+        name: 'Question Centre',
+        key: 'questionCentre',
+        values: [{key: 'addQuestion', value: 'Add Question'}, {key: 'createQuestion', value: 'Create Question'},
+          {key: 'deleteQuestion', value: 'Delete Question'}, {key: 'editQuestion', value: 'Edit Question'}]
+      }],
+    reports: 'analyticsReports',
+    reportsPermissions: [{key: 'actionReport', value: 'Action Report'}, {key: 'actionsVsAlerts', value: 'Action Vs Alerts'},
+      {key: 'averageDailyReport', value: 'Average Daily Actions'}, {
+        key: 'checkinAndAlertByPerson',
+        value: 'Check-In And Alert By Person'
+      },
+      {key: 'checkinByActivity', value: 'Check-In By Activity'},
+      {key: 'compliantCheckOut', value: 'Compliant Check-Out'}, {key: 'pulseReportByEntity', value: 'Pulse Report By Entity'},
+      {key: 'pulseReportByPerson', value: 'Pulse Report By Person'}, {key: 'siteActivityReport', value: 'Site Activity Report'},
+      {key: 'hazardReports', value: 'Hazard Reports'}],
     enterKey: 13,
     importSite: 'importSite',
     csvFile: 'csvFile',
@@ -245,7 +302,8 @@ export class ConstantService {
   /**
    * all the material icon names are declared here.
    */
-  static appIcons = {
+  static
+  appIcons = {
     showReports: 'bar_chart',
     skipNext: 'skip_next',
     group: 'group',
@@ -338,7 +396,8 @@ export class ConstantService {
   /**
    * all the particle container icon names are declared here.
    */
-  static particlesIcons = [
+  static
+  particlesIcons = [
     'more_vert',
     'data_usage',
     'change_history',
@@ -363,7 +422,8 @@ export class ConstantService {
   /**
    * status of the snackbar and toaster are declared here.
    */
-  static status = {
+  static
+  status = {
     CUSTOM: 'custom',
     DEFAULT: 'default',
     INFO: 'info',
@@ -375,7 +435,8 @@ export class ConstantService {
   /**
    * default map configuration is declared here.
    */
-  static defaultMapConfig = {
+  static
+  defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
     gestureHandling: 'none',

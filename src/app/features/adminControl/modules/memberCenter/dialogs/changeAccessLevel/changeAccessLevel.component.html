@@ -1,145 +1,46 @@
-<mat-card-title class="mat-dialog-title mat-elevation-z6">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
+<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
 <div class="mat-dialog-content">
-    <!--<mat-form-field appearance="outline" fullWidth>-->
-    <!--<mat-label>{{helperService.translated.STRINGS.CHOOSE_ROLE}}</mat-label>-->
-    <!--<mat-select>-->
-    <!--<mat-option value="Paratha Role">User</mat-option>-->
-    <!--<mat-option value="Cream Role">Entity Manager</mat-option>-->
-    <!--<mat-option value="Chicken Role">Team Lead</mat-option>-->
-    <!--<mat-option value="Rock Role">Site Safety Manager</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
-    <!--<mat-form-field appearance="outline" fullWidth>-->
-    <!--<mat-label>{{helperService.translated.STRINGS.SELECT_TEAM}}</mat-label>-->
-    <!--<mat-select>-->
-    <!--<mat-option value="Football Team">Team 1</mat-option>-->
-    <!--<mat-option value="Cricket Team">Team 2</mat-option>-->
-    <!--<mat-option value="SafetyBeat Team">Team 3</mat-option>-->
-    <!--</mat-select>-->
-    <!--</mat-form-field>-->
+  <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
     <mat-tab-group>
-        <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
-            <div class="permission-wrap">
-                <mat-checkbox>Sites</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
+      <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
+        <div class="permission-wrap" *ngFor="let permissions of helperService.appConstants.permissions">
+          <mat-checkbox [formControlName]="permissions.key"
+                        (change)="checkEnable($event, permissions.values)">{{permissions.name}}
+          </mat-checkbox>
+          <mat-card class="mat-elevation-z1">
+            <mat-card-content *ngFor="let permissionObj of permissions.values">
+              <mat-checkbox [formControlName]="permissionObj.key">{{permissionObj.value}}
+              </mat-checkbox>&nbsp;&nbsp;<br>
+            </mat-card-content>
+          </mat-card>
+        </div>
 
-            <div class="permission-wrap">
-                <mat-checkbox>Hazards</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-
-            <div class="permission-wrap">
-                <mat-checkbox>Access Level</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-
-            <div class="permission-wrap">
-                <mat-checkbox>Permissions</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-
-            <div class="permission-wrap">
-                <mat-checkbox>Entities</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-
-            <div class="permission-wrap">
-                <mat-checkbox>Documents</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-        </mat-tab>
-        <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
-            <div class="permission-wrap">
-                <mat-checkbox>Is main dekh lena kya kya add krna hai</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>You got my point?</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>She is dummy data</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>Good night</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>Dummy data</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-            <div class="permission-wrap">
-                <mat-checkbox>Lots of reports</mat-checkbox>
-                <mat-card class="mat-elevation-z1">
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do this</mat-checkbox>&nbsp;&nbsp;<br>
-                    <mat-checkbox>Can do that</mat-checkbox>&nbsp;&nbsp;
-                </mat-card>
-            </div>
-        </mat-tab>
+      </mat-tab>
+      <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
+        <div class="permission-wrap">
+          <mat-checkbox [formControlName]="helperService.appConstants.reports"
+                        (change)="checkReportsEnable($event)">Reports
+          </mat-checkbox>
+          <mat-card class="mat-elevation-z1">
+            <mat-card-content *ngFor="let permission of helperService.appConstants.reportsPermissions">
+              <mat-checkbox [formControlName]="permission.key">{{permission.value}}
+              </mat-checkbox>&nbsp;&nbsp;<br>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
     </mat-tab-group>
     <mat-dialog-actions>
-        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn color="primary">
-            {{helperService.translated.BUTTONS.SAVE}}
-        </button>
-        <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+      <button [disabled]="permissions.unChanged" class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn
+              btn-primary
+              color="primary">{{helperService.translated.BUTTONS.SAVE}}
+        <div class="main-loader" *ngIf="permissions.loading">
+          <span class="loader1"></span>
+          <span class="loader2"></span>
+          <span class="loader3"></span>
+        </div>
+      </button>
+      <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
+  </form>
 </div>

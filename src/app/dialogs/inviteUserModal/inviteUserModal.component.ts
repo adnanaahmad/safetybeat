@@ -4,13 +4,12 @@ import {Validators, FormBuilder} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {AdminControlService} from '../../features/adminControl/services/adminControl.service';
-import {CompilerProvider} from '../../services/common/compiler/compiler';
-import {EntityInfo} from '../../models/userEntityData.model';
-import {share} from 'rxjs/operators';
-import {ProfileService} from '../../features/profile/services/profile.service';
-import {MemberCenterService} from '../../features/adminControl/modules/memberCenter/services/member-center.service';
-import {PaginationData} from '../../models/site.model';
+import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
+import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
+import {EntityInfo} from 'src/app/models/userEntityData.model';
+import {ProfileService} from 'src/app/features/profile/services/profile.service';
+import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-inviteUserModal',
@@ -57,7 +56,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
       sites: [''],
-      teams:['']
+      team: ['']
     });
     this.formValidation['role'].setValue(this.inviteUserModal.selectedRole);
     this.viewSitesData();
@@ -99,34 +98,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * this function is used to call the get All user again and need to update observable so that when new user
-   * comes after invitation then all users page will automatically be updated.
-   */
-  getAllUsers() {
-    this.inviteUserModal.allUsers = this.userService.getAllUsers().pipe(share());
-    this.inviteUserModal.allUsers.subscribe(
-      result => {
-        this.inviteUserModal.allUsersList = result.data;
-        this.userService.updateUsers(this.inviteUserModal.allUsersList);
-      },
-      (error) => {
-      }
-    );
-  }
-
-
-  /**
-   *
-   */
-
-  getAllEntityUsers(data) {
-    this.memberService.entityUsers(data).subscribe((res) => {
-      this.inviteUserModal.elements = this.compiler.entityUser(res);
-      this.memberService.changeEntityUsers(this.inviteUserModal.elements);
-    });
-  }
-
 
   /**
    * this function is used to register a user by taking information from Invite User form and checks if the
@@ -144,7 +115,8 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       contactNo: '545535456',
       moduleName: 'Safetybeat',
       entityId: this.inviteUserModal.entityID,
-      siteId: value.sites
+      siteId: value.sites,
+      teamId: value.team
     };
     if (!valid) {
       this.inviteUserModal.loading = false;
@@ -157,8 +129,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
-      this.getAllUsers();
-      this.getAllEntityUsers({entityId: this.inviteUserModal.entityID});
       this.dialogRef.close();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.INVITE_SUCCESS);
     }, (err) => {
@@ -185,10 +155,13 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       search: ''
     };
     this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
-      this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res.data.sitesList);
-      // this.removeRole();
-      this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[0];
-      this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res.data.sitesList);
+        this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[0];
+        this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
+      } else {
+        this.removeRole(this.helperService.appConstants.roles.siteSafetyManager);
+      }
     });
   }
 
@@ -203,17 +176,19 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       search: ''
     };
     this.adminServices.allTeamsData(entityData, paginationData).subscribe((res) => {
-      this.inviteUserModal.teamsList = this.compiler.constructAllTeamsData(res);
-      // this.removeRole();
-      this.inviteUserModal.selectedTeam = this.inviteUserModal.teamsList[0];
-      this.formValidation['teams'].setValue(this.inviteUserModal.selectedTeam.team.id);
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.inviteUserModal.teamsList = this.compiler.constructAllTeamsData(res);
+        this.inviteUserModal.selectedTeam = this.inviteUserModal.teamsList[0].team;
+        this.formValidation['team'].setValue(this.inviteUserModal.selectedTeam.id);
+      } else {
+        this.removeRole(this.helperService.appConstants.roles.teamLead);
+      }
     });
   }
 
-  // removeRole() {
-  //   if (this.inviteUserModal.siteList.length === 0) {
-  //     this.helperService.remove(this.inviteUserModal.roleList,
-  //       {name: this.helperService.appConstants.roles.siteSafetyManager});
-  //   }
-  // }
+  removeRole(roleName) {
+    this.helperService.remove(this.inviteUserModal.roleList,
+      {name: roleName});
+
+  }
 }
