@@ -134,12 +134,9 @@ export class CompilerProvider {
   }
 
   constructAllSitesData(siteApiResponse: any): Array<SitesInfo> {
-    return siteApiResponse;
-  }
-
-  constructSiteList(siteApiResponse: any): Site[] {
     return siteApiResponse.data;
   }
+
 
   constructAllDocumentsData(documentsApiResponse: any): Array<DocList> {
     return documentsApiResponse.data;
@@ -209,7 +206,39 @@ export class CompilerProvider {
     return usersArray;
   }
 
+  constructUserDataOfTeam(users) {
+    let usersArray = [];
+    this.helperService.iterations(users, function (obj) {
+      let user = {
+        name: obj.first_name + ' ' + obj.last_name,
+        email: obj.email,
+        contact: obj.contactNo,
+        profileImage: obj.profileImage,
+        id: obj.id,
+        username: obj.username
+      };
+      usersArray.push(user);
+    });
+    return usersArray;
+  }
+
   constructDataForTeams(users) {
+    let usersArray = [];
+    this.helperService.iterations(users, function (obj) {
+      let user = {
+        name: obj.first_name + ' ' + obj.last_name,
+        email: obj.email,
+        contact: obj.contactNo,
+        photos: '',
+        accessLevel: obj.role,
+        id: obj.id
+      };
+      usersArray.push(user);
+    });
+    return usersArray;
+  }
+
+  constructUserForTeam(users) {
     let usersArray = [];
     this.helperService.iterations(users, function (obj) {
       let user = {

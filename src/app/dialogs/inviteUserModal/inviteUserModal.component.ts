@@ -57,7 +57,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
       sites: [''],
-      teams:['']
+      teams: ['']
     });
     this.formValidation['role'].setValue(this.inviteUserModal.selectedRole);
     this.viewSitesData();

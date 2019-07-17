@@ -39,8 +39,8 @@
       <mat-form-field appearance="outline">
         <mat-label>{{helperService.translated.AUTH.SITE_REQ}}</mat-label>
         <mat-select [formControlName]="helperService.appConstants.site">
-          <mat-option *ngFor="let sites of actionReportObj.sitesData" [value]="sites.site.id">
-            {{sites.site.name}}
+          <mat-option *ngFor="let site of actionReportObj.sitesData.sitesList" [value]="site.id">
+            {{site.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>

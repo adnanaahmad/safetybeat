@@ -47,14 +47,9 @@ export class MyTeamComponent implements OnInit {
       entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
     };
-    let paginationData = {
-      limit: null,
-      offset: null,
-      search: ''
-    };
-    this.memberService.entityUsers(data, paginationData).subscribe((res) => {
+    this.memberService.getUsersList(data).subscribe((res) => {
       if (res) {
-        this.allUsers = this.compiler.entityUser(res.data.allUser);
+        this.allUsers = this.compiler.constructUserDataOfTeam(res.data);
       }
     });
   }

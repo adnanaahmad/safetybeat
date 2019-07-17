@@ -4,7 +4,7 @@
 
 
 
-const serverUrl = 'http://192.168.69.37:8000';
+const serverUrl = 'http://192.168.69.75:8000';
 
 export const environment = {
   production: false,

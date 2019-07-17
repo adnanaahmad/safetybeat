@@ -276,6 +276,7 @@ export interface Buttons {
 }
 
 export interface Messages {
+    SELECT_TEAMLEAD: string;
     GENERAL_UPDATED: string;
     GENERAL_FAIL: string;
     ORG_DETAILS: string;
@@ -508,6 +509,7 @@ export interface Messages {
     TEAM_SELECTION_REQUIRED: string;
     TEAM_MEMBERS_REQUIRED: string;
     COMMON_PASSWORD: string;
+    TEAM_NAME_REQ: string;
 }
 
 export interface Logger {

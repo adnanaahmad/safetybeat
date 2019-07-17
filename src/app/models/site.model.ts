@@ -8,6 +8,10 @@ export interface Site {
   siteSafetyPlan: string,
   createdBy: User,
   entity: number,
+  gpsTrackEnabled: boolean,
+  latitude: number,
+  longitude: number,
+  radius: number,
   siteSafetyManager: Array<User>
 }
 

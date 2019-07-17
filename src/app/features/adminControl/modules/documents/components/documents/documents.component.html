@@ -47,7 +47,7 @@
     <!-- <p class="no-data mat-caption" *ngIf="!documentsData.documentExist">No documents
       found.</p> -->
     <div class="content-area">
-      <app-file *ngFor="let doc of documentsData.rootDocs; let i = index" [docData]="doc" (processAction) = "refreshFiles($event, i)" ></app-file>
+      <app-file *ngFor="let doc of documentsData.rootDocs" [docData]="doc" (processAction) = "refreshFiles($event)" ></app-file>
     </div>
   </div>
 
