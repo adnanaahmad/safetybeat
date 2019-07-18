@@ -408,7 +408,6 @@
     "SITE_ACTIVITY_MSG": "This report shows the number of check-ins and hours checked-in total and by site.",
     "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved).",
     "ALL_SITES_FAILURE": "All Sites Record API Failed",
-    "PARENT_QUESTION_REQ": "Parent Question is required",
     "NO_SITES": "No Sites",
     "DELETE_QUESTION_SUCCESS": "Question has been delete successfully.",
     "DELETE_QUESTION_FAILURE": "Question deletion failed.",
@@ -417,9 +416,13 @@
     "TEAM_TITLE_REQUIRED": "Team title is required.",
     "TEAM_SELECTION_REQUIRED": "Team selection is required.",
     "TEAM_MEMBERS_REQUIRED": "Team members selection is required.",
-    "COMMON_PASSWORD": "Password is too common",
     "TEAM_NAME_REQ": "Team title is required.",
-    "SELECT_TEAMLEAD": "TeamLead not selected. Please select a TeamLead and try again."
+    "SELECT_TEAMLEAD": "TeamLead not selected. Please select a TeamLead and try again.",
+    "COMMON_PASSWORD": "Password is too common",
+    "PERMISSIONS_UPDATED": "Pemissions Updated Successfully",
+    "PERMISSIONS_UPDATION_FAILED": "Permission Updation Failed",
+    "NO_USER": "No User Exist",
+    "NO_USER_SELECTED": "NO User Selected"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

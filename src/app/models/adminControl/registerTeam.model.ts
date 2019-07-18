@@ -1,13 +1,14 @@
 import {FormGroup} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {TeamList} from './myTeam.model';
+import {User} from '../user.model';
 
 
 export interface RegisterTeamModel {
-  filteredSelectedList: any;
+  filteredSelectedList: Array<any>;
   teamLeadID: any;
   teamLead: any;
-  selectedUsers: any;
+  selectedUsers: Array<any>;
   addedUsers: any[];
   removeUsers: any[];
   teamInfo: TeamList;

@@ -59,6 +59,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   makeReport(data) {
     this.analyticsService.siteActivityReport(data).subscribe((res) => {
+      console.log(res);
       this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
       if (this.actionReportObj.userActionReportData.CheckIns.length === 0 &&
         this.actionReportObj.userActionReportData.CheckOuts.length === 0) {

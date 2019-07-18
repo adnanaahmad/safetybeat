@@ -84,4 +84,12 @@ export class MemberCenterService {
   changeEntityUsers(usersInfo: any) {
     this.allentityUsers.next(usersInfo);
   }
+
+  updateUserPermission(data, id) {
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.userPermissions}${id}/`,
+      data
+    );
+  }
 }

@@ -121,7 +121,16 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
    */
 
   getAllEntityUsers(data) {
-    this.memberService.entityUsers(data).subscribe((res) => {
+    let entityData = {
+      entityId: data.entityId,
+    };
+    let paginationData = {
+      limit: data.limit,
+      offset: data.offset,
+      search: data.search
+    };
+
+    this.memberService.entityUsers(entityData, paginationData).subscribe((res) => {
       this.inviteUserModal.elements = this.compiler.entityUser(res);
       this.memberService.changeEntityUsers(this.inviteUserModal.elements);
     });
@@ -158,7 +167,13 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
       this.getAllUsers();
-      this.getAllEntityUsers({entityId: this.inviteUserModal.entityID});
+      let data = {
+        entityId: this.inviteUserModal.entityID,
+        limit: this.helperService.constants.appConstant.paginationLimit,
+        offset: this.helperService.constants.appConstant.paginationLimit * 0,
+        search: ''
+      };
+      this.getAllEntityUsers(data);
       this.dialogRef.close();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.INVITE_SUCCESS);
     }, (err) => {
@@ -186,7 +201,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     };
     this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
       this.inviteUserModal.siteList = this.compiler.constructAllSitesData(res.data.sitesList);
-      // this.removeRole();
       this.inviteUserModal.selectedSite = this.inviteUserModal.siteList[0];
       this.formValidation['sites'].setValue(this.inviteUserModal.selectedSite.id);
     });
@@ -209,11 +223,4 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       this.formValidation['teams'].setValue(this.inviteUserModal.selectedTeam.team.id);
     });
   }
-
-  // removeRole() {
-  //   if (this.inviteUserModal.siteList.length === 0) {
-  //     this.helperService.remove(this.inviteUserModal.roleList,
-  //       {name: this.helperService.appConstants.roles.siteSafetyManager});
-  //   }
-  // }
 }

@@ -509,7 +509,11 @@ export interface Messages {
     TEAM_SELECTION_REQUIRED: string;
     TEAM_MEMBERS_REQUIRED: string;
     COMMON_PASSWORD: string;
+    PERMISSIONS_UPDATED: string;
+    PERMISSIONS_UPDATION_FAILED: string;
     TEAM_NAME_REQ: string;
+    NO_USER: string;
+    NO_USER_SELECTED: string;
 }
 
 export interface Logger {

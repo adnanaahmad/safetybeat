@@ -22,7 +22,7 @@ export class MyTeamComponent implements OnInit {
   myTeam: MyTeamModel = <MyTeamModel>{};
   displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  private allUsers: any[];
+  allUsers: any = [];
 
   constructor(public helperService: HelperService,
               public compiler: CompilerProvider,

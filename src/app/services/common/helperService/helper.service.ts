@@ -1,5 +1,5 @@
 import {Injectable, ElementRef, NgZone} from '@angular/core';
-import {forEach, findIndex, remove, sortBy, find, union, isEmpty} from 'lodash';
+import {forEach, findIndex, remove, sortBy, find, union, isEmpty, isEqual} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatAutocompleteSelectedEvent, MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -26,6 +26,7 @@ export class HelperService {
   sortBy: any;
   remove: any;
   union: any;
+  isEqual: any;
   translated: Translation;
   constants: typeof ConstantService;
   displayButton: boolean = false;
@@ -66,6 +67,7 @@ export class HelperService {
     this.remove = remove;
     this.sortBy = sortBy;
     this.union = union;
+    this.isEqual = isEqual;
     this.address = '';
     this.latitude = 0;
     this.longitude = 0;

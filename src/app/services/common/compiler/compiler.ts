@@ -195,7 +195,8 @@ export class CompilerProvider {
         status: obj.status,
         pendingConnection: obj.pendingConnection,
         nature: obj.nature,
-        buttonText: buttonText
+        buttonText: buttonText,
+        permissions: obj.permissions
       };
       usersArray.push(user);
     });
@@ -266,7 +267,7 @@ export class CompilerProvider {
   }
 
   constructRecentActivitiesData(recentActivitiesRes: any): Array<recentActivities> {
-    return recentActivitiesRes.data;
+    return recentActivitiesRes.recentActivities;
   }
 
 
