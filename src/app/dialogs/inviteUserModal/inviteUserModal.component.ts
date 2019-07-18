@@ -89,7 +89,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       const email = {email: group.value.email};
       this.navigationService.checkEmail(email).pipe().subscribe((res) => {
         this.inviteUserModal.success = res;
-        if (this.inviteUserModal.success.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+        if (this.inviteUserModal.success.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           group.controls.email.setErrors({exists: true});
         }
       }, err => {
