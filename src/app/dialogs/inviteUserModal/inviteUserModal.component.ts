@@ -106,6 +106,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
    * @params valid
    */
   inviteUser({value, valid}: { value: inviteUserData; valid: boolean }): void {
+    this.inviteUserModal.loading = true;
     this.inviteUserModal.InviteUserData = {
       first_name: value.first_name,
       last_name: value.last_name,
@@ -125,10 +126,10 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
         this.helperService.translated.LOGGER.MESSAGES.INVITEUSER_ERROR);
       return;
     }
-    this.inviteUserModal.loading = true;
     this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
+      this.inviteUserModal.loading = false;
       this.dialogRef.close();
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.INVITE_SUCCESS);
     }, (err) => {
