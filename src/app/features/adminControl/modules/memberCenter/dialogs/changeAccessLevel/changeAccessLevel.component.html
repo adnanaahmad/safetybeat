@@ -3,81 +3,13 @@
   <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
     <mat-tab-group>
       <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.entityControl"
-                        (change)="checkEntityEnable($event)">Entity Control
+        <div class="permission-wrap" *ngFor="let permissions of helperService.appConstants.permissions">
+          <mat-checkbox [formControlName]="permissions.key"
+                        (change)="checkEnable($event, permissions.values)">{{permissions.name}}
           </mat-checkbox>
           <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.entityControlPermission">
-            <mat-checkbox [disabled]="permissions.disableEntityControl" [formControlName]="permission">{{permission}}
-            </mat-checkbox>&nbsp;&nbsp;<br>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.memberCentre"
-                        (change)="checkMemberCentreEnable($event)">Member Centre
-          </mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.memberCentrePermissions">
-              <mat-checkbox [disabled]="permissions.disableMemberCentre" [formControlName]="permission">{{permission}}
-              </mat-checkbox>&nbsp;&nbsp;<br>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.myTeam"
-                        (change)="checkMyTeamEnable($event)">My Team</mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.myTeamPermissions">
-              <mat-checkbox [disabled]="permissions.disableMyTeam" [formControlName]="permission">{{permission}}
-              </mat-checkbox>&nbsp;&nbsp;<br>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.siteCentre"
-                        (change)="checkSiteCentreEnable($event)">Sites</mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.sitesPermission">
-              <mat-checkbox [disabled]="permissions.disableSiteCentre" [formControlName]="permission">{{permission}}
-              </mat-checkbox>&nbsp;&nbsp;<br>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.hazardCentre"
-                        (change)="checkHazardCentreEnable($event)">Hazards</mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.hazardCentrePermissions">
-              <mat-checkbox [disabled]="permissions.disableHazardCentre" [formControlName]="permission">{{permission}}
-              </mat-checkbox>&nbsp;&nbsp;<br>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.questionCentre"
-                        (change)="checkQuestionCentreEnable($event)">Question Centre
-          </mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.questionCentrePermissions">
-              <mat-checkbox [disabled]="permissions.disableQuestionCentre" [formControlName]="permission">{{permission}}
-              </mat-checkbox>&nbsp;&nbsp;<br>
-            </mat-card-content>
-          </mat-card>
-        </div>
-
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.documents"
-                        (change)="checkDocumentsEnable($event)">Documents</mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.documentsPermissions">
-              <mat-checkbox [disabled]="permissions.disableDocuments" [formControlName]="permission">{{permission}}
+            <mat-card-content *ngFor="let permissionObj of permissions.values">
+              <mat-checkbox [formControlName]="permissionObj.key">{{permissionObj.value}}
               </mat-checkbox>&nbsp;&nbsp;<br>
             </mat-card-content>
           </mat-card>
@@ -86,12 +18,12 @@
       </mat-tab>
       <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
         <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.analyticsReports"
+          <mat-checkbox [formControlName]="helperService.appConstants.reports"
                         (change)="checkReportsEnable($event)">Reports
           </mat-checkbox>
           <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.reports">
-              <mat-checkbox [disabled]="permissions.disableReports" [formControlName]="permission">{{permission}}
+            <mat-card-content *ngFor="let permission of helperService.appConstants.reportsPermissions">
+              <mat-checkbox [disabled]="permissions.disableReports" [formControlName]="permission.key">{{permission.value}}
               </mat-checkbox>&nbsp;&nbsp;<br>
             </mat-card-content>
           </mat-card>

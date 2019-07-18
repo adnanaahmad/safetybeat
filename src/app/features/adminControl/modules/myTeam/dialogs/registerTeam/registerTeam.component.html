@@ -52,9 +52,8 @@
       <mat-tab label="{{helperService.translated.STRINGS.SELECTED_USERS}}">
         <mat-form-field class="searchbar" fullWidth appearance="outline"
                         *ngIf="registerTeamObj.filteredSelectedList.length !== 0">
-          <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}
+          <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}} </mat-label>
             <input type="text" matInput (keyup)=filterSelectedUserList($event.target.value)>
-          </mat-label>
           <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
         </mat-form-field>
         <div class="data-search">
