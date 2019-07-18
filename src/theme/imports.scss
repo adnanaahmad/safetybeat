@@ -4,8 +4,6 @@
 @import "~src/app/features/loginRegistration/components/login/login.component.scss";
 @import "~src/app/features/loginRegistration/components/forgotPassword/forgotPassword.component.scss";
 @import "~src/app/features/loginRegistration/components/passwordRecovery/passwordRecovery.component.scss";
-@import "~src/app/features/loginRegistration/components/landing/landing.component.scss";
-@import "../app/dialogs/verification/verification.component.scss";
 @import "~src/app/features/navigation/components/fixedNav/fixedNav.component.scss";
 @import "~src/app/features/navigation/components/navList/navList.component.scss";
 @import "~src/app/features/navigation/components/navigation/navigation.component.scss";
@@ -47,6 +45,8 @@
 @import "~src/app/features/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component.scss";
 @import "~src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component.scss";
 @import "~src/app/features/adminControl/modules/memberCenter/dialogs/changeAccessLevel/changeAccessLevel.component.scss";
+@import "~src/app/features/adminControl/modules/documents/components/file/file.component.scss";
+@import "~src/app/features/adminControl/modules/documents/components/showFolderDocuments/showFolderDocuments.component.scss";
 @import "~src/app/features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component.scss";
 
 @mixin amte-setTheme($theme) {
@@ -61,8 +61,6 @@
   @include amte-registration($primary, $accent, $warn);
   @include amte-login($primary, $accent, $warn);
   @include amte-forgot-password($primary, $accent, $warn);
-  @include amte-app-landing($primary, $accent, $warn);
-  @include amte-verification($primary, $accent, $warn);
   @include amte-fixed-nav($primary, $accent, $warn);
   @include amte-nav-list($primary, $accent, $warn);
   @include amte-navigation($primary, $accent, $warn);
@@ -104,5 +102,8 @@
   @include amte-register-team($primary, $accent, $warn);
   @include amte-advanceSearch($primary, $accent, $warn);
   @include amte-changeAccessLevel($primary, $accent, $warn);
+  @include amte-appfile($primary, $accent, $warn);
+  @include amte-appfile($primary, $accent, $warn);
+  @include amte-showDocuments($primary, $accent, $warn);
   @include amte-siteCodeModal($primary, $accent, $warn);
 }

@@ -22,7 +22,6 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {CreateEntityComponent} from './features/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {JoinEntityModalComponent} from './features/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import {InviteUserModalComponent} from './dialogs/inviteUserModal/inviteUserModal.component';
-import {VerificationComponent} from './dialogs/verification/verification.component';
 import {CompilerProvider} from './services/common/compiler/compiler';
 import {InviteTeamModalComponent} from './features/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatNativeDateModule} from '@angular/material';
@@ -54,6 +53,7 @@ import {ParticleContainer2Component} from './components/particleContainer/partic
 import {SendSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {ShowSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
 
+import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -65,7 +65,6 @@ export function createTranslateLoader(http: HttpClient) {
     JoinEntityModalComponent,
     EntityCodeModalComponent,
     InviteUserModalComponent,
-    VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
     AddSiteModalComponent,
@@ -91,7 +90,8 @@ export function createTranslateLoader(http: HttpClient) {
     PageNotFoundComponent,
     ParticleContainer2Component,
     SendSiteCodeComponent,
-    ShowSiteCodeComponent
+    ShowSiteCodeComponent,
+    FileRenameComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -144,7 +144,6 @@ export function createTranslateLoader(http: HttpClient) {
     EntityCodeModalComponent,
     InviteUserModalComponent,
     CreateEntityComponent,
-    VerificationComponent,
     InviteTeamModalComponent,
     ToasterComponent,
     AddSiteModalComponent,
@@ -168,7 +167,8 @@ export function createTranslateLoader(http: HttpClient) {
     AdvanceSearchComponent,
     ImageLightboxComponent,
     SendSiteCodeComponent,
-    ShowSiteCodeComponent
+    ShowSiteCodeComponent,
+    FileRenameComponent
   ]
 })
 export class AppModule {

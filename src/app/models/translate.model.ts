@@ -612,6 +612,7 @@ export interface TableHeadings {
     TIMEZONE: string;
     ADMINISTRATED_BY: string;
     SITE_NAME: string;
+    RADIUS: string;
     SITE_ADDRESS: string;
     SITE_SAFE_ZONE: string;
     SITE_CREATED_BY: string;

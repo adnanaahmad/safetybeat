@@ -44,7 +44,6 @@ export class ConstantService {
     verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
     inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
     viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
-    getAllSites: `${environment.apiUrl}/api/sites/getSiteList/`,
     addSite: `${environment.apiUrl}/api/sites/`,
     logout: `${environment.apiUrl}/rest-auth/logout/`,
     packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
@@ -82,7 +81,8 @@ export class ConstantService {
     parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
     viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
     sendSiteCode: `${environment.apiUrl}/api/sites/sendSiteCode/`,
-    refreshSiteCode: `${environment.apiUrl}/api/sites/refreshSiteCode/`
+    refreshSiteCode: `${environment.apiUrl}/api/sites/refreshSiteCode/`,
+    refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`
   };
   /**
    * all the api methods are declared here.
@@ -172,9 +172,11 @@ export class ConstantService {
     code: 'code',
     managedBy: 'managedBy',
     siteName: 'siteName',
+    radius: 'radius',
     siteSafetyPlan: 'siteSafetyPlan',
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
+    gpsTrack: 'gpsTrackEnabled',
     siteSafetyManager: 'siteSafetyManager',
     linearForm: true,
     emailValid: 'VALID',

@@ -43,6 +43,7 @@ export class HelperService {
   isPortrait: Observable<BreakpointState>;
   isLandscape: Observable<BreakpointState>;
   isWeb: Observable<BreakpointState>;
+  private radius: number;
 
   constructor(
     private http: HttpClient,
@@ -255,7 +256,8 @@ export class HelperService {
    * @params address
    * @params mapProp
    */
-  setLocationGeocode(address, mapProp) {
+  setLocationGeocode(address, mapProp, radius?) {
+    debugger
     let geoCoder = new google.maps.Geocoder();
     let self = this;
     return new Promise((resolve, reject) => {
@@ -269,6 +271,7 @@ export class HelperService {
               map: mapProp,
               position: results[0].geometry.location
             });
+            self.addCircle(mapProp, results[0].geometry.location, radius ? radius : 250);
             resolve(true);
           } else {
             reject(false);
@@ -286,10 +289,17 @@ export class HelperService {
     });
   }
 
-  addCircle(radius) {
-    let circle = new google.maps.Circle({
+  addCircle(mapProp, locObj, radius) {
+    return new google.maps.Circle({
+      strokeColor: '#05647c',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#05647c',
+      fillOpacity: 0.35,
+      map: mapProp,
+      center: locObj,
       radius: radius,
-      fillColor: '#AA0000'
+      draggable: true
     });
   }
 
@@ -334,6 +344,27 @@ export class HelperService {
     }
     this.displayButton = onSelect;
     this.setLocationGeocode(this.address, this.createMap(gMapElement)).then(res => {
+      this.displayButton = true;
+      return formControl.setErrors(null);
+    }).catch(err => {
+      this.displayButton = false;
+      return formControl.setErrors({invalid: true});
+    });
+  }
+
+
+
+  setRadius(addrObj, gMapElement: ElementRef, formControl) {
+    let onSelect: boolean = false;
+    this.displayButton = true;
+    if (!this.isEmpty(formControl)) {
+      this.radius = 250;
+      onSelect = true;
+    } else {
+      this.radius = formControl.value;
+    }
+    this.displayButton = onSelect;
+    this.setLocationGeocode(this.address, this.createMap(gMapElement),this.radius).then(res => {
       this.displayButton = true;
       return formControl.setErrors(null);
     }).catch(err => {

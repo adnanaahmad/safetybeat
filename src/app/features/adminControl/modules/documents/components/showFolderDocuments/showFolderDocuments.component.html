@@ -1,3 +1,7 @@
+<div class="spinner-wrap" *ngIf="!documentsData.docList">
+    <mat-spinner></mat-spinner>
+  </div>
+
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
@@ -16,8 +20,8 @@
 
 
   <!--Search-->
-  <div class="search-bar">
-    <form autocomplete="off">
+  <div class="search-bar" >
+    <form autocomplete="off" *ngIf="documentsData.docList && documentsData.docList.length">
       <mat-form-field autocomplete="off" appearance="outline">
         <mat-label>Search file or folder</mat-label>
         <input matInput placeholder="Search file or folder">
@@ -28,7 +32,7 @@
   <!--/Search-->
 
   <!--Files-->
-  <div class="files-wrapper">
+  <div class="files-wrapper" *ngIf="documentsData.docList && documentsData.docList.length">
     <h4 class="wrapper-heading">Files</h4>
     <p class="no-data mat-small mat-caption" *ngIf="!documentsData.folderDoc">No documents found.</p>
     <div class="content-area">
@@ -36,5 +40,13 @@
     </div>
   </div>
   <!--Files-->
+
+  
+
+  <div class="folders-wrapper" *ngIf="documentsData.docList && !documentsData.docList.length">
+      <h5 class="wrapper-heading">
+        No file exists
+      </h5>
+  </div>
 </div>
 

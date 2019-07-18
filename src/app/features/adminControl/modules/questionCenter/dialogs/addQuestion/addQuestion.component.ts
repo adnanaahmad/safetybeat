@@ -27,7 +27,6 @@ export class AddQuestionComponent implements OnInit {
     this.QuestionObj.childQuestions = data.childQuestions;
     this.QuestionObj.edit = data.edit;
     this.QuestionObj.loading = false;
-    console.log('this is child yes', this.QuestionObj.childYes);
   }
 
   ngOnInit() {

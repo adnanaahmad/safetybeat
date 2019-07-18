@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
+import {RefreshEntityCodeResponse, ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
 import {CreateEntityResponse} from 'src/app/models/adminControl/createEntity.model';
 import {AllHazardsApiData, AllHazardsApiResponseData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
@@ -91,14 +91,6 @@ export class AdminControlService {
     );
   }
 
-
-  getSiteList(data: object) {
-    return this.helperService.requestCall(
-      this.method.post,
-      this.apiRoutes.getAllSites,
-      data
-    );
-  }
 
   /**
    * this function is used to return the addSite api response.
@@ -275,5 +267,9 @@ export class AdminControlService {
 
   refreshSiteCode(data: object): Observable<RefreshSiteCodeApiResponse> {
     return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.refreshSiteCode, data);
+  }
+
+  refreshEntityCode(data: object): Observable<RefreshEntityCodeResponse> {
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.refreshEntityCode, data);
   }
 }

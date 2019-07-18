@@ -12,6 +12,8 @@ export interface Site {
   createdBy: User,
   entity: number,
   code: string;
+  gpsTrackEnabled: boolean;
+  radius?: number;
   siteSafetyManager: Array<User>
 }
 
@@ -26,7 +28,9 @@ export interface SiteAddData {
   siteAddress: string;
   safeZone: boolean;
   siteSafetyPlan: string;
+  gpsTrackEnabled: boolean;
   siteSafetyManager?: number;
+  radius?: number;
 }
 
 export interface AddSiteData {
@@ -37,8 +41,10 @@ export interface AddSiteData {
   name: string;
   safeZone: boolean;
   siteSafetyPlan: string;
+  gpsTrackEnabled: boolean;
   createdBy?: any;
   siteSafetyManager?: User;
+  radius?: number;
 }
 
 export interface AddSiteApiResponse {
