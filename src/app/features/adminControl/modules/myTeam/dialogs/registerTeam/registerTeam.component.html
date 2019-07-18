@@ -3,9 +3,9 @@
 <mat-card-title class="mat-dialog-title" *ngIf="registerTeamObj.editTeam">
   {{helperService.translated.MESSAGES.EDIT_TEAM}}</mat-card-title>
 <div class="mat-dialog-content">
-  <div class="spinner-wrap" *ngIf="registerTeamObj.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
-  </div>
+<!--  <div class="spinner-wrap" *ngIf="registerTeamObj.loading">-->
+<!--    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>-->
+<!--  </div>-->
 
   <form [formGroup]="registerTeamObj.registerTeamForm">
     <mat-form-field fullWidth appearance="outline">

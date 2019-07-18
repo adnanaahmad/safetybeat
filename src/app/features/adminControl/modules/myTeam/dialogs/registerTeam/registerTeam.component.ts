@@ -53,6 +53,7 @@ export class RegisterTeamComponent implements OnInit {
     this.registerTeamObj.editTeam = this.data.Modal;
     this.registerTeamObj.allUsersList = this.data.allUsersOfTeam;
     this.registerTeamObj.filteredSelectedList = [];
+    this.registerTeamObj.teamLeadID = null;
     this.registerTeamObj.selectedUsers = [];
     this.registerTeamObj.valid = false;
     this.registerTeamObj.loading = false;
@@ -70,7 +71,7 @@ export class RegisterTeamComponent implements OnInit {
   filterAllUserList(value) {
     let filterValue = value.toLowerCase();
     this.registerTeamObj.allUsers = this.registerTeamObj.allUsersList.filter(
-      user => user.name.toLowerCase().includes(filterValue));
+      user => user.name.toLowerCase().startsWith(filterValue));
   }
 
   editTeam(value) {
@@ -198,7 +199,7 @@ export class RegisterTeamComponent implements OnInit {
   filterSelectedUserList(value) {
     let filterValue = value.toLowerCase();
     this.registerTeamObj.filteredSelectedList = this.registerTeamObj.selectedUsers.filter(
-      user => user.name.toLowerCase().includes(filterValue));
+      user => user.name.toLowerCase().startsWith(filterValue));
   }
 }
 
