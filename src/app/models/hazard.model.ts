@@ -14,6 +14,8 @@ export interface HazardModel {
 }
 
 export interface AddHazardModel {
+  addHazardFormFirst: FormGroup;
+  addHazardFormSecond: FormGroup;
   removeImage: string;
   editModal: boolean;
   image: File;

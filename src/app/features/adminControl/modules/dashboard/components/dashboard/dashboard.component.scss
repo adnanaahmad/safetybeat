@@ -7,31 +7,22 @@
     .highcharts-background {
       fill: transparent;
     }
-    .more-button {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-    }
 
     .dashboard-card-content {
       text-align: center;
     }
-    .btn {
-      position: inherit;
-      padding-left: 87%;
-    }
     chart,
     .highcharts-container,
     .highcharts-root {
-      width: 100% !important;
+      width: $fullValue !important;
     }
     .dashboard-widgets {
       .mat-card {
-        width: 100%;
+        width: $fullValue;
       }
       mat-grid-tile {
         figure > div {
-          width: 100%;
+          width: $fullValue;
         }
       }
     }
