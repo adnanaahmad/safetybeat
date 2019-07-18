@@ -304,15 +304,6 @@ $theme: createTheme($primary, $secondary, $warn);
         }
       }
     }
-    .more-button {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-    }
-    .btn {
-      position: inherit;
-      padding-left: 87%;
-    }
     .mat-figure {
       align-items: normal;
     }
