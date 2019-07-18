@@ -63,13 +63,6 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       this.viewSiteInfo();
       this.getAllUsers();
     }
-    this.addSiteObj.addSiteForm.get('siteAddress').valueChanges.subscribe((res) => {
-      if (res) {
-        this.addSiteObj.enableRadius = true;
-      } else {
-        this.addSiteObj.enableRadius = false;
-      }
-    });
   }
 
   setRadius(mapProp, radius) {
@@ -125,6 +118,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       radius: this.addSiteObj.site.radius,
       gpsTrackEnabled: this.addSiteObj.site.gpsTrackEnabled
     });
+    this.setRadiusEnabled(this.addSiteObj.site.location);
     this.helperService.address = this.addSiteObj.site.location;
     this.helperService.setLocationGeocode(this.addSiteObj.site.location,
       this.helperService.createMap(this.gMapElement), this.addSiteObj.site.radius);
@@ -141,7 +135,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     };
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
-        this.addSiteObj.entityUsers = this.compiler.entityUser(res.data);
+        this.addSiteObj.entityUsers = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
@@ -181,11 +175,12 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   editSite(value: SiteAddData) {
     this.addSiteObj.loading = true;
     this.adminServices.editSite(this.addSiteObj.site.id, this.generateSiteData(value, true)).subscribe((res) => {
-      this.addSiteObj.loading = false;
       this.onNoClick();
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.addSiteObj.loading = false;
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
       } else {
+        this.addSiteObj.loading = false;
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
       }
     }, (error) => {
@@ -202,13 +197,17 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   addSite(value: SiteAddData) {
     this.addSiteObj.loading = true;
     this.adminServices.addSite(this.generateSiteData(value, false)).subscribe((res) => {
-      this.addSiteObj.loading = false;
-      this.onNoClick();
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.addSiteObj.loading = false;
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.addSiteObj.loading = false;
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       } else {
+        this.addSiteObj.loading = false;
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
     }, error => {
@@ -218,4 +217,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     });
   }
 
+  setRadiusEnabled(value: string) {
+    this.addSiteObj.enableRadius = value ? true : false;
+  }
 }

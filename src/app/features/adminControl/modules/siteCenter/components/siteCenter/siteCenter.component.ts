@@ -129,7 +129,9 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   addSite() {
     this.helperService.createDialog(AddSiteModalComponent, {disableClose: true, data: {Modal: true, siteId: ''}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+      if (res !== this.helperService.appConstants.no) {
+        this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+      }
     });
   }
 
@@ -157,7 +159,9 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       data: {Modal: false, site: siteInfo}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+      if (res !== this.helperService.appConstants.no) {
+        this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+      }
     });
   }
 

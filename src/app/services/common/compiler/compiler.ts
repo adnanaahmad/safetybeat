@@ -7,7 +7,6 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
-import {AllHazardsApiData, Hazard} from 'src/app/models/hazard.model';
 import {DocList, DocumentObj, Folder} from '../../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
@@ -202,7 +201,8 @@ export class CompilerProvider {
         status: obj.status,
         pendingConnection: obj.pendingConnection,
         nature: obj.nature,
-        buttonText: buttonText
+        buttonText: buttonText,
+        permissions: obj.permissions
       };
       usersArray.push(user);
     });

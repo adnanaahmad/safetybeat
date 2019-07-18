@@ -7,7 +7,7 @@
       </label>
       <br>
       <br>
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.AUTH.FIRSTNAME}}</mat-label>
         <input matInput type="text" [formControlName]=helperService.appConstants.firstName required />
         <mat-error *ngIf="formValidation.first_name.errors">
@@ -16,7 +16,7 @@
       </mat-form-field>
     </div>
     <div class="input">
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.AUTH.LASTNAME}}</mat-label>
         <input matInput type="text" [formControlName]=helperService.appConstants.lastName required />
         <mat-error *ngIf="formValidation.last_name.errors">
@@ -25,7 +25,7 @@
       </mat-form-field>
     </div>
     <div class="input">
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.AUTH.EMAIL}}</mat-label>
         <input matInput type="email" [formControlName]=helperService.appConstants.email required
           (blur)="checkEmail(inviteUserModal.inviteUserForm)" />
@@ -38,7 +38,7 @@
     </div>
     <div class="input">
 
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.AUTH.ROLE}}</mat-label>
         <mat-select [(value)]="inviteUserModal.selectedRole" [formControlName]="helperService.appConstants.role"
           (selectionChange)="changeSelection(inviteUserModal.selectedRole)" required>
@@ -53,7 +53,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" full-width *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">
+      <mat-form-field appearance="outline" fullWidth *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">
         <mat-label>{{helperService.translated.AUTH.SITE}}</mat-label>
         <mat-select [(value)]="inviteUserModal.selectedSite.id" [formControlName]=helperService.appConstants.sites>
           <mat-option *ngFor="let site of inviteUserModal.siteList" [value]="site.id">
@@ -64,11 +64,11 @@
           <span *ngIf="formValidation.sites.errors.required">{{helperService.translated.AUTH.SITE_REQ}}</span>
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" full-width *ngIf="inviteUserModal.showTeams && inviteUserModal.selectedTeam">
+      <mat-form-field appearance="outline" fullWidth *ngIf="inviteUserModal.showTeams && inviteUserModal.selectedTeam">
         <mat-label>{{helperService.translated.MESSAGES.TEAM}}</mat-label>
-        <mat-select [(value)]="inviteUserModal.selectedTeam.team.id" [formControlName]=helperService.appConstants.team>
-          <mat-option *ngFor="let team of inviteUserModal.teamsList.team" [value]="team.id">
-            {{ team.title}}
+        <mat-select [(value)]="inviteUserModal.selectedTeam.id" [formControlName]=helperService.appConstants.team>
+          <mat-option *ngFor="let teamData of inviteUserModal.teamsList" [value]="teamData.team.id">
+            {{ teamData.team.title}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="formValidation.sites.errors">
@@ -79,14 +79,13 @@
 
     <mat-dialog-actions>
       <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
-        [disabled]="inviteUserModal.loading" color="primary">{{helperService.translated.BUTTONS.INVITE}}
+        [disabled]="inviteUserModal.loading || !inviteUserModal.inviteUserForm.valid" color="primary">{{helperService.translated.BUTTONS.INVITE}}
         <div class="main-loader" *ngIf="inviteUserModal.loading">
           <span class="loader1"></span>
           <span class="loader2"></span>
           <span class="loader3"></span>
         </div>
       </button>
-      <!-- <img *ngIf="inviteUserModal.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
       <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
   </form>

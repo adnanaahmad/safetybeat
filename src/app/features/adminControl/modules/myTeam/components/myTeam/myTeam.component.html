@@ -2,7 +2,7 @@
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.MY_TEAM}}</h3>
     <div class="buttonRow">
-      <button class="mat-elevation-z1" btn-primary mat-raised-button color="primary" *ngIf="myTeam.permissions.registerTeam"
+      <button class="mat-elevation-z6" mat-raised-button color="primary" *ngIf="myTeam.permissions.registerTeam"
               (click)="registerTeam()">
         <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
         {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM}}
@@ -31,7 +31,7 @@
           {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
         </th>
         <td mat-cell *matCellDef="let element">&nbsp;
-          <button class="mat-elevation-z1" class="btn-table" btn-primary mat-raised-button color="primary" mat-button
+          <button class="mat-elevation-z1" class="btn-table" mat-raised-button color="primary" mat-button
             [matMenuTriggerFor]="menu">
             <mat-icon style="padding-right:0;">keyboard_arrow_down</mat-icon>
             Actions

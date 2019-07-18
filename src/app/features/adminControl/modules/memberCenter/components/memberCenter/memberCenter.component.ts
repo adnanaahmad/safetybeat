@@ -87,7 +87,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       this.memberCenter.elements = this.compiler.entityUser(res.data.allUser);
       this.memberService.changeEntityUsers(this.memberCenter.elements);
       this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
-      this.memberCenter.dataSource.paginator = this.paginator;
     }, error => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
@@ -107,8 +106,11 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       this.removeConnections(userObj.id)) : ((userObj.nature) ? this.addConnections(userObj.id) : this.removeConnections(userObj.id));
   }
 
-  accessLevel() {
-    this.helperService.createDialog(ChangeAccessLevelComponent, {});
+  accessLevel(user) {
+    this.helperService.createDialog(ChangeAccessLevelComponent, {data: user});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.getAllUsers(this.paginator.pageIndex, '');
+    });
   }
 
   /**
@@ -237,6 +239,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       let entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key));
       this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': entityId}});
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getAllUsers(this.paginator.pageIndex, '');
+      });
     });
   }
 }

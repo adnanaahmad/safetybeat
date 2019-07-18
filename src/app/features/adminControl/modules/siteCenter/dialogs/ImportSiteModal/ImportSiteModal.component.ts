@@ -92,10 +92,13 @@ export class ImportSiteModalComponent implements OnInit {
           this.helperService.constants.status.SUCCESS);
       } else if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.importSiteModal.loading = false;
+        this.onNoClick();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_IMPORT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.importSiteModal.loading = false;
+      this.onNoClick();
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
 

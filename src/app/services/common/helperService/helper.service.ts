@@ -1,5 +1,5 @@
 import {Injectable, ElementRef, NgZone} from '@angular/core';
-import {forEach, findIndex, remove, sortBy, find, union, isEmpty} from 'lodash';
+import {forEach, findIndex, remove, sortBy, find, union, isEmpty, isEqual} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatAutocompleteSelectedEvent, MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -26,6 +26,7 @@ export class HelperService {
   sortBy: any;
   remove: any;
   union: any;
+  isEqual: any;
   translated: Translation;
   constants: typeof ConstantService;
   displayButton: boolean = false;
@@ -44,6 +45,7 @@ export class HelperService {
   isLandscape: Observable<BreakpointState>;
   isWeb: Observable<BreakpointState>;
   private radius: number;
+  enableRadius: boolean;
 
   constructor(
     private http: HttpClient,
@@ -67,10 +69,12 @@ export class HelperService {
     this.remove = remove;
     this.sortBy = sortBy;
     this.union = union;
+    this.isEqual = isEqual;
     this.address = '';
     this.latitude = 0;
     this.longitude = 0;
     this.displayButton = false;
+    this.enableRadius = false;
     this.formErrorMatcher = new FormErrorHandler();
     this.isHandset = this.breakpointObserver.observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait]);
     this.isTablet = this.breakpointObserver.observe(Breakpoints.Tablet);
@@ -257,7 +261,6 @@ export class HelperService {
    * @params mapProp
    */
   setLocationGeocode(address, mapProp, radius?) {
-    debugger
     let geoCoder = new google.maps.Geocoder();
     let self = this;
     return new Promise((resolve, reject) => {
@@ -271,7 +274,9 @@ export class HelperService {
               map: mapProp,
               position: results[0].geometry.location
             });
-            self.addCircle(mapProp, results[0].geometry.location, radius ? radius : 250);
+            if (radius) {
+              self.addCircle(mapProp, results[0].geometry.location, radius);
+            }
             resolve(true);
           } else {
             reject(false);
@@ -353,7 +358,6 @@ export class HelperService {
   }
 
 
-
   setRadius(addrObj, gMapElement: ElementRef, formControl) {
     let onSelect: boolean = false;
     this.displayButton = true;
@@ -364,7 +368,7 @@ export class HelperService {
       this.radius = formControl.value;
     }
     this.displayButton = onSelect;
-    this.setLocationGeocode(this.address, this.createMap(gMapElement),this.radius).then(res => {
+    this.setLocationGeocode(this.address, this.createMap(gMapElement), this.radius).then(res => {
       this.displayButton = true;
       return formControl.setErrors(null);
     }).catch(err => {
@@ -381,6 +385,7 @@ export class HelperService {
     if (event.which !== this.constants.appConstant.enterKey) {
       this.displayButton = false;
     }
+    this.enableRadius = event.target.value ? true : false;
   }
 
   /**

@@ -1,15 +1,16 @@
 <mat-card-title class="mat-dialog-title">{{
   helperService.translated.MESSAGES.JOINENTITY_MSG
-  }}</mat-card-title>
+  }}
+</mat-card-title>
 <div mat-dialog-content>
   <div class="spinner-wrap" *ngIf="joinEntity.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
   </div>
   <form [formGroup]="joinEntity.joinEntityForm" (ngSubmit)="entityJoin(joinEntity.joinEntityForm)">
     <div class="form-group">
-      <mat-form-field appearance="outline" full-width>
+      <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.MESSAGES.ENTITYCODE}}</mat-label>
-        <input matInput type="text" [formControlName]="helperService.appConstants.joinCode" required />
+        <input matInput type="text" [formControlName]="helperService.appConstants.joinCode" required/>
         <mat-error *ngIf="formValidation.joinCode.errors">
           <span
             *ngIf="formValidation.joinCode.errors.required">{{helperService.translated.MESSAGES.ENTITYCODE_REQ}}</span>
@@ -17,8 +18,9 @@
       </mat-form-field>
     </div>
     <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn btn-primary
-        color="primary">{{ helperService.translated.BUTTONS.JOIN_ENTITY }}</button>
+      <button mat-raised-button cdkFocusInitial custom-btn
+              color="primary">{{ helperService.translated.BUTTONS.JOIN_ENTITY }}
+      </button>
       <button mat-button mat-dialog-close>{{ helperService.translated.BUTTONS.CANCEL }}</button>
     </mat-dialog-actions>
   </form>
