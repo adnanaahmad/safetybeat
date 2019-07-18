@@ -118,6 +118,7 @@ export class ChangeAccessLevelComponent implements OnInit {
   }
 
   checkChange({value}: { value: PermissionsModel }) {
+    console.log(value)
     this.permissions.unChanged = this.helperService.isEqual(value, this.data.permissions) ? true : false;
   }
 
@@ -141,12 +142,12 @@ export class ChangeAccessLevelComponent implements OnInit {
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.reportsPermissions, function (value) {
         self.permissions.permissionsForm.get(value.key).setValue(true)
-        self.permissions.permissionsForm.get(value.key).enable();
+        self.permissions.disableReports = false;
       })
     } else {
       self.helperService.iterations(this.helperService.appConstants.reportsPermissions, function (value) {
         self.permissions.permissionsForm.get(value.key).setValue(false)
-        self.permissions.permissionsForm.get(value.key).disable();
+        self.permissions.disableReports = true;
       })
     }
   }

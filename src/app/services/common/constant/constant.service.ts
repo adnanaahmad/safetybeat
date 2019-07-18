@@ -235,7 +235,7 @@ export class ConstantService {
       key: 'entityControl',
       values: [{key: 'createEntity', value: 'Create Entity'}, {key: 'viewEntity', value: 'View Entity'},
         {key: 'deleteEntity', value: 'Delete Entity'}, {key: 'joinEntity', value: 'Join Entity'},
-        {key: 'inviteMember', value: 'Invite Memeber'}, {key: 'viewEntityCode', value: 'View Entity Code'}]
+        {key: 'inviteMember', value: 'Invite Member'}, {key: 'viewEntityCode', value: 'View Entity Code'}]
     },
       {
         name: 'Site Centre',

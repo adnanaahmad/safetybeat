@@ -23,7 +23,7 @@
           </mat-checkbox>
           <mat-card class="mat-elevation-z1">
             <mat-card-content *ngFor="let permission of helperService.appConstants.reportsPermissions">
-              <mat-checkbox [formControlName]="permission.key">{{permission.value}}
+              <mat-checkbox [disabled]="permissions.disableReports" [formControlName]="permission.key">{{permission.value}}
               </mat-checkbox>&nbsp;&nbsp;<br>
             </mat-card-content>
           </mat-card>
