@@ -1,9 +1,10 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatBottomSheet, MatDialogRef} from '@angular/material';
 import {AddHazardData, AddHazardModel, NewHazard, RiskType} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
+import {AddActionComponent} from '../addAction/addAction.component';
 
 @Component({
     selector: 'app-addHazard',
@@ -21,6 +22,7 @@ export class AddHazardComponent implements OnInit {
         public formBuilder: FormBuilder,
         public helperService: HelperService,
         public service: AdminControlService,
+        private bottomSheet: MatBottomSheet,
         public dialogRef: MatDialogRef<AddHazardComponent>,
         @Inject(MAT_DIALOG_DATA) public data
     ) {
@@ -152,5 +154,9 @@ export class AddHazardComponent implements OnInit {
                     this.helperService.constants.status.ERROR);
             }
         );
+    }
+
+    openBottomSheet() {
+        this.bottomSheet.open(AddActionComponent);
     }
 }

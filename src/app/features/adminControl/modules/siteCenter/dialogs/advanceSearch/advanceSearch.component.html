@@ -28,6 +28,6 @@
     <button mat-raised-button cdkFocusInitial custom-btn color="primary">
       <mat-icon>{{helperService.appIcons.search}}</mat-icon> {{helperService.translated.BUTTONS.SHOW_RESULTS}}
     </button>
-    <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+    <button mat-button (click)="onNoClick()">{{helperService.translated.BUTTONS.CANCEL}}</button>
   </mat-dialog-actions>
 </div>

@@ -107,20 +107,19 @@
             </form>
         </mat-step>
         <mat-step [stepControl]="addHazardFormSecond">
-            <form [formGroup]="addHazardFormSecond">
+            <form>
                 <ng-template matStepLabel>Actions to resolve</ng-template>
                 <div class="tabcontent">
                     <div class="text-center">
-                        <p class="mat-hint">No actions found</p>
-                        <button mat-mini-fab color="primary" matTooltip="Add an action" matTooltipPosition="above">
-                            <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-                        </button>
+                        <!--<p class="mat-hint">No actions found</p>-->
+                        <button  mat-raised-button (click)="openBottomSheet()">Open file</button>
                     </div>
+                    <br>
                     <mat-accordion>
                         <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    Action
+                                    This is an action that can be taken
                                 </mat-panel-title>
                                 <mat-panel-description>
                                     Complete by: 12/10/2020
@@ -158,10 +157,6 @@
                         </mat-expansion-panel>
                     </mat-accordion>
                 </div>
-                <button mat-mini-fab class="add-action" color="primary" matTooltip="Add an action"
-                        matTooltipPosition="above">
-                    <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-                </button>
                 <div class="nav-btn">
                     <button mat-button matStepperNext>
                         <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
@@ -219,5 +214,4 @@
             </div>
         </mat-step>
     </mat-horizontal-stepper>
-
 </div>

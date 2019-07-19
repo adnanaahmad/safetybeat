@@ -1,6 +1,8 @@
 @mixin amte-appfile($primary, $accent, $warn) {
   :host,
   app-file {
+    position: relative;
+    height: $fullValue;
     .go-back {
       padding: 0;
     }
