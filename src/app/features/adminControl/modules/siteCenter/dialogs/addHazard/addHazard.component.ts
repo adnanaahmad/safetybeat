@@ -4,7 +4,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AddHazardData, AddHazardModel, NewHazard, RiskType} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -177,7 +177,6 @@ export class AddHazardComponent implements OnInit {
   }
 
   saveValues(value) {
-    console.log(value);
     this.hazardObj.name = value.title;
     this.hazardObj.description = value.description;
     this.hazardObj.note = value.note;

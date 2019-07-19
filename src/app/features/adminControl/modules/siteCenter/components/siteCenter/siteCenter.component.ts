@@ -265,7 +265,12 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
   SiteCode(siteData: Site) {
-    this.helperService.createDialog(ShowSiteCodeComponent, {data: siteData});
+    this.helperService.createDialog(ShowSiteCodeComponent, {
+      data: {
+        site: siteData,
+        permissions: this.siteCentreObj.permissions.shareSiteCode
+      }
+    });
   }
 }
 

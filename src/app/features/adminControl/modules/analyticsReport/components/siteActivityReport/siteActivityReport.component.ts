@@ -8,8 +8,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {PaginationData, ViewAllSiteEntityData} from '../../../../../../models/site.model';
-import {MatTableDataSource} from '@angular/material';
+import {PaginationData, ViewAllSiteEntityData} from 'src/app/models/site.model';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
@@ -59,7 +58,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   makeReport(data) {
     this.analyticsService.siteActivityReport(data).subscribe((res) => {
-      console.log(res);
       this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
       if (this.actionReportObj.userActionReportData.CheckIns.length === 0 &&
         this.actionReportObj.userActionReportData.CheckOuts.length === 0) {
@@ -137,7 +135,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
-        console.log(this.actionReportObj.sitesData);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
           this.helperService.constants.status.ERROR);

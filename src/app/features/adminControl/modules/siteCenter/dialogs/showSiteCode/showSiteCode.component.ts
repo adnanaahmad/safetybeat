@@ -3,7 +3,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import { Site} from 'src/app/models/site.model';
+import {SiteCodeModel} from 'src/app/models/code.model';
 
 @Component({
   selector: 'app-showSiteCode',
@@ -17,7 +17,7 @@ export class ShowSiteCodeComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<ShowSiteCodeComponent>,
     public helperService: HelperService,
     private adminServices: AdminControlService,
-    @Inject(MAT_DIALOG_DATA) public data: Site,
+    @Inject(MAT_DIALOG_DATA) public data: SiteCodeModel,
   ) {
   }
 
@@ -39,12 +39,12 @@ export class ShowSiteCodeComponent implements OnInit, OnDestroy {
 
   refreshSiteCode() {
     let data = {
-      siteId: this.data.id
+      siteId: this.data.site.id
     };
     this.siteCentreObj.loading = true;
     this.adminServices.refreshSiteCode(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.data.code = res.data.code;
+        this.data.site.code = res.data.code;
         this.siteCentreObj.loading = false;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
       } else {

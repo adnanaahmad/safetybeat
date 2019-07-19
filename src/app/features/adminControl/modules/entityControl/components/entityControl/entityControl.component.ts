@@ -132,7 +132,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * @params name
    */
   entityCode(entityData: Entity) {
-    this.helperService.createDialog(EntityCodeModalComponent, {data: entityData.entityInfo});
+    this.helperService.createDialog(EntityCodeModalComponent, {
+      data: {
+        entity: entityData.entityInfo,
+        permissions: this.entityControl.permissions.refreshEntityCode
+      }});
   }
 
   /**

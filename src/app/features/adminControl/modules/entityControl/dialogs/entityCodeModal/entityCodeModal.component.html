@@ -1,12 +1,12 @@
 <mat-card-title
-        class="mat-dialog-title">{{helperService.translated.MESSAGES.ENTITYCODE_FOR}} {{ data.name }}
+        class="mat-dialog-title">{{helperService.translated.MESSAGES.ENTITYCODE_FOR}} {{ data.entity.name }}
 </mat-card-title>
 <div class="entitycode-box" mat-dialog-content>
     <div class="spinner-wrap" *ngIf="loading">
         <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
     </div>
-    <span class="entity-code">{{ data.code }}</span>
-    <mat-icon class="refresh-code pointer" color="primary" (click)="refreshEntityCode()">
+    <span class="entity-code">{{ data.entity.code }}</span>
+    <mat-icon class="refresh-code pointer" color="primary" (click)="refreshEntityCode()" *ngIf="data.permissions">
         {{ helperService.appIcons.refresh }}
     </mat-icon>
     <mat-dialog-actions>
