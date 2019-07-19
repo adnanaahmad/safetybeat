@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatCheckboxChange, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {ChangePermissionsObj, PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {FormBuilder} from '@angular/forms';
@@ -122,32 +122,16 @@ export class ChangeAccessLevelComponent implements OnInit {
     this.permissions.unChanged = this.helperService.isEqual(value, this.data.permissions) ? true : false;
   }
 
-  checkEnable(event: MatCheckboxChange | Event, permissions) {
-    let self = this
-    if (!(event instanceof MatCheckboxChange) || event.checked) {
+
+  checkEnable(checked, permissions) {
+    let self = this;
+    if (checked) {
       self.helperService.iterations(permissions, function (value) {
         self.permissions.permissionsForm.get(value.key).setValue(true);
-        self.permissions.permissionsForm.get(value.key).enable();
       })
     } else {
       self.helperService.iterations(permissions, function (value) {
         self.permissions.permissionsForm.get(value.key).setValue(false);
-        self.permissions.permissionsForm.get(value.key).disable();
-      })
-    }
-  }
-
-  checkReportsEnable(event: MatCheckboxChange | Event) {
-    let self = this
-    if (!(event instanceof MatCheckboxChange) || event.checked) {
-      self.helperService.iterations(this.helperService.appConstants.reportsPermissions, function (value) {
-        self.permissions.permissionsForm.get(value.key).setValue(true)
-        self.permissions.disableReports = false;
-      })
-    } else {
-      self.helperService.iterations(this.helperService.appConstants.reportsPermissions, function (value) {
-        self.permissions.permissionsForm.get(value.key).setValue(false)
-        self.permissions.disableReports = true;
       })
     }
   }

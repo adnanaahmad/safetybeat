@@ -185,7 +185,8 @@
     "CREATE_FOLDER": "Create Folder",
     "SHOW_RESULTS": "Show Results",
     "PERMISSIONS": "Permissions",
-    "REPORTS": "Reports"
+    "REPORTS": "Reports",
+    "CHANGE_ACCESS_LEVEL": "Change Access Level"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
