@@ -1,14 +1,17 @@
 <mat-card-title
-  class="mat-dialog-title">{{helperService.translated.MESSAGES.ENTITYCODE_FOR}} {{ data.name }}</mat-card-title>
+        class="mat-dialog-title">{{helperService.translated.MESSAGES.ENTITYCODE_FOR}} {{ data.name }}
+</mat-card-title>
 <div class="entitycode-box" mat-dialog-content>
-  <div class="spinner-wrap" *ngIf="loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
-  </div>
-  <span class="entity-code">{{ data.code }}</span>
-  <mat-icon (click)="refreshEntityCode()">{{ helperService.appIcons.refresh }}</mat-icon>
-  <mat-dialog-actions>
-    <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
-            (click)="onNoClick()">OK
-    </button>
-  </mat-dialog-actions>
+    <div class="spinner-wrap" *ngIf="loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    </div>
+    <span class="entity-code">{{ data.code }}</span>
+    <mat-icon class="refresh-code pointer" color="primary" (click)="refreshEntityCode()">
+        {{ helperService.appIcons.refresh }}
+    </mat-icon>
+    <mat-dialog-actions>
+        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
+                (click)="onNoClick()">OK
+        </button>
+    </mat-dialog-actions>
 </div>
