@@ -7,8 +7,9 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
-import {DocList, DocumentObj, Folder} from 'src/app/models/navigation/documents.model';
-import {ActionReportData, UserActionReportData} from 'src/app/models/analyticsReport/actionReports.model';
+import {AllHazardsApiData, Hazard} from 'src/app/models/hazard.model';
+import {DocumentObj, Folder} from '../../../models/navigation/documents.model';
+import {ActionReportData, UserActionReportData} from '../../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {EntityQuestion} from 'src/app/models/adminControl/questionCenter.model';
@@ -136,13 +137,6 @@ export class CompilerProvider {
     return siteApiResponse;
   }
 
-  constructSiteList(siteApiResponse: any): Site[] {
-    return siteApiResponse.data;
-  }
-
-  constructAllDocumentsData(documentsApiResponse: any): Array<DocList> {
-    return documentsApiResponse.data;
-  }
 
   constructDocuments(documentsApiResponse: any): Array<DocumentObj> {
     return documentsApiResponse.data;
@@ -209,7 +203,39 @@ export class CompilerProvider {
     return usersArray;
   }
 
+  constructUserDataOfTeam(users) {
+    let usersArray = [];
+    this.helperService.iterations(users, function (obj) {
+      let user = {
+        name: obj.first_name + ' ' + obj.last_name,
+        email: obj.email,
+        contact: obj.contactNo,
+        profileImage: obj.profileImage,
+        id: obj.id,
+        username: obj.username
+      };
+      usersArray.push(user);
+    });
+    return usersArray;
+  }
+
   constructDataForTeams(users) {
+    let usersArray = [];
+    this.helperService.iterations(users, function (obj) {
+      let user = {
+        name: obj.first_name + ' ' + obj.last_name,
+        email: obj.email,
+        contact: obj.contactNo,
+        photos: '',
+        accessLevel: obj.role,
+        id: obj.id
+      };
+      usersArray.push(user);
+    });
+    return usersArray;
+  }
+
+  constructUserForTeam(users) {
     let usersArray = [];
     this.helperService.iterations(users, function (obj) {
       let user = {
@@ -241,7 +267,7 @@ export class CompilerProvider {
   }
 
   constructRecentActivitiesData(recentActivitiesRes: any): Array<recentActivities> {
-    return recentActivitiesRes.data;
+    return recentActivitiesRes.recentActivities;
   }
 
 

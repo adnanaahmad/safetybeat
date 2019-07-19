@@ -36,6 +36,14 @@ export class MemberCenterService {
     );
   }
 
+  getUsersList(entityId: ViewAllSiteEntityData): Observable<entityUsersApiResponse> {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.allUser,
+      entityId
+    );
+  }
+
   /**
    *
    * @params entityId

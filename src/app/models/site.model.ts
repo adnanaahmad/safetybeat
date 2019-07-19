@@ -1,7 +1,7 @@
 import {responseDetails, User} from './user.model';
+import {Observable} from 'rxjs';
 import {Translation} from './translate.model';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
 
 export interface Site {
   id: number,
@@ -11,8 +11,10 @@ export interface Site {
   siteSafetyPlan: string,
   createdBy: User,
   entity: number,
+  gpsTrackEnabled: boolean,
+  latitude: number,
+  longitude: number,
   code: string;
-  gpsTrackEnabled: boolean;
   radius?: number;
   siteSafetyManager: Array<User>
 }

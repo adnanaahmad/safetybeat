@@ -30,14 +30,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   initialize() {
-    
     this.documentsData.documentExist = false;
     this.documentsData.folderExist = false;
     this.documentsData.panelOpenState = false;
   }
 
   ngOnInit() {
-    
     this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.documentsData.entityID = res.entityInfo.id;
@@ -87,7 +85,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);  
+        this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.documentsData.rootDocs = [];
       } else {

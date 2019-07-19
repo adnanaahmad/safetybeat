@@ -52,6 +52,7 @@ export class ConstantService {
     getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
     editOrganization: `${environment.apiUrl}/organization`,
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
+    allUser: `${environment.apiUrl}/entity/allUsers/`,
     allEntityUsers: `${environment.apiUrl}/entity/allUsers/`,
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,

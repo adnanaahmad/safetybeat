@@ -20,6 +20,10 @@ export interface AddHazardModel {
   editModal: boolean;
   image: File;
   addHazardForm: FormGroup;
+  name: string;
+  note: string;
+  description: string;
+  action: string;
   loading: boolean;
 }
 

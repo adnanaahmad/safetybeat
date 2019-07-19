@@ -22,7 +22,7 @@ export class AddQuestionComponent implements OnInit {
     private questionCenterService: QuestionCenterService,
     @Inject(MAT_DIALOG_DATA) public data,
   ) {
-    this.intialize();
+    this.initialize();
     this.QuestionObj.parentQuestions = data.parentQuestions;
     this.QuestionObj.childQuestions = data.childQuestions;
     this.QuestionObj.edit = data.edit;
@@ -48,7 +48,7 @@ export class AddQuestionComponent implements OnInit {
     }
   }
 
-  intialize() {
+  initialize() {
     this.QuestionObj.filteredParentQuestion = this.data.parentQuestions;
     this.QuestionObj.filteredChildYesQuestion = this.data.childQuestions;
     this.QuestionObj.filteredChildNoQuestion = this.data.childQuestions;

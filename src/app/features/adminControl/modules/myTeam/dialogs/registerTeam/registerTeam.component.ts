@@ -1,15 +1,10 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { HelperService } from 'src/app/services/common/helperService/helper.service';
-import { RegisterTeamModel } from 'src/app/models/adminControl/registerTeam.model';
-import { EntityInfo } from 'src/app/models/userEntityData.model';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CompilerProvider } from 'src/app/services/common/compiler/compiler';
-import { MAT_DIALOG_DATA, MatAutocomplete, MatAutocompleteSelectedEvent, MatDialogRef } from '@angular/material';
-import { map, startWith } from 'rxjs/operators';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { AdminControlService } from 'src/app/features/adminControl/services/adminControl.service';
-import { NavigationService } from 'src/app/features/navigation/services/navigation.service';
-
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {HelperService} from 'src/app/services/common/helperService/helper.service';
+import {RegisterTeamModel} from 'src/app/models/adminControl/registerTeam.model';
+import {FormBuilder, Validators} from '@angular/forms';
+import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 
 @Component({
   selector: 'app-register-team',
@@ -19,39 +14,34 @@ import { NavigationService } from 'src/app/features/navigation/services/navigati
 export class RegisterTeamComponent implements OnInit {
 
   registerTeamObj: RegisterTeamModel = <RegisterTeamModel>{};
-  selectedEntity: EntityInfo;
   @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   constructor(public dialogRef: MatDialogRef<RegisterTeamComponent>,
-    public helperService: HelperService,
-    public formBuilder: FormBuilder,
-    public compiler: CompilerProvider,
-    private navService: NavigationService,
-    private adminServices: AdminControlService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+              public helperService: HelperService,
+              public formBuilder: FormBuilder,
+              public compiler: CompilerProvider,
+              private adminServices: AdminControlService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.initialize();
-    this.registerTeamObj.editTeam = data.Modal;
-    this.editOrRegister();
 
   }
 
   ngOnInit() {
     this.registerTeamObj.registerTeamForm = this.formBuilder.group({
       title: ['', Validators.required],
-      teamLead: ['', Validators.required],
-      team: [''],
+
     });
     if (this.registerTeamObj.editTeam) {
-      this.registerTeamObj.registerTeamForm = this.formBuilder.group({
-        title: this.data.teamList.team.title,
-        teamLead: this.registerTeamObj.teamInfo.teamLead.id,
-        team: [''],
-      });
+      this.getFormControls['title'].setValue(this.data.teamList.team.title);
+      this.registerTeamObj.teamLeadID = this.data.teamList.teamLead.id;
+      this.registerTeamObj.selectedUsers = this.compiler.constructUserDataOfTeam(this.data.teamList.users);
+      this.registerTeamObj.filteredSelectedList = Array.from(this.registerTeamObj.selectedUsers)
     }
+  }
+
+  get getFormControls() {
+    return this.registerTeamObj.registerTeamForm.controls;
   }
 
   onNoClick(): void {
@@ -59,49 +49,33 @@ export class RegisterTeamComponent implements OnInit {
   }
 
   initialize() {
-    this.registerTeamObj.removeUsers = [];
-    this.registerTeamObj.addedUsers = [];
+    this.registerTeamObj.editTeam = this.data.Modal;
+    this.registerTeamObj.allUsersList = this.data.allUsersOfTeam;
+    this.registerTeamObj.filteredSelectedList = [];
+    this.registerTeamObj.teamLeadID = null;
+    this.registerTeamObj.selectedUsers = [];
     this.registerTeamObj.valid = false;
     this.registerTeamObj.loading = false;
-    this.registerTeamObj.users = [];
-    this.registerTeamObj.allUsers = [];
-    this.registerTeamObj.removable = true;
-    this.registerTeamObj.userCtrl = new FormControl();
-    this.registerTeamObj.separatorKeysCodes = [ENTER, COMMA];
+    this.registerTeamObj.allUsers = this.data.allUsersOfTeam;
   }
 
-  get formValidation() {
-    if (this.registerTeamObj.users.length === 0) {
-      this.registerTeamObj.valid = false;
+  teamFormSubmit({value, valid}: { value: any; valid: boolean }) {
+    if (this.registerTeamObj.teamLeadID === null) {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.SELECT_TEAMLEAD, this.helperService.constants.status.WARNING);
     } else {
-      this.registerTeamObj.valid = true;
+      this.registerTeamObj.editTeam ? this.editTeam(value) : this.registerTeam(value);
     }
-    return this.registerTeamObj.registerTeamForm.controls;
   }
 
-
-  teamFormSubmit({ value, valid }: { value: any; valid: boolean }) {
-    this.registerTeamObj.editTeam ? this.editTeam(value) : this.registerTeam(value);
-  }
-
-  generateTeamData(value) {
-    let teamMembersIds: any = [];
-    this.helperService.iterations(this.registerTeamObj.users, function (obj) {
-      teamMembersIds.push(obj.id);
-    });
-    let team: any = {
-      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
-      title: value.title,
-      teamLead: value.teamLead,
-      teamMembers: teamMembersIds,
-    }
-    return team;
+  filterAllUserList(value) {
+    let filterValue = value.toLowerCase();
+    this.registerTeamObj.allUsers = this.registerTeamObj.allUsersList.filter(
+      user => user.name.toLowerCase().startsWith(filterValue));
   }
 
   editTeam(value) {
     this.registerTeamObj.loading = true;
-    this.adminServices.editTeam(this.data.teamList.team.id, this.generateTeamData(value)).subscribe(res => {
+    this.adminServices.editTeam(this.data.teamList.team.id, this.teamData(value)).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.registerTeamObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_UPDATED,
@@ -119,54 +93,112 @@ export class RegisterTeamComponent implements OnInit {
     });
   }
 
+  /**
+   * this function takes data of selected user and team lead and registers the team
+   * @params value
+   */
+
   registerTeam(value) {
     this.registerTeamObj.loading = true;
-    this.adminServices.registerTeam(this.generateTeamData(value)).subscribe(res => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.registerTeamObj.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTERED,
-          this.helperService.constants.status.SUCCESS);
-        this.onNoClick();
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
-        this.registerTeamObj.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_ALREADY_EXIST,
-          this.helperService.constants.status.ERROR);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+    this.adminServices.registerTeam(this.teamData(value)).subscribe(res => {
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.registerTeamObj.loading = false;
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTERED,
+            this.helperService.constants.status.SUCCESS);
+          this.onNoClick();
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
+          this.registerTeamObj.loading = false;
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_ALREADY_EXIST,
+            this.helperService.constants.status.ERROR);
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.registerTeamObj.loading = false;
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
+            this.helperService.constants.status.ERROR);
+        }
+      }, (error) => {
         this.registerTeamObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
           this.helperService.constants.status.ERROR);
       }
-    }, (error) => {
-      this.registerTeamObj.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
-        this.helperService.constants.status.ERROR);
-    }
     );
   }
 
-  selected(event: MatAutocompleteSelectedEvent, users: any[]): void {
-    this.helperService.selected(event, users);
-    this.userInput.nativeElement.value = '';
-    this.registerTeamObj.userCtrl.setValue(null);
+  /**
+   * this function pushes selected user's info to the array
+   * @params user
+   */
+  addToSelected(user) {
+    this.registerTeamObj.selectedUsers.push(user);
+    this.registerTeamObj.filteredSelectedList.push(user);
   }
 
-  private editOrRegister() {
-    if (this.registerTeamObj.editTeam === true) {
-      this.registerTeamObj.teamInfo = this.data.teamList;
-      this.registerTeamObj.userInfo = this.compiler.constructDataForTeams(this.data.teamList.users);
-      this.registerTeamObj.users = this.registerTeamObj.userInfo;
+  /**
+   *this function removes the user from list on remove button
+   * @params selectedUser
+   */
+  removeFromSelected (selectedUser: any) {
+    if (selectedUser.id === this.registerTeamObj.teamLeadID ) {
+      this.registerTeamObj.teamLeadID = null;
     }
-    this.registerTeamObj.allUsersList = this.data.allUsersOfTeam ? this.data.allUsersOfTeam.map(
-      x => Object.assign({}, x))
-      : [];
-    this.registerTeamObj.filteredUsers = this.registerTeamObj.userCtrl.valueChanges.pipe(
-      startWith(null),
-      map((user: any | null) => {
-        return user
-          ? this.helperService._filter(user, this.registerTeamObj.allUsersList)
-          : this.registerTeamObj.allUsersList.slice();
-      })
-    );
+    let index: number = this.registerTeamObj.selectedUsers.indexOf(selectedUser);
+    if (index !== -1) {
+      this.registerTeamObj.selectedUsers.splice(index, 1);
+    }
+    let index2: number = this.registerTeamObj.filteredSelectedList.indexOf(selectedUser);
+    if (index2 !== -1) {
+      this.registerTeamObj.filteredSelectedList.splice(index2, 1);
+    }
+  }
+
+  /**
+   * this function pushes the selected user's info to a variable.
+   * @params user
+   */
+
+  makeTeamLead(user: any) {
+    this.registerTeamObj.teamLeadID = user.id;
+  }
+
+  /**
+   * this function takes the selected users list, title and team lead information to generate team data
+   * @params value
+   */
+  teamData(value) {
+    let teamMembersIds: any = [];
+    this.helperService.iterations(this.registerTeamObj.selectedUsers, function (obj) {
+      teamMembersIds.push(obj.id);
+    });
+    let team: any = {
+      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+      title: value.title,
+      teamLead: this.registerTeamObj.teamLeadID,
+      teamMembers: teamMembersIds,
+    };
+    return team;
+  }
+
+  /**
+   * this function checks if the user in the list is added to selected list or not
+   * @params user
+   */
+  alreadyAddedCheck(user: any) {
+    for (let i = 0; i < this.registerTeamObj.filteredSelectedList.length; i++) {
+      if (this.registerTeamObj.filteredSelectedList[i].id === user.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  removeTeamLead() {
+    this.registerTeamObj.teamLeadID = null;
+  }
+
+  filterSelectedUserList(value) {
+    let filterValue = value.toLowerCase();
+    this.registerTeamObj.filteredSelectedList = this.registerTeamObj.selectedUsers.filter(
+      user => user.name.toLowerCase().startsWith(filterValue));
   }
 }
 
