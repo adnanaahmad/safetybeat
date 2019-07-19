@@ -2,6 +2,7 @@ import {FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
 import {PermissionsModel} from './permissions.model';
+import {responseDetails} from '../user.model';
 
 
 export class QuestionCenter {
@@ -42,33 +43,59 @@ export interface AddQuestionData {
 }
 
 export interface QuestionsData {
-  pageCount: number,
-  parentQuestions: Questions[],
-  childQuestions: Questions[],
+  pageCount: number;
+  parentQuestions: Questions[];
+  childQuestions: Questions[];
   questionList: Questions[]
 }
 
 export interface Questions {
-  id: number,
-  canProceed: boolean,
-  default: boolean,
-  description: string,
-  entity: number,
-  parent: boolean,
-  safe: string,
+  id: number;
+  canProceed: boolean;
+  default: boolean;
+  description: string;
+  entity: number;
+  parent: boolean;
+  safe: string;
   warning: string
 }
 
 export interface EntityQuestionResponse {
-  // pageCount: number,
-  entityQuestionList: EntityQuestion[]
+  data: {
+    pageCount: number;
+    entityQuestionList: Array<EntityQuestion>
+  };
+  responseDetails: responseDetails
 }
 
 export interface EntityQuestion {
-  id: number,
-  parent: Questions,
-  childYes: Questions,
-  childNo: Questions,
-  childYesSafe: boolean,
-  childNoSafe: boolean,
+  id: number;
+  parent: Questions;
+  childYes: Questions;
+  childNo: Questions;
+  childYesSafe: boolean;
+  childNoSafe: boolean;
+  entity: number
+}
+
+export interface AllQuestionsApiResponse {
+  data: {
+    pageCount: number;
+    questionList: Array<Questions>
+  };
+  responseDetails: responseDetails
+}
+
+export interface GenerateQuestionData {
+  parentQuestion: number;
+  childYes: number;
+  childNo: number;
+  childYesSafe: boolean;
+  childNoSafe: boolean;
+  entity?: number;
+}
+
+export interface EditAddQuestionResponse {
+  data: object;
+  responseDetails: responseDetails;
 }

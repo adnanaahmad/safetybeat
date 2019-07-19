@@ -48,14 +48,19 @@ export class MyTeamComponent implements OnInit {
         this.helperService.appConstants.key))
     };
     this.memberService.getUsersList(data).subscribe((res) => {
-      if (res) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.allUsers = this.compiler.constructUserDataOfTeam(res.data);
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
   registerTeam() {
-    this.helperService.createDialog(RegisterTeamComponent, {disableClose: true,
+    this.helperService.createDialog(RegisterTeamComponent, {
+      disableClose: true,
       data: {Modal: false, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {

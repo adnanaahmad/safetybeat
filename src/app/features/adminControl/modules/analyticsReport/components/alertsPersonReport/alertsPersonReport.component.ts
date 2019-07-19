@@ -35,13 +35,13 @@ export class AlertsPersonReportComponent implements OnInit {
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.getAllUsers({entityId: this.alertPersonObj.entityId});
-    this.getAllTeams({entity: this.alertPersonObj.entityId});
+    this.getAllTeams({entityId: this.alertPersonObj.entityId});
   }
 
   getAllUsers(data) {
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
-        this.alertPersonObj.allUserList = this.compiler.entityUser(res.data);
+        this.alertPersonObj.allUserList = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);

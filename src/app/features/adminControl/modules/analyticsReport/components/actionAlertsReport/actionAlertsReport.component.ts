@@ -35,13 +35,13 @@ export class ActionAlertsReportsComponent implements OnInit {
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.getAllUsers({entityId: this.actionAlertObj.entityId});
-    this.getAllTeams({entity: this.actionAlertObj.entityId});
+    this.getAllTeams({entityId: this.actionAlertObj.entityId});
   }
 
   getAllUsers(data) {
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
-        this.actionAlertObj.allUserList = this.compiler.entityUser(res.data);
+        this.actionAlertObj.allUserList = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);

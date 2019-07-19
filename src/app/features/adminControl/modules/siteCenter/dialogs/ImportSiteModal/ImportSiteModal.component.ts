@@ -15,7 +15,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 export class ImportSiteModalComponent implements OnInit {
 
   importSiteModal: ImportSite = <ImportSite>{};
-  private fileName: string;
+  fileName: string;
 
   constructor(
     public helperService: HelperService,

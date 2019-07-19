@@ -35,13 +35,13 @@ export class CompliantCheckoutReportComponent implements OnInit {
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.getAllUsers({entityId: this.compliantObj.entityId});
-    this.getAllTeams({entity: this.compliantObj.entityId});
+    this.getAllTeams({entityId: this.compliantObj.entityId});
   }
 
   getAllUsers(data) {
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
-        this.compliantObj.allUserList = this.compiler.entityUser(res.data);
+        this.compliantObj.allUserList = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
