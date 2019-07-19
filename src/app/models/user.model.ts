@@ -11,6 +11,7 @@ export interface User {
   last_name: string;
   contactNo: string;
   profileImage: Blob;
+  name: string;
 }
 
 export interface PackageInfo {
