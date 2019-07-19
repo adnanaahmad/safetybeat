@@ -7,6 +7,9 @@
 </mat-card-title>
 
 <div mat-dialog-content>
+  <div class="spinner-wrap" *ngIf="importSiteModal.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <h1 class="mat-h3">{{helperService.translated.MESSAGES.CSVIMPORT_MSG}}</h1>
   <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)
         [enctype]="importSiteModal.type">

@@ -31,10 +31,13 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.addSiteObj.loading = false;
     this.addSiteObj.modalType = data.Modal;
+    this.addSiteObj.enableRadius = false;
     if (data && data.site) {
       this.addSiteObj.site = data.site;
       this.addSiteObj.siteSafetyManager = data.site.siteSafetyManager;
       this.addSiteObj.createdBy = data.site.createdBy;
+      this.addSiteObj.radius = data.site.radius;
+      this.addSiteObj.gpsTrackEnabled = data.site.gpsTrackEnabled;
     }
   }
 
@@ -53,11 +56,17 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteAddress: ['', Validators.required],
       safeZone: false,
       siteSafetyManager: ['', Validators.required],
+      radius: [''],
+      gpsTrackEnabled: ['']
     });
     if (this.addSiteObj.modalType === false) {
       this.viewSiteInfo();
       this.getAllUsers();
     }
+  }
+
+  setRadius(mapProp, radius) {
+    this.helperService.setLocationGeocode(this.helperService.address, this.helperService.createMap(this.gMapElement), parseInt(radius, 10));
   }
 
   /**
@@ -105,10 +114,14 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteSafetyPlan: this.addSiteObj.site.siteSafetyPlan,
       siteAddress: this.addSiteObj.site.location,
       safeZone: this.addSiteObj.site.safeZone,
-      siteSafetyManager: this.addSiteObj.siteSafetyManager.id
+      siteSafetyManager: this.addSiteObj.siteSafetyManager.id,
+      radius: this.addSiteObj.site.radius,
+      gpsTrackEnabled: this.addSiteObj.site.gpsTrackEnabled
     });
+    this.setRadiusEnabled(this.addSiteObj.site.location);
     this.helperService.address = this.addSiteObj.site.location;
-    this.helperService.setLocationGeocode(this.addSiteObj.site.location, this.helperService.createMap(this.gMapElement));
+    this.helperService.setLocationGeocode(this.addSiteObj.site.location,
+      this.helperService.createMap(this.gMapElement), this.addSiteObj.site.radius);
   }
 
   /**
@@ -122,7 +135,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     };
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
-        this.addSiteObj.entityUsers = this.compiler.entityUser(res.data);
+        this.addSiteObj.entityUsers = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
@@ -143,6 +156,8 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       latitude: this.helperService.latitude,
       safeZone: value.safeZone,
       siteSafetyPlan: value.siteSafetyPlan,
+      radius: value.radius,
+      gpsTrackEnabled: value.gpsTrackEnabled,
       entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key)),
     };
@@ -160,11 +175,12 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   editSite(value: SiteAddData) {
     this.addSiteObj.loading = true;
     this.adminServices.editSite(this.addSiteObj.site.id, this.generateSiteData(value, true)).subscribe((res) => {
-      this.addSiteObj.loading = false;
       this.onNoClick();
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.addSiteObj.loading = false;
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
       } else {
+        this.addSiteObj.loading = false;
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
       }
     }, (error) => {
@@ -181,13 +197,17 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   addSite(value: SiteAddData) {
     this.addSiteObj.loading = true;
     this.adminServices.addSite(this.generateSiteData(value, false)).subscribe((res) => {
-      this.addSiteObj.loading = false;
-      this.onNoClick();
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.addSiteObj.loading = false;
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.addSiteObj.loading = false;
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       } else {
+        this.addSiteObj.loading = false;
+        this.onNoClick();
         this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
     }, error => {
@@ -197,4 +217,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     });
   }
 
+  setRadiusEnabled(value: string) {
+    this.addSiteObj.enableRadius = value ? true : false;
+  }
 }

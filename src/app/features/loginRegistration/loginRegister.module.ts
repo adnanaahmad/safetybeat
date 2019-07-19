@@ -13,7 +13,6 @@ import { CompilerProvider } from 'src/app/services/common/compiler/compiler';
 import { ForgotPasswordComponent } from './components/forgotPassword/forgotPassword.component';
 import { ParticleContainerComponent } from './components/particleContainer/particleContainer.component';
 import { PasswordRecoveryComponent } from './components/passwordRecovery/passwordRecovery.component';
-import { LandingComponent } from './components/landing/landing.component';
 import { PackageDetailsComponent } from './components/packageDetails/packageDetails.component';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { PackageDetailsComponent } from './components/packageDetails/packageDeta
     ForgotPasswordComponent,
     ParticleContainerComponent,
     PasswordRecoveryComponent,
-    LandingComponent,
     PackageDetailsComponent
   ],
   providers: [

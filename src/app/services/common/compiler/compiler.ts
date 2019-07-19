@@ -7,11 +7,11 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
-import {DocList, DocumentObj, Folder} from '../../../models/navigation/documents.model';
-import {ActionReportData, UserActionReportData} from '../../../models/analyticsReport/actionReports.model';
+import {DocList, DocumentObj, Folder} from 'src/app/models/navigation/documents.model';
+import {ActionReportData, UserActionReportData} from 'src/app/models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {EntityQuestion} from '../../../models/adminControl/questionCenter.model';
+import {EntityQuestion} from 'src/app/models/adminControl/questionCenter.model';
 import {QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable()

@@ -9,10 +9,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class SiteMapComponent implements OnInit {
   @ViewChild('gmap') gMapElement: ElementRef;
+
   constructor(
     public helperService: HelperService,
-              public dialogRef: MatDialogRef<SiteMapComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+    public dialogRef: MatDialogRef<SiteMapComponent>,
+    @Inject(MAT_DIALOG_DATA) public data) {
   }
 
   ngOnInit() {
@@ -27,14 +28,16 @@ export class SiteMapComponent implements OnInit {
     let val = this.helperService.createMap(this.gMapElement, {
       zoom: 15,
       center: {lat: this.data.siteData[0].longitude, lng: this.data.siteData[0].latitude},
+      draggable: true, draggableCursor: ''
     });
     for (let i = 0; i < this.data.siteData.length; i++) {
       this.helperService.addMarker(val, {lat: this.data.siteData[i].longitude, lng: this.data.siteData[i].latitude});
+      this.helperService.addCircle(val, {lat: this.data.siteData[i].longitude, lng: this.data.siteData[i].latitude}, 500);
     }
   }
 
-   singleSite() {
-     let val = this.helperService.createMap(this.gMapElement);
-     this.helperService.addMarker(val, {lat: this.data.siteData.longitude, lng: this.data.siteData.latitude});
+  singleSite() {
+    let val = this.helperService.createMap(this.gMapElement);
+    this.helperService.addMarker(val, {lat: this.data.siteData.longitude, lng: this.data.siteData.latitude});
   }
 }

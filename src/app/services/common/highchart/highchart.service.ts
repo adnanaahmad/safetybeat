@@ -6,7 +6,7 @@ import {
   UserActionReportData,
   userCheckIn,
   userCheckOut
-} from '../../../models/analyticsReport/actionReports.model';
+} from 'src/app/models/analyticsReport/actionReports.model';
 import {HelperService} from '../helperService/helper.service';
 
 @Injectable({

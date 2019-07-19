@@ -5,7 +5,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {MatDialogRef} from '@angular/material';
-import {CompilerProvider} from '../../../../../../services/common/compiler/compiler';
+import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 
 @Component({
   selector: 'app-ImportSiteModal',
@@ -84,19 +84,23 @@ export class ImportSiteModalComponent implements OnInit {
     formData.append('entityId', entityId);
     this.importSiteModal.loading = true;
     this.adminServices.importSite(formData).subscribe((res) => {
-        this.importSiteModal.importSiteResponse = res;
-        if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.importSiteModal.loading = false;
-          this.onNoClick();
-          this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-            this.helperService.translated.MESSAGES.SITE_IMPORT_SUCCESS);
-        } else if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.importSiteModal.loading = false;
-          this.helperService.appLogger(this.helperService.constants.status.ERROR,
-            this.helperService.translated.MESSAGES.SITE_IMPORT_FAILURE);
-        }
+      this.importSiteModal.importSiteResponse = res;
+      if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.importSiteModal.loading = false;
+        this.onNoClick();
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_IMPORT_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else if (this.importSiteModal.importSiteResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.importSiteModal.loading = false;
+        this.onNoClick();
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_IMPORT_FAILURE,
+          this.helperService.constants.status.ERROR);
       }
-    );
+    }, (error) => {
+      this.importSiteModal.loading = false;
+      this.onNoClick();
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
 
   }
 }

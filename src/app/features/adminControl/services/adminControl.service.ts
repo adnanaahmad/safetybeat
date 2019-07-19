@@ -3,13 +3,13 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
+import {RefreshEntityCodeResponse, ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
 import {CreateEntityResponse} from 'src/app/models/adminControl/createEntity.model';
 import {AllHazardsApiData, AllHazardsApiResponseData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {
   AddSiteApiResponse,
-  AddSiteData, PaginationData,
+  AddSiteData, PaginationData, RefreshSiteCodeApiResponse, sendSiteCodeApiData, SendSiteCodeApiResponse,
   ViewAllSiteEntityData, ViewAllSitesApiResponse,
 } from 'src/app/models/site.model';
 
@@ -119,9 +119,7 @@ export class AdminControlService {
    */
 
   deleteEntity(id) {
-    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.editEntity}
-/${id}
-/`);
+    return this.helperService.requestCall(this.method.delete, `${this.apiRoutes.editEntity}/${id}/`);
   }
 
   /**
@@ -263,4 +261,15 @@ export class AdminControlService {
     );
   }
 
+  sendSiteCode(data: sendSiteCodeApiData): Observable<SendSiteCodeApiResponse> {
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.sendSiteCode, data);
+  }
+
+  refreshSiteCode(data: object): Observable<RefreshSiteCodeApiResponse> {
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.refreshSiteCode, data);
+  }
+
+  refreshEntityCode(data: object): Observable<RefreshEntityCodeResponse> {
+    return this.helperService.requestCall(this.method.post, this.helperService.constants.apiRoutes.refreshEntityCode, data);
+  }
 }

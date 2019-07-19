@@ -343,6 +343,7 @@
     "EDIT_HAZARD": "Edit Hazard",
     "SITE_HAZARD_DETAIL": "Site Hazard Details",
     "ENTITYCODE_FOR": "Entity Code for",
+    "SITECODE_FOR": "Site Code for",
     "CREATEGROUP": "Create Group",
     "ENTITY_SETTINGS": "Entity Settings",
     "PERMISSION_SETTINGS": "Permission Settings",
@@ -473,7 +474,8 @@
     "DELETE_ENTITY": "Delete Entity",
     "TITLE": "Title",
     "HAZARD_DETAILS": "View Hazard",
-    "TEAM_LEAD": "Team Lead"
+    "TEAM_LEAD": "Team Lead",
+    "RADIUS": "Radius"
   },
   "LOGGER": {
     "STATUS": {
