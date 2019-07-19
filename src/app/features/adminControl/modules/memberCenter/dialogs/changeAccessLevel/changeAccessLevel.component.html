@@ -3,14 +3,16 @@
   <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
     <mat-tab-group>
       <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
-        <div class="permission-wrap" *ngFor="let permissions of helperService.appConstants.permissions">
-          <mat-checkbox [formControlName]="permissions.key"
-                        (change)="checkEnable($event, permissions.values)">{{permissions.name}}
+        <div class="permission-wrap" *ngFor="let permissionsArr of helperService.appConstants.permissions">
+          <mat-checkbox [formControlName]="permissionsArr.key"
+                        (change)="checkEnable($event.checked, permissionsArr.values);">{{permissionsArr.name}}
           </mat-checkbox>
           <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permissionObj of permissions.values">
-              <mat-checkbox [formControlName]="permissionObj.key">{{permissionObj.value}}
-              </mat-checkbox>&nbsp;&nbsp;<br>
+            <mat-card-content *ngFor="let permissionObj of permissionsArr.values">
+              <mat-checkbox [disabled]="!permissions.permissionsForm.controls[permissionsArr.key].value"
+                            [formControlName]="permissionObj.key">{{permissionObj.value}}
+              </mat-checkbox>
+              <br>
             </mat-card-content>
           </mat-card>
         </div>
@@ -19,11 +21,12 @@
       <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
         <div class="permission-wrap">
           <mat-checkbox [formControlName]="helperService.appConstants.reports"
-                        (change)="checkReportsEnable($event)">Reports
+                        (change)="checkEnable($event.checked,helperService.appConstants.reportsPermissions)">Reports
           </mat-checkbox>
           <mat-card class="mat-elevation-z1">
             <mat-card-content *ngFor="let permission of helperService.appConstants.reportsPermissions">
-              <mat-checkbox [disabled]="permissions.disableReports" [formControlName]="permission.key">{{permission.value}}
+              <mat-checkbox [disabled]="!permissions.permissionsForm.controls[helperService.appConstants.reports].value"
+                            [formControlName]="permission.key">{{permission.value}}
               </mat-checkbox>&nbsp;&nbsp;<br>
             </mat-card-content>
           </mat-card>

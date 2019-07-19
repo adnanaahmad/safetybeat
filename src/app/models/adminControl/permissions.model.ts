@@ -66,7 +66,6 @@ export interface PermissionsModel {
 }
 
 export interface ChangePermissionsObj {
-  disableReports: boolean;
   disable: boolean;
   unChanged: boolean;
   permissionsForm: FormGroup;
