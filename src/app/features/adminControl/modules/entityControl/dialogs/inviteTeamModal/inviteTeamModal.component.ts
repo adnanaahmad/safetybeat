@@ -29,8 +29,7 @@ export class InviteTeamModalComponent implements OnInit {
     public dialogRef: MatDialogRef<InviteTeamModalComponent>,
     public helperService: HelperService,
     private adminServices: AdminControlService,
-    private navService: NavigationService,
-    @Inject(MAT_DIALOG_DATA) public data: InviteTeamModelData,
+    @Inject(MAT_DIALOG_DATA) public data,
   ) {
     this.initialize();
     this.inviteTeamModel.allUsers = this.data.inviteTeamData.usersData
@@ -87,7 +86,7 @@ export class InviteTeamModalComponent implements OnInit {
     let index = this.helperService.findIndex(
       this.inviteTeamModel.users,
       function (obj) {
-        return obj.first_name === event.option.value.first_name;
+        return obj.name === event.option.value.name;
       }
     );
     if (index === -1) {
@@ -103,11 +102,11 @@ export class InviteTeamModalComponent implements OnInit {
    */
 
   private _filter(value): Array<User> {
-    const filterValue = value && value.first_name
-      ? value.first_name.toLowerCase()
+    const filterValue = value && value.name
+      ? value.name.toLowerCase()
       : value.toLowerCase();
     return this.inviteTeamModel.allUsers.filter(user => {
-      return user.first_name.toLowerCase().indexOf(filterValue) === 0;
+      return user.name.toLowerCase().indexOf(filterValue) === 0;
     });
   }
 

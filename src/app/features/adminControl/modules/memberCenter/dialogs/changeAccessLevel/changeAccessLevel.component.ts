@@ -122,7 +122,6 @@ export class ChangeAccessLevelComponent implements OnInit {
   }
 
   checkChange({value}: { value: PermissionsModel }) {
-    console.log(value)
     this.permissions.unChanged = this.helperService.isEqual(value, this.data.permissions) ? true : false;
   }
 

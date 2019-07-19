@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
-import {MatDialogConfig, MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
+import {MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {CreateEntityComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
@@ -13,6 +13,7 @@ import {EntityControl, InviteTeamData} from 'src/app/models/adminControl/entityC
 import {JoinEntityModalComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {Entity} from 'src/app/models/userEntityData.model';
+import {MemberCenterService} from '../../../memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-entityControl',
@@ -30,7 +31,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private navService: NavigationService,
     private userService: ProfileService,
-    private compiler: CompilerProvider
+    private compiler: CompilerProvider,
+    private memberService: MemberCenterService,
   ) {
     this.initialize();
     this.helperService.toggleLoader(true);
@@ -38,14 +40,6 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res) {
         this.entityControl.currentUserData = res;
-      }
-    });
-    this.entityControl.subscription = this.userService.usersData.subscribe(res => {
-      if (res === 1) {
-        this.getUsers();
-      } else {
-        this.entityControl.allUsersList = res;
-        this.helperService.toggleLoader(false);
       }
     });
   }
@@ -56,6 +50,9 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.viewAllEntities();
+    this.entityControl.entityId = JSON.parse(this.helperService.decrypt(
+      localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+      this.helperService.appConstants.key));
   }
 
   /**
@@ -136,7 +133,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       data: {
         entity: entityData.entityInfo,
         permissions: this.entityControl.permissions.refreshEntityCode
-      }});
+      }
+    });
   }
 
   /**
@@ -160,46 +158,25 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * this function is used for getting all the users who are being invited to that particular entity.
-   */
-
-  getUsers() {
-    this.helperService.toggleLoader(true);
-    this.userService.getAllUsers().subscribe(
-      result => {
-        this.helperService.toggleLoader(false);
-        this.userService.updateUsers(result.data);
-      },
-      (error) => {
-        this.helperService.toggleLoader(false);
-      }
-    );
-  }
-
-  /**
    *  this function will be used when we will make the teams of the users and in that team we will add the users.
    * @params entityData
    */
 
   inviteTeam(entityData: InviteTeamData) {
-    if (this.entityControl.allUsersList.length !== 0) {
-      let self = this;
-      this.helperService.iterations(this.entityControl.allUsersList, function (value) {
-        if (value.email !== self.entityControl.currentUserData.email) {
-          self.entityControl.allUsersData.push(value);
+    this.memberService.allEntityUsers({entityId: this.entityControl.entityId}).subscribe((res) => {
+      if (res) {
+        let inviteTeamData = {
+          entityData: entityData.entityInfo.code,
+          usersData: this.compiler.constructDataForTeams(res.data)
         }
-      });
-      let inviteTeamData = {
-        entityData: entityData.entityInfo.code,
-        usersData: this.entityControl.allUsersData
-      };
-      this.helperService.createDialog(InviteTeamModalComponent, {
-        data: {inviteTeamData},
-        disableClose: true
-      });
-    } else {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.NOUSER, this.helperService.translated.LOGGER.STATUS.ERROR);
-    }
+        this.helperService.createDialog(InviteTeamModalComponent, {
+          data: {inviteTeamData},
+          disableClose: true
+        });
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
   }
 
   /**
