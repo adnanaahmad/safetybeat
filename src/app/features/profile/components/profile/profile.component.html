@@ -28,7 +28,7 @@
 
 <div class="paddingbox">
     <div class="grid-container">
-        <mat-grid-list cols="3" rowHeight="300px" gutterSize="10px">
+        <mat-grid-list cols="3" rowHeight="fit" gutterSize="10px">
             <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
                 <mat-card class="dashboard-card" fullWidth *ngIf="card.title=='links'">
                     <div class="navigator">
@@ -66,7 +66,6 @@
                         <mat-list-item role="listitem">
                             <span class="mat-body-strong">{{helperService.translated.STRINGS.PHONENO + ': ' + profileModel.contactNo}}</span>
                         </mat-list-item>
-                        <mat-divider></mat-divider>
                     </mat-list>
                 </mat-card>
 
