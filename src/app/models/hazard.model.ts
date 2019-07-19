@@ -10,6 +10,7 @@ export interface HazardModel {
   entityId: number;
   dataSource: MatTableDataSource<any>;
   displayedColumns: Array<string>;
+  loading:boolean;
 }
 
 export interface AddHazardModel {
@@ -23,6 +24,7 @@ export interface AddHazardModel {
   note: string;
   description: string;
   action: string;
+  loading: boolean;
 }
 
 export interface Hazard {

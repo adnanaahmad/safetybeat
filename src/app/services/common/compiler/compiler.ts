@@ -12,7 +12,7 @@ import {DocumentObj, Folder} from '../../../models/navigation/documents.model';
 import {ActionReportData, UserActionReportData} from '../../../models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {EntityQuestion} from '../../../models/adminControl/questionCenter.model';
+import {EntityQuestion} from 'src/app/models/adminControl/questionCenter.model';
 import {QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable()

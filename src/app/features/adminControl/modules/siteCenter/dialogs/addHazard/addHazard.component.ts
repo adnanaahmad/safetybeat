@@ -38,6 +38,10 @@ export class AddHazardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.hazardObj.name = '';
+    this.hazardObj.description = '';
+    this.hazardObj.note = '';
+
     this.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.entityName =  res.entityInfo.name;
@@ -63,8 +67,6 @@ export class AddHazardComponent implements OnInit {
     }
 
   }
-
-
 
   viewHazardInfo() {
     if (this.hazardInfo.image) {
@@ -172,5 +174,12 @@ export class AddHazardComponent implements OnInit {
           this.helperService.constants.status.ERROR);
       }
     );
+  }
+
+  saveValues(value) {
+    console.log(value);
+    this.hazardObj.name = value.title;
+    this.hazardObj.description = value.description;
+    this.hazardObj.note = value.note;
   }
 }

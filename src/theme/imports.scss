@@ -4,8 +4,6 @@
 @import "~src/app/features/loginRegistration/components/login/login.component.scss";
 @import "~src/app/features/loginRegistration/components/forgotPassword/forgotPassword.component.scss";
 @import "~src/app/features/loginRegistration/components/passwordRecovery/passwordRecovery.component.scss";
-@import "~src/app/features/loginRegistration/components/landing/landing.component.scss";
-@import "../app/dialogs/verification/verification.component.scss";
 @import "~src/app/features/navigation/components/fixedNav/fixedNav.component.scss";
 @import "~src/app/features/navigation/components/navList/navList.component.scss";
 @import "~src/app/features/navigation/components/navigation/navigation.component.scss";
@@ -51,7 +49,7 @@
 @import "~src/app/features/adminControl/modules/documents/components/showFolderDocuments/showFolderDocuments.component.scss";
 @import "~src/app/features/loginRegistration/components/particleContainer/particleContainer.component.scss";
 @import "~src/app/components/particleContainer/particleContainer2.component.scss";
-
+@import "~src/app/features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -65,8 +63,6 @@
   @include amte-registration($primary, $accent, $warn);
   @include amte-login($primary, $accent, $warn);
   @include amte-forgot-password($primary, $accent, $warn);
-  @include amte-app-landing($primary, $accent, $warn);
-  @include amte-verification($primary, $accent, $warn);
   @include amte-fixed-nav($primary, $accent, $warn);
   @include amte-nav-list($primary, $accent, $warn);
   @include amte-navigation($primary, $accent, $warn);
@@ -111,6 +107,7 @@
   @include amte-appfile($primary, $accent, $warn);
   @include amte-appfile($primary, $accent, $warn);
   @include amte-showDocuments($primary, $accent, $warn);
+  @include amte-siteCodeModal($primary, $accent, $warn);
   @include amte-particle-container($primary, $accent, $warn);
   @include amte-particle2Container($primary, $accent, $warn);
 }

@@ -123,7 +123,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.loginService.loginUser(value).subscribe(
       data => {
-        this.loginObj.loading = false;
         if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.loginObj.data = data;
           data
@@ -152,6 +151,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             );
             this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
               this.helperService.constants.status.SUCCESS);
+            this.loginObj.loading = false;
             this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           }, (err) => {
           });
@@ -164,6 +164,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
+          this.loginObj.loading = false;
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
         } else if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
           this.helperService.appLogger(this.helperService.constants.status.ERROR,
@@ -172,6 +173,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.ERROR,
             data.responseDetails.message
           );
+          this.loginObj.loading = false;
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
         }
       },

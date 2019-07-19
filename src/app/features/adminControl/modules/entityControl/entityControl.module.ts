@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { EntityControlRoutingModule } from './entityControl-routing.module';
 import {EntityControlComponent} from './components/entityControl/entityControl.component';
-import {MaterialModule} from '../../../../material.module';
+import {MaterialModule} from 'src/app/material.module';
 
 @NgModule({
   declarations: [

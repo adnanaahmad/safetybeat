@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HazardCenterRoutingModule } from './hazardCenter-routing.module';
 import {HazardCenterComponent} from './components/hazardCenter/hazardCenter.component';
-import {MaterialModule} from '../../../../material.module';
+import {MaterialModule} from 'src/app/material.module';
 
 @NgModule({
   declarations: [

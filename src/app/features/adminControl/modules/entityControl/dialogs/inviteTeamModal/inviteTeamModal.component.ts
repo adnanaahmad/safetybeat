@@ -141,6 +141,7 @@ export class InviteTeamModalComponent implements OnInit {
             res.responseDetails.message,
             this.helperService.constants.status.SUCCESS
           );
+          this.inviteTeamModel.loading = false;
           this.onNoClick();
         } else {
           this.helperService.createSnack(
@@ -148,10 +149,11 @@ export class InviteTeamModalComponent implements OnInit {
             this.helperService.constants.status.ERROR
           );
           this.onNoClick();
+          this.inviteTeamModel.loading = false;
         }
-        this.inviteTeamModel.loading = false;
       },
       (error) => {
+        this.onNoClick();
         this.inviteTeamModel.loading = false;
         this.helperService.handleError(error, this);
       }

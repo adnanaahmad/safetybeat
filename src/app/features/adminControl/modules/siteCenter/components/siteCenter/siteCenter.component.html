@@ -1,4 +1,7 @@
 <div class="paddingbox">
+  <div class="spinner-wrap" *ngIf="siteCentreObj.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
     <div class="buttonRow">
@@ -77,6 +80,10 @@
             Actions
           </button>
           <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="SiteCode(element)">
+              <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
+              View Site Code
+            </button>
             <button mat-menu-item *ngIf="siteCentreObj.permissions.editSite" (click)='editSite(element)'>
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
               Edit Site
@@ -89,9 +96,9 @@
               <mat-icon>{{ helperService.appIcons.siteQuestionCenter }}</mat-icon>
               Site Question Control
             </button>
-            <button mat-menu-item>
-              <mat-icon>{{ helperService.appIcons.log }}</mat-icon>
-              Log
+            <button mat-menu-item (click)="shareSiteCode(element)">
+              <mat-icon>{{ helperService.appIcons.share }}</mat-icon>
+              Share Site Code
             </button>
             <button mat-menu-item *ngIf="siteCentreObj.permissions.addHazard" (click)="addHazard(element)">
               <mat-icon>{{ helperService.appIcons.warning }}</mat-icon>

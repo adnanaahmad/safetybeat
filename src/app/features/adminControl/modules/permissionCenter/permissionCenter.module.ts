@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PermissionCenterRoutingModule } from './permissionCenter-routing.module';
 import {PermissionCenterComponent} from './components/permissionCenter/permissionCenter.component';
-import {MaterialModule} from '../../../../material.module';
+import {MaterialModule} from 'src/app/material.module';
 
 @NgModule({
   declarations: [

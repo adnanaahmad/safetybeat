@@ -24,10 +24,6 @@ export class CreateEntityComponent implements OnInit {
     private compiler: CompilerProvider,
     private navService: NavigationService,
   ) {
-    this.helperService.appLoggerDev(
-      this.helperService.translated.LOGGER.STATUS.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY
-    );
   }
 
   /**
@@ -71,25 +67,13 @@ export class CreateEntityComponent implements OnInit {
     };
 
     if (!valid) {
-      this.helperService.appLoggerDev(
-        this.helperService.constants.status.WARNING,
-        valid
-      );
-      this.helperService.appLogger(
-        this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR
+      this.helperService.createSnack(
+        this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY_ERROR,
+        this.helperService.constants.status.ERROR
       );
       this.createEntityObj.loading = false;
       return;
     }
-    this.helperService.appLoggerDev(
-      this.helperService.constants.status.INFO,
-      valid
-    );
-    this.helperService.appLogger(
-      this.helperService.constants.status.INFO,
-      JSON.stringify(value)
-    );
     this.adminServices.createEntity(this.createEntityObj.entityDetails).subscribe(
       result => {
         this.createEntityObj.entityResponse = result;
@@ -99,9 +83,9 @@ export class CreateEntityComponent implements OnInit {
             this.createEntityObj.entityUserData = this.compiler.constructUserEntityData(this.createEntityObj.entitiesList.data);
             this.navService.changeEntites(this.createEntityObj.entityUserData);
             this.createEntityObj.loading = false;
-            this.helperService.appLogger(
-              this.helperService.constants.status.SUCCESS,
-              this.createEntityObj.entityResponse.responseDetails.message
+            this.helperService.createSnack(
+              this.createEntityObj.entityResponse.responseDetails.message,
+              this.helperService.constants.status.SUCCESS
             );
             this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           });

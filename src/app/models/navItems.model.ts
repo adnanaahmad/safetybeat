@@ -3,6 +3,6 @@ export interface NavItem {
     disabled?: boolean;
     iconName?: string;
     route?: string;
-    children?: NavItem[];
+    children?: Array<NavItem>;
     toolTip?: string;
 }

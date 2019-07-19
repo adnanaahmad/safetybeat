@@ -1,6 +1,6 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {MAT_DIALOG_DATA, MatAutocomplete, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatAutocomplete, MatCheckboxChange, MatDialogRef} from '@angular/material';
 import {QuestionCenter, Questions} from 'src/app/models/adminControl/questionCenter.model';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
@@ -52,6 +52,8 @@ export class AddQuestionComponent implements OnInit {
     this.QuestionObj.filteredParentQuestion = this.data.parentQuestions;
     this.QuestionObj.filteredChildYesQuestion = this.data.childQuestions;
     this.QuestionObj.filteredChildNoQuestion = this.data.childQuestions;
+    this.QuestionObj.childNo = false;
+    this.QuestionObj.childYes = false;
 
   }
 
@@ -92,6 +94,10 @@ export class AddQuestionComponent implements OnInit {
     this.questionCenterService.addQuestion(this.generateQuestionData(questionForm)).subscribe((res) => {
       this.QuestionObj.loading = false;
       this.onNoClick();
+    }, (error) => {
+      this.QuestionObj.loading = false;
+      this.onNoClick();
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -127,4 +133,29 @@ export class AddQuestionComponent implements OnInit {
     return question ? question.description : undefined;
   }
 
+  /**
+   * this function is used to enable and the child yes options
+   * @params event
+   */
+
+  childYesEnable(event: MatCheckboxChange | Event) {
+    if (!(event instanceof MatCheckboxChange) || event.checked) {
+      this.QuestionObj.childYes = true;
+    } else {
+      this.QuestionObj.childYes = false;
+    }
+  }
+
+  /**
+   * this function is used to enable and disable child no options
+   * @params event
+   */
+
+  childNoEnable(event: MatCheckboxChange | Event) {
+    if (!(event instanceof MatCheckboxChange) || event.checked) {
+      this.QuestionObj.childNo = true;
+    } else {
+      this.QuestionObj.childNo = false;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import {Subscription} from 'rxjs';
-import {User} from '../../user.model';
+import {User} from 'src/app/models/user.model';
 import {PermissionsModel} from '../permissions.model';
 
 export interface MemberCenter {

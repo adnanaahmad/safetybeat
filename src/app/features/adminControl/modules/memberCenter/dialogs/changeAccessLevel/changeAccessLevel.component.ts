@@ -118,12 +118,11 @@ export class ChangeAccessLevelComponent implements OnInit {
   }
 
   checkChange({value}: { value: PermissionsModel }) {
-    console.log(value)
     this.permissions.unChanged = this.helperService.isEqual(value, this.data.permissions) ? true : false;
   }
 
   checkEnable(event: MatCheckboxChange | Event, permissions) {
-    let self = this
+    let self = this;
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(permissions, function (value) {
         self.permissions.permissionsForm.get(value.key).setValue(true);
@@ -138,7 +137,7 @@ export class ChangeAccessLevelComponent implements OnInit {
   }
 
   checkReportsEnable(event: MatCheckboxChange | Event) {
-    let self = this
+    let self = this;
     if (!(event instanceof MatCheckboxChange) || event.checked) {
       self.helperService.iterations(this.helperService.appConstants.reportsPermissions, function (value) {
         self.permissions.permissionsForm.get(value.key).setValue(true)

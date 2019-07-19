@@ -10,7 +10,7 @@ import {ViewTeamComponent} from 'src/app/features/adminControl/modules/myTeam/di
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
-import {PaginationData} from '../../../../../../models/site.model';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-my-team',
