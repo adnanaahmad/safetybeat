@@ -5,6 +5,7 @@ import {Administrator, Entity, EntityInfo, EntityPermissions, ReportAccess} from
 import {MatTableDataSource} from '@angular/material';
 
 export interface EntityControl {
+  entityId: number;
   permissions: PermissionsModel;
   dataSource: MatTableDataSource<Entity>;
   allUsersData: Array<User>;
