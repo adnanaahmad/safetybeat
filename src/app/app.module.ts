@@ -52,7 +52,6 @@ import {PageNotFoundComponent} from './components/pageNotFound/pageNotFound.comp
 import {ParticleContainer2Component} from './components/particleContainer/particleContainer2.component';
 import {SendSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {ShowSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
-import {AddActionComponent} from './features/adminControl/modules/siteCenter/dialogs/addAction/addAction.component';
 
 import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 
@@ -93,8 +92,7 @@ export function createTranslateLoader(http: HttpClient) {
         ParticleContainer2Component,
         SendSiteCodeComponent,
         ShowSiteCodeComponent,
-        FileRenameComponent,
-        AddActionComponent
+        FileRenameComponent
     ],
     imports: [
         MatDatepickerModule,
@@ -171,8 +169,7 @@ export function createTranslateLoader(http: HttpClient) {
         ImageLightboxComponent,
         SendSiteCodeComponent,
         ShowSiteCodeComponent,
-        FileRenameComponent,
-        AddActionComponent
+        FileRenameComponent
     ]
 })
 export class AppModule {

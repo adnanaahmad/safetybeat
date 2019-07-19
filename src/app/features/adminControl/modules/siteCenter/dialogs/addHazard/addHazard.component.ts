@@ -4,7 +4,6 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {MAT_DIALOG_DATA, MatBottomSheet, MatDialogRef} from '@angular/material';
 import {AddHazardData, AddHazardModel, NewHazard, RiskType} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {AddActionComponent} from '../addAction/addAction.component';
 
 @Component({
     selector: 'app-addHazard',
@@ -156,7 +155,7 @@ export class AddHazardComponent implements OnInit {
         );
     }
 
-    openBottomSheet() {
-        this.bottomSheet.open(AddActionComponent);
-    }
+    // openBottomSheet() {
+    //     this.bottomSheet.open();
+    // }
 }
