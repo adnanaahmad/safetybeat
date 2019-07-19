@@ -82,7 +82,11 @@ export class ChangeAccessLevelComponent implements OnInit {
       deleteQuestion: this.permissions.permissionsData.deleteQuestion,
       role: this.permissions.permissionsData.role,
       default: this.permissions.permissionsData.default,
-      id: this.permissions.permissionsData.id
+      id: this.permissions.permissionsData.id,
+      viewSiteCode: this.permissions.permissionsData.viewSiteCode,
+      refreshSiteCode: this.permissions.permissionsData.refreshSiteCode,
+      shareSiteCode: this.permissions.permissionsData.shareSiteCode,
+      refreshEntityCode: this.permissions.permissionsData.refreshEntityCode
     });
     this.permissions.permissionsForm.valueChanges.subscribe(result => {
       this.checkChange(this.permissions.permissionsForm)
