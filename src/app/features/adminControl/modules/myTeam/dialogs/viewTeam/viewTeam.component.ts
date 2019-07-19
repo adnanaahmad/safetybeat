@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {ProfileImagePipe} from 'src/app/pipes/profileImage/profile-image.pipe';
 
 @Component({
   selector: 'app-view-team',

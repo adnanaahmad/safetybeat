@@ -1,6 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {PaginationData, ViewAllSiteEntityData} from 'src/app/models/site.model';
+import {Observable} from 'rxjs';
+import {
+  AllQuestionsApiResponse,
+  EditAddQuestionResponse,
+  EntityQuestionResponse,
+  GenerateQuestionData
+} from 'src/app/models/adminControl/questionCenter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +39,7 @@ export class QuestionCenterService {
     );
   }
 
-  getAllQuestions(entityData: ViewAllSiteEntityData, paginationData: PaginationData) {
+  getAllQuestions(entityData: ViewAllSiteEntityData, paginationData: PaginationData): Observable<AllQuestionsApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
       `${this.apiRoutes.getAllQuestions}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
@@ -40,7 +47,7 @@ export class QuestionCenterService {
     );
   }
 
-  addQuestion(data) {
+  addQuestion(data: GenerateQuestionData): Observable<EditAddQuestionResponse> {
     return this.helperService.requestCall(
       this.method.post,
       this.apiRoutes.parentChildQuestions,
@@ -48,7 +55,7 @@ export class QuestionCenterService {
     );
   }
 
-  editQuestion(data, id) {
+  editQuestion(data: GenerateQuestionData, id: number): Observable<EditAddQuestionResponse> {
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.parentChildQuestions}${id}/`,
@@ -56,9 +63,10 @@ export class QuestionCenterService {
     );
   }
 
-  viewAllEntityQuestions(entityData: ViewAllSiteEntityData, paginationData: PaginationData) {
+  viewAllEntityQuestions(entityData: ViewAllSiteEntityData, paginationData: PaginationData): Observable<EntityQuestionResponse> {
     return this.helperService.requestCall(this.method.post,
-`${this.apiRoutes.viewAllEntityQuestions}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      `${this.apiRoutes.viewAllEntityQuestions}?limit=${paginationData.limit}&offset=${paginationData.offset}
+      &search=${paginationData.search}`,
       entityData
     );
   }

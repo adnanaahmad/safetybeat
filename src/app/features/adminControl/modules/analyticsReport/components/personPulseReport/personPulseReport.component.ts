@@ -35,13 +35,13 @@ export class PersonPulseReportComponent implements OnInit {
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
     this.getAllUsers({entityId: this.pulsePersonObj.entityId});
-    this.getAllTeams({entity: this.pulsePersonObj.entityId});
+    this.getAllTeams({entityId: this.pulsePersonObj.entityId});
   }
 
   getAllUsers(data) {
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
-        this.pulsePersonObj.allUserList = this.compiler.entityUser(res.data);
+        this.pulsePersonObj.allUserList = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);

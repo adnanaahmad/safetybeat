@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AddQuestionComponent} from 'src/app/features/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
-import {CreateQuestionComponent}
-  from 'src/app/features/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
+import {CreateQuestionComponent} from 'src/app/features/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {QuestionCenter, Questions} from 'src/app/models/adminControl/questionCenter.model';
@@ -72,12 +71,12 @@ export class QuestionCenterComponent implements OnInit {
     };
 
     this.questionCenterService.getAllQuestions(data, paginationData).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);
         this.getParentChildQuestions(this.QuestionObj.allQuestions.questionList);
         this.QuestionObj.questionBankPageCount = res.data.pageCount;
         this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.QuestionObj.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
@@ -89,6 +88,11 @@ export class QuestionCenterComponent implements OnInit {
     });
 
   }
+
+  /**
+   * this function is used to separate the child and parent questions
+   * @params questionsList
+   */
 
   getParentChildQuestions(questionsList: Array<Questions>) {
     let self = this;
@@ -119,6 +123,11 @@ export class QuestionCenterComponent implements OnInit {
       this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
     });
   }
+
+  /**
+   * this function is used to edit the child parent questions separately
+   * @params questionsData
+   */
 
   editParentChildQuestion(questionsData) {
     this.helperService.createDialog(AddQuestionComponent, {
@@ -152,6 +161,10 @@ export class QuestionCenterComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used for opening the dialog when we click on edit question button
+   * @params question
+   */
   editQuestion(question) {
     this.helperService.createDialog(CreateQuestionComponent, {
       disableClose: true,
@@ -204,7 +217,12 @@ export class QuestionCenterComponent implements OnInit {
     });
   }
 
-  deleteQuestion(questionId) {
+  /**
+   * this function is used to delete the question
+   * @params questionId
+   */
+
+  deleteQuestion(questionId: number) {
     this.questionCenterService.deleteQuestion(questionId).subscribe((res) => {
       this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
@@ -214,7 +232,12 @@ export class QuestionCenterComponent implements OnInit {
     });
   }
 
-  deleteQuestionFromQuestionBank(questionId) {
+  /**
+   * this function is used to delete the questions from question bank
+   * @params questionId
+   */
+
+  deleteQuestionFromQuestionBank(questionId: number) {
     this.questionCenterService.deleteQuestionFromQuestionBank(questionId).subscribe((res) => {
       this.getAllQuestions(this.questionBankPaginator.pageIndex);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
@@ -225,7 +248,14 @@ export class QuestionCenterComponent implements OnInit {
     });
   }
 
-  confirmationModal(questionId: number, deleteModal) {
+  /**
+   * this function is used to open the confirmation dialog when we click on delete button if we press yes then it deleted the questions
+   * and if we click on No button this will not delete the question this is just an confirmation dialog
+   * @params questionId
+   * @params deleteModal
+   */
+
+  confirmationModal(questionId: number, deleteModal: boolean) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_QUESTION}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {

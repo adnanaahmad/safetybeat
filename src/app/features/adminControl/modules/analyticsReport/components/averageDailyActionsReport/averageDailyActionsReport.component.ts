@@ -38,7 +38,7 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
         this.getAllUsers({entityId: this.averageActionObj.entityId});
       }
     });
-    this.getAllTeams({entity: this.averageActionObj.entityId});
+    this.getAllTeams({entityId: this.averageActionObj.entityId});
   }
 
   ngOnDestroy(): void {
@@ -48,7 +48,7 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   getAllUsers(data) {
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
-        this.averageActionObj.allUserList = this.compiler.entityUser(res.data);
+        this.averageActionObj.allUserList = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
