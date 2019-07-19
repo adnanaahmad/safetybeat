@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {Permissions} from '../../../models/adminControl/permissions.model';
-import {EntityUserData} from '../../../models/userEntityData.model';
-import {User} from '../../../models/user.model';
+import {Permissions} from 'src/app/models/adminControl/permissions.model';
+import {EntityUserData} from 'src/app/models/userEntityData.model';
+import {User} from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {MatDialog} from '@angular/material';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {FileRenameComponent} from '../../dialogs/fileRename/fileRename.component';
+import {FileRenameComponent} from 'src/app/features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 
 @Component({
   selector: 'app-file',

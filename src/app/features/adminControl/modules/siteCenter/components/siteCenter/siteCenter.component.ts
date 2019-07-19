@@ -14,7 +14,7 @@ import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter
 import {HttpErrorResponse} from '@angular/common/http';
 import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
-import {SendSiteCodeComponent} from '../../dialogs/sendEntityCode/sendSiteCode.component';
+import {SendSiteCodeComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {ShowSiteCodeComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
 
