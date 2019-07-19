@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
-import {AverageDailyActions} from '../../../models/analyticsReport/averageDailyActions.model';
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +80,9 @@ export class ConstantService {
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
     parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
     viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
+    sendSiteCode: `${environment.apiUrl}/api/sites/sendSiteCode/`,
+    refreshSiteCode: `${environment.apiUrl}/api/sites/refreshSiteCode/`,
+    refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`,
     userPermissions: `${environment.apiUrl}/permissions/`,
   };
   /**
@@ -138,6 +140,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    spinnerConstant: 30,
     paginationLimit: 10,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
@@ -170,13 +173,16 @@ export class ConstantService {
     code: 'code',
     managedBy: 'managedBy',
     siteName: 'siteName',
+    radius: 'radius',
     siteSafetyPlan: 'siteSafetyPlan',
     siteAddress: 'siteAddress',
     safeZone: 'safeZone',
+    gpsTrack: 'gpsTrackEnabled',
     siteSafetyManager: 'siteSafetyManager',
     linearForm: true,
     emailValid: 'VALID',
     yes: 'YES',
+    no: 'NO',
     codeValidations: [100, 101, 102, 103, 104, 105],
     dateJoined: 'dateJoined',
     phoneNo: 'phoneNo',
@@ -305,8 +311,8 @@ export class ConstantService {
   /**
    * all the material icon names are declared here.
    */
-  static
-  appIcons = {
+  static appIcons = {
+    refresh: 'refresh',
     showReports: 'bar_chart',
     skipNext: 'skip_next',
     group: 'group',
@@ -399,8 +405,7 @@ export class ConstantService {
   /**
    * all the particle container icon names are declared here.
    */
-  static
-  particlesIcons = [
+  static particlesIcons = [
     'more_vert',
     'data_usage',
     'change_history',
@@ -425,8 +430,7 @@ export class ConstantService {
   /**
    * status of the snackbar and toaster are declared here.
    */
-  static
-  status = {
+  static status = {
     CUSTOM: 'custom',
     DEFAULT: 'default',
     INFO: 'info',
@@ -438,8 +442,7 @@ export class ConstantService {
   /**
    * default map configuration is declared here.
    */
-  static
-  defaultMapConfig = {
+  static defaultMapConfig = {
     zoom: 15,
     center: {lat: 33.738, lng: 73.084},
     gestureHandling: 'none',

@@ -10,13 +10,17 @@ export interface HazardModel {
   entityId: number;
   dataSource: MatTableDataSource<any>;
   displayedColumns: Array<string>;
+  loading:boolean;
 }
 
 export interface AddHazardModel {
+  addHazardFormFirst: FormGroup;
+  addHazardFormSecond: FormGroup;
   removeImage: string;
   editModal: boolean;
   image: File;
   addHazardForm: FormGroup;
+  loading: boolean;
 }
 
 export interface Hazard {

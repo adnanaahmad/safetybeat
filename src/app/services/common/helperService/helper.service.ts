@@ -45,6 +45,8 @@ export class HelperService {
   isPortrait: Observable<BreakpointState>;
   isLandscape: Observable<BreakpointState>;
   isWeb: Observable<BreakpointState>;
+  private radius: number;
+  enableRadius: boolean;
 
   constructor(
     private http: HttpClient,
@@ -74,6 +76,7 @@ export class HelperService {
     this.latitude = 0;
     this.longitude = 0;
     this.displayButton = false;
+    this.enableRadius = false;
     this.formErrorMatcher = new FormErrorHandler();
     this.isHandset = this.breakpointObserver.observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait]);
     this.isTablet = this.breakpointObserver.observe(Breakpoints.Tablet);
@@ -259,7 +262,7 @@ export class HelperService {
    * @params address
    * @params mapProp
    */
-  setLocationGeocode(address, mapProp) {
+  setLocationGeocode(address, mapProp, radius?) {
     let geoCoder = new google.maps.Geocoder();
     let self = this;
     return new Promise((resolve, reject) => {
@@ -273,6 +276,9 @@ export class HelperService {
               map: mapProp,
               position: results[0].geometry.location
             });
+            if (radius) {
+              self.addCircle(mapProp, results[0].geometry.location, radius);
+            }
             resolve(true);
           } else {
             reject(false);
@@ -287,6 +293,20 @@ export class HelperService {
     return new google.maps.Marker({
       map: mapProp,
       position: new google.maps.LatLng(locObj.lng, locObj.lat)
+    });
+  }
+
+  addCircle(mapProp, locObj, radius) {
+    return new google.maps.Circle({
+      strokeColor: '#05647c',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#05647c',
+      fillOpacity: 0.35,
+      map: mapProp,
+      center: locObj,
+      radius: radius,
+      draggable: true
     });
   }
 
@@ -339,6 +359,26 @@ export class HelperService {
     });
   }
 
+
+  setRadius(addrObj, gMapElement: ElementRef, formControl) {
+    let onSelect: boolean = false;
+    this.displayButton = true;
+    if (!this.isEmpty(formControl)) {
+      this.radius = 250;
+      onSelect = true;
+    } else {
+      this.radius = formControl.value;
+    }
+    this.displayButton = onSelect;
+    this.setLocationGeocode(this.address, this.createMap(gMapElement), this.radius).then(res => {
+      this.displayButton = true;
+      return formControl.setErrors(null);
+    }).catch(err => {
+      this.displayButton = false;
+      return formControl.setErrors({invalid: true});
+    });
+  }
+
   /**
    * this function is used to enable and disable any button according to the condition.
    * @params event
@@ -347,6 +387,7 @@ export class HelperService {
     if (event.which !== this.constants.appConstant.enterKey) {
       this.displayButton = false;
     }
+    this.enableRadius = event.target.value ? true : false;
   }
 
   /**

@@ -1,12 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ConstantService} from 'src/app/services/common/constant/constant.service';
-import {CoreService} from 'src/app/services/core/authorization/core.service';
-import {catchError} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {HelperService} from '../../../services/common/helperService/helper.service';
-import {AllUsersOfEntityResponse} from '../../../models/adminControl/entityControl.model';
-import {User} from '../../../models/user.model';
+import {HelperService} from 'src/app/services/common/helperService/helper.service';
+import {AllUsersOfEntityResponse} from 'src/app/models/adminControl/entityControl.model';
+import {User} from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +14,6 @@ export class ProfileService {
   method: any;
 
   constructor(
-    private http: HttpClient,
-    public coreServices: CoreService,
     public helperService: HelperService) {
     this.apiRoutes = this.helperService.constants.apiRoutes;
     this.method = this.helperService.constants.apiMethod;

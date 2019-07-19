@@ -1,13 +1,9 @@
-@mixin amte-entityCodeModal($primary, $accent, $warn) {
+@mixin amte-siteCodeModal($primary, $accent, $warn) {
   :host,
-  app-entityCodeModal {
+  app-showSiteCode {
     .mat-dialog-content,
     .mat-dialog-title {
       width: auto;
-    }
-    .refresh-code{
-      margin:0 auto;
-      display: block;
     }
     mat-dialog-actions {
       justify-content: center;
@@ -21,10 +17,11 @@
       }
     }
     .entity-code {
-      font-weight: 600;
-      font-size: 2rem;
+      font-weight: 400;
+      font-size: 1.25rem;
       text-align: center;
-      padding: 20px;
+      border: 1px solid lightgrey;
+      padding: 9px 5px 8px 15px;
       display: block;
       letter-spacing: 12px;
       color: mat-color($primary, 500);

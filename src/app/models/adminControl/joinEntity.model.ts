@@ -4,6 +4,7 @@ export interface JoinEntity {
   joinEntityForm: FormGroup;
   joinEntityData: JoinEntityApiData;
   entityResponse: any;
+  loading: boolean;
 }
 
 export interface JoinEntityApiData {

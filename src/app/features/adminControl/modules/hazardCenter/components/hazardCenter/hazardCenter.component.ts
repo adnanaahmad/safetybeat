@@ -50,6 +50,7 @@ export class HazardCenterComponent implements OnInit {
     this.firstIndex = 0;
     this.pageSize = 10;
     this.dataSource = null;
+    this.hazardTable.loading = false;
   }
 
   /**

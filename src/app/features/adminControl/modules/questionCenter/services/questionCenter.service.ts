@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {PaginationData, ViewAllSiteEntityData} from '../../../../../models/site.model';
-import {Observable} from 'rxjs';
-import {AllHazardsApiData} from '../../../../../models/hazard.model';
+import {PaginationData, ViewAllSiteEntityData} from 'src/app/models/site.model';
 
 @Injectable({
   providedIn: 'root'

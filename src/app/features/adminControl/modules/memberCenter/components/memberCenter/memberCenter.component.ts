@@ -35,6 +35,12 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
               public userService: ProfileService) {
     this.memberCenter.userStatus = false;
     this.initialize();
+    this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.memberCenter.entityId = res.entityInfo.id;
+        this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
+      }
+    })
   }
 
 
@@ -51,18 +57,15 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         this.memberCenter.permissions = data;
       }
     });
-    this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
   }
 
   ngOnDestroy() {
+    this.memberCenter.subscription.unsubscribe();
   }
 
   initialize() {
     this.memberCenter.firstIndex = 0;
     this.memberCenter.search = '';
-    this.memberCenter.entityId = JSON.parse(this.helperService.decrypt(
-      localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
     this.memberCenter.pageSize = 10;
   }
 
@@ -178,7 +181,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       }
 
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ADD_CONNECTION_FAILURE,
         this.helperService.constants.status.ERROR);
     });
@@ -203,7 +205,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       }
 
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
         this.helperService.constants.status.ERROR);
     });
@@ -222,7 +223,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       }
 
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.CONFIRM_CONNECTION_FAILURE,
         this.helperService.constants.status.ERROR);
     });

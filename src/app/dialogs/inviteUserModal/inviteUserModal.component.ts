@@ -32,8 +32,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     public memberService: MemberCenterService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.CREATEENTITY);
     this.inviteUserModal.roleList = Object.assign([], this.data.role);
     this.inviteUserModal.entityID = this.data.entityId;
     this.inviteUserModal.selectedRole = this.inviteUserModal.roleList[0];
@@ -121,22 +119,19 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     };
     if (!valid) {
       this.inviteUserModal.loading = false;
-      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.INVITEUSER_ERROR);
+      this.helperService.createSnack(this.helperService.translated.LOGGER.MESSAGES.INVITEUSER_ERROR,
+        this.helperService.constants.status.ERROR);
       return;
     }
-    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
-    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
+    this.inviteUserModal.loading = true;
     this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
       this.inviteUserModal.loading = false;
       this.dialogRef.close();
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.INVITE_SUCCESS);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVITE_SUCCESS, this.helperService.constants.status.SUCCESS);
     }, (err) => {
       this.inviteUserModal.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.INVITE_FAILURE);
       this.dialogRef.close();
-      this.helperService.logoutError(err.status);
+      this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR,);
     });
   }
 
