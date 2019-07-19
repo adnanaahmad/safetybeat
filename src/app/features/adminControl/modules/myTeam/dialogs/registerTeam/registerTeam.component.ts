@@ -3,7 +3,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {RegisterTeamModel} from 'src/app/models/adminControl/registerTeam.model';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
-import {MAT_DIALOG_DATA, MatAutocomplete, MatAutocompleteSelectedEvent, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 
 @Component({
@@ -15,7 +15,6 @@ export class RegisterTeamComponent implements OnInit {
 
   registerTeamObj: RegisterTeamModel = <RegisterTeamModel>{};
   @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
 
   constructor(public dialogRef: MatDialogRef<RegisterTeamComponent>,
