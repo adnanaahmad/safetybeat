@@ -163,11 +163,15 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
 
   inviteTeam(entityData: InviteTeamData) {
+    let self = this;
     this.memberService.allEntityUsers({entityId: this.entityControl.entityId}).subscribe((res) => {
       if (res) {
+        let users = this.helperService.remove(this.compiler.constructDataForTeams(res.data), function (user) {
+          return user.email !== self.entityControl.currentUserData.email;
+        });
         let inviteTeamData = {
           entityData: entityData.entityInfo.code,
-          usersData: this.compiler.constructDataForTeams(res.data)
+          usersData: users
         }
         this.helperService.createDialog(InviteTeamModalComponent, {
           data: {inviteTeamData},
