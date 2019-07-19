@@ -38,7 +38,7 @@ export class HazardReportComponent implements OnInit {
     this.hazardObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
-    this.getAllTeams({entity: this.hazardObj.entityId});
+    this.getAllTeams({entityId: this.hazardObj.entityId});
     this.getHazardReport({
       entityId: this.hazardObj.entityId,
       'dateTo': null,

@@ -11,8 +11,7 @@ import {AdminControlService} from 'src/app/features/adminControl/services/adminC
   styleUrls: ['./entityCodeModal.component.scss']
 })
 export class EntityCodeModalComponent implements OnInit, OnDestroy {
-  private entityId: number;
-  private loading: boolean = false;
+  loading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EntityCodeModalComponent>,
