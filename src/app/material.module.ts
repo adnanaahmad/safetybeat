@@ -30,7 +30,8 @@ import {
     MatTabsModule,
     MatAutocompleteModule,
     MatRippleModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatBottomSheetModule
 } from '@angular/material';
 import {GooglePlacesDirective} from 'src/app/directives/googlePlaces/googlePlaces.directive';
 import {HighchartsChartModule} from 'highcharts-angular';
@@ -68,7 +69,8 @@ import {HighchartsChartModule} from 'highcharts-angular';
         MatAutocompleteModule,
         HighchartsChartModule,
         MatRippleModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatBottomSheetModule
     ],
     declarations: [GooglePlacesDirective],
     exports: [
@@ -103,7 +105,8 @@ import {HighchartsChartModule} from 'highcharts-angular';
         GooglePlacesDirective,
         MatAutocompleteModule,
         MatRippleModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatBottomSheetModule
     ]
 })
 export class MaterialModule {
