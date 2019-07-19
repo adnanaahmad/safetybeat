@@ -10,7 +10,7 @@ import {ProfileImagePipe} from 'src/app/pipes/profileImage/profile-image.pipe';
   styleUrls: ['./viewTeam.component.scss']
 })
 export class ViewTeamComponent implements OnInit {
-  private team: TeamList[];
+  team: TeamList[];
 
   constructor(public helperService: HelperService,
               @Inject(MAT_DIALOG_DATA) public data: any) {

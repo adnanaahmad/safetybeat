@@ -223,7 +223,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         if (res.data.length === 0) {
           this.profileModel.noActivity = true;
         } else {
-          this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res);
+          this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res.data);
         }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noActivity = true;
