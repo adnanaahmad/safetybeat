@@ -41,10 +41,6 @@ export class FixedNavComponent {
    */
   public toggleSideNav() {
     this.navOpened = !this.navOpened;
-    this.helperService.appLoggerDev(
-      this.helperService.constants.status.INFO,
-      `${this.fixedNav.translated.LOGGER.MESSAGES.SIDE_NAV + this.navOpened}`
-    );
     this.sidenavToggle.emit(this.navOpened);
   }
 }

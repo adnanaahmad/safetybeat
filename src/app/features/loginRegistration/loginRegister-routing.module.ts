@@ -3,20 +3,15 @@ import {Routes, RouterModule, ActivatedRouteSnapshot, RouterStateSnapshot,} from
 import {LoginComponent} from './components/login/login.component';
 import {RegistrationComponent} from './components/registration/registration.component';
 import {ForgotPasswordComponent} from './components/forgotPassword/forgotPassword.component';
-import {LandingComponent} from './components/landing/landing.component';
 import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordRecovery.component';
 import {PackageDetailsComponent} from './components/packageDetails/packageDetails.component';
-import {AuthGuard} from '../../services/core/guards/auth.guard';
+import {AuthGuard} from 'src/app/services/core/guards/auth.guard';
 
 const authRoutes: Routes = [
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
-    path: 'landing',
-    component: LandingComponent
   },
   {
     path: 'login',

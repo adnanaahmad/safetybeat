@@ -50,8 +50,9 @@ export interface InviteTeamData {
   manDown: string;
 }
 
-export interface EntityCodeData {
-  name: string;
-  code: string;
-
+export interface RefreshEntityCodeResponse {
+  data: {
+    entityCode: string;
+  }
+  responseDetails: responseDetails;
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { QuestionCenterRoutingModule } from './questionCenter-routing.module';
 import { QuestionCenterComponent } from './components/questionCenter/questionCenter.component';
-import { MaterialModule } from '../../../../material.module';
+import { MaterialModule } from 'src/app/material.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 

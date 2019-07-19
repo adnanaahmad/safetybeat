@@ -12,6 +12,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {EntityControl, InviteTeamData} from 'src/app/models/adminControl/entityControl.model';
 import {JoinEntityModalComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
+import {Entity} from 'src/app/models/userEntityData.model';
 
 @Component({
   selector: 'app-entityControl',
@@ -33,13 +34,11 @@ export class EntityControlComponent implements OnInit, OnDestroy {
   ) {
     this.initialize();
     this.helperService.toggleLoader(true);
-    this.helperService.appLogger(
-      this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.ENTITYCONTROL
-    );
 
     this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
-      this.entityControl.currentUserData = res;
+      if (res) {
+        this.entityControl.currentUserData = res;
+      }
     });
     this.entityControl.subscription = this.userService.usersData.subscribe(res => {
       if (res === 1) {
@@ -132,8 +131,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * @params code
    * @params name
    */
-  entityCode(code, name) {
-    this.helperService.createDialog(EntityCodeModalComponent, {data: {name: name, code: code}});
+  entityCode(entityData: Entity) {
+    this.helperService.createDialog(EntityCodeModalComponent, {data: entityData.entityInfo});
   }
 
   /**

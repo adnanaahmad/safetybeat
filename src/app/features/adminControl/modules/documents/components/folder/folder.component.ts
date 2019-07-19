@@ -17,9 +17,9 @@ export class FolderComponent implements OnInit {
   @Input() folderData: any;
   @Input() documentsData: any;
   @Input() folderList: any[];
-  folders: String[];
-
+  folders: Array<string>;
   @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(public dialog: MatDialog,
               public helperService: HelperService,
               public navService: NavigationService,
@@ -28,7 +28,7 @@ export class FolderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showLoader= false;
+    this.showLoader = false;
     let id = this.folderData.id;
     this.folders = this.folderList.filter(folder => {
       return folder.id !== id;
@@ -56,6 +56,7 @@ export class FolderComponent implements OnInit {
       }
     });
   }
+
   /**
    * This is to rename folder
    * @params folderInfo
@@ -63,7 +64,7 @@ export class FolderComponent implements OnInit {
   renameFolder(folderInfo: any) {
     this.helperService.createDialog(CreateFolderComponent, {
       disableClose: true,
-      data: {type: false, folderId: folderInfo.id, name: folderInfo.name , folderList: this.folders}
+      data: {type: false, folderId: folderInfo.id, name: folderInfo.name, folderList: this.folders}
     });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       this.processAction.emit(true);

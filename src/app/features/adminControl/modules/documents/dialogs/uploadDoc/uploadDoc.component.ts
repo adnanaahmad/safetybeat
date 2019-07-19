@@ -23,6 +23,7 @@ export class UploadDocComponent implements OnInit {
     this.newDoc.entityId = this.data.entityID;
     this.newDoc.isEnabled = false;
     this.newDoc.disableButton = false;
+    this.documentsData.loader = false;
   }
 
   ngOnInit() {
@@ -54,21 +55,24 @@ export class UploadDocComponent implements OnInit {
   }
 // this function takes file and folder and uploads it accordingly
   upload(value, folderId) {
+    this.documentsData.loader = true;
     let blob = new Blob([this.newDoc.file]);
     let formData = new FormData();
     formData.append('file', blob, this.newDoc.file.name);
     formData.append('folder', folderId);
     formData.append('entityId', this.data.entityID);
-
     this.navService.uploadDocuments(formData).subscribe((res) => {
       if (res.responseDetails.code === 100) {
+        this.documentsData.loader = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_ADDED, this.helperService.constants.status.SUCCESS);
       } else {
+        this.documentsData.loader = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DOC_UPLOAD_FAIL, this.helperService.constants.status.WARNING);
       }
       this.documentsData.loader = false;
       this.dialogRef.close();
     }, error => {
+      this.documentsData.loader = false;
       this.dialogRef.close();
     });
   }

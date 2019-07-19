@@ -1,4 +1,7 @@
 import {responseDetails, User} from './user.model';
+import {Translation} from './translate.model';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 export interface Site {
   id: number,
@@ -8,6 +11,9 @@ export interface Site {
   siteSafetyPlan: string,
   createdBy: User,
   entity: number,
+  code: string;
+  gpsTrackEnabled: boolean;
+  radius?: number;
   siteSafetyManager: Array<User>
 }
 
@@ -22,7 +28,9 @@ export interface SiteAddData {
   siteAddress: string;
   safeZone: boolean;
   siteSafetyPlan: string;
+  gpsTrackEnabled: boolean;
   siteSafetyManager?: number;
+  radius?: number;
 }
 
 export interface AddSiteData {
@@ -33,8 +41,10 @@ export interface AddSiteData {
   name: string;
   safeZone: boolean;
   siteSafetyPlan: string;
+  gpsTrackEnabled: boolean;
   createdBy?: any;
   siteSafetyManager?: User;
+  radius?: number;
 }
 
 export interface AddSiteApiResponse {
@@ -60,4 +70,39 @@ export interface ViewAllSitesApiResponse {
 export interface ViewAllSitesApiData {
   pageCount: number;
   sitesList: Array<Site>
+}
+
+export interface SendSiteCode {
+  filteredUsers: Observable<Array<User>>;
+  separatorKeysCodes: Array<number>;
+  users: Array<User>;
+  allUsers: Array<User>;
+  userCtrl: FormControl;
+  translated: Translation;
+  removable: boolean;
+  loading: boolean;
+}
+
+export interface SendSiteCodeData {
+  inviteSiteCodeData: {
+    siteCodeData: string;
+    usersData: Array<User>;
+  }
+}
+
+export interface sendSiteCodeApiData {
+  email: Array<string>;
+  code: string;
+}
+
+export interface SendSiteCodeApiResponse {
+  data: object;
+  responseDetails: responseDetails;
+}
+
+export interface RefreshSiteCodeApiResponse {
+  data: {
+    code: string;
+  }
+  responseDetails: responseDetails;
 }

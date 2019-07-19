@@ -9,12 +9,12 @@ export class QuestionCenter {
   loading: boolean;
   translated: Translation;
   allQuestions: QuestionsData;
-  parentQuestions: Questions[];
-  childQuestions: Questions[];
+  parentQuestions: Array<Questions>;
+  childQuestions: Array<Questions>;
   entityQuestionsResponse: any;
-  filteredParentQuestion: Questions[];
-  filteredChildNoQuestion: Questions[];
-  filteredChildYesQuestion: Questions[];
+  filteredParentQuestion: Array<Questions>;
+  filteredChildNoQuestion: Array<Questions>;
+  filteredChildYesQuestion: Array<Questions>;
   pageSize: number;
   pageCount: number;
   questionBankPageCount: number;
@@ -28,6 +28,8 @@ export class QuestionCenter {
   questionId: number;
   edit: boolean;
   permissions: PermissionsModel;
+  childYes: boolean;
+  childNo: boolean;
 }
 
 

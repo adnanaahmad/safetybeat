@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {SettingsService} from 'src/app/features/settings/services/settings.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
-import {Organization, OrganizationInfo} from '../../../../models/Settings/organizationInfo.model';
+import {Organization, OrganizationInfo} from 'src/app/models/Settings/organizationInfo.model';
 import {DatePipe} from '@angular/common';
 
 
