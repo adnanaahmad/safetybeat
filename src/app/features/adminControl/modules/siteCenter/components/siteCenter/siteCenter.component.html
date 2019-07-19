@@ -80,7 +80,7 @@
             Actions
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="SiteCode(element)">
+            <button mat-menu-item (click)="SiteCode(element)" *ngIf="siteCentreObj.permissions.viewSiteCode">
               <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
               View Site Code
             </button>
@@ -96,7 +96,7 @@
               <mat-icon>{{ helperService.appIcons.siteQuestionCenter }}</mat-icon>
               Site Question Control
             </button>
-            <button mat-menu-item (click)="shareSiteCode(element)">
+            <button mat-menu-item (click)="shareSiteCode(element)" *ngIf="siteCentreObj.permissions.shareSiteCode">
               <mat-icon>{{ helperService.appIcons.share }}</mat-icon>
               Share Site Code
             </button>

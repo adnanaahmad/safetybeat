@@ -63,10 +63,13 @@ export interface PermissionsModel {
   deleteQuestion: boolean,
   editQuestion: boolean,
   userId: number
+  viewSiteCode: boolean,
+  refreshSiteCode: boolean,
+  shareSiteCode: boolean,
+  refreshEntityCode: boolean
 }
 
 export interface ChangePermissionsObj {
-  disableReports: boolean;
   disable: boolean;
   unChanged: boolean;
   permissionsForm: FormGroup;

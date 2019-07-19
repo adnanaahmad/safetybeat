@@ -272,6 +272,7 @@ export interface Buttons {
     SHOW_RESULTS: string;
     PERMISSIONS: string;
     REPORTS: string;
+    CHANGE_ACCESS_LEVEL: string;
 
 }
 

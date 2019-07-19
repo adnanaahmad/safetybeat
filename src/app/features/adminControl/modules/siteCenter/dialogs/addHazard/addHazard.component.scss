@@ -1,6 +1,18 @@
 @mixin amte-addHazard($primary, $accent, $warn) {
   :host,
   app-addHazard {
+    .mat-dialog-content {
+      height: 80vh;
+      overflow: hidden;
+    }
+    .tabcontent {
+      overflow: auto;
+      height: 50vh;
+    }
+    .add-action{
+      display: block;
+      margin: 0 auto;
+    }
     .current-site {
       text-align: center;
       h2 {
@@ -33,7 +45,7 @@
     }
     .nav-btn {
       text-align: center;
-      margin: 20px 0 0;
+      margin: 7px 0 0;
     }
     .change-picture {
       width: 100px;
