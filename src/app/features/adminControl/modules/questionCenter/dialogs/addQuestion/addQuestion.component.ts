@@ -1,8 +1,8 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatAutocomplete, MatCheckboxChange, MatDialogRef} from '@angular/material';
-import {QuestionCenter, Questions} from 'src/app/models/adminControl/questionCenter.model';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {GenerateQuestionData, QuestionCenter, Questions} from 'src/app/models/adminControl/questionCenter.model';
+import {FormBuilder, Validators} from '@angular/forms';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class AddQuestionComponent implements OnInit {
     private questionCenterService: QuestionCenterService,
     @Inject(MAT_DIALOG_DATA) public data,
   ) {
-    this.intialize();
+    this.initialize();
     this.QuestionObj.parentQuestions = data.parentQuestions;
     this.QuestionObj.childQuestions = data.childQuestions;
     this.QuestionObj.edit = data.edit;
@@ -48,7 +48,7 @@ export class AddQuestionComponent implements OnInit {
     }
   }
 
-  intialize() {
+  initialize() {
     this.QuestionObj.filteredParentQuestion = this.data.parentQuestions;
     this.QuestionObj.filteredChildYesQuestion = this.data.childQuestions;
     this.QuestionObj.filteredChildNoQuestion = this.data.childQuestions;
@@ -66,34 +66,53 @@ export class AddQuestionComponent implements OnInit {
   }
 
   generateQuestionData(questionForm) {
-    let questionData: any = {
+    let questionData: GenerateQuestionData = {
       parentQuestion: questionForm.value.parent.id,
       childYes: questionForm.value.childYes.id,
       childNo: questionForm.value.childNo.id,
       childYesSafe: questionForm.value.childYesSafe,
       childNoSafe: questionForm.value.childNoSafe,
-    }
+    };
     if (!this.QuestionObj.edit) {
       questionData.entity = JSON.parse(this.helperService.decrypt
       (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
+        this.helperService.appConstants.key));
     }
-    return questionData
+    return questionData;
   }
 
   editQuestion(questionForm) {
     this.QuestionObj.loading = true;
     this.questionCenterService.editQuestion(this.generateQuestionData(questionForm), this.data.questionData.id).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.QuestionObj.loading = false;
+        this.onNoClick();
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
+      } else {
+        this.QuestionObj.loading = false;
+        this.onNoClick();
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+      }
+    }, (error) => {
       this.QuestionObj.loading = false;
       this.onNoClick();
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
   addQuestion(questionForm) {
     this.QuestionObj.loading = true;
     this.questionCenterService.addQuestion(this.generateQuestionData(questionForm)).subscribe((res) => {
-      this.QuestionObj.loading = false;
-      this.onNoClick();
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS)
+        this.QuestionObj.loading = false;
+        this.onNoClick();
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR)
+        this.QuestionObj.loading = false;
+        this.onNoClick();
+      }
+
     }, (error) => {
       this.QuestionObj.loading = false;
       this.onNoClick();

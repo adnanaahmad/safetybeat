@@ -31,7 +31,7 @@ export class EntityPulseReportComponent implements OnInit {
     this.pulseEntityObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
-    this.getAllTeams({entity: this.pulseEntityObj.entityId});
+    this.getAllTeams({entityId: this.pulseEntityObj.entityId});
   }
 
   getAllTeams(data) {

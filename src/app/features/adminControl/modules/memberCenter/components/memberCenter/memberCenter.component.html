@@ -79,11 +79,6 @@
               <mat-icon>{{helperService.appIcons.permSettings}}</mat-icon>
               Change Permissions
             </button>
-            <button mat-menu-item *ngIf="memberCenter.permissions?.changeAccessLevel"
-                    (click)="accessLevel(element)">
-              <mat-icon>input</mat-icon>
-              Change Access Level
-            </button>
             <button mat-menu-item *ngIf="memberCenter.permissions?.deactivateUser"
                     (click)="element.status ? deactivateUsers(element.id) : activateUsers(element.id)">
               <mat-icon>remove_circle_outline</mat-icon>

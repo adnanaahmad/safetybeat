@@ -272,10 +272,12 @@ export interface Buttons {
     SHOW_RESULTS: string;
     PERMISSIONS: string;
     REPORTS: string;
+    CHANGE_ACCESS_LEVEL: string;
 
 }
 
 export interface Messages {
+    SELECT_TEAMLEAD: string;
     GENERAL_UPDATED: string;
     GENERAL_FAIL: string;
     ORG_DETAILS: string;
@@ -511,6 +513,9 @@ export interface Messages {
     COMMON_PASSWORD: string;
     PERMISSIONS_UPDATED: string;
     PERMISSIONS_UPDATION_FAILED: string;
+    TEAM_NAME_REQ: string;
+    NO_USER: string;
+    NO_USER_SELECTED: string;
 }
 
 export interface Logger {

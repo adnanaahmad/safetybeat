@@ -7,9 +7,9 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {MaterialModule} from './material.module';
 import {
-    TranslateModule,
-    TranslateLoader,
-    TranslateService
+  TranslateModule,
+  TranslateLoader,
+  TranslateService
 } from '@ngx-translate/core';
 import {HttpClient} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -48,129 +48,126 @@ import {MyTeamModule} from './features/adminControl/modules/myTeam/myTeam.module
 import {ProfileImagePipe} from './pipes/profileImage/profile-image.pipe';
 import {AdvanceSearchComponent} from './features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import {ImageLightboxComponent} from './dialogs/imageLightbox/imageLightbox.component';
-import {PageNotFoundComponent} from './components/pageNotFound/pageNotFound.component';
-import {ParticleContainer2Component} from './components/particleContainer/particleContainer2.component';
 import {SendSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {ShowSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
 
 import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 
 export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        CreateEntityComponent,
-        JoinEntityModalComponent,
-        EntityCodeModalComponent,
-        InviteUserModalComponent,
-        InviteTeamModalComponent,
-        ToasterComponent,
-        AddSiteModalComponent,
-        ImportSiteModalComponent,
-        ConfirmationModalComponent,
-        ChangeAccessLevelComponent,
-        AddHazardComponent,
-        HazardDetailsComponent,
-        GeneralComponent,
-        SecurityComponent,
-        AddQuestionComponent,
-        SiteMapComponent,
-        UploadDocComponent,
-        CreateFolderComponent,
-        ViewDocComponent,
-        ViewDocComponent,
-        RegisterTeamComponent,
-        ViewTeamComponent,
-        CreateQuestionComponent,
-        ProfileImagePipe,
-        AdvanceSearchComponent,
-        ImageLightboxComponent,
-        PageNotFoundComponent,
-        ParticleContainer2Component,
-        SendSiteCodeComponent,
-        ShowSiteCodeComponent,
-        FileRenameComponent
-    ],
-    imports: [
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        BrowserAnimationsModule,
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient]
-            }
-        }),
-        AppRoutingModule,
-        NotifierModule,
-        DragDropModule,
-        MyTeamModule
-    ],
-    providers: [
-        MatDatepickerModule,
-        TranslateService,
-        CoreService,
-        AuthGuard,
-        CookieService,
-        CompilerProvider,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptorService,
-            multi: true
-        },
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
-        {
-            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
-                duration: 2000,
-            }
-        }
-    ],
+  declarations: [
+    AppComponent,
+    CreateEntityComponent,
+    JoinEntityModalComponent,
+    EntityCodeModalComponent,
+    InviteUserModalComponent,
+    InviteTeamModalComponent,
+    ToasterComponent,
+    AddSiteModalComponent,
+    ImportSiteModalComponent,
+    ConfirmationModalComponent,
+    ChangeAccessLevelComponent,
+    AddHazardComponent,
+    HazardDetailsComponent,
+    GeneralComponent,
+    SecurityComponent,
+    AddQuestionComponent,
+    SiteMapComponent,
+    UploadDocComponent,
+    CreateFolderComponent,
+    ViewDocComponent,
+    ViewDocComponent,
+    RegisterTeamComponent,
+    ViewTeamComponent,
+    CreateQuestionComponent,
+    ProfileImagePipe,
+    AdvanceSearchComponent,
+    ImageLightboxComponent,
+    SendSiteCodeComponent,
+    ShowSiteCodeComponent,
+    FileRenameComponent
+  ],
+  imports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+    AppRoutingModule,
+    NotifierModule,
+    DragDropModule,
+    MyTeamModule
+  ],
+  providers: [
+    MatDatepickerModule,
+    TranslateService,
+    CoreService,
+    AuthGuard,
+    CookieService,
+    CompilerProvider,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
+        duration: 2000,
+      }
+    }
+  ],
 
-    bootstrap: [AppComponent],
-    exports: [],
-    entryComponents: [
-        AdvanceSearchComponent,
-        CreateEntityComponent,
-        JoinEntityModalComponent,
-        EntityCodeModalComponent,
-        InviteUserModalComponent,
-        CreateEntityComponent,
-        InviteTeamModalComponent,
-        ToasterComponent,
-        AddSiteModalComponent,
-        ImportSiteModalComponent,
-        ConfirmationModalComponent,
-        ChangeAccessLevelComponent,
-        AddHazardComponent,
-        HazardDetailsComponent,
-        GeneralComponent,
-        SecurityComponent,
-        AddHazardComponent,
-        AddQuestionComponent,
-        SiteMapComponent,
-        UploadDocComponent,
-        CreateFolderComponent,
-        ViewDocComponent,
-        CreateQuestionComponent,
-        ViewDocComponent,
-        RegisterTeamComponent,
-        ViewTeamComponent,
-        AdvanceSearchComponent,
-        ImageLightboxComponent,
-        SendSiteCodeComponent,
-        ShowSiteCodeComponent,
-        FileRenameComponent
-    ]
+  bootstrap: [AppComponent],
+  exports: [
+  ],
+  entryComponents: [
+    AdvanceSearchComponent,
+    CreateEntityComponent,
+    JoinEntityModalComponent,
+    EntityCodeModalComponent,
+    InviteUserModalComponent,
+    CreateEntityComponent,
+    InviteTeamModalComponent,
+    ToasterComponent,
+    AddSiteModalComponent,
+    ImportSiteModalComponent,
+    ConfirmationModalComponent,
+    ChangeAccessLevelComponent,
+    AddHazardComponent,
+    HazardDetailsComponent,
+    GeneralComponent,
+    SecurityComponent,
+    AddHazardComponent,
+    AddQuestionComponent,
+    SiteMapComponent,
+    UploadDocComponent,
+    CreateFolderComponent,
+    ViewDocComponent,
+    CreateQuestionComponent,
+    ViewDocComponent,
+    RegisterTeamComponent,
+    ViewTeamComponent,
+    AdvanceSearchComponent,
+    ImageLightboxComponent,
+    SendSiteCodeComponent,
+    ShowSiteCodeComponent,
+    FileRenameComponent
+  ]
 })
 export class AppModule {
 }

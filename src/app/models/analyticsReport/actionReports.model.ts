@@ -8,7 +8,7 @@ export interface ActionReport {
   entityId: number;
   showChart: boolean;
   userActionReportData: UserActionReportData;
-  sitesData: Site[];
+  sitesData: SitesInfo[];
   entityName: string;
   entityUserData: EntityUserData;
   allEntitiesData: any;

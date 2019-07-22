@@ -72,11 +72,12 @@
             {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="entityCode(element)">
+            <button mat-menu-item (click)="entityCode(element)" *ngIf="entityControl.permissions?.viewEntityCode">
               <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.ENTITYCODE }}
             </button>
-            <button mat-menu-item *ngIf="entityControl.permissions.inviteMember"
+            <button mat-menu-item
+                    *ngIf="entityControl.permissions.inviteMember && !(element.entityInfo.id === entityControl.entityId)"
                     (click)='inviteTeam(element)'>
               <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
               {{ helperService.translated.MESSAGES.INVITEMEMBERTITLE }}

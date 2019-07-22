@@ -22,7 +22,7 @@ export class MyTeamComponent implements OnInit {
   myTeam: MyTeamModel = <MyTeamModel>{};
   displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  private allUsers: any[];
+  allUsers: any = [];
 
   constructor(public helperService: HelperService,
               public compiler: CompilerProvider,
@@ -47,20 +47,20 @@ export class MyTeamComponent implements OnInit {
       entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
         this.helperService.appConstants.key))
     };
-    let paginationData = {
-      limit: null,
-      offset: null,
-      search: ''
-    };
-    this.memberService.entityUsers(data, paginationData).subscribe((res) => {
-      if (res) {
-        this.allUsers = this.compiler.entityUser(res.data.allUser);
+    this.memberService.getUsersList(data).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.allUsers = this.compiler.constructUserDataOfTeam(res.data);
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
   registerTeam() {
     this.helperService.createDialog(RegisterTeamComponent, {
+      disableClose: true,
       data: {Modal: false, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {

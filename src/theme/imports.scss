@@ -15,7 +15,7 @@
 @import "~src/app/features/settings/components/organizationInfo/organizationInfo.component.scss";
 @import "~src/app/features/settings/components/general/general.component.scss";
 @import "~src/app/features/adminControl/modules/dashboard/components/dashboard/dashboard.component.scss";
-@import "../app/components/pageNotFound/pageNotFound.component.scss";
+@import "../app/features/core/components/pageNotFound/pageNotFound.component.scss";
 @import "~src/app/features/welcomeScreen/components/welcomeScreen/welcomeScreen.component.scss";
 @import "~src/app/features/welcomeScreen/components/createEntity/createEntity.component.scss";
 @import "../app/components/toaster/toaster.component.scss";
@@ -48,7 +48,7 @@
 @import "~src/app/features/adminControl/modules/documents/components/file/file.component.scss";
 @import "~src/app/features/adminControl/modules/documents/components/showFolderDocuments/showFolderDocuments.component.scss";
 @import "~src/app/features/loginRegistration/components/particleContainer/particleContainer.component.scss";
-@import "~src/app/components/particleContainer/particleContainer2.component.scss";
+@import "../app/features/core/components/particleContainer/particleContainer2.component.scss";
 @import "~src/app/features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component.scss";
 
 @mixin amte-setTheme($theme) {

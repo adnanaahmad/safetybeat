@@ -8,6 +8,8 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
+import {PaginationData, ViewAllSiteEntityData} from 'src/app/models/site.model';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-siteActivityReport',
@@ -46,6 +48,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
         this.actionFormValidations['entityName'].disable();
       }
     });
+     this.getSitesData();
 
   }
 
@@ -117,6 +120,29 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.actionReportObj.subscription.unsubscribe();
+  }
+
+  getSitesData() {
+    let entityData: ViewAllSiteEntityData = {
+      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
+        this.helperService.appConstants.key)),
+    };
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: this.helperService.appConstants.paginationLimit,
+      search: ''
+    };
+    this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }
+    }, (error: HttpErrorResponse) => {
+      this.helperService.createSnack(error.error,
+        this.helperService.constants.status.ERROR);
+    });
   }
 
 }

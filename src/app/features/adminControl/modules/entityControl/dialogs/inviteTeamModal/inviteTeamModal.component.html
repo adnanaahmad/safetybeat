@@ -8,7 +8,7 @@
     <mat-chip-list #chipList>
       <mat-chip *ngFor="let user of inviteTeamModel.users" [removable]="inviteTeamModel.removable"
                 (removed)="remove(user)">
-        {{user.first_name}}
+        {{user.name}}
         <mat-icon matChipRemove *ngIf="inviteTeamModel.removable">cancel</mat-icon>
       </mat-chip>
       <input #userInput [formControl]="inviteTeamModel.userCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
@@ -16,7 +16,7 @@
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
       <mat-option *ngFor="let user of inviteTeamModel.filteredUsers | async" [value]="user">
-        {{user.first_name}}  {{user.last_name}}
+        {{user.name}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

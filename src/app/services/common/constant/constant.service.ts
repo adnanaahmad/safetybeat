@@ -52,7 +52,7 @@ export class ConstantService {
     getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
     editOrganization: `${environment.apiUrl}/organization`,
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
-    allEntityUsers: `${environment.apiUrl}/entity/allUsers/`,
+    allEntityUsers: `${environment.apiUrl}/entity/allEntityUsers/`,
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
@@ -241,14 +241,17 @@ export class ConstantService {
       key: 'entityControl',
       values: [{key: 'createEntity', value: 'Create Entity'}, {key: 'viewEntity', value: 'View Entity'},
         {key: 'deleteEntity', value: 'Delete Entity'}, {key: 'joinEntity', value: 'Join Entity'},
-        {key: 'inviteMember', value: 'Invite Member'}, {key: 'viewEntityCode', value: 'View Entity Code'}]
+        {key: 'inviteMember', value: 'Invite Member'}, {key: 'viewEntityCode', value: 'View Entity Code'},
+        {key: 'refreshEntityCode', value: 'Refresh Entity Code'}]
     },
       {
         name: 'Site Centre',
         key: 'siteCentre',
         values: [{key: 'ImportSite', value: 'Import Site'}, {key: 'viewSite', value: 'View Site'},
           {key: 'editSite', value: 'Edit Site'}, {key: 'deleteSite', value: 'Delete Site'},
-          {key: 'addSite', value: 'Add Site'}]
+          {key: 'addSite', value: 'Add Site'}, {key: 'refreshSiteCode', value: 'Refresh Site Code'},
+          {key: 'viewSiteCode', value: 'View Site Code'}, {key: 'shareSiteCode', value: 'Share Site Code'},
+          {key: 'refreshSiteCode', value: 'Refresh Site Code'}]
       },
 
       {
@@ -292,6 +295,9 @@ export class ConstantService {
       {key: 'compliantCheckOut', value: 'Compliant Check-Out'}, {key: 'pulseReportByEntity', value: 'Pulse Report By Entity'},
       {key: 'pulseReportByPerson', value: 'Pulse Report By Person'}, {key: 'siteActivityReport', value: 'Site Activity Report'},
       {key: 'hazardReports', value: 'Hazard Reports'}],
+    rolesData: [{key: 'User', value: 'User'}, {key: 'Owner', value: 'Owner'},
+      {key: 'TeamLead', value: 'Team Lead'}, {key: 'EntityManager', value: 'Entity Manager'},
+      {key: 'SiteSafetyManager', value: 'Site Safety Manager'}, {key: 'SubContractor', value: 'Sub Contractor'}],
     enterKey: 13,
     importSite: 'importSite',
     csvFile: 'csvFile',

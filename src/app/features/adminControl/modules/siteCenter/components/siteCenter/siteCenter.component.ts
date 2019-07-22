@@ -188,10 +188,10 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   /**
    * this function is used to open add hazard dialog.
    */
-  addHazard(id: any) {
+  addHazard(siteInfo: any) {
     this.helperService.createDialog(AddHazardComponent, {
-      disableClose: true,
-      data: {Modal: false, siteId: id}
+      disableClose: false,
+      data: {Modal: false, siteId: siteInfo.id, siteName: siteInfo.name, location: siteInfo.location}
     });
   }
 
@@ -265,7 +265,12 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   }
 
   SiteCode(siteData: Site) {
-    this.helperService.createDialog(ShowSiteCodeComponent, {data: siteData});
+    this.helperService.createDialog(ShowSiteCodeComponent, {
+      data: {
+        site: siteData,
+        permissions: this.siteCentreObj.permissions.shareSiteCode
+      }
+    });
   }
 }
 

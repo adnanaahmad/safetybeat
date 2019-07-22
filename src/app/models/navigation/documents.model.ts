@@ -21,11 +21,6 @@ export interface Documents {
   folderId: number;
 }
 
-export interface DocList {
-  document: DocumentObj[];
-  folder: Folder;
-}
-
 export interface DocumentObj {
   editable?: boolean
   title: string,

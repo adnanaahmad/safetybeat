@@ -215,7 +215,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
       return;
     }
-    // this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(this.registerObj.registerData));
     this.register.registerUser(this.registerObj.registerData).subscribe((result: RegistrationResponseObject) => {
       if (result.responseDetails && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         result ? this.register.setToken(result.data.token) : this.register.setToken('');
