@@ -1,226 +1,217 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!hazardObj.editModal">
-  {{ helperService.translated.MESSAGES.ADD_HAZARD }}
+    {{ helperService.translated.MESSAGES.ADD_HAZARD }}
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="hazardObj.editModal">
-  {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
+    {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
 </mat-card-title>
 <div mat-dialog-content>
-  <!--<form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="hazardFormSubmit(hazardObj.addHazardForm)">-->
-  <!--<div class="form-group change-picture">-->
-  <!--<span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>-->
-  <!--<img [src]="url">-->
-  <!--<input type='file' accept='image/*' (change)=onFileSelected($event.target.files) />-->
-  <!--<mat-icon class="remove-picture" (click)="removePicture()">{{ helperService.appIcons.deleteForever }}</mat-icon>-->
-  <!--</div>-->
-  <!--<div class="form-group">-->
-  <!--<mat-form-field fullWidth appearance="outline">-->
-  <!--<mat-label>Title</mat-label>-->
-  <!--<input matInput type="text" formControlName="title" required />-->
-  <!--<mat-error class="text-right" *ngIf="addHazardControls.title.errors">-->
-  <!--<span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>-->
-  <!--</mat-error>-->
-  <!--</mat-form-field>-->
-  <!--<mat-form-field fullWidth appearance="outline">-->
-  <!--<mat-label>Description</mat-label>-->
-  <!--<input matInput type="text" formControlName="description" required />-->
-  <!--<mat-error class="text-right" *ngIf="addHazardControls.description.errors">-->
-  <!--<span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>-->
-  <!--</mat-error>-->
-  <!--</mat-form-field>-->
-  <!--<mat-form-field fullWidth appearance="outline">-->
-  <!--<mat-label>Select Risk</mat-label>-->
-  <!--<mat-select formControlName="risk" name="risk" required>-->
-  <!--<mat-option *ngFor="let risk of risks" [value]="risk.id">-->
-  <!--{{risk.name}}-->
-  <!--</mat-option>-->
-  <!--</mat-select>-->
-  <!--</mat-form-field>-->
-  <!--<mat-dialog-actions>-->
-  <!--<button mat-raised-button custom-btn color="primary" [disabled]="!hazardObj.addHazardForm.valid">-->
-  <!--{{helperService.translated.BUTTONS.SAVE}}-->
-  <!--</button>-->
-  <!--<button mat-button [mat-dialog-close]="'CANCEL'">-->
-  <!--{{ helperService.translated.BUTTONS.CANCEL }}-->
-  <!--</button>-->
-  <!--</mat-dialog-actions>-->
-  <!--</div>-->
-  <!--</form>-->
-  <div class="current-site">
-    <h2>{{siteName}}</h2>
-    <p class="mat-body">
-      <mat-icon color="primary">{{ helperService.appIcons.place }}</mat-icon>
-      {{siteLocation}}
-    </p>
-  </div>
+    <!--<form [formGroup]="hazardObj.addHazardForm" (ngSubmit)="hazardFormSubmit(hazardObj.addHazardForm)">-->
+    <!--<div class="form-group change-picture">-->
+    <!--<span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>-->
+    <!--<img [src]="url">-->
+    <!--<input type='file' accept='image/*' (change)=onFileSelected($event.target.files) />-->
+    <!--<mat-icon class="remove-picture" (click)="removePicture()">{{ helperService.appIcons.deleteForever }}</mat-icon>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<mat-form-field fullWidth appearance="outline">-->
+    <!--<mat-label>Title</mat-label>-->
+    <!--<input matInput type="text" formControlName="title" required />-->
+    <!--<mat-error class="text-right" *ngIf="addHazardControls.title.errors">-->
+    <!--<span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>-->
+    <!--</mat-error>-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field fullWidth appearance="outline">-->
+    <!--<mat-label>Description</mat-label>-->
+    <!--<input matInput type="text" formControlName="description" required />-->
+    <!--<mat-error class="text-right" *ngIf="addHazardControls.description.errors">-->
+    <!--<span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>-->
+    <!--</mat-error>-->
+    <!--</mat-form-field>-->
+    <!--<mat-form-field fullWidth appearance="outline">-->
+    <!--<mat-label>Select Risk</mat-label>-->
+    <!--<mat-select formControlName="risk" name="risk" required>-->
+    <!--<mat-option *ngFor="let risk of risks" [value]="risk.id">-->
+    <!--{{risk.name}}-->
+    <!--</mat-option>-->
+    <!--</mat-select>-->
+    <!--</mat-form-field>-->
+    <!--<mat-dialog-actions>-->
+    <!--<button mat-raised-button custom-btn color="primary" [disabled]="!hazardObj.addHazardForm.valid">-->
+    <!--{{helperService.translated.BUTTONS.SAVE}}-->
+    <!--</button>-->
+    <!--<button mat-button [mat-dialog-close]="'CANCEL'">-->
+    <!--{{ helperService.translated.BUTTONS.CANCEL }}-->
+    <!--</button>-->
+    <!--</mat-dialog-actions>-->
+    <!--</div>-->
+    <!--</form>-->
+    <div class="current-site">
+        <h2>Lahore Site</h2>
+        <p class="mat-body">
+            <mat-icon color="primary">{{ helperService.appIcons.place }}</mat-icon>
+            15 Kearny St, San Francisco, CA 94108, USA
+        </p>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-horizontal-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="addHazardFormFirst">
+            <form [formGroup]="addHazardFormFirst">
+                <ng-template matStepLabel>Hazard</ng-template>
+                <div class="tabcontent">
+                    <!-- Upload Picture -->
+                    <div class="mat-elevation-z6 change-picture">
+                        <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
+                        <img [src]="url">
+                        <input type='file' accept='image/*' (change)=onFileSelected($event.target.files)/>
+                        <mat-icon class="remove-picture" (click)="removePicture()">{{
+                            helperService.appIcons.deleteForever
+                            }}
+                        </mat-icon>
+                    </div><!-- Upload Picture -->
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Hazard</mat-label>
+                        <input matInput placeholder="e.g Its not a safe place">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Rate Hazard</mat-label>
+                        <mat-select placeholder="Moderate">
+                            <mat-option value="option">Moderate</mat-option>
+                            <mat-option value="option">Moderate</mat-option>
+                            <mat-option value="option">Moderate</mat-option>
+                            <mat-option value="option">Moderate</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Description</mat-label>
+                        <textarea matInput
+                                  cdkTextareaAutosize
+                                  #autosize="cdkTextareaAutosize"
+                                  cdkAutosizeMinRows="1"
+                                  cdkAutosizeMaxRows="5"></textarea>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fullWidth>
+                        <mat-label>Precautionary Note</mat-label>
+                        <textarea matInput
+                                  cdkTextareaAutosize
+                                  #autosize="cdkTextareaAutosize"
+                                  cdkAutosizeMinRows="1"
+                                  cdkAutosizeMaxRows="5"></textarea>
+                    </mat-form-field>
+                    <mat-checkbox>Is demo responsible to manage this hazard?</mat-checkbox>
+                </div>
+                <div class="nav-btn">
+                    <button mat-button matStepperNext>Next
+                        <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="addHazardFormSecond">
+            <form>
+                <ng-template matStepLabel>Actions to resolve</ng-template>
+                <div class="tabcontent">
+                    <div class="text-center">
+                        <!--<p class="mat-hint">No actions found</p>-->
+                        <button  mat-raised-button (click)="openBottomSheet()">Open file</button>
+                    </div>
+                    <br>
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    This is an action that can be taken
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    Complete by: 12/10/2020
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
 
-  <mat-divider></mat-divider>
-  <mat-horizontal-stepper [linear]="true" #stepper>
-    <mat-step [stepControl]="hazardObj.addHazardFormFirst">
-      <form [formGroup]="hazardObj.addHazardFormFirst">
-        <ng-template matStepLabel>Hazard</ng-template>
-        <div class="tabcontent">
-          <!-- Upload Picture -->
-          <div class="mat-elevation-z6 change-picture">
-            <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
-            <img [src]="url">
-            <input type='file' accept='image/*' (change)="onFileSelected($event.target.files)"/>
-            <mat-icon class="remove-picture" (click)="removePicture()">{{
-              helperService.appIcons.deleteForever}}
-            </mat-icon>
-          </div><!-- Upload Picture -->
+                            <mat-form-field appearance="outline" fullWidth>
+                                <mat-label>Action title</mat-label>
+                                <input matInput placeholder="e.g Tehreem is dangerous">
+                            </mat-form-field>
 
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>Hazard</mat-label>
-            <input matInput placeholder="e.g Its not a safe place" formControlName="title">
-            <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>Rate Hazard</mat-label>
-            <mat-select formControlName="risk" required>
-              <mat-option value="option" *ngFor="let risk of risks" [value]="risk.id">{{risk.name}}</mat-option>
-            </mat-select>
-            <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="description"
-                      cdkTextareaAutosize
-                      #autosize="cdkTextareaAutosize"
-                      cdkAutosizeMinRows="1"
-                      cdkAutosizeMaxRows="5"></textarea>
-            <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>Precautionary Note</mat-label>
-            <textarea matInput formControlName="note"
-                      cdkTextareaAutosize
-                      #autosize="cdkTextareaAutosize"
-                      cdkAutosizeMinRows="1"
-                      cdkAutosizeMaxRows="5"></textarea>
-            <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-checkbox>{{msg}}</mat-checkbox>
-        </div>
-        <div class="nav-btn">
-          <button mat-button matStepperNext (click)="saveValues(hazardObj.addHazardFormFirst)">Next
-            <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
-          </button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="addHazardFormSecond">
-      <form [formGroup]="addHazardFormSecond">
-        <ng-template matStepLabel>Actions to resolve</ng-template>
-        <div class="tabcontent">
-          <div class="text-center">
-            <p class="mat-hint">No actions found</p>
-            <button mat-mini-fab color="primary" matTooltip="Add an action" matTooltipPosition="above">
-              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-            </button>
-          </div>
-          <mat-accordion>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Action
-                </mat-panel-title>
-                <mat-panel-description>
-                  Complete by: 12/10/2020
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-
-              <mat-form-field appearance="outline" fullWidth>
-                <mat-label>Action title</mat-label>
-                <input matInput placeholder="e.g Tehreem is dangerous">
-              </mat-form-field>
-
-              <mat-form-field appearance="outline" fullWidth>
-                <mat-label>Person to complete the action</mat-label>
-                <mat-select placeholder="Moderate">
-                  <mat-option value="option">Tehreem</mat-option>
-                  <mat-option value="option">Nibbi</mat-option>
-                  <mat-option value="option">Naila</mat-option>
-                  <mat-option value="option">Laiba</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline" fullWidth>
-                <mat-label>Complete by</mat-label>
-                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <mat-form-field appearance="outline" fullWidth>
-                <mat-label>Additional note</mat-label>
-                <textarea matInput
-                          cdkTextareaAutosize
-                          #autosize="cdkTextareaAutosize"
-                          cdkAutosizeMinRows="1"
-                          cdkAutosizeMaxRows="5"></textarea>
-              </mat-form-field>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
-        <button mat-mini-fab class="add-action" color="primary" matTooltip="Add an action"
-                matTooltipPosition="above">
-          <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-        </button>
-        <div class="nav-btn">
-          <button mat-button matStepperNext>
-            <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
-            Back
-          </button>
-          <button mat-button matStepperNext>Next
-            <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
-          </button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Review</ng-template>
-      <div class="tabcontent">
-        <img class="review-thumbnail mat-elevation-z3" [src]="url">
-        <div class="hazard-summary">
-          <span class="mat-body-strong">Hazard:</span>
-          <p class="mat-hint">{{hazardObj.name}}</p>
-        </div>
-        <mat-divider></mat-divider>
-        <br>
-        <div class="hazard-summary">
-          <span class="mat-body-strong">Precautionary note:</span>
-          <p class="mat-hint">{{hazardObj.note}}</p>
-        </div>
-        <mat-divider></mat-divider>
-        <br>
-        <div class="hazard-summary">
-          <span class="mat-body-strong">Description:</span>
-          <p class="mat-hint">{{hazardObj.description}}</p>
-        </div>
-        <mat-divider></mat-divider>
-        <br>
-        <div class="hazard-summary">
-          <span class="mat-body-strong">Actions:</span>
-          <p class="mat-hint">{{hazardObj.action}}</p>
-        </div>
-      </div>
-
-      <div class="nav-btn">
-        <button mat-button matStepperNext>
-          <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
-          Back
-        </button>
-        <button mat-button matStepperNext>Save
-          <mat-icon>{{helperService.appIcons.save}}</mat-icon>
-        </button>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>
-
+                            <mat-form-field appearance="outline" fullWidth>
+                                <mat-label>Person to complete the action</mat-label>
+                                <mat-select placeholder="Moderate">
+                                    <mat-option value="option">Tehreem</mat-option>
+                                    <mat-option value="option">Nibbi</mat-option>
+                                    <mat-option value="option">Naila</mat-option>
+                                    <mat-option value="option">Laiba</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" fullWidth>
+                                <mat-label>Complete by</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" fullWidth>
+                                <mat-label>Additional note</mat-label>
+                                <textarea matInput
+                                          cdkTextareaAutosize
+                                          #autosize="cdkTextareaAutosize"
+                                          cdkAutosizeMinRows="1"
+                                          cdkAutosizeMaxRows="5"></textarea>
+                            </mat-form-field>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+                <div class="nav-btn">
+                    <button mat-button matStepperNext>
+                        <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+                        Back
+                    </button>
+                    <button mat-button matStepperNext>Next
+                        <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Review</ng-template>
+            <div class="tabcontent">
+                <img class="review-thumbnail mat-elevation-z3" [src]="url">
+                <div class="hazard-summary">
+                    <span class="mat-body-strong">Hazard:</span>
+                    <p class="mat-hint">Tehreem is hazardous Tehreem is hazardous Tehreem is hazardous Tehreem is
+                        hazardous
+                        Tehreem is hazardous</p>
+                </div>
+                <mat-divider></mat-divider>
+                <br>
+                <div class="hazard-summary">
+                    <span class="mat-body-strong">Precautionary note:</span>
+                    <p class="mat-hint">Tehreem is hazardous Tehreem is hazardous Tehreem is hazardous Tehreem is
+                        hazardous
+                        Tehreem is hazardous</p>
+                </div>
+                <mat-divider></mat-divider>
+                <br>
+                <div class="hazard-summary">
+                    <span class="mat-body-strong">Description:</span>
+                    <p class="mat-hint">Tehreem is hazardous Tehreem is hazardous Tehreem is hazardous Tehreem is
+                        hazardous
+                        Tehreem is hazardous</p>
+                </div>
+                <mat-divider></mat-divider>
+                <br>
+                <div class="hazard-summary">
+                    <span class="mat-body-strong">Actions:</span>
+                    <p class="mat-hint">Tehreem is hazardous Tehreem is hazardous Tehreem is hazardous Tehreem is
+                        hazardous
+                        Tehreem is hazardous</p>
+                </div>
+            </div>
+            <div class="nav-btn">
+                <button mat-button matStepperNext>
+                    <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+                    Back
+                </button>
+                <button mat-button matStepperNext>Save
+                    <mat-icon>{{helperService.appIcons.save}}</mat-icon>
+                </button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
 </div>
