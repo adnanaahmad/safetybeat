@@ -9,25 +9,13 @@ import {FixedNavModel} from 'src/app/models/navigation/fixedNav.model';
   styleUrls: ['./fixedNav.component.scss']
 })
 export class FixedNavComponent {
-  @Input() public navLinks: NavItem;
+  @Input() public navLinks: Array<NavItem>;
   @Input() public selectedEntity;
   @Input() navOpened: boolean;
   @Output() sidenavToggle = new EventEmitter<boolean>();
 
   fixedNav: FixedNavModel = <FixedNavModel>{};
   appIcons: any;
-  // public navLinksBottom: NavItem[] = [
-  //   {
-  //     route: '/home',
-  //     iconName: this.helperService.constants.appIcons.questionAnswer,
-  //     toolTip: 'Support Center'
-  //   },
-  //   {
-  //     route: '/home/settings',
-  //     iconName: this.helperService.constants.appIcons.settings,
-  //     toolTip: 'Settings'
-  //   }
-  // ];
 
   constructor(
     public helperService: HelperService

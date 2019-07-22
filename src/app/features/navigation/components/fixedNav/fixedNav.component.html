@@ -6,14 +6,13 @@
 </div>
 <mat-nav-list class="nav-list" *ngFor="let link of navLinks">
   <mat-list-item *ngIf="link.disabled&&link.toolTip!='Reports'&&!link.bottom" mat-button [routerLink]="link.route"
-                 routerLinkActive="active"
-                 [disableRipple]="disableNav">
+                 routerLinkActive="active">
     <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right">
       <mat-icon>{{link.iconName}}</mat-icon>
     </a>
   </mat-list-item>
 
-  <mat-list-item *ngIf="link.disabled&&link.toolTip=='Reports'&&!link.bottom" mat-button [routerLink]="link.route"
+  <mat-list-item *ngIf="link.disabled&&link.toolTip=='Reports'" mat-button [routerLink]="link.route"
                  routerLinkActive="active">
     <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right" [matMenuTriggerFor]="menu">
       <mat-icon>{{link.iconName}}</mat-icon>
