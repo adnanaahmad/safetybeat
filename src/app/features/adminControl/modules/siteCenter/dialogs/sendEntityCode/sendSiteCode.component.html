@@ -3,7 +3,7 @@
   <div class="spinner-wrap" *ngIf="sendSiteCode.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
   </div>
-  <mat-form-field appearance="outline" class="example-chip-list">
+  <mat-form-field appearance="outline" class="example-chip-list" fullWidth>
     <mat-label>{{helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER}}</mat-label>
     <mat-chip-list #chipList>
       <mat-chip *ngFor="let user of sendSiteCode.users" [removable]="sendSiteCode.removable"
