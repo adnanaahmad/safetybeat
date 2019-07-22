@@ -3,6 +3,9 @@
 </button>
 <br><br>
 <mat-divider></mat-divider><br><br>
+<div class="spinner-wrap" *ngIf="entitySettingObj.loading">
+  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
 <form [formGroup]="entitySettingObj.entityForm"
       (ngSubmit)="updateEntity(entitySettingObj.entityForm)">
     <div class="form-row">

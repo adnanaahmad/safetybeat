@@ -1,5 +1,8 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
 <div class="mat-dialog-content">
+  <div class="spinner-wrap" *ngIf="permissions.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
     <mat-tab-group>
       <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">

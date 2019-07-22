@@ -15,6 +15,10 @@
         <p>{{profileModel.role}} <strong>{{profileModel.entityName}}</strong></p>
     </div>
     <div class="data-counts">
+      <div class="countbox">
+        <h4 class="mat-display-1 mat-body-strong">{{profileModel.activitiesCount}}</h4>
+        <p class="mat-small">{{helperService.translated.MESSAGES.ACTIVITIESS}}</p>
+      </div>
         <div class="countbox">
             <h4 class="mat-display-1 mat-body-strong">{{profileModel.connectionCount}}</h4>
             <p class="mat-small">{{helperService.translated.MESSAGES.CONNECTIONS}}</p>

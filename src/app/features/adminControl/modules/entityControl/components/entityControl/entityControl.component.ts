@@ -142,8 +142,10 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
   viewAllEntities() {
     this.helperService.toggleLoader(true);
+    this.entityControl.displayLoader = true;
     this.entityControl.subscription = this.navService.data.subscribe((res) => {
       if (res && res !== 1) {
+        this.entityControl.displayLoader = false;
         this.helperService.toggleLoader(false);
         this.entityControl.allEntitiesData = res.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
@@ -152,6 +154,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
         this.viewEntitiesApiCall();
       }
     }, (error) => {
+      this.entityControl.displayLoader = false;
       this.helperService.toggleLoader(false);
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
@@ -192,11 +195,16 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     let data = {
       moduleName: 'Safetybeat'
     };
+    this.entityControl.displayLoader = true;
     this.adminServices.viewEntities(data).subscribe((res) => {
-      this.helperService.toggleLoader(false);
-      let entityUserData = this.compiler.constructUserEntityData(res.data);
-      this.navService.changeEntites(entityUserData);
+      if (res) {
+        this.entityControl.displayLoader = false;
+        this.helperService.toggleLoader(false);
+        let entityUserData = this.compiler.constructUserEntityData(res.data);
+        this.navService.changeEntites(entityUserData);
+      }
     }, (error) => {
+      this.entityControl.displayLoader = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL, this.helperService.translated.STATUS.ERROR);
     });
   }

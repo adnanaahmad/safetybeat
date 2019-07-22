@@ -220,6 +220,7 @@
     "RESETMSG": "Email has been sent!",
     "RESETFAIL": "Reset Password Unsuccessful!",
     "RESETFAIL_MSG": "Reset Email can not be sent",
+    "ACTIVITIESS": "Activities",
     "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
     "VERIFY_MSG": "In order to complete registration, please verify your account.",
     "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",

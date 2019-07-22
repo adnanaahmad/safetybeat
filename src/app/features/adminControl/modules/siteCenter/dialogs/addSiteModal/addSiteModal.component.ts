@@ -178,15 +178,16 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       this.onNoClick();
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
       } else {
         this.addSiteObj.loading = false;
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.addSiteObj.loading = false;
       this.onNoClick();
-      this.helperService.appLogger(error.error, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -200,20 +201,20 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_CREATED, this.helperService.constants.status.SUCCESS);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_FAILED, this.helperService.constants.status.ERROR);
       } else {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_FAILED, this.helperService.constants.status.ERROR);
       }
     }, error => {
       this.onNoClick();
       this.addSiteObj.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 

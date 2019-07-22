@@ -20,7 +20,7 @@ import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 export class MemberCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   memberCenter: MemberCenter = <MemberCenter>{};
-  displayedColumns: string[] = [
+  displayedColumns: Array<string> = [
     'photos',
     'name',
     'email',
@@ -71,6 +71,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
 
 
   getAllUsers(pageIndex, search) {
+    this.memberCenter.displayLoader = true;
     let data = {
       search: search,
       offset: pageIndex * this.helperService.appConstants.paginationLimit,
@@ -80,14 +81,21 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       entityId: this.memberCenter.entityId,
     };
     this.memberService.entityUsers(entityId, data).subscribe((res) => {
-      this.memberCenter.pageCount = res.data.pageCount;
-      if (pageIndex === 0) {
-        this.paginator.pageIndex = 0;
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.memberCenter.pageCount = res.data.pageCount;
+        if (pageIndex === 0) {
+          this.paginator.pageIndex = 0;
+        }
+        this.memberCenter.elements = this.compiler.entityUser(res.data.allUser);
+        this.memberService.changeEntityUsers(this.memberCenter.elements);
+        this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
+        this.memberCenter.displayLoader = false;
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        this.memberCenter.displayLoader = false;
       }
-      this.memberCenter.elements = this.compiler.entityUser(res.data.allUser);
-      this.memberService.changeEntityUsers(this.memberCenter.elements);
-      this.memberCenter.dataSource = new MatTableDataSource(this.memberCenter.elements);
-    }, error => {
+    }, (error) => {
+      this.memberCenter.displayLoader = false;
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }

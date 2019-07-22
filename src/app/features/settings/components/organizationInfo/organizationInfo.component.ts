@@ -23,6 +23,7 @@ export class OrganizationInfoComponent implements OnInit {
               public formBuilder: FormBuilder,
               public compiler: CompilerProvider) {
     this.orgObj.enabled = false;
+    this.orgObj.loading = false;
     this.orgObj.pipe = new DatePipe('en-US');
   }
 
@@ -53,13 +54,15 @@ export class OrganizationInfoComponent implements OnInit {
       this.orgObj.types = res;
     });
   }
+
   numberOnly(event): boolean {
     return this.compiler.numberOnly(event);
   }
+
   phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
-        '+' + group.value.countryCode  + group.value.phoneNo, undefined
+        '+' + group.value.countryCode + group.value.phoneNo, undefined
       );
       return phoneNumberUtil.isValidNumber(phoneNumber) ? group.controls.phoneNo.setErrors(null) :
         group.controls.phoneNo.setErrors({inValid: true});
@@ -106,6 +109,7 @@ export class OrganizationInfoComponent implements OnInit {
 
   updateOrganization({value, valid}: { value: Organization; valid: boolean }): void {
     this.orgObj.enabled = false;
+    this.orgObj.loading = true;
     this.orgObj.organizationForm.disable();
     let data = {
       'name': value.name,
@@ -117,13 +121,20 @@ export class OrganizationInfoComponent implements OnInit {
       'type': value.type
     };
     if (!valid) {
-      this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
+      this.orgObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_DATA, this.helperService.translated.STATUS.ERROR);
       return;
     }
     this.settingService.editOrganization(this.orgObj.orgID, data).subscribe((res) => {
-      this.orgObj.enabled = true;
-      this.orgObj.organizationForm.enable();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ORG_DETAILS, this.helperService.constants.status.SUCCESS);
+      if (res) {
+        this.orgObj.enabled = true;
+        this.orgObj.organizationForm.enable();
+        this.orgObj.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ORG_DETAILS, this.helperService.constants.status.SUCCESS);
+      }
+    }, (error) => {
+      this.orgObj.loading = false;
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 }

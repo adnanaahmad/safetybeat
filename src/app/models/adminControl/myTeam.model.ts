@@ -5,6 +5,7 @@ import {PermissionsModel} from './permissions.model';
 import {MatTableDataSource} from '@angular/material';
 
 export interface MyTeamModel {
+  loading: boolean;
   permissions: PermissionsModel;
   subscription: Subscription;
   allTeams: Array<TeamList>;

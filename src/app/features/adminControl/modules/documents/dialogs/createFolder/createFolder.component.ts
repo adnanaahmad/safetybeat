@@ -88,7 +88,7 @@ export class CreateFolderComponent implements OnInit {
       }, (error) => {
         this.documentsData.loader = false;
         this.dialogRef.close();
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.RENAME_FAIL);
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
       });
     }
   }

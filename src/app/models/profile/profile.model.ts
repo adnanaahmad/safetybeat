@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 import {TeamList} from '../adminControl/myTeam.model';
 
 export interface ProfileModel {
+  activitiesCount: number;
   teamsData: TeamList;
   noTeam: boolean;
   connectionCount: number;
@@ -71,17 +72,18 @@ export interface checkInCheckOut {
   site: number;
   user: number
 }
- export interface siteData {
-   createdBy: number;
-   entity: number;
-   gpsTrackEnabled: any;
-   id: number;
-   latitude: any;
-   location: string;
-   longitude: any;
-   name: string;
-   radius: any;
-   safeZone: boolean;
-   siteSafetyManager: any;
-   siteSafetyPlan: string;
- }
+
+export interface siteData {
+  createdBy: number;
+  entity: number;
+  gpsTrackEnabled: any;
+  id: number;
+  latitude: any;
+  location: string;
+  longitude: any;
+  name: string;
+  radius: any;
+  safeZone: boolean;
+  siteSafetyManager: any;
+  siteSafetyPlan: string;
+}
