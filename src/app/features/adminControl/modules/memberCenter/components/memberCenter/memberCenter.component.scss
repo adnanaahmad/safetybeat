@@ -1,6 +1,8 @@
 @mixin amte-memberCenter($primary, $accent, $warn) {
   :host,
   app-memberCenter {
+    position: relative;
+    height: $fullValue;
     .data-filter {
       padding: 0 0 0 10px;
       top: 11px;
@@ -14,7 +16,7 @@
         .search-input {
           border: 0;
           background: transparent;
-          width: 100%;
+          width: $fullValue;
           outline: 0 none;
         }
       }

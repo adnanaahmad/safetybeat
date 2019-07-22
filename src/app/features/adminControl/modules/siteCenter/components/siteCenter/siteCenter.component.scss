@@ -1,6 +1,8 @@
 @mixin amte-siteCenter($primary, $accent, $warn) {
   :host,
   app-siteCenter {
+    position: relative;
+    height: 100%;
     .data-filter {
       padding: 0 0 0 10px;
       top: 11px;
