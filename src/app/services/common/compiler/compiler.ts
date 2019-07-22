@@ -321,114 +321,147 @@ export class CompilerProvider {
         route: '/home/adminControl/dashboard',
         iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
-        disabled: true
+        disabled: true,
+        bottom: false
       },
       {
         displayName: 'Member Centre',
         route: '/home/adminControl/memberCenter',
         iconName: this.appIcons.person,
         toolTip: 'Member Center',
-        disabled: data.permissions.memberCentre
+        disabled: data.permissions.memberCentre,
+        bottom: false
       },
       {
         displayName: 'Entity Control',
         route: '/home/adminControl/entityControl',
         iconName: this.appIcons.log,
         toolTip: 'Entity Control Center',
-        disabled: data.permissions.entityControl
+        disabled: data.permissions.entityControl,
+        bottom: false
       },
       {
         displayName: 'My Team',
         route: '/home/adminControl/myTeam',
         iconName: this.appIcons.group,
         toolTip: 'My Team',
-        disabled: data.permissions.myTeam
+        disabled: data.permissions.myTeam,
+        bottom: false
       },
       {
         displayName: 'Site Centre',
         route: '/home/adminControl/siteCenter',
         iconName: this.appIcons.domain,
         toolTip: 'Site Center',
-        disabled: data.permissions.siteCentre
+        disabled: data.permissions.siteCentre,
+        bottom: false
       },
       {
         displayName: 'Question Centre',
         route: '/home/adminControl/questionCenter',
         iconName: this.appIcons.help,
         toolTip: 'Question Center',
-        disabled: data.permissions.questionCentre
+        disabled: data.permissions.questionCentre,
+        bottom: false
       },
       {
         displayName: 'Hazard Centre',
         route: '/home/adminControl/hazardCenter',
         iconName: this.appIcons.warning,
         toolTip: 'Hazard Center',
-        disabled: data.permissions.hazardCentre
+        disabled: data.permissions.hazardCentre,
+        bottom: false
       },
       {
         route: '/home/adminControl/documents',
         iconName: this.appIcons.insertDriveFile,
         displayName: 'Documents',
         toolTip: 'Documents',
-        disabled: data.permissions.documents
+        disabled: data.permissions.documents,
+        bottom: false
       },
       {
         displayName: 'Analytics Reports',
         disabled: data.permissions.analyticsReports,
         iconName: this.appIcons.showReports,
         toolTip: 'Reports',
+        bottom: false,
         children: [
           {
             displayName: 'Action Report',
             route: '/home/adminControl/analyticsReport/actionReport',
-            disabled: data.permissions.actionReport
+            disabled: data.permissions.actionReport,
+            bottom: false
           },
           {
             displayName: 'Average Daily Actions',
             route: '/home/adminControl/analyticsReport/averageDailyActionsReport',
-            disabled: data.permissions.averageDailyReport
+            disabled: data.permissions.averageDailyReport,
+            bottom: false
           },
           {
             displayName: 'Checkin by Activity',
             route: '/home/adminControl/analyticsReport/checkInActivityReport',
-            disabled: data.permissions.checkinByActivity
+            disabled: data.permissions.checkinByActivity,
+            bottom: false
           },
           {
             displayName: 'Checkin and Alert by Person',
             route: '/home/adminControl/analyticsReport/alertsPersonReport',
-            disabled: data.permissions.checkinAndAlertByPerson
+            disabled: data.permissions.checkinAndAlertByPerson,
+            bottom: false
           },
           {
             displayName: 'Actions vs Alerts',
             route: '/home/adminControl/analyticsReport/actionAlertsReport',
-            disabled: data.permissions.actionsVsAlerts
+            disabled: data.permissions.actionsVsAlerts,
+            bottom: false
           },
           {
             displayName: 'Pulse Report by Entity',
             route: '/home/adminControl/analyticsReport/entityPulseReport',
-            disabled: data.permissions.pulseReportByEntity
+            disabled: data.permissions.pulseReportByEntity,
+            bottom: false
           },
           {
             displayName: 'Pulse Report by Person',
             route: '/home/adminControl/analyticsReport/personPulseReport',
-            disabled: data.permissions.pulseReportByPerson
+            disabled: data.permissions.pulseReportByPerson,
+            bottom: false
           },
           {
             displayName: 'Compliant Checkout',
             route: '/home/adminControl/analyticsReport/compliantCheckoutReport',
-            disabled: data.permissions.compliantCheckOut
+            disabled: data.permissions.compliantCheckOut,
+            bottom: false
           },
           {
             displayName: 'Site Activity Report',
             route: '/home/adminControl/analyticsReport/siteActivityReport',
-            disabled: data.permissions.siteActivityReport
+            disabled: data.permissions.siteActivityReport,
+            bottom: false
           },
           {
             displayName: 'Hazard Reports',
             route: '/home/adminControl/analyticsReport/hazardReport',
-            disabled: data.permissions.hazardReports
+            disabled: data.permissions.hazardReports,
+            bottom: false
           }
         ]
+      },
+      {
+        route: '/home',
+        iconName: this.helperService.constants.appIcons.questionAnswer,
+        disabled: data.permissions.supportCentre,
+        toolTip: 'Support Center',
+        bottom: true
+      },
+      {
+        route: '/home/settings',
+        iconName: this.helperService.constants.appIcons.settings,
+        disabled: data.permissions.settings,
+        toolTip: 'Settings',
+        bottom: true
       }
     ];
     return this.navList;
