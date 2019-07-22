@@ -16,18 +16,18 @@ export class FixedNavComponent {
 
   fixedNav: FixedNavModel = <FixedNavModel>{};
   appIcons: any;
-  public navLinksBottom: NavItem[] = [
-    {
-      route: '/home',
-      iconName: this.helperService.constants.appIcons.questionAnswer,
-      toolTip: 'Support Center'
-    },
-    {
-      route: '/home/settings',
-      iconName: this.helperService.constants.appIcons.settings,
-      toolTip: 'Settings'
-    }
-  ];
+  // public navLinksBottom: NavItem[] = [
+  //   {
+  //     route: '/home',
+  //     iconName: this.helperService.constants.appIcons.questionAnswer,
+  //     toolTip: 'Support Center'
+  //   },
+  //   {
+  //     route: '/home/settings',
+  //     iconName: this.helperService.constants.appIcons.settings,
+  //     toolTip: 'Settings'
+  //   }
+  // ];
 
   constructor(
     public helperService: HelperService

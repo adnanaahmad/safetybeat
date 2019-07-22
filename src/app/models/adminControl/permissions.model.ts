@@ -66,7 +66,9 @@ export interface PermissionsModel {
   viewSiteCode: boolean,
   refreshSiteCode: boolean,
   shareSiteCode: boolean,
-  refreshEntityCode: boolean
+  refreshEntityCode: boolean,
+  supportCentre: boolean,
+  settings: boolean,
 }
 
 export interface ChangePermissionsObj {
