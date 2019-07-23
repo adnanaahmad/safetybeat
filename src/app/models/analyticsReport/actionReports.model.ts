@@ -2,6 +2,7 @@ import {FormGroup, Validators} from '@angular/forms';
 import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
 import {Site, SitesInfo} from '../site.model';
+import {FilterModel} from '../filter.model';
 
 
 export interface ActionReport {
@@ -15,7 +16,7 @@ export interface ActionReport {
   subscription: Subscription;
   actionReportForm: FormGroup;
   actionReportData: ActionReportData[];
-  filters: string[];
+  filters: Array<FilterModel>;
   noSites: boolean;
 }
 

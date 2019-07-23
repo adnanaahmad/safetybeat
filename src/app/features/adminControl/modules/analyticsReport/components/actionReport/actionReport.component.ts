@@ -7,6 +7,7 @@ import {AnalyticsReportService} from 'src/app/features/adminControl/modules/anal
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
+import {FilterModel} from '../../../../../../models/filter.model';
 
 @Component({
   selector: 'app-action-report',
@@ -25,8 +26,8 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     public compiler: CompilerProvider,
     private highChartSettings: HighchartService
   ) {
-    this.actionReportObj.filters = ['Choose a Range', 'weekly', 'monthly', 'yearly', 'Lifetime'];
     this.actionReportObj.noSites = false;
+    this.getFilters();
   }
 
   ngOnInit() {
@@ -38,16 +39,11 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     });
     this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
-
-        this.actionReportObj.allEntitiesData = res;
-        this.actionReportObj.entityUserData = this.actionReportObj.allEntitiesData.entities;
-        this.actionReportObj.entityId = res.entityInfo.id;
         this.actionReportObj.entityName = res.entityInfo.name;
         this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
         this.actionFormValidations['entityName'].disable();
       }
     });
-    this.actionFormValidations[this.helperService.appConstants.filter].setValue(this.actionReportObj.filters[4]);
     this.actionReportObj.entityId = JSON.parse(this.helperService.decrypt
     (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
       this.helperService.appConstants.key));
@@ -68,9 +64,17 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.makeReport(data);
   }
 
+  getFilters() {
+    this.analyticsService.filter().subscribe((res) => {
+      if (res) {
+        this.actionReportObj.filters = res;
+      }
+    });
+  }
+
   makeReport(data) {
     this.analyticsService.actionReport(data).subscribe((res) => {
-      if (res.responseDetails.code === 100) {
+      if (res && res.responseDetails.code === 100) {
         this.actionReportObj.actionReportData = this.compiler.constructActionReportData(res.data);
         let chartType: HighChartType = {
           type: 'column',
