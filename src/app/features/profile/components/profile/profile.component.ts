@@ -19,6 +19,7 @@ import {map} from 'rxjs/operators';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -71,7 +72,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     public profileService: ProfileService,
     public adminService: AdminControlService,
     private breakpointObserver: BreakpointObserver,
-    public memberService: MemberCenterService
+    public memberService: MemberCenterService,
+    private formBuilder: FormBuilder
   ) {
     this.initialize();
     this.route.params.subscribe((data) => {
@@ -126,6 +128,15 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getCurrentUser();
       }
     });
+    this.profileModel.filterForm = this.formBuilder.group({
+      filter: [''],
+      dateTo: ['', Validators.required],
+      dateFrom: ['', Validators.required]
+    });
+    this.filterFormValidations[this.helperService.appConstants.filter].setValue(this.profileModel.filters[4]);
+    if (this.profileModel.filterForm.value) {
+      this.filteredActivities(this.profileModel.filterForm);
+    }
 
     // this.responsive();
   }
@@ -136,6 +147,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   initialize() {
+    this.profileModel.filters = ['Choose a Range', 'weekly', 'monthly', 'yearly', 'Lifetime'];
     this.profileModel.entityCount = 0;
     this.profileModel.connectionCount = 0;
     this.profileModel.noTeam = false;
@@ -175,6 +187,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.helperService.hideLoggers();
     this.profileModel.subscription.unsubscribe();
+  }
+
+  get filterFormValidations() {
+    return this.profileModel.filterForm.controls;
   }
 
   /**
@@ -236,6 +252,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
+  filteredReport(value: any) {
+    debugger
+    if (value !== 'Choose a Range') {
+      this.filterFormValidations[this.helperService.appConstants.dateFrom].disable();
+      this.filterFormValidations[this.helperService.appConstants.dateTo].disable();
+    } else {
+      this.filterFormValidations[this.helperService.appConstants.dateFrom].enable();
+      this.filterFormValidations[this.helperService.appConstants.dateTo].enable();
+    }
+  }
+
   getUserConnections(userId: number) {
     this.profileModel.allConnectionsData = [];
     this.adminService.allConnections({userId: userId}).subscribe((res) => {
@@ -279,6 +306,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   viewSite(longitude, latitude, siteName, location) {
     let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location};
     this.helperService.createDialog(SiteMapComponent, {disableClose: true, data: {siteData: data, type: true}});
+  }
+
+  filteredActivities(filterForm: FormGroup) {
   }
 }
 

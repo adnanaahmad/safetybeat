@@ -86,6 +86,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.entityControl.permissions = data;
+        console.log(this.entityControl.permissions)
       }
     });
   }

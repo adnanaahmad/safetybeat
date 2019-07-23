@@ -1,7 +1,7 @@
 import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatBottomSheet, MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {AddSiteData, SiteAddData} from 'src/app/models/site.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
@@ -26,6 +26,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     private render: Renderer2,
     private adminServices: AdminControlService,
     private memberService: MemberCenterService,
+    private bottomSheet: MatBottomSheet,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
@@ -178,16 +179,15 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       this.onNoClick();
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_EDIT_SUCCESS);
       } else {
         this.addSiteObj.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE, this.helperService.constants.status.ERROR);
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
       }
     }, (error) => {
       this.addSiteObj.loading = false;
       this.onNoClick();
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.appLogger(error.error, this.helperService.translated.MESSAGES.SITE_EDIT_FAILURE);
     });
   }
 
@@ -201,20 +201,20 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_CREATED, this.helperService.constants.status.SUCCESS);
+        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_FAILED, this.helperService.constants.status.ERROR);
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       } else {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_FAILED, this.helperService.constants.status.ERROR);
+        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
     }, error => {
       this.onNoClick();
       this.addSiteObj.loading = false;
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
     });
   }
 

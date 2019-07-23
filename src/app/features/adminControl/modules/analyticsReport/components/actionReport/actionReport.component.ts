@@ -38,7 +38,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     });
     this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
-
         this.actionReportObj.allEntitiesData = res;
         this.actionReportObj.entityUserData = this.actionReportObj.allEntitiesData.entities;
         this.actionReportObj.entityId = res.entityInfo.id;

@@ -14,6 +14,7 @@ export class SiteMapComponent implements OnInit {
     public helperService: HelperService,
     public dialogRef: MatDialogRef<SiteMapComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
+    debugger
   }
 
   ngOnInit() {
@@ -31,8 +32,9 @@ export class SiteMapComponent implements OnInit {
       draggable: true, draggableCursor: ''
     });
     for (let i = 0; i < this.data.siteData.length; i++) {
-      this.helperService.addMarker(val, {lat: this.data.siteData[i].longitude, lng: this.data.siteData[i].latitude});
-      this.helperService.addCircle(val, {lat: this.data.siteData[i].longitude, lng: this.data.siteData[i].latitude}, 500);
+      // this.helperService.addMarker(val, {lat: this.data.siteData[i].longitude, lng: this.data.siteData[i].latitude});
+      this.helperService.setLocationGeocode(this.data.siteData[i].location,
+        val, this.data.siteData[i].radius);
     }
   }
 

@@ -1,6 +1,8 @@
 @mixin amte-hazardCenter($primary, $accent, $warn) {
   :host,
   app-hazardCenter {
+    position: relative;
+    height: $fullValue;
     .customTable td,
     .customTable th {
       padding: 0 10px !important;
@@ -19,7 +21,7 @@
         .search-input {
           border: 0;
           background: transparent;
-          width: 100%;
+          width: $fullValue;
           outline: 0 none;
         }
       }

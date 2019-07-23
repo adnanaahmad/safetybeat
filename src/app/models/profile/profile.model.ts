@@ -5,6 +5,8 @@ import {Subscription} from 'rxjs';
 import {TeamList} from '../adminControl/myTeam.model';
 
 export interface ProfileModel {
+  filters: Array<string>;
+  filterForm: FormGroup;
   activitiesCount: number;
   teamsData: TeamList;
   noTeam: boolean;
