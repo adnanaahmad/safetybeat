@@ -37,5 +37,12 @@ export class AnalyticsReportService {
     );
   }
 
+  filter() {
+    return this.helperService.requestCall(
+      this.method.get,
+      this.apiRoutes.filters
+    );
+  }
+
 
 }
