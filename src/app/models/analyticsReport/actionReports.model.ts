@@ -1,8 +1,8 @@
 import {FormGroup, Validators} from '@angular/forms';
-import {EntityUserData} from '../userEntityData.model';
+import {EntityUserData} from 'src/app/models/userEntityData.model';
 import {Subscription} from 'rxjs';
-import {Site, SitesInfo} from '../site.model';
-import {FilterModel} from '../filter.model';
+import {SitesInfo} from 'src/app/models/site.model';
+import {FilterModel} from 'src/app/models/filter.model';
 
 
 export interface ActionReport {
@@ -85,7 +85,7 @@ export interface InputElement {
 export interface SelectElement {
   element: string;
   formControlName: string;
-  validators: Validators ;
+  validators: Validators;
   options: Array<string>;
   errorMessage: string;
   value?: string;

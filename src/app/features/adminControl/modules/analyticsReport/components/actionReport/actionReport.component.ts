@@ -7,7 +7,6 @@ import {AnalyticsReportService} from 'src/app/features/adminControl/modules/anal
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
-import {FilterModel} from '../../../../../../models/filter.model';
 
 @Component({
   selector: 'app-action-report',
