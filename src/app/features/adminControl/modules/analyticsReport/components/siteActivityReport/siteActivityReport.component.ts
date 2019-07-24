@@ -28,7 +28,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     private highChartSettings: HighchartService,
     public adminServices: AdminControlService,
   ) {
-    this.actionReportObj.filters = ['range', 'weekly', 'monthly', 'yearly', 'Lifetime']
     this.actionReportObj.showChart = true;
   }
 
