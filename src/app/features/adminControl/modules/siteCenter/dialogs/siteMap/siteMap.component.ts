@@ -14,7 +14,6 @@ export class SiteMapComponent implements OnInit {
     public helperService: HelperService,
     public dialogRef: MatDialogRef<SiteMapComponent>,
     @Inject(MAT_DIALOG_DATA) public data) {
-    debugger
   }
 
   ngOnInit() {

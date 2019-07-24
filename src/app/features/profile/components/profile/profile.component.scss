@@ -15,7 +15,7 @@
       }
     }
     mat-grid-list {
-      min-height: 400px;
+      min-height: 500px;
     }
     mat-card-title {
       font-size: 18px;
@@ -148,11 +148,16 @@
         min-height: auto;
       }
       mat-card-content {
-        height: 95%;
+        height: 70%;
       }
     }
     .mat-card {
       margin: 3px;
+    }
+    @media (max-width:767px){
+      .dashboard-card{
+        overflow: auto;
+      }
     }
   }
 }

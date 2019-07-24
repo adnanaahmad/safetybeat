@@ -20,7 +20,7 @@ import {MemberCenterService} from 'src/app/features/adminControl/modules/memberC
 import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Site} from 'src/app/models/site.model';
+import {PaginationData, Site} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-profile',
@@ -49,9 +49,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     map(({matches}) => {
       if (matches) {
         return [
-          {title: 'links', cols: 3, rows: 1},
-          {title: 'userData', cols: 3, rows: 1},
-          {title: 'accountInfo', cols: 3, rows: 1}
+          {title: 'links', cols: 3, rows: 3},
+          {title: 'userData', cols: 3, rows: 3},
+          {title: 'accountInfo', cols: 3, rows: 3}
         ];
       } else {
         return [
@@ -84,15 +84,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id);
-        this.viewActivities(this.profileModel.receivedData.id);
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
-          } else {
-            // do something here
           }
         });
       }
@@ -136,8 +133,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       dateTo: ['', Validators.required],
       dateFrom: ['', Validators.required]
     });
-
-    // this.responsive();
   }
 
   ngAfterViewInit() {
@@ -146,6 +141,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   initialize() {
+    this.profileModel.firstIndex = 0;
+    this.profileModel.pageSize = 7;
     this.profileModel.entityCount = 0;
     this.profileModel.connectionCount = 0;
     this.profileModel.noTeam = false;
@@ -234,30 +231,36 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  viewActivities(filters: FormGroup) {
+  viewActivities(filters, paginationData) {
     let data: ActivityFilterData = {
       days: filters.value.filter,
       dateTo: filters.value.dateTo,
       dateFrom: filters.value.dateFrom,
       userId: this.profileModel.userId
     };
-    this.profile.viewRecentActivities(data).subscribe((res) => {
-      debugger
+    let pagination: PaginationData = {
+      offset: paginationData * this.helperService.appConstants.paginationLimitForProfile,
+      limit: this.helperService.appConstants.paginationLimitForProfile
+    };
+    this.profile.viewRecentActivities(data, pagination).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.recentActivities.length === 0) {
-          this.profileModel.noActivity = true;
+          this.profileModel.recentActivities = null;
         } else {
+          this.profileModel.pageCount = res.data.pageCount;
           this.profileModel.activitiesCount = res.data.recentActivities.length;
           this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res.data);
+          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
         }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.profileModel.noActivity = true;
+        this.profileModel.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ACTIVITIES_FAIL, this.helperService.constants.status.ERROR
         );
       } else {
-        this.profileModel.noActivity = true;
+        this.profileModel.dataSource = null;
       }
     }, (error) => {
+      this.profileModel.dataSource = null;
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
@@ -322,6 +325,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profileService.filter().subscribe((res) => {
       if (res) {
         this.profileModel.filters = res;
+        this.profileModel.selectedFilter = this.helperService.find(this.profileModel.filters, function (obj) {
+          return obj.name === 'Lifetime';
+        });
+        this.filteredReport(this.profileModel.selectedFilter);
+        this.filterFormValidations['filter'].setValue(this.profileModel.selectedFilter.days);
+        this.viewActivities(this.profileModel.filterForm, this.profileModel.firstIndex);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);

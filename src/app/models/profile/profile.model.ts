@@ -6,6 +6,11 @@ import {TeamList} from '../adminControl/myTeam.model';
 import {responseDetails} from '../user.model';
 
 export interface ProfileModel {
+  selectedFilter: any;
+  data: ActivityFilterData;
+  pageCount: number;
+  pageSize: number;
+  firstIndex: number;
   filters: Array<Filters>;
   filterForm: FormGroup;
   activitiesCount: number;

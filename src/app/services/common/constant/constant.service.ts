@@ -141,6 +141,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    paginationLimitForProfile: 7,
     spinnerConstant: 30,
     paginationLimit: 10,
     moduleName: 'Safetybeat',
