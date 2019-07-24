@@ -40,6 +40,8 @@ export class SiteMapComponent implements OnInit {
 
   singleSite() {
     let val = this.helperService.createMap(this.gMapElement);
-    this.helperService.addMarker(val, {lat: this.data.siteData.longitude, lng: this.data.siteData.latitude});
+    // this.helperService.addMarker(val, {lat: this.data.siteData.longitude, lng: this.data.siteData.latitude});
+    this.helperService.setLocationGeocode(this.data.siteData.location,
+      val, this.data.siteData.radius);
   }
 }

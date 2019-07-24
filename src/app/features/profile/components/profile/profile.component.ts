@@ -10,7 +10,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {ActivityFilterData, ProfileModel} from 'src/app/models/profile/profile.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {ActivatedRoute} from '@angular/router';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
@@ -20,6 +20,7 @@ import {MemberCenterService} from 'src/app/features/adminControl/modules/memberC
 import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Site} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-profile',
@@ -115,7 +116,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.getUserConnections(this.profileModel.userId);
-          this.viewActivities(this.profileModel.userId);
+          // this.viewActivities(this.profileModel.userId);
         } else {
           this.connectionsColumns = ['img', 'name', 'email', 'contact'];
           this.profileModel.contactNo = this.profileModel.receivedData.contact;
@@ -128,15 +129,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getCurrentUser();
       }
     });
+
+    this.getFilters();
     this.profileModel.filterForm = this.formBuilder.group({
       filter: [''],
       dateTo: ['', Validators.required],
       dateFrom: ['', Validators.required]
     });
-    this.filterFormValidations[this.helperService.appConstants.filter].setValue(this.profileModel.filters[4]);
-    if (this.profileModel.filterForm.value) {
-      this.filteredActivities(this.profileModel.filterForm);
-    }
 
     // this.responsive();
   }
@@ -147,7 +146,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   initialize() {
-    this.profileModel.filters = ['Choose a Range', 'weekly', 'monthly', 'yearly', 'Lifetime'];
     this.profileModel.entityCount = 0;
     this.profileModel.connectionCount = 0;
     this.profileModel.noTeam = false;
@@ -217,6 +215,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.helperService.constants.status.WARNING);
 
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -228,33 +228,42 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
       this.navService.updateCurrentUser(userData);
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
-  viewActivities(userId: number) {
-    this.profile.viewRecentActivities({userId: userId}).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        if (res.data.length === 0) {
+  viewActivities(filters: FormGroup) {
+    let data: ActivityFilterData = {
+      days: filters.value.filter,
+      dateTo: filters.value.dateTo,
+      dateFrom: filters.value.dateFrom,
+      userId: this.profileModel.userId
+    };
+    this.profile.viewRecentActivities(data).subscribe((res) => {
+      debugger
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res.data.recentActivities.length === 0) {
           this.profileModel.noActivity = true;
         } else {
           this.profileModel.activitiesCount = res.data.recentActivities.length;
           this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res.data);
         }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noActivity = true;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ACTIVITIES_FAIL, this.helperService.constants.status.ERROR
         );
       } else {
         this.profileModel.noActivity = true;
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
-  filteredReport(value: any) {
-    debugger
-    if (value !== 'Choose a Range') {
+  filteredReport(value: number) {
+    if (value !== -1) {
       this.filterFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.filterFormValidations[this.helperService.appConstants.dateTo].disable();
     } else {
@@ -277,6 +286,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.helperService.createSnack(
           this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE, this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -303,9 +314,18 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  viewSite(longitude, latitude, siteName, location) {
-    let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location};
-    this.helperService.createDialog(SiteMapComponent, {disableClose: true, data: {siteData: data, type: true}});
+  viewSite(site: Site) {
+    this.helperService.createDialog(SiteMapComponent, {disableClose: true, data: {siteData: site, type: true}});
+  }
+
+  getFilters() {
+    this.profileService.filter().subscribe((res) => {
+      if (res) {
+        this.profileModel.filters = res;
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
   }
 
   filteredActivities(filterForm: FormGroup) {

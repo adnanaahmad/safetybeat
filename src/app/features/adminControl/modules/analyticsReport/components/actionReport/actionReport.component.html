@@ -40,8 +40,8 @@
           <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
           <mat-select [formControlName]="helperService.appConstants.filter"
                       (selectionChange)="filteredReport($event.value)">
-            <mat-option *ngFor="let filter of actionReportObj.filters" [value]="filter">
-              {{ filter }}
+            <mat-option *ngFor="let filter of actionReportObj.filters" [value]="filter.id">
+              {{ filter.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>

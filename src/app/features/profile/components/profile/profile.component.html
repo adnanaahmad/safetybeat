@@ -112,34 +112,49 @@
             <div class="table-wrap">
               <mat-card-title>Your Activities</mat-card-title>
               <form [formGroup]="profileModel.filterForm"
-                    (ngSubmit)=filteredActivities(profileModel.filterForm) (keydown.enter)="$event.preventDefault()">
+                    (ngSubmit)=viewActivities(profileModel.filterForm) (keydown.enter)="$event.preventDefault()">
                 <mat-form-field appearance="outline">
                   <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
                          placeholder="Date From" readonly>
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
+                  <mat-error class="text-right" *ngIf="filterFormValidations.errors">
+                    <span
+                      *ngIf="filterFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                   <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
                          placeholder="Date To" readonly>
                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
+                  <mat-error class="text-right" *ngIf="filterFormValidations.errors">
+                    <span
+                      *ngIf="filterFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                   <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
                   <mat-select [formControlName]="helperService.appConstants.filter"
                               (selectionChange)="filteredReport($event.value)">
-                    <mat-option *ngFor="let filter of profileModel.filters" [value]="filter">
-                      {{ filter }}
+                    <mat-option *ngFor="let filter of profileModel.filters" [value]="filter.days">
+                      {{ filter.name }}
                     </mat-option>
                   </mat-select>
+                  <mat-error class="text-right" *ngIf="filterFormValidations.errors">
+                    <span
+                      *ngIf="filterFormValidations.filter.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                  </mat-error>
                 </mat-form-field>
+                <button mat-raised-button custom-btn color="primary">
+                  {{helperService.translated.BUTTONS.SUBMIT}}
+                </button>
               </form>
               <table mat-table [dataSource]="profileModel.recentActivities" class="customTable">
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Name</th>
                   <td class="viewsite pointer" mat-cell *matCellDef="let element"
-                      (click)="viewSite(element.siteData.longitude, element.siteData.latitude, element.siteData.name, element.siteData.location)">
+                      (click)="viewSite(element.siteData)">
                     {{element.siteData.name}}
                     <mat-icon>{{helperService.appIcons.Launch}}</mat-icon>
                   </td>

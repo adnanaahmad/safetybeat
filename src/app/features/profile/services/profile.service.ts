@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AllUsersOfEntityResponse} from 'src/app/models/adminControl/entityControl.model';
 import {User} from 'src/app/models/user.model';
+import {ActivityApiResponse, ActivityFilterData} from 'src/app/models/profile/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,9 +65,16 @@ export class ProfileService {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.viewAllConnections, data);
   }
 
-  viewRecentActivities(userId) {
+  viewRecentActivities(data: ActivityFilterData): Observable<ActivityApiResponse> {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.recentActivities, userId);
+      this.helperService.constants.apiRoutes.recentActivities, data);
+  }
+
+  filter() {
+    return this.helperService.requestCall(
+      this.method.get,
+      this.apiRoutes.filters
+    );
   }
 
 }

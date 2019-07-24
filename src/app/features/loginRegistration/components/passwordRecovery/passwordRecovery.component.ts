@@ -102,7 +102,6 @@ export class PasswordRecoveryComponent implements OnInit {
         this.passRecoveryObj.loading = false;
         this.helperService.navigateTo([this.helperService.appConstants.paths.login]);
       }
-
     }, (error) => {
       this.passRecoveryObj.loading = false;
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);

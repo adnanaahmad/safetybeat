@@ -26,6 +26,7 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loginRegisterService.getPackagesData().subscribe((res) => {
+      debugger
       this.packages = CompilerProvider.constructPackageDetail(res);
       this.packages = this.helperService.sortBy(this.packages, function (pkg) {
         return pkg.package.cost;

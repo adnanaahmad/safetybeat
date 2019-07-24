@@ -78,21 +78,16 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       this.forgotPassObj.loading = false;
       return;
     }
-    this.forgotService.forgotPassword(value).subscribe(
-      data => {
-        let res = data;
-        if (res && res.responseDetails.code !== this.helperService.appConstants.codeValidations[0]) {
-          this.forgotPassObj.loading = false;
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS, this.helperService.constants.status.SUCCESS);
-          this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-        }
-      },
-      error => {
+    this.forgotService.forgotPassword(value).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.forgotPassObj.loading = false;
-        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.RESET_SUCCESS, this.helperService.constants.status.SUCCESS);
+        this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
       }
-    );
-
+    }, (error) => {
+      this.forgotPassObj.loading = false;
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
   }
 
 }

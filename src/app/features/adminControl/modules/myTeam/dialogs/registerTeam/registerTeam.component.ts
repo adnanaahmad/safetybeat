@@ -107,15 +107,18 @@ export class RegisterTeamComponent implements OnInit {
             this.helperService.constants.status.SUCCESS);
           this.onNoClick();
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
+          this.onNoClick();
           this.registerTeamObj.loading = false;
           this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_ALREADY_EXIST,
             this.helperService.constants.status.ERROR);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.onNoClick();
           this.registerTeamObj.loading = false;
           this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
+        this.onNoClick();
         this.registerTeamObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
           this.helperService.constants.status.ERROR);
@@ -136,8 +139,8 @@ export class RegisterTeamComponent implements OnInit {
    *this function removes the user from list on remove button
    * @params selectedUser
    */
-  removeFromSelected (selectedUser: any) {
-    if (selectedUser.id === this.registerTeamObj.teamLeadID ) {
+  removeFromSelected(selectedUser: any) {
+    if (selectedUser.id === this.registerTeamObj.teamLeadID) {
       this.registerTeamObj.teamLeadID = null;
     }
     let index: number = this.registerTeamObj.selectedUsers.indexOf(selectedUser);

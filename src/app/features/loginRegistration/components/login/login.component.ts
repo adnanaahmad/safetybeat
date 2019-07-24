@@ -130,9 +130,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
           (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           let entityData = {
-              'moduleName': this.helperService.appConstants.moduleName
-            }
-          ;
+            'moduleName': this.helperService.appConstants.moduleName
+          };
           this.adminService.viewEntities(entityData).subscribe((res) => {
             if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
               this.loginObj.entities = res;
@@ -163,11 +162,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.loginObj.loading = false;
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
         }
-      },
-      error => {
+      }, (error) => {
         this.loginObj.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_FAIL, this.helperService.constants.status.ERROR);
-      }
-    );
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      });
   }
 }

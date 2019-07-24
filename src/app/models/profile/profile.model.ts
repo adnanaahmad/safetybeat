@@ -3,9 +3,10 @@ import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
 import {TeamList} from '../adminControl/myTeam.model';
+import {responseDetails} from '../user.model';
 
 export interface ProfileModel {
-  filters: Array<string>;
+  filters: Array<Filters>;
   filterForm: FormGroup;
   activitiesCount: number;
   teamsData: TeamList;
@@ -61,7 +62,7 @@ export interface ProfileFeatures {
 
 export interface recentActivities {
   checkInCheckOut: checkInCheckOut;
-  site: siteData;
+  siteData: siteData;
   duration: string
 }
 
@@ -76,16 +77,38 @@ export interface checkInCheckOut {
 }
 
 export interface siteData {
+  code: string;
   createdBy: number;
   entity: number;
-  gpsTrackEnabled: any;
+  gpsTrackEnabled: boolean;
   id: number;
   latitude: any;
   location: string;
   longitude: any;
   name: string;
-  radius: any;
+  radius: number;
   safeZone: boolean;
-  siteSafetyManager: any;
+  siteSafetyManager: number;
   siteSafetyPlan: string;
+}
+
+export interface Filters {
+  id: number;
+  name: string;
+  days: number;
+}
+
+export interface ActivityFilterData {
+  days: number;
+  userId: number;
+  dateTo?: Date;
+  dateFrom?: Date;
+}
+
+export interface ActivityApiResponse {
+  data: {
+    pageCount: number;
+    recentActivities: Array<recentActivities>;
+  };
+  responseDetails: responseDetails;
 }

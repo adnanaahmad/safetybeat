@@ -210,7 +210,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.helperService.constants.status.ERROR);
       return;
     }
-    this.register.registerUser(this.registerObj.registerData).subscribe((result: RegistrationResponseObject) => {
+    this.register.registerUser(this.registerObj.registerData).subscribe((result) => {
       if (result && result.responseDetails && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         result ? this.register.setToken(result.data.token) : this.register.setToken('');
         this.helperService.createSnack(
@@ -218,13 +218,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.registerObj.loading = false;
         this.helperService.navigateTo([this.helperService.appConstants.paths.welcomeScreen]);
       } else if (result && result.password1) {
+        this.registerObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.COMMON_PASSWORD,
           this.helperService.translated.STATUS.ERROR);
-        this.registerObj.loading = false;
       } else {
+        this.registerObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.EMAIL_ALREADY_EXISTS,
           this.helperService.translated.STATUS.ERROR);
-        this.registerObj.loading = false;
       }
     }, (error) => {
       this.registerObj.loading = false;
