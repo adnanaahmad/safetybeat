@@ -50,9 +50,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.viewAllEntities();
-    this.entityControl.entityId = JSON.parse(this.helperService.decrypt(
-      localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
+    this.entityControl.entityId = this.helperService.getEntityId();
   }
 
   /**

@@ -1,5 +1,5 @@
 import {Injectable, ElementRef, NgZone} from '@angular/core';
-import {forEach, findIndex, remove, sortBy, find, union, isEmpty, isEqual, intersectionWith } from 'lodash';
+import {forEach, findIndex, remove, sortBy, find, union, isEmpty, isEqual, intersectionWith} from 'lodash';
 import {TranslateService} from '@ngx-translate/core';
 import {Translation} from 'src/app/models/translate.model';
 import {MatAutocompleteSelectedEvent, MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
@@ -470,6 +470,12 @@ export class HelperService {
 
   get isEmptyLodash() {
     return isEmpty;
+  }
+
+  getEntityId() {
+    return JSON.parse(this.decrypt
+    (localStorage.getItem(this.constants.localStorageKeys.entityId),
+      this.appConstants.key));
   }
 
 }

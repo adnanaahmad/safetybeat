@@ -31,9 +31,7 @@ export class ActionAlertsReportsComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.actionAlertObj.entityId = JSON.parse(this.helperService.decrypt
-    (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
+    this.actionAlertObj.entityId = this.helperService.getEntityId();
     this.getAllUsers({entityId: this.actionAlertObj.entityId});
     this.getAllTeams({entityId: this.actionAlertObj.entityId});
   }
