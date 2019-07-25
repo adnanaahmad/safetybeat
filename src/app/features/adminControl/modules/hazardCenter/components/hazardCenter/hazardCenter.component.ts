@@ -72,8 +72,7 @@ export class HazardCenterComponent implements OnInit {
    */
   getHazardList(pageIndex, search) {
     let entityData = {
-      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      'entityId': this.helperService.getEntityId(),
     };
     let paginationData: PaginationData = {
       limit: this.helperService.constants.appConstant.paginationLimit,

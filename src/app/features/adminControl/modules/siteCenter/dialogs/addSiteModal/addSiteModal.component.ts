@@ -131,8 +131,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
 
     getAllUsers() {
         let data = {
-            entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-                this.helperService.appConstants.key))
+            entityId: this.helperService.getEntityId()
         };
         this.memberService.allEntityUsers(data).subscribe((res) => {
             if (res) {
@@ -159,8 +158,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
             siteSafetyPlan: value.siteSafetyPlan,
             radius: value.radius,
             gpsTrackEnabled: value.gpsTrackEnabled,
-            entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-                this.helperService.appConstants.key)),
+            entity: this.helperService.getEntityId(),
         };
         if (editSite) {
             siteData.createdBy = this.addSiteObj.site.createdBy.id;

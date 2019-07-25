@@ -142,8 +142,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
 
   viewSitesData() {
     let entityData = {
-      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      'entityId': this.helperService.getEntityId(),
     };
     let paginationData: PaginationData = {
       offset: null,
@@ -163,8 +162,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
 
   viewTeamsData() {
     let entityData = {
-      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      'entityId': this.helperService.getEntityId(),
     };
     let paginationData: PaginationData = {
       offset: null,

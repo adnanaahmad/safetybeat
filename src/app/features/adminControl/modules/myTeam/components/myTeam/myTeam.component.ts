@@ -44,8 +44,7 @@ export class MyTeamComponent implements OnInit {
 
   getAllUsers() {
     let data = {
-      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
+      entityId: this.helperService.getEntityId()
     };
     this.memberService.getUsersList(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -72,8 +71,7 @@ export class MyTeamComponent implements OnInit {
 
   getAllTeams() {
     let data: GetAllTeamsData = {
-      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
+      entityId: this.helperService.getEntityId()
     };
     let paginationData: PaginationData = {
       offset: null,

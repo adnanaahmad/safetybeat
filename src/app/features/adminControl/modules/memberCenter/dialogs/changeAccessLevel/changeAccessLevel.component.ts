@@ -86,7 +86,9 @@ export class ChangeAccessLevelComponent implements OnInit {
       viewSiteCode: this.permissions.permissionsData.viewSiteCode,
       refreshSiteCode: this.permissions.permissionsData.refreshSiteCode,
       shareSiteCode: this.permissions.permissionsData.shareSiteCode,
-      refreshEntityCode: this.permissions.permissionsData.refreshEntityCode
+      refreshEntityCode: this.permissions.permissionsData.refreshEntityCode,
+      supportCentre: this.permissions.permissionsData.supportCentre,
+      settings: this.permissions.permissionsData.settings,
     });
     this.permissions.permissionsForm.valueChanges.subscribe(result => {
       this.checkChange(this.permissions.permissionsForm)
@@ -96,8 +98,7 @@ export class ChangeAccessLevelComponent implements OnInit {
   permissionsFormSubmit({value}: { value: PermissionsModel }) {
     this.permissions.loading = true;
     value.userId = this.data.id;
-    value.entityId = JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
+    value.entityId = this.helperService.getEntityId();
     this.memberService.updateUserPermission(value, this.permissions.permissionsData.id).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.permissions.loading = false;

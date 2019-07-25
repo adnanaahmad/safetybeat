@@ -7,9 +7,8 @@ import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
-import {AllHazardsApiData, Hazard} from 'src/app/models/hazard.model';
-import {DocumentObj, Folder} from '../../../models/navigation/documents.model';
-import {ActionReportData, UserActionReportData} from '../../../models/analyticsReport/actionReports.model';
+import {DocumentObj, Folder} from 'src/app/models/navigation/documents.model';
+import {ActionReportData} from 'src/app/models/analyticsReport/actionReports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {EntityQuestion} from 'src/app/models/adminControl/questionCenter.model';
@@ -148,10 +147,6 @@ export class CompilerProvider {
 
   constructActionReportData(actionReportApiResponse: any): Array<ActionReportData> {
     return actionReportApiResponse;
-  }
-
-  constructUserActionReportData(actionReportApiResponse: any): UserActionReportData {
-    return actionReportApiResponse.data;
   }
 
   constructAllTeamsData(allTeamsApiResponse: any): Array<TeamList> {
