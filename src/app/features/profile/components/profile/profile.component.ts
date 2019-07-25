@@ -21,6 +21,8 @@ import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Site} from 'src/app/models/site.model';
+import {isSameDay, isSameMonth} from 'date-fns';
+import {CalendarEvent, CalendarView} from 'angular-calendar';
 
 @Component({
   selector: 'app-profile',
@@ -62,6 +64,14 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   );
+  view: CalendarView = CalendarView.Month;
+
+  CalendarView = CalendarView;
+  viewDate: Date = new Date();
+  activeDayIsOpen: boolean;
+  title: any;
+  data: any;
+  events: any;
 
   constructor(
     private profile: ProfileService,
@@ -162,6 +172,48 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       'role',
       'administrator'
     ];
+  }
+
+  /**
+   * this function will be overrided that's why we have keep this here
+   * @params date
+   * @params events
+   */
+  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      this.viewDate = date;
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+      }
+    }
+  }
+
+  /**
+   * this function is used for opening the dialog when we click on the date from calendar.
+   */
+  selectDate() {
+    const dateSelected = this.viewDate;
+  }
+
+  /**
+   * this function is used to set view like weekly,monthly or daily
+   * @params view
+   */
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+  /**
+   * this fucntion will also be overrided
+   */
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
   }
 
 

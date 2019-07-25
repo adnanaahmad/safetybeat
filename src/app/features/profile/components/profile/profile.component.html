@@ -78,31 +78,158 @@
         <!-- for leaves insert content here -->
         <mat-card class="dashboard-card" fullWidth *ngIf="card.title=='userData'">
           <mat-card-content *ngIf="profileFeatures.leaves">
-            <div class="table-wrap">
-              <mat-card-title>Your Leaves</mat-card-title>
-              <table fullWidth mat-table class="customTable" [dataSource]="dataSource">
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No.</th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}}</td>
-                </ng-container>
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name</th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}}</td>
-                </ng-container>
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight</th>
-                  <td mat-cell *matCellDef="let element"> {{element.weight}}</td>
-                </ng-container>
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Symbol</th>
-                  <td mat-cell *matCellDef="let element"> {{element.symbol}}</td>
-                </ng-container>
+            <mat-toolbar>
+              <span>Schedule</span>
+              <button class="buttonRow" mat-raised-button color="primary" class="addEvent"> Add New
+                Event
+              </button>
+            </mat-toolbar>
+            <div class="row text-center">
+              <div class="col-md-4">
+                <div class="btn-group">
+                  <button mat-button
+                          class="btn btn-primary"
+                          mwlCalendarPreviousView
+                          [view]="view"
+                          [(viewDate)]="viewDate"
+                          (viewDateChange)="closeOpenMonthViewDay()">
+                    Previous
+                  </button>
+                  <button mat-button
+                          class="btn btn-outline-secondary"
+                          mwlCalendarToday
+                          [(viewDate)]="viewDate"
+                  >
+                    Today
+                  </button>
+                  <button mat-button
+                          class="btn btn-primary"
+                          mwlCalendarNextView
+                          [view]="view"
+                          [(viewDate)]="viewDate"
+                          (viewDateChange)="closeOpenMonthViewDay()"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+              </div>
+              <div class="col-md-4">
+                <div class="btn-group">
+                  <button mat-button
+                          class="btn btn-primary"
+                          (click)="setView(CalendarView.Month)"
+                          [class.active]="view === CalendarView.Month"
+                  >
+                    Month
+                  </button>
+                  <button mat-button
+                          class="btn btn-primary"
+                          (click)="setView(CalendarView.Week)"
+                          [class.active]="view === CalendarView.Week"
+                  >
+                    Week
+                  </button>
+                  <button mat-button
+                          class="btn btn-primary"
+                          (click)="setView(CalendarView.Day)"
+                          [class.active]="view === CalendarView.Day"
+                  >
+                    Day
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br/>
+            <div [ngSwitch]="view">
+              <mwl-calendar-month-view
+                *ngSwitchCase="CalendarView.Month"
+                [viewDate]="viewDate"
+                [events]="events"
+                [activeDayIsOpen]="activeDayIsOpen"
+                (dayClicked)="dayClicked($event.day)"
+                (click)="selectDate()"
+              >
+              </mwl-calendar-month-view>
+              <mwl-calendar-week-view
+                *ngSwitchCase="CalendarView.Week"
+                [viewDate]="viewDate"
+                [events]="events"
+                (click)="selectDate()"
+              >
+              </mwl-calendar-week-view>
+              <mwl-calendar-day-view
+                *ngSwitchCase="CalendarView.Day"
+                [viewDate]="viewDate"
+                [events]="events"
+                (click)="selectDate()"
+              >
+              </mwl-calendar-day-view>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered">
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tbody>
+                <tr *ngFor="let event of events">
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="event.title"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="color"
+                      [(ngModel)]="event.color.primary"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="color"
+                      [(ngModel)]="event.color.secondary"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="form-control"
+                      type="text"
+                      mwlFlatpickr
+                      [(ngModel)]="event.start"
+                      [altInput]="true"
+                      [convertModelValue]="true"
+                      [enableTime]="true"
+                      dateFormat="Y-m-dTH:i"
+                      altFormat="F j, Y H:i"
+                      placeholder="Not set"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="form-control"
+                      type="text"
+                      mwlFlatpickr
+                      [(ngModel)]="event.end"
+                      [altInput]="true"
+                      [convertModelValue]="true"
+                      [enableTime]="true"
+                      dateFormat="Y-m-dTH:i"
+                      altFormat="F j, Y H:i"
+                      placeholder="Not set"
+                    />
+                  </td>
+                  <td>
+                    <button class="btn btn-danger">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
               </table>
             </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </mat-card-content>
 
           <!-- ========================================================================================== -->
