@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ActionReport, ActionReportApiData, HighChartType} from 'src/app/models/analyticsReport/actionReports.model';
+import {ActionReport, ActionReportApiData, ActionReportData, HighChartType} from 'src/app/models/analyticsReport/actionReports.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
@@ -25,17 +25,34 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     public compiler: CompilerProvider,
     private highChartSettings: HighchartService
   ) {
-    this.actionReportObj.noSites = false;
+    this.initialize()
+    this.setEntityName();
     this.getFilters();
   }
 
   ngOnInit() {
+    this.makeReport(0, null, null);
+  }
+
+  get actionFormValidations() {
+    return this.actionReportObj.actionReportForm.controls;
+  }
+
+  initialize() {
+    this.actionReportObj.noSites = false;
     this.actionReportObj.actionReportForm = this.formBuilder.group({
       filter: [''],
       entityName: ['', Validators.required],
       dateTo: ['', Validators.required],
       dateFrom: ['', Validators.required]
     });
+    this.actionReportObj.entityId = this.helperService.getEntityId();
+    console.log(this.actionReportObj.entityId);
+    this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
+    this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
+  }
+
+  setEntityName() {
     this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.actionReportObj.entityName = res.entityInfo.name;
@@ -43,45 +60,37 @@ export class ActionReportComponent implements OnInit, OnDestroy {
         this.actionFormValidations['entityName'].disable();
       }
     });
-    this.actionReportObj.entityId = JSON.parse(this.helperService.decrypt
-    (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
-    this.defaultReport();
-  }
-
-  get actionFormValidations() {
-    return this.actionReportObj.actionReportForm.controls;
-  }
-
-  defaultReport() {
-    let data = {
-      'entityId': this.actionReportObj.entityId,
-      'dateTo': null,
-      'dateFrom': null,
-      'filter': null
-    };
-    this.makeReport(data);
   }
 
   getFilters() {
     this.analyticsService.filter().subscribe((res) => {
       if (res) {
         this.actionReportObj.filters = res;
+        this.actionReportObj.lifetimeObj = this.helperService.find(this.actionReportObj.filters, function (obj) {
+          return obj.name === 'Lifetime';
+        });
+        this.actionFormValidations['filter'].setValue(this.actionReportObj.lifetimeObj.id);
       }
     });
   }
 
-  makeReport(data) {
+  makeReport(days, dateTo, dateFrom) {
+    let data = {
+      'entityId': this.actionReportObj.entityId,
+      'dateTo': dateTo,
+      'dateFrom': dateFrom,
+      'days': days,
+    };
     this.analyticsService.actionReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
-        this.actionReportObj.actionReportData = this.compiler.constructActionReportData(res.data);
+        this.actionReportObj.actionReportData = res.data.checkInList;
+        console.log(this.actionReportObj.actionReportData);
         let chartType: HighChartType = {
           type: 'column',
           title: 'Action Report',
           subtitle: ''
         };
-        let userChart = 0;
-        let data = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.actionReportData, userChart);
+        let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
         Highcharts.chart('container', data);
       } else {
         this.actionReportObj.noSites = true;
@@ -89,40 +98,48 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     });
   }
 
+  generateCharSeries(reportData: any) {
+    let charSeries = [];
+    this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
+      let checkIn = {
+        name: actionReport.checkedInAt__date,
+        data: [actionReport.numberOfcheckIn, actionReport.numberOfcheckOut]
+      };
+      charSeries.push(checkIn);
+
+    });
+    let data = {
+      charSeries: charSeries,
+      categories: ['Check In', 'CheckOut'],
+      title: 'No of Check In and Check out'
+    }
+    return data;
+  }
+
   actionReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
     if (!valid) {
       return;
     }
-    let data;
-    if (value.filter !== 'Choose a Range') {
-      data = {
-        'entityId': this.actionReportObj.entityId,
-        'dateTo': null,
-        'dateFrom': null,
-        'filter': value.filter
-      };
-    } else {
-      data = {
-        'entityId': this.actionReportObj.entityId,
-        'dateTo': value.dateTo,
-        'dateFrom': value.dateFrom,
-        'filter': null
-      };
-    }
-    this.makeReport(data);
+    this.actionReportObj.days = this.helperService.find(this.actionReportObj.filters, function (obj) {
+      return obj.id === value.filter;
+    });
+    this.makeReport(this.actionReportObj.days.days, value.dateTo, value.dateFrom)
   }
 
   ngOnDestroy() {
     this.actionReportObj.subscription.unsubscribe();
   }
 
-  filteredReport(value: any) {
-    if (value !== 'Choose a Range') {
-      this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
-      this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
-    } else {
+  enableDates(value: any) {
+    this.actionReportObj.dateEnableObj = this.helperService.find(this.actionReportObj.filters, function (obj) {
+      return obj.name === 'Choose a Range';
+    });
+    if (value === this.actionReportObj.dateEnableObj.id) {
       this.actionFormValidations[this.helperService.appConstants.dateFrom].enable();
       this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
+    } else {
+      this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
+      this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
     }
   }
 }

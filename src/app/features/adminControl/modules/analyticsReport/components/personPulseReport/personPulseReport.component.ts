@@ -31,9 +31,7 @@ export class PersonPulseReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.pulsePersonObj.entityId = JSON.parse(this.helperService.decrypt
-    (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
+    this.pulsePersonObj.entityId = this.helperService.getEntityId();
     this.getAllUsers({entityId: this.pulsePersonObj.entityId});
     this.getAllTeams({entityId: this.pulsePersonObj.entityId});
   }

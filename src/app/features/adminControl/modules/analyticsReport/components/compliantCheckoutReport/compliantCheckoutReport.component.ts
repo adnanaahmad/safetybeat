@@ -31,9 +31,7 @@ export class CompliantCheckoutReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.compliantObj.entityId = JSON.parse(this.helperService.decrypt
-    (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
+    this.compliantObj.entityId = this.helperService.getEntityId();
     this.getAllUsers({entityId: this.compliantObj.entityId});
     this.getAllTeams({entityId: this.compliantObj.entityId});
   }

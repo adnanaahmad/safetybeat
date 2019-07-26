@@ -28,9 +28,7 @@ export class CheckInActivityReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.checkInActivityObj.entityId = JSON.parse(this.helperService.decrypt
-    (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-      this.helperService.appConstants.key));
+    this.checkInActivityObj.entityId = this.helperService.getEntityId();
     this.getAllTeams({entityId: this.checkInActivityObj.entityId});
   }
 

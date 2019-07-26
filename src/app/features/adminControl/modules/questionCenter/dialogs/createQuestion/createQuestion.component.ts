@@ -60,8 +60,7 @@ export class CreateQuestionComponent implements OnInit {
       warning: value.questionWarning,
       canProceed: value.canProceed,
       default: false,
-      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      entity: this.helperService.getEntityId()
     };
     return questionData;
   }
