@@ -100,23 +100,23 @@
                             </button>
                             <button mat-menu-item *ngIf="siteCentreObj.permissions.viewSite"
                                 (click)='goToViewSite(element.id)'>
-                                <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
-                                View Site
-                            </button>
-                            <button mat-menu-item *ngIf="siteCentreObj.permissions.questionCentre">
-                                <mat-icon>{{ helperService.appIcons.siteQuestionCenter }}</mat-icon>
-                                Site Question Control
-                            </button>
-                            <button mat-menu-item (click)="shareSiteCode(element)">
-                                <mat-icon>{{ helperService.appIcons.share }}</mat-icon>
-                                Share Site Code
-                            </button>
-                            <button mat-menu-item *ngIf="siteCentreObj.permissions.addHazard"
-                                (click)="addHazard(element.id)">
-                                <mat-icon>{{ helperService.appIcons.warning }}</mat-icon>
-                                Add Hazard
-                            </button>
-                            <button mat-menu-item *ngIf="siteCentreObj.permissions.deleteSite"
+                            <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
+                            View Site
+                        </button>
+                        <button mat-menu-item *ngIf="siteCentreObj.permissions.questionCentre">
+                            <mat-icon>{{ helperService.appIcons.siteQuestionCenter }}</mat-icon>
+                            Site Question Control
+                        </button>
+                        <button mat-menu-item (click)="shareSiteCode(element)">
+                            <mat-icon>{{ helperService.appIcons.share }}</mat-icon>
+                            Share Site Code
+                        </button>
+                        <button mat-menu-item *ngIf="siteCentreObj.permissions.addHazard"
+                                (click)="addHazard(element)">
+                            <mat-icon>{{ helperService.appIcons.warning }}</mat-icon>
+                            Add Hazard
+                        </button>
+                        <button mat-menu-item *ngIf="siteCentreObj.permissions.deleteSite"
                                 (click)="confirmationModal(element.id)">
                                 <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
                                 Delete
