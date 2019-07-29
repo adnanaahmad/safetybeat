@@ -22,6 +22,7 @@ export class HazardDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.data);
     this.hazardDetailForm = this.formBuilder.group({
       risk: ['', Validators.required],
       resolvedBy: ['', Validators.required],

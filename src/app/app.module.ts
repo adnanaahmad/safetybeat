@@ -50,8 +50,8 @@ import {AdvanceSearchComponent} from './features/adminControl/modules/siteCenter
 import {ImageLightboxComponent} from './dialogs/imageLightbox/imageLightbox.component';
 import {SendSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {ShowSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
-
 import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
+import {AddActionsComponent} from './features/adminControl/modules/siteCenter/dialogs/addActions/addActions.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -60,6 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     EntityCodeModalComponent,
@@ -133,10 +134,10 @@ export function createTranslateLoader(http: HttpClient) {
   ],
 
   bootstrap: [AppComponent],
-  exports: [
-  ],
+  exports: [],
   entryComponents: [
     AdvanceSearchComponent,
+    AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     EntityCodeModalComponent,

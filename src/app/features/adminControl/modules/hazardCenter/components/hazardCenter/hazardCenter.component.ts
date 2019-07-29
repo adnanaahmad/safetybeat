@@ -81,6 +81,7 @@ export class HazardCenterComponent implements OnInit {
       search: search
     };
     this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
+      console.log(res)
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pageCount = res.data.pageCount;
         this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
@@ -121,7 +122,7 @@ export class HazardCenterComponent implements OnInit {
    */
   editHazard(hazard: HazardList) {
     this.helperService.createDialog(AddHazardComponent, {
-      disableClose: true,
+      disableClose: false,
       data: {Modal: true, hazardInfo: hazard}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {

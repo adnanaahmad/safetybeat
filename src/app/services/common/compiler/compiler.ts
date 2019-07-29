@@ -155,7 +155,7 @@ export class CompilerProvider {
   }
 
   constructAllTeamsData(allTeamsApiResponse: any): Array<TeamList> {
-    return allTeamsApiResponse.data;
+    return allTeamsApiResponse.data.teamList;
   }
 
   constructAllQuestionsData(questionsApiResponse: any): QuestionsData {
@@ -432,6 +432,5 @@ export class CompilerProvider {
       }
     ];
     return this.navList;
-
   }
 }
