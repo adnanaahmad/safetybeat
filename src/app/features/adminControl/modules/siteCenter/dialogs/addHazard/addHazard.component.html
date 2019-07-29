@@ -177,8 +177,9 @@
             <div class="data-search">
               <div class="data-result">
                 <!--User-->
-                <mat-card class="text-center"
-                          *ngIf="hazardObj.selectedUserList.length === 0">{{helperService.translated.MESSAGES.NO_USER_SELECTED}}</mat-card>
+                <div class="text-center" *ngIf="hazardObj.selectedUserList.length === 0">
+                  <p class="mat-hint">{{helperService.translated.MESSAGES.NO_USER_SELECTED}}</p>
+                </div>
                 <ng-container *ngIf="hazardObj.selectedUserList.length !== 0">
                   <div class="list-item mat-elevation-z2" *ngFor="let user of hazardObj.filteredSelectedUsers">
                     <div class="user-thumbnail">
@@ -239,12 +240,13 @@
         </div>
         <mat-divider></mat-divider>
         <br>
-        <div class="hazard-summary" *ngIf="addHazardControls.responsible.value === true">
+        <div class="hazard-summary" *ngIf="hazardObj.actionsArray.length !== 0">
           <span class="mat-body-strong">{{helperService.translated.TABLEHEADINGS.ACTIONS}}</span>
           <div *ngFor="let action of hazardObj.actionsArray">
             <p class="mat-hint">{{action.title}}</p>
             <p class="mat-hint">{{action.actionUser.username}}</p>
           </div>
+        </div>
           <div class="nav-btn">
             <button mat-button matStepperPrevious>
               <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
@@ -256,7 +258,6 @@
             </button>
           </div>
         </div>
-      </div>
     </mat-step>
   </mat-horizontal-stepper>
 </div>

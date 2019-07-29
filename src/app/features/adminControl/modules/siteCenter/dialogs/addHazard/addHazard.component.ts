@@ -2,7 +2,7 @@ import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatBottomSheet, MatDialogRef} from '@angular/material';
-import {AddHazardModel, NewHazard} from 'src/app/models/hazard.model';
+import {AddHazardModel} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {AddActionsComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/addActions/addActions.component';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
@@ -178,6 +178,11 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.allUsers = this.hazardObj.allUsersList.filter(
       user => user.name.toLowerCase().startsWith(filterValue));
   }
+  filterSelectedUserList(value) {
+    let filterValue = value.toLowerCase();
+    this.hazardObj.filteredSelectedUsers = this.hazardObj.selectedUserList.filter(
+      user => user.name.toLowerCase().startsWith(filterValue));
+  }
 
   openBottomSheet() {
     const bottomSheetRef = this.bottomSheet.open(AddActionsComponent, {disableClose: true});
@@ -185,7 +190,6 @@ export class AddHazardComponent implements OnInit {
       if (res !== 'cancel') {
         this.hazardObj.actionsArray.push(res);
       }
-      console.log(this.hazardObj.actionsArray);
     });
   }
 
@@ -207,7 +211,7 @@ export class AddHazardComponent implements OnInit {
       formData.append('image', blob, this.hazardObj.image.name);
     }
     if (value.responsible) {
-      formData.append('action', JSON.stringify(this.hazardObj.actionsArray));
+      formData.append('action', JSON.stringify( this.compiler.constructActions(this.hazardObj.actionsArray)));
     }
     if (this.hazardObj.allUsersList.length !== 0) {
       formData.append('share', 'true');
@@ -218,6 +222,7 @@ export class AddHazardComponent implements OnInit {
     if (this.hazardObj.editModal) {
       formData.append('site', this.hazardObj.hazardInfo.site.id);
       formData.append('preciseLocation ', this.hazardObj.hazardInfo.site.location);
+      formData.append('removeImage', this.hazardObj.removeImage);
     } else {
       formData.append('site', this.data.siteId);
       formData.append('preciseLocation ', this.hazardObj.location);
@@ -255,9 +260,4 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.emails.push(user.email);
   }
 
-  filterSelectedUserList(value) {
-    let filterValue = value.toLowerCase();
-    this.hazardObj.filteredSelectedUsers = this.hazardObj.selectedUserList.filter(
-      user => user.name.toLowerCase().startsWith(filterValue));
-  }
 }

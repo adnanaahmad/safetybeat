@@ -60,8 +60,7 @@ export class QuestionCenterComponent implements OnInit {
    */
   getAllQuestions(pageIndex, search?: string) {
     let data = {
-      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
+      'entityId': this.helperService.getEntityId()
     };
 
     let paginationData: PaginationData = {
@@ -185,8 +184,7 @@ export class QuestionCenterComponent implements OnInit {
    */
   getAllEntityQuestions(pageIndex, search) {
     let data = {
-      'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      'entityId': this.helperService.getEntityId(),
     };
     let paginationData: PaginationData = {
       offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,

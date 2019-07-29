@@ -1,21 +1,24 @@
 import {FormGroup, Validators} from '@angular/forms';
-import {EntityUserData} from '../userEntityData.model';
+import {EntityUserData} from 'src/app/models/userEntityData.model';
 import {Subscription} from 'rxjs';
-import {Site, SitesInfo} from '../site.model';
+import {SitesInfo} from 'src/app/models/site.model';
+import {FilterModel} from 'src/app/models/filter.model';
 
 
 export interface ActionReport {
+  days: FilterModel;
+  dateEnableObj: FilterModel;
+  lifetimeObj: FilterModel;
   entityId: number;
   showChart: boolean;
-  userActionReportData: UserActionReportData;
   sitesData: SitesInfo[];
   entityName: string;
   entityUserData: EntityUserData;
   allEntitiesData: any;
   subscription: Subscription;
   actionReportForm: FormGroup;
-  actionReportData: ActionReportData[];
-  filters: string[];
+  actionReportData: Array<ActionReportData>;
+  filters: Array<FilterModel>;
   noSites: boolean;
 }
 
@@ -34,65 +37,8 @@ export interface HighChartType {
 }
 
 export interface ActionReportData {
-  CheckIns: CheckIn,
-  CheckOuts: CheckOut,
-  site: string,
+  checkedInAt__date: string,
+  numberOfcheckIn: number
+  numberOfcheckOut: number
 }
 
-export interface UserActionReportData {
-  CheckIns: userCheckIn[],
-  CheckOuts: userCheckOut[],
-  site: string,
-}
-
-export interface CheckIn {
-  site: number,
-  numberOfCheckIn: number
-}
-
-export interface CheckOut {
-  site: number,
-  numberOfCheckOut: number
-}
-
-export interface userCheckIn {
-  user: number,
-  numberOfCheckIn: number
-}
-
-export interface userCheckOut {
-  user: number,
-  numberOfCheckOut: number
-}
-
-export interface InputElement {
-  element: string;
-  type: string;
-  placeholder: string;
-  formControlName: string;
-  validators: Array<Validators>;
-  errorMessage: string;
-  disabled: boolean;
-  value?: string | number;
-  matFormFieldCss?: string;
-  event?: string;
-  label?: string;
-  cssClass?: string;
-  group?: Array<string>;
-}
-
-export interface SelectElement {
-  element: string;
-  formControlName: string;
-  validators: Validators ;
-  options: Array<string>;
-  errorMessage: string;
-  value?: string;
-  disabled: boolean;
-  matFormFieldCss?: string;
-  event?: string;
-  label?: string;
-  cssClass?: string;
-  placeholder?: string;
-  hideRequired?: boolean;
-}

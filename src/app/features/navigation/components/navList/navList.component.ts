@@ -12,7 +12,7 @@ import {NavListModel} from 'src/app/models/navigation/navList.model';
   styleUrls: ['./navList.component.scss']
 })
 export class NavListComponent {
-  @Input() public navLinks: NavItem;
+  @Input() public navLinks: Array<NavItem>;
   @Input() public navLinksBottom;
   @Input() public selectedEntity;
   navListModel: NavListModel = <NavListModel>{};

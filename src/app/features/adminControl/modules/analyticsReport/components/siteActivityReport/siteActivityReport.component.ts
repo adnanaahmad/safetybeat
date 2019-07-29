@@ -28,7 +28,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     private highChartSettings: HighchartService,
     public adminServices: AdminControlService,
   ) {
-    this.actionReportObj.filters = ['range', 'weekly', 'monthly', 'yearly', 'Lifetime']
     this.actionReportObj.showChart = true;
   }
 
@@ -57,26 +56,26 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   makeReport(data) {
-    this.analyticsService.siteActivityReport(data).subscribe((res) => {
-      this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
-      if (this.actionReportObj.userActionReportData.CheckIns.length === 0 &&
-        this.actionReportObj.userActionReportData.CheckOuts.length === 0) {
-        this.actionReportObj.showChart = false;
-      } else {
-        this.actionReportObj.showChart = true;
-        let chartType: HighChartType = {
-          type: 'column',
-          title: this.actionReportObj.userActionReportData.site,
-          subtitle: ''
-        };
-        let checkInChart = 1;
-        let data1 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkInChart);
-        Highcharts.chart('checkInContainer', data1);
-        let checkOutChart = 2;
-        let data2 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkOutChart);
-        Highcharts.chart('checkOutContainer', data2);
-      }
-    });
+    // this.analyticsService.siteActivityReport(data).subscribe((res) => {
+    //   this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
+    //   if (this.actionReportObj.userActionReportData.CheckIns.length === 0 &&
+    //     this.actionReportObj.userActionReportData.CheckOuts.length === 0) {
+    //     this.actionReportObj.showChart = false;
+    //   } else {
+    //     this.actionReportObj.showChart = true;
+    //     let chartType: HighChartType = {
+    //       type: 'column',
+    //       title: this.actionReportObj.userActionReportData.site,
+    //       subtitle: ''
+    //     };
+    //     let checkInChart = 1;
+    //     let data1 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkInChart);
+    //     Highcharts.chart('checkInContainer', data1);
+    //     let checkOutChart = 2;
+    //     let data2 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkOutChart);
+    //     Highcharts.chart('checkOutContainer', data2);
+    //   }
+    // });
   }
 
   actionReportFormSubmit({ value, valid }: { value: ActionReportApiData; valid: boolean; }) {
@@ -86,8 +85,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     let data;
     if (value.filter !== 'range') {
       data = {
-        'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-              this.helperService.appConstants.key)),
+        'entityId': this.helperService.getEntityId(),
         'dateTo': null,
         'dateFrom': null,
         'filter': value.filter,
@@ -95,8 +93,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       };
     } else {
       data = {
-        'entityId': JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+        'entityId': this.helperService.getEntityId(),
         'dateTo': value.dateTo,
         'dateFrom': value.dateFrom,
         'siteId': value.site,
@@ -124,8 +121,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   getSitesData() {
     let entityData: ViewAllSiteEntityData = {
-      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      entityId: this.helperService.getEntityId(),
     };
     let paginationData: PaginationData = {
       offset: null,

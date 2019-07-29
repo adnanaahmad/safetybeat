@@ -113,7 +113,5 @@ export interface ActionApiResponse {
   actionUser: User;
   completeByTime: Date;
   description: string;
-  hazard: number;
-  id: number;
   title: string;
 }
