@@ -1,8 +1,9 @@
 import {FormGroup} from '@angular/forms';
-import {Site} from './site.model';
+import {ActionApiResponse, Site} from './site.model';
 import {PermissionsModel} from './adminControl/permissions.model';
 import {responseDetails, User} from './user.model';
 import {MatTableDataSource} from '@angular/material';
+import {Subscription} from 'rxjs';
 
 export interface HazardModel {
   permissions: PermissionsModel;
@@ -10,21 +11,36 @@ export interface HazardModel {
   entityId: number;
   dataSource: MatTableDataSource<any>;
   displayedColumns: Array<string>;
-  loading:boolean;
+  loading: boolean;
 }
 
 export interface AddHazardModel {
+  emails: string[];
+  shareHazard: boolean;
+  filteredSelectedUsers: any;
   addHazardFormFirst: FormGroup;
-  addHazardFormSecond: FormGroup;
   removeImage: string;
   editModal: boolean;
   image: File;
-  addHazardForm: FormGroup;
   name: string;
   note: string;
   description: string;
   action: string;
   loading: boolean;
+  hazardInfo: any;
+  url: string;
+  risks: Array<RiskType>;
+  siteName: string;
+  location: string;
+  subscription: Subscription;
+  entityName: string;
+  msg: string;
+  hazardTitle: string;
+  actions: any;
+  actionsArray: Array<ActionApiResponse>;
+  allUsers: any;
+  allUsersList: any;
+  selectedUserList: any;
 }
 
 export interface Hazard {
@@ -39,7 +55,7 @@ export interface NewHazard {
   title: string;
   risk: string;
   addedBy: string;
-  dateTime: Date;
+  createdTime: Date;
   description: string;
   id: number;
   resolved: boolean;
