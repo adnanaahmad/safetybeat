@@ -80,7 +80,6 @@ export class MyTeamComponent implements OnInit {
     };
     this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        console.log(res);
         this.myTeam.allTeams = this.compiler.constructAllTeamsData(res);
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
         this.myTeam.dataSource.paginator = this.paginator;
