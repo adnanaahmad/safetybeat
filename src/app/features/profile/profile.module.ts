@@ -5,7 +5,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {UserComponent} from './components/user/user.component';
 import {MaterialModule} from 'src/app/material.module';
 import {ProfileService} from './services/profile.service';
-import {HTTP_INTERCEPTORS, HttpClientModule, HttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthGuard} from 'src/app/services/core/guards/auth.guard';
 import {TokenInterceptorService} from 'src/app/services/core/interceptors/tokenInterceptor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';

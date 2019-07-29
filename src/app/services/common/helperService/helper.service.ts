@@ -306,7 +306,7 @@ export class HelperService {
       map: mapProp,
       center: locObj,
       radius: radius,
-      draggable: true
+      draggable: false
     });
   }
 

@@ -54,6 +54,7 @@ import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {FlatpickrModule} from 'angularx-flatpickr';
+import {AddleavesComponent} from './features/profile/dialogs/addLeaves/addleaves.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -91,7 +92,8 @@ export function createTranslateLoader(http: HttpClient) {
     ImageLightboxComponent,
     SendSiteCodeComponent,
     ShowSiteCodeComponent,
-    FileRenameComponent
+    FileRenameComponent,
+    AddleavesComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -173,7 +175,8 @@ export function createTranslateLoader(http: HttpClient) {
     ImageLightboxComponent,
     SendSiteCodeComponent,
     ShowSiteCodeComponent,
-    FileRenameComponent
+    FileRenameComponent,
+    AddleavesComponent
   ]
 })
 export class AppModule {

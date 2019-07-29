@@ -17,11 +17,11 @@
   </div>
   <div class="data-counts">
     <div class="countbox">
-      <h4 class="mat-display-1 mat-body-strong">{{profileModel.activitiesCount}}</h4>
+      <h4 class="mat-display-1 mat-body-strong">{{profileModel.activitiesCount ? profileModel.activitiesCount : 0}}</h4>
       <p class="mat-small">{{helperService.translated.MESSAGES.ACTIVITIESS}}</p>
     </div>
     <div class="countbox">
-      <h4 class="mat-display-1 mat-body-strong">{{profileModel.connectionCount}}</h4>
+      <h4 class="mat-display-1 mat-body-strong">{{profileModel.connectionCount ? profileModel.connectionCount : 0}}</h4>
       <p class="mat-small">{{helperService.translated.MESSAGES.CONNECTIONS}}</p>
     </div>
     <div class="countbox">
@@ -78,70 +78,43 @@
         <!-- for leaves insert content here -->
         <mat-card class="dashboard-card" fullWidth *ngIf="card.title=='userData'">
           <mat-card-content *ngIf="profileFeatures.leaves">
-            <mat-toolbar>
-              <span>Schedule</span>
-              <button class="buttonRow" mat-raised-button color="primary" class="addEvent"> Add New
-                Event
-              </button>
-            </mat-toolbar>
-            <div class="row text-center">
-              <div class="col-md-4">
-                <div class="btn-group">
-                  <button mat-button
-                          class="btn btn-primary"
-                          mwlCalendarPreviousView
-                          [view]="view"
-                          [(viewDate)]="viewDate"
-                          (viewDateChange)="closeOpenMonthViewDay()">
-                    Previous
-                  </button>
-                  <button mat-button
-                          class="btn btn-outline-secondary"
-                          mwlCalendarToday
-                          [(viewDate)]="viewDate"
-                  >
-                    Today
-                  </button>
-                  <button mat-button
-                          class="btn btn-primary"
-                          mwlCalendarNextView
-                          [view]="view"
-                          [(viewDate)]="viewDate"
-                          (viewDateChange)="closeOpenMonthViewDay()"
-                  >
-                    Next
-                  </button>
-                </div>
+            <mat-card-title>{{ helperService.translated.SITETITLE.LEAVES }}
+              <button style="float:right;" mat-raised-button color="primary" class="addEvent" (click)="addLeaves()"> Add Leaves</button>
+            </mat-card-title>
+            <div class="row text-center calendar-actions">
+              <div class="btn-group text-left">
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle mat-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                                     (viewDateChange)="closeOpenMonthViewDay()">Previous
+                  </mat-button-toggle>
+                  <mat-button-toggle mat-button mwlCalendarToday [(viewDate)]="viewDate">Today</mat-button-toggle>
+                  <mat-button-toggle mat-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                                     (viewDateChange)="closeOpenMonthViewDay()">Next
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
               </div>
-              <div class="col-md-4">
+              <div class="text-center">
                 <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
               </div>
-              <div class="col-md-4">
-                <div class="btn-group">
-                  <button mat-button
-                          class="btn btn-primary"
-                          (click)="setView(CalendarView.Month)"
-                          [class.active]="view === CalendarView.Month"
-                  >
+              <div class="btn-group text-right">
+
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle mat-button (click)="setView(CalendarView.Month)"
+                                     [class.active]="view === CalendarView.Month">
                     Month
-                  </button>
-                  <button mat-button
-                          class="btn btn-primary"
-                          (click)="setView(CalendarView.Week)"
-                          [class.active]="view === CalendarView.Week"
-                  >
+                  </mat-button-toggle>
+                  <mat-button-toggle mat-button (click)="setView(CalendarView.Week)"
+                                     [class.active]="view === CalendarView.Week">
                     Week
-                  </button>
-                  <button mat-button
-                          class="btn btn-primary"
-                          (click)="setView(CalendarView.Day)"
-                          [class.active]="view === CalendarView.Day"
-                  >
+                  </mat-button-toggle>
+                  <mat-button-toggle mat-button (click)="setView(CalendarView.Day)"
+                                     [class.active]="view === CalendarView.Day">
                     Day
-                  </button>
-                </div>
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
               </div>
             </div>
+
             <br/>
             <div [ngSwitch]="view">
               <mwl-calendar-month-view
@@ -170,28 +143,16 @@
             </div>
             <div class="table-responsive">
               <table class="table table-bordered">
-
-
                 <tbody>
                 <tr *ngFor="let event of events">
                   <td>
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="event.title"
-                    />
+                    <input type="text" class="form-control"/>
                   </td>
                   <td>
-                    <input
-                      type="color"
-                      [(ngModel)]="event.color.primary"
-                    />
+                    <input type="color"/>
                   </td>
                   <td>
-                    <input
-                      type="color"
-                      [(ngModel)]="event.color.secondary"
-                    />
+                    <input type="color"/>
                   </td>
                   <td>
                     <input
@@ -234,12 +195,12 @@
 
           <!-- ========================================================================================== -->
           <!-- for activities insert data here -->
-
           <mat-card-content *ngIf="profileFeatures.activities">
-            <div class="table-wrap">
-              <mat-card-title>Your Activities</mat-card-title>
-              <form [formGroup]="profileModel.filterForm"
-                    (ngSubmit)=viewActivities(profileModel.filterForm) (keydown.enter)="$event.preventDefault()">
+            <mat-card-title>Your Activities</mat-card-title>
+            <form [formGroup]="profileModel.filterForm"
+                  (ngSubmit)=viewActivities(profileModel.filterForm,profileModel.firstIndex)
+                  (keydown.enter)="$event.preventDefault()">
+              <div class="field-inline">
                 <mat-form-field appearance="outline">
                   <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
                          placeholder="Date From" readonly>
@@ -262,8 +223,9 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                   <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
-                  <mat-select [formControlName]="helperService.appConstants.filter"
-                              (selectionChange)="filteredReport($event.value)">
+                  <mat-select [(value)]="profileModel.selectedFilter"
+                              [formControlName]="helperService.appConstants.filter"
+                              (selectionChange)="filteredReport(profileModel.selectedFilter)">
                     <mat-option *ngFor="let filter of profileModel.filters" [value]="filter.days">
                       {{ filter.name }}
                     </mat-option>
@@ -276,8 +238,11 @@
                 <button mat-raised-button custom-btn color="primary">
                   {{helperService.translated.BUTTONS.SUBMIT}}
                 </button>
-              </form>
-              <table mat-table [dataSource]="profileModel.recentActivities" class="customTable">
+              </div>
+            </form>
+            <div class="table-wrap">
+
+              <table mat-table [dataSource]="profileModel.dataSource" class="customTable">
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Name</th>
                   <td class="viewsite pointer" mat-cell *matCellDef="let element"
@@ -311,11 +276,12 @@
                 <tr mat-header-row *matHeaderRowDef="activitiesColumn"></tr>
                 <tr mat-row *matRowDef="let row; columns: activitiesColumn;"></tr>
               </table>
-              <mat-card *ngIf="profileModel.noActivity" class="text-center">
+              <mat-card *ngIf="profileModel.recentActivities===null" class="text-center">
                 {{helperService.translated.STRINGS.NO_ACTIVITIES}}
               </mat-card>
             </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.pageCount"
+                           (page)="viewActivities(profileModel.filterForm, paginator.pageIndex)"></mat-paginator>
           </mat-card-content>
 
           <!-- ================================================================================================= -->
@@ -362,7 +328,6 @@
             </div>
             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
           </mat-card-content>
-
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>

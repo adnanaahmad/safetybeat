@@ -449,7 +449,9 @@
     "PULSE_REPORT_BY_PERSON": "Pulse Report by Person",
     "COMPLIANT_CHECKOUT": "Compliant Check-Out by Person",
     "SITE_ACTIVITY_REPORT": "Site Activity Report",
-    "HAZARD_REPORTS": "Hazard Reports"
+    "HAZARD_REPORTS": "Hazard Reports",
+    "LEAVES": "Leaves",
+    "ADDLEAVES": "Add Leave"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",

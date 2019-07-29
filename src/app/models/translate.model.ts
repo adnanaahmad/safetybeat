@@ -602,6 +602,8 @@ export interface SiteTitle {
   COMPLIANT_CHECKOUT: string;
   SITE_ACTIVITY_REPORT: string;
   HAZARD_REPORTS: string;
+  LEAVES: string;
+  ADDLEAVES: string;
 }
 
 export interface TableHeadings {

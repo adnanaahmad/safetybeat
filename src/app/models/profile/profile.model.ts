@@ -4,8 +4,19 @@ import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
 import {TeamList} from '../adminControl/myTeam.model';
 import {responseDetails} from '../user.model';
+import {EntityInfo} from '../userEntityData.model';
 
 export interface ProfileModel {
+  startAt: Date;
+  entity: EntityInfo;
+  leaveTypes: Array<LeaveTypes>;
+  selectedLeave: any;
+  leaveForm: FormGroup;
+  selectedFilter: any;
+  data: ActivityFilterData;
+  pageCount: number;
+  pageSize: number;
+  firstIndex: number;
   filters: Array<Filters>;
   filterForm: FormGroup;
   activitiesCount: number;
@@ -111,4 +122,9 @@ export interface ActivityApiResponse {
     recentActivities: Array<recentActivities>;
   };
   responseDetails: responseDetails;
+}
+
+export interface LeaveTypes {
+  id: number;
+  name: string;
 }
