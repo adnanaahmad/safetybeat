@@ -48,12 +48,11 @@ import {MyTeamModule} from './features/adminControl/modules/myTeam/myTeam.module
 import {ProfileImagePipe} from './pipes/profileImage/profile-image.pipe';
 import {AdvanceSearchComponent} from './features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import {ImageLightboxComponent} from './dialogs/imageLightbox/imageLightbox.component';
-import {PageNotFoundComponent} from './components/pageNotFound/pageNotFound.component';
-import {ParticleContainer2Component} from './components/particleContainer/particleContainer2.component';
 import {SendSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {ShowSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
 
 import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -87,8 +86,6 @@ export function createTranslateLoader(http: HttpClient) {
     ProfileImagePipe,
     AdvanceSearchComponent,
     ImageLightboxComponent,
-    PageNotFoundComponent,
-    ParticleContainer2Component,
     SendSiteCodeComponent,
     ShowSiteCodeComponent,
     FileRenameComponent
@@ -136,7 +133,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
 
   bootstrap: [AppComponent],
-  exports: [],
+  exports: [
+  ],
   entryComponents: [
     AdvanceSearchComponent,
     CreateEntityComponent,

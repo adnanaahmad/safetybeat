@@ -20,6 +20,8 @@ export class EntityCodeModalComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     private adminServices: AdminControlService
   ) {
+
+    console.log(this.data)
   }
 
   ngOnInit() {

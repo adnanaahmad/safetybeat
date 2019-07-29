@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './services/core/guards/auth.guard';
-import {PageNotFoundComponent} from './components/pageNotFound/pageNotFound.component';
 export const routes: Routes = [
   {
     path: '',
@@ -14,12 +13,12 @@ export const routes: Routes = [
   },
   {
     path: 'welcomeScreen',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: 'src/app/features/welcomeScreen/welcomeScreen.module#WelcomeScreenModule'
   },
   {
     path: '**',
-    component: PageNotFoundComponent
+    loadChildren: 'src/app/features/core/core.module#CoreModule'
   },
 ];
 
@@ -28,7 +27,7 @@ export const routes: Routes = [
     RouterModule.forRoot(
       routes,
       {
-        enableTracing: false,
+        enableTracing: true,
       }
     )
   ],
