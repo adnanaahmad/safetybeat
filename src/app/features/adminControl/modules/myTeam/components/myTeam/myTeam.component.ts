@@ -81,7 +81,6 @@ export class MyTeamComponent implements OnInit {
       search: ''
     };
     this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
-      debugger
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.myTeam.allTeams = res.data.teamsList;
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);

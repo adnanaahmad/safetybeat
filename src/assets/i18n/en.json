@@ -131,7 +131,17 @@
     "CHILD_NO_SAFE": "Is Child No Question Safe?",
     "SELECTED_USERS": "Selected Users",
     "MAKE_TEAMLEAD": "Make Team Lead",
-    "REMOVE_TEAMLEAD": "Remove as Team Lead"
+    "REMOVE_TEAMLEAD": "Remove as Team Lead",
+    "PERSON_FOR_ACTION": "Person to complete the action",
+    "DESCRIPTION": "Description",
+    "PRECAUTIONARY_NOTE": "Precautionary note",
+    "HAZARD": "Hazard",
+    "REVIEW": "Review",
+    "SHARE_HAZARD": "Share Hazard",
+    "ADDITIONAL_NOTE": "Additional note",
+    "COMPLETE_BY": "Complete by:",
+    "ACTION_TO_RESOLVE": "Actions to resolve",
+    "RATE_HAZARD": "Rate Hazard"
   },
   "BUTTONS": {
     "DOWNLOAD": "Download",
@@ -425,7 +435,7 @@
     "PERMISSIONS_UPDATED": "Pemissions Updated Successfully",
     "PERMISSIONS_UPDATION_FAILED": "Permission Updation Failed",
     "NO_USER": "No User Exist",
-    "NO_USER_SELECTED": "NO User Selected"
+    "NO_USER_SELECTED": "No User Selected"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

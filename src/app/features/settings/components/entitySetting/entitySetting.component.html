@@ -11,9 +11,10 @@
     <div class="form-row">
         <mat-form-field appearance="outline">
             <mat-label>{{ helperService.translated.TABLEHEADINGS.NAME }}</mat-label>
-            <input matInput type="text" formControlName="{{ helperService.appConstants.name }}" required/>
+            <input matInput type="text" formControlName="{{ helperService.appConstants.name }}" required />
             <mat-error class="text-right" *ngIf="entityFormValidations.errors">
-                <span *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                <span
+                    *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -33,12 +34,12 @@
     <div *ngIf="entitySettingObj.disabled" class="btn-grp">
         <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
                 [disabled]="entitySettingObj.entityForm.pristine">
-            <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
-            {{ helperService.translated.BUTTONS.SAVE }}
-        </button>
-        <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
+                <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
+                {{ helperService.translated.BUTTONS.SAVE }}
+            </button>
+            <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
                 (click)="cancelEditEntity()">
-            {{helperService.translated.BUTTONS.CANCEL}}
-        </button>
-    </div>
+                {{helperService.translated.BUTTONS.CANCEL}}
+            </button>
+        </div>
 </form>

@@ -52,6 +52,7 @@ import {SendSiteCodeComponent} from './features/adminControl/modules/siteCenter/
 import {ShowSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
+import {AddActionsComponent} from './features/adminControl/modules/siteCenter/dialogs/addActions/addActions.component';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {AddleavesComponent} from './features/profile/dialogs/addLeaves/addleaves.component';
@@ -64,6 +65,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     EntityCodeModalComponent,
@@ -146,6 +148,7 @@ export function createTranslateLoader(http: HttpClient) {
   exports: [],
   entryComponents: [
     AdvanceSearchComponent,
+    AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
     EntityCodeModalComponent,

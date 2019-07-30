@@ -108,3 +108,10 @@ export interface RefreshSiteCodeApiResponse {
   }
   responseDetails: responseDetails;
 }
+
+export interface ActionApiResponse {
+  actionUser: User;
+  completeByTime: Date;
+  description: string;
+  title: string;
+}

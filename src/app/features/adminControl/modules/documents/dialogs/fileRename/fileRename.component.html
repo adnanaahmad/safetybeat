@@ -3,24 +3,27 @@
 </mat-card-title>
 <div mat-dialog-content>
     <div class="spinner-wrap" *ngIf="documentsData.loader">
-        <mat-spinner color="primary" [diameter]="30"></mat-spinner>
+        <mat-spinner color="primary" [diameter]="helperService.constants.appConstant.spinnerConstantModal">
+        </mat-spinner>
     </div>
-    <form [formGroup]="documentsData.fileRenameForm" (ngSubmit)="fileRenameSubmit(documentsData.fileRenameForm)">
-        <mat-form-field appearance="outline" fullWidth>
-            <mat-label>New Name</mat-label>
-            <input matInput type="text" formControlName="fileName" required autofocus/>
-            <mat-error class="text-right" *ngIf="fileNameControls.fileName.errors">
-                  <span
-                          *ngIf="fileNameControls.fileName.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>
-            </mat-error>
-        </mat-form-field>
-        <mat-dialog-actions>
-            <button mat-raised-button type="submit" custom-btn color="primary">
-                {{helperService.translated.STRINGS.RENAME_FILE}}
-            </button>
-            <button mat-button [mat-dialog-close]="'cancel'" type="button">
-                {{helperService.translated.BUTTONS.CANCEL}}
-            </button>
-        </mat-dialog-actions>
-    </form>
+    <div [class]="documentsData.loader ? 'preloading-wrap blur' : 'preloading-wrap'">
+        <form [formGroup]="documentsData.fileRenameForm" (ngSubmit)="fileRenameSubmit(documentsData.fileRenameForm)">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>New Name</mat-label>
+                <input matInput type="text" formControlName="fileName" required autofocus />
+                <mat-error class="text-right" *ngIf="fileNameControls.fileName.errors">
+                    <span
+                        *ngIf="fileNameControls.fileName.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-dialog-actions>
+                <button mat-raised-button type="submit" custom-btn color="primary">
+                    {{helperService.translated.STRINGS.RENAME_FILE}}
+                </button>
+                <button mat-button [mat-dialog-close]="'cancel'" type="button">
+                    {{helperService.translated.BUTTONS.CANCEL}}
+                </button>
+            </mat-dialog-actions>
+        </form>
+    </div>
 </div>

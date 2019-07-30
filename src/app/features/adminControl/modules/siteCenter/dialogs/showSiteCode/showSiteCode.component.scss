@@ -17,10 +17,9 @@
       }
     }
     .entity-code {
-      font-weight: 400;
-      font-size: 1.25rem;
+      font-weight: 600;
+      font-size: 1.6rem;
       text-align: center;
-      border: 1px solid lightgrey;
       padding: 9px 5px 8px 15px;
       display: block;
       letter-spacing: 12px;
@@ -33,6 +32,12 @@
       animation: animate 3s linear infinite;
       -webkit-background-clip: text;
       -webkit-text-fill-color: rgba(0, 0, 0, 0.25);
+    }
+    .refresh-code {
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      border-radius: $fullValue;
     }
   }
 }

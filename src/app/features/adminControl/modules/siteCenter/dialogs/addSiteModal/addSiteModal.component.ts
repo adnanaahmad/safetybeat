@@ -29,7 +29,6 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     private bottomSheet: MatBottomSheet,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    console.log('this is map', this.gMapElement);
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.addSiteObj.loading = false;
     this.addSiteObj.modalType = data.Modal;

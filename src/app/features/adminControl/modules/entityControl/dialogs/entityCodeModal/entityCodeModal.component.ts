@@ -21,7 +21,6 @@ export class EntityCodeModalComponent implements OnInit, OnDestroy {
     private adminServices: AdminControlService
   ) {
 
-    console.log(this.data)
   }
 
   ngOnInit() {

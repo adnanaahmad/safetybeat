@@ -11,6 +11,7 @@
     mat-nav-list {
       padding-top: 0;
       .nav-link {
+        color: #fff;
         .mat-icon {
           transform: scale(1);
           transition: all cubic-bezier(0.65, 0.2, 0, 2) 0.3s;
@@ -18,7 +19,14 @@
         &:hover {
           .mat-icon {
             transform: scale(1.3);
-            color: #fff;
+          }
+        }
+      }
+      .mat-list-item {
+        &.active {
+          background-color: #fff !important;
+          .nav-link {
+            color: mat-color($primary, 900) !important;
           }
         }
       }
@@ -27,7 +35,7 @@
     flex-direction: column;
     .menu-button {
       align-self: center;
-      height: 65px;
+      height: 64px;
       display: flex;
       flex-direction: column;
       justify-content: center;

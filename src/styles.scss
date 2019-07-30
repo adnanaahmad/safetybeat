@@ -69,10 +69,16 @@ app-toaster {
 .midbox {
   min-width: 60%;
 }
-
+.mini-fab {
+  transform: scale(0.7) !important;
+}
+.preloading-wrap {
+  &.blur {
+    filter: blur(2px);
+  }
+}
 .spinner-wrap {
   @include midBlock;
-  background: rgba(255, 255, 255, 0.5);
   height: $fullValue;
   width: $fullValue;
   z-index: 10;
@@ -84,7 +90,6 @@ app-toaster {
 .mat-paginator-range-label {
   margin: 0 !important;
 }
-
 .clearfix {
   clear: both;
   display: block;
@@ -395,7 +400,7 @@ input:-internal-autofill-selected {
   app-general {
     .country-code {
       .number-input {
-        width: 230px !important;
+        width: 160px !important;
       }
     }
   }

@@ -8,7 +8,6 @@ export class GooglePlacesDirective implements OnInit {
   @Output() onSelect: EventEmitter<any> = new EventEmitter();
   private readonly element: HTMLInputElement;
   constructor(elRef: ElementRef) {
-    debugger
     this.element = elRef.nativeElement;
   }
 
@@ -17,10 +16,8 @@ export class GooglePlacesDirective implements OnInit {
    */
 
   ngOnInit() {
-    debugger
     const autocomplete = new google.maps.places.Autocomplete(this.element);
     google.maps.event.addListener(autocomplete, 'place_changed', () => {
-      debugger
       this.onSelect.emit(this.element.value);
     });
   }

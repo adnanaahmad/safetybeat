@@ -216,7 +216,11 @@ export interface Strings {
   CAN_PROCEED_QUESTION_NO: string;
   RENAME: string;
   DELETE_FOLDER: string;
-
+  SHARE_HAZARD: string;
+  ADDITIONAL_NOTE: string;
+  COMPLETE_BY: string;
+  ACTION_TO_RESOLVE: string;
+  RATE_HAZARD: string;
 }
 
 export interface Buttons {

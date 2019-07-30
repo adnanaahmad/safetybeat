@@ -341,7 +341,6 @@ export class HelperService {
    * Set map location according to address in organization form
    */
   setAddress(addrObj, gMapElement: ElementRef, formControl) {
-    debugger
     let onSelect: boolean = false;
     this.displayButton = true;
     if (!this.isEmpty(addrObj)) {

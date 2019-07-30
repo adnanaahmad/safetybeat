@@ -28,6 +28,13 @@
         padding: 16px;
       }
     }
+    .document-inline{
+      .content{
+        span{
+          @include ellipsis;
+        }
+      }
+    }
     .file-type,
     .document-type {
       opacity: 0.5;
