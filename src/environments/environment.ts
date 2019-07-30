@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 
-const serverUrl = 'http://192.168.15.174:8000';
+const serverUrl = 'http://localhost:8000';
 
 export const environment = {
   production: false,
