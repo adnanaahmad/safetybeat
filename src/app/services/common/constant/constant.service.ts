@@ -405,7 +405,8 @@ export class ConstantService {
     connections: 'linear_scale',
     userCircled: 'account_circle',
     teamLead: 'stars',
-    Launch: 'launch'
+    Launch: 'launch',
+    themeSwitcher: 'color_lens'
   };
   /**
    * all the particle container icon names are declared here.
