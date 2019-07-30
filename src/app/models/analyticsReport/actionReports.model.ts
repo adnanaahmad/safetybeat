@@ -37,8 +37,10 @@ export interface HighChartType {
 }
 
 export interface ActionReportData {
-  checkedInAt__date: string,
-  numberOfcheckIn: number
-  numberOfcheckOut: number
+  date: string,
+  checkins: number,
+  checkouts: number,
+  pulse: number
+
 }
 

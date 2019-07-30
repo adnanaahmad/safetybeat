@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as Highcharts from 'highcharts';
-import {ActionReportData, HighChartType} from 'src/app/models/analyticsReport/actionReports.model';
+import {HighChartType} from 'src/app/models/analyticsReport/actionReports.model';
 import {HelperService} from '../helperService/helper.service';
 
 @Injectable({

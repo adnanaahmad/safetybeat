@@ -102,15 +102,15 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     let charSeries = [];
     this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
       let checkIn = {
-        name: actionReport.checkedInAt__date,
-        data: [actionReport.numberOfcheckIn, actionReport.numberOfcheckOut]
+        name: actionReport.date,
+        data: [actionReport.checkins, actionReport.checkouts, actionReport.pulse]
       };
       charSeries.push(checkIn);
 
     });
     let data = {
       charSeries: charSeries,
-      categories: ['Check In', 'CheckOut'],
+      categories: ['Check In', 'CheckOut', 'Pulse'],
       title: 'No of Check In and Check out'
     }
     return data;
