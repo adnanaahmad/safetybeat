@@ -261,4 +261,10 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.emails.push(user.email);
   }
 
+  deleteAction(action) {
+    let index: number = this.hazardObj.actionsArray.indexOf(action);
+    if (index !== -1) {
+      this.hazardObj.actionsArray.splice(index, 1);
+    }
+  }
 }

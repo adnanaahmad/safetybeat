@@ -103,6 +103,10 @@ export interface Strings {
   SELECTED_USERS: string;
   MAKE_TEAMLEAD: string;
   REMOVE_TEAMLEAD: string;
+  HAZARD: string;
+  PRECAUTIONARY_NOTE: string;
+  PERSON_FOR_ACTION: string;
+  REVIEW: string;
 }
 
 export interface Auth {

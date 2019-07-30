@@ -34,8 +34,10 @@ export class MyTeamComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.myTeam.firstIndex = 0;
+    this.myTeam.search = '';
     this.getAllUsers();
-    this.getAllTeams(0, '');
+    this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
     this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.myTeam.permissions = data;
@@ -64,7 +66,7 @@ export class MyTeamComponent implements OnInit {
       data: {Modal: false, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams(0, '');
+      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
@@ -100,8 +102,6 @@ export class MyTeamComponent implements OnInit {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
         this.helperService.constants.status.ERROR);
     });
-
-
   }
 
   viewTeam(teamsData) {
@@ -123,7 +123,7 @@ export class MyTeamComponent implements OnInit {
 
   deleteTeam(teamId) {
     this.adminServices.deleteTeam(teamId).subscribe((res) => {
-      this.getAllTeams(0, '');
+      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
       this.helperService.createSnack(
         this.helperService.translated.MESSAGES.DELETE_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
     }, (error) => {
@@ -138,7 +138,7 @@ export class MyTeamComponent implements OnInit {
       data: {Modal: true, teamList: teamInfo, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams(0, '');
+      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
     });
   }
 
