@@ -172,8 +172,7 @@ export class RegisterTeamComponent implements OnInit {
       teamMembersIds.push(obj.id);
     });
     let team: any = {
-      entity: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key)),
+      entity: this.helperService.getEntityId(),
       title: value.title,
       teamLead: this.registerTeamObj.teamLeadID,
       teamMembers: teamMembersIds,

@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {ProfileService} from '../../services/profile.service';
+import {ProfileService} from 'src/app/features/profile/services/profile.service';
 import {LeaveTypes, ProfileModel} from 'src/app/models/profile/profile.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {MAT_DIALOG_DATA} from '@angular/material';
-import {leave} from '@angular/core/src/profile/wtf_impl';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {AddLeaveData} from 'src/app/models/profile.model';
 
 @Component({
   selector: 'app-addleaves',
@@ -21,7 +21,9 @@ export class AddleavesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private navService: NavigationService,
     @Inject(MAT_DIALOG_DATA) public data: Array<LeaveTypes>,
+    public dialogRef: MatDialogRef<AddleavesComponent>
   ) {
+    this.leavesModel.loading = false;
     this.leavesModel.leaveTypes = this.data;
     this.leavesModel.selectedLeave = this.leavesModel.leaveTypes[0].id;
     this.leavesModel.startAt = new Date();
@@ -55,25 +57,40 @@ export class AddleavesComponent implements OnInit {
     return this.leavesModel.leaveForm.controls;
   }
 
+  onNoClick() {
+    this.dialogRef.close();
+  }
+
 
   /**
    * following function is used to add leaves
    * @params leaveForm
    */
   addLeavesSubmit(leaveForm: FormGroup) {
-    let data = {
+    this.leavesModel.loading = true;
+    let data: AddLeaveData = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType,
       dateFrom: leaveForm.value.dateFrom,
       dateTo: leaveForm.value.dateTo
-    }
+    };
     this.profileService.addLeaves(data).subscribe((res) => {
-      debugger
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.leavesModel.leave = res.data.leave;
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
+        this.leavesModel.loading = false;
+        this.onNoClick();
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        this.leavesModel.loading = false;
+        this.onNoClick();
+      }
     }, (error) => {
+      this.leavesModel.loading = false;
+      this.onNoClick();
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
-    })
-
+    });
   }
 
   leaveTypesSelection(selectedLeave: number) {

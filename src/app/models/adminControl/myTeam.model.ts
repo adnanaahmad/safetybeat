@@ -30,7 +30,10 @@ export interface GetAllTeamsData {
 }
 
 export interface AllTeamsApiResponse {
-  data: TeamList;
+  data: {
+    pageCount: number;
+    teamsList: Array<TeamList>;
+  };
   responseDetails: responseDetails;
 }
 

@@ -5,6 +5,7 @@ import {AllUsersOfEntityResponse} from 'src/app/models/adminControl/entityContro
 import {User} from 'src/app/models/user.model';
 import {ActivityApiResponse, ActivityFilterData, LeaveTypes} from 'src/app/models/profile/profile.model';
 import {PaginationData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
+import {AddLeaveApiResponse, AddLeaveData, UserLeavesApiResponse} from 'src/app/models/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -85,11 +86,11 @@ export class ProfileService {
     );
   }
 
-  addLeaves(data) {
+  addLeaves(data: AddLeaveData): Observable<AddLeaveApiResponse> {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.addLeave, data);
   }
 
-  viewAllUserLeaves(data) {
+  viewAllUserLeaves(data): Observable<UserLeavesApiResponse> {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.userLeaves, data);
   }
 

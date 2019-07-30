@@ -74,9 +74,7 @@ export class AddQuestionComponent implements OnInit {
       childNoSafe: questionForm.value.childNoSafe,
     };
     if (!this.QuestionObj.edit) {
-      questionData.entity = JSON.parse(this.helperService.decrypt
-      (localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key));
+      questionData.entity = this.helperService.getEntityId();
     }
     return questionData;
   }

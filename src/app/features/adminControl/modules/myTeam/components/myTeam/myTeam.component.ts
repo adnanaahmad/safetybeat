@@ -45,8 +45,7 @@ export class MyTeamComponent implements OnInit {
 
   getAllUsers() {
     let data = {
-      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
+      entityId: this.helperService.getEntityId()
     };
     this.memberService.getUsersList(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -74,8 +73,7 @@ export class MyTeamComponent implements OnInit {
   getAllTeams() {
     this.myTeam.loading = true;
     let data: GetAllTeamsData = {
-      entityId: JSON.parse(this.helperService.decrypt(localStorage.getItem(this.helperService.constants.localStorageKeys.entityId),
-        this.helperService.appConstants.key))
+      entityId: this.helperService.getEntityId()
     };
     let paginationData: PaginationData = {
       offset: null,
@@ -83,8 +81,9 @@ export class MyTeamComponent implements OnInit {
       search: ''
     };
     this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
+      debugger
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.myTeam.allTeams = this.compiler.constructAllTeamsData(res);
+        this.myTeam.allTeams = res.data.teamsList;
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
         this.myTeam.dataSource.paginator = this.paginator;
         this.myTeam.loading = false;

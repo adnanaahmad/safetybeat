@@ -5,8 +5,15 @@ import {Subscription} from 'rxjs';
 import {TeamList} from '../adminControl/myTeam.model';
 import {responseDetails} from '../user.model';
 import {EntityInfo} from '../userEntityData.model';
+import {UserLeavesApiResponseData} from '../profile.model';
+import {CalendarEvent} from 'angular-calendar';
 
 export interface ProfileModel {
+  eventData: CalendarEvent;
+  events: Array<CalendarEvent>;
+  loading: boolean;
+  leave: UserLeavesApiResponseData;
+  userLeaves: Array<UserLeavesApiResponseData>;
   startAt: Date;
   entity: EntityInfo;
   leaveTypes: Array<LeaveTypes>;

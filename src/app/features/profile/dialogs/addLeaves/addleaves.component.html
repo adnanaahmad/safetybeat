@@ -1,5 +1,8 @@
 <mat-card-title>{{helperService.translated.SITETITLE.ADDLEAVES}}</mat-card-title>
 <div mat-dialog-content>
+  <div class="spinner-wrap" *ngIf="leavesModel.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <form [formGroup]="leavesModel.leaveForm"
         (ngSubmit)=addLeavesSubmit(leavesModel.leaveForm)>
     <div class="form-group">
@@ -57,7 +60,7 @@
       <mat-dialog-actions>
         <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn color="primary"
                 [disabled]="!leavesModel.leaveForm.valid || leavesModel.loading">
-          {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
+          Add Leave
           <div class="main-loader" *ngIf="leavesModel.loading">
             <span class="loader1"></span>
             <span class="loader2"></span>

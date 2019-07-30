@@ -409,21 +409,48 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       disableClose: true,
       data: this.profileModel.leaveTypes
     });
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.userLeaves(this.profileModel.userId);
+      }
+    })
   }
 
   userLeaves(userId: number) {
-    debugger
     let data = {
-      userId: userId
+      userId: userId,
+      entityId: this.helperService.getEntityId()
     };
     this.profileService.viewAllUserLeaves(data).subscribe((res) => {
-      debugger
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.profileModel.userLeaves = res.data.userLeaves;
+        let self = this;
+        self.profileModel.events = [];
+        this.helperService.iterations(self.profileModel.userLeaves, function (leaveData) {
+          self.profileModel.eventData = {
+            start: new Date(leaveData.dateFrom),
+            end: new Date(leaveData.dateTo),
+            title: leaveData.description,
+            allDay: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true
+            },
+            draggable: true,
+            meta: {
+              type: 'calendarEvent'
+            }
+          };
+          self.profileModel.events.push(self.profileModel.eventData);
+        });
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+      }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
-    })
+    });
   }
 }
-
 
 /**
  * below code is mocked data will be replaced when we will have data to change this.
