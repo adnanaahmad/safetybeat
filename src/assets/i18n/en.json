@@ -434,7 +434,9 @@
     "PERMISSIONS_UPDATED": "Pemissions Updated Successfully",
     "PERMISSIONS_UPDATION_FAILED": "Permission Updation Failed",
     "NO_USER": "No User Exist",
-    "NO_USER_SELECTED": "No User Selected"
+    "NO_USER_SELECTED": "No User Selected",
+    "ENTITY_RES_MSG": " responsible to manage this hazard?",
+    "IS": "Is "
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

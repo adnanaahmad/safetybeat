@@ -129,7 +129,7 @@
     </mat-step>
 
     <!-- Share Hazard -->
-    <mat-step *ngIf="addHazardControls.responsible.value === true">
+    <mat-step *ngIf="addHazardControls.responsible.value === true && !hazardObj.editModal">
       <ng-template matStepLabel>{{helperService.translated.STRINGS.SHARE_HAZARD}}</ng-template>
       <div class="tabcontent">
         <mat-tab-group>

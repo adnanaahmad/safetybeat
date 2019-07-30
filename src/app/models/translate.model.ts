@@ -285,6 +285,8 @@ export interface Buttons {
 }
 
 export interface Messages {
+    IS: string;
+    ENTITY_RES_MSG: string;
     SELECT_TEAMLEAD: string;
     GENERAL_UPDATED: string;
     GENERAL_FAIL: string;

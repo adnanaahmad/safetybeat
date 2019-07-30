@@ -34,7 +34,7 @@ export class MyTeamComponent implements OnInit {
 
   ngOnInit() {
     this.getAllUsers();
-    this.getAllTeams();
+    this.getAllTeams(0, '');
     this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.myTeam.permissions = data;
@@ -63,20 +63,20 @@ export class MyTeamComponent implements OnInit {
       data: {Modal: false, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams();
+      this.getAllTeams(0, '');
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
-  getAllTeams() {
+  getAllTeams(pageIndex, search) {
     let data: GetAllTeamsData = {
       entityId: this.helperService.getEntityId()
     };
     let paginationData: PaginationData = {
-      offset: null,
-      limit: null,
-      search: ''
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit,
+      search: search
     };
     this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -118,13 +118,12 @@ export class MyTeamComponent implements OnInit {
 
   deleteTeam(teamId) {
     this.adminServices.deleteTeam(teamId).subscribe((res) => {
-      this.getAllTeams();
+      this.getAllTeams(0, '');
       this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
         this.helperService.translated.MESSAGES.DELETE_TEAM_SUCCESS);
     }, (error) => {
       this.helperService.appLogger(this.helperService.constants.status.ERROR,
         this.helperService.translated.MESSAGES.DELETE_TEAM_FAILURE);
-
     });
   }
 
@@ -134,7 +133,7 @@ export class MyTeamComponent implements OnInit {
       data: {Modal: true, teamList: teamInfo, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams();
+      this.getAllTeams(0, '');
     });
   }
 
