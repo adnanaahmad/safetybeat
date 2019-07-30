@@ -15,7 +15,6 @@ export class ParticleContainerComponent implements OnInit {
   ) {
     this.translated = this.helperService.translated;
     this.particlesIcons = this.helperService.constants.particlesIcons;
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS, this.translated.LOGGER.MESSAGES.PARTICLE_COMPONENT);
   }
   ngOnInit() {
   }

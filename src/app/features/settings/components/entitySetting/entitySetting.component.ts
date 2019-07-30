@@ -27,6 +27,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
               public settings: SettingsService) {
 
     this.entitySettingObj.disabled = false;
+    this.entitySettingObj.loading = false;
   }
 
   ngOnInit() {
@@ -99,6 +100,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
 
   updateEntity({value, valid}: { value: EditEntity; valid: boolean }): void {
     this.entitySettingObj.disabled = false;
+    this.entitySettingObj.loading = true;
     this.entitySettingObj.entityForm.disable();
     let data = {
       'name': value.name,
@@ -108,12 +110,18 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
     if (!valid) {
+      this.entitySettingObj.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_ENTITY, this.helperService.constants.status.ERROR);
       return;
     }
     this.settings.editEntity(this.entitySettingObj.entitiesData.id, data).subscribe((res) => {
-      this.viewEntitiesApiCall();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED, this.helperService.constants.status.SUCCESS);
+      if (res) {
+        this.viewEntitiesApiCall();
+        this.entitySettingObj.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED, this.helperService.constants.status.SUCCESS);
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 

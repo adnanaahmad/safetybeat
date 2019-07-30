@@ -230,6 +230,7 @@
     "RESETMSG": "Email has been sent!",
     "RESETFAIL": "Reset Password Unsuccessful!",
     "RESETFAIL_MSG": "Reset Email can not be sent",
+    "ACTIVITIESS": "Activities",
     "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
     "VERIFY_MSG": "In order to complete registration, please verify your account.",
     "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",
@@ -460,7 +461,9 @@
     "PULSE_REPORT_BY_PERSON": "Pulse Report by Person",
     "COMPLIANT_CHECKOUT": "Compliant Check-Out by Person",
     "SITE_ACTIVITY_REPORT": "Site Activity Report",
-    "HAZARD_REPORTS": "Hazard Reports"
+    "HAZARD_REPORTS": "Hazard Reports",
+    "LEAVES": "Leaves",
+    "ADDLEAVES": "Add Leave"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",

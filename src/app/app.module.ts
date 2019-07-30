@@ -50,8 +50,13 @@ import {AdvanceSearchComponent} from './features/adminControl/modules/siteCenter
 import {ImageLightboxComponent} from './dialogs/imageLightbox/imageLightbox.component';
 import {SendSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {ShowSiteCodeComponent} from './features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {FileRenameComponent} from './features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 import {AddActionsComponent} from './features/adminControl/modules/siteCenter/dialogs/addActions/addActions.component';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import {FlatpickrModule} from 'angularx-flatpickr';
+import {AddleavesComponent} from './features/profile/dialogs/addLeaves/addleaves.component';
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -89,7 +94,8 @@ export function createTranslateLoader(http: HttpClient) {
     ImageLightboxComponent,
     SendSiteCodeComponent,
     ShowSiteCodeComponent,
-    FileRenameComponent
+    FileRenameComponent,
+    AddleavesComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -107,6 +113,11 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
+    }),
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
     }),
     AppRoutingModule,
     NotifierModule,
@@ -167,7 +178,8 @@ export function createTranslateLoader(http: HttpClient) {
     ImageLightboxComponent,
     SendSiteCodeComponent,
     ShowSiteCodeComponent,
-    FileRenameComponent
+    FileRenameComponent,
+    AddleavesComponent
   ]
 })
 export class AppModule {

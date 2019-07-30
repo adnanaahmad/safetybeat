@@ -77,7 +77,7 @@ export class CreateEntityComponent implements OnInit {
     this.adminServices.createEntity(this.createEntityObj.entityDetails).subscribe(
       result => {
         this.createEntityObj.entityResponse = result;
-        if (this.createEntityObj.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (result && this.createEntityObj.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.adminServices.viewEntities(data).subscribe(res => {
             this.createEntityObj.entitiesList = res;
             this.createEntityObj.entityUserData = this.compiler.constructUserEntityData(this.createEntityObj.entitiesList.data);
@@ -92,24 +92,15 @@ export class CreateEntityComponent implements OnInit {
         } else if (this.createEntityObj.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
           this.helperService.appConstants.codeValidations[4]) {
           this.createEntityObj.loading = false;
-          this.helperService.appLogger(
-            this.helperService.constants.status.ERROR,
-            this.createEntityObj.entityResponse.responseDetails.message
-          );
+          this.helperService.createSnack(result.responseDetails.message, this.helperService.constants.status.ERROR);
         } else if (this.createEntityObj.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.createEntityObj.loading = false;
-          this.helperService.appLogger(
-            this.helperService.constants.status.ERROR,
-            this.createEntityObj.entityResponse.responseDetails.message
-          );
+          this.helperService.createSnack(result.responseDetails.message, this.helperService.constants.status.ERROR);
         }
       },
       error => {
-        this.helperService.appLogger(
-          this.helperService.constants.status.ERROR,
-          this.helperService.translated.LOGGER.MESSAGES.ENTITYNOTCREATED
-        );
         this.createEntityObj.loading = false;
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
       }
     );
   }

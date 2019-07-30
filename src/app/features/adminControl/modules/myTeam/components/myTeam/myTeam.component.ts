@@ -29,6 +29,7 @@ export class MyTeamComponent implements OnInit {
               private memberService: MemberCenterService,
               private navService: NavigationService,
               private adminServices: AdminControlService) {
+    this.myTeam.loading = false;
 
   }
 
@@ -70,6 +71,7 @@ export class MyTeamComponent implements OnInit {
   }
 
   getAllTeams(pageIndex, search) {
+    this.myTeam.loading = true;
     let data: GetAllTeamsData = {
       entityId: this.helperService.getEntityId()
     };
@@ -79,19 +81,22 @@ export class MyTeamComponent implements OnInit {
       search: search
     };
     this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.myTeam.allTeams = this.compiler.constructAllTeamsData(res);
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.myTeam.allTeams = res.data.teamsList;
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
         this.myTeam.dataSource.paginator = this.paginator;
+        this.myTeam.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.myTeam.dataSource = null;
+        this.myTeam.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAMS_NOT_FOUND,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.myTeam.dataSource = null;
+      this.myTeam.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
         this.helperService.constants.status.ERROR);
     });
@@ -119,11 +124,11 @@ export class MyTeamComponent implements OnInit {
   deleteTeam(teamId) {
     this.adminServices.deleteTeam(teamId).subscribe((res) => {
       this.getAllTeams(0, '');
-      this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-        this.helperService.translated.MESSAGES.DELETE_TEAM_SUCCESS);
+      this.helperService.createSnack(
+        this.helperService.translated.MESSAGES.DELETE_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
     }, (error) => {
-      this.helperService.appLogger(this.helperService.constants.status.ERROR,
-        this.helperService.translated.MESSAGES.DELETE_TEAM_FAILURE);
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+
     });
   }
 

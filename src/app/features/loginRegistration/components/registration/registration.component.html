@@ -17,6 +17,9 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
+      <div class="spinner-wrap" *ngIf="registerObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+      </div>
         <mat-horizontal-stepper [linear]="helperService.appConstants.linearForm">
             <mat-step [stepControl]="registerObj.userForm">
                 <mat-card class="loginbox">
