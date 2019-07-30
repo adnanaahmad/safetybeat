@@ -103,6 +103,10 @@ export interface Strings {
     SELECTED_USERS: string;
     MAKE_TEAMLEAD: string;
     REMOVE_TEAMLEAD: string;
+    PERSON_FOR_ACTION: string;
+    PRECAUTIONARY_NOTE: string;
+    HAZARD: string;
+    REVIEW: string;
 }
 
 export interface Auth {
@@ -216,7 +220,11 @@ export interface Strings {
     CAN_PROCEED_QUESTION_NO: string;
     RENAME: string;
     DELETE_FOLDER: string;
-
+    SHARE_HAZARD: string;
+    ADDITIONAL_NOTE: string;
+    COMPLETE_BY: string;
+    ACTION_TO_RESOLVE: string;
+    RATE_HAZARD: string;
 }
 
 export interface Buttons {

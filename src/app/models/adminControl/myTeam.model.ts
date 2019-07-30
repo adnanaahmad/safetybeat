@@ -12,6 +12,7 @@ export interface MyTeamModel {
 }
 
 export interface Team {
+  createdBy: string,
   entity: number,
   id: number,
   teamLead: number,
