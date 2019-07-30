@@ -3,110 +3,118 @@
 <mat-card-title class="mat-dialog-title" *ngIf="registerTeamObj.editTeam">
   {{helperService.translated.MESSAGES.EDIT_TEAM}}</mat-card-title>
 <div class="mat-dialog-content">
-<!--  <div class="spinner-wrap" *ngIf="registerTeamObj.loading">-->
-<!--    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>-->
-<!--  </div>-->
-
-  <form [formGroup]="registerTeamObj.registerTeamForm">
-    <mat-form-field fullWidth appearance="outline">
-      <mat-label>{{helperService.translated.MESSAGES.TEAM_TITLE}}</mat-label>
-      <input matInput type="text" [formControlName]=helperService.appConstants.title required/>
-      <mat-error *ngIf="getFormControls.title.errors">
-        <span *ngIf="getFormControls.title.errors.required">{{helperService.translated.MESSAGES.TEAM_NAME_REQ}}</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-tab-group>
-      <!--All Users Tab-->
-      <mat-tab label="{{helperService.translated.SITETITLE.USERS_TITLE}}">
-        <mat-form-field class="searchbar" fullWidth appearance="outline">
-          <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
-          <input type="text" matInput (keyup)=filterAllUserList($event.target.value)>
-          <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
-        </mat-form-field>
-        <div class="data-search">
-          <div class="data-result">
-            <!--User-->
-            <mat-card class="text-center" *ngIf="registerTeamObj.allUsersList.length === 0">{{this.helperService.translated.MESSAGES.NO_USER}}</mat-card>
-            <ng-container *ngIf="registerTeamObj.allUsersList.length !== 0">
-            <div class="list-item mat-elevation-z2" *ngFor="let user of registerTeamObj.allUsers">
-              <div class="user-thumbnail">
-                <img src="{{ user.profileImage != null ? user.profileImage : helperService.appConstants.avatar}}">
-              </div>
-              <h5 class="user-name align-items-center" mat-line>
-                {{user.name}}
-              </h5>
-              <button [disabled]="alreadyAddedCheck(user)" matTooltip="{{helperService.translated.STRINGS.ADD}}"
-                      mat-mini-fab color="primary"
-                      class="remove-member fab-action" (click)="addToSelected(user)">
-                <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-              </button>
-            </div>
-            </ng-container>
-            <!--/User-->
-          </div>
-        </div>
-      </mat-tab>
-      <!--/All Users Tab-->
-
-      <!--Selected Users Tab-->
-      <mat-tab label="{{helperService.translated.STRINGS.SELECTED_USERS}}">
-        <mat-form-field class="searchbar" fullWidth appearance="outline"
-                        *ngIf="registerTeamObj.filteredSelectedList.length !== 0">
-          <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}} </mat-label>
-            <input type="text" matInput (keyup)=filterSelectedUserList($event.target.value)>
-          <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
-        </mat-form-field>
-        <div class="data-search">
-          <div class="data-result">
-            <!--User-->
-            <mat-card class="text-center" *ngIf="registerTeamObj.selectedUsers.length === 0">No User Selected</mat-card>
-            <ng-container *ngIf="registerTeamObj.selectedUsers.length !== 0">
-              <div class="list-item mat-elevation-z2" *ngFor="let selectedUser of registerTeamObj.filteredSelectedList">
-                <div class="user-thumbnail">
-                  <img
-                    src="{{ selectedUser.profileImage != null ? selectedUser.profileImage : helperService.appConstants.avatar}}">
+  <div class="spinner-wrap" *ngIf="registerTeamObj.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+  </div>
+  <div [class]="registerTeamObj.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
+    <form [formGroup]="registerTeamObj.registerTeamForm">
+      <mat-form-field fullWidth appearance="outline">
+        <mat-label>{{helperService.translated.MESSAGES.TEAM_TITLE}}</mat-label>
+        <input matInput type="text" [formControlName]=helperService.appConstants.title required />
+        <mat-error *ngIf="getFormControls.title.errors">
+          <span *ngIf="getFormControls.title.errors.required">{{helperService.translated.MESSAGES.TEAM_NAME_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-tab-group>
+        <!--All Users Tab-->
+        <mat-tab label="{{helperService.translated.SITETITLE.USERS_TITLE}}">
+          <mat-form-field class="searchbar" fullWidth appearance="outline">
+            <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
+            <input type="text" matInput (keyup)=filterAllUserList($event.target.value)>
+            <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
+          </mat-form-field>
+          <div class="data-search">
+            <div class="data-result">
+              <!--User-->
+              <mat-card class="text-center" *ngIf="registerTeamObj.allUsersList.length === 0">
+                {{this.helperService.translated.MESSAGES.NO_USER}}</mat-card>
+              <ng-container *ngIf="registerTeamObj.allUsersList.length !== 0">
+                <div class="list-item mat-elevation-z2" *ngFor="let user of registerTeamObj.allUsers">
+                  <div class="user-thumbnail">
+                    <img src="{{ user.profileImage != null ? user.profileImage : helperService.appConstants.avatar}}">
+                  </div>
+                  <h5 class="user-name align-items-center" mat-line>
+                    {{user.name}}
+                  </h5>
+                  <button [disabled]="alreadyAddedCheck(user)" matTooltip="{{helperService.translated.STRINGS.ADD}}"
+                    mat-mini-fab color="primary" class="remove-member fab-action" (click)="addToSelected(user)">
+                    <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+                  </button>
                 </div>
-                <h5 class="user-name align-items-center" mat-line>
-                  {{selectedUser.name}}
-                  <mat-icon *ngIf="selectedUser.id === registerTeamObj.teamLeadID" color="primary"
-                            matBadgeColor="warn"
-                            matTooltip="{{helperService.translated.TABLEHEADINGS.TEAM_LEAD}}"
-                            matTooltipPosition="right">
-                    {{helperService.appIcons.teamLead}}</mat-icon>
-                </h5>
-                <button class="actions" mat-button [matMenuTriggerFor]="menu">
-                  <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="removeFromSelected(selectedUser)">
-                    <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
-                    {{helperService.translated.STRINGS.REMOVE}}
-                  </button>
-                  <button mat-menu-item *ngIf="registerTeamObj.teamLeadID !== selectedUser.id" (click)="makeTeamLead(selectedUser)">
-                    <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
-                    {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
-                  </button>
-                  <button mat-menu-item *ngIf="registerTeamObj.teamLeadID === selectedUser.id" (click)="removeTeamLead()">
-                    <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
-                    {{helperService.translated.STRINGS.REMOVE_TEAMLEAD}}
-                  </button>
-                </mat-menu>
-              </div>
-            </ng-container>
-            <!--/User-->
-
+              </ng-container>
+              <!--/User-->
+            </div>
           </div>
-        </div>
-      </mat-tab>
-      <!--/Selected Users Tab-->
-    </mat-tab-group>
-    <mat-dialog-actions>
-      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary [disabled]="!registerTeamObj.registerTeamForm.valid || registerTeamObj.selectedUsers.length === 0" (click)="teamFormSubmit(registerTeamObj.registerTeamForm)"
-              *ngIf="registerTeamObj.editTeam" color="primary">{{helperService.translated.BUTTONS.SAVE}}
-      </button>
-      <button mat-raised-button cdkFocusInitial *ngIf="!registerTeamObj.editTeam" custom-btn btn-primary [disabled]="!registerTeamObj.registerTeamForm.valid || registerTeamObj.selectedUsers.length === 0" (click)="teamFormSubmit(registerTeamObj.registerTeamForm)"
-              color="primary">{{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM }}</button>
-      <button mat-button mat-dialog-close>{{ helperService.translated.BUTTONS.CANCEL }}</button>
-    </mat-dialog-actions>
-  </form>
+        </mat-tab>
+        <!--/All Users Tab-->
+
+        <!--Selected Users Tab-->
+        <mat-tab label="{{helperService.translated.STRINGS.SELECTED_USERS}}">
+          <mat-form-field class="searchbar" fullWidth appearance="outline"
+            *ngIf="registerTeamObj.filteredSelectedList.length !== 0">
+            <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}} </mat-label>
+            <input type="text" matInput (keyup)=filterSelectedUserList($event.target.value)>
+            <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
+          </mat-form-field>
+          <div class="data-search">
+            <div class="data-result">
+              <!--User-->
+              <mat-card class="text-center" *ngIf="registerTeamObj.selectedUsers.length === 0">No User Selected
+              </mat-card>
+              <ng-container *ngIf="registerTeamObj.selectedUsers.length !== 0">
+                <div class="list-item mat-elevation-z2"
+                  *ngFor="let selectedUser of registerTeamObj.filteredSelectedList">
+                  <div class="user-thumbnail">
+                    <img
+                      src="{{ selectedUser.profileImage != null ? selectedUser.profileImage : helperService.appConstants.avatar}}">
+                  </div>
+                  <h5 class="user-name align-items-center" mat-line>
+                    {{selectedUser.name}}
+                    <mat-icon *ngIf="selectedUser.id === registerTeamObj.teamLeadID" color="primary"
+                      matBadgeColor="warn" matTooltip="{{helperService.translated.TABLEHEADINGS.TEAM_LEAD}}"
+                      matTooltipPosition="right">
+                      {{helperService.appIcons.teamLead}}</mat-icon>
+                  </h5>
+                  <button class="actions" mat-button [matMenuTriggerFor]="menu">
+                    <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="removeFromSelected(selectedUser)">
+                      <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                      {{helperService.translated.STRINGS.REMOVE}}
+                    </button>
+                    <button mat-menu-item *ngIf="registerTeamObj.teamLeadID !== selectedUser.id"
+                      (click)="makeTeamLead(selectedUser)">
+                      <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                      {{helperService.translated.STRINGS.MAKE_TEAMLEAD}}
+                    </button>
+                    <button mat-menu-item *ngIf="registerTeamObj.teamLeadID === selectedUser.id"
+                      (click)="removeTeamLead()">
+                      <mat-icon>{{helperService.appIcons.userCircled}}</mat-icon>
+                      {{helperService.translated.STRINGS.REMOVE_TEAMLEAD}}
+                    </button>
+                  </mat-menu>
+                </div>
+              </ng-container>
+              <!--/User-->
+
+            </div>
+          </div>
+        </mat-tab>
+        <!--/Selected Users Tab-->
+      </mat-tab-group>
+      <mat-dialog-actions>
+        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
+          [disabled]="!registerTeamObj.registerTeamForm.valid || registerTeamObj.selectedUsers.length === 0"
+          (click)="teamFormSubmit(registerTeamObj.registerTeamForm)" *ngIf="registerTeamObj.editTeam"
+          color="primary">{{helperService.translated.BUTTONS.SAVE}}
+        </button>
+        <button mat-raised-button cdkFocusInitial *ngIf="!registerTeamObj.editTeam" custom-btn btn-primary
+          [disabled]="!registerTeamObj.registerTeamForm.valid || registerTeamObj.selectedUsers.length === 0"
+          (click)="teamFormSubmit(registerTeamObj.registerTeamForm)"
+          color="primary">{{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM }}</button>
+        <button mat-button mat-dialog-close>{{ helperService.translated.BUTTONS.CANCEL }}</button>
+      </mat-dialog-actions>
+    </form>
+  </div>
 </div>

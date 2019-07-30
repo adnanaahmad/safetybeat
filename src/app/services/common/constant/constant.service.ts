@@ -141,7 +141,8 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    spinnerConstant: 30,
+    spinnerConstant: 50,
+    spinnerConstantModal: 30,
     paginationLimit: 10,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
