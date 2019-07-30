@@ -75,7 +75,8 @@ export class ViewSiteComponent implements OnInit {
       if (res) {
         this.viewSiteObj.siteInfo = this.compiler.constructorSiteInfo(res);
         this.viewSiteObj.siteSafetyManager = res.siteSafetyManager;
-        this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location, this.helperService.createMap(this.gMapElement) );
+        this.helperService.setLocationGeocode(this.viewSiteObj.siteInfo.location,
+          this.helperService.createMap(this.gMapElement), res.radius);
       } else {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.VIEW_SITE_FAILURE, this.helperService.constants.status.ERROR);
       }

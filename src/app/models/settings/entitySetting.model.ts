@@ -3,6 +3,7 @@ import {EntityInfo} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
 
 export interface EntitySetting {
+  loading: boolean;
   entitiesList: any;
   entityManagedBy: any;
   selectedUser: any;

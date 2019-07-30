@@ -156,7 +156,7 @@ mat-dialog-container {
   .buttonRow {
     margin-left: auto;
     button {
-      padding: 0px 6px;
+      padding: 0 6px;
       margin-left: 4px;
       font-size: 12px;
       mat-icon {
@@ -187,7 +187,9 @@ mat-dialog-container {
 .text-right {
   text-align: right;
 }
-
+.text-left{
+  text-align: left;
+}
 .paddingbox {
   padding: 16px;
 }

@@ -1,5 +1,8 @@
 <mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.INVITE_USER}}</mat-card-title>
 <div class="mat-dialog-content">
+  <div class="spinner-wrap" *ngIf="inviteUserModal.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
   <form [formGroup]="inviteUserModal.inviteUserForm" (ngSubmit)="inviteUser(inviteUserModal.inviteUserForm)">
     <div class="input">
       <label class="mat-h4 selected-entity">

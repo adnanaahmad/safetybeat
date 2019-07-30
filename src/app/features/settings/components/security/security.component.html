@@ -2,6 +2,9 @@
     {{helperService.translated.MESSAGES.CHANGEPASSWORD}}
 </mat-card-title>
 <div class="mat-dialog-content">
+  <div class="spinner-wrap" *ngIf="loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
     <form [formGroup]="changePasswordForm" #formDirective="ngForm"
           (ngSubmit)="changePassword(changePasswordForm, formDirective)">
         <mat-list role="list" class="settings-list">
