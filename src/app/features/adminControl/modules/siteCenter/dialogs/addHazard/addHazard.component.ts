@@ -70,7 +70,8 @@ export class AddHazardComponent implements OnInit {
       }
     });
     this.hazardObj.emails = [];
-    this.hazardObj.msg = 'Is ' + this.hazardObj.entityName + ' responsible to manage this hazard?';
+    // tslint:disable-next-line:max-line-length
+    this.hazardObj.msg = this.helperService.translated.MESSAGES.IS + this.hazardObj.entityName + this.helperService.translated.MESSAGES.ENTITY_RES_MSG;
     this.hazardObj.actionsArray = [];
     this.hazardObj.allUsers = [];
     this.hazardObj.allUsersList = [];
@@ -116,16 +117,16 @@ export class AddHazardComponent implements OnInit {
   addHazard(value) {
     this.service.addHazard(this.generateNewHazard(value)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.onNoClick();
+          this.onNoClick(this.helperService.appConstants.yes);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ADDED,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.onNoClick();
+          this.onNoClick(null);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
-        this.onNoClick();
+        this.onNoClick(null);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
           this.helperService.constants.status.ERROR);
       }
@@ -133,23 +134,23 @@ export class AddHazardComponent implements OnInit {
   }
 
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(msg: string): void {
+    this.dialogRef.close(msg);
   }
 
   editHazard(value) {
     this.service.editHazard(this.hazardObj.hazardInfo.id, this.generateNewHazard(value)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.onNoClick();
+          this.onNoClick(this.helperService.appConstants.yes);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.onNoClick();
+          this.onNoClick(null);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
-        this.onNoClick();
+        this.onNoClick(null);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_EDIT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
@@ -213,7 +214,7 @@ export class AddHazardComponent implements OnInit {
     if (value.responsible) {
       formData.append('action', JSON.stringify( this.compiler.constructActions(this.hazardObj.actionsArray)));
     }
-    if (this.hazardObj.allUsersList.length !== 0) {
+    if (this.hazardObj.selectedUserList.length !== 0) {
       formData.append('share', 'true');
       formData.append('emails', JSON.stringify(this.hazardObj.emails));
     } else {
@@ -260,4 +261,10 @@ export class AddHazardComponent implements OnInit {
     this.hazardObj.emails.push(user.email);
   }
 
+  deleteAction(action) {
+    let index: number = this.hazardObj.actionsArray.indexOf(action);
+    if (index !== -1) {
+      this.hazardObj.actionsArray.splice(index, 1);
+    }
+  }
 }

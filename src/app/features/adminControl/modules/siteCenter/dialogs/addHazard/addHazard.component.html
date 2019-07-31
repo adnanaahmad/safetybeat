@@ -70,7 +70,7 @@
           <mat-checkbox formControlName="responsible">{{hazardObj.msg}}</mat-checkbox>
         </div>
         <div class="nav-btn">
-          <button mat-button matStepperNext
+          <button mat-button matStepperNext [disabled]= "hazardObj.addHazardFormFirst.invalid"
                   >{{helperService.translated.BUTTONS.NEXT}}
             <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
           </button>
@@ -96,6 +96,7 @@
                   </mat-panel-title>
                   <mat-panel-description>
                     {{helperService.translated.STRINGS.COMPLETE_BY}} {{action.completeByTime | date}}
+                    <mat-icon class="remove-action pointer" (click)="deleteAction(action)">{{helperService.appIcons.deleteForever}}</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -129,7 +130,7 @@
     </mat-step>
 
     <!-- Share Hazard -->
-    <mat-step *ngIf="addHazardControls.responsible.value === true">
+    <mat-step *ngIf="addHazardControls.responsible.value === true && !hazardObj.editModal">
       <ng-template matStepLabel>{{helperService.translated.STRINGS.SHARE_HAZARD}}</ng-template>
       <div class="tabcontent">
         <mat-tab-group>
