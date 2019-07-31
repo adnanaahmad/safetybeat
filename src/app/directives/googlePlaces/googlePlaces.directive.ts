@@ -7,7 +7,6 @@ import {Directive, OnInit, Output, EventEmitter, ElementRef} from '@angular/core
 export class GooglePlacesDirective implements OnInit {
   @Output() onSelect: EventEmitter<any> = new EventEmitter();
   private readonly element: HTMLInputElement;
-
   constructor(elRef: ElementRef) {
     this.element = elRef.nativeElement;
   }

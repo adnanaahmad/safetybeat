@@ -3,8 +3,30 @@ import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
 import {TeamList} from '../adminControl/myTeam.model';
+import {responseDetails} from '../user.model';
+import {EntityInfo} from '../userEntityData.model';
+import {UserLeavesApiResponseData} from '../profile.model';
+import {CalendarEvent} from 'angular-calendar';
 
 export interface ProfileModel {
+  eventData: CalendarEvent;
+  events: Array<CalendarEvent>;
+  loading: boolean;
+  leave: UserLeavesApiResponseData;
+  userLeaves: Array<UserLeavesApiResponseData>;
+  startAt: Date;
+  entity: EntityInfo;
+  leaveTypes: Array<LeaveTypes>;
+  selectedLeave: any;
+  leaveForm: FormGroup;
+  selectedFilter: any;
+  data: ActivityFilterData;
+  pageCount: number;
+  pageSize: number;
+  firstIndex: number;
+  filters: Array<Filters>;
+  filterForm: FormGroup;
+  activitiesCount: number;
   teamsData: TeamList;
   noTeam: boolean;
   connectionCount: number;
@@ -58,7 +80,7 @@ export interface ProfileFeatures {
 
 export interface recentActivities {
   checkInCheckOut: checkInCheckOut;
-  site: siteData;
+  siteData: siteData;
   duration: string
 }
 
@@ -71,17 +93,45 @@ export interface checkInCheckOut {
   site: number;
   user: number
 }
- export interface siteData {
-   createdBy: number;
-   entity: number;
-   gpsTrackEnabled: any;
-   id: number;
-   latitude: any;
-   location: string;
-   longitude: any;
-   name: string;
-   radius: any;
-   safeZone: boolean;
-   siteSafetyManager: any;
-   siteSafetyPlan: string;
- }
+
+export interface siteData {
+  code: string;
+  createdBy: number;
+  entity: number;
+  gpsTrackEnabled: boolean;
+  id: number;
+  latitude: any;
+  location: string;
+  longitude: any;
+  name: string;
+  radius: number;
+  safeZone: boolean;
+  siteSafetyManager: number;
+  siteSafetyPlan: string;
+}
+
+export interface Filters {
+  id: number;
+  name: string;
+  days: number;
+}
+
+export interface ActivityFilterData {
+  days: number;
+  userId: number;
+  dateTo?: Date;
+  dateFrom?: Date;
+}
+
+export interface ActivityApiResponse {
+  data: {
+    pageCount: number;
+    recentActivities: Array<recentActivities>;
+  };
+  responseDetails: responseDetails;
+}
+
+export interface LeaveTypes {
+  id: number;
+  name: string;
+}

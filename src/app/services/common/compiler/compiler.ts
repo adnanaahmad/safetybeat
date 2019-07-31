@@ -13,6 +13,7 @@ import {recentActivities} from 'src/app/models/profile/profile.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {EntityQuestion} from 'src/app/models/adminControl/questionCenter.model';
 import {QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
+import {UserLeavesApiResponse} from '../../../models/profile.model';
 
 @Injectable()
 export class CompilerProvider {
@@ -478,6 +479,22 @@ export class CompilerProvider {
         actionUser: obj.actionUser.id,
         completeByTime: obj.completeByTime,
         description: obj.description
+      };
+      actionData.push(action);
+    });
+    return actionData;
+  }
+
+  manageLeaveTable(actionsArray: UserLeavesApiResponse) {
+    let actionData = [];
+    this.helperService.iterations(actionsArray.data.userLeaves, function (obj) {
+      let action = {
+        userName: obj.requestedBy.first_name + ' ' + obj.requestedBy.last_name,
+        status: obj.approved ? 'approved' : obj.rejected ? 'rejected' : 'pending',
+        leaveType: obj.leaveType,
+        dateFrom: new Date(obj.dateFrom).toDateString(),
+        dateTo: new Date(obj.dateTo).toDateString(),
+        reason: obj.description
       };
       actionData.push(action);
     });

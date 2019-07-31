@@ -45,8 +45,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private adminService: AdminControlService,
     private navService: NavigationService
   ) {
-    this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.LOGIN_COMPONENT);
     localStorage.clear();
   }
 
@@ -108,19 +106,13 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   onSubmit({value, valid}: { value: loginCredentials; valid: boolean; }): void {
     if (!valid) {
-      this.helperService.appLoggerDev(
-        this.helperService.constants.status.WARNING,
-        valid
-      );
-      this.helperService.appLogger(
-        this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.CREDENTIAL_REQ
+      this.helperService.createSnack(
+        this.helperService.translated.LOGGER.MESSAGES.CREDENTIAL_REQ,
+        this.helperService.constants.status.ERROR
       );
       return;
     }
     this.loginObj.loading = true;
-    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
-    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     this.loginService.loginUser(value).subscribe(
       data => {
         if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -138,50 +130,41 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
           (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           let entityData = {
-              'moduleName': this.helperService.appConstants.moduleName
-            }
-          ;
+            'moduleName': this.helperService.appConstants.moduleName
+          };
           this.adminService.viewEntities(entityData).subscribe((res) => {
-            this.loginObj.entities = res;
-            let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
-            this.navService.changeEntites(entityUserData);
-            this.helperService.appLoggerDev(
-              this.helperService.constants.status.SUCCESS,
-              this.helperService.translated.LOGGER.MESSAGES.LOGGEDIN
-            );
-            this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
-              this.helperService.constants.status.SUCCESS);
-            this.loginObj.loading = false;
-            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+            if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+              this.loginObj.entities = res;
+              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
+              this.navService.changeEntites(entityUserData);
+              this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
+                this.helperService.constants.status.SUCCESS);
+              this.loginObj.loading = false;
+              this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+            } else {
+              this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+            }
           }, (err) => {
+            this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR);
           });
         } else if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
-          this.helperService.appLogger(
-            this.helperService.constants.status.ERROR,
-            data.responseDetails.message
-          );
-          this.helperService.appLoggerDev(
-            this.helperService.constants.status.ERROR,
-            data.responseDetails.message
+          this.helperService.createSnack(
+            data.responseDetails.message,
+            this.helperService.constants.status.ERROR
           );
           this.loginObj.loading = false;
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
         } else if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[2]) {
-          this.helperService.appLogger(this.helperService.constants.status.ERROR,
-            data.responseDetails.message);
-          this.helperService.appLoggerDev(
-            this.helperService.constants.status.ERROR,
-            data.responseDetails.message
+          this.helperService.createSnack(
+            data.responseDetails.message,
+            this.helperService.constants.status.ERROR
           );
           this.loginObj.loading = false;
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
         }
-      },
-      error => {
+      }, (error) => {
         this.loginObj.loading = false;
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, error);
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_FAIL, this.helperService.constants.status.ERROR);
-      }
-    );
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      });
   }
 }

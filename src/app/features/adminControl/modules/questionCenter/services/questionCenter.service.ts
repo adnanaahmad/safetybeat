@@ -65,8 +65,7 @@ export class QuestionCenterService {
 
   viewAllEntityQuestions(entityData: ViewAllSiteEntityData, paginationData: PaginationData): Observable<EntityQuestionResponse> {
     return this.helperService.requestCall(this.method.post,
-      `${this.apiRoutes.viewAllEntityQuestions}?limit=${paginationData.limit}&offset=${paginationData.offset}
-      &search=${paginationData.search}`,
+      `${this.apiRoutes.allEntityQuestions}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
       entityData
     );
   }

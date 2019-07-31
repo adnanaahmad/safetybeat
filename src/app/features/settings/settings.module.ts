@@ -10,13 +10,11 @@ import {TokenInterceptorService} from 'src/app/services/core/interceptors/tokenI
 import {MaterialModule} from 'src/app/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OrganizationInfoComponent} from './components/organizationInfo/organizationInfo.component';
-import {GroupSettingComponent} from './components/groupSetting/groupSetting.component';
 import {EntitySettingComponent} from './components/entitySetting/entitySetting.component';
-import {PermissionComponent} from './components/permission/permission.component';
 import {ProfileModule} from 'src/app/features/profile/profile.module';
 
 @NgModule({
-  declarations: [SettingsComponent, OrganizationInfoComponent, GroupSettingComponent, EntitySettingComponent, PermissionComponent],
+  declarations: [SettingsComponent, OrganizationInfoComponent, EntitySettingComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

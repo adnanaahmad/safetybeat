@@ -306,7 +306,7 @@ export class HelperService {
       map: mapProp,
       center: locObj,
       radius: radius,
-      draggable: true
+      draggable: false
     });
   }
 
@@ -472,7 +472,7 @@ export class HelperService {
     return isEmpty;
   }
 
-  getEntityId() {
+  getEntityId(): number {
     return JSON.parse(this.decrypt
     (localStorage.getItem(this.constants.localStorageKeys.entityId),
       this.appConstants.key));

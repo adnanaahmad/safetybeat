@@ -47,10 +47,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public mediaMatcher: MediaMatcher
   ) {
     this.initialize();
-    this.helperService.appLoggerDev(
-      this.helperService.constants.status.SUCCESS,
-      this.navModel.translated.LOGGER.MESSAGES.NAVIGATION_COMPONENT
-    );
     this.getSelectedEntity();
 
   }

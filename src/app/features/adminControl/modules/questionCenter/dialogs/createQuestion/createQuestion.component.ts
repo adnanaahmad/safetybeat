@@ -73,14 +73,11 @@ export class CreateQuestionComponent implements OnInit {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.QUESTION_CREATED,
           this.helperService.constants.status.SUCCESS);
         this.dialogRef.close();
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.QUESTION_CREATED);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.QuestionObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.QUESTION_CREATION_FAILURE,
           res.responseDetails.message);
         this.dialogRef.close();
-        this.helperService.appLogger(this.helperService.constants.status.ERROR,
-          this.helperService.translated.MESSAGES.QUESTION_CREATION_FAILURE);
       }
     }, (error) => {
       this.QuestionObj.loading = false;
@@ -105,13 +102,9 @@ export class CreateQuestionComponent implements OnInit {
   questionFormSubmit({value, valid}: { value: AddQuestionData; valid: boolean; }) {
     this.data.edit ? this.editQuestion(value) : this.addQuestion(value);
     if (!valid) {
-      this.helperService.appLoggerDev(
-        this.helperService.constants.status.WARNING,
-        valid
-      );
-      this.helperService.appLogger(
-        this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.QUESTION_DATA_REQ
+      this.helperService.createSnack(
+        this.helperService.translated.LOGGER.MESSAGES.QUESTION_DATA_REQ,
+        this.helperService.constants.status.ERROR
       );
       return;
     }

@@ -14,8 +14,26 @@
         top: 4px;
       }
     }
+    .field-inline{
+      mat-form-field{
+        margin:0 10px 0 0;
+      }
+    }
+    .calendar-actions{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width:100%;
+      padding-top:10px;
+      & > div{
+        width: 100%;
+      }
+      button{
+        padding:0;
+      }
+    }
     mat-grid-list {
-      min-height: 400px;
+      height: calc(100vh - 184px);
     }
     mat-card-title {
       font-size: 18px;
@@ -57,7 +75,7 @@
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
-      background: url("~assets/images/legend-headerbg2.jpg") no-repeat center/cover;
+      background: url("~src/assets/images/legend-headerbg2.jpg") no-repeat center/cover;
       .user-avatar {
         width: 100px;
         position: relative;
@@ -118,6 +136,7 @@
           padding: 0 20px;
           &:nth-child(2) {
             border-left: 1px solid rgba(0, 0, 0, 0.2);
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
           }
           p {
             margin: 0;

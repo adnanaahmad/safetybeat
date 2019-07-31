@@ -4,29 +4,20 @@
     <mat-list role="list">
       <mat-list-item role="listitem">
         <span [ngClass]="settingFeatures.organization ? 'settingNav' : ''" (click)="changeSetting('organization')">
-          <mat-icon>{{ helperService.appIcons.business }}</mat-icon> {{ helperService.translated.MESSAGES.ORGSIGNUP }}
+          <mat-icon>{{ helperService.appIcons.business }}</mat-icon>
+          {{ helperService.translated.MESSAGES.ORGSIGNUP }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
         <span [ngClass]="settingFeatures.allUsers ? 'settingNav' : ''" (click)="changeSetting('allUsers')">
-          <mat-icon>{{helperService.appIcons.group}}</mat-icon> {{ helperService.translated.SITETITLE.USERS_TITLE }}
-        </span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.group ? 'settingNav' : ''" (click)="changeSetting('group')">
-          <mat-icon>{{helperService.appIcons.groupAdd}}</mat-icon> {{ helperService.translated.MESSAGES.CREATEGROUP }}
+          <mat-icon>{{helperService.appIcons.group}}</mat-icon>
+          {{ helperService.translated.SITETITLE.USERS_TITLE }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
         <span [ngClass]="settingFeatures.entity ? 'settingNav' : ''" (click)="changeSetting('entity')">
           <mat-icon>{{helperService.appIcons.screenLock}}</mat-icon>
           {{ helperService.translated.MESSAGES.ENTITY_SETTINGS }}
-        </span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <span [ngClass]="settingFeatures.permission ? 'settingNav' : ''" (click)="changeSetting('permission')">
-          <mat-icon>{{helperService.appIcons.permSettings}}</mat-icon>
-          {{ helperService.translated.MESSAGES.PERMISSION_SETTINGS }}
         </span>
       </mat-list-item>
       <mat-list-item role="listitem">
@@ -45,20 +36,10 @@
         <app-organization-info></app-organization-info>
       </div><!-- /Organization Settings-->
 
-      <!--Group Settings-->
-      <div *ngIf="settingFeatures.group">
-        <app-group-setting></app-group-setting>
-      </div><!-- /Group Settings-->
-
       <!--Privacy Settings-->
       <div *ngIf="settingFeatures.entity">
         <app-entity-setting></app-entity-setting>
       </div><!-- /Privacy Settings-->
-
-      <!-- Permission Settings -->
-      <div *ngIf="settingFeatures.permission">
-        <app-permission></app-permission>
-      </div>
 
       <!-- All Users -->
       <div class="all-users" *ngIf="settingFeatures.allUsers">

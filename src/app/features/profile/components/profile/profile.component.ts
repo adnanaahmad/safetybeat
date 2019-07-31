@@ -10,7 +10,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {ProfileModel} from 'src/app/models/profile/profile.model';
+import {ActivityFilterData, ProfileModel} from 'src/app/models/profile/profile.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {ActivatedRoute} from '@angular/router';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
@@ -19,6 +19,11 @@ import {map} from 'rxjs/operators';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
+import {FormBuilder, Validators} from '@angular/forms';
+import {PaginationData, Site} from 'src/app/models/site.model';
+import {isSameDay, isSameMonth} from 'date-fns';
+import {CalendarEvent, CalendarView} from 'angular-calendar';
+import {AddleavesComponent} from '../../dialogs/addLeaves/addleaves.component';
 
 @Component({
   selector: 'app-profile',
@@ -47,9 +52,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     map(({matches}) => {
       if (matches) {
         return [
-          {title: 'links', cols: 3, rows: 1},
-          {title: 'userData', cols: 3, rows: 1},
-          {title: 'accountInfo', cols: 3, rows: 1}
+          {title: 'links', cols: 3, rows: 3},
+          {title: 'userData', cols: 3, rows: 3},
+          {title: 'accountInfo', cols: 3, rows: 3}
         ];
       } else {
         return [
@@ -60,6 +65,14 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     })
   );
+  view: CalendarView = CalendarView.Month;
+
+  CalendarView = CalendarView;
+  viewDate: Date = new Date();
+  activeDayIsOpen: boolean;
+  title: any;
+  data: any;
+  events: any;
 
   constructor(
     private profile: ProfileService,
@@ -71,7 +84,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     public profileService: ProfileService,
     public adminService: AdminControlService,
     private breakpointObserver: BreakpointObserver,
-    public memberService: MemberCenterService
+    public memberService: MemberCenterService,
+    private formBuilder: FormBuilder
   ) {
     this.initialize();
     this.route.params.subscribe((data) => {
@@ -81,15 +95,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id);
-        this.viewActivities(this.profileModel.receivedData.id);
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
-          } else {
-            // do something here
           }
         });
       }
@@ -112,8 +123,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.email = this.profileModel.profileData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
+          this.userLeaves(this.profileModel.userId);
           this.getUserConnections(this.profileModel.userId);
-          this.viewActivities(this.profileModel.userId);
         } else {
           this.connectionsColumns = ['img', 'name', 'email', 'contact'];
           this.profileModel.contactNo = this.profileModel.receivedData.contact;
@@ -127,7 +138,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
 
-    // this.responsive();
+    this.getFilters();
+    this.profileModel.filterForm = this.formBuilder.group({
+      filter: [''],
+      dateTo: ['', Validators.required],
+      dateFrom: ['', Validators.required]
+    });
+    this.getLeaveTypes();
   }
 
   ngAfterViewInit() {
@@ -136,6 +153,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   initialize() {
+    this.profileModel.firstIndex = 0;
+    this.profileModel.pageSize = 7;
     this.profileModel.entityCount = 0;
     this.profileModel.connectionCount = 0;
     this.profileModel.noTeam = false;
@@ -152,6 +171,48 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       'role',
       'administrator'
     ];
+  }
+
+  /**
+   * this function will be overrided that's why we have keep this here
+   * @params date
+   * @params events
+   */
+  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      this.viewDate = date;
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+      }
+    }
+  }
+
+  /**
+   * this function is used for opening the dialog when we click on the date from calendar.
+   */
+  selectDate() {
+    const dateSelected = this.viewDate;
+  }
+
+  /**
+   * this function is used to set view like weekly,monthly or daily
+   * @params view
+   */
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+  /**
+   * this fucntion will also be overrided
+   */
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
   }
 
 
@@ -175,6 +236,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.helperService.hideLoggers();
     this.profileModel.subscription.unsubscribe();
+  }
+
+  get filterFormValidations() {
+    return this.profileModel.filterForm.controls;
   }
 
   /**
@@ -201,6 +266,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.helperService.constants.status.WARNING);
 
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -212,27 +279,54 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      //   this.profileModel.userId = this.profileModel.dataRecieved.user.id;
       this.navService.updateCurrentUser(userData);
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
-  viewActivities(userId: number) {
-    this.profile.viewRecentActivities({userId: userId}).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        if (res.data.length === 0) {
-          this.profileModel.noActivity = true;
+  viewActivities(filters, paginationData) {
+    let data: ActivityFilterData = {
+      days: filters.value.filter,
+      dateTo: filters.value.dateTo,
+      dateFrom: filters.value.dateFrom,
+      userId: this.profileModel.userId
+    };
+    let pagination: PaginationData = {
+      offset: paginationData * this.helperService.appConstants.paginationLimitForProfile,
+      limit: this.helperService.appConstants.paginationLimitForProfile
+    };
+    this.profile.viewRecentActivities(data, pagination).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res.data.recentActivities.length === 0) {
+          this.profileModel.recentActivities = null;
         } else {
+          this.profileModel.pageCount = res.data.pageCount;
+          this.profileModel.activitiesCount = res.data.recentActivities.length;
           this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res.data);
+          this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
         }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.profileModel.noActivity = true;
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.profileModel.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ACTIVITIES_FAIL, this.helperService.constants.status.ERROR
         );
       } else {
-        this.profileModel.noActivity = true;
+        this.profileModel.dataSource = null;
       }
+    }, (error) => {
+      this.profileModel.dataSource = null;
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
+  }
+
+  filteredReport(value: number) {
+    if (value !== -1) {
+      this.filterFormValidations[this.helperService.appConstants.dateFrom].disable();
+      this.filterFormValidations[this.helperService.appConstants.dateTo].disable();
+    } else {
+      this.filterFormValidations[this.helperService.appConstants.dateFrom].enable();
+      this.filterFormValidations[this.helperService.appConstants.dateTo].enable();
+    }
   }
 
   getUserConnections(userId: number) {
@@ -249,6 +343,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.helperService.createSnack(
           this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE, this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -275,12 +371,86 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  viewSite(longitude, latitude, siteName, location) {
-    let data = {'longitude': longitude, 'latitude': latitude, 'siteName': siteName, 'location': location};
-    this.helperService.createDialog(SiteMapComponent, {disableClose: true, data: {siteData: data, type: true}});
+  viewSite(site: Site) {
+    this.helperService.createDialog(SiteMapComponent, {disableClose: true, data: {siteData: site, type: true}});
+  }
+
+  getFilters() {
+    this.profileService.filter().subscribe((res) => {
+      if (res) {
+        this.profileModel.filters = res;
+        this.profileModel.selectedFilter = this.helperService.find(this.profileModel.filters, function (obj) {
+          return obj.name === 'Lifetime';
+        });
+        this.filteredReport(this.profileModel.selectedFilter);
+        this.filterFormValidations['filter'].setValue(this.profileModel.selectedFilter.days);
+        this.viewActivities(this.profileModel.filterForm, this.profileModel.firstIndex);
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  /**
+   * this function is used to get all the leave types
+   */
+  getLeaveTypes() {
+    this.profileService.getLeaveTypes().subscribe((res) => {
+      if (res) {
+        this.profileModel.leaveTypes = res;
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  addLeaves() {
+    this.helperService.createDialog(AddleavesComponent, {
+      disableClose: true,
+      data: this.profileModel.leaveTypes
+    });
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.userLeaves(this.profileModel.userId);
+      }
+    })
+  }
+
+  userLeaves(userId: number) {
+    let data = {
+      userId: userId,
+      entityId: this.helperService.getEntityId()
+    };
+    this.profileService.viewAllUserLeaves(data).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.profileModel.userLeaves = res.data.userLeaves;
+        let self = this;
+        self.profileModel.events = [];
+        this.helperService.iterations(self.profileModel.userLeaves, function (leaveData) {
+          self.profileModel.eventData = {
+            start: new Date(leaveData.dateFrom),
+            end: new Date(leaveData.dateTo),
+            title: leaveData.description,
+            allDay: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true
+            },
+            draggable: true,
+            meta: {
+              type: 'calendarEvent'
+            }
+          };
+          self.profileModel.events.push(self.profileModel.eventData);
+        });
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
   }
 }
-
 
 /**
  * below code is mocked data will be replaced when we will have data to change this.
