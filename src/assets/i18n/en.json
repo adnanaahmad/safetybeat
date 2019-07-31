@@ -131,7 +131,9 @@
     "CHILD_NO_SAFE": "Is Child No Question Safe?",
     "SELECTED_USERS": "Selected Users",
     "MAKE_TEAMLEAD": "Make Team Lead",
-    "REMOVE_TEAMLEAD": "Remove as Team Lead"
+    "REMOVE_TEAMLEAD": "Remove as Team Lead",
+    "SENT_REQUEST": "send you request",
+    "REQUEST_DAYS": "days ago"
   },
   "BUTTONS": {
     "DOWNLOAD": "Download",

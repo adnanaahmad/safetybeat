@@ -85,6 +85,8 @@ export class ConstantService {
     refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`,
     userPermissions: `${environment.apiUrl}/permissions/`,
     filters: `${environment.apiUrl}/api/filters/`,
+    requests: `${environment.apiUrl}/entity/connectionRequests/`,
+    directMessages: `${environment.apiUrl}/api/notification/`
   };
   /**
    * all the api methods are declared here.
