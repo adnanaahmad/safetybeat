@@ -79,14 +79,17 @@ export class ConstantService {
     team: `${environment.apiUrl}/api/teams/`,
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
     parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
-    viewAllEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
+    allEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
     sendSiteCode: `${environment.apiUrl}/api/sites/sendSiteCode/`,
     refreshSiteCode: `${environment.apiUrl}/api/sites/refreshSiteCode/`,
     refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`,
     userPermissions: `${environment.apiUrl}/permissions/`,
     filters: `${environment.apiUrl}/api/filters/`,
     requests: `${environment.apiUrl}/entity/connectionRequests/`,
-    directMessages: `${environment.apiUrl}/api/notification/`
+    directMessages: `${environment.apiUrl}/api/notification/`,
+    leaveTypes: `${environment.apiUrl}/api/leaveTypes/`,
+    addLeave: `${environment.apiUrl}/api/leaves/`,
+    userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`
   };
   /**
    * all the api methods are declared here.
@@ -143,7 +146,11 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
-    spinnerConstant: 30,
+    spinnerConstant: 50,
+    spinnerConstantModal: 30,
+    leaveType: 'leaveType',
+    entity: 'entity',
+    paginationLimitForProfile: 7,
     paginationLimit: 10,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',

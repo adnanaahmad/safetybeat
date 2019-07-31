@@ -5,6 +5,7 @@ import {PermissionsModel} from './permissions.model';
 import {MatTableDataSource} from '@angular/material';
 
 export interface MyTeamModel {
+  loading: boolean;
   permissions: PermissionsModel;
   subscription: Subscription;
   allTeams: Array<TeamList>;
@@ -12,6 +13,7 @@ export interface MyTeamModel {
 }
 
 export interface Team {
+  createdBy: string,
   entity: number,
   id: number,
   teamLead: number,
@@ -29,7 +31,10 @@ export interface GetAllTeamsData {
 }
 
 export interface AllTeamsApiResponse {
-  data: TeamList;
+  data: {
+    pageCount: number;
+    teamsList: Array<TeamList>;
+  };
   responseDetails: responseDetails;
 }
 

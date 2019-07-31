@@ -40,24 +40,19 @@ export class SecurityComponent implements OnInit {
   }
 
   changePassword({value, valid}: { value: changePassword; valid: boolean }, formDirective: FormGroupDirective): void {
+    this.loading = true;
     if (!valid) {
-      this.helperService.appLoggerDev(this.helperService.constants.status.WARNING, valid);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.AUTH.PASSWORD_REQ);
+      this.loading = false;
+      this.helperService.createSnack(this.helperService.translated.AUTH.PASSWORD_REQ, this.helperService.constants.status.ERROR);
       return;
     }
-    this.helperService.appLoggerDev(this.helperService.constants.status.INFO, valid);
-    this.helperService.appLogger(this.helperService.constants.status.INFO, JSON.stringify(value));
     let result = {
       oldPassword: value.currentPassword,
       newPassword: value.password1
     };
     this.settings.changePassword(result).subscribe((res) => {
       let data: any = res;
-      if (data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
+      if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.CHANGEPASSWORD_SUCCESS,
           this.helperService.constants.status.SUCCESS);
         this.loading = false;
@@ -66,17 +61,15 @@ export class SecurityComponent implements OnInit {
         this.dialogRef.close();
       } else {
         this.loading = false;
+        this.dialogRef.close();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.INCORRECT_PASS,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.dialogRef.close();
       this.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
+      this.helperService.createSnack(error.error,
         this.helperService.constants.status.ERROR);
-      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error.detail +
-      this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-        this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
     });
   }
 

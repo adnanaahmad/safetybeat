@@ -26,6 +26,7 @@ export class GeneralComponent implements OnInit {
               public dialogRef: MatDialogRef<GeneralComponent>,
               private navService: NavigationService) {
     this.generalObj.enabled = false;
+    this.generalObj.loading = false;
   }
 
   ngOnInit() {
@@ -102,6 +103,7 @@ export class GeneralComponent implements OnInit {
 
   updateGeneralInfo({value, valid}: { value: GeneralInfo; valid: boolean }): void {
     this.generalObj.enabled = false;
+    this.generalObj.loading = true;
     this.generalObj.generalForm.disable();
     let data = {
       'username': this.generalObj.userData.username,
@@ -111,15 +113,22 @@ export class GeneralComponent implements OnInit {
       'email': this.generalObj.userData.email
     };
     if (!valid) {
-      this.helperService.appLogger(this.helperService.translated.STATUS.ERROR, this.helperService.translated.MESSAGES.INVALID_DATA);
+      this.generalObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_DATA, this.helperService.translated.STATUS.ERROR);
+      this.dialogRef.close();
       return;
     }
-    this.dialogRef.close();
     this.settings.editProfile(this.generalObj.userData.id, data).subscribe((res) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.GENERAL_UPDATED, this.helperService.constants.status.SUCCESS);
+        if (res) {
+          this.generalObj.loading = false;
+          this.dialogRef.close();
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.GENERAL_UPDATED,
+            this.helperService.constants.status.SUCCESS);
+        }
       }, (error) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.GENERAL_FAIL,
-          this.helperService.constants.status.ERROR);
+        this.dialogRef.close();
+        this.generalObj.loading = false;
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
       }
     );
   }

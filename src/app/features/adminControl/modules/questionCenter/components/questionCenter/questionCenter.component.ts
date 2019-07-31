@@ -59,6 +59,7 @@ export class QuestionCenterComponent implements OnInit {
    * this function is used to call the api to get all the questions for Question bank by passing the entityId.
    */
   getAllQuestions(pageIndex, search?: string) {
+    this.QuestionObj.loading = true;
     let data = {
       'entityId': this.helperService.getEntityId()
     };
@@ -74,14 +75,17 @@ export class QuestionCenterComponent implements OnInit {
         this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);
         this.getParentChildQuestions(this.QuestionObj.allQuestions.questionList);
         this.QuestionObj.questionBankPageCount = res.data.pageCount;
+        this.QuestionObj.loading = false;
         this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.QuestionObj.dataSource = null;
+        this.QuestionObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
       }
     }, (err) => {
       this.QuestionObj.dataSource = null;
+      this.QuestionObj.loading = false;
       this.helperService.createSnack(err.error,
         this.helperService.constants.status.ERROR);
     });
@@ -183,6 +187,7 @@ export class QuestionCenterComponent implements OnInit {
    * this function is used to call the api to get all the question for Entity in the Question Table.
    */
   getAllEntityQuestions(pageIndex, search) {
+    this.QuestionObj.loading = true;
     let data = {
       'entityId': this.helperService.getEntityId(),
     };
@@ -196,20 +201,25 @@ export class QuestionCenterComponent implements OnInit {
         this.QuestionObj.pageCount = res.data.pageCount;
         this.QuestionObj.entityQuestionsResponse = this.compiler.constructAllEntityQuestionsData(res);
         if (res && res.data.entityQuestionList) {
+          this.QuestionObj.loading = false;
           this.QuestionObj.entityQuestions = new MatTableDataSource(this.QuestionObj.entityQuestionsResponse.entityQuestionList);
         } else if (res && !res.data.entityQuestionList) {
+          this.QuestionObj.loading = false;
           this.QuestionObj.entityQuestions = null;
         }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.QuestionObj.entityQuestions = null;
+        this.QuestionObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           res.responseDetails.message);
       } else {
+        this.QuestionObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.QuestionObj.entityQuestions = null;
+      this.QuestionObj.loading = false;
       this.helperService.createSnack(error.error,
         this.helperService.constants.status.ERROR);
     });
@@ -221,7 +231,9 @@ export class QuestionCenterComponent implements OnInit {
    */
 
   deleteQuestion(questionId: number) {
+    this.QuestionObj.loading = true;
     this.questionCenterService.deleteQuestion(questionId).subscribe((res) => {
+      this.QuestionObj.loading = false;
       this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
         this.helperService.constants.status.SUCCESS);
@@ -236,11 +248,14 @@ export class QuestionCenterComponent implements OnInit {
    */
 
   deleteQuestionFromQuestionBank(questionId: number) {
+    this.QuestionObj.loading = true;
     this.questionCenterService.deleteQuestionFromQuestionBank(questionId).subscribe((res) => {
       this.getAllQuestions(this.questionBankPaginator.pageIndex);
+      this.QuestionObj.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
         this.helperService.constants.status.SUCCESS);
     }, (error) => {
+      this.QuestionObj.loading = false;
       this.helperService.createSnack(
         this.helperService.translated.MESSAGES.DELETE_QUESTION_FAILURE, this.helperService.constants.status.ERROR);
     });

@@ -16,6 +16,9 @@
   </span>
   <mat-grid-tile>
     <mat-card class="loginbox">
+      <div class="spinner-wrap" *ngIf="createEntityObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+      </div>
       <form [formGroup]="createEntityObj.createEntityForm"
             (ngSubmit)="entityCreation(createEntityObj.createEntityForm)">
         <div class="form-group">

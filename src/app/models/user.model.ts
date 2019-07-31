@@ -86,8 +86,8 @@ export interface ForgotPassword {
 }
 
 export interface ForgotPasswordResponse {
-  detail?: string;
-  responseDetails?: any;
+  data: {};
+  responseDetails: responseDetails;
 }
 
 export interface packges {

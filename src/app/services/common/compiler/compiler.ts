@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {EntityUserData, Entity} from 'src/app/models/userEntityData.model';
 import {HelperService} from '../helperService/helper.service';
 import {User, UserData} from 'src/app/models/user.model';
-import {Site, SitesInfo} from 'src/app/models/site.model';
+import {ActionApiResponse, Site, SitesInfo} from 'src/app/models/site.model';
 import {Organization} from 'src/app/models/Settings/organizationInfo.model';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
@@ -150,7 +150,7 @@ export class CompilerProvider {
   }
 
   constructAllTeamsData(allTeamsApiResponse: any): Array<TeamList> {
-    return allTeamsApiResponse.data;
+    return allTeamsApiResponse.data.teamList;
   }
 
   constructAllQuestionsData(questionsApiResponse: any): QuestionsData {
@@ -460,6 +460,19 @@ export class CompilerProvider {
       }
     ];
     return this.navList;
+  }
 
+  constructActions(actionsArray: Array<ActionApiResponse>) {
+    let actionData = [];
+    this.helperService.iterations(actionsArray, function (obj) {
+      let action = {
+        title: obj.title,
+        actionUser: obj.actionUser.id,
+        completeByTime: obj.completeByTime,
+        description: obj.description
+      };
+      actionData.push(action);
+    });
+    return actionData;
   }
 }

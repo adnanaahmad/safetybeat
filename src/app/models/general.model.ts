@@ -2,6 +2,7 @@ import {FormGroup} from '@angular/forms';
 import {User} from './user.model';
 
 export interface GeneralModel {
+  loading: boolean;
   userData: User;
   resultData: any;
   enabled: boolean,

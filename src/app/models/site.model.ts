@@ -56,8 +56,8 @@ export interface AddSiteApiResponse {
 
 export interface PaginationData {
   offset: number;
-  search: string;
   limit: number;
+  search?: string;
 }
 
 export interface ViewAllSiteEntityData {
@@ -107,4 +107,11 @@ export interface RefreshSiteCodeApiResponse {
     code: string;
   }
   responseDetails: responseDetails;
+}
+
+export interface ActionApiResponse {
+  actionUser: User;
+  completeByTime: Date;
+  description: string;
+  title: string;
 }

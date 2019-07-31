@@ -1,4 +1,5 @@
 import {FormGroup} from '@angular/forms';
+import {User} from '../user.model';
 
 export interface RegistrationComp {
   userForm: FormGroup;
@@ -33,17 +34,11 @@ export interface RegistrationObject {
 }
 
 export interface RegistrationResponseObject {
-  password1: string;
+  password1?: Array<string>;
   data: {
     token: string;
-    userData: {
-      contactNo: string;
-      email: string;
-      first_name: string;
-      last_name: string;
-      username: string;
-    }
-    userId: number
+    userData: User;
+    userId: number;
   }
   responseDetails: {
     code: number;
@@ -99,5 +94,9 @@ export interface RegUserData {
   moduleName: string;
   package: string;
   roleId: string;
+}
 
+export interface OrganizationType {
+  id: number;
+  name: string;
 }

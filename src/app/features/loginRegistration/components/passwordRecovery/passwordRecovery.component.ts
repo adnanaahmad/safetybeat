@@ -5,8 +5,9 @@ import {Reset} from 'src/app/models/profile.model';
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {PasswordRecovery} from 'src/app/models/loginRegistration/passwordRecovery.model';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
+
 @Component({
   selector: 'app-passwordRecovery',
   templateUrl: './passwordRecovery.component.html',
@@ -16,20 +17,21 @@ export class PasswordRecoveryComponent implements OnInit {
   passRecoveryObj: PasswordRecovery = <PasswordRecovery>{};
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
+    map(({matches}) => {
       if (matches) {
         return [
-          { title: 'particleContainer', cols: 2, rows: 1 },
-          { title: 'passwordRecoveryForm', cols: 2, rows: 1 }
+          {title: 'particleContainer', cols: 2, rows: 1},
+          {title: 'passwordRecoveryForm', cols: 2, rows: 1}
         ];
       } else {
         return [
-          { title: 'particleContainer', cols: 1, rows: 2 },
-          { title: 'passwordRecoveryForm', cols: 1, rows: 2 }
+          {title: 'particleContainer', cols: 1, rows: 2},
+          {title: 'passwordRecoveryForm', cols: 1, rows: 2}
         ];
       }
     })
   );
+
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -37,6 +39,7 @@ export class PasswordRecoveryComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     public helperService: HelperService
   ) {
+    this.passRecoveryObj.loading = false;
     this.route.params.subscribe(data => {
       this.passRecoveryObj.data = data;
     });
@@ -80,12 +83,12 @@ export class PasswordRecoveryComponent implements OnInit {
    * @params valid
    */
   changePassword({value, valid}: { value: Reset; valid: boolean }): void {
+    this.passRecoveryObj.loading = true;
     if (!valid) {
-      this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.WARNING, valid);
-      this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.ERROR, this.helperService.translated.AUTH.PASSWORD_REQ);
+      this.passRecoveryObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.AUTH.PASSWORD_REQ, this.helperService.translated.LOGGER.STATUS.ERROR);
       return;
     }
-
     let data = {
       'password': value.password1,
       'uid': this.passRecoveryObj.data.uid,
@@ -93,16 +96,15 @@ export class PasswordRecoveryComponent implements OnInit {
     };
 
     this.resetServices.resetPassword(data).subscribe((res) => {
-      this.helperService.appLogger(this.helperService.translated.LOGGER.STATUS.SUCCESS,
-        this.helperService.translated.LOGGER.MESSAGES.PASSWORD_CHANGE);
-      this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.SUCCESS
-        , this.helperService.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV);
-      this.helperService.navigateTo([this.helperService.appConstants.paths.login]);
+      if (res) {
+        this.helperService.createSnack(this.helperService.translated.LOGGER.MESSAGES.CHANGEPASSWORDFOR_DEV,
+          this.helperService.translated.LOGGER.STATUS.SUCCESS);
+        this.passRecoveryObj.loading = false;
+        this.helperService.navigateTo([this.helperService.appConstants.paths.login]);
+      }
     }, (error) => {
-      this.helperService.appLoggerDev(this.helperService.translated.LOGGER.STATUS.ERROR, `${error.error.detail +
-      this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      this.helperService.appLoggerDev(this.helperService.translated.MESSAGES.CHANGEPASSWORD_FAIL,
-        this.helperService.translated.LOGGER.MESSAGES.PASSWORDCHANGE_UNSUCCESS);
+      this.passRecoveryObj.loading = false;
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 

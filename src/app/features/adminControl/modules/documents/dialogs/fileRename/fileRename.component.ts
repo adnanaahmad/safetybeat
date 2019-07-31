@@ -15,8 +15,9 @@ export class FileRenameComponent implements OnInit {
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
-  public dialogRef: MatDialogRef<FileRenameComponent>,
-  @Inject(MAT_DIALOG_DATA) public data, public navService: NavigationService) { }
+              public dialogRef: MatDialogRef<FileRenameComponent>,
+              @Inject(MAT_DIALOG_DATA) public data, public navService: NavigationService) {
+  }
 
   ngOnInit() {
     this.documentsData.fileRenameForm = this.formBuilder.group({
@@ -25,22 +26,22 @@ export class FileRenameComponent implements OnInit {
     this.fileNameControls['fileName'].setValue(this.data.docInfo.title.split('.')[0]);
   }
 
-  fileRenameSubmit({value}: { value: NewDoc}) {
+  fileRenameSubmit({value}: { value: NewDoc }) {
     this.documentsData.loader = true;
-      let newName = value.fileName + '.' + this.data.docInfo.title.split('.')[1];
-      let blob = new Blob([this.data.docInfo.file]);
-      let formData = new FormData();
-      formData.append('title' , newName);
-      formData.append('file', blob);
-      formData.append('uploadedBy', this.data.docInfo.uploadedBy);
-      this.navService.renameDocument(this.data.docInfo.id, formData).subscribe((res) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.DOCUMENT_RENAMED,
-          this.helperService.constants.status.SUCCESS);
-        this.dialogRef.close();
-      }, (error) => {
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.DOC_RENAME_FAIL);
-        this.dialogRef.close();
-      });
+    let newName = value.fileName + '.' + this.data.docInfo.title.split('.')[1];
+    let blob = new Blob([this.data.docInfo.file]);
+    let formData = new FormData();
+    formData.append('title', newName);
+    formData.append('file', blob);
+    formData.append('uploadedBy', this.data.docInfo.uploadedBy);
+    this.navService.renameDocument(this.data.docInfo.id, formData).subscribe((res) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.DOCUMENT_RENAMED,
+        this.helperService.constants.status.SUCCESS);
+      this.dialogRef.close();
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.dialogRef.close();
+    });
 
   }
 

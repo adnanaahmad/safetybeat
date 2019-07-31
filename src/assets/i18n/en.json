@@ -133,7 +133,17 @@
     "MAKE_TEAMLEAD": "Make Team Lead",
     "REMOVE_TEAMLEAD": "Remove as Team Lead",
     "SENT_REQUEST": "send you request",
-    "REQUEST_DAYS": "days ago"
+    "REQUEST_DAYS": "days ago",
+    "PERSON_FOR_ACTION": "Person to complete the action",
+    "DESCRIPTION": "Description",
+    "PRECAUTIONARY_NOTE": "Precautionary note",
+    "HAZARD": "Hazard",
+    "REVIEW": "Review",
+    "SHARE_HAZARD": "Share Hazard",
+    "ADDITIONAL_NOTE": "Additional note",
+    "COMPLETE_BY": "Complete by:",
+    "ACTION_TO_RESOLVE": "Actions to resolve",
+    "RATE_HAZARD": "Rate Hazard"
   },
   "BUTTONS": {
     "DOWNLOAD": "Download",
@@ -222,6 +232,7 @@
     "RESETMSG": "Email has been sent!",
     "RESETFAIL": "Reset Password Unsuccessful!",
     "RESETFAIL_MSG": "Reset Email can not be sent",
+    "ACTIVITIESS": "Activities",
     "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
     "VERIFY_MSG": "In order to complete registration, please verify your account.",
     "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",
@@ -426,7 +437,7 @@
     "PERMISSIONS_UPDATED": "Pemissions Updated Successfully",
     "PERMISSIONS_UPDATION_FAILED": "Permission Updation Failed",
     "NO_USER": "No User Exist",
-    "NO_USER_SELECTED": "NO User Selected"
+    "NO_USER_SELECTED": "No User Selected"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -450,7 +461,9 @@
     "PULSE_REPORT_BY_PERSON": "Pulse Report by Person",
     "COMPLIANT_CHECKOUT": "Compliant Check-Out by Person",
     "SITE_ACTIVITY_REPORT": "Site Activity Report",
-    "HAZARD_REPORTS": "Hazard Reports"
+    "HAZARD_REPORTS": "Hazard Reports",
+    "LEAVES": "Leaves",
+    "ADDLEAVES": "Add Leave"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
