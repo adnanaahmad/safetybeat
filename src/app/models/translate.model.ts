@@ -103,6 +103,10 @@ export interface Strings {
   SELECTED_USERS: string;
   MAKE_TEAMLEAD: string;
   REMOVE_TEAMLEAD: string;
+  HAZARD: string;
+  PRECAUTIONARY_NOTE: string;
+  PERSON_FOR_ACTION: string;
+  REVIEW: string;
 }
 
 export interface Auth {
@@ -281,6 +285,8 @@ export interface Buttons {
 }
 
 export interface Messages {
+  IS: string;
+  ENTITY_RES_MSG: string;
   ACTIVITIESS: string;
   SELECT_TEAMLEAD: string;
   GENERAL_UPDATED: string;
