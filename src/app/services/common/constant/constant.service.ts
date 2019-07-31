@@ -85,6 +85,7 @@ export class ConstantService {
     refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`,
     userPermissions: `${environment.apiUrl}/permissions/`,
     filters: `${environment.apiUrl}/api/filters/`,
+    allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`,
   };
   /**
    * all the api methods are declared here.
@@ -316,6 +317,7 @@ export class ConstantService {
    * all the material icon names are declared here.
    */
   static appIcons = {
+    manageLeaves: 'calendar_today',
     refresh: 'refresh',
     showReports: 'bar_chart',
     skipNext: 'skip_next',

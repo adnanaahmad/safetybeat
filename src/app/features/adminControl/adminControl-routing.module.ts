@@ -16,6 +16,10 @@ const routes: Routes = [
       loadChildren: './modules/entityControl/entityControl.module#EntityControlModule',
     },
     {
+      path: 'manageLeaves',
+      loadChildren: './modules/manageLeave/manageLeave.module#ManageLeaveModule',
+    },
+    {
       path: 'siteCenter',
       loadChildren: './modules/siteCenter/siteCenter.module#SiteCenterModule'
     },
@@ -43,10 +47,10 @@ const routes: Routes = [
       path: 'myTeam',
       loadChildren: './modules/myTeam/myTeam.module#MyTeamModule'
     },
-  {
-    path: 'analyticsReport',
-    loadChildren: './modules/analyticsReport/analyticsReport.module#AnalyticsReportModule'
-  }
+    {
+      path: 'analyticsReport',
+      loadChildren: './modules/analyticsReport/analyticsReport.module#AnalyticsReportModule'
+    }
   ]
 ;
 

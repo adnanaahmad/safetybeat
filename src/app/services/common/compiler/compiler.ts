@@ -336,6 +336,14 @@ export class CompilerProvider {
         bottom: false
       },
       {
+        displayName: 'Manage Leaves',
+        route: '/home/adminControl/manageLeaves',
+        iconName: this.appIcons.manageLeaves,
+        toolTip: 'Manage Leaves',
+        disabled: true,
+        bottom: false
+      },
+      {
         displayName: 'My Team',
         route: '/home/adminControl/myTeam',
         iconName: this.appIcons.group,
