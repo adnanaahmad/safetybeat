@@ -88,6 +88,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     public memberService: MemberCenterService,
     private formBuilder: FormBuilder
   ) {
+    debugger;
     this.initialize();
     this.route.params.subscribe((data) => {
       if (!helperService.isEmpty(data)) {
@@ -104,6 +105,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             this.profileModel.currentUserProfile = true;
           }
         });
+        this.getCurrentUser();
+        this.getFilters();
       }
     });
   }
@@ -114,6 +117,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   ngOnInit() {
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
+      debugger;
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
           this.connectionsColumns = ['img', 'name', 'email', 'contact', 'remove_connection'];
