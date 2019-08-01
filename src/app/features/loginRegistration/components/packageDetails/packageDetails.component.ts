@@ -55,12 +55,11 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
       'packageId': packageId
     };
     this.loginService.updatePackage(data).subscribe((res) => {
-        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
         }
       }, (error) => {
-        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
-          error);
+        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
       }
     );
   }

@@ -22,10 +22,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     private highChartSettings: HighchartService
   ) {
     this.translated = this.helperService.translated;
-    this.helperService.appLoggerDev(
-      this.helperService.constants.status.SUCCESS,
-      this.translated.LOGGER.MESSAGES.DASHBOARD_COMPONENT
-    );
     let charSeries = [{
       name: 'Brands',
       colorByPoint: true,

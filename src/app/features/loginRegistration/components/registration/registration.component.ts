@@ -54,17 +54,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((data) => {
       this.registerObj.userEmail = data;
     });
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_COMPONENT);
-    this.register.registrationData()
-      .subscribe(data => {
-        this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.LOGGER.MESSAGES.REGISTRATIONDATA_SUCCESS);
+    this.register.registrationData().subscribe(data => {
+      if (data) {
         this.registerObj.types = data;
-      }, error => {
-        this.helperService.appLoggerDev(this.helperService.constants.status.ERROR, `${error.error +
-        this.helperService.translated.LOGGER.MESSAGES.STATUS + error.status}`);
-      });
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
   }
 
   /**
@@ -210,33 +206,29 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerObj.registerData = this.compiler.constructRegUserdata(this.registerObj, userForm);
     if (this.registerObj.organizationForm.invalid || this.registerObj.userForm.invalid) {
       this.registerObj.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.LOGGER.MESSAGES.FALSE);
-      this.helperService.appLoggerDev(this.helperService.constants.status.ERROR,
-        this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_REQ);
+      this.helperService.createSnack(this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_REQ,
+        this.helperService.constants.status.ERROR);
       return;
     }
-    this.register.registerUser(this.registerObj.registerData).subscribe((result: RegistrationResponseObject) => {
-      if (result.responseDetails && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+    this.register.registerUser(this.registerObj.registerData).subscribe((result) => {
+      if (result && result.responseDetails && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         result ? this.register.setToken(result.data.token) : this.register.setToken('');
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS);
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS,
-          this.helperService.translated.MESSAGES.RESET_SUCCESS);
+        this.helperService.createSnack(
+          this.helperService.translated.LOGGER.MESSAGES.REGISTRATION_SUCCESS, this.helperService.constants.status.SUCCESS);
         this.registerObj.loading = false;
         this.helperService.navigateTo([this.helperService.appConstants.paths.welcomeScreen]);
       } else if (result && result.password1) {
+        this.registerObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.COMMON_PASSWORD,
           this.helperService.translated.STATUS.ERROR);
-        this.registerObj.loading = false;
       } else {
+        this.registerObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.EMAIL_ALREADY_EXISTS,
           this.helperService.translated.STATUS.ERROR);
-        this.registerObj.loading = false;
       }
-    }, (error: HttpErrorResponse) => {
+    }, (error) => {
       this.registerObj.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, error.error);
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.BACKEND_ERROR);
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR)
     });
   }
 }

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ActionReport, ActionReportApiData, ActionReportData, HighChartType} from 'src/app/models/analyticsReport/actionReports.model';
+import {ActionReportApiData, ActionReportData, HighChartType, Report} from 'src/app/models/analyticsReport/reports.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
@@ -15,7 +15,7 @@ import * as Highcharts from 'highcharts';
 })
 export class ActionReportComponent implements OnInit, OnDestroy {
 
-  actionReportObj: ActionReport = <ActionReport>{};
+  actionReportObj: Report = <Report>{};
 
   constructor(
     public helperService: HelperService,
@@ -39,7 +39,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   initialize() {
-    this.actionReportObj.noSites = false;
+    this.actionReportObj.loading = false;
     this.actionReportObj.actionReportForm = this.formBuilder.group({
       filter: [''],
       entityName: ['', Validators.required],
@@ -47,7 +47,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       dateFrom: ['', Validators.required]
     });
     this.actionReportObj.entityId = this.helperService.getEntityId();
-    console.log(this.actionReportObj.entityId);
     this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
   }
@@ -75,6 +74,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   makeReport(days, dateTo, dateFrom) {
+    this.actionReportObj.loading = true;
     let data = {
       'entityId': this.actionReportObj.entityId,
       'dateTo': dateTo,
@@ -84,7 +84,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.analyticsService.actionReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.actionReportObj.actionReportData = res.data.checkInList;
-        console.log(this.actionReportObj.actionReportData);
         let chartType: HighChartType = {
           type: 'column',
           title: 'Action Report',
@@ -92,8 +91,9 @@ export class ActionReportComponent implements OnInit, OnDestroy {
         };
         let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
         Highcharts.chart('container', data);
+        this.actionReportObj.loading = false;
       } else {
-        this.actionReportObj.noSites = true;
+        this.actionReportObj.loading = false;
       }
     });
   }

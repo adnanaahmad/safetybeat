@@ -13,22 +13,23 @@
     }
     mat-list-item {
       .nav-link {
+        color: #fff;
         .mat-icon {
           position: absolute;
           right: 0;
         }
       }
-      &.active {     
+      &.active {
         background: #fff !important;
-        .nav-link{
+        .nav-link {
           color: mat-color($primary) !important;
         }
       }
       &:hover {
         background: mat-color($primary-pallet, 500) !important;
-        &.active {     
+        &.active {
           background: #fff !important;
-          .nav-link{
+          .nav-link {
             color: mat-color($primary) !important;
           }
         }

@@ -9,7 +9,7 @@
       cursor: pointer;
       margin-right: 20px;
       margin-bottom: 20px;
-      width: 150px;
+      width: 170px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -22,6 +22,15 @@
       .content {
         @include ellipsis;
         padding: 16px;
+      }
+    }
+    .document-inline {
+      .content {
+        span {
+          @include ellipsis;
+          padding-right: 10px;
+          display: block;
+        }
       }
     }
     .file-type,

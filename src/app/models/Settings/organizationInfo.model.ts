@@ -3,6 +3,7 @@ import {DatePipe} from '@angular/common';
 import {Type} from '../loginRegistration/registration.model';
 
 export interface OrganizationInfo {
+  loading: boolean;
   organizationForm: FormGroup;
   orgID: any;
   pipe: DatePipe;

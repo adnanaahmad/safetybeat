@@ -3,6 +3,9 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AllUsersOfEntityResponse} from 'src/app/models/adminControl/entityControl.model';
 import {User} from 'src/app/models/user.model';
+import {ActivityApiResponse, ActivityFilterData, LeaveTypes} from 'src/app/models/profile/profile.model';
+import {PaginationData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
+import {AddLeaveApiResponse, AddLeaveData, UserLeavesApiResponse} from 'src/app/models/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,9 +67,31 @@ export class ProfileService {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.viewAllConnections, data);
   }
 
-  viewRecentActivities(userId) {
-    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.recentActivities, userId);
+  viewRecentActivities(data: ActivityFilterData, paginationData: PaginationData): Observable<ActivityApiResponse> {
+    return this.helperService.requestCall(this.method.post,
+      `${this.apiRoutes.recentActivities}?limit=${paginationData.limit}&offset=${paginationData.offset}`, data);
+  }
+
+  filter() {
+    return this.helperService.requestCall(
+      this.method.get,
+      this.apiRoutes.filters
+    );
+  }
+
+  getLeaveTypes(): Observable<Array<LeaveTypes>> {
+    return this.helperService.requestCall(
+      this.method.get,
+      this.apiRoutes.leaveTypes
+    );
+  }
+
+  addLeaves(data: AddLeaveData): Observable<AddLeaveApiResponse> {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.addLeave, data);
+  }
+
+  viewAllUserLeaves(data): Observable<UserLeavesApiResponse> {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.userLeaves, data);
   }
 
 }

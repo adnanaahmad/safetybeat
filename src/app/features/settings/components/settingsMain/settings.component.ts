@@ -14,10 +14,8 @@ export class SettingsComponent implements OnInit {
   themeSelected: any;
   settingFeatures = {
     'organization': true,
-    'group': false,
     'entity': false,
     'theme': false,
-    'permission': false,
     'allUsers': false
   };
 
@@ -26,8 +24,6 @@ export class SettingsComponent implements OnInit {
     public overlay: OverlayContainer,
     public helperService: HelperService,
   ) {
-    this.helperService.appLoggerDev(this.helperService.constants.status.SUCCESS,
-      this.helperService.translated.LOGGER.MESSAGES.SETTING_COMPONENT);
   }
 
   ngOnInit() {

@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Observable, forkJoin} from 'rxjs';
+import {Observable} from 'rxjs';
 import {loginCredentials, LoginResponse, ForgotPassword, ForgotPasswordResponse} from 'src/app/models/user.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {resetPassword} from 'src/app/models/profile.model';
+import {OrganizationType, RegistrationResponseObject, RegUserData} from 'src/app/models/loginRegistration/registration.model';
 
 
 @Injectable({providedIn: 'root'})
@@ -42,7 +43,7 @@ export class LoginRegistrationService {
    * in this function all the api calls related to organization registration data are called over here
    * and fork join is used when you have a group of observables and only care about the final emitted value of each.
    */
-  registrationData(): Observable<any> {
+  registrationData(): Observable<Array<OrganizationType>> {
     return this.helperService.requestCall(this.method.get, this.apiRoutes.companyTypes);
   }
 
@@ -91,7 +92,7 @@ export class LoginRegistrationService {
    * in this function all the data that comes in the organization registration form is passed to this function
    * and then it is sent to the related api to register the user with the organization,module and packages data.
    */
-  registerUser(data: any) {
+  registerUser(data: RegUserData): Observable<RegistrationResponseObject> {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.signup, data);
   }
 
@@ -103,8 +104,7 @@ export class LoginRegistrationService {
    * user gets an email to reset his/her password and that email comes backend api.
    */
   forgotPassword(data: ForgotPassword): Observable<ForgotPasswordResponse> {
-    this.ForgotPassword$ = this.helperService.requestCall(this.method.post, this.apiRoutes.passwordReset, data);
-    return this.ForgotPassword$;
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.passwordReset, data);
   }
 
   /**
@@ -112,7 +112,7 @@ export class LoginRegistrationService {
    * @params data
    */
 
-  resetPassword(data: resetPassword) {
+  resetPassword(data: resetPassword): Observable<ForgotPasswordResponse> {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.forgotPassword, data);
   }
 
