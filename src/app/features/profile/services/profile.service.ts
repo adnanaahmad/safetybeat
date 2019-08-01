@@ -94,4 +94,8 @@ export class ProfileService {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.userLeaves, data);
   }
 
+  allUserLeavesData(data){
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.allUserLeaves,data)
+  }
+
 }

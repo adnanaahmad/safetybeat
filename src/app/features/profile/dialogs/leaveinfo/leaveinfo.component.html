@@ -1,0 +1,28 @@
+<mat-card-title class="mat-dialog-title mat-elevation-z6">Leaves Info</mat-card-title>
+<div class="mat-dialog-content">
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let leave of userLeavesData">
+      <div class="member-thumbnail">
+        <img class="table-img"
+             src="{{ leave.actions.profileImage  ? leave.actions.profileImage : helperService.appConstants.avatar}}"/>
+      </div>
+      <div class="list-content">
+        <label>{{leave.actions.first_name}} {{leave.actions.last_name}}
+        </label>
+        <span>
+              <mat-icon>{{helperService.appIcons.date}}</mat-icon>
+          {{leave.start}} - {{leave.end}}
+            </span>
+        <span>
+              <mat-icon>{{helperService.appIcons.insertDriveFile}}</mat-icon>
+          {{leave.title}}
+            </span>
+
+      </div>
+    </mat-list-item>
+  </mat-list>
+  <br>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+  </mat-dialog-actions>
+</div>

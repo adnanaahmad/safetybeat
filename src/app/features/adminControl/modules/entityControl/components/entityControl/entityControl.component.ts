@@ -13,7 +13,7 @@ import {EntityControl, InviteTeamData} from 'src/app/models/adminControl/entityC
 import {JoinEntityModalComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/joinEntityModal/joinEntityModal.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {Entity} from 'src/app/models/userEntityData.model';
-import {MemberCenterService} from '../../../memberCenter/services/member-center.service';
+import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-entityControl',
