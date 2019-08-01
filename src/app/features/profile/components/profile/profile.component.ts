@@ -22,9 +22,9 @@ import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/conf
 import {FormBuilder, Validators} from '@angular/forms';
 import {PaginationData, Site} from 'src/app/models/site.model';
 import {CalendarEvent, CalendarView} from 'angular-calendar';
-import {AddleavesComponent} from '../../dialogs/addLeaves/addleaves.component';
-import {LeaveinfoComponent} from '../../dialogs/leaveinfo/leaveinfo.component';
-import {Leaveinfodata} from '../../../../models/profile.model';
+import {AddleavesComponent} from 'src/app/features/profile/dialogs/addLeaves/addleaves.component';
+import {LeaveinfoComponent} from 'src/app/features/profile/dialogs/leaveinfo/leaveinfo.component';
+import {Leaveinfodata} from 'src/app/models/profile.model';
 
 @Component({
   selector: 'app-profile',

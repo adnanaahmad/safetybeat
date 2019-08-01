@@ -4,7 +4,7 @@ import {MatDialog} from '@angular/material';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {FileRenameComponent} from 'src/app/features/adminControl/modules/documents/dialogs/fileRename/fileRename.component';
-import {DocumentObj} from '../../../../../../models/navigation/documents.model';
+import {DocumentObj} from 'src/app/models/navigation/documents.model';
 
 @Component({
   selector: 'app-file',

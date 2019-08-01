@@ -17,7 +17,6 @@ export class LeaveinfoComponent implements OnInit {
   ) {
     if (data) {
       this.userLeavesData = this.data;
-      console.log('leavesdata', this.userLeavesData);
     }
   }
 

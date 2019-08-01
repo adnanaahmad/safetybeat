@@ -42,7 +42,6 @@ export class SendSiteCodeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this is the data', this.data);
   }
 
   initialize() {
