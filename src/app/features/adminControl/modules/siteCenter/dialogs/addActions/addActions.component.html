@@ -24,7 +24,7 @@
               cdkAutosizeMinRows="1"
               cdkAutosizeMaxRows="5"></textarea>
   </mat-form-field>
-  <button class="mat-elevation-z6" mat-raised-button color="primary" (click)="closeSheet(actionForm.value)">
+  <button class="mat-elevation-z6" mat-raised-button color="primary" [disabled]= "actionForm.invalid" (click)="closeSheet(actionForm.value)">
     {{ helperService.translated.BUTTONS.SAVE }}
   </button>
   <button mat-button (click)="closeSheet('cancel')">{{helperService.translated.BUTTONS.CANCEL}}</button>

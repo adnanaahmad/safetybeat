@@ -21,9 +21,10 @@ import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {FormBuilder, Validators} from '@angular/forms';
 import {PaginationData, Site} from 'src/app/models/site.model';
-import {isSameDay, isSameMonth} from 'date-fns';
 import {CalendarEvent, CalendarView} from 'angular-calendar';
-import {AddleavesComponent} from '../../dialogs/addLeaves/addleaves.component';
+import {AddleavesComponent} from 'src/app/features/profile/dialogs/addLeaves/addleaves.component';
+import {LeaveinfoComponent} from 'src/app/features/profile/dialogs/leaveinfo/leaveinfo.component';
+import {Leaveinfodata} from 'src/app/models/profile.model';
 
 @Component({
   selector: 'app-profile',
@@ -132,6 +133,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.name = this.profileModel.receivedData.name;
           this.profileModel.email = this.profileModel.receivedData.email;
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
+          this.userLeaves(this.profileModel.profileData.id);
         }
       } else {
         this.getCurrentUser();
@@ -153,6 +155,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   initialize() {
+    this.profileModel.userLeavesData = [];
     this.profileModel.firstIndex = 0;
     this.profileModel.pageSize = 7;
     this.profileModel.entityCount = 0;
@@ -179,17 +182,18 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * @params events
    */
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-    }
+    this.profileModel.userLeavesData = [];
+    let self = this;
+    self.helperService.iterations(events, function (obj) {
+      let data: Leaveinfodata = {
+        actions: obj.actions,
+        end: new Date(obj.end).toDateString(),
+        start: new Date(obj.start).toDateString(),
+        title: obj.title
+      };
+      self.profileModel.userLeavesData.push(data);
+    });
+    this.helperService.createDialog(LeaveinfoComponent, {data: this.profileModel.userLeavesData});
   }
 
   /**
@@ -423,6 +427,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     };
     this.profileService.viewAllUserLeaves(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.profileModel.leavesCount = res.data.userLeaves.length;
         this.profileModel.userLeaves = res.data.userLeaves;
         let self = this;
         self.profileModel.events = [];
@@ -432,6 +437,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             end: new Date(leaveData.dateTo),
             title: leaveData.description,
             allDay: true,
+            actions: leaveData.requestedBy,
             resizable: {
               beforeStart: true,
               afterEnd: true
@@ -444,6 +450,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           self.profileModel.events.push(self.profileModel.eventData);
         });
       } else {
+        this.profileModel.userLeaves = null;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {

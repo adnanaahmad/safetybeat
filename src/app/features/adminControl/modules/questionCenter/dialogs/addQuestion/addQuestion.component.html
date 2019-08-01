@@ -68,7 +68,7 @@
       </div>
       <mat-dialog-actions>
         <button mat-raised-button custom-btn btn-primary color="primary"
-          [disabled]="!QuestionObj.addQuestionForm.valid">
+          [disabled]="QuestionObj.addQuestionForm.invalid">
           {{QuestionObj.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG : helperService.translated.MESSAGES.ADDQUESTION_MSG}}
           <div class="main-loader" *ngIf="QuestionObj.loading">
             <span class="loader1"></span>

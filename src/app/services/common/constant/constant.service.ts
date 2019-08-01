@@ -87,9 +87,12 @@ export class ConstantService {
     refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`,
     userPermissions: `${environment.apiUrl}/permissions/`,
     filters: `${environment.apiUrl}/api/filters/`,
+    requests: `${environment.apiUrl}/entity/connectionRequests/`,
+    directMessages: `${environment.apiUrl}/api/notification/`,
     leaveTypes: `${environment.apiUrl}/api/leaveTypes/`,
     addLeave: `${environment.apiUrl}/api/leaves/`,
-    userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`
+    userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`,
+    allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`
   };
   /**
    * all the api methods are declared here.
@@ -334,6 +337,7 @@ export class ConstantService {
     contacts: 'contacts',
     showChart: 'show_chart',
     insertDriveFile: 'insert_drive_file',
+    date: 'date_range',
     changeHistory: 'change_history',
     dataUsage: 'data_usage',
     cropDin: 'crop_din',
