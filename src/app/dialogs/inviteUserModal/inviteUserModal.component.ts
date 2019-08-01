@@ -173,7 +173,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     };
     this.adminServices.allTeamsData(entityData, paginationData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.inviteUserModal.teamsList = this.compiler.constructAllTeamsData(res);
+        this.inviteUserModal.teamsList = res.data.teamsList;
         this.inviteUserModal.selectedTeam = this.inviteUserModal.teamsList[0].team;
         this.formValidation['team'].setValue(this.inviteUserModal.selectedTeam.id);
       } else {

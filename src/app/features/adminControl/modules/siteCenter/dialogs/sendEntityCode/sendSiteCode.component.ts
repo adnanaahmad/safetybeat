@@ -42,6 +42,7 @@ export class SendSiteCodeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('this is the data', this.data);
   }
 
   initialize() {
@@ -78,7 +79,7 @@ export class SendSiteCodeComponent implements OnInit {
     let index = this.helperService.findIndex(
       this.sendSiteCode.users,
       function (obj) {
-        return obj.first_name === event.option.value.first_name;
+        return obj.username === event.option.value.username;
       }
     );
     if (index === -1) {
@@ -94,11 +95,11 @@ export class SendSiteCodeComponent implements OnInit {
    */
 
   private _filter(value): Array<User> {
-    const filterValue = value && value.first_name
-      ? value.first_name.toLowerCase()
+    const filterValue = value && value.username
+      ? value.username.toLowerCase()
       : value.toLowerCase();
     return this.sendSiteCode.allUsers.filter(user => {
-      return user.first_name.toLowerCase().indexOf(filterValue) === 0;
+      return user.username.toLowerCase().indexOf(filterValue) === 0;
     });
   }
 
