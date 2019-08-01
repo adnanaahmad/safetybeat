@@ -8,7 +8,7 @@ import {GeneralInfo} from 'src/app/models/general.model';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {OrgData, RegUserData, UserFormData, OrgFormData, RegistrationObject} from 'src/app/models/loginRegistration/registration.model';
 import {DocumentObj, Folder} from 'src/app/models/navigation/documents.model';
-import {ActionReportData} from 'src/app/models/analyticsReport/actionReports.model';
+import {ActionReportData} from 'src/app/models/analyticsReport/reports.model';
 import {recentActivities} from 'src/app/models/profile/profile.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {EntityQuestion} from 'src/app/models/adminControl/questionCenter.model';
@@ -422,15 +422,9 @@ export class CompilerProvider {
             bottom: false
           },
           {
-            displayName: 'Pulse Report by Entity',
+            displayName: 'Pulse Report',
             route: '/home/adminControl/analyticsReport/entityPulseReport',
             disabled: data.permissions.pulseReportByEntity,
-            bottom: false
-          },
-          {
-            displayName: 'Pulse Report by Person',
-            route: '/home/adminControl/analyticsReport/personPulseReport',
-            disabled: data.permissions.pulseReportByPerson,
             bottom: false
           },
           {
