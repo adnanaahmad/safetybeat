@@ -329,6 +329,7 @@ export class ConstantService {
    * all the material icon names are declared here.
    */
   static appIcons = {
+    manageLeaves: 'calendar_today',
     refresh: 'refresh',
     showReports: 'bar_chart',
     skipNext: 'skip_next',

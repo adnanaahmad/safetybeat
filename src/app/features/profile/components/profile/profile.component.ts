@@ -104,6 +104,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             this.profileModel.currentUserProfile = true;
           }
         });
+        this.getCurrentUser();
+        this.getFilters();
       }
     });
   }
