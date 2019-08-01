@@ -13,7 +13,7 @@ export const routes: Routes = [
   },
   {
     path: 'welcomeScreen',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: 'src/app/features/welcomeScreen/welcomeScreen.module#WelcomeScreenModule'
   },
   {
@@ -27,7 +27,7 @@ export const routes: Routes = [
     RouterModule.forRoot(
       routes,
       {
-        enableTracing: true,
+        enableTracing: false,
       }
     )
   ],

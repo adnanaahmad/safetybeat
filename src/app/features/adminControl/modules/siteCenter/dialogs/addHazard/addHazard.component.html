@@ -14,64 +14,62 @@
     </p>
   </div>
   <mat-divider></mat-divider>
-  <mat-horizontal-stepper [linear]="helperService.appConstants.linearForm" #stepper (selectionChange)="saveValues(hazardObj.addHazardFormFirst.value)">
+  <mat-horizontal-stepper [linear]="helperService.appConstants.linearForm" #stepper
+    (selectionChange)="saveValues(hazardObj.addHazardFormFirst.value)">
     <mat-step [stepControl]="hazardObj.addHazardFormFirst">
       <form [formGroup]="hazardObj.addHazardFormFirst">
         <ng-template matStepLabel>{{helperService.translated.STRINGS.HAZARD}}</ng-template>
         <div class="tabcontent">
+          <mat-checkbox formControlName="responsible">{{hazardObj.msg}}</mat-checkbox>
           <!-- Upload Picture -->
           <div class="mat-elevation-z6 change-picture">
             <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
             <img [src]="hazardObj.url">
-            <input type='file' accept='image/*' (change)="onFileSelected($event.target.files)" formControlName="pic"/>
+            <input type='file' accept='image/*' (change)="onFileSelected($event.target.files)" formControlName="pic" />
             <mat-icon class="remove-picture" (click)="removePicture()">
               {{helperService.appIcons.deleteForever}}
             </mat-icon>
           </div><!-- Upload Picture -->
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.STRINGS.HAZARD}}</mat-label>
-            <input matInput formControlName="title">
-            <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.STRINGS.RATE_HAZARD}}</mat-label>
-            <mat-select placeholder="Moderate" formControlName="risk">
-              <mat-option value="option" *ngFor="let risk of hazardObj.risks"
-                          [value]="risk.id">{{risk.name}}</mat-option>
-            </mat-select>
-            <mat-error class="text-right" *ngIf="addHazardControls.risk.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.STRINGS.DESCRIPTION}}</mat-label>
-            <textarea matInput formControlName="description"
-                      cdkTextareaAutosize
-                      #autosize="cdkTextareaAutosize"
-                      cdkAutosizeMinRows="1"
-                      cdkAutosizeMaxRows="5"></textarea>
-            <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.STRINGS.PRECAUTIONARY_NOTE}}</mat-label>
-            <textarea matInput formControlName="note"
-                      cdkTextareaAutosize
-                      #autosize="cdkTextareaAutosize"
-                      cdkAutosizeMinRows="1"
-                      cdkAutosizeMaxRows="5"></textarea>
-            <mat-error class="text-right" *ngIf="addHazardControls.note.errors">
-              <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-checkbox formControlName="responsible">{{hazardObj.msg}}</mat-checkbox>
+          <div class="flexbox">
+            <mat-form-field appearance="outline">
+              <mat-label>{{helperService.translated.STRINGS.HAZARD}}</mat-label>
+              <input matInput formControlName="title">
+              <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
+                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>{{helperService.translated.STRINGS.RATE_HAZARD}}</mat-label>
+              <mat-select placeholder="Moderate" formControlName="risk">
+                <mat-option value="option" *ngFor="let risk of hazardObj.risks" [value]="risk.id">{{risk.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error class="text-right" *ngIf="addHazardControls.risk.errors">
+                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="flexbox">
+            <mat-form-field appearance="outline">
+              <mat-label>{{helperService.translated.STRINGS.DESCRIPTION}}</mat-label>
+              <textarea matInput formControlName="description" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+              <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
+                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>{{helperService.translated.STRINGS.PRECAUTIONARY_NOTE}}</mat-label>
+              <textarea matInput formControlName="note" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+              <mat-error class="text-right" *ngIf="addHazardControls.note.errors">
+                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
         <div class="nav-btn">
-          <button mat-button matStepperNext
-                  >{{helperService.translated.BUTTONS.NEXT}}
+          <button mat-button matStepperNext>{{helperService.translated.BUTTONS.NEXT}}
             <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
           </button>
         </div>
@@ -143,8 +141,8 @@
             <div class="data-search">
               <div class="data-result">
                 <!--User-->
-                <mat-card class="text-center"
-                          *ngIf="hazardObj.allUsersList.length === 0">{{this.helperService.translated.MESSAGES.NO_USER}}</mat-card>
+                <mat-card class="text-center" *ngIf="hazardObj.allUsersList.length === 0">
+                  {{this.helperService.translated.MESSAGES.NO_USER}}</mat-card>
                 <ng-container *ngIf="hazardObj.allUsersList.length !== 0">
                   <div class="list-item mat-elevation-z2" *ngFor="let user of hazardObj.allUsers">
                     <div class="user-thumbnail">
@@ -153,9 +151,9 @@
                     <h5 class="user-name align-items-center" mat-line>
                       {{user.name}}
                     </h5>
-                    <button matTooltip="{{helperService.translated.STRINGS.ADD}}"
-                            mat-mini-fab color="primary" [disabled]="alreadyAddedCheck(user)"
-                            class="remove-member fab-action" (click)="addToSelected(user)">
+                    <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
+                      [disabled]="alreadyAddedCheck(user)" class="remove-member fab-action"
+                      (click)="addToSelected(user)">
                       <mat-icon>{{helperService.appIcons.add}}</mat-icon>
                     </button>
                   </div>
@@ -169,7 +167,7 @@
           <!--Selected Users Tab-->
           <mat-tab label="{{helperService.translated.STRINGS.SELECTED_USERS}}">
             <mat-form-field class="searchbar" fullWidth appearance="outline"
-                            *ngIf="hazardObj.selectedUserList.length !== 0">
+              *ngIf="hazardObj.selectedUserList.length !== 0">
               <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}} </mat-label>
               <input type="text" matInput (keyup)=filterSelectedUserList($event.target.value)>
               <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
@@ -247,17 +245,17 @@
             <p class="mat-hint">{{action.actionUser.username}}</p>
           </div>
         </div>
-          <div class="nav-btn">
-            <button mat-button matStepperPrevious>
-              <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
-              {{helperService.translated.BUTTONS.BACK}}
-            </button>
-            <button mat-button
-                    (click)="hazardFormSubmit(hazardObj.addHazardFormFirst.value)">{{helperService.translated.BUTTONS.SAVE}}
-              <mat-icon>{{helperService.appIcons.save}}</mat-icon>
-            </button>
-          </div>
+        <div class="nav-btn">
+          <button mat-button matStepperPrevious>
+            <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+            {{helperService.translated.BUTTONS.BACK}}
+          </button>
+          <button mat-button
+            (click)="hazardFormSubmit(hazardObj.addHazardFormFirst.value)">{{helperService.translated.BUTTONS.SAVE}}
+            <mat-icon>{{helperService.appIcons.save}}</mat-icon>
+          </button>
         </div>
+      </div>
     </mat-step>
   </mat-horizontal-stepper>
 </div>

@@ -47,7 +47,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       dateFrom: ['', Validators.required]
     });
     this.actionReportObj.entityId = this.helperService.getEntityId();
-    console.log(this.actionReportObj.entityId);
     this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
   }
@@ -84,7 +83,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.analyticsService.actionReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.actionReportObj.actionReportData = res.data.checkInList;
-        console.log(this.actionReportObj.actionReportData);
         let chartType: HighChartType = {
           type: 'column',
           title: 'Action Report',

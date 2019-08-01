@@ -10,6 +10,9 @@
     </div>
   </div>
   <div class="table-wrap">
+    <div class="spinner-wrap" *ngIf="myTeam.loading">
+      <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    </div>
     <table mat-table [dataSource]="myTeam.dataSource" class="customTable mat-elevation-z3">
 
       <ng-container matColumnDef="title">
