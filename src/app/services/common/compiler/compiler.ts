@@ -13,7 +13,7 @@ import {recentActivities} from 'src/app/models/profile/profile.model';
 import {TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {EntityQuestion} from 'src/app/models/adminControl/questionCenter.model';
 import {QuestionsData} from 'src/app/models/adminControl/questionCenter.model';
-import {UserLeavesApiResponse} from '../../../models/profile.model';
+import {UserLeavesApiResponse} from 'src/app/models/profile.model';
 
 @Injectable()
 export class CompilerProvider {

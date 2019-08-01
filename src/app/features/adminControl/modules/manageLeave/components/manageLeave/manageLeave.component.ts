@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {ManageleaveService} from '../../services/manageleave.service';
+import {ManageleaveService} from 'src/app/features/adminControl/modules/manageLeave/services/manageleave.service';
 import {ManageLeave} from 'src/app/models/manageLeave.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 
