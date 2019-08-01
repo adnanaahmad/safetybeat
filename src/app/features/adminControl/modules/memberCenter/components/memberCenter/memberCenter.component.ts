@@ -247,7 +247,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       let entityId = this.helperService.getEntityId();
       this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': entityId}});
       this.helperService.dialogRef.afterClosed().subscribe(res => {
-        this.getAllUsers(this.paginator.pageIndex, '');
+        if (res && res !== this.helperService.appConstants.no) {
+          this.getAllUsers(this.paginator.pageIndex, '');
+        }
       });
     });
   }

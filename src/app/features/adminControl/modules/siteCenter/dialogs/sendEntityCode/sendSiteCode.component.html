@@ -8,7 +8,7 @@
       <mat-label>{{helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER}}</mat-label>
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let user of sendSiteCode.users" [removable]="sendSiteCode.removable" (removed)="remove(user)">
-          {{user.first_name}}
+          {{user.first_name}} {{user.last_name}}
           <mat-icon matChipRemove *ngIf="sendSiteCode.removable">cancel</mat-icon>
         </mat-chip>
         <input #userInput [formControl]="sendSiteCode.userCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
@@ -16,7 +16,7 @@
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let user of sendSiteCode.filteredUsers | async" [value]="user">
-          {{user.first_name}} {{user.last_name}}
+          {{user.first_name}} {{user.last_name}} <{{user.email}}>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

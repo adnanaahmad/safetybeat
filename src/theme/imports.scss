@@ -51,6 +51,8 @@
 @import "../app/features/core/components/particleContainer/particleContainer2.component.scss";
 @import "~src/app/features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component.scss";
 @import "~src/app/features/adminControl/modules/manageLeave/components/manageLeave/manageLeave.component.scss";
+@import "~src/app/features/profile/dialogs/leaveinfo/leaveinfo.component.scss";
+@import "~src/app/features/adminControl/modules/myTeam/components/myTeam/myTeam.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -111,5 +113,7 @@
   @include amte-siteCodeModal($primary, $accent, $warn);
   @include amte-particle-container($primary, $accent, $warn);
   @include amte-particle2Container($primary, $accent, $warn);
+  @include amte-leaveInfo($primary, $accent, $warn);
+  @include amte-myTeam($primary, $accent, $warn);
   @include amte-manageLeave($primary, $accent, $warn);
 }

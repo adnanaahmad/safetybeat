@@ -13,6 +13,12 @@
         padding: 0;
       }
     }
+    .remove-action{
+      margin-left: auto;
+      &:hover{
+        color: mat-color($warn, 700);
+      }
+    }
     .data-search {
       .data-result {
         height: 320px;

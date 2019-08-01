@@ -76,3 +76,11 @@ export interface AddLeaveData {
   dateFrom: Date;
   dateTo: Date;
 }
+
+
+export interface Leaveinfodata {
+  actions: User;
+  end: string;
+  start: string;
+  title: string;
+}

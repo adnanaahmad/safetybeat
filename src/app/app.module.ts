@@ -56,6 +56,7 @@ import {AddActionsComponent} from './features/adminControl/modules/siteCenter/di
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {AddleavesComponent} from './features/profile/dialogs/addLeaves/addleaves.component';
+import {LeaveinfoComponent} from './features/profile/dialogs/leaveinfo/leaveinfo.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -95,7 +96,8 @@ export function createTranslateLoader(http: HttpClient) {
     SendSiteCodeComponent,
     ShowSiteCodeComponent,
     FileRenameComponent,
-    AddleavesComponent
+    AddleavesComponent,
+    LeaveinfoComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -179,7 +181,8 @@ export function createTranslateLoader(http: HttpClient) {
     SendSiteCodeComponent,
     ShowSiteCodeComponent,
     FileRenameComponent,
-    AddleavesComponent
+    AddleavesComponent,
+    LeaveinfoComponent
   ]
 })
 export class AppModule {

@@ -17,7 +17,7 @@
     </a>
     <mat-menu #menu="matMenu">
       <div *ngFor="let childLinks of link.children">
-        <button mat-menu-item [routerLink]="childLinks.route" *ngIf="childLinks.disabled">{{childLinks.displayName}}</button>
+        <button mat-menu-item [routerLink]="childLinks.route" *ngIf="childLinks.disabled" routerLinkActive="active">{{childLinks.displayName}}</button>
       </div>
     </mat-menu>
   </mat-list-item>
