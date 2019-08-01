@@ -1,10 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
-import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {PulseEntityReport} from 'src/app/models/analyticsReport/averageDailyActions.model';
-import {PaginationData} from 'src/app/models/site.model';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
+import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
+import {ActionReportApiData, HighChartType, PulseByEntityReportData, Report} from 'src/app/models/analyticsReport/reports.model';
+import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
+import * as Highcharts from 'highcharts';
+import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-entityPulseReport',
@@ -12,46 +15,177 @@ import {PaginationData} from 'src/app/models/site.model';
   styleUrls: ['./entityPulseReport.component.scss']
 })
 export class EntityPulseReportComponent implements OnInit {
-  pulseEntityObj: PulseEntityReport = <PulseEntityReport>{};
+  pulseEntityObj: Report = <Report>{};
 
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
               public compiler: CompilerProvider,
-              private adminServices: AdminControlService) {
+              private navService: NavigationService,
+              public analyticsService: AnalyticsReportService,
+              private memberService: MemberCenterService,
+              private highChartSettings: HighchartService) {
+    this.initialize();
+    this.setEntityName();
+    this.getFilters();
+    this.getAllUsers();
   }
 
   ngOnInit() {
+    this.makeReport(0, null, null, null);
+
+  }
+
+  initialize() {
+    this.pulseEntityObj.loading = false;
     this.pulseEntityObj.pulseEntityForm = this.formBuilder.group({
-      range: [''],
-      allTeams: ['', Validators.required],
+      filter: [''],
+      entityName: ['', Validators.required],
+      user: [''],
       dateTo: [],
       dateFrom: []
     });
-    this.pulseEntityObj.entityId = this.helperService.getEntityId();;
-    this.getAllTeams({entityId: this.pulseEntityObj.entityId});
+    this.pulseEntityObj.entityId = this.helperService.getEntityId();
+    this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].disable();
+    this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].disable();
   }
 
-  getAllTeams(data) {
-    let paginationData: PaginationData = {
-      offset: null,
-      limit: null,
-      search: ''
-    };
-    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.pulseEntityObj.allTeams = this.compiler.constructAllTeamsData(res);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAMS_NOT_FOUND,
-          this.helperService.constants.status.ERROR);
+  setEntityName() {
+    this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.pulseEntityObj.entityName = res.entityInfo.name;
+        this.pulseEntityFormValidations['entityName'].setValue(this.pulseEntityObj.entityName);
+        this.pulseEntityFormValidations['entityName'].disable();
       }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
-        this.helperService.constants.status.ERROR);
     });
   }
 
-  formSubmit(pulseEntityForm: FormGroup) {
+  get pulseEntityFormValidations() {
+    return this.pulseEntityObj.pulseEntityForm.controls;
+  }
 
+  getFilters() {
+    this.analyticsService.filter().subscribe((res) => {
+      if (res) {
+        this.pulseEntityObj.filters = res;
+        this.pulseEntityObj.lifetimeObj = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
+          return obj.name === 'Lifetime';
+        });
+        this.pulseEntityFormValidations['filter'].setValue(this.pulseEntityObj.lifetimeObj.id);
+      }
+    });
+  }
+
+  enableDates(value: any) {
+    this.pulseEntityObj.dateEnableObj = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
+      return obj.name === 'Choose a Range';
+    });
+    if (value === this.pulseEntityObj.dateEnableObj.id) {
+      this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].enable();
+      this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].enable();
+    } else {
+      this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].disable();
+      this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].disable();
+    }
+  }
+
+  makeReport(days, dateTo, dateFrom, userId) {
+    this.pulseEntityObj.loading = true;
+    let data = {
+      'entityId': this.pulseEntityObj.entityId,
+      'dateTo': dateTo,
+      'dateFrom': dateFrom,
+      'days': days,
+      'user': userId
+    };
+    this.analyticsService.pulseByEntity(data).subscribe((res) => {
+      if (res && res.responseDetails.code === 100) {
+        this.pulseEntityObj.pulseByEntityReportData = res.data.pulseByEntity;
+        let chartType: HighChartType = {
+          type: 'column',
+          title: 'Pulse Report',
+          subtitle: ''
+        };
+        let data = this.highChartSettings.reportSettings(chartType,
+          [], this.generateCharSeries(this.pulseEntityObj.pulseByEntityReportData, res.data.meeting,
+            res.data.visiting, res.data.travelling, res.data.other, res.data.onBreak));
+        Highcharts.chart('container', data);
+        this.pulseEntityObj.loading = false;
+      } else {
+        this.pulseEntityObj.loading = false;
+      }
+    });
+  }
+
+  getAllUsers() {
+    let data = {
+      entityId: this.helperService.getEntityId()
+    };
+    this.memberService.allEntityUsers(data).subscribe((res) => {
+      if (res) {
+        this.pulseEntityObj.entityUsers = this.compiler.constructDataForTeams(res.data);
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  generateCharSeries(reportData: any, meeting, visiting, travelling, other, onBreak) {
+    let charSeries = [];
+    this.helperService.iterations(reportData, function (pulseReport: PulseByEntityReportData) {
+      let pulse = {
+        name: pulseReport.date,
+        data: [pulseReport.meeting, pulseReport.visiting, pulseReport.travelling, pulseReport.onBreak, pulseReport.other]
+      };
+      charSeries.push(pulse);
+
+    });
+    charSeries.push({
+      type: 'pie',
+      name: 'Total Pulse',
+      data: [{
+        name: 'In a Meeting',
+        y: meeting,
+        color: Highcharts.getOptions().colors[0]
+      }, {
+        name: 'Visiting',
+        y: visiting,
+        color: Highcharts.getOptions().colors[1]
+      }, {
+        name: 'travelling',
+        y: travelling,
+        color: Highcharts.getOptions().colors[2]
+      }, {
+        name: 'On a meal break',
+        y: onBreak,
+        color: Highcharts.getOptions().colors[3]
+      }, {
+        name: 'other',
+        y: other,
+        color: Highcharts.getOptions().colors[4]
+      }],
+      center: [50, 10],
+      size: 100,
+      showInLegend: false,
+      dataLabels: {
+        enabled: false
+      }
+    })
+    let data = {
+      charSeries: charSeries,
+      categories: ['In a Meeting', 'Visiting', 'Travelling', 'On a meal break', 'Other'],
+      title: 'No of Pulse with Type'
+    }
+    return data;
+  }
+
+  formSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
+    if (!valid) {
+      return;
+    }
+    this.pulseEntityObj.days = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
+      return obj.id === value.filter;
+    });
+    this.makeReport(this.pulseEntityObj.days.days, value.dateTo, value.dateFrom, value.user)
   }
 }

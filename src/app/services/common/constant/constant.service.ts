@@ -72,6 +72,8 @@ export class ConstantService {
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
+    checkinByActivityReport: `${environment.apiUrl}/api/analyticsReport/checkInByActivityReport/`,
+    pulseByEntity: `${environment.apiUrl}/api/analyticsReport/pulseReportByEntity/`,
     hazardReport: `${environment.apiUrl}/api/analyticsReport/hazardReport/`,
     siteActivityReport: `${environment.apiUrl}/api/analyticsReport/siteActivityReport/`,
     recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`,
@@ -147,6 +149,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    user: 'user',
     spinnerConstant: 50,
     spinnerConstantModal: 30,
     leaveType: 'leaveType',

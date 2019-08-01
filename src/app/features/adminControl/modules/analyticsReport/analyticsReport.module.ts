@@ -8,7 +8,6 @@ import {AlertsPersonReportComponent} from './components/alertsPersonReport/alert
 import {AverageDailyActionsReportComponent} from './components/averageDailyActionsReport/averageDailyActionsReport.component';
 import {CheckInActivityReportComponent} from './components/checkinActivityReport/checkinActivityReport.component';
 import {EntityPulseReportComponent} from './components/entityPulseReport/entityPulseReport.component';
-import {PersonPulseReportComponent} from './components/personPulseReport/personPulseReport.component';
 import {CompliantCheckoutReportComponent} from './components/compliantCheckoutReport/compliantCheckoutReport.component';
 import {SiteActivityReportComponent} from './components/siteActivityReport/siteActivityReport.component';
 import {HazardReportComponent} from './components/hazardReport/hazardReport.component';
@@ -30,7 +29,6 @@ import {MaterialModule} from 'src/app/material.module';
     AlertsPersonReportComponent,
     ActionAlertsReportsComponent,
     EntityPulseReportComponent,
-    PersonPulseReportComponent,
     CompliantCheckoutReportComponent,
     SiteActivityReportComponent,
     HazardReportComponent],
