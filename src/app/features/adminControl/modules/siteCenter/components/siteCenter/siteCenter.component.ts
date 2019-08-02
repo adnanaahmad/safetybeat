@@ -129,7 +129,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   addSite() {
     this.helperService.createDialog(AddSiteModalComponent, {disableClose: true, data: {Modal: true, siteId: ''}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res !== this.helperService.appConstants.no) {
+      if (res !== this.helperService.appConstants.no && this.paginator) {
         this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
       }
     });

@@ -129,9 +129,9 @@
         </table>
     </div>
 
-    <div class="paddingbox text-center" *ngIf="siteCentreObj.dataSource === null">
-        {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
-    </div>
+        <div class="paddingbox text-center" *ngIf="!siteCentreObj.loading && !siteCentreObj.dataSource">
+            {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+        </div>
 
     <mat-paginator class="mat-elevation-z1" [pageSize]="siteCentreObj.pageSize" [length]="siteCentreObj.pageCount"
                    (page)="getSitesData(paginator.pageIndex, siteCentreObj.search)"></mat-paginator>

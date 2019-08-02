@@ -51,6 +51,7 @@ export class HazardCenterComponent implements OnInit {
     this.pageSize = 10;
     this.dataSource = null;
     this.hazardTable.loading = false;
+    this.hazardTable.dataSource = null;
   }
 
   /**
@@ -79,6 +80,7 @@ export class HazardCenterComponent implements OnInit {
       offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
       search: search
     };
+    this.hazardTable.loading = true;
     this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pageCount = res.data.pageCount;
@@ -86,8 +88,10 @@ export class HazardCenterComponent implements OnInit {
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.hazardTable.dataSource = null;
       }
+      this.hazardTable.loading = false;
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.hazardTable.loading = false;
     });
   }
 

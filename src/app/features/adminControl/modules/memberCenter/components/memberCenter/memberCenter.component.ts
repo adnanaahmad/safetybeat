@@ -83,7 +83,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     this.memberService.entityUsers(entityId, data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.memberCenter.pageCount = res.data.pageCount;
-        if (pageIndex === 0) {
+        if (this.paginator && pageIndex === 0) {
           this.paginator.pageIndex = 0;
         }
         this.memberCenter.elements = this.compiler.entityUser(res.data.allUser);
