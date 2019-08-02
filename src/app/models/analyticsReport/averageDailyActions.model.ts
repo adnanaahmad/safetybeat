@@ -10,12 +10,6 @@ export interface AverageDailyActions {
   allTeams: any;
 }
 
-export interface CheckInActivityReport {
-  checkInActivityForm: FormGroup;
-  allTeams: any;
-  entityId: number;
-}
-
 export interface AlertPersonReport {
   entityId: number;
   allTeams: any[];
@@ -30,28 +24,9 @@ export interface ActionVSAlert {
   allTeams: any;
 }
 
-export interface PulseEntityReport {
-  pulseEntityForm: FormGroup;
-  allTeams: any;
-  entityId: number;
-}
-
-export interface PulsePersonReport {
-  allUserList: any;
-  pulsePersonForm: FormGroup;
-  allTeams: any;
-  entityId: number;
-}
-
 export interface CompliantCheckOut {
   allUserList: any;
   compliantCheckOutForm: FormGroup;
-  allTeams: any;
-  entityId: number;
-}
-
-export interface HazardReport {
-  hazardReportForm: FormGroup;
   allTeams: any;
   entityId: number;
 }

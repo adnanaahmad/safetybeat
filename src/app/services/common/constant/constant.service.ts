@@ -72,6 +72,8 @@ export class ConstantService {
     getFolders: `${environment.apiUrl}/api/folders/folderList/`,
     createFolder: `${environment.apiUrl}/api/folders/`,
     actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
+    checkinByActivityReport: `${environment.apiUrl}/api/analyticsReport/checkInByActivityReport/`,
+    pulseByEntity: `${environment.apiUrl}/api/analyticsReport/pulseReportByEntity/`,
     hazardReport: `${environment.apiUrl}/api/analyticsReport/hazardReport/`,
     siteActivityReport: `${environment.apiUrl}/api/analyticsReport/siteActivityReport/`,
     recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`,
@@ -89,7 +91,8 @@ export class ConstantService {
     directMessages: `${environment.apiUrl}/api/notification/`,
     leaveTypes: `${environment.apiUrl}/api/leaveTypes/`,
     addLeave: `${environment.apiUrl}/api/leaves/`,
-    userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`
+    userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`,
+    allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`
   };
   /**
    * all the api methods are declared here.
@@ -146,6 +149,7 @@ export class ConstantService {
    * all the constants are declared here.
    */
   static appConstant = {
+    user: 'user',
     spinnerConstant: 50,
     spinnerConstantModal: 30,
     leaveType: 'leaveType',
@@ -325,6 +329,7 @@ export class ConstantService {
    * all the material icon names are declared here.
    */
   static appIcons = {
+    manageLeaves: 'calendar_today',
     refresh: 'refresh',
     showReports: 'bar_chart',
     skipNext: 'skip_next',
@@ -333,6 +338,7 @@ export class ConstantService {
     contacts: 'contacts',
     showChart: 'show_chart',
     insertDriveFile: 'insert_drive_file',
+    date: 'date_range',
     changeHistory: 'change_history',
     dataUsage: 'data_usage',
     cropDin: 'crop_din',
@@ -413,7 +419,8 @@ export class ConstantService {
     connections: 'linear_scale',
     userCircled: 'account_circle',
     teamLead: 'stars',
-    Launch: 'launch'
+    Launch: 'launch',
+    themeSwitcher: 'color_lens'
   };
   /**
    * all the particle container icon names are declared here.

@@ -511,8 +511,7 @@ export interface Messages {
   HOURS_CHECKIN_MSG: string;
   ALERT_PERSON_MSG: string;
   ACTION_ALERT_MSG: string;
-  PULSE_ENTITY_MSG: string;
-  PULSE_PERSON_MSG: string;
+  PULSE_REPORT_MSG: string;
   COMPLIANT_CHECKOUT_MSG: string;
   SITE_ACTIVITY_MSG: string;
   HAZARD_REPORT_MSG: string;
@@ -607,8 +606,7 @@ export interface SiteTitle {
   HOURS_CHECKINS_BY_ACTIVITY: string;
   CHECKIN_BY_PERSON: string;
   ACTIONS_VS_ALERTS: string;
-  PULSE_REPORT_BY_ENTITY: string;
-  PULSE_REPORT_BY_PERSON: string;
+  PULSE_REPORT: string;
   COMPLIANT_CHECKOUT: string;
   SITE_ACTIVITY_REPORT: string;
   HAZARD_REPORTS: string;

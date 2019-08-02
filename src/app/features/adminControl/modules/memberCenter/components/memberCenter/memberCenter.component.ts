@@ -81,7 +81,6 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       entityId: this.memberCenter.entityId,
     };
     this.memberService.entityUsers(entityId, data).subscribe((res) => {
-      console.log(res)
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.memberCenter.pageCount = res.data.pageCount;
         if (this.paginator && pageIndex === 0) {
@@ -248,7 +247,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       let entityId = this.helperService.getEntityId();
       this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': entityId}});
       this.helperService.dialogRef.afterClosed().subscribe(res => {
-        this.getAllUsers(this.paginator.pageIndex, '');
+        if (res && res !== this.helperService.appConstants.no) {
+          this.getAllUsers(this.paginator.pageIndex, '');
+        }
       });
     });
   }
