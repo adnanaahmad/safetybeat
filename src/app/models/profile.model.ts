@@ -57,7 +57,10 @@ export interface UserLeavesApiResponseData {
   description: string;
   entity: number;
   id: number;
-  leaveType: number;
+  leaveType: {
+    id: number;
+    name: string;
+  };
   rejected: boolean;
   requestedBy: User;
 }

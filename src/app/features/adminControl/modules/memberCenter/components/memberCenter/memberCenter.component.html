@@ -24,7 +24,7 @@
     <div class="spinner-wrap" *ngIf="memberCenter.displayLoader">
       <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
     </div>
-    <table mat-table [dataSource]="memberCenter.dataSource" class="customTable mat-elevation-z3">
+    <table mat-table *ngIf="!memberCenter.displayLoader && memberCenter.dataSource" [dataSource]="memberCenter.dataSource" class="customTable mat-elevation-z3">
       <ng-container matColumnDef="photos">
         <th mat-header-cell *matHeaderCellDef>
           <mat-icon>person</mat-icon>
@@ -94,6 +94,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-  <mat-paginator class="mat-elevation-z1" [pageSize]="memberCenter.pageSize" [length]=memberCenter.pageCount
+  <mat-paginator *ngIf="memberCenter.dataSource" class="mat-elevation-z1" [pageSize]="memberCenter.pageSize" [length]=memberCenter.pageCount
                  (page)="getAllUsers(paginator.pageIndex, memberCenter.search)"></mat-paginator>
 </div>
