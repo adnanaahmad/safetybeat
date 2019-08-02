@@ -21,7 +21,7 @@ export class NotificationNavComponent implements OnInit {
     public notificationService: NotificationService
   ) {
     this.translated = this.helperService.translated;
-    this.constructDirectMessages()
+    // this.constructDirectMessages()
     this.constructRequests();
   }
 
