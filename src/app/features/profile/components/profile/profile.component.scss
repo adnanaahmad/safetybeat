@@ -183,6 +183,12 @@
       .dashboard-card[fullWidth] {
         width: auto !important;
       }
+      .calendar-actions {
+        flex-wrap: wrap;
+        & > div {
+          text-align: center;
+        }
+      }
     }
   }
 }
