@@ -13,6 +13,22 @@
         padding: 0;
       }
     }
+    .remove-action{
+      margin-left: auto;
+      &:hover{
+        color: mat-color($warn, 700);
+      }
+    }
+    .flexbox{
+      mat-form-field{
+        margin:5px;
+        flex:1 1 auto;
+        width:auto;
+        .mat-form-field-wrapper{
+          margin-bottom: 0;
+        }
+      }
+    }
     .data-search {
       .data-result {
         height: 320px;

@@ -17,6 +17,10 @@
     .field-inline{
       mat-form-field{
         margin:0 10px 0 0;
+        width: 130px;
+      }
+      button{
+        margin-bottom: 10px;
       }
     }
     .calendar-actions{
@@ -30,6 +34,11 @@
       }
       button{
         padding:0;
+      }
+      .mat-button-toggle{
+        .mat-button-toggle-label-content{
+          line-height: 30px;
+        }
       }
     }
     mat-grid-list {
@@ -146,7 +155,7 @@
       }
     }
     .mat-figure {
-      align-items: normal;
+      align-items: baseline;
     }
     .dashboard-card {
       mat-list {
