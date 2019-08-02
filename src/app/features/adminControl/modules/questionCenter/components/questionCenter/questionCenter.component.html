@@ -28,7 +28,7 @@
   </div>
   <mat-grid-list cols="3" gutterSize="10px" rowHeight="fit">
     <mat-grid-tile rowspan="2" colspan="2">
-      <div class="table-wrap">
+      <div class="table-wrap" >
         <table class="customTable question-table mat-elevation-z3" mat-table [dataSource]="QuestionObj.entityQuestions">
 
           <!--- Note that these columns can be defined in any order.
@@ -77,7 +77,7 @@
           <tr mat-header-row *matHeaderRowDef="questionTableColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: questionTableColumns;"></tr>
         </table>
-        <div class="paddingbox text-center" *ngIf="QuestionObj.entityQuestions === null">
+        <div class="paddingbox text-center" *ngIf="!QuestionObj.entityQuestions && !QuestionObj.loading">
           {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
         <mat-paginator #entityQuestionMatPage class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize"
                        [length]="QuestionObj.pageCount"

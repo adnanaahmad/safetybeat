@@ -13,6 +13,10 @@
     <!--/Filter-->
   </div>
 
+  <div class="spinner-wrap" *ngIf="hazardTable.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
+
   <div class="table-wrap">
     <table mat-table [dataSource]="hazardTable.dataSource" class="customTable mat-elevation-z3">
       <ng-container [matColumnDef]="hazardTable.displayedColumns[0]">
