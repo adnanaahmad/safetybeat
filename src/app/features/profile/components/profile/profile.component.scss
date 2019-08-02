@@ -14,29 +14,29 @@
         top: 4px;
       }
     }
-    .field-inline{
-      mat-form-field{
-        margin:0 10px 0 0;
+    .field-inline {
+      mat-form-field {
+        margin: 0 10px 0 0;
         width: 130px;
       }
-      button{
+      button {
         margin-bottom: 10px;
       }
     }
-    .calendar-actions{
+    .calendar-actions {
       display: flex;
       align-items: center;
       justify-content: center;
-      width:100%;
-      padding-top:10px;
-      & > div{
+      width: 100%;
+      padding-top: 10px;
+      & > div {
         width: 100%;
       }
-      button{
-        padding:0;
+      button {
+        padding: 0;
       }
-      .mat-button-toggle{
-        .mat-button-toggle-label-content{
+      .mat-button-toggle {
+        .mat-button-toggle-label-content {
           line-height: 30px;
         }
       }
@@ -178,6 +178,11 @@
     }
     .mat-card {
       margin: 3px;
+    }
+    @media (max-width: 768px) {
+      .dashboard-card[fullWidth] {
+        width: auto !important;
+      }
     }
   }
 }
