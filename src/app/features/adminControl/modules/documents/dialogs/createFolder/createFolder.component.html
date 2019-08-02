@@ -1,35 +1,33 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="documentsData.modalType">
-  {{helperService.translated.BUTTONS.CREATE_FOLDER}}
+    {{helperService.translated.BUTTONS.CREATE_FOLDER}}
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!documentsData.modalType">
-  {{helperService.translated.STRINGS.RENAME_FOLDER}}
+    {{helperService.translated.STRINGS.RENAME_FOLDER}}
 </mat-card-title>
 <div mat-dialog-content>
-  <div class="spinner-wrap" *ngIf="documentsData.loader">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
-  </div>
-  <div [class]="documentsData.loader ? 'preloading-wrap blur' : 'preloading-wrap'">
+    <div class="spinner-wrap" *ngIf="documentsData.loader">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+    </div>
     <form [formGroup]="documentsData.folderForm" (ngSubmit)="folderFormSubmit(documentsData.folderForm)">
-      <mat-form-field appearance="outline" fullWidth>
-        <mat-label>{{helperService.translated.STRINGS.FOLDER_NAME}}</mat-label>
-        <input formControlName="title" matInput type="text" required autofocus />
-        <mat-error class="text-right" *ngIf="folderFormControls.title.errors">
-          <span *ngIf="folderFormControls.title.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-dialog-actions>
-        <button *ngIf="documentsData.modalType" mat-raised-button type="submit"
-          [disabled]="!documentsData.folderForm.valid" custom-btn color="primary">
-          {{helperService.translated.BUTTONS.CREATE_FOLDER}}
-        </button>
-        <button *ngIf="!documentsData.modalType" mat-raised-button type="submit"
-          [disabled]="!documentsData.folderForm.valid" custom-btn color="primary">
-          {{helperService.translated.STRINGS.RENAME_FOLDER}}
-        </button>
-        <button mat-button [mat-dialog-close]="'cancel'" type="button">
-          {{helperService.translated.BUTTONS.CANCEL}}
-        </button>
-      </mat-dialog-actions>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>{{helperService.translated.STRINGS.FOLDER_NAME}}</mat-label>
+            <input formControlName="title" matInput type="text" required autofocus/>
+            <mat-error class="text-right" *ngIf="folderFormControls.title.errors">
+                <span *ngIf="folderFormControls.title.errors.required">{{helperService.translated.AUTH.REQUIRED_FIELD}}</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-dialog-actions>
+            <button *ngIf="documentsData.modalType" mat-raised-button type="submit"
+                    [disabled]="!documentsData.folderForm.valid" custom-btn color="primary">
+                {{helperService.translated.BUTTONS.CREATE_FOLDER}}
+            </button>
+            <button *ngIf="!documentsData.modalType" mat-raised-button type="submit"
+                    [disabled]="!documentsData.folderForm.valid" custom-btn color="primary">
+                {{helperService.translated.STRINGS.RENAME_FOLDER}}
+            </button>
+            <button mat-button [mat-dialog-close]="'cancel'" type="button">
+                {{helperService.translated.BUTTONS.CANCEL}}
+            </button>
+        </mat-dialog-actions>
     </form>
-  </div>
 </div>
