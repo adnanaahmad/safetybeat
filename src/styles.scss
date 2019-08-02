@@ -65,7 +65,12 @@ app-toaster {
 .pointer {
   cursor: $cursor-pointer;
 }
-
+.overflow-auto{
+  overflow: auto !important;
+}
+.overflow-unset{
+  overflow: unset !important;
+}
 .midbox {
   min-width: 60%;
 }

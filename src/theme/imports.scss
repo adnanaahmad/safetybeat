@@ -53,6 +53,7 @@
 @import "~src/app/features/adminControl/modules/manageLeave/components/manageLeave/manageLeave.component.scss";
 @import "~src/app/features/profile/dialogs/leaveinfo/leaveinfo.component.scss";
 @import "~src/app/features/adminControl/modules/myTeam/components/myTeam/myTeam.component.scss";
+@import "~src/app/features/profile/dialogs/addLeaves/addleaves.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -116,4 +117,5 @@
   @include amte-leaveInfo($primary, $accent, $warn);
   @include amte-myTeam($primary, $accent, $warn);
   @include amte-manageLeave($primary, $accent, $warn);
+  @include amte-addleaves($primary, $accent, $warn);
 }
