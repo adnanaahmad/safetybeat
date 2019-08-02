@@ -34,7 +34,7 @@
           </div>
         </button>
 
-        <button mat-button mat-dialog-close>
+        <button mat-button [mat-dialog-close]="'NO'">
           {{ helperService.translated.BUTTONS.CANCEL }}
         </button>
       </mat-dialog-actions>

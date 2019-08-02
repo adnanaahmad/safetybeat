@@ -26,7 +26,6 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     private render: Renderer2,
     private adminServices: AdminControlService,
     private memberService: MemberCenterService,
-    private bottomSheet: MatBottomSheet,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);

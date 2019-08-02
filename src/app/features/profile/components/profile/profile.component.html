@@ -25,7 +25,7 @@
       <p class="mat-small">{{helperService.translated.MESSAGES.CONNECTIONS}}</p>
     </div>
     <div class="countbox">
-      <h4 class="mat-display-1 mat-body-strong">30</h4>
+      <h4 class="mat-display-1 mat-body-strong">{{profileModel.leavesCount ? profileModel.leavesCount : 0}}</h4>
       <p class="mat-small">{{helperService.translated.MESSAGES.LEAVES}}</p>
     </div>
   </div>
@@ -83,6 +83,7 @@
                 Leaves
               </button>
             </mat-card-title>
+            <p *ngIf="profileModel.userLeaves===null">No Leaves Found.</p>
             <div class="row text-center calendar-actions">
               <div class="btn-group text-left">
                 <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
@@ -125,121 +126,22 @@
                 [events]="profileModel.events"
                 [activeDayIsOpen]="activeDayIsOpen"
                 (dayClicked)="dayClicked($event.day)"
-                (click)="selectDate()"
-              >
+                (click)="selectDate()">
               </mwl-calendar-month-view>
               <mwl-calendar-week-view
                 *ngSwitchCase="CalendarView.Week"
                 [viewDate]="viewDate"
                 [events]="profileModel.events"
-                (click)="selectDate()"
-              >
+                (click)="selectDate()">
               </mwl-calendar-week-view>
               <mwl-calendar-day-view
                 *ngSwitchCase="CalendarView.Day"
                 [viewDate]="viewDate"
                 [events]="profileModel.events"
-                (click)="selectDate()"
-              >
+                (click)="selectDate()">
               </mwl-calendar-day-view>
             </div>
-            <!--            <div class="row text-center">-->
-            <!--              <div class="col-md-4">-->
-            <!--                <div class="btn-group">-->
-            <!--                  <div-->
-            <!--                    class="btn btn-primary"-->
-            <!--                    mwlCalendarPreviousView-->
-            <!--                    [view]="view"-->
-            <!--                    [(viewDate)]="viewDate"-->
-            <!--                    (viewDateChange)="activeDayIsOpen = false">-->
-            <!--                    Previous-->
-            <!--                  </div>-->
-            <!--                  <div-->
-            <!--                    class="btn btn-outline-secondary"-->
-            <!--                    mwlCalendarToday-->
-            <!--                    [(viewDate)]="viewDate">-->
-            <!--                    Today-->
-            <!--                  </div>-->
-            <!--                  <div-->
-            <!--                    class="btn btn-primary"-->
-            <!--                    mwlCalendarNextView-->
-            <!--                    [view]="view"-->
-            <!--                    [(viewDate)]="viewDate"-->
-            <!--                    (viewDateChange)="activeDayIsOpen = false">-->
-            <!--                    Next-->
-            <!--                  </div>-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--              <div class="col-md-4">-->
-            <!--                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>-->
-            <!--              </div>-->
-            <!--              <div class="col-md-4">-->
-            <!--                <div class="btn-group">-->
-            <!--                  <div-->
-            <!--                    class="btn btn-primary"-->
-            <!--                    (click)="view = CalendarView.Month"-->
-            <!--                    [class.active]="view === CalendarView.Month">-->
-            <!--                    Month-->
-            <!--                  </div>-->
-            <!--                  <div-->
-            <!--                    class="btn btn-primary"-->
-            <!--                    (click)="view = CalendarView.Week"-->
-            <!--                    [class.active]="view === CalendarView.Week">-->
-            <!--                    Week-->
-            <!--                  </div>-->
-            <!--                  <div-->
-            <!--                    class="btn btn-primary"-->
-            <!--                    (click)="view = CalendarView.Day"-->
-            <!--                    [class.active]="view === CalendarView.Day">-->
-            <!--                    Day-->
-            <!--                  </div>-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <!--            <br>-->
-            <!--            <ng-template #eventTemplate let-weekEvent="weekEvent">-->
-            <!--              <div *ngIf="weekEvent.event.meta.type === 'calendarEvent'"-->
-            <!--                   class="built-in-event">-->
-            <!--                <ul>-->
-            <!--                  <li><span>{{ weekEvent.event.title }}</span></li>-->
-            <!--                </ul>-->
-            <!--              </div>-->
-            <!--              <div *ngIf="weekEvent.event.meta.type !== 'calendarEvent'"-->
-            <!--                   [ngStyle]="{'background-color': weekEvent.event.color}"-->
-            <!--                   class="week-view-event">-->
-
-            <!--                <div class="employee-calendar-display-name">-->
-            <!--                  <span>{{ weekEvent.event.title }}</span>-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--            </ng-template>-->
-
-            <!--            <div [ngSwitch]="view">-->
-            <!--              <mwl-calendar-month-view-->
-            <!--                *ngSwitchCase="CalendarView.Month"-->
-            <!--                [viewDate]="viewDate"-->
-            <!--                [events]="profileModel.events"-->
-            <!--                [activeDayIsOpen]="activeDayIsOpen"-->
-            <!--                (dayClicked)="dayClicked($event.day)">-->
-            <!--              </mwl-calendar-month-view>-->
-            <!--              <mwl-calendar-week-view-->
-            <!--                *ngSwitchCase="CalendarView.Week"-->
-            <!--                [viewDate]="viewDate"-->
-            <!--                [events]="profileModel.events"-->
-            <!--                [eventTemplate]="eventTemplate">-->
-            <!--              </mwl-calendar-week-view>-->
-            <!--              <mwl-calendar-day-view-->
-            <!--                *ngSwitchCase="CalendarView.Day"-->
-            <!--                [viewDate]="viewDate"-->
-            <!--                [events]="profileModel.events">-->
-            <!--              </mwl-calendar-day-view>-->
-            <!--            </div>-->
-
-            <!--            <br><br><br>-->
           </mat-card-content>
-
-          <!-- ========================================================================================== -->
-          <!-- for activities insert data here -->
           <mat-card-content *ngIf="profileFeatures.activities">
             <mat-card-title>Your Activities</mat-card-title>
             <form [formGroup]="profileModel.filterForm"

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PersonPulseReportComponent } from './personPulseReport.component';
+import { ManageLeaveComponent } from './manageLeave.component';
 
-describe('PersonPulseReportComponent', () => {
-  let component: PersonPulseReportComponent;
-  let fixture: ComponentFixture<PersonPulseReportComponent>;
+describe('ManageLeaveComponent', () => {
+  let component: ManageLeaveComponent;
+  let fixture: ComponentFixture<ManageLeaveComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonPulseReportComponent ]
+      declarations: [ ManageLeaveComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PersonPulseReportComponent);
+    fixture = TestBed.createComponent(ManageLeaveComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

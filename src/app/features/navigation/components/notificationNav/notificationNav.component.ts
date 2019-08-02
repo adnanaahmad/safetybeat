@@ -36,7 +36,6 @@ export class NotificationNavComponent implements OnInit {
     this.notificationService.getDirectMessages().subscribe((response : any) => {
       // if(response && response.data && response.data.Requests.length) {
         this.directMessages = response;
-        console.log("AAAAAAAAAAA",this.directMessages);
        
       // }
     }, (error) => {
@@ -51,7 +50,6 @@ export class NotificationNavComponent implements OnInit {
     this.notificationService.getRequestsData().subscribe((response : NotificationList) => {
       if(response && response.data && response.data.Requests.length) {
         this.requests = response.data.Requests
-        console.log(this.requests);
        
       }
     }, (error) => {

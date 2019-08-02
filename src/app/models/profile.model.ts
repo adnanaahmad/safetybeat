@@ -57,9 +57,12 @@ export interface UserLeavesApiResponseData {
   description: string;
   entity: number;
   id: number;
-  leaveType: number;
+  leaveType: {
+    id: number;
+    name: string;
+  };
   rejected: boolean;
-  requestedBy: number;
+  requestedBy: User;
 }
 
 export interface AddLeaveApiResponse {
@@ -75,4 +78,12 @@ export interface AddLeaveData {
   leaveType: number;
   dateFrom: Date;
   dateTo: Date;
+}
+
+
+export interface Leaveinfodata {
+  actions: User;
+  end: string;
+  start: string;
+  title: string;
 }
