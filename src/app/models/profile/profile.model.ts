@@ -1,7 +1,7 @@
 import {FormGroup} from '@angular/forms';
 import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {TeamList} from '../adminControl/myTeam.model';
 import {responseDetails} from '../user.model';
 import {EntityInfo} from '../userEntityData.model';
@@ -9,6 +9,7 @@ import {Leaveinfodata, UserLeavesApiResponseData} from '../profile.model';
 import {CalendarEvent} from 'angular-calendar';
 
 export interface ProfileModel {
+  refresh: Subject<any>;
   userLeavesData: Array<Leaveinfodata>;
   leavesCount: number;
   eventData: CalendarEvent;
