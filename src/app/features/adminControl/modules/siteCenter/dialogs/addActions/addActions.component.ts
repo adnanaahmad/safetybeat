@@ -11,8 +11,8 @@ import {ActionApiResponse} from 'src/app/models/site.model';
   styleUrls: ['./addActions.component.scss']
 })
 export class AddActionsComponent implements OnInit {
-  private users: any;
-  private actionForm: FormGroup;
+  users: any;
+  actionForm: FormGroup;
 
   constructor(public formBuilder: FormBuilder,
               public memberService: MemberCenterService,

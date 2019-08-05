@@ -25,7 +25,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     public compiler: CompilerProvider,
     private highChartSettings: HighchartService
   ) {
-    this.initialize()
+    this.initialize();
     this.setEntityName();
     this.getFilters();
   }
