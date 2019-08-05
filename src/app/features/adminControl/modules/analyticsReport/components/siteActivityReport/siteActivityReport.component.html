@@ -4,7 +4,7 @@
   </div>
   <p style="margin-top:0;">{{helperService.translated.MESSAGES.SITE_ACTIVITY_MSG}}</p>
   <mat-card>
-    <form [formGroup]="actionReportObj.actionReportForm"
+    <form class="form-group" [formGroup]="actionReportObj.actionReportForm"
       (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm) (keydown.enter)="$event.preventDefault()">
       <mat-form-field appearance="outline">
         <mat-label>Entity</mat-label>
@@ -52,7 +52,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <br>
       <button mat-raised-button custom-btn color="primary">
         {{helperService.translated.BUTTONS.GENERATE_REPORT}}
       </button>

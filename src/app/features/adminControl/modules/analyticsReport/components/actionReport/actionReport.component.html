@@ -16,8 +16,7 @@
                     <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
                     <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>
                     <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-                    *ngIf="actionFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                        <span *ngIf="actionFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
@@ -26,8 +25,7 @@
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                     <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-                    *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                        <span *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
@@ -36,8 +34,7 @@
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                     <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-                    *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                        <span *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
@@ -49,7 +46,6 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <br>
                 <button mat-raised-button custom-btn color="primary">
                     {{helperService.translated.BUTTONS.GENERATE_REPORT}}
                 </button>

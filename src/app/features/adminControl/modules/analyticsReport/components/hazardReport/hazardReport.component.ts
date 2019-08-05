@@ -18,7 +18,7 @@ import * as Highcharts from 'highcharts';
 
 
 @Component({
-  selector: 'app-hazarReport',
+  selector: 'app-hazardReport',
   templateUrl: './hazardReport.component.html',
   styleUrls: ['./hazardReport.component.scss']
 })
@@ -37,10 +37,11 @@ export class HazardReportComponent implements OnInit {
     this.initialize();
     this.setEntityName();
     this.getFilters();
+    this.getAllUsers();
   }
 
   ngOnInit() {
-    this.makeReport(0, null, null)
+    this.makeReport(0, null, null, null)
   }
 
   initialize() {
@@ -49,7 +50,8 @@ export class HazardReportComponent implements OnInit {
       filter: [''],
       entityName: ['', Validators.required],
       dateTo: [],
-      dateFrom: []
+      dateFrom: [],
+      user: ['']
     });
     this.hazardObj.entityId = this.helperService.getEntityId();
     this.hazardFormValidations[this.helperService.appConstants.dateFrom].disable();
@@ -82,13 +84,27 @@ export class HazardReportComponent implements OnInit {
     });
   }
 
-  makeReport(days, dateTo, dateFrom) {
+  getAllUsers() {
+    let data = {
+      entityId: this.helperService.getEntityId()
+    };
+    this.memberService.allEntityUsers(data).subscribe((res) => {
+      if (res) {
+        this.hazardObj.entityUsers = this.compiler.constructDataForTeams(res.data);
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  makeReport(days, dateTo, dateFrom, user) {
     this.hazardObj.loading = true;
     let data = {
       'entityId': this.hazardObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
+      'user': user
     };
     this.analyticsService.getHazardReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
@@ -187,6 +203,6 @@ export class HazardReportComponent implements OnInit {
     this.hazardObj.days = this.helperService.find(this.hazardObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.hazardObj.days.days, value.dateTo, value.dateFrom)
+    this.makeReport(this.hazardObj.days.days, value.dateTo, value.dateFrom, value.user)
   }
 }

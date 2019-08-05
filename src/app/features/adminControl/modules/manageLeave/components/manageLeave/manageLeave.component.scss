@@ -20,10 +20,11 @@
           outline: 0 none;
         }
       }
-
+    }
+    .form-group {
+      margin-bottom: 20px;
       mat-form-field {
-        margin: 0 10px;
-        width: 150px;
+        margin: 0 10px 0 0;
       }
     }
   }
