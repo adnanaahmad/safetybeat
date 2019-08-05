@@ -108,7 +108,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.actionReportObj.subscription.unsubscribe();
+    // this.actionReportObj.subscription.unsubscribe();
   }
 
 }
