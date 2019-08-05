@@ -18,7 +18,7 @@ import * as Highcharts from 'highcharts';
 
 
 @Component({
-  selector: 'app-hazarReport',
+  selector: 'app-hazardReport',
   templateUrl: './hazardReport.component.html',
   styleUrls: ['./hazardReport.component.scss']
 })

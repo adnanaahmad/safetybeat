@@ -1,17 +1,17 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="data.type === false">
-  {{helperService.translated.MESSAGES.SITE_MAP}}
+    {{helperService.translated.MESSAGES.SITE_MAP}}
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="data.type === true">
-  {{data.siteData.name}}
+    {{data.siteData.name}}
 </mat-card-title>
 <div mat-dialog-content>
-  <div #gmap class="site-map"></div>
-  <mat-card *ngIf="data.type === true">
-    <span>{{data.siteData.location}}</span>
-  </mat-card>
-  <mat-dialog-actions>
-    <button mat-raised-button color="primary" mat-dialog-close="">
-      {{ helperService.translated.BUTTONS.CLOSE }}
-    </button>
-  </mat-dialog-actions>
+    <div #gmap class="site-map"></div>
+    <mat-card *ngIf="data.type === true">
+        <span>{{data.siteData.location}}</span>
+    </mat-card>
+    <mat-dialog-actions>
+        <button class="mat-elevation-z6" mat-raised-button color="primary" mat-dialog-close="">
+            {{ helperService.translated.BUTTONS.CLOSE }}
+        </button>
+    </mat-dialog-actions>
 </div>

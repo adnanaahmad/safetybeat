@@ -20,7 +20,7 @@
         }
       }
       &.active {
-        background: #fff !important;
+        background: rgba(255, 255, 255, 0.15) !important;
         .nav-link {
           color: mat-color($primary) !important;
         }
