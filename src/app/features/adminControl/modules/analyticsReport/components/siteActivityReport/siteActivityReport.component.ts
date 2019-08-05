@@ -1,5 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActionReportApiData, HighChartType, Report} from 'src/app/models/analyticsReport/reports.model';
+import {
+  ActionReportApiData,
+  HazardReportData,
+  HighChartType,
+  Report,
+  SiteDetailsReport,
+  SiteReportData
+} from 'src/app/models/analyticsReport/reports.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
@@ -18,7 +25,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
-  actionReportObj: Report = <Report>{};
+  siteReportObj: Report = <Report>{};
 
   constructor(
     public helperService: HelperService,
@@ -29,86 +36,169 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     private highChartSettings: HighchartService,
     public adminServices: AdminControlService,
   ) {
-
+    this.initialize();
+    this.setEntityName();
+    this.getFilters();
+    this.getSites();
   }
 
   ngOnInit() {
-    this.actionReportObj.actionReportForm = this.formBuilder.group({
+    this.makeReport(0, null, null, null)
+  }
+
+  initialize() {
+    this.siteReportObj.siteReportForm = this.formBuilder.group({
       entityName: ['', Validators.required],
-      dateTo: ['', Validators.required],
-      dateFrom: ['', Validators.required],
-      site: ['', Validators.required],
+      dateTo: [],
+      dateFrom: [],
+      site: [''],
       filter: ['']
     });
-
+    this.siteReportObj.entityId = this.helperService.getEntityId();
+    this.siteFormValidations[this.helperService.appConstants.dateFrom].disable();
+    this.siteFormValidations[this.helperService.appConstants.dateTo].disable();
   }
 
-  get actionFormValidations() {
-    return this.actionReportObj.actionReportForm.controls;
+  setEntityName() {
+    this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.siteReportObj.entityName = res.entityInfo.name;
+        this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
+        this.siteFormValidations['entityName'].disable();
+      }
+    });
   }
 
-  makeReport(data) {
-    // this.analyticsService.siteActivityReport(data).subscribe((res) => {
-    //   this.actionReportObj.userActionReportData = this.compiler.constructUserActionReportData(res);
-    //   if (this.actionReportObj.userActionReportData.CheckIns.length === 0 &&
-    //     this.actionReportObj.userActionReportData.CheckOuts.length === 0) {
-    //     this.actionReportObj.showChart = false;
-    //   } else {
-    //     this.actionReportObj.showChart = true;
-    //     let chartType: HighChartType = {
-    //       type: 'column',
-    //       title: this.actionReportObj.userActionReportData.site,
-    //       subtitle: ''
-    //     };
-    //     let checkInChart = 1;
-    //     let data1 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkInChart);
-    //     Highcharts.chart('checkInContainer', data1);
-    //     let checkOutChart = 2;
-    //     let data2 = this.highChartSettings.reportSettings(chartType, [], this.actionReportObj.userActionReportData, checkOutChart);
-    //     Highcharts.chart('checkOutContainer', data2);
-    //   }
-    // });
+  get siteFormValidations() {
+    return this.siteReportObj.siteReportForm.controls;
   }
 
-  actionReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
+  getSites() {
+    let entityData: ViewAllSiteEntityData = {
+      entityId: this.siteReportObj.entityId,
+    };
+    let paginationData: PaginationData = {
+      offset: null,
+      limit: null,
+      search: ''
+    };
+    this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
+      if (res) {
+        this.siteReportObj.sites = res.data.sitesList;
+      }
+    });
+  }
+
+  makeReport(days, dateTo, dateFrom, site) {
+    this.siteReportObj.loading = true;
+    let data = {
+      'entityId': this.siteReportObj.entityId,
+      'dateTo': dateTo,
+      'dateFrom': dateFrom,
+      'days': days,
+      'site': site
+    };
+    this.analyticsService.siteActivityReport(data).subscribe((res) => {
+      if (res && res.responseDetails.code === 100) {
+        if (res.data.details) {
+          this.siteReportObj.siteReportDetails = res.data.siteActivityReport;
+          let chartType: HighChartType = {
+            type: 'column',
+            title: 'Site Detail Activity',
+            subtitle: ''
+          };
+          let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
+            [], this.generateSiteDetailReport(this.siteReportObj.siteReportDetails));
+          Highcharts.chart('container', siteActivityReportData);
+        } else {
+          this.siteReportObj.siteReportData = res.data.siteActivityReport;
+          let chartType: HighChartType = {
+            type: 'column',
+            title: 'All Sites Activity',
+            subtitle: ''
+          };
+          let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
+            [], this.generateCharSeries(this.siteReportObj.siteReportData));
+          Highcharts.chart('container', siteActivityReportData);
+        }
+        this.siteReportObj.loading = false;
+      } else {
+        // this.hazardObj.loading = false;
+      }
+    });
+  }
+
+  siteReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
     if (!valid) {
       return;
     }
-    let data;
-    if (value.filter !== 'range') {
-      data = {
-        'entityId': this.helperService.getEntityId(),
-        'dateTo': null,
-        'dateFrom': null,
-        'filter': value.filter,
-        'siteId': value.site
-      };
-    } else {
-      data = {
-        'entityId': this.helperService.getEntityId(),
-        'dateTo': value.dateTo,
-        'dateFrom': value.dateFrom,
-        'siteId': value.site,
-        'filter': null
-      };
-    }
-    this.makeReport(data);
-
+    this.siteReportObj.days = this.helperService.find(this.siteReportObj.filters, function (obj) {
+      return obj.id === value.filter;
+    });
+    this.makeReport(this.siteReportObj.days.days, value.dateTo, value.dateFrom, value.site)
   }
 
-
-  filteredReport(value: any) {
-    if (value !== 'range') {
-      this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
-      this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
-    } else {
-      this.actionFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
+  generateCharSeries(reportData: any) {
+    let charSeries = [];
+    this.helperService.iterations(reportData, function (siteReport: SiteReportData) {
+      let pulse = {
+        name: siteReport.siteName,
+        data: [siteReport.siteCheckIns, siteReport.siteCheckOuts]
+      };
+      charSeries.push(pulse);
+    });
+    let data = {
+      charSeries: charSeries,
+      categories: ['CheckIns', 'CheckOuts'],
+      title: 'No of CheckIns and CheckOuts'
     }
+    return data;
+  }
+
+  generateSiteDetailReport(reportData: any) {
+    let charSeries = [];
+    this.helperService.iterations(reportData, function (siteReport: SiteDetailsReport) {
+      let pulse = {
+        name: siteReport.date,
+        data: [siteReport.siteCheckIns, siteReport.siteCheckOuts]
+      };
+      charSeries.push(pulse);
+    });
+    let data = {
+      charSeries: charSeries,
+      categories: ['CheckIns', 'CheckOuts'],
+      title: 'No of CheckIns and CheckOuts'
+    }
+    return data;
   }
 
   ngOnDestroy() {
-    this.actionReportObj.subscription.unsubscribe();
+    this.siteReportObj.subscription.unsubscribe();
+  }
+
+  enableDates(value: any) {
+    this.siteReportObj.dateEnableObj = this.helperService.find(this.siteReportObj.filters, function (obj) {
+      return obj.name === 'Choose a Range';
+    });
+    if (value === this.siteReportObj.dateEnableObj.id) {
+      this.siteFormValidations[this.helperService.appConstants.dateFrom].enable();
+      this.siteFormValidations[this.helperService.appConstants.dateTo].enable();
+    } else {
+      this.siteFormValidations[this.helperService.appConstants.dateFrom].disable();
+      this.siteFormValidations[this.helperService.appConstants.dateTo].disable();
+    }
+  }
+
+  getFilters() {
+    this.analyticsService.filter().subscribe((res) => {
+      if (res) {
+        this.siteReportObj.filters = res;
+        this.siteReportObj.lifetimeObj = this.helperService.find(this.siteReportObj.filters, function (obj) {
+          return obj.name === 'Lifetime';
+        });
+        this.siteFormValidations['filter'].setValue(this.siteReportObj.lifetimeObj.id);
+      }
+    });
   }
 
 }
