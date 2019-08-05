@@ -2,9 +2,14 @@ import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {FilterModel} from 'src/app/models/filter.model';
 import {User} from '../user.model';
+import {Site} from '../site.model';
 
 
 export interface Report {
+  siteReportDetails: Array<SiteDetailsReport>;
+  siteReportData: Array<SiteReportData>;
+  sites: Site[];
+  siteReportForm: FormGroup;
   loading: boolean;
   days: FilterModel;
   dateEnableObj: FilterModel;
@@ -81,5 +86,17 @@ export interface HazardReportByStatusData {
   majorUnResolved: number,
   moderateUnResolved: number,
   extremeUnResolved: number,
+}
+
+export interface SiteReportData {
+  siteName: string,
+  siteCheckIns: number,
+  siteCheckOuts: number
+}
+
+export interface SiteDetailsReport {
+  date: string,
+  siteCheckIns: number,
+  siteCheckOuts: number
 }
 

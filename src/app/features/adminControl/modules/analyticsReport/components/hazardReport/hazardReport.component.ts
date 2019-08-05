@@ -149,7 +149,6 @@ export class HazardReportComponent implements OnInit {
         data: [hazardReport.minor, hazardReport.moderate, hazardReport.major, hazardReport.extreme]
       };
       charSeries.push(pulse);
-
     });
     let data = {
       charSeries: charSeries,

@@ -133,7 +133,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     }, (err) => {
       this.inviteUserModal.loading = false;
       this.dialogRef.close();
-      this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR,);
+      // this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR,);
     });
   }
 
