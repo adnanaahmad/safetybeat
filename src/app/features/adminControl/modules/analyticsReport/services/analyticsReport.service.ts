@@ -21,6 +21,22 @@ export class AnalyticsReportService {
     );
   }
 
+  checkInByActivityReport(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.checkinByActivityReport,
+      data
+    );
+  }
+
+  pulseByEntity(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.pulseByEntity,
+      data
+    );
+  }
+
   getHazardReport(data) {
     return this.helperService.requestCall(
       this.method.post,

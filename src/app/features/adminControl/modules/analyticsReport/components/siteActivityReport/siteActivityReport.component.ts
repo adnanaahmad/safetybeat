@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActionReport, ActionReportApiData, HighChartType} from 'src/app/models/analyticsReport/actionReports.model';
+import {ActionReportApiData, HighChartType, Report} from 'src/app/models/analyticsReport/reports.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
@@ -18,7 +18,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
-  actionReportObj: ActionReport = <ActionReport>{};
+  actionReportObj: Report = <Report>{};
+
   constructor(
     public helperService: HelperService,
     public formBuilder: FormBuilder,
@@ -28,7 +29,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     private highChartSettings: HighchartService,
     public adminServices: AdminControlService,
   ) {
-    this.actionReportObj.showChart = true;
+
   }
 
   ngOnInit() {
@@ -39,15 +40,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       site: ['', Validators.required],
       filter: ['']
     });
-    this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.actionReportObj.allEntitiesData = res;
-        this.actionReportObj.entityName = this.actionReportObj.allEntitiesData.entityInfo.name;
-        this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
-        this.actionFormValidations['entityName'].disable();
-      }
-    });
-     this.getSitesData();
 
   }
 
@@ -78,7 +70,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     // });
   }
 
-  actionReportFormSubmit({ value, valid }: { value: ActionReportApiData; valid: boolean; }) {
+  actionReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
     if (!valid) {
       return;
     }
@@ -116,29 +108,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.actionReportObj.subscription.unsubscribe();
-  }
-
-  getSitesData() {
-    let entityData: ViewAllSiteEntityData = {
-      entityId: this.helperService.getEntityId(),
-    };
-    let paginationData: PaginationData = {
-      offset: null,
-      limit: this.helperService.appConstants.paginationLimit,
-      search: ''
-    };
-    this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.actionReportObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
-      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
-          this.helperService.constants.status.ERROR);
-      }
-    }, (error: HttpErrorResponse) => {
-      this.helperService.createSnack(error.error,
-        this.helperService.constants.status.ERROR);
-    });
+    // this.actionReportObj.subscription.unsubscribe();
   }
 
 }

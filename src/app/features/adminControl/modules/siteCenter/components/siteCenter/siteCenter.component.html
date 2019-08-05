@@ -130,7 +130,7 @@
             </table>
         </div>
 
-        <div class="paddingbox text-center" *ngIf="siteCentreObj.dataSource === null">
+        <div class="paddingbox text-center" *ngIf="!siteCentreObj.loading && !siteCentreObj.dataSource">
             {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
         </div>
 

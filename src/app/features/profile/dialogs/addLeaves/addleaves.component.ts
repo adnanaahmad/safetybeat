@@ -14,7 +14,6 @@ import {AddLeaveData} from 'src/app/models/profile.model';
 })
 export class AddleavesComponent implements OnInit {
   leavesModel: ProfileModel = <ProfileModel>{};
-
   constructor(
     public helperService: HelperService,
     private profileService: ProfileService,

@@ -25,6 +25,7 @@ import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {AddleavesComponent} from 'src/app/features/profile/dialogs/addLeaves/addleaves.component';
 import {LeaveinfoComponent} from 'src/app/features/profile/dialogs/leaveinfo/leaveinfo.component';
 import {Leaveinfodata} from 'src/app/models/profile.model';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -37,8 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
   connectionsColumns: string[];
-
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  refresh: Subject<any> = new Subject();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   profileFeatures = {
@@ -104,6 +104,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             this.profileModel.currentUserProfile = true;
           }
         });
+        this.getCurrentUser();
+        this.getFilters();
       }
     });
   }
@@ -150,11 +152,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.profileModel.dataSource.paginator = this.paginator;
   }
 
 
   initialize() {
+    this.profileModel.refresh = new Subject<any>();
     this.profileModel.userLeavesData = [];
     this.profileModel.firstIndex = 0;
     this.profileModel.pageSize = 7;
@@ -183,17 +186,19 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
     this.profileModel.userLeavesData = [];
-    let self = this;
-    self.helperService.iterations(events, function (obj) {
-      let data: Leaveinfodata = {
-        actions: obj.actions,
-        end: new Date(obj.end).toDateString(),
-        start: new Date(obj.start).toDateString(),
-        title: obj.title
-      };
-      self.profileModel.userLeavesData.push(data);
-    });
-    this.helperService.createDialog(LeaveinfoComponent, {data: this.profileModel.userLeavesData});
+    if (events.length !== 0) {
+      let self = this;
+      self.helperService.iterations(events, function (obj) {
+        let data: Leaveinfodata = {
+          actions: obj.actions,
+          end: new Date(obj.end).toDateString(),
+          start: new Date(obj.start).toDateString(),
+          title: obj.title
+        };
+        self.profileModel.userLeavesData.push(data);
+      });
+      this.helperService.createDialog(LeaveinfoComponent, {data: this.profileModel.userLeavesData});
+    }
   }
 
   /**
@@ -311,14 +316,12 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
         }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.profileModel.dataSource = null;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ACTIVITIES_FAIL, this.helperService.constants.status.ERROR
-        );
+        this.profileModel.recentActivities = null;
       } else {
-        this.profileModel.dataSource = null;
+        this.profileModel.recentActivities = null;
       }
     }, (error) => {
-      this.profileModel.dataSource = null;
+      this.profileModel.recentActivities = null;
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
@@ -414,10 +417,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       data: this.profileModel.leaveTypes
     });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      if (res) {
+      if (res !== this.helperService.appConstants.no) {
         this.userLeaves(this.profileModel.userId);
       }
-    })
+    });
   }
 
   userLeaves(userId: number) {
@@ -448,31 +451,13 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           };
           self.profileModel.events.push(self.profileModel.eventData);
+          self.refresh.next();
         });
       } else {
         this.profileModel.userLeaves = null;
-        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 }
-
-/**
- * below code is mocked data will be replaced when we will have data to change this.
- */
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-];

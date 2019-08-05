@@ -8,7 +8,6 @@ import { CheckInActivityReportComponent } from './components/checkinActivityRepo
 import { CompliantCheckoutReportComponent } from './components/compliantCheckoutReport/compliantCheckoutReport.component';
 import { EntityPulseReportComponent } from './components/entityPulseReport/entityPulseReport.component';
 import { HazardReportComponent } from './components/hazardReport/hazardReport.component';
-import { PersonPulseReportComponent } from './components/personPulseReport/personPulseReport.component';
 import { SiteActivityReportComponent } from './components/siteActivityReport/siteActivityReport.component';
 
 const routes: Routes = [
@@ -43,10 +42,6 @@ const routes: Routes = [
   {
     path: 'hazardReport',
     component: HazardReportComponent,
-  },
-  {
-    path: 'personPulseReport',
-    component: PersonPulseReportComponent,
   },
   {
     path: 'siteActivityReport',
