@@ -65,23 +65,23 @@ app-toaster {
 .pointer {
   cursor: $cursor-pointer;
 }
-.overflow-auto{
+
+.overflow-auto {
   overflow: auto !important;
 }
-.overflow-unset{
+
+.overflow-unset {
   overflow: unset !important;
 }
+
 .midbox {
   min-width: 60%;
 }
+
 .mini-fab {
   transform: scale(0.7) !important;
 }
-.preloading-wrap {
-  &.blur {
-    filter: blur(2px);
-  }
-}
+
 .spinner-wrap {
   @include midBlock;
   height: $fullValue;
@@ -90,11 +90,13 @@ app-toaster {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .mat-paginator-range-label {
   margin: 0 !important;
 }
+
 .clearfix {
   clear: both;
   display: block;
@@ -192,9 +194,11 @@ mat-dialog-container {
 .text-right {
   text-align: right;
 }
-.text-left{
+
+.text-left {
   text-align: left;
 }
+
 .paddingbox {
   padding: 16px;
 }
