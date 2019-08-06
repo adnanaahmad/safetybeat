@@ -6,6 +6,8 @@ import {Site} from '../site.model';
 
 
 export interface Report {
+  resolvedHazards: number;
+  unResolvedHazards: number;
   siteReportDetails: Array<SiteDetailsReport>;
   siteReportData: Array<SiteReportData>;
   sites: Site[];
