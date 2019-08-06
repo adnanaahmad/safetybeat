@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {ViewSite} from 'src/app/models/adminControl/viewSite.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
@@ -45,7 +45,8 @@ export class ViewSiteComponent implements OnInit {
     public compiler: CompilerProvider,
     public helperService: HelperService,
     private navService: NavigationService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {
     /**
      * site id is passed when we want to view any site here and in the following we are getting the siteId that is in form of
@@ -83,6 +84,10 @@ export class ViewSiteComponent implements OnInit {
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
+  }
+
+  goBack() {
+    this.router.navigate(['/home/adminControl/siteCenter']);
   }
 
 }

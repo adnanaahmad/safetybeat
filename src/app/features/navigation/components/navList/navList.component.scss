@@ -20,18 +20,15 @@
         }
       }
       &.active {
-        background: rgba(255, 255, 255, 0.15) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
         .nav-link {
-          color: mat-color($primary) !important;
+          color: #fff !important;
         }
       }
       &:hover {
         background: mat-color($primary-pallet, 500) !important;
         &.active {
-          background: #fff !important;
-          .nav-link {
-            color: mat-color($primary) !important;
-          }
+          background: rgba(255, 255, 255, 0.2) !important;
         }
       }
     }
