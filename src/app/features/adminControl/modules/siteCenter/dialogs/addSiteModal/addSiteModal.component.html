@@ -1,98 +1,98 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="addSiteObj.modalType">
-  {{helperService.translated.MESSAGES.ADDSITE_MSG}}
+    {{helperService.translated.MESSAGES.ADDSITE_MSG}}
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!addSiteObj.modalType">
-  {{helperService.translated.MESSAGES.EDIT_SITE_MSG}}
+    {{helperService.translated.MESSAGES.EDIT_SITE_MSG}}
 </mat-card-title>
 <div mat-dialog-content>
-  <div class="spinner-wrap" *ngIf="addSiteObj.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
-  </div>
-  <div [class]="addSiteObj.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
+    <div class="spinner-wrap" *ngIf="addSiteObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+    </div>
     <form [formGroup]="addSiteObj.addSiteForm" (ngSubmit)=siteFormSubmit(addSiteObj.addSiteForm)
-      (keydown.enter)="$event.preventDefault()">
-      <div class="flexbox">
-        <mat-card>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.TABLEHEADINGS.SITE_NAME}}</mat-label>
-            <input matInput type="text" [formControlName]="helperService.appConstants.siteName" required />
-            <mat-error *ngIf="formValidation.siteName.errors">
+          (keydown.enter)="$event.preventDefault()">
+        <div class="flexbox">
+            <mat-card>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>{{helperService.translated.TABLEHEADINGS.SITE_NAME}}</mat-label>
+                    <input matInput type="text" [formControlName]="helperService.appConstants.siteName" required/>
+                    <mat-error *ngIf="formValidation.siteName.errors">
               <span
-                *ngIf="formValidation.siteName.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</mat-label>
-            <textarea matTooltip="Add Safety Plan here." matTooltipPosition="below" maxlength="2000" rows="6" cols="6"
-              matInput [formControlName]="helperService.appConstants.siteSafetyPlan" required>
+                      *ngIf="formValidation.siteName.errors.required">{{helperService.translated.MESSAGES.SITE_NAME_REQ}}</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</mat-label>
+                    <textarea matTooltip="Add Safety Plan here." matTooltipPosition="below" maxlength="2000" rows="6"
+                              cols="6"
+                              matInput [formControlName]="helperService.appConstants.siteSafetyPlan" required>
           </textarea>
-            <mat-error *ngIf="formValidation.siteSafetyPlan.errors">
+                    <mat-error *ngIf="formValidation.siteSafetyPlan.errors">
               <span
-                *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.STRINGS.SITEADDRESS}}</mat-label>
-            <input matInput type="text" appGooglePlaces
-              (onSelect)="helperService.setAddress($event,gMapElement,formValidation.siteAddress)"
-              (keyup)="helperService.setFalse($event);setRadiusEnabled($event.target.value)"
-              [formControlName]="helperService.appConstants.siteAddress" required />
-            <mat-error *ngIf="formValidation.siteAddress.errors">
+                      *ngIf="formValidation.siteSafetyPlan.errors.required">{{helperService.translated.MESSAGES.SAFETY_PLAN_REQ}}</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>{{helperService.translated.STRINGS.SITEADDRESS}}</mat-label>
+                    <input matInput type="text" appGooglePlaces
+                           (onSelect)="helperService.setAddress($event,gMapElement,formValidation.siteAddress)"
+                           (keyup)="helperService.setFalse($event);setRadiusEnabled($event.target.value)"
+                           [formControlName]="helperService.appConstants.siteAddress" required/>
+                    <mat-error *ngIf="formValidation.siteAddress.errors">
               <span
-                *ngIf="formValidation.siteAddress.errors.required">{{helperService.translated.MESSAGES.OFFICELOCATION_REQ}}</span>
+                      *ngIf="formValidation.siteAddress.errors.required">{{helperService.translated.MESSAGES.OFFICELOCATION_REQ}}</span>
+                        <span
+                                *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth>
+                    <mat-label>{{helperService.translated.TABLEHEADINGS.RADIUS}}</mat-label>
+                    <input matInput type="number" [formControlName]="helperService.appConstants.radius"
+                           [readonly]="!addSiteObj.enableRadius" (keyup)=setRadius(gMapElement,$event.target.value)>
+                    <mat-hint>Location must be selected to apply radius</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fullWidth *ngIf="!addSiteObj.modalType">
+                    <mat-label>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</mat-label>
+                    <mat-select [(value)]="addSiteObj.siteSafetyManager.id"
+                                [formControlName]="helperService.appConstants.siteSafetyManager">
+                        <mat-option *ngFor="let user of addSiteObj.entityUsers" [value]="user.id">
+                            {{user.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formValidation.siteSafetyManager.errors">
               <span
-                *ngIf="formValidation.siteAddress.errors.invalid">{{helperService.translated.MESSAGES.INVALIDADDRESS}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth>
-            <mat-label>{{helperService.translated.TABLEHEADINGS.RADIUS}}</mat-label>
-            <input matInput type="number" [formControlName]="helperService.appConstants.radius"
-              [readonly]="!addSiteObj.enableRadius" (keyup)=setRadius(gMapElement,$event.target.value)>
-            <mat-hint>Location must be selected to apply radius</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fullWidth *ngIf="!addSiteObj.modalType">
-            <mat-label>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</mat-label>
-            <mat-select [(value)]="addSiteObj.siteSafetyManager.id"
-              [formControlName]="helperService.appConstants.siteSafetyManager">
-              <mat-option *ngFor="let user of addSiteObj.entityUsers" [value]="user.id">
-                {{user.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="formValidation.siteSafetyManager.errors">
-              <span
-                *ngIf="formValidation.siteSafetyManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
-            </mat-error>
-          </mat-form-field>
-        </mat-card>
-        <mat-card>
-          <div #gmap class="site-map"></div>
-        </mat-card>
-      </div>
-      <br>
-      <mat-slide-toggle [formControlName]="helperService.appConstants.safeZone">
-        Safe Zone
-      </mat-slide-toggle>&nbsp;
-      <mat-slide-toggle [formControlName]="helperService.appConstants.gpsTrack">
-        GPS Track
-      </mat-slide-toggle>
-      <mat-dialog-actions>
-        <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading|| !helperService.displayButton"
-          color="primary" *ngIf="addSiteObj.modalType">
-          {{ helperService.translated.BUTTONS.ADD_SITE }}
-        </button>
-        <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading" color="primary"
-          *ngIf="!addSiteObj.modalType">
-          {{ helperService.translated.BUTTONS.SAVE }}
-          <div class="main-loader" *ngIf="addSiteObj.loading">
-            <span class="loader1"></span>
-            <span class="loader2"></span>
-            <span class="loader3"></span>
-          </div>
-        </button>
-        <!-- <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL> -->
-        <button mat-button [mat-dialog-close]="'NO'">{{ helperService.translated.BUTTONS.CANCEL }}
-        </button>
-      </mat-dialog-actions>
+                      *ngIf="formValidation.siteSafetyManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </mat-card>
+            <mat-card>
+                <div #gmap class="site-map"></div>
+            </mat-card>
+        </div>
+        <br>
+        <mat-slide-toggle [formControlName]="helperService.appConstants.safeZone">
+            Safe Zone
+        </mat-slide-toggle>&nbsp;
+        <mat-slide-toggle [formControlName]="helperService.appConstants.gpsTrack">
+            GPS Track
+        </mat-slide-toggle>
+        <mat-dialog-actions>
+            <button mat-raised-button custom-btn btn-primary
+                    [disabled]="addSiteObj.loading|| !helperService.displayButton"
+                    color="primary" *ngIf="addSiteObj.modalType">
+                {{ helperService.translated.BUTTONS.ADD_SITE }}
+            </button>
+            <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading" color="primary"
+                    *ngIf="!addSiteObj.modalType">
+                {{ helperService.translated.BUTTONS.SAVE }}
+                <div class="main-loader" *ngIf="addSiteObj.loading">
+                    <span class="loader1"></span>
+                    <span class="loader2"></span>
+                    <span class="loader3"></span>
+                </div>
+            </button>
+            <!-- <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL> -->
+            <button mat-button [mat-dialog-close]="'NO'">{{ helperService.translated.BUTTONS.CANCEL }}
+            </button>
+        </mat-dialog-actions>
     </form>
-  </div>
 </div>

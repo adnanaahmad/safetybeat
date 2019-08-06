@@ -50,14 +50,43 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <br>
           <button mat-raised-button custom-btn color="primary">
             {{helperService.translated.BUTTONS.GENERATE_REPORT}}
           </button>
+          <br>
+          <br>
+          <div class="report-counts">
+            <mat-card class="mat-elevation-z4 unresolved">
+              <h1>{{hazardObj.unResolvedHazards}}</h1>
+              <p class="mat-body">Unresolved Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4 resolved">
+              <h1>{{hazardObj.resolvedHazards }}</h1>
+                <p class="mat-body">Resolved Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4">
+              <h1>1</h1>
+              <p class="mat-body">Minor Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4">
+              <h1>4</h1>
+              <p class="mat-body">Moderate Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4">
+              <h1>240</h1>
+              <p class="mat-body">Major Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4">
+              <h1>240</h1>
+              <p class="mat-body">Extreme Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4">
+              <h1>240</h1>
+              <p class="mat-body">Total Hazards</p>
+            </mat-card>
+          </div>
         </div>
       </form>
-      <h4 class="text-right">Number of Hazards: 12</h4>
-      <br>
       <br>
       <div id="severityReport"></div>
       <br>

@@ -50,15 +50,11 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <br>
           <button mat-raised-button custom-btn color="primary">
             {{helperService.translated.BUTTONS.GENERATE_REPORT}}
           </button>
         </div>
         <br>
-        <div *ngIf="actionReportObj.noSites">
-          <p>{{helperService.translated.MESSAGES.NO_SITES}}</p>
-        </div>
       </form>
       <div id="container"></div>
     </mat-card>

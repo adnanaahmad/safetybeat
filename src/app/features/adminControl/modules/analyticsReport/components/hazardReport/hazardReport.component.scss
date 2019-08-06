@@ -1,0 +1,23 @@
+@mixin amte-hazardReport($primary, $accent, $warn) {
+  :host,
+  app-hazardReport {
+    .mat-form-field {
+      margin: 0 10px 0 0;
+    }
+    .report-counts{
+      display: flex;
+      justify-content: space-between;
+      mat-card{
+        flex: 1;
+        margin: 8px;
+        text-align: center;
+        &.unresolved{
+          background: rgba(244, 91, 91, 0.2);
+        }
+        &.resolved{
+          background: rgba(144, 237, 125, 0.2);
+        }
+      }
+    }
+  }
+}
