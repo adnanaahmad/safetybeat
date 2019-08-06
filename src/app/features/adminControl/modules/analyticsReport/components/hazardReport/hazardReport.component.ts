@@ -18,7 +18,7 @@ import * as Highcharts from 'highcharts';
 
 
 @Component({
-  selector: 'app-hazarReport',
+  selector: 'app-hazardReport',
   templateUrl: './hazardReport.component.html',
   styleUrls: ['./hazardReport.component.scss']
 })
@@ -109,6 +109,8 @@ export class HazardReportComponent implements OnInit {
     this.analyticsService.getHazardReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.hazardObj.hazardReportData = res.data.hazardReportBySeverity;
+        this.hazardObj.resolvedHazards = res.data.resolvedHazard;
+        this.hazardObj.unResolvedHazards = res.data.unResolvedHazard;
         this.hazardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
         this.reportBySeverity(this.hazardObj.hazardReportData);
         this.reportByStatus(this.hazardObj.hazardReportByStatusData);

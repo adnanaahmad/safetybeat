@@ -4,16 +4,14 @@
     <div class="spinner-wrap" *ngIf="loading">
         <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
     </div>
-    <div [class]="loading ? 'preloading-wrap blur' : 'preloading-wrap'">
-        <span class="entity-code">{{ data.entity.code }}</span>
-        <mat-icon class="refresh-code pointer mat-elevation-z6" color="primary" (click)="refreshEntityCode()"
-            *ngIf="data.permissions">
-            {{ helperService.appIcons.refresh }}
-        </mat-icon>
-        <mat-dialog-actions>
-            <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
+    <span class="entity-code">{{ data.entity.code }}</span>
+    <mat-icon class="refresh-code pointer mat-elevation-z6" color="primary" (click)="refreshEntityCode()"
+              *ngIf="data.permissions">
+        {{ helperService.appIcons.refresh }}
+    </mat-icon>
+    <mat-dialog-actions>
+        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
                 (click)="onNoClick()">OK
-            </button>
-        </mat-dialog-actions>
-    </div>
+        </button>
+    </mat-dialog-actions>
 </div>
