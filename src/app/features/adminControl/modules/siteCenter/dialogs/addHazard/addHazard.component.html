@@ -1,263 +1,276 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!hazardObj.editModal">
-  {{ helperService.translated.MESSAGES.ADD_HAZARD }}
+    {{ helperService.translated.MESSAGES.ADD_HAZARD }}
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="hazardObj.editModal">
-  {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
+    {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
 </mat-card-title>
 <div mat-dialog-content>
-
-  <div class="current-site">
-    <h2>{{hazardObj.siteName}}</h2>
-    <p class="mat-body">
-      <mat-icon color="primary">{{ helperService.appIcons.place }}</mat-icon>
-      {{hazardObj.location}}
-    </p>
-  </div>
-  <mat-divider></mat-divider>
-  <mat-horizontal-stepper [linear]="helperService.appConstants.linearForm" #stepper
-    (selectionChange)="saveValues(hazardObj.addHazardFormFirst.value)">
-    <mat-step [stepControl]="hazardObj.addHazardFormFirst">
-      <form [formGroup]="hazardObj.addHazardFormFirst">
-        <ng-template matStepLabel>{{helperService.translated.STRINGS.HAZARD}}</ng-template>
-        <div class="tabcontent">
-          <mat-checkbox formControlName="responsible">{{hazardObj.msg}}</mat-checkbox>
-          <!-- Upload Picture -->
-          <div class="mat-elevation-z6 change-picture">
-            <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
-            <img [src]="hazardObj.url">
-            <input type='file' accept='image/*' (change)="onFileSelected($event.target.files)" formControlName="pic" />
-            <mat-icon class="remove-picture" (click)="removePicture()">
-              {{helperService.appIcons.deleteForever}}
-            </mat-icon>
-          </div><!-- Upload Picture -->
-          <div class="flexbox">
-            <mat-form-field appearance="outline">
-              <mat-label>{{helperService.translated.STRINGS.HAZARD}}</mat-label>
-              <input matInput formControlName="title">
-              <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
-                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>{{helperService.translated.STRINGS.RATE_HAZARD}}</mat-label>
-              <mat-select placeholder="Moderate" formControlName="risk">
-                <mat-option value="option" *ngFor="let risk of hazardObj.risks" [value]="risk.id">{{risk.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error class="text-right" *ngIf="addHazardControls.risk.errors">
-                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="flexbox">
-            <mat-form-field appearance="outline">
-              <mat-label>{{helperService.translated.STRINGS.DESCRIPTION}}</mat-label>
-              <textarea matInput formControlName="description" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-              <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
-                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>{{helperService.translated.STRINGS.PRECAUTIONARY_NOTE}}</mat-label>
-              <textarea matInput formControlName="note" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-              <mat-error class="text-right" *ngIf="addHazardControls.note.errors">
-                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="nav-btn">
-          <button mat-button matStepperNext [disabled]= "hazardObj.addHazardFormFirst.invalid"
-                  >{{helperService.translated.BUTTONS.NEXT}}
-            <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
-          </button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl] *ngIf="addHazardControls.responsible.value === true">
-      <form>
-        <ng-template matStepLabel>{{helperService.translated.STRINGS.ACTION_TO_RESOLVE}}</ng-template>
-        <div class="tabcontent">
-          <div class="text-center" *ngIf="hazardObj.actionsArray.length === 0">
-            <p class="mat-hint">No actions found</p>
-            <button mat-raised-button (click)="openBottomSheet()" mat-mini-fab color="primary">
-              <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-            </button>
-          </div>
-          <ng-container>
-            <mat-accordion>
-              <mat-expansion-panel *ngFor="let action of hazardObj.actionsArray">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{action.title}}
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    {{helperService.translated.STRINGS.COMPLETE_BY}} {{action.completeByTime | date}}
-                    <mat-icon class="remove-action pointer" (click)="deleteAction(action)">{{helperService.appIcons.deleteForever}}</mat-icon>
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-
-                <div>
-                  <span class="mat-body-strong">{{helperService.translated.STRINGS.PERSON_FOR_ACTION}}</span>
-                  <p class="mat-hint">{{action.actionUser.username}}</p>
-                </div>
-                <div>
-                  <span class="mat-body-strong">{{helperService.translated.STRINGS.ADDITIONAL_NOTE}}</span>
-                  <p class="mat-hint">{{action.description}}</p>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </ng-container>
-        </div>
-        <div class="text-center" *ngIf="hazardObj.actionsArray.length !== 0">
-          <button mat-raised-button (click)="openBottomSheet()" mat-mini-fab color="primary">
-            <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-          </button>
-        </div>
-        <div class="nav-btn">
-          <button mat-button matStepperPrevious>
-            <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
-            {{helperService.translated.BUTTONS.BACK}}
-          </button>
-          <button mat-button matStepperNext>{{helperService.translated.BUTTONS.NEXT}}
-            <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
-          </button>
-        </div>
-      </form>
-    </mat-step>
-
-    <!-- Share Hazard -->
-    <mat-step *ngIf="addHazardControls.responsible.value === true && !hazardObj.editModal">
-      <ng-template matStepLabel>{{helperService.translated.STRINGS.SHARE_HAZARD}}</ng-template>
-      <div class="tabcontent">
-        <mat-tab-group>
-          <!--All Users Tab-->
-          <mat-tab label="{{helperService.translated.SITETITLE.USERS_TITLE}}">
-            <mat-form-field class="searchbar" fullWidth appearance="outline">
-              <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
-              <input type="text" matInput (keyup)=filterAllUserList($event.target.value)>
-              <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
-            </mat-form-field>
-            <div class="data-search">
-              <div class="data-result">
-                <!--User-->
-                <mat-card class="text-center" *ngIf="hazardObj.allUsersList.length === 0">
-                  {{this.helperService.translated.MESSAGES.NO_USER}}</mat-card>
-                <ng-container *ngIf="hazardObj.allUsersList.length !== 0">
-                  <div class="list-item mat-elevation-z2" *ngFor="let user of hazardObj.allUsers">
-                    <div class="user-thumbnail">
-                      <img src="{{ user.profileImage != null ? user.profileImage : helperService.appConstants.avatar}}">
+    <div class="spinner-wrap" *ngIf="hazardObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+    </div>
+    <div class="current-site">
+        <h2>{{hazardObj.siteName}}</h2>
+        <p class="mat-body">
+            <mat-icon color="primary">{{ helperService.appIcons.place }}</mat-icon>
+            {{hazardObj.location}}
+        </p>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-horizontal-stepper [linear]="helperService.appConstants.linearForm" #stepper
+                            (selectionChange)="saveValues(hazardObj.addHazardFormFirst.value)">
+        <mat-step [stepControl]="hazardObj.addHazardFormFirst">
+            <form [formGroup]="hazardObj.addHazardFormFirst">
+                <ng-template matStepLabel>{{helperService.translated.STRINGS.HAZARD}}</ng-template>
+                <div class="tabcontent">
+                    <mat-checkbox formControlName="responsible">{{hazardObj.msg}}</mat-checkbox>
+                    <!-- Upload Picture -->
+                    <div class="mat-elevation-z6 change-picture">
+                        <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
+                        <img [src]="hazardObj.url">
+                        <input type='file' accept='image/*' (change)="onFileSelected($event.target.files)"
+                               formControlName="pic"/>
+                        <mat-icon class="remove-picture" (click)="removePicture()">
+                            {{helperService.appIcons.deleteForever}}
+                        </mat-icon>
+                    </div><!-- Upload Picture -->
+                    <div class="flexbox">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{helperService.translated.STRINGS.HAZARD}}</mat-label>
+                            <input matInput formControlName="title">
+                            <mat-error class="text-right" *ngIf="addHazardControls.title.errors">
+                                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{helperService.translated.STRINGS.RATE_HAZARD}}</mat-label>
+                            <mat-select placeholder="Moderate" formControlName="risk">
+                                <mat-option value="option" *ngFor="let risk of hazardObj.risks" [value]="risk.id">
+                                    {{risk.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error class="text-right" *ngIf="addHazardControls.risk.errors">
+                                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
-                    <h5 class="user-name align-items-center" mat-line>
-                      {{user.name}}
-                    </h5>
-                    <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab color="primary"
-                      [disabled]="alreadyAddedCheck(user)" class="remove-member fab-action"
-                      (click)="addToSelected(user)">
-                      <mat-icon>{{helperService.appIcons.add}}</mat-icon>
-                    </button>
-                  </div>
-                </ng-container>
-                <!--/User-->
-              </div>
-            </div>
-          </mat-tab>
-          <!--/All Users Tab-->
-
-          <!--Selected Users Tab-->
-          <mat-tab label="{{helperService.translated.STRINGS.SELECTED_USERS}}">
-            <mat-form-field class="searchbar" fullWidth appearance="outline"
-              *ngIf="hazardObj.selectedUserList.length !== 0">
-              <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}} </mat-label>
-              <input type="text" matInput (keyup)=filterSelectedUserList($event.target.value)>
-              <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
-            </mat-form-field>
-            <div class="data-search">
-              <div class="data-result">
-                <!--User-->
-                <div class="text-center" *ngIf="hazardObj.selectedUserList.length === 0">
-                  <p class="mat-hint">{{helperService.translated.MESSAGES.NO_USER_SELECTED}}</p>
-                </div>
-                <ng-container *ngIf="hazardObj.selectedUserList.length !== 0">
-                  <div class="list-item mat-elevation-z2" *ngFor="let user of hazardObj.filteredSelectedUsers">
-                    <div class="user-thumbnail">
-                      <img src="{{ user.profileImage != null ? user.profileImage : helperService.appConstants.avatar}}">
+                    <div class="flexbox">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{helperService.translated.STRINGS.DESCRIPTION}}</mat-label>
+                            <textarea matInput formControlName="description" cdkTextareaAutosize
+                                      #autosize="cdkTextareaAutosize"
+                                      cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                            <mat-error class="text-right" *ngIf="addHazardControls.description.errors">
+                                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{helperService.translated.STRINGS.PRECAUTIONARY_NOTE}}</mat-label>
+                            <textarea matInput formControlName="note" cdkTextareaAutosize
+                                      #autosize="cdkTextareaAutosize"
+                                      cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+                            <mat-error class="text-right" *ngIf="addHazardControls.note.errors">
+                                <span>{{ helperService.translated.AUTH.REQUIRED_FIELD }}</span>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
-                    <h5 class="user-name align-items-center" mat-line>
-                      {{user.name}}
-                    </h5>
-                    <button class="actions" mat-button [matMenuTriggerFor]="menu">
-                      <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+                </div>
+                <div class="nav-btn">
+                    <button mat-button matStepperNext [disabled]="hazardObj.addHazardFormFirst.invalid"
+                    >{{helperService.translated.BUTTONS.NEXT}}
+                        <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
                     </button>
-                    <mat-menu #menu="matMenu">
-                      <button mat-menu-item (click)="removeFromSelected(user)">
-                        <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
-                        {{helperService.translated.STRINGS.REMOVE}}
-                      </button>
-                    </mat-menu>
-                  </div>
-                </ng-container>
-                <!--/User-->
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl] *ngIf="addHazardControls.responsible.value === true">
+            <form>
+                <ng-template matStepLabel>{{helperService.translated.STRINGS.ACTION_TO_RESOLVE}}</ng-template>
+                <div class="tabcontent">
+                    <div class="text-center" *ngIf="hazardObj.actionsArray.length === 0">
+                        <p class="mat-hint">No actions found</p>
+                        <button mat-raised-button (click)="openBottomSheet()" mat-mini-fab color="primary">
+                            <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+                        </button>
+                    </div>
+                    <ng-container>
+                        <mat-accordion>
+                            <mat-expansion-panel *ngFor="let action of hazardObj.actionsArray">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{action.title}}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        {{helperService.translated.STRINGS.COMPLETE_BY}} {{action.completeByTime |
+                                        date}}
+                                        <mat-icon class="remove-action pointer" (click)="deleteAction(action)">
+                                            {{helperService.appIcons.deleteForever}}
+                                        </mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
 
-              </div>
+                                <div>
+                                    <span class="mat-body-strong">{{helperService.translated.STRINGS.PERSON_FOR_ACTION}}</span>
+                                    <p class="mat-hint">{{action.actionUser.username}}</p>
+                                </div>
+                                <div>
+                                    <span class="mat-body-strong">{{helperService.translated.STRINGS.ADDITIONAL_NOTE}}</span>
+                                    <p class="mat-hint">{{action.description}}</p>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </ng-container>
+                </div>
+                <div class="text-center" *ngIf="hazardObj.actionsArray.length !== 0">
+                    <button mat-raised-button (click)="openBottomSheet()" mat-mini-fab color="primary">
+                        <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+                    </button>
+                </div>
+                <div class="nav-btn">
+                    <button mat-button matStepperPrevious>
+                        <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+                        {{helperService.translated.BUTTONS.BACK}}
+                    </button>
+                    <button mat-button matStepperNext>{{helperService.translated.BUTTONS.NEXT}}
+                        <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
+                    </button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!-- Share Hazard -->
+        <mat-step *ngIf="addHazardControls.responsible.value === true && !hazardObj.editModal">
+            <ng-template matStepLabel>{{helperService.translated.STRINGS.SHARE_HAZARD}}</ng-template>
+            <div class="tabcontent">
+                <mat-tab-group>
+                    <!--All Users Tab-->
+                    <mat-tab label="{{helperService.translated.SITETITLE.USERS_TITLE}}">
+                        <mat-form-field class="searchbar" fullWidth appearance="outline">
+                            <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
+                            <input type="text" matInput (keyup)=filterAllUserList($event.target.value)>
+                            <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
+                        </mat-form-field>
+                        <div class="data-search">
+                            <div class="data-result">
+                                <!--User-->
+                                <mat-card class="text-center" *ngIf="hazardObj.allUsersList.length === 0">
+                                    {{this.helperService.translated.MESSAGES.NO_USER}}
+                                </mat-card>
+                                <ng-container *ngIf="hazardObj.allUsersList.length !== 0">
+                                    <div class="list-item mat-elevation-z2" *ngFor="let user of hazardObj.allUsers">
+                                        <div class="user-thumbnail">
+                                            <img src="{{ user.profileImage != null ? user.profileImage : helperService.appConstants.avatar}}">
+                                        </div>
+                                        <h5 class="user-name align-items-center" mat-line>
+                                            {{user.name}}
+                                        </h5>
+                                        <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab
+                                                color="primary"
+                                                [disabled]="alreadyAddedCheck(user)" class="remove-member fab-action"
+                                                (click)="addToSelected(user)">
+                                            <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+                                        </button>
+                                    </div>
+                                </ng-container>
+                                <!--/User-->
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <!--/All Users Tab-->
+
+                    <!--Selected Users Tab-->
+                    <mat-tab label="{{helperService.translated.STRINGS.SELECTED_USERS}}">
+                        <mat-form-field class="searchbar" fullWidth appearance="outline"
+                                        *ngIf="hazardObj.selectedUserList.length !== 0">
+                            <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
+                            <input type="text" matInput (keyup)=filterSelectedUserList($event.target.value)>
+                            <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
+                        </mat-form-field>
+                        <div class="data-search">
+                            <div class="data-result">
+                                <!--User-->
+                                <div class="text-center" *ngIf="hazardObj.selectedUserList.length === 0">
+                                    <p class="mat-hint">{{helperService.translated.MESSAGES.NO_USER_SELECTED}}</p>
+                                </div>
+                                <ng-container *ngIf="hazardObj.selectedUserList.length !== 0">
+                                    <div class="list-item mat-elevation-z2"
+                                         *ngFor="let user of hazardObj.filteredSelectedUsers">
+                                        <div class="user-thumbnail">
+                                            <img src="{{ user.profileImage != null ? user.profileImage : helperService.appConstants.avatar}}">
+                                        </div>
+                                        <h5 class="user-name align-items-center" mat-line>
+                                            {{user.name}}
+                                        </h5>
+                                        <button class="actions" mat-button [matMenuTriggerFor]="menu">
+                                            <mat-icon>{{helperService.appIcons.moveVert}}</mat-icon>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="removeFromSelected(user)">
+                                                <mat-icon>{{helperService.appIcons.deleteForever}}</mat-icon>
+                                                {{helperService.translated.STRINGS.REMOVE}}
+                                            </button>
+                                        </mat-menu>
+                                    </div>
+                                </ng-container>
+                                <!--/User-->
+
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <!--/Selected Users Tab-->
+                </mat-tab-group>
             </div>
-          </mat-tab>
-          <!--/Selected Users Tab-->
-        </mat-tab-group>
-      </div>
-      <div class="nav-btn">
-        <button mat-button matStepperPrevious>
-          <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
-          {{helperService.translated.BUTTONS.BACK}}
-        </button>
-        <button mat-button matStepperNext>{{helperService.translated.BUTTONS.NEXT}}
-          <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
-        </button>
-      </div>
-    </mat-step>
-    <!-- Share hazard -->
-    <mat-step>
-      <ng-template matStepLabel>{{helperService.translated.STRINGS.REVIEW}}</ng-template>
-      <div class="tabcontent">
-        <img class="review-thumbnail mat-elevation-z3" [src]="hazardObj.url">
-        <div class="hazard-summary">
-          <span class="mat-body-strong">{{helperService.translated.STRINGS.HAZARD}}</span>
-          <p class="mat-hint">{{hazardObj.hazardTitle}}</p>
-        </div>
-        <mat-divider></mat-divider>
-        <br>
-        <div class="hazard-summary">
-          <span class="mat-body-strong">{{helperService.translated.STRINGS.PRECAUTIONARY_NOTE}}</span>
-          <p class="mat-hint">{{hazardObj.note}}</p>
-        </div>
-        <mat-divider></mat-divider>
-        <br>
-        <div class="hazard-summary">
-          <span class="mat-body-strong">{{helperService.translated.STRINGS.DESCRIPTION}}</span>
-          <p class="mat-hint">{{hazardObj.description}}</p>
-        </div>
-        <mat-divider></mat-divider>
-        <br>
-        <div class="hazard-summary" *ngIf="hazardObj.actionsArray.length !== 0">
-          <span class="mat-body-strong">{{helperService.translated.TABLEHEADINGS.ACTIONS}}</span>
-          <div *ngFor="let action of hazardObj.actionsArray">
-            <p class="mat-hint">{{action.title}}</p>
-            <p class="mat-hint">{{action.actionUser.username}}</p>
-          </div>
-        </div>
-        <div class="nav-btn">
-          <button mat-button matStepperPrevious>
-            <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
-            {{helperService.translated.BUTTONS.BACK}}
-          </button>
-          <button mat-button
-            (click)="hazardFormSubmit(hazardObj.addHazardFormFirst.value)">{{helperService.translated.BUTTONS.SAVE}}
-            <mat-icon>{{helperService.appIcons.save}}</mat-icon>
-          </button>
-        </div>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>
+            <div class="nav-btn">
+                <button mat-button matStepperPrevious>
+                    <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+                    {{helperService.translated.BUTTONS.BACK}}
+                </button>
+                <button mat-button matStepperNext>{{helperService.translated.BUTTONS.NEXT}}
+                    <mat-icon>{{helperService.appIcons.arrowForward}}</mat-icon>
+                </button>
+            </div>
+        </mat-step>
+        <!-- Share hazard -->
+        <mat-step>
+            <ng-template matStepLabel>{{helperService.translated.STRINGS.REVIEW}}</ng-template>
+            <div class="tabcontent">
+                <img class="review-thumbnail mat-elevation-z3" [src]="hazardObj.url">
+                <div class="hazard-summary">
+                    <span class="mat-body-strong">{{helperService.translated.STRINGS.HAZARD}}</span>
+                    <p class="mat-hint">{{hazardObj.hazardTitle}}</p>
+                </div>
+                <mat-divider></mat-divider>
+                <br>
+                <div class="hazard-summary">
+                    <span class="mat-body-strong">{{helperService.translated.STRINGS.PRECAUTIONARY_NOTE}}</span>
+                    <p class="mat-hint">{{hazardObj.note}}</p>
+                </div>
+                <mat-divider></mat-divider>
+                <br>
+                <div class="hazard-summary">
+                    <span class="mat-body-strong">{{helperService.translated.STRINGS.DESCRIPTION}}</span>
+                    <p class="mat-hint">{{hazardObj.description}}</p>
+                </div>
+                <mat-divider></mat-divider>
+                <br>
+                <div class="hazard-summary" *ngIf="hazardObj.actionsArray.length !== 0">
+                    <span class="mat-body-strong">{{helperService.translated.TABLEHEADINGS.ACTIONS}}</span>
+                    <div *ngFor="let action of hazardObj.actionsArray">
+                        <p class="mat-hint">{{action.title}}</p>
+                        <p class="mat-hint">{{action.actionUser.username}}</p>
+                    </div>
+                </div>
+                <div class="nav-btn">
+                    <button mat-button matStepperPrevious>
+                        <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+                        {{helperService.translated.BUTTONS.BACK}}
+                    </button>
+                    <button mat-button
+                            (click)="hazardFormSubmit(hazardObj.addHazardFormFirst.value)">
+                        {{helperService.translated.BUTTONS.SAVE}}
+                        <mat-icon>{{helperService.appIcons.save}}</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
 </div>
