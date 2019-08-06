@@ -77,11 +77,11 @@
         </mat-slide-toggle>
         <mat-dialog-actions>
             <button mat-raised-button custom-btn btn-primary
-                    [disabled]="addSiteObj.loading|| !helperService.displayButton"
+                    [disabled]="addSiteObj.loading || addSiteObj.addSiteForm.invalid"
                     color="primary" *ngIf="addSiteObj.modalType">
                 {{ helperService.translated.BUTTONS.ADD_SITE }}
             </button>
-            <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading" color="primary"
+            <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading || addSiteObj.addSiteForm.invalid" color="primary"
                     *ngIf="!addSiteObj.modalType">
                 {{ helperService.translated.BUTTONS.SAVE }}
                 <div class="main-loader" *ngIf="addSiteObj.loading">
@@ -91,7 +91,7 @@
                 </div>
             </button>
             <!-- <img *ngIf="addSiteObj.loading" [src]=helperService.translated.MESSAGES.LOADING_URL> -->
-            <button mat-button [mat-dialog-close]="'NO'">{{ helperService.translated.BUTTONS.CANCEL }}
+            <button mat-button [mat-dialog-close]="'NO'" >{{ helperService.translated.BUTTONS.CANCEL }}
             </button>
         </mat-dialog-actions>
     </form>
