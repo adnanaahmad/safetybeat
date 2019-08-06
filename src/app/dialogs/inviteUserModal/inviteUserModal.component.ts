@@ -125,15 +125,18 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     }
     this.inviteUserModal.loading = true;
     this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
-      if (res) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.inviteUserModal.loading = false;
-        this.dialogRef.close();
+        this.dialogRef.close('YES');
         this.helperService.createSnack(this.helperService.translated.MESSAGES.INVITE_SUCCESS, this.helperService.constants.status.SUCCESS);
+      } else {
+        this.dialogRef.close('NO');
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (err) => {
       this.inviteUserModal.loading = false;
-      this.dialogRef.close();
-      this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR,);
+      this.dialogRef.close('NO');
+      this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR);
     });
   }
 
