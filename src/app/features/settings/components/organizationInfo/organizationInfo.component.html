@@ -1,7 +1,4 @@
-<button mat-mini-fab edit (click)="editOrgForm()">
-  <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
-</button>
-<br><br>
+  <mat-icon edit (click)="editOrgForm()">{{ helperService.appIcons.edit }}</mat-icon>
 <mat-divider></mat-divider><br><br>
 <form [formGroup]="orgObj.organizationForm" class="settings-list"
       (ngSubmit)="updateOrganization(orgObj.organizationForm)">

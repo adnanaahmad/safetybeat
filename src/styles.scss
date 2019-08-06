@@ -348,7 +348,7 @@ input:-internal-autofill-selected {
   height: $fullValue;
   .fake-uploader {
     background: transparent;
-    border: 2px dashed rgba(0, 0, 0, 0.3);
+    border: 2px dashed #ccc;
     width: $fullValue;
     padding: 10px;
     border-radius: 100px;
