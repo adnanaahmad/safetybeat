@@ -31,7 +31,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.makeReport(0, null, null);
+    this.makeReport(7, null, null);
   }
 
   get actionFormValidations() {
@@ -65,10 +65,10 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.analyticsService.filter().subscribe((res) => {
       if (res) {
         this.actionReportObj.filters = res;
-        this.actionReportObj.lifetimeObj = this.helperService.find(this.actionReportObj.filters, function (obj) {
-          return obj.name === 'Lifetime';
+        this.actionReportObj.lastWeekObj = this.helperService.find(this.actionReportObj.filters, function (obj) {
+          return obj.name === 'Last Week';
         });
-        this.actionFormValidations['filter'].setValue(this.actionReportObj.lifetimeObj.id);
+        this.actionFormValidations['filter'].setValue(this.actionReportObj.lastWeekObj.id);
       }
     });
   }
@@ -99,19 +99,30 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   generateCharSeries(reportData: any) {
-    let charSeries = [];
+    let dates = [];
+    let checkIns = [];
+    let checkOuts = [];
+    let pulse = [];
     this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
-      let checkIn = {
-        name: actionReport.date,
-        data: [actionReport.checkins, actionReport.checkouts, actionReport.pulse]
-      };
-      charSeries.push(checkIn);
-
+      checkIns.push(actionReport.checkins)
+      checkOuts.push(actionReport.checkouts)
+      pulse.push(actionReport.pulse)
+      dates.push(actionReport.date)
     });
+    let charSeries = [{
+      name: 'CheckIns',
+      data: checkIns
+    }, {
+      name: 'CheckOuts',
+      data: checkOuts
+    }, {
+      name: 'Pulse',
+      data: pulse
+    }];
     let data = {
       charSeries: charSeries,
-      categories: ['Check In', 'CheckOut', 'Pulse'],
-      title: 'No of Check In and Check out'
+      categories: dates,
+      title: 'No of Check In, Check out and Pulse'
     }
     return data;
   }

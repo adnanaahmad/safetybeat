@@ -8,32 +8,19 @@
           (ngSubmit)=averageActionSubmit(averageActionObj.averageActionForm) (keydown.enter)="$event.preventDefault()">
       <div class="form-group">
         <mat-form-field appearance="outline">
-          <mat-label>{{helperService.translated.STRINGS.RANGE}}</mat-label>
-          <mat-select [formControlName]="helperService.appConstants.range">
-            <!--            <mat-option *ngFor="let filter of siteActivityObj.filters" [value]="filter">-->
-            <!--              {{ filter }}-->
-            <!--            </mat-option>-->
-            <mat-option>
-              option1
-            </mat-option>
-            <mat-option>
-              option2
-            </mat-option>
-          </mat-select>
+          <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
+          <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>
+          <mat-error class="text-right" *ngIf="averageDailyActionsValidations.errors">
+            <span
+              *ngIf="averageDailyActionsValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>{{helperService.translated.SITETITLE.USERS_TITLE}}</mat-label>
-          <mat-select [formControlName]="helperService.appConstants.allUsers">
-            <mat-option *ngFor="let user of averageActionObj.allUserList" [value]="user.id">
-              {{ user.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>{{helperService.translated.STRINGS.ALLTEAMS}}</mat-label>
-          <mat-select [formControlName]="helperService.appConstants.allTeams">
-            <mat-option *ngFor="let team of averageActionObj.allTeams" [value]="team.team.id">
-              {{ team.team.title }}
+          <mat-select [formControlName]="helperService.appConstants.user">
+            <mat-option value="">None</mat-option>
+            <mat-option *ngFor="let user of averageActionObj.entityUsers" [value]="user.id">
+              {{user.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -48,6 +35,15 @@
                  placeholder="Date To" readonly>
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
+          <mat-select [formControlName]="helperService.appConstants.filter"
+                      (selectionChange)="enableDates($event.value)">
+            <mat-option *ngFor="let filter of averageActionObj.filters" [value]="filter.id">
+              {{ filter.name }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <button mat-raised-button custom-btn color="primary">
           {{helperService.translated.BUTTONS.GENERATE_REPORT}}

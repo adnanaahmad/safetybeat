@@ -60,5 +60,13 @@ export class AnalyticsReportService {
     );
   }
 
+  averageDailyActionsReport(data: any) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.averageDailyActionsReport,
+      data
+    );
+  }
+
 
 }

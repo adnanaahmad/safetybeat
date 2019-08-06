@@ -41,7 +41,7 @@ export class HazardReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.makeReport(0, null, null, null)
+    this.makeReport(7, null, null, null)
   }
 
   initialize() {
@@ -76,10 +76,10 @@ export class HazardReportComponent implements OnInit {
     this.analyticsService.filter().subscribe((res) => {
       if (res) {
         this.hazardObj.filters = res;
-        this.hazardObj.lifetimeObj = this.helperService.find(this.hazardObj.filters, function (obj) {
-          return obj.name === 'Lifetime';
+        this.hazardObj.lastWeekObj = this.helperService.find(this.hazardObj.filters, function (obj) {
+          return obj.name === 'Last Week';
         });
-        this.hazardFormValidations['filter'].setValue(this.hazardObj.lifetimeObj.id);
+        this.hazardFormValidations['filter'].setValue(this.hazardObj.lastWeekObj.id);
       }
     });
   }
@@ -145,16 +145,37 @@ export class HazardReportComponent implements OnInit {
 
   generateCharSeries(reportData: any) {
     let charSeries = [];
+    let dates = [];
+    let minor = [];
+    let moderate = [];
+    let major = [];
+    let extreme = [];
     this.helperService.iterations(reportData, function (hazardReport: HazardReportData) {
-      let pulse = {
-        name: hazardReport.date,
-        data: [hazardReport.minor, hazardReport.moderate, hazardReport.major, hazardReport.extreme]
-      };
-      charSeries.push(pulse);
+      dates.push(hazardReport.date);
+      minor.push(hazardReport.minor);
+      moderate.push(hazardReport.moderate);
+      major.push(hazardReport.major);
+      extreme.push(hazardReport.extreme);
+    });
+    charSeries.push( {
+      name: 'Minor',
+      data: minor
+    });
+    charSeries.push( {
+      name: 'Moderate',
+      data: moderate
+    });
+    charSeries.push( {
+      name: 'Major',
+      data: major
+    });
+    charSeries.push( {
+      name: 'Extreme',
+      data: extreme
     });
     let data = {
       charSeries: charSeries,
-      categories: ['Minor', 'Moderate', 'Major', 'Extreme'],
+      categories: dates,
       title: 'No of Hazard with Severity'
     }
     return data;

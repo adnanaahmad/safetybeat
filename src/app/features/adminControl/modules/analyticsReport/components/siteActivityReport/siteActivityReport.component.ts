@@ -43,7 +43,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.makeReport(0, null, null, null)
+    this.makeReport(7, null, null, null)
   }
 
   initialize() {
@@ -157,16 +157,25 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   generateSiteDetailReport(reportData: any) {
     let charSeries = [];
+    let dates = [];
+    let checkIns = [];
+    let checkOuts = [];
     this.helperService.iterations(reportData, function (siteReport: SiteDetailsReport) {
-      let pulse = {
-        name: siteReport.date,
-        data: [siteReport.siteCheckIns, siteReport.siteCheckOuts]
-      };
-      charSeries.push(pulse);
+      dates.push(siteReport.date);
+      checkIns.push(siteReport.siteCheckIns);
+      checkOuts.push(siteReport.siteCheckOuts);
+    });
+    charSeries.push( {
+      name: 'CheckIns',
+      data: checkIns
+    });
+    charSeries.push( {
+      name: 'CheckOuts',
+      data: checkOuts
     });
     let data = {
       charSeries: charSeries,
-      categories: ['CheckIns', 'CheckOuts'],
+      categories: dates,
       title: 'No of CheckIns and CheckOuts'
     }
     return data;
@@ -193,10 +202,10 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.analyticsService.filter().subscribe((res) => {
       if (res) {
         this.siteReportObj.filters = res;
-        this.siteReportObj.lifetimeObj = this.helperService.find(this.siteReportObj.filters, function (obj) {
-          return obj.name === 'Lifetime';
+        this.siteReportObj.lastWeekObj = this.helperService.find(this.siteReportObj.filters, function (obj) {
+          return obj.name === 'Last Week';
         });
-        this.siteFormValidations['filter'].setValue(this.siteReportObj.lifetimeObj.id);
+        this.siteFormValidations['filter'].setValue(this.siteReportObj.lastWeekObj.id);
       }
     });
   }
