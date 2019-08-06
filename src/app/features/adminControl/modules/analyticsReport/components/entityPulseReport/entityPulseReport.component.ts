@@ -32,7 +32,7 @@ export class EntityPulseReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.makeReport(0, null, null, null);
+    this.makeReport(7, null, null, null);
 
   }
 
@@ -68,10 +68,10 @@ export class EntityPulseReportComponent implements OnInit {
     this.analyticsService.filter().subscribe((res) => {
       if (res) {
         this.pulseEntityObj.filters = res;
-        this.pulseEntityObj.lifetimeObj = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
-          return obj.name === 'Lifetime';
+        this.pulseEntityObj.lastWeekObj = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
+          return obj.name === 'Last Week';
         });
-        this.pulseEntityFormValidations['filter'].setValue(this.pulseEntityObj.lifetimeObj.id);
+        this.pulseEntityFormValidations['filter'].setValue(this.pulseEntityObj.lastWeekObj.id);
       }
     });
   }
@@ -131,14 +131,40 @@ export class EntityPulseReportComponent implements OnInit {
   }
 
   generateCharSeries(reportData: any, meeting, visiting, travelling, other, onBreak) {
+    let dates = [];
+    let meetings = [];
+    let visitings = [];
+    let travellings = [];
+    let others = [];
+    let onBreaks = [];
     let charSeries = [];
     this.helperService.iterations(reportData, function (pulseReport: PulseByEntityReportData) {
-      let pulse = {
-        name: pulseReport.date,
-        data: [pulseReport.meeting, pulseReport.visiting, pulseReport.travelling, pulseReport.onBreak, pulseReport.other]
-      };
-      charSeries.push(pulse);
-
+      dates.push(pulseReport.date);
+      meetings.push(pulseReport.meeting);
+      visitings.push(pulseReport.visiting);
+      travellings.push(pulseReport.travelling);
+      others.push(pulseReport.other);
+      onBreaks.push(pulseReport.onBreak);
+    });
+    charSeries.push({
+      name: 'In a Meeting',
+      data: meetings
+    });
+    charSeries.push({
+      name: 'Visiting',
+      data: visitings
+    });
+    charSeries.push({
+      name: 'Travelling',
+      data: travellings
+    });
+    charSeries.push({
+      name: 'On a Meal Break',
+      data: onBreaks
+    });
+    charSeries.push({
+      name: 'Others',
+      data: others
     });
     charSeries.push({
       type: 'pie',
@@ -152,7 +178,7 @@ export class EntityPulseReportComponent implements OnInit {
         y: visiting,
         color: Highcharts.getOptions().colors[1]
       }, {
-        name: 'travelling',
+        name: 'Travelling',
         y: travelling,
         color: Highcharts.getOptions().colors[2]
       }, {
@@ -160,11 +186,11 @@ export class EntityPulseReportComponent implements OnInit {
         y: onBreak,
         color: Highcharts.getOptions().colors[3]
       }, {
-        name: 'other',
+        name: 'Others',
         y: other,
         color: Highcharts.getOptions().colors[4]
       }],
-      center: [50, 10],
+      center: [50, -10],
       size: 100,
       showInLegend: false,
       dataLabels: {
@@ -173,7 +199,7 @@ export class EntityPulseReportComponent implements OnInit {
     })
     let data = {
       charSeries: charSeries,
-      categories: ['In a Meeting', 'Visiting', 'Travelling', 'On a meal break', 'Other'],
+      categories: dates,
       title: 'No of Pulse with Type'
     }
     return data;
