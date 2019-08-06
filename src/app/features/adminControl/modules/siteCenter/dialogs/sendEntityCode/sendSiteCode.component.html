@@ -3,6 +3,8 @@
     <div class="spinner-wrap" *ngIf="sendSiteCode.loading">
         <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
     </div>
+    <div class="entity-code mat-body-strong">Site Code: {{ data.inviteSiteCodeData.siteCodeData }} </div>
+    <br>
     <mat-form-field appearance="outline" class="example-chip-list" fullWidth>
         <mat-label>{{helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER}}</mat-label>
         <mat-chip-list #chipList>
@@ -24,7 +26,7 @@
 
     <mat-dialog-actions>
         <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
-                [disabled]="sendSiteCode.loading" (click)='sendUsersSiteCodes()'>
+                [disabled]="sendSiteCode.loading || !sendSiteCode.users.length" (click)='sendUsersSiteCodes()'>
             {{ helperService.translated.BUTTONS.INVITETEAM }}
         </button>
 

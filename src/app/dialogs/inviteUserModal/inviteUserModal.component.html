@@ -81,7 +81,7 @@
     </div>
 
     <mat-dialog-actions>
-      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
+      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary [mat-dialog-close]="'YES'"
         [disabled]="inviteUserModal.loading || !inviteUserModal.inviteUserForm.valid" color="primary">{{helperService.translated.BUTTONS.INVITE}}
         <div class="main-loader" *ngIf="inviteUserModal.loading">
           <span class="loader1"></span>

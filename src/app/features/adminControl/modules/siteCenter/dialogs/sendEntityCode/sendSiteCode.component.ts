@@ -28,6 +28,7 @@ export class SendSiteCodeComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: SendSiteCodeData,
   ) {
     this.initialize();
+    console.log("AAAAA",data);
     this.sendSiteCode.allUsers = this.data.inviteSiteCodeData.usersData
       ? this.data.inviteSiteCodeData.usersData.map(x => Object.assign({}, x))
       : [];

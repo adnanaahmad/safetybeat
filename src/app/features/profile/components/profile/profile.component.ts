@@ -152,7 +152,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.profileModel.dataSource.paginator = this.paginator;
+    if(this.profileModel && this.profileModel.dataSource) {
+      this.profileModel.dataSource.paginator = this.paginator;
+    }
+    
   }
 
 
