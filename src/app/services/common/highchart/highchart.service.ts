@@ -2,6 +2,10 @@ import {Injectable} from '@angular/core';
 import * as Highcharts from 'highcharts';
 import {HighChartType} from 'src/app/models/analyticsReport/reports.model';
 import {HelperService} from '../helperService/helper.service';
+import exporting from 'highcharts/modules/exporting';
+import * as HighchartsExportData from 'highcharts/modules/export-data';
+
+exporting(Highcharts);
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +13,7 @@ import {HelperService} from '../helperService/helper.service';
 export class HighchartService {
 
   constructor(public helperService: HelperService) {
+
   }
 
   reportSettings(chartType: HighChartType, data: any, reportData?: any) {
@@ -62,13 +67,18 @@ export class HighchartService {
           borderWidth: 0
         }
       },
+      series: charSeries.charSeries,
       exporting: {
-        showTable: true
+        buttons: {
+          contextButton: {
+            menuItems: ['downloadJPEG', 'downloadPDF', 'downloadPNG', 'downloadSVG']
+          }
+        }
       },
       credits: {
         enabled: false
       },
-      series: charSeries.charSeries
+
     };
     return highChartReport;
   }
