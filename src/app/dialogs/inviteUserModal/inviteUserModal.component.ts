@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
-import {InviteUser, inviteUserData} from 'src/app/models/adminControl/inviteUser.model';
+import {InviteUser, inviteUserData, InviteUserModelData} from 'src/app/models/adminControl/inviteUser.model';
 import {Validators, FormBuilder} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -30,10 +30,9 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     public adminServices: AdminControlService,
     private navService: NavigationService,
     public memberService: MemberCenterService,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data: InviteUserModelData
   ) {
     this.inviteUserModal.roleList = Object.assign([], this.data.role);
-    this.inviteUserModal.entityID = this.data.entityId;
     this.inviteUserModal.selectedRole = this.inviteUserModal.roleList[0];
     this.changeSelection(this.inviteUserModal.selectedRole);
   }
@@ -86,12 +85,11 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     if (this.inviteUserModal.email.status === this.helperService.appConstants.emailValid) {
       const email = {email: group.value.email};
       this.navigationService.checkEmail(email).pipe().subscribe((res) => {
-        this.inviteUserModal.success = res;
-        if (this.inviteUserModal.success.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           group.controls.email.setErrors({exists: true});
         }
-      }, err => {
-        this.helperService.logoutError(err.status);
+      }, (err) => {
+        this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR);
       });
     }
   }
@@ -108,12 +106,13 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     this.inviteUserModal.InviteUserData = {
       first_name: value.first_name,
       last_name: value.last_name,
+      username: value.first_name + value.last_name,
       email: value.email,
       invitation: true,
       roleId: value.role.id,
       contactNo: '545535456',
       moduleName: 'Safetybeat',
-      entityId: this.inviteUserModal.entityID,
+      entityId: this.data.entityId,
       siteId: value.sites,
       teamId: value.team
     };
@@ -124,7 +123,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       return;
     }
     this.inviteUserModal.loading = true;
-    this.navigationService.inviteUser(this.inviteUserModal.InviteUserData).subscribe((res) => {
+    this.navigationService.userInvitation(this.inviteUserModal.InviteUserData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.inviteUserModal.loading = false;
         this.dialogRef.close('YES');

@@ -1,5 +1,13 @@
+<div class="pagehead">
+    <button class="go-back" (click)="goBack()" mat-button type="button">
+        <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+        {{helperService.translated.BUTTONS.BACK}}
+      </button>
+</div>
+
 <mat-toolbar class="pagehead">
   <mat-icon class="siteicon" color="primary">language</mat-icon>
+  
   <div class="user-info" *ngIf="viewSiteObj.siteInfo">
     <h3>
       <strong>{{viewSiteObj.siteInfo.name}}</strong>

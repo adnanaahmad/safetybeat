@@ -411,7 +411,7 @@ export class HelperService {
    * param key
    */
   encrypt(data: string, key: string): string {
-    return CryptoJS.AES.encrypt(data, key).toString();
+    return CryptoJS.DES.encrypt(data, key).toString();
   }
 
   /**
@@ -421,7 +421,8 @@ export class HelperService {
    */
 
   decrypt(data: string, key: string): string {
-    return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
+    return CryptoJS.DES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
+    
   }
 
   /**

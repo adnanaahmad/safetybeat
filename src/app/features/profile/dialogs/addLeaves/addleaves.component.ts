@@ -14,6 +14,7 @@ import {AddLeaveData} from 'src/app/models/profile.model';
 })
 export class AddleavesComponent implements OnInit {
   leavesModel: ProfileModel = <ProfileModel>{};
+
   constructor(
     public helperService: HelperService,
     private profileService: ProfileService,
@@ -23,8 +24,8 @@ export class AddleavesComponent implements OnInit {
     public dialogRef: MatDialogRef<AddleavesComponent>
   ) {
     this.leavesModel.loading = false;
-    this.leavesModel.leaveTypes = this.data;
-    this.leavesModel.selectedLeave = this.leavesModel.leaveTypes[0].id;
+    this.leavesModel.leaveTypes = Object.assign([], this.data);
+    this.leavesModel.selectedLeave = this.leavesModel.leaveTypes[0];
     this.leavesModel.startAt = new Date();
   }
 
@@ -36,7 +37,6 @@ export class AddleavesComponent implements OnInit {
       dateFrom: ['', Validators.required],
       dateTo: ['', Validators.required]
     });
-
     this.leavesModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.leavesModel.entity = res.entityInfo;
@@ -44,8 +44,7 @@ export class AddleavesComponent implements OnInit {
         this.addLeaveFormValidations['entity'].disable();
       }
     });
-    this.leaveTypesSelection(this.leavesModel.selectedLeave);
-
+    this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
   }
 
   /**
@@ -90,10 +89,6 @@ export class AddleavesComponent implements OnInit {
       this.onNoClick();
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
-  }
-
-  leaveTypesSelection(selectedLeave: number) {
-    this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
   }
 
 }

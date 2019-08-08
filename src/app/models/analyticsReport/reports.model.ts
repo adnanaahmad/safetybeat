@@ -6,6 +6,7 @@ import {Site} from '../site.model';
 
 
 export interface Report {
+  averageActionForm: FormGroup;
   resolvedHazards: number;
   unResolvedHazards: number;
   siteReportDetails: Array<SiteDetailsReport>;
@@ -15,7 +16,7 @@ export interface Report {
   loading: boolean;
   days: FilterModel;
   dateEnableObj: FilterModel;
-  lifetimeObj: FilterModel;
+  lastWeekObj: FilterModel;
   entityId: number;
   entityName: string;
   subscription: Subscription;

@@ -54,3 +54,8 @@ export interface InviteTeamData {
   email: Array<string>;
   entityCode: string;
 }
+
+export interface InviteUserModelData {
+  entityId: number;
+  role: Array<Role>
+}

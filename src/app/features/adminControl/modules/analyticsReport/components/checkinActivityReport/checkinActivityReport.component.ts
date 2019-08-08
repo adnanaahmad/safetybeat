@@ -31,7 +31,7 @@ export class CheckInActivityReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.makeReport(0, null, null, null)
+    this.makeReport(7, null, null, null)
   }
 
   initialize() {
@@ -62,10 +62,10 @@ export class CheckInActivityReportComponent implements OnInit {
     this.analyticsService.filter().subscribe((res) => {
       if (res) {
         this.checkInActivityObj.filters = res;
-        this.checkInActivityObj.lifetimeObj = this.helperService.find(this.checkInActivityObj.filters, function (obj) {
-          return obj.name === 'Lifetime';
+        this.checkInActivityObj.lastWeekObj = this.helperService.find(this.checkInActivityObj.filters, function (obj) {
+          return obj.name === 'Last Week';
         });
-        this.checkInActivityFormValidations['filter'].setValue(this.checkInActivityObj.lifetimeObj.id);
+        this.checkInActivityFormValidations['filter'].setValue(this.checkInActivityObj.lastWeekObj.id);
       }
     });
   }
@@ -129,15 +129,24 @@ export class CheckInActivityReportComponent implements OnInit {
   }
 
   generateCharSeries(reportData: any, maintenancePercentage, installationPercentage) {
+    let dates = [];
+    let maintenance = [];
+    let installation = [];
     let charSeries = [];
     this.helperService.iterations(reportData, function (checkInByActivityReport: CheckInByActivityData) {
-      let checkIn = {
-        type: 'column',
-        name: checkInByActivityReport.date,
-        data: [checkInByActivityReport.maintenance, checkInByActivityReport.installation]
-      };
-      charSeries.push(checkIn);
-
+      dates.push(checkInByActivityReport.date)
+      maintenance.push(checkInByActivityReport.maintenance)
+      installation.push(checkInByActivityReport.installation)
+    });
+    charSeries.push({
+      type: 'column',
+      name: 'Maintenance',
+      data: maintenance
+    });
+    charSeries.push({
+      type: 'column',
+      name: 'Installation',
+      data: installation
     });
     charSeries.push({
       type: 'pie',
@@ -151,17 +160,17 @@ export class CheckInActivityReportComponent implements OnInit {
         y: installationPercentage,
         color: Highcharts.getOptions().colors[1]
       }],
-      center: [50, 10],
+      center: [50, -10],
       size: 100,
       showInLegend: false,
       dataLabels: {
         enabled: false
       }
-    })
+    });
     let data = {
       charSeries: charSeries,
-      categories: ['Maintenance', 'Installation'],
-      title: 'No of Check In By Activity(Maintenance/Installation)'
+      categories: dates,
+      title: 'No of Check In By Activity ( Maintenance / Installation )'
     }
     return data;
   }

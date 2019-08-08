@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Router, NavigationEnd, Event} from '@angular/router';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {Permissions} from 'src/app/models/adminControl/permissions.model';
 import {EntityUserData} from 'src/app/models/userEntityData.model';
-import {User} from 'src/app/models/user.model';
+import {ForgotPasswordResponse, User} from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +64,7 @@ export class NavigationService {
    * @params email
    */
 
-  checkEmail(email: object) {
+  checkEmail(email: object): Observable<ForgotPasswordResponse> {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.checkEmail, email);
   }
@@ -82,7 +82,7 @@ export class NavigationService {
    * @params data
    */
 
-  inviteUser(data) {
+  userInvitation(data) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.getInvite, data);
   }

@@ -77,6 +77,7 @@ export class ConstantService {
     hazardReport: `${environment.apiUrl}/api/analyticsReport/hazardReport/`,
     siteActivityReport: `${environment.apiUrl}/api/analyticsReport/siteActivityReport/`,
     recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`,
+    averageDailyActionsReport: `${environment.apiUrl}/api/analyticsReport/averageDailyActionsReport/`,
     deleteDoc: `${environment.apiUrl}/api/documents/`,
     team: `${environment.apiUrl}/api/teams/`,
     viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,

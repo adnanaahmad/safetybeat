@@ -4,8 +4,7 @@
   </div>
   <p style="margin-top:0;">{{helperService.translated.MESSAGES.AVERAGE_ACTIONS_MSG}}</p>
   <mat-card>
-    <form [formGroup]="alertPersonObj.alertPersonReportForm" (ngSubmit)=formSubmit(alertPersonObj.alertPersonReportForm)
-      (keydown.enter)="$event.preventDefault()">
+    <form >
 
       <div class="form-group">
         <mat-form-field appearance="outline">
@@ -19,22 +18,6 @@
             </mat-option>
             <mat-option>
               option2
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>{{helperService.translated.SITETITLE.USERS_TITLE}}</mat-label>
-          <mat-select [formControlName]="helperService.appConstants.allUsers">
-            <mat-option *ngFor="let user of alertPersonObj.allUserList" [value]="user.id">
-              {{ user.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>{{helperService.translated.STRINGS.ALLTEAMS}}</mat-label>
-          <mat-select [formControlName]="helperService.appConstants.allTeams">
-            <mat-option *ngFor="let team of alertPersonObj.allTeams" [value]="team.team.id">
-              {{ team.team.title }}
             </mat-option>
           </mat-select>
         </mat-form-field>
