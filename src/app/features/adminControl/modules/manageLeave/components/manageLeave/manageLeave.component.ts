@@ -4,6 +4,7 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ManageleaveService} from 'src/app/features/adminControl/modules/manageLeave/services/manageleave.service';
 import {ManageLeave} from 'src/app/models/manageLeave.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
+import {ProfileService} from '../../../../../profile/services/profile.service';
 
 @Component({
   selector: 'app-manageLeave',
@@ -18,7 +19,9 @@ export class ManageLeaveComponent implements OnInit {
     public helperService: HelperService,
     private leaveServiceL: ManageleaveService,
     private compiler: CompilerProvider,
+    private profileService: ProfileService
   ) {
+    this.getLeaveTypes();
     this.viewAllUserLeaves();
   }
 
@@ -26,6 +29,20 @@ export class ManageLeaveComponent implements OnInit {
     this.leaveModel.displayedColumns = ['userName', 'leaveType', 'dateFrom', 'dateTo', 'reason', 'status', 'symbol'];
 
   }
+
+  /**
+   * this function is used to get all the leave types
+   */
+  getLeaveTypes() {
+    this.profileService.getLeaveTypes().subscribe((res) => {
+      if (res) {
+        this.leaveModel.leaveTypes = res;
+      }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+    });
+  }
+
 
   /**
    * this function is used to get all the leaves of any particular entity and then goes to the compiler

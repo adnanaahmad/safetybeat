@@ -9,7 +9,7 @@ import {Leaveinfodata} from 'src/app/models/profile.model';
   styleUrls: ['./leaveinfo.component.scss']
 })
 export class LeaveinfoComponent implements OnInit {
-  private userLeavesData: Array<Leaveinfodata>;
+  userLeavesData: Array<Leaveinfodata>;
 
   constructor(
     public helperService: HelperService,

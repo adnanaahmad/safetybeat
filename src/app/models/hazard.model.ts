@@ -102,5 +102,6 @@ export interface HazardList {
   risk: RiskType;
   site: Site;
   title: string;
+  createdTime: Date;
 }
 

@@ -88,8 +88,6 @@ export class MyTeamComponent implements OnInit {
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
         this.myTeam.dataSource.paginator = this.paginator;
         this.myTeam.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.myTeam.dataSource = null;
         this.myTeam.loading = false;
