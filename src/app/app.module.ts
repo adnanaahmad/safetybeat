@@ -143,7 +143,7 @@ export function createTranslateLoader(http: HttpClient) {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
         duration: 2000,
       }
-    }
+    },
   ],
 
   bootstrap: [AppComponent],
