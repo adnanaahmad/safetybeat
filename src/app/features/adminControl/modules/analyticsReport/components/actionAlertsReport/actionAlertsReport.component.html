@@ -1,28 +1,28 @@
 <div class="paddingbox">
-  <div class="page-title">
-    <h3>{{helperService.translated.SITETITLE.ACTIONS_VS_ALERTS}}</h3>
-  </div>
-  <p style="margin-top:0;">{{helperService.translated.MESSAGES.ACTION_ALERT_MSG}}</p>
-  <mat-card>
-    <form >
-      <div class="form-group">
-        <mat-form-field appearance="outline">
-          <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
-                 placeholder="Date From" readonly>
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-                 placeholder="Date To" readonly>
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-        </mat-form-field>
-        <button mat-raised-button custom-btn color="primary">
-          {{helperService.translated.BUTTONS.GENERATE_REPORT}}
-        </button>
-      </div>
-    </form>
-    <div id="container"></div>
-  </mat-card>
+    <div class="page-title">
+        <h3>{{helperService.translated.SITETITLE.ACTIONS_VS_ALERTS}}</h3>
+    </div>
+    <p style="margin-top:0;">{{helperService.translated.MESSAGES.ACTION_ALERT_MSG}}</p>
+    <mat-card>
+        <form>
+            <div class="form-group inline">
+                <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+                           placeholder="Date From" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+                           placeholder="Date To" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                <button mat-raised-button custom-btn color="primary">
+                    {{helperService.translated.BUTTONS.GENERATE_REPORT}}
+                </button>
+            </div>
+        </form>
+        <div id="container"></div>
+    </mat-card>
 </div>
