@@ -1,6 +1,7 @@
 import {Subscription} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {PermissionsModel} from '../adminControl/permissions.model';
+import {responseDetails} from '../user.model';
 
 export interface Documents {
   permissions: PermissionsModel;
@@ -56,5 +57,15 @@ export interface Folder {
   id: number,
   name: string,
   entity: number
+}
+
+export interface FolderApiResponse {
+  data: Array<Folder>;
+  responseDetails: responseDetails;
+}
+
+export interface RootDocumentsApiResponse {
+  data: Array<DocumentObj>;
+  responseDetails: responseDetails;
 }
 

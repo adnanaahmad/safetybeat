@@ -5,6 +5,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {Permissions} from 'src/app/models/adminControl/permissions.model';
 import {EntityUserData} from 'src/app/models/userEntityData.model';
 import {ForgotPasswordResponse, User} from 'src/app/models/user.model';
+import {FolderApiResponse, RootDocumentsApiResponse} from 'src/app/models/navigation/documents.model';
 
 @Injectable({
   providedIn: 'root'
@@ -168,7 +169,7 @@ export class NavigationService {
     );
   }
 
-  getRootDocuments(data: object) {
+  getRootDocuments(data: object): Observable<RootDocumentsApiResponse> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.getRootDocuments, data
@@ -191,7 +192,7 @@ export class NavigationService {
     );
   }
 
-  allFolders(data) {
+  allFolders(data): Observable<FolderApiResponse> {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.getFolders,
       data);
