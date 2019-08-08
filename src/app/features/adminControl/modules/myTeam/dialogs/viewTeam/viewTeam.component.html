@@ -3,7 +3,6 @@
   <mat-list role="list">
     <mat-list-item role="listitem" *ngFor="let member of team.users">
       <div class="member-thumbnail">
-        <!-- <img src="{{ member.profileImage != null ? member.profileImage : helperService.appConstants.avatar}}"> -->
         <img src="{{ member | profileImage}}">
       </div>
       <div class="list-content">

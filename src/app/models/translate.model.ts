@@ -107,6 +107,7 @@ export interface Strings {
   PRECAUTIONARY_NOTE: string;
   PERSON_FOR_ACTION: string;
   REVIEW: string;
+  RENAME_FILE: string;
 }
 
 export interface Auth {

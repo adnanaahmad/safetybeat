@@ -9,7 +9,7 @@ import {TeamList} from 'src/app/models/adminControl/myTeam.model';
   styleUrls: ['./viewTeam.component.scss']
 })
 export class ViewTeamComponent implements OnInit {
-  team: TeamList[];
+  team: TeamList;
 
   constructor(public helperService: HelperService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
