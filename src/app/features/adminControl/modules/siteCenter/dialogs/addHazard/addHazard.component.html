@@ -21,8 +21,7 @@
         <mat-step [stepControl]="hazardObj.addHazardFormFirst">
             <form [formGroup]="hazardObj.addHazardFormFirst">
                 <ng-template matStepLabel>{{helperService.translated.STRINGS.HAZARD}}</ng-template>
-                <div class="tabcontent">
-                    <mat-checkbox formControlName="responsible">{{hazardObj.msg}}</mat-checkbox>
+                <div class="tabcontent text-center">
                     <!-- Upload Picture -->
                     <div class="mat-elevation-z6 change-picture">
                         <span>{{ helperService.translated.STRINGS.CHANGEPICTURE }}</span>
@@ -73,6 +72,7 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
+                    <mat-checkbox formControlName="responsible">{{hazardObj.msg}}</mat-checkbox>
                 </div>
                 <div class="nav-btn">
                     <button mat-button matStepperNext [disabled]="hazardObj.addHazardFormFirst.invalid"
