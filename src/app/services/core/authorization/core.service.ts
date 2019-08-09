@@ -17,7 +17,7 @@ export class CoreService {
   constructor(
     public helperService: HelperService,
     private translate: TranslateService,
-    private cookies: CookieService
+    private cookies: CookieService,
   ) {
     this.translate.get(['AUTH', 'BUTTONS', 'MESSAGES', 'STATUS']).subscribe((values) => {
       this.translated = values;
