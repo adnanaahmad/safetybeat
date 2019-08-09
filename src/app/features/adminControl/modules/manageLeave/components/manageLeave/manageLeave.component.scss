@@ -6,7 +6,6 @@
       top: 11px;
       position: relative;
       width: 160px;
-
       .input-wrap {
         display: flex;
         border: 1px solid #ddd;
@@ -21,11 +20,21 @@
         }
       }
     }
+    .input-slim {
+      .mat-form-field-wrapper {
+        margin: 0;
+        padding: 0;
+      }
+      .mat-form-field-infix {
+        border-top-width: 6px;
+        padding-top: 10px;
+      }
+      .mat-select-arrow-wrapper {
+        transform: none;
+      }
+    }
     .form-group {
       margin-bottom: 20px;
-      mat-form-field {
-        margin: 0 10px 0 0;
-      }
     }
   }
 }

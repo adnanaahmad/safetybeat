@@ -3,9 +3,6 @@
   app-hazardReport {
     position: relative;
     height: 100%;
-    .mat-form-field {
-      margin: 0 10px 0 0;
-    }
     .report-counts {
       display: flex;
       justify-content: space-between;
@@ -20,7 +17,7 @@
           background: #ee4c17;
         }
         &.resolved {
-          background: mat-color($primary, 500);
+          background: #3cb371;
         }
         &.extreme {
           background: #ee4c17;
@@ -34,7 +31,7 @@
         &.minor {
           background: #fbae1e;
         }
-        &.total{
+        &.total {
           background: mat-color($primary, 500);
         }
         h2 {
