@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
         translate.use(translate.getBrowserLang());
       }
     } else {
-      translate.use('en'); // Set your language here
+      translate.use('en');
     }
   }
 }

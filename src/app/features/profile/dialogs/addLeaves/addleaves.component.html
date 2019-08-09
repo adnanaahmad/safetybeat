@@ -1,73 +1,75 @@
 <mat-card-title>{{helperService.translated.SITETITLE.ADDLEAVES}}</mat-card-title>
 <div mat-dialog-content>
-    <div class="spinner-wrap" *ngIf="leavesModel.loading">
-        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
-    </div>
-    <form [formGroup]="leavesModel.leaveForm"
-          (ngSubmit)=addLeavesSubmit(leavesModel.leaveForm)>
-        <div class="field-inline">
-            <mat-form-field appearance="outline">
-                <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
-                <input matInput type="text" [formControlName]="helperService.appConstants.entity">
-                <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
-                    <span *ngIf="addLeaveFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
-                <mat-select [(value)]="leavesModel.selectedLeave.id"
-                            [formControlName]="helperService.appConstants.leaveType"
-                            (selectionChange)="leaveTypesSelection(leavesModel.selectedLeave)">
-                    <mat-option *ngFor="let leaves of leavesModel.leaveTypes" [value]="leaves.id">
-                        {{ leaves.name }}
-                    </mat-option>
-                </mat-select>
-                <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
-                    <span *ngIf="addLeaveFormValidations.leaveTypes.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker1"
-                       [formControlName]="helperService.appConstants.dateFrom" [min]="leavesModel.startAt"
-                       placeholder="Date From" readonly>
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker [startAt]="leavesModel.startAt" #picker1></mat-datepicker>
-                <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
-            <span *ngIf="addLeaveFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-                       [min]="leavesModel.startAt"
-                       placeholder="Date To" readonly>
-                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                <mat-datepicker #picker2 [startAt]="leavesModel.startAt"></mat-datepicker>
-                <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
+  <div class="spinner-wrap" *ngIf="leavesModel.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
+  <form [formGroup]="leavesModel.leaveForm"
+        (ngSubmit)=addLeavesSubmit(leavesModel.leaveForm)>
+    <div class="field-inline">
+      <mat-form-field appearance="outline">
+        <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
+        <input matInput type="text" [formControlName]="helperService.appConstants.entity">
+        <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
+          <span
+            *ngIf="addLeaveFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{leavesModel.selectedLeave.name}}</mat-label>
+        <mat-select [(value)]="leavesModel.selectedLeave.id"
+                    [formControlName]="helperService.appConstants.leaveType">
+          <mat-option *ngFor="let leaves of leavesModel.leaveTypes" [value]="leaves.id">
+            {{ leaves.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
+          <span
+            *ngIf="addLeaveFormValidations.leaveTypes.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker1"
+               [formControlName]="helperService.appConstants.dateFrom" [min]="leavesModel.startAt"
+               placeholder="Date From" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker [startAt]="leavesModel.startAt" #picker1></mat-datepicker>
+        <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
+          <span
+            *ngIf="addLeaveFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+               [min]="leavesModel.startAt"
+               placeholder="Date To" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 [startAt]="leavesModel.startAt"></mat-datepicker>
+        <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
             <span
-                    *ngIf="addLeaveFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" fullWidth>
-                <mat-label>{{helperService.translated.STRINGS.QUESTION_WARNING}}</mat-label>
-                <textarea matTooltip="Warning messages to users if they answer the question incorrectly"
-                          matTooltipPosition="below" maxlength="500" rows="6" cols="6" matInput
-                          [formControlName]="helperService.appIcons.description">
+              *ngIf="addLeaveFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.STRINGS.QUESTION_WARNING}}</mat-label>
+        <textarea matTooltip="Warning messages to users if they answer the question incorrectly"
+                  matTooltipPosition="below" maxlength="500" rows="6" cols="6" matInput
+                  [formControlName]="helperService.appIcons.description">
           </textarea>
-            </mat-form-field>
-            <mat-dialog-actions>
-                <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn color="primary"
-                        [disabled]="!leavesModel.leaveForm.valid || leavesModel.loading">
-                    Add Leave
-                    <div class="main-loader" *ngIf="leavesModel.loading">
-                        <span class="loader1"></span>
-                        <span class="loader2"></span>
-                        <span class="loader3"></span>
-                    </div>
-                </button>
-                <button mat-button mat-dialog-close type="button" [mat-dialog-close]="'NO'">
-                    {{ helperService.translated.BUTTONS.CANCEL }}
-                </button>
-            </mat-dialog-actions>
-        </div>
-    </form>
+      </mat-form-field>
+      <mat-dialog-actions>
+        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn color="primary"
+                [disabled]="!leavesModel.leaveForm.valid || leavesModel.loading">
+          Add Leave
+          <div class="main-loader" *ngIf="leavesModel.loading">
+            <span class="loader1"></span>
+            <span class="loader2"></span>
+            <span class="loader3"></span>
+          </div>
+        </button>
+        <button mat-button mat-dialog-close type="button" [mat-dialog-close]="'NO'">
+          {{ helperService.translated.BUTTONS.CANCEL }}
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </form>
 </div>

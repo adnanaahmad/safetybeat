@@ -16,8 +16,6 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   documentsData: Documents = <Documents>{};
-  noDocs: String = '';
-
 
 
   constructor(
@@ -33,6 +31,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.documentsData.documentExist = false;
     this.documentsData.folderExist = false;
     this.documentsData.panelOpenState = false;
+    this.documentsData.folderList = [];
+    this.documentsData.rootDocs = [];
   }
 
   ngOnInit() {
@@ -60,19 +60,16 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    */
   getAllFolders(entityID: number) {
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        if (res.data.length === 0) {
-          this.documentsData.folderList = [];
-        } else {
-          this.documentsData.folderList = res.data;
-        }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.documentsData.folderList = [];
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.documentsData.folderList = res.data.length === 0 ? [] : res.data;
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       } else {
-        this.documentsData.folderList = [];
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_FOLDER_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+    }, (error) => {
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -81,20 +78,17 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * @params entityId
    */
   getRootDocuments(entityId: number) {
-    // this.documentsData.rootDocs = [];
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.documentsData.rootDocs = [];
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       } else {
-        this.documentsData.rootDocs = [];
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-      this.documentsData.rootDocs = [];
       this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
         this.helperService.constants.status.ERROR);
     });
@@ -122,14 +116,18 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * Create new folder
    */
   createFolder() {
-    this.helperService.createDialog(CreateFolderComponent, {disableClose: true, data: {type: true, id: this.documentsData.entityID,
-      folderList: this.documentsData.folderList}});
+    this.helperService.createDialog(CreateFolderComponent, {
+      disableClose: true, data: {
+        type: true, id: this.documentsData.entityID,
+        folderList: this.documentsData.folderList
+      }
+    });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res !== 'cancel') {
         this.getAllFolders(this.documentsData.entityID);
       }
     });
-}
+  }
 
   /**
    * Refresh Folders data after renaming or removing

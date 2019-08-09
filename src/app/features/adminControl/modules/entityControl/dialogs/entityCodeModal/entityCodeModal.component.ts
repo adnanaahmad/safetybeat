@@ -11,7 +11,7 @@ import {EntityCodeModel} from 'src/app/models/code.model';
   styleUrls: ['./entityCodeModal.component.scss']
 })
 export class EntityCodeModalComponent implements OnInit, OnDestroy {
-  private loading: boolean = false;
+  loading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EntityCodeModalComponent>,

@@ -152,15 +152,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if(this.profileModel && this.profileModel.dataSource) {
-      this.profileModel.dataSource.paginator = this.paginator;
-    }
-    
   }
 
 
   initialize() {
-    this.profileModel.refresh = new Subject<any>();
     this.profileModel.userLeavesData = [];
     this.profileModel.firstIndex = 0;
     this.profileModel.pageSize = 7;
