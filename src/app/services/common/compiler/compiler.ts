@@ -398,39 +398,15 @@ export class CompilerProvider {
             bottom: false
           },
           {
-            displayName: 'Average Daily Actions',
-            route: '/home/adminControl/analyticsReport/averageDailyActionsReport',
-            disabled: data.permissions.averageDailyReport,
-            bottom: false
-          },
-          {
             displayName: 'Checkin by Activity',
             route: '/home/adminControl/analyticsReport/checkInActivityReport',
             disabled: data.permissions.checkinByActivity,
             bottom: false
           },
           {
-            displayName: 'Checkin and Alert by Person',
-            route: '/home/adminControl/analyticsReport/alertsPersonReport',
-            disabled: data.permissions.checkinAndAlertByPerson,
-            bottom: false
-          },
-          {
-            displayName: 'Actions vs Alerts',
-            route: '/home/adminControl/analyticsReport/actionAlertsReport',
-            disabled: data.permissions.actionsVsAlerts,
-            bottom: false
-          },
-          {
             displayName: 'Pulse Report',
             route: '/home/adminControl/analyticsReport/entityPulseReport',
             disabled: data.permissions.pulseReportByEntity,
-            bottom: false
-          },
-          {
-            displayName: 'Compliant Checkout',
-            route: '/home/adminControl/analyticsReport/compliantCheckoutReport',
-            disabled: data.permissions.compliantCheckOut,
             bottom: false
           },
           {
