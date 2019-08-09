@@ -1,0 +1,97 @@
+<div class="spinner-wrap" *ngIf="hazardObj.loading">
+  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
+<div [class]="hazardObj.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
+  <div class="paddingbox">
+    <div class="page-title">
+      <h3>{{helperService.translated.SITETITLE.HAZARD_REPORTS}}</h3>
+    </div>
+    <p style="margin-top:0;">{{helperService.translated.MESSAGES.HAZARD_REPORT_MSG}}</p>
+    <mat-card>
+      <form [formGroup]="hazardObj.hazardReportForm" (ngSubmit)=formSubmit(hazardObj.hazardReportForm)
+            (keydown.enter)="$event.preventDefault()">
+
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
+            <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>
+            <mat-error class="text-right" *ngIf="hazardFormValidations.errors">
+            <span
+              *ngIf="hazardFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.SITETITLE.USERS_TITLE}}</mat-label>
+            <mat-select [formControlName]="helperService.appConstants.user">
+              <mat-option value="">None</mat-option>
+              <mat-option *ngFor="let user of hazardObj.entityUsers" [value]="user.id">
+                {{user.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+                   placeholder="Date From" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+                   placeholder="Date To" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
+            <mat-select [formControlName]="helperService.appConstants.filter"
+                        (selectionChange)="enableDates($event.value)">
+              <mat-option *ngFor="let filter of hazardObj.filters" [value]="filter.id">
+                {{ filter.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button custom-btn color="primary">
+            {{helperService.translated.BUTTONS.GENERATE_REPORT}}
+          </button>
+          <br>
+          <br>
+          <div class="report-counts">
+            <mat-card class="mat-elevation-z4 unresolved">
+              <h2>{{hazardObj.unResolvedHazards}}</h2>
+              <p class="mat-body">Unresolved Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4 resolved">
+              <h2>{{hazardObj.resolvedHazards }}</h2>
+                <p class="mat-body">Resolved Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4 minor">
+              <h2>1</h2>
+              <p class="mat-body">Minor Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4 moderate">
+              <h2>4</h2>
+              <p class="mat-body">Moderate Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4 major">
+              <h2>240</h2>
+              <p class="mat-body">Major Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4 extreme">
+              <h2>240</h2>
+              <p class="mat-body">Extreme Hazards</p>
+            </mat-card>
+            <mat-card class="mat-elevation-z4 total">
+              <h2>240</h2>
+              <p class="mat-body">Total Hazards</p>
+            </mat-card>
+          </div>
+        </div>
+      </form>
+      <br>
+      <div id="severityReport"></div>
+      <br>
+      <br>
+      <div id="statusReport"></div>
+    </mat-card>
+  </div>
+</div>

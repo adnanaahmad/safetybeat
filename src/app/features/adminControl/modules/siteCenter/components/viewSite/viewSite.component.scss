@@ -1,0 +1,156 @@
+@mixin amte-viewSite($primary, $accent, $warn) {
+  :host,
+  app-viewSite {
+    mat-divider {
+      position: relative !important;
+    }
+    .pagehead {
+      height: auto !important;
+      padding: 10px 16px !important;
+      .siteicon {
+        font-size: 75px;
+        opacity: 0.2;
+        width: 60px;
+        line-height: 0.4;
+      }
+      .user-info {
+        padding: 5px 30px;
+        width: 100%;
+        text-transform: capitalize;
+        white-space: normal;
+        p {
+          margin: 0;
+          font-size: 14px;
+        }
+      }
+    }
+    .site-map {
+      width: 100%;
+      height: 100%;
+    }
+    .mat-figure {
+      align-items: normal;
+    }
+    .dashboard-card {
+      padding: 0;
+      width: 100%;
+      mat-card-content {
+        height: 80%;
+        overflow: auto;
+      }
+      .siteinfo-row {
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        .safe-icon {
+          color: #fff;
+          &.safe {
+            background-color: green;
+          }
+          &.unsafe {
+            background-color: mat-color($warn);
+          }
+        }
+        mat-icon {
+          border-radius: 100px;
+          padding: 5px;
+        }
+        strong {
+          width: 100%;
+          padding: 10px;
+        }
+        p {
+          margin: 0;
+          flex-basis: 100%;
+        }
+      }
+      .infoTitle {
+        color: #fff;
+        border-radius: 4px 4px 0 0;
+        padding: 10px 16px;
+        align-items: center;
+        height: 30px;
+        mat-card-title {
+          font-size: 16px;
+          margin: 0;
+        }
+        .mat-card-header-text {
+          margin: 0;
+          width: 100%;
+        }
+      }
+      mat-list {
+        padding-top: 0;
+      }
+      .mat-list-item {
+        font-size: 14px;
+      }
+
+      .activity-card {
+        padding: 10px;
+        position: relative;
+        margin-bottom: 2px;
+        .row {
+          margin: 0 0 3px;
+          position: relative;
+          z-index: 1;
+          span {
+            float: right;
+          }
+          a {
+            text-decoration: none;
+            mat-icon {
+              height: auto;
+              width: auto;
+              display: inline-block;
+              line-height: 0;
+              top: 6px;
+              position: relative;
+            }
+          }
+        }
+      }
+      .header-btn {
+        color: #fff;
+        font-size: 12px;
+        text-decoration: none;
+        padding: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        display: block;
+        width: 150px;
+        text-align: center;
+        border-radius: 4px;
+        &:hover {
+          border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+      }
+      tr.mat-row,
+      tr.mat-header-row {
+        height: 35px;
+      }
+      .mat-paginator-page-size {
+        display: none;
+      }
+      .mat-paginator-container {
+        min-height: auto;
+      }
+    }
+    .mat-card {
+      margin: 3px;
+    }
+    @media (max-width: 575px) {
+      .pagehead {
+        display: block;
+        text-align: center;
+        .siteicon {
+          width: 100%;
+          margin: 20px 0;
+          font-size: 55px;
+        }
+        .user-info {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

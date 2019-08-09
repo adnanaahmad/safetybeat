@@ -1,0 +1,65 @@
+@mixin amte-createEntity($primary, $accent, $warn) {
+    :host,
+    app-createEntity {
+      .mat-tab-body-content {
+        overflow: hidden;
+      }
+      .mat-grid-tile {
+        overflow: unset;
+      }
+      #particle-container {
+        width: 100% !important;
+        .particle{
+          opacity: 0.07;
+        }
+      }
+      .mat-horizontal-stepper-header-container {
+        display: none;
+      }
+      mat-horizontal-stepper {
+        width: 100%;
+      }
+      .loginbox {
+        padding: 40px 20px !important;
+        width: 70%;
+        margin: 0 auto;
+        box-shadow: none !important;
+        [custom-btn] {
+          margin: 10px 10px 0 0;
+        }
+      }
+      .sideLegend {
+        height: 100%;
+        width: 100%;
+        .legendContent {
+          position: absolute;
+          text-align: center;
+          top: 50%;
+          transform: translateY(-50%);
+          padding: 50px;
+          color: #fff;
+          z-index: 3;
+          h1 {
+            font-size: 3em;
+            margin: 0px 0 30px 0;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            font-weight: 300;
+          }
+          h3 {
+            margin: 0;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            font-weight: 100;
+          }
+          p {
+            line-height: 2;
+            font-weight: 300;
+            padding: 0 20px 0 0;
+          }
+          [custom-btn] {
+            display: block;
+            margin: 20px 0;
+          }
+        }
+      }
+    }
+  }

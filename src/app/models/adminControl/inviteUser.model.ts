@@ -2,8 +2,12 @@ import {responseDetails} from '../user.model';
 import {FormGroup} from '@angular/forms';
 import {SitesInfo} from '../site.model';
 import {Subscription} from 'rxjs';
+import {TeamList} from './myTeam.model';
 
 export interface InviteUser {
+  selectedTeam: any;
+  teamsList: Array<TeamList>;
+  showTeams: boolean;
   elements: any;
   dataSource: any;
   selectedSite: any;
@@ -32,6 +36,7 @@ export interface inviteUserData {
   moduleName: string;
   entityId: number;
   sites: number;
+  team: number;
 }
 
 export interface Role {
@@ -46,6 +51,11 @@ export interface InviteTeamResponse {
 }
 
 export interface InviteTeamData {
-  email: string[];
+  email: Array<string>;
   entityCode: string;
+}
+
+export interface InviteUserModelData {
+  entityId: number;
+  role: Array<Role>
 }

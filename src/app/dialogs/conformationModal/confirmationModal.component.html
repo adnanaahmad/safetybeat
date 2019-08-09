@@ -1,0 +1,14 @@
+<mat-card-title class="mat-dialog-title mat-elevation-z6">
+    Confirmation Alert
+</mat-card-title>
+<div mat-dialog-content>
+    <p>{{message}}</p>
+    <mat-dialog-actions>
+        <button class="mat-elevation-z6" mat-raised-button cdkFocusInitial custom-btn color="primary"
+                [mat-dialog-close]="'YES'">Yes
+        </button>
+        <button class="mat-elevation-z6" mat-raised-button custom-btn color="warn"
+                [mat-dialog-close]="'NO'">No
+        </button>
+    </mat-dialog-actions>
+</div>

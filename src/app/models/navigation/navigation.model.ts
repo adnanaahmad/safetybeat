@@ -4,13 +4,14 @@ import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
 
 export interface NavigationModel {
+  navItems: NavItem[];
   showEntitySwitcher: boolean;
   logoutDisable: boolean;
   logoutResponse: any;
   translated: Translation;
   appIcons: any;
   empty: boolean;
-  navLinks: NavItem[];
+  navLinks: NavData;
   entitiesList: any;
   allEntitiesData: any;
   defaultList: NavItem[];
@@ -18,5 +19,11 @@ export interface NavigationModel {
   selectedEntity: any;
   Entity: any;
   subscription: Subscription;
-  navStyle:any;
+  navStyle: any;
+}
+
+export interface NavData {
+  defaultNav: NavItem[];
+  reportsNav: NavItem[];
+  settingsNav: NavItem[];
 }

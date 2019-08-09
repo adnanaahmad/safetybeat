@@ -1,0 +1,30 @@
+@mixin amte-dashboard($primary, $accent, $warn) {
+  :host,
+  app-dashboard {
+    mat-grid-list {
+      height: 90vh;
+    }
+    .highcharts-background {
+      fill: transparent;
+    }
+
+    .dashboard-card-content {
+      text-align: center;
+    }
+    chart,
+    .highcharts-container,
+    .highcharts-root {
+      width: $fullValue !important;
+    }
+    .dashboard-widgets {
+      .mat-card {
+        width: $fullValue;
+      }
+      mat-grid-tile {
+        figure > div {
+          width: $fullValue;
+        }
+      }
+    }
+  }
+}

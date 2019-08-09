@@ -1,0 +1,19 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+
+import {MemberCenterRoutingModule} from './memberCenter-routing.module';
+import {MemberCenterComponent} from './components/memberCenter/memberCenter.component';
+import {MaterialModule} from 'src/app/material.module';
+
+@NgModule({
+  declarations: [
+    MemberCenterComponent,
+  ],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    MemberCenterRoutingModule
+  ]
+})
+export class MemberCenterModule {
+}

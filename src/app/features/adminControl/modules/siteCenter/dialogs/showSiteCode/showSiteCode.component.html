@@ -1,0 +1,16 @@
+<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.SITECODE_FOR}} {{ data.site.name }}
+</mat-card-title>
+<div class="entitycode-box" mat-dialog-content>
+    <div class="spinner-wrap" *ngIf="siteCentreObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+    </div>
+    <span class="entity-code">{{ data.site.code }}</span>
+    <mat-icon color="primary" class="refresh-code pointer mat-elevation-z6" (click)="refreshSiteCode()"
+              *ngIf="data.permissions">{{ helperService.appIcons.refresh }}
+    </mat-icon>
+    <mat-dialog-actions>
+        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
+                (click)="onNoClick()">OK
+        </button>
+    </mat-dialog-actions>
+</div>

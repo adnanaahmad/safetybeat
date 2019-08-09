@@ -1,0 +1,10 @@
+@mixin amte-entityControl($primary, $accent, $warn) {
+  :host,
+  app-entitycontrol {
+    position: relative;
+    height: $fullValue;
+    table {
+      width: $fullValue;
+    }
+  }
+}

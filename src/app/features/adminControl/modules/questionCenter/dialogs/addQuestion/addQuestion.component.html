@@ -1,0 +1,87 @@
+<mat-card-title class="mat-dialog-title">
+    {{QuestionObj.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG :
+    helperService.translated.MESSAGES.ADDQUESTION_MSG}}
+</mat-card-title>
+<div mat-dialog-content>
+    <div class="spinner-wrap" *ngIf="QuestionObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+    </div>
+    <form [formGroup]="QuestionObj.addQuestionForm" (ngSubmit)=questionFormSubmit(QuestionObj.addQuestionForm)>
+        <div class="form-group">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>{{helperService.translated.STRINGS.PARENT_QUESTION}}</mat-label>
+                <input matInput type="text" [formControlName]="helperService.appConstants.parent"
+                       [matAutocomplete]="autoParent" (keyup)=filterParentQuestion($event.target.value)>
+                <mat-error *ngIf="formValidation.parent.errors">
+            <span
+                    *ngIf="formValidation.parent.errors.required">{{helperService.translated.MESSAGES.PARENT_QUESTION_REQ}}</span>
+                    <span *ngIf="formValidation.parent.errors.notValid">Not valid</span>
+                </mat-error>
+                <mat-autocomplete #autoParent="matAutocomplete" [displayWith]="displayQuestion">
+                    <mat-option *ngFor="let question of QuestionObj.filteredParentQuestion" [value]="question">
+                        {{question.description}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-checkbox (change)="childYesEnable($event)">Child Yes</mat-checkbox>
+            &nbsp;
+            <mat-checkbox (change)="childNoEnable($event)">Child No</mat-checkbox>
+            <br>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>{{helperService.translated.STRINGS.CHILD_YES}}</mat-label>
+                <input matInput type="text" [formControlName]="helperService.appConstants.childYes"
+                       [matAutocomplete]="autoChildYes" (keyup)=filterChildYesQuestion($event.target.value)
+                       [readonly]="!QuestionObj.childYes">
+                <mat-error *ngIf="formValidation.childYes.errors && QuestionObj.childYes">
+                    <span *ngIf="formValidation.childYes.errors.notValid && QuestionObj.childYes">Not valid</span>
+                </mat-error>
+                <mat-autocomplete #autoChildYes="matAutocomplete" [displayWith]="displayQuestion">
+                    <mat-option *ngFor="let question of QuestionObj.filteredChildYesQuestion" [value]="question">
+                        {{question.description}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>&nbsp;&nbsp;
+            <mat-slide-toggle [formControlName]="helperService.appConstants.childYesSafe"
+                              [disabled]="!QuestionObj.childYes">
+                {{helperService.translated.STRINGS.CHILD_YES_SAFE}}
+            </mat-slide-toggle>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>{{helperService.translated.STRINGS.CHILD_NO}}</mat-label>
+                <input matInput type="text" [formControlName]="helperService.appConstants.childNo"
+                       [matAutocomplete]="autoChildNo" (keyup)=filterChildNoQuestion($event.target.value)
+                       [readonly]="!QuestionObj.childNo">
+                <mat-error *ngIf="formValidation.childNo.errors">
+                    <span *ngIf="formValidation.childNo.errors.notValid">Not valid</span>
+                </mat-error>
+                <mat-autocomplete #autoChildNo="matAutocomplete" [displayWith]="displayQuestion">
+                    <mat-option *ngFor="let question of QuestionObj.filteredChildNoQuestion" [value]="question">
+                        {{question.description}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>&nbsp;&nbsp;
+            <mat-slide-toggle [formControlName]="helperService.appConstants.childNoSafe"
+                              [disabled]="!QuestionObj.childNo">
+                {{helperService.translated.STRINGS.CHILD_NO_SAFE}}
+            </mat-slide-toggle>
+            <br>
+        </div>
+        <mat-dialog-actions>
+            <button mat-raised-button custom-btn btn-primary color="primary"
+                    [disabled]="QuestionObj.addQuestionForm.invalid">
+                {{QuestionObj.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG :
+                helperService.translated.MESSAGES.ADDQUESTION_MSG}}
+                <div class="main-loader" *ngIf="QuestionObj.loading">
+                    <span class="loader1"></span>
+                    <span class="loader2"></span>
+                    <span class="loader3"></span>
+                </div>
+            </button>
+
+            <button mat-button mat-dialog-close>
+                {{ helperService.translated.BUTTONS.CANCEL }}
+            </button>
+        </mat-dialog-actions>
+    </form>
+</div>

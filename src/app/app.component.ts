@@ -1,7 +1,7 @@
-import {Component, Injector, OnInit, Renderer2, HostBinding} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {SettingService} from 'src/app/shared/settings/setting.service';
-import {OverlayContainer} from '@angular/cdk/overlay';
+import { Component, Injector, OnInit, Renderer2, HostBinding } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { SettingService } from 'src/app/services/common/settings/setting.service';
+import { Overlay, OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
         translate.use(translate.getBrowserLang());
       }
     } else {
-      translate.use('en'); // Set your language here
+      translate.use('en');
     }
   }
 }

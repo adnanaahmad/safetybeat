@@ -11,6 +11,7 @@ export interface User {
   last_name: string;
   contactNo: string;
   profileImage: Blob;
+  name: string;
 }
 
 export interface PackageInfo {
@@ -85,8 +86,8 @@ export interface ForgotPassword {
 }
 
 export interface ForgotPasswordResponse {
-  detail?: string;
-  responseDetails?: any;
+  data: {};
+  responseDetails: responseDetails;
 }
 
 export interface packges {

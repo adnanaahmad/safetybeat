@@ -1,0 +1,20 @@
+<mat-nav-list *ngFor="let link of navLinks">
+  <mat-list-item mat-button *ngIf="link.disabled&&link.displayName!==helperService.translated.MESSAGES.ANALYTICS_REPORTS&&!link.bottom"
+                 [routerLink]="link.route" routerLinkActive="active">
+    <a class="nav-link">{{link.displayName}}</a>
+  </mat-list-item>
+  <mat-accordion class="nav-accordion" *ngIf="link.disabled&&link.displayName===helperService.translated.MESSAGES.ANALYTICS_REPORTS">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header [expandedHeight]="'48px'">
+        <mat-panel-title>
+          {{link.displayName}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-nav-list *ngFor="let childLinks of link.children">
+        <mat-list-item mat-button *ngIf="childLinks.disabled" [routerLink]="childLinks.route" routerLinkActive="active">
+          <a class="nav-link">{{childLinks.displayName}}</a>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-nav-list>

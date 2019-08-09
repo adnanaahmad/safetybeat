@@ -1,21 +1,48 @@
 import {FormGroup} from '@angular/forms';
-import {Site} from './site.model';
-import {User} from './user.model';
+import {ActionApiResponse, Site} from './site.model';
+import {PermissionsModel} from './adminControl/permissions.model';
+import {responseDetails, User} from './user.model';
+import {MatTableDataSource} from '@angular/material';
+import {Subscription} from 'rxjs';
 
 export interface HazardModel {
+  permissions: PermissionsModel;
   hazardOption: boolean;
-  entitySelectedRole: string;
   entityId: number;
-  dataSource: any;
-  displayedColumns: string[];
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: Array<string>;
+  loading: boolean;
 }
 
 export interface AddHazardModel {
+  emails: string[];
+  shareHazard: boolean;
+  filteredSelectedUsers: any;
+  addHazardFormFirst: FormGroup;
   removeImage: string;
   editModal: boolean;
   image: File;
-  addHazardForm: FormGroup;
+  name: string;
+  note: string;
+  description: string;
+  action: string;
+  loading: boolean;
+  hazardInfo: any;
+  url: string;
+  risks: Array<RiskType>;
+  siteName: string;
+  location: string;
+  subscription: Subscription;
+  entityName: string;
+  msg: string;
+  hazardTitle: string;
+  actions: any;
+  actionsArray: Array<ActionApiResponse>;
+  allUsers: any;
+  allUsersList: any;
+  selectedUserList: any;
 }
+
 export interface Hazard {
   hazard: NewHazard;
   site: Site;
@@ -23,19 +50,58 @@ export interface Hazard {
   resolvedBy: User;
   risk: RiskType;
 }
+
 export interface NewHazard {
   title: string;
   risk: string;
-  addedBy: any;
-  dateTime: any;
+  addedBy: string;
+  createdTime: Date;
   description: string;
   id: number;
   resolved: boolean;
   resolvedBy: string;
-  site: any;
+  site: string;
   image: File;
 }
+
 export interface RiskType {
   id: number
   name: string
 }
+
+export interface AllHazardsApiData {
+  data: AllHazardsApiResponseData;
+  responseDetails: responseDetails;
+}
+
+
+export interface DeleteHazardApiResponse {
+  data: object;
+  responseDetails: responseDetails;
+}
+
+export interface AddHazardData {
+  description: string;
+  risk: string;
+  title: string;
+}
+
+export interface AllHazardsApiResponseData {
+  hazardList: Array<HazardList>;
+  pageCount: number;
+}
+
+export interface HazardList {
+  addedBy: User;
+  dateTime: Date;
+  description: string;
+  id: number;
+  image: Blob;
+  resolved: boolean;
+  resolvedBy: User;
+  risk: RiskType;
+  site: Site;
+  title: string;
+  createdTime: Date;
+}
+

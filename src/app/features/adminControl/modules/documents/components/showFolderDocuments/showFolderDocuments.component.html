@@ -1,0 +1,51 @@
+<div class="spinner-wrap" *ngIf="!documentsData.docList">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
+<div class="paddingbox">
+    <div class="page-title">
+        <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
+        <div class="buttonRow">
+            <button class="mat-elevation-z6" mat-raised-button color="primary" (click)="uploadDoc()">
+                <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
+                {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
+            </button>
+        </div>
+    </div>
+
+    <!--Go to root folder-->
+    <button class="go-back" (click)="goBack()" mat-button type="button">
+        <mat-icon>{{helperService.appIcons.arrowBack}}</mat-icon>
+        {{helperService.translated.BUTTONS.BACK}}
+    </button>
+
+
+    <!--Search-->
+    <div class="search-bar">
+        <form autocomplete="off" *ngIf="documentsData.docList && documentsData.docList.length">
+            <mat-form-field fullWidth autocomplete="off" appearance="outline">
+                <mat-label>Search file or folder</mat-label>
+                <input matInput placeholder="Search file or folder">
+                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+            </mat-form-field>
+        </form>
+    </div>
+    <!--/Search-->
+
+    <!--Files-->
+    <div class="files-wrapper" *ngIf="documentsData.docList && documentsData.docList.length">
+        <h4 class="wrapper-heading">Files</h4>
+        <p class="no-data mat-small mat-caption" *ngIf="!documentsData.folderDoc">No documents found.</p>
+        <div class="content-area">
+            <app-file *ngFor="let doc of documentsData.docList" [docData]="doc" (processAction)="refreshFiles($event)">
+            </app-file>
+        </div>
+    </div>
+    <!--Files-->
+
+
+    <div class="folders-wrapper" *ngIf="documentsData.docList && !documentsData.docList.length">
+        <h5 class="wrapper-heading">
+            No file exists
+        </h5>
+    </div>
+</div>

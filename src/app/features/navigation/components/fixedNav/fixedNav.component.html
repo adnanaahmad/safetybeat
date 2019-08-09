@@ -1,0 +1,33 @@
+<div class="menu-button">
+  <button (click)="toggleSideNav()" mat-mini-fab color="primary">
+    <mat-icon class="opened" *ngIf="!navOpened">{{fixedNav.appIcons.arrowRight}}</mat-icon>
+    <mat-icon class="closed" *ngIf="navOpened">{{fixedNav.appIcons.arrowLeft}}</mat-icon>
+  </button>
+</div>
+<mat-nav-list class="nav-list" *ngFor="let link of navLinks">
+  <mat-list-item *ngIf="link.disabled&&link.toolTip!='Reports'&&!link.bottom" mat-button [routerLink]="link.route"
+                 routerLinkActive="active">
+    <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right">
+      <mat-icon>{{link.iconName}}</mat-icon>
+    </a>
+  </mat-list-item>
+  <mat-list-item *ngIf="link.disabled&&link.toolTip=='Reports'" mat-button [routerLink]="link.route">
+    <a class="nav-link" matTooltip="{{link.toolTip}}" matTooltipPosition="right" [matMenuTriggerFor]="menu">
+      <mat-icon>{{link.iconName}}</mat-icon>
+    </a>
+    <mat-menu #menu="matMenu">
+      <div *ngFor="let childLinks of link.children">
+        <button mat-menu-item [routerLink]="childLinks.route" *ngIf="childLinks.disabled" routerLinkActive="active">{{childLinks.displayName}}</button>
+      </div>
+    </mat-menu>
+  </mat-list-item>
+</mat-nav-list>
+<mat-nav-list class="nav-list bottom">
+  <div *ngFor="let link of navLinks">
+  <mat-list-item *ngIf="link.disabled&&link.bottom" mat-button [routerLink]="link.route">
+    <a class="nav-link" matTooltip={{link.toolTip}} matTooltipPosition="right">
+      <mat-icon>{{ link.iconName }}</mat-icon>
+    </a>
+  </mat-list-item>
+  </div>
+</mat-nav-list>

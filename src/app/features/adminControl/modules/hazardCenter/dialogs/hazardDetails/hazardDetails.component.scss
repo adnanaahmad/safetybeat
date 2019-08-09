@@ -1,0 +1,52 @@
+@mixin amte-hazard-details($primary, $accent, $warn) {
+  :host,
+  app-hazard-details {
+    $boxShadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.2);
+    $circle: 100px;
+    .hazard-detail-grid {
+      display: flex;
+      mat-card {
+        flex: 1;
+        margin: 3px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .mat-subheader {
+          margin: 0;
+          padding: 3px 0 0;
+        }
+        mat-icon {
+          background-color: #fff;
+          color: mat-color($primary-pallet, 500);
+          padding-right: 5px;
+          font-size: 18px;
+          height: auto;
+          width: auto;
+        }
+        p {
+          margin: 5px 0;
+          font-size: 14px;
+          width: 100%;
+        }
+      }
+    }
+    .hazard-thumbnail {
+      width: 130px;
+      height: 130px;
+      margin: 10px auto;
+      overflow: hidden;
+      border-radius: 100px;
+      position: relative;
+      img {
+        @include midBlock;
+        max-width: 100%;
+        z-index: 0;
+      }
+    }
+    @media (max-width: 575px) {
+      .hazard-detail-grid {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@mixin amte-site-map($primary, $accent, $warn) {
+  :host,
+  app-site-map {
+    .site-map{
+      width:100%;
+      height:400px;
+    }
+  }
+}

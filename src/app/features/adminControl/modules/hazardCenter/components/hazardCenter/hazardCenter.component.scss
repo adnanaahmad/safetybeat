@@ -1,0 +1,34 @@
+@mixin amte-hazardCenter($primary, $accent, $warn) {
+  :host,
+  app-hazardCenter {
+    position: relative;
+    height: $fullValue;
+    .customTable td,
+    .customTable th {
+      padding: 0 10px !important;
+    }
+    .data-filter {
+      padding: 0 0 0 10px;
+      margin-left: auto;
+      top: 11px;
+      position: relative;
+      width: 160px;
+      .input-wrap {
+        display: flex;
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 4px;
+        .search-input {
+          border: 0;
+          background: transparent;
+          width: $fullValue;
+          outline: 0 none;
+        }
+      }
+      mat-form-field {
+        margin: 0 10px;
+        width: 150px;
+      }
+    }
+  }
+}

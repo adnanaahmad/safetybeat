@@ -1,0 +1,49 @@
+@mixin amte-hazardReport($primary, $accent, $warn) {
+  :host,
+  app-hazardReport {
+    position: relative;
+    height: 100%;
+    .mat-form-field {
+      margin: 0 10px 0 0;
+    }
+    .report-counts {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      mat-card {
+        flex: 1;
+        margin: 8px;
+        text-align: center;
+        color: #fff;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+        &.unresolved {
+          background: #ee4c17;
+        }
+        &.resolved {
+          background: mat-color($primary, 500);
+        }
+        &.extreme {
+          background: #ee4c17;
+        }
+        &.major {
+          background: #f26519;
+        }
+        &.moderate {
+          background: #f8961c;
+        }
+        &.minor {
+          background: #fbae1e;
+        }
+        &.total{
+          background: mat-color($primary, 500);
+        }
+        h2 {
+          padding-right: 10px;
+        }
+        h2, p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

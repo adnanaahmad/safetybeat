@@ -1,0 +1,187 @@
+@mixin amte-addHazard($primary, $accent, $warn) {
+  :host,
+  app-addHazard {
+    .mat-dialog-content {
+      height: 80vh;
+      overflow: hidden;
+    }
+    .fab-action {
+      @include fabAction;
+    }
+    .searchbar {
+      .mat-form-field-wrapper {
+        padding: 0;
+      }
+    }
+    .remove-action{
+      margin-left: auto;
+      &:hover{
+        color: mat-color($warn, 700);
+      }
+    }
+    .flexbox{
+      mat-form-field{
+        margin:5px;
+        flex:1 1 auto;
+        width:auto;
+        .mat-form-field-wrapper{
+          margin-bottom: 0;
+        }
+      }
+    }
+    .data-search {
+      .data-result {
+        height: 320px;
+        overflow: auto;
+        padding: 0 3px;
+        .list-item {
+          display: flex;
+          padding: 10px;
+          margin: 7px 0;
+          align-items: center;
+          border-radius: 4px;
+        }
+        .user-thumbnail {
+          width: 50px;
+          height: 50px;
+          overflow: hidden;
+          position: relative;
+          img {
+            max-width: 100%;
+            @include midBlock;
+            display: block;
+            margin: 0 auto;
+          }
+        }
+        .user-name {
+          display: flex;
+          align-items: center;
+          margin: 0;
+          padding-left: 10px;
+        }
+        .actions {
+          margin-left: auto;
+        }
+        .remove-member {
+          margin-left: auto;
+          mat-icon {
+            font-size: 12px;
+          }
+        }
+        mat-list-item {
+          padding: 6px 0;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+    .tabcontent {
+      overflow: auto;
+      height: 380px;
+    }
+    .add-action{
+      display: block;
+      margin: 0 auto;
+    }
+    .current-site {
+      text-align: center;
+      h2 {
+        color: mat-color($primary);
+        margin: 0;
+      }
+      p {
+        mat-icon {
+          vertical-align: middle;
+        }
+      }
+    }
+    .review-thumbnail {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      display: block;
+      border-radius: 100px;
+    }
+    .hazard-summary {
+      p {
+        margin: 0 0 10px;
+      }
+    }
+    .multiple-inputs {
+      mat-form-field {
+        width: 48%;
+        margin: 1%;
+      }
+    }
+    .nav-btn {
+      text-align: center;
+      margin: 7px 0 0;
+    }
+    .change-picture {
+      width: 100px;
+      height: 100px;
+      margin: 10px auto;
+      overflow: hidden;
+      border-radius: $fullValue;
+      position: relative;
+      span {
+        @include midBlock;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+        font-size: 12px;
+        color: #fff;
+        height: $fullValue;
+        width: $fullValue;
+        display: flex;
+        align-items: center;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.5;
+        opacity: 0;
+        visibility: hidden;
+        cursor: pointer;
+        justify-content: center;
+        border-radius: 100px;
+      }
+      .remove-picture {
+        @include midBlock;
+        z-index: 2;
+        background: mat-color($warn);
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        line-height: 1.4;
+        top: 20px;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        border-radius: 100px;
+      }
+      &:hover {
+        span {
+          opacity: 1;
+          visibility: visible;
+        }
+        .remove-picture {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      img {
+        max-width: $fullValue;
+        @include midBlock;
+        z-index: 0;
+
+      }
+      input {
+        @include midBlock;
+        opacity: 0;
+        width: $fullValue;
+        height: $fullValue;
+        cursor: pointer;
+        z-index: 1;
+      }
+    }
+  }
+}

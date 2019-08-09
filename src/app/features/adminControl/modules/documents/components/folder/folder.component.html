@@ -1,0 +1,26 @@
+<ng-container>
+    <mat-card class="document-inline">
+        <div class="spinner-wrap" *ngIf="this.showLoader">
+            <mat-spinner color="primary"
+                         [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+        </div>
+        <button class="file-options" mat-icon-button [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="renameFolder(folderData)">
+                <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+                <span>{{helperService.translated.BUTTONS.RENAME}}</span>
+            </button>
+            <button mat-menu-item (click)="deleteFolder(folderData.id)">
+                <mat-icon>{{ helperService.appIcons.deleteForever }}</mat-icon>
+                <span>{{helperService.translated.BUTTONS.DELETE}}</span>
+            </button>
+        </mat-menu>
+        <div class="content" (click)="showDocs(folderData.id)">
+            <mat-icon class="document-type">{{ helperService.appIcons.folder }}</mat-icon>
+            <span class="mat-body-2 mat-small">{{folderData.name}}</span>
+        </div>
+    </mat-card>
+</ng-container>

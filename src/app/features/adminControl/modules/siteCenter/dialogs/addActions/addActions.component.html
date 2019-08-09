@@ -1,0 +1,31 @@
+<h3>Create an action to resolve</h3>
+<form [formGroup]="actionForm" class="settings-list">
+  <mat-form-field appearance="outline" fullWidth>
+    <mat-label>Action title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+  <mat-form-field appearance="outline" fullWidth>
+    <mat-label>{{helperService.translated.STRINGS.PERSON_FOR_ACTION}}</mat-label>
+    <mat-select placeholder="Moderate" formControlName="actionUser">
+      <mat-option *ngFor="let user of users" [value]="user">{{user.username}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" fullWidth>
+    <mat-label>Complete by</mat-label>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" readonly formControlName="completeByTime">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="outline" fullWidth>
+    <mat-label>Additional note</mat-label>
+    <textarea matInput formControlName="description"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"></textarea>
+  </mat-form-field>
+  <button class="mat-elevation-z6" mat-raised-button color="primary" [disabled]= "actionForm.invalid" (click)="closeSheet(actionForm.value)">
+    {{ helperService.translated.BUTTONS.SAVE }}
+  </button>
+  <button mat-button (click)="closeSheet('cancel')">{{helperService.translated.BUTTONS.CANCEL}}</button>
+</form>

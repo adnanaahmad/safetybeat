@@ -67,6 +67,7 @@
     "EXPAND": "Expand",
     "REMOVE": "Remove",
     "ADD": "Add",
+    "PHONENO": "Contact Number",
     "SITEADDRESS": "Site Address",
     "PACKAGE_DESCRIPTION_1": "For startup business",
     "PACKAGE_DESCRIPTION_2": "For professionals improving their business",
@@ -99,6 +100,7 @@
     "DELETE_FOLDER": "Delete Folder",
     "VIEW_DOC": "View Document",
     "RENAME_FOLDER": "Rename Folder",
+    "RENAME_FILE": "Rename Document",
     "IMAGE": "Image",
     "CHECK_IN": "Check-in",
     "CHECK_OUT": "Check-Out",
@@ -113,6 +115,7 @@
     "CHILD": "Child",
     "PARENT": "Parent",
     "CHANGEPICTURE": "Change Picture",
+    "ACTION_REPORT": "Action Report",
     "SEARCHUSERS": "Search Users",
     "ADVSEARCH": "Advanced Search",
     "CHOOSE_ROLE": "Choose role for this user",
@@ -128,9 +131,22 @@
     "CHILD_NO_SAFE": "Is Child No Question Safe?",
     "SELECTED_USERS": "Selected Users",
     "MAKE_TEAMLEAD": "Make Team Lead",
-    "REMOVE_TEAMLEAD": "Remove as Team Lead"
+    "REMOVE_TEAMLEAD": "Remove as Team Lead",
+    "SENT_REQUEST": "send you request",
+    "REQUEST_DAYS": "days ago",
+    "PERSON_FOR_ACTION": "Person to complete the action",
+    "DESCRIPTION": "Description",
+    "PRECAUTIONARY_NOTE": "Precautionary note",
+    "HAZARD": "Hazard",
+    "REVIEW": "Review",
+    "SHARE_HAZARD": "Share Hazard",
+    "ADDITIONAL_NOTE": "Additional note",
+    "COMPLETE_BY": "Complete by:",
+    "ACTION_TO_RESOLVE": "Actions to resolve",
+    "RATE_HAZARD": "Rate Hazard"
   },
   "BUTTONS": {
+    "DOWNLOAD": "Download",
     "LOGIN": "Login",
     "EDIT": "Edit",
     "REGISTER": "Register",
@@ -179,7 +195,10 @@
     "VIEW_MAP": "View Map",
     "CLOSE": "Close",
     "CREATE_FOLDER": "Create Folder",
-    "SHOW_RESULTS": "Show Results"
+    "SHOW_RESULTS": "Show Results",
+    "PERMISSIONS": "Permissions",
+    "REPORTS": "Reports",
+    "CHANGE_ACCESS_LEVEL": "Change Access Level"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -213,6 +232,7 @@
     "RESETMSG": "Email has been sent!",
     "RESETFAIL": "Reset Password Unsuccessful!",
     "RESETFAIL_MSG": "Reset Email can not be sent",
+    "ACTIVITIESS": "Activities",
     "VERIFY_ACCOUNT": "VERIFY ACCOUNT",
     "VERIFY_MSG": "In order to complete registration, please verify your account.",
     "SIGNEDUP_EMAIL_MSG": "You have signed up using this email address: ",
@@ -337,6 +357,7 @@
     "EDIT_HAZARD": "Edit Hazard",
     "SITE_HAZARD_DETAIL": "Site Hazard Details",
     "ENTITYCODE_FOR": "Entity Code for",
+    "SITECODE_FOR": "Site Code for",
     "CREATEGROUP": "Create Group",
     "ENTITY_SETTINGS": "Entity Settings",
     "PERMISSION_SETTINGS": "Permission Settings",
@@ -350,11 +371,16 @@
     "NEW_FOLDER": "New Folder Created.",
     "FOLDER_FAIL": "Folder Creation Failed",
     "NO_FOLDER": "NO Folders Found.",
+    "FOLDER_DELETED": "Folder Deleted Successfully",
+    "FOLDER_DEL_FAIL": "Folder Deletion Failed.",
     "DOC_ADDED": "Document Uploaded Successfully.",
     "CONFIRM_CONNECTION_SUCCESS": "Connection is confirmed",
     "CONFIRM_CONNECTION_FAILURE": "Connection not confirmed",
     "FOLDER_RENAMED": "Folder Renamed Successfully",
+    "SAME_FOLDER_NAME": "This folder name already exists. Please try again with a different name.",
+    "DOCUMENT_RENAMED": "Document Renamed Successfully",
     "RENAME_FAIL": "Folder could not be re-named",
+    "DOC_RENAME_FAIL": "Document could not be re-named",
     "ACTIVITIES_FAIL": "Activities could not be retrieved",
     "NOT_CHECKED_OUT": "Not checked out yet",
     "NO_CONNECTIONS": "No Connection",
@@ -391,17 +417,28 @@
     "HOURS_CHECKIN_MSG": "This is an entity report of the number of hours and percentage of Check-ins by Check-in type/reason.",
     "ALERT_PERSON_MSG": "This is a report of the number of Check-ins compared to number of alerts by person.",
     "ACTION_ALERT_MSG": "This report compares the number of Check-ins to the number of report-in alerts users received by person.",
-    "PULSE_ENTITY_MSG": "This report provides an entity view of the number of pulses, by reason/pulse type.",
-    "PULSE_PERSON_MSG": "This report provides a view of the number of pulses, by reason/pulse type, by person.",
+    "PULSE_REPORT_MSG": "This report provides an entity and person view of the number of pulses, by reason/pulse type.",
     "COMPLIANT_CHECKOUT_MSG": "This report compares the number of compliant check-outs to the number of non compliant Check-outs by person. A compliant check-out is where a person check-out within the site’s geo-zone, whereas a non-complaint check-out occurs outside the geo-zone.",
     "SITE_ACTIVITY_MSG": "This report shows the number of check-ins and hours checked-in total and by site.",
     "HAZARD_REPORT_MSG": "These reports show the number of hazards reported by entity, by hazard severity and by status (resolved and unresolved).",
     "ALL_SITES_FAILURE": "All Sites Record API Failed",
-    "PARENT_QUESTION_REQ": "Parent Question is required",
     "NO_SITES": "No Sites",
     "DELETE_QUESTION_SUCCESS": "Question has been delete successfully.",
     "DELETE_QUESTION_FAILURE": "Question deletion failed.",
-    "EDITQUESTION_MSG": "Edit Question"
+    "EDITQUESTION_MSG": "Edit Question",
+    "PARENT_QUESTION_REQ": "Parent Question is required",
+    "TEAM_TITLE_REQUIRED": "Team title is required.",
+    "TEAM_SELECTION_REQUIRED": "Team selection is required.",
+    "TEAM_MEMBERS_REQUIRED": "Team members selection is required.",
+    "TEAM_NAME_REQ": "Team title is required.",
+    "SELECT_TEAMLEAD": "TeamLead not selected. Please select a TeamLead and try again.",
+    "COMMON_PASSWORD": "Password is too common",
+    "PERMISSIONS_UPDATED": "Pemissions Updated Successfully",
+    "PERMISSIONS_UPDATION_FAILED": "Permission Updation Failed",
+    "NO_USER": "No User Exist",
+    "NO_USER_SELECTED": "No User Selected",
+    "ENTITY_RES_MSG": " responsible to manage this hazard?",
+    "IS": "Is "
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -421,11 +458,12 @@
     "HOURS_CHECKINS_BY_ACTIVITY": "Hours of Check-ins By Activity",
     "CHECKIN_BY_PERSON": "Checkin and Alert by Person",
     "ACTIONS_VS_ALERTS": "Actions vs Alerts",
-    "PULSE_REPORT_BY_ENTITY": "Pulse Report by Entity",
-    "PULSE_REPORT_BY_PERSON": "Pulse Report by Person",
+    "PULSE_REPORT": "Pulse Report",
     "COMPLIANT_CHECKOUT": "Compliant Check-Out by Person",
     "SITE_ACTIVITY_REPORT": "Site Activity Report",
-    "HAZARD_REPORTS": "Hazard Reports"
+    "HAZARD_REPORTS": "Hazard Reports",
+    "LEAVES": "Leaves",
+    "ADDLEAVES": "Add Leave"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
@@ -455,7 +493,8 @@
     "DELETE_ENTITY": "Delete Entity",
     "TITLE": "Title",
     "HAZARD_DETAILS": "View Hazard",
-    "TEAM_LEAD": "Team Lead"
+    "TEAM_LEAD": "Team Lead",
+    "RADIUS": "Radius"
   },
   "LOGGER": {
     "STATUS": {
@@ -507,7 +546,8 @@
       "ORG_SUCCESS": "Organization Data Edited.",
       "QUESTION_DATA_REQ": "Question data is required",
       "ALL_QUESTION_RECEIVED": "All Questions of Entity received",
-      "ALL_QUESTION_RECEIVED_ERROR": "No Questions of Entity exits"
+      "ALL_QUESTION_RECEIVED_ERROR": "No Questions of Entity exits",
+      "ENTITYNOTDELETED": "Entity is not deleted. Check your internet connection or try again."
     }
   },
   "STATUS": {

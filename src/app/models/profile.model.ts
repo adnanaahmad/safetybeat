@@ -1,3 +1,5 @@
+import {responseDetails, User} from './user.model';
+
 export interface UserProfile {
   username: string;
   email: string;
@@ -38,4 +40,50 @@ export interface resetPassword {
   password: string;
   uid: string;
   token: string;
+}
+
+export interface UserLeavesApiResponse {
+  data: {
+    userLeaves: Array<UserLeavesApiResponseData>
+  };
+  responseDetails: responseDetails;
+}
+
+export interface UserLeavesApiResponseData {
+  approveRejectBy: User;
+  approved: boolean;
+  dateFrom: Date;
+  dateTo: Date;
+  description: string;
+  entity: number;
+  id: number;
+  leaveType: {
+    id: number;
+    name: string;
+  };
+  rejected: boolean;
+  requestedBy: User;
+}
+
+export interface AddLeaveApiResponse {
+  data: {
+    leave: UserLeavesApiResponseData;
+  };
+  responseDetails: responseDetails;
+}
+
+export interface AddLeaveData {
+  entity: number;
+  description: string;
+  leaveType: number;
+  dateFrom: Date;
+  dateTo: Date;
+}
+
+
+export interface Leaveinfodata {
+  actions: User;
+  end: string;
+  start: string;
+  title: string;
 }

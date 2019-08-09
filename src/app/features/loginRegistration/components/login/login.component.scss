@@ -1,0 +1,47 @@
+@import "~src/theme/common";
+@mixin amte-login($primary, $accent, $warn) {
+  :host,
+  app-login {
+    mat-grid-list {
+      height: calc(100% - 1px);
+    }
+    .mat-grid-tile {
+      overflow: unset;
+    }
+    #particle-container {
+      width: 100% !important;
+      .particle:nth-child(even) {
+        display: none;
+      }
+    }
+    .sideLegend {
+      @include midBlock;
+      height: 100%;
+      width: 100%;
+      .legendContent {
+        @include midBlock;
+        padding: 50px;
+        color: #fff;
+        z-index: 3;
+        h1 {
+          font-size: 3em;
+          margin: 0;
+          font-weight: 500;
+        }
+        h3 {
+          margin: 0;
+          font-weight: 500;
+        }
+        p {
+          line-height: 2;
+          font-weight: 300;
+          padding: 0 20px 0 0;
+        }
+        [custom-btn] {
+          display: block;
+          margin: 20px 0;
+        }
+      }
+    }
+  }
+}

@@ -86,6 +86,7 @@ export interface Strings {
   CHILD_NO: string;
   CHILD: string;
   CHANGEPICTURE: string;
+  ACTION_REPORT: string;
   CHILD_YES_SAFE: string;
   CHILD_NO_SAFE: string;
   SEARCHUSERS: string;
@@ -102,6 +103,11 @@ export interface Strings {
   SELECTED_USERS: string;
   MAKE_TEAMLEAD: string;
   REMOVE_TEAMLEAD: string;
+  HAZARD: string;
+  PRECAUTIONARY_NOTE: string;
+  PERSON_FOR_ACTION: string;
+  REVIEW: string;
+  RENAME_FILE: string;
 }
 
 export interface Auth {
@@ -178,7 +184,52 @@ export interface Icons {
   TEXTURE: string;
 }
 
+export interface Strings {
+  EXPAND: string;
+  REMOVE: string;
+  EMAIL: string;
+  USERNAME: string;
+  PASSWORD: string;
+  FIRSTNAME: string;
+  LASTNAME: string;
+  MOBILENO: string;
+  PASSWORD1: string;
+  PASSWORD2: string;
+  NAME: string;
+  TYPE: string;
+  ADDRESS: string;
+  CITY: string;
+  COUNTRY: string;
+  ZIPCODE: string;
+  BILLINGEMAIL: string;
+  ACCOUNTNO: string;
+  PHONENO: string;
+  FAX: string;
+  PACKAGE_DESCRIPTION_1: string;
+  PACKAGE_DESCRIPTION_2: string;
+  PACKAGE_DESCRIPTION_3: string;
+  QUESTION_NAME: string;
+  QUESTION_WARNING: string;
+  SELECT_QUESTION_TYPE: string;
+  SAFE_QUESTION: string;
+  PARENT: string;
+  SAFE_QUESTION_YES: string;
+  SAFE_QUESTION_NO: string;
+  SAFE_QUESTION_BOTH: string;
+  CAN_PROCEED_QUESTION: string;
+  CAN_PROCEED_QUESTION_YES: string;
+  CAN_PROCEED_QUESTION_NO: string;
+  RENAME: string;
+  DELETE_FOLDER: string;
+  SHARE_HAZARD: string;
+  ADDITIONAL_NOTE: string;
+  COMPLETE_BY: string;
+  ACTION_TO_RESOLVE: string;
+  RATE_HAZARD: string;
+}
+
 export interface Buttons {
+  DOWNLOAD: string;
   LOGIN: string;
   EDIT: string;
   REGISTER: string;
@@ -228,10 +279,17 @@ export interface Buttons {
   VIEW_MAP: string;
   CLOSE: string;
   SHOW_RESULTS: string;
+  PERMISSIONS: string;
+  REPORTS: string;
+  CHANGE_ACCESS_LEVEL: string;
 
 }
 
 export interface Messages {
+  IS: string;
+  ENTITY_RES_MSG: string;
+  ACTIVITIESS: string;
+  SELECT_TEAMLEAD: string;
   GENERAL_UPDATED: string;
   GENERAL_FAIL: string;
   ORG_DETAILS: string;
@@ -337,6 +395,7 @@ export interface Messages {
   ENTITY_DELETE: string;
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
+  ENTITYNOTDELETED: string;
   ENTITY_DELETE_FAIL_TITLE: string;
   SITE_IMPORT_SUCCESS: string;
   SITE_IMPORT_FAILURE: string;
@@ -401,12 +460,14 @@ export interface Messages {
   SITE_HAZARD_DETAIL: string;
   EDITPROFILE: string;
   ENTITYCODE_FOR: string;
+  SITECODE_FOR: string;
   CREATEGROUP: string;
   ENTITY_SETTINGS: string;
   PERMISSION_SETTINGS: string;
   THEME_SETTINGS: string;
   SITE_MAP: string;
   NEW_FOLDER: string;
+  SAME_FOLDER_NAME: string;
   FOLDER_FAIL: string;
   CANT_CREATE_ROOT: string;
   NO_FOLDER: string;
@@ -415,7 +476,11 @@ export interface Messages {
   GET_FOLDER_FAILURE: string;
   DOC_UPLOAD_FAIL: string;
   FOLDER_RENAMED: string;
+  FOLDER_DELETED: string;
+  FOLDER_DEL_FAIL: string;
+  DOCUMENT_RENAMED: string;
   RENAME_FAIL: string;
+  DOC_RENAME_FAIL: string;
   ACTIVITIES_FAIL: string;
   NOT_CHECKED_OUT: string;
   TEAM_MEMBER: string;
@@ -447,13 +512,21 @@ export interface Messages {
   HOURS_CHECKIN_MSG: string;
   ALERT_PERSON_MSG: string;
   ACTION_ALERT_MSG: string;
-  PULSE_ENTITY_MSG: string;
-  PULSE_PERSON_MSG: string;
+  PULSE_REPORT_MSG: string;
   COMPLIANT_CHECKOUT_MSG: string;
   SITE_ACTIVITY_MSG: string;
   HAZARD_REPORT_MSG: string;
   NO_SITES: string;
   PARENT_QUESTION_REQ: string;
+  TEAM_TITLE_REQUIRED: string;
+  TEAM_SELECTION_REQUIRED: string;
+  TEAM_MEMBERS_REQUIRED: string;
+  COMMON_PASSWORD: string;
+  PERMISSIONS_UPDATED: string;
+  PERMISSIONS_UPDATION_FAILED: string;
+  TEAM_NAME_REQ: string;
+  NO_USER: string;
+  NO_USER_SELECTED: string;
 }
 
 export interface Logger {
@@ -534,11 +607,12 @@ export interface SiteTitle {
   HOURS_CHECKINS_BY_ACTIVITY: string;
   CHECKIN_BY_PERSON: string;
   ACTIONS_VS_ALERTS: string;
-  PULSE_REPORT_BY_ENTITY: string;
-  PULSE_REPORT_BY_PERSON: string;
+  PULSE_REPORT: string;
   COMPLIANT_CHECKOUT: string;
   SITE_ACTIVITY_REPORT: string;
   HAZARD_REPORTS: string;
+  LEAVES: string;
+  ADDLEAVES: string;
 }
 
 export interface TableHeadings {
@@ -557,6 +631,7 @@ export interface TableHeadings {
   TIMEZONE: string;
   ADMINISTRATED_BY: string;
   SITE_NAME: string;
+  RADIUS: string;
   SITE_ADDRESS: string;
   SITE_SAFE_ZONE: string;
   SITE_CREATED_BY: string;

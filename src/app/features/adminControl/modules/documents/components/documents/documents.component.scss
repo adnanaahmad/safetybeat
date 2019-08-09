@@ -1,0 +1,85 @@
+@mixin amte-documents($primary, $accent, $warn) {
+  :host,
+  app-documents {
+    position: relative;
+    height: $fullValue;
+    .document-inline,
+    .file-inline {
+      display: inline-block;
+      cursor: pointer;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      width: 170px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0;
+      .file-options {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .content {
+        @include ellipsis;
+        padding: 16px;
+      }
+    }
+    .document-inline {
+      .content {
+        span {
+          @include ellipsis;
+          padding-right: 10px;
+          display: block;
+        }
+      }
+    }
+    .file-type,
+    .document-type {
+      opacity: 0.5;
+      padding-right: 5px;
+      float: left;
+    }
+    .files-wrapper {
+      .file-inline {
+        img {
+          max-width: $fullValue;
+          display: block;
+          margin: 20px 0 0;
+        }
+      }
+    }
+
+    // Document style
+    .filetype {
+      display: block;
+      position: relative;
+      width: 70px;
+      height: 90px;
+      margin: 10px auto 0;
+      color: mat-color($primary, 200);
+      text-align: center;
+      span {
+        text-align: center;
+        @include midBlock;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -7px;
+        width: $fullValue;
+        height: 90px;
+        background-color: mat-color($primary, 50);
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        top: -7px;
+        border-style: solid;
+        border-width: 0 16px 16px 0;
+        border-color: transparent #fff mat-color($primary, 100) transparent;
+        background-color: mat-color($primary, 100);
+      }
+    }
+  }
+}

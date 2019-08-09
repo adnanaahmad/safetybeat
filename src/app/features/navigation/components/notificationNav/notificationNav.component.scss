@@ -1,0 +1,71 @@
+@mixin amte-notificationnav($primary, $accent, $warn) {
+  :host,
+  app-notificationnav {
+    padding: 0 0 0 20px;
+    display: block;
+    mat-tab-group {
+      width: $fullValue;
+      padding-right: 20px;
+    }
+    .mat-tab-label {
+      height: 30px;
+      .mat-tab-label-content {
+        font-size: 12px;
+      }
+    }
+    mat-list-item[role="listitem"] {
+      height: auto;
+      border-bottom: 1px solid #ddd;
+      padding: 0px 0 10px;
+      .mat-list-item-content {
+        display: block;
+        padding: 0;
+      }
+      h5 {
+        margin: 10px 0;
+        a {
+          text-decoration: none;
+        }
+      }
+      p {
+        margin: 10px 0;
+        font-size: 12px;
+      }
+      .clear-notif {
+        float: right;
+        text-align: right;
+        cursor: pointer;
+        height: auto;
+        width: auto;
+        font-weight: bold;
+        border-radius: 3px;
+        font-size: 12px;
+        padding: 2px;
+        opacity: 0;
+        transform: scale(0);
+        transition: all ease 0.3s;
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+      }
+      .read-notif,
+      .unread-notif {
+        float: right;
+        width: 8px;
+        height: 8px;
+        border-radius: 100px;
+        margin: 4px 5px 0 0;
+      }
+      .timelog {
+        font-size: 12px;
+        opacity: 0.5;
+      }
+      &:hover {
+        .clear-notif {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

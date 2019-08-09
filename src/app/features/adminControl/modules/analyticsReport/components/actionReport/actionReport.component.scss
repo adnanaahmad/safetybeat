@@ -1,0 +1,27 @@
+@mixin amte-action-report($primary, $accent, $warn) {
+  :host,
+  app-action-report {
+    position: relative;
+    height: 100%;
+    .mat-form-field {
+      margin: 0 10px 0 0;
+    }
+    mat-grid-list {
+      height: 50vh;
+      margin-top: 20px;
+    }
+    #checkInContainer,
+    #checkOutContainer {
+      border-radius: 4px;
+      height: 100%;
+      width: 100%;
+    }
+    @media (max-width: 575px) {
+      .form-group {
+        mat-form-field {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

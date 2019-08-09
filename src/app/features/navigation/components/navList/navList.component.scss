@@ -1,0 +1,61 @@
+@mixin amte-nav-list($primary, $accent, $warn) {
+  :host,
+  app-nav-list {
+    .nav-link {
+      display: flex;
+      align-items: center;
+    }
+    mat-nav-list.bottom {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+    }
+    mat-list-item {
+      .nav-link {
+        color: #fff;
+        .mat-icon {
+          position: absolute;
+          right: 0;
+        }
+      }
+      &.active {
+        background: rgba(255, 255, 255, 0.2) !important;
+        .nav-link {
+          color: #fff !important;
+        }
+      }
+      &:hover {
+        background: mat-color($primary-pallet, 500) !important;
+        &.active {
+          background: rgba(255, 255, 255, 0.2) !important;
+        }
+      }
+    }
+    .nav-accordion {
+      mat-expansion-panel {
+        background: transparent;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        mat-expansion-panel-header {
+          padding: 0 16px;
+        }
+        &.mat-expanded {
+          mat-expansion-panel-header {
+            background: rgba(255, 255, 255, 0.07);
+          }
+        }
+        .mat-expansion-panel-header-title {
+          color: #fff;
+          font-size: 14px;
+        }
+        .mat-expansion-indicator::after {
+          color: #fff;
+        }
+        .mat-expansion-panel-body {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
