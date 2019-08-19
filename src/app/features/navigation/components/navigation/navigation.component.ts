@@ -11,7 +11,7 @@ import {GeneralComponent} from 'src/app/features/settings/components/general/gen
 import {SecurityComponent} from 'src/app/features/settings/components/security/security.component';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
-import {BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
+import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -117,7 +117,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
           .subscribe(entitesData => {
             this.navModel.allEntitiesData = entitesData;
             this.navModel.entityUserData = this.compiler.constructUserEntityData(
-              this.navModel.allEntitiesData.data
+              this.navModel.allEntitiesData.data.allEntities
             );
             this.navService.changeEntites(this.navModel.entityUserData);
           });

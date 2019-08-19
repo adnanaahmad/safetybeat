@@ -116,7 +116,6 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
     };
     this.analyticsService.averageDailyActionsReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
-        console.log(res);
         // this.hazardObj.hazardReportData = res.data.hazardReportBySeverity;
         // this.hazardObj.resolvedHazards = res.data.resolvedHazard;
         // this.hazardObj.unResolvedHazards = res.data.unResolvedHazard;
