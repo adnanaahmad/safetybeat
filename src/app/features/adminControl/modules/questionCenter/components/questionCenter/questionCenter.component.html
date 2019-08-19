@@ -82,11 +82,11 @@
                 <div class="paddingbox text-center" *ngIf="!QuestionObj.entityQuestions && !QuestionObj.loading">
                     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
                 </div>
-                <mat-paginator #entityQuestionMatPage class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize"
+                <mat-paginator #entityQuestionMatPage class="mat-elevation-z3" [pageSize]="QuestionObj.pageSize"
                                [length]="QuestionObj.pageCount"
                                (page)="getAllEntityQuestions(entityQuestionPaginator.pageIndex, QuestionObj.search)"></mat-paginator>
             </div>
-            <div *ngIf="card.title==='pcqBank'">
+            <div class="table-wrap" *ngIf="card.title==='pcqBank'">
 
                 <table class="customTable question-table mat-elevation-z3" mat-table
                        [dataSource]="QuestionObj.dataSource">
@@ -123,7 +123,7 @@
                 <div class="paddingbox text-center" *ngIf="QuestionObj.dataSource === null">
                     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
                 </div>
-                <mat-paginator #questionBankMatPage class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize"
+                <mat-paginator #questionBankMatPage class="mat-elevation-z3" [pageSize]="QuestionObj.pageSize"
                                [length]="QuestionObj.questionBankPageCount"
                                (page)="getAllQuestions(questionBankPaginator.pageIndex)"></mat-paginator>
             </div>
