@@ -71,6 +71,6 @@
   </div>
   <div class="paddingbox text-center" *ngIf="myTeam.dataSource === null">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
-  <mat-paginator class="mat-elevation-z1" (page)="getAllTeams(myTeam.firstIndex,myTeam.search)"
-                 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator class="mat-elevation-z1" [pageSize]="myTeam.pageSize" [length]="myTeam.pageCount"
+                 (page)="getAllTeams(myTeam.firstIndex,myTeam.search)"></mat-paginator>
 </div>

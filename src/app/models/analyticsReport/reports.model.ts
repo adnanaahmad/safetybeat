@@ -89,6 +89,13 @@ export interface HazardReportByStatusData {
   majorUnResolved: number,
   moderateUnResolved: number,
   extremeUnResolved: number,
+  resolved: number,
+  unResolved: number,
+  minor: number,
+  moderate: number,
+  major: number,
+  extreme: number,
+  totalHazards: number
 }
 
 export interface SiteReportData {

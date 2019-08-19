@@ -117,7 +117,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
           .subscribe(entitesData => {
             this.navModel.allEntitiesData = entitesData;
             this.navModel.entityUserData = this.compiler.constructUserEntityData(
-              this.navModel.allEntitiesData.data
+              this.navModel.allEntitiesData.data.allEntities
             );
             this.navService.changeEntites(this.navModel.entityUserData);
           });

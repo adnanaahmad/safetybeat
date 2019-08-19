@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
 import {CoreService} from 'src/app/services/core/authorization/core.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 
 @Injectable()
 /**
@@ -8,6 +9,7 @@ import {CoreService} from 'src/app/services/core/authorization/core.service';
  * other services
  */
 export class AuthGuard implements CanActivate {
+
   constructor(
     private coreService: CoreService,
     private router: Router
@@ -29,7 +31,7 @@ export class AuthGuard implements CanActivate {
         this.router.navigate(['/login']);
         return false;
       }
-
     }
   }
+
 }

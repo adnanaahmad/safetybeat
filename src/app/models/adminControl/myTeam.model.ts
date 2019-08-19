@@ -5,6 +5,8 @@ import {PermissionsModel} from './permissions.model';
 import {MatTableDataSource} from '@angular/material';
 
 export interface MyTeamModel {
+  pageSize: number;
+  pageCount: number;
   search: string;
   firstIndex: number;
   loading: boolean;

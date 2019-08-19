@@ -6,6 +6,7 @@ import {ForgotPasswordComponent} from './components/forgotPassword/forgotPasswor
 import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordRecovery.component';
 import {PackageDetailsComponent} from './components/packageDetails/packageDetails.component';
 import {AuthGuard} from 'src/app/services/core/guards/auth.guard';
+import {UpdateprofileComponent} from './components/updateprofile/updateprofile.component';
 
 const authRoutes: Routes = [
   {
@@ -24,9 +25,15 @@ const authRoutes: Routes = [
   {
     path: 'passwordRecovery/:uid/:token',
     component: PasswordRecoveryComponent
-  }, {
+  },
+  {
     path: 'signup/:email',
     component: RegistrationComponent
+  },
+  {
+    path: 'updateProfile',
+    canActivate: [AuthGuard],
+    component: UpdateprofileComponent
   },
   {
     path: 'package',

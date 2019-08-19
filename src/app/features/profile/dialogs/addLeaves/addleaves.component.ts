@@ -65,7 +65,6 @@ export class AddleavesComponent implements OnInit {
    * @params leaveForm
    */
   addLeavesSubmit(leaveForm: FormGroup) {
-    debugger
     this.leavesModel.loading = true;
     let data: AddLeaveData = {
       entity: this.leavesModel.entity.id,

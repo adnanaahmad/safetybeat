@@ -69,6 +69,7 @@ export interface PermissionsModel {
   refreshEntityCode: boolean,
   supportCentre: boolean,
   settings: boolean,
+  dashboard: boolean
 }
 
 export interface ChangePermissionsObj {

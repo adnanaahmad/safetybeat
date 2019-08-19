@@ -317,15 +317,7 @@ export class CompilerProvider {
         route: '/home/adminControl/dashboard',
         iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
-        disabled: true,
-        bottom: false
-      },
-      {
-        displayName: 'Member Centre',
-        route: '/home/adminControl/memberCenter',
-        iconName: this.appIcons.person,
-        toolTip: 'Member Center',
-        disabled: data.permissions.memberCentre,
+        disabled: data.permissions.dashboard,
         bottom: false
       },
       {
@@ -334,6 +326,14 @@ export class CompilerProvider {
         iconName: this.appIcons.log,
         toolTip: 'Entity Control Center',
         disabled: data.permissions.entityControl,
+        bottom: false
+      },
+      {
+        displayName: 'Member Centre',
+        route: '/home/adminControl/memberCenter',
+        iconName: this.appIcons.person,
+        toolTip: 'Member Center',
+        disabled: data.permissions.memberCentre,
         bottom: false
       },
       {
@@ -398,39 +398,15 @@ export class CompilerProvider {
             bottom: false
           },
           {
-            displayName: 'Average Daily Actions',
-            route: '/home/adminControl/analyticsReport/averageDailyActionsReport',
-            disabled: data.permissions.averageDailyReport,
-            bottom: false
-          },
-          {
             displayName: 'Checkin by Activity',
             route: '/home/adminControl/analyticsReport/checkInActivityReport',
             disabled: data.permissions.checkinByActivity,
             bottom: false
           },
           {
-            displayName: 'Checkin and Alert by Person',
-            route: '/home/adminControl/analyticsReport/alertsPersonReport',
-            disabled: data.permissions.checkinAndAlertByPerson,
-            bottom: false
-          },
-          {
-            displayName: 'Actions vs Alerts',
-            route: '/home/adminControl/analyticsReport/actionAlertsReport',
-            disabled: data.permissions.actionsVsAlerts,
-            bottom: false
-          },
-          {
             displayName: 'Pulse Report',
             route: '/home/adminControl/analyticsReport/entityPulseReport',
             disabled: data.permissions.pulseReportByEntity,
-            bottom: false
-          },
-          {
-            displayName: 'Compliant Checkout',
-            route: '/home/adminControl/analyticsReport/compliantCheckoutReport',
-            disabled: data.permissions.compliantCheckOut,
             bottom: false
           },
           {

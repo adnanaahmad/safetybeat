@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
+    this.loginObj.subscription.unsubscribe();
   }
 
   /**
@@ -96,6 +97,14 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   get formValidation() {
     return this.loginObj.loginForm.controls;
+  }
+
+  permissionBasedNavigation() {
+    this.loginObj.subscription = this.navService.entityPermissions.subscribe((res) => {
+      if (res !== 1) {
+        res.dashboard ? this.router.navigate(['home/adminControl/dashboard']) : this.router.navigate(['home/adminControl/entityControl']);
+      }
+    })
   }
 
   /**
@@ -135,12 +144,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.adminService.viewEntities(entityData).subscribe((res) => {
             if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
               this.loginObj.entities = res;
-              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
+              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data.allEntities);
               this.navService.changeEntites(entityUserData);
               this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
                 this.helperService.constants.status.SUCCESS);
               this.loginObj.loading = false;
-              this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
+              this.permissionBasedNavigation();
             } else {
               this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
             }
