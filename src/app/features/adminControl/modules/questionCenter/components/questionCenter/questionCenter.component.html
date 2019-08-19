@@ -20,7 +20,7 @@
                (keyup)="getAllQuestions(QuestionObj.firstIndex,$event.target.value)">
         <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
       </div>
-      <a class="mat-body-strong mat-small pointer">Advanced Search</a>
+      <a class="mat-body-strong mat-small pointer">&nbsp;</a>
     </div>
   </div>
   <div class="spinner-wrap" *ngIf="QuestionObj.loading">

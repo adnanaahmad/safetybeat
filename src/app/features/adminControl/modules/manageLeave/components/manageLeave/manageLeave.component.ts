@@ -4,7 +4,8 @@ import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ManageleaveService} from 'src/app/features/adminControl/modules/manageLeave/services/manageleave.service';
 import {ManageLeave} from 'src/app/models/manageLeave.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
-import {ProfileService} from '../../../../../profile/services/profile.service';
+import {ProfileService} from 'src/app/features/profile/services/profile.service';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-manageLeave',
@@ -17,17 +18,24 @@ export class ManageLeaveComponent implements OnInit {
 
   constructor(
     public helperService: HelperService,
-    private leaveServiceL: ManageleaveService,
+    private leaveService: ManageleaveService,
     private compiler: CompilerProvider,
     private profileService: ProfileService
   ) {
+    this.initialize();
     this.getLeaveTypes();
-    this.viewAllUserLeaves();
+    this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
   }
 
   ngOnInit() {
-    this.leaveModel.displayedColumns = ['userName', 'leaveType', 'dateFrom', 'dateTo', 'reason', 'status', 'symbol'];
+  }
 
+  initialize() {
+    this.leaveModel.loading = false;
+    this.leaveModel.search = '';
+    this.leaveModel.firstIndex = 0;
+    this.leaveModel.pageSize = 10;
+    this.leaveModel.displayedColumns = ['userName', 'leaveType', 'dateFrom', 'dateTo', 'reason', 'status', 'symbol'];
   }
 
   /**
@@ -50,21 +58,58 @@ export class ManageLeaveComponent implements OnInit {
    * error block we are handling error that will occur when the server is not responding.
    */
 
-  viewAllUserLeaves() {
+  viewAllUserLeaves(pageIndex, search) {
     let data = {
       entityId: this.helperService.getEntityId()
     };
-    this.leaveServiceL.viewAllUserLeavesData(data).subscribe((res) => {
+    let pagination: PaginationData = {
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit,
+      search: search
+    };
+    this.leaveService.viewAllUserLeavesData(data, pagination).subscribe((res) => {
+      this.leaveModel.pageCount = res.data.pageCount;
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.leaveModel.userLeavesData = this.compiler.manageLeaveTable(res);
         this.leaveModel.dataSource = new MatTableDataSource(this.leaveModel.userLeavesData);
-        this.leaveModel.dataSource.paginator = this.paginator;
       } else {
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
+  }
+
+
+  approveLeave(data) {
+    this.leaveModel.loading = true;
+    let leaveData = {
+      approveReject: true,
+      approved: true,
+      dateFrom: data.leavesData.dateFrom,
+      dateTo: data.leavesData.dateTo,
+      description: data.leavesData.description,
+      entity: data.leavesData.entity,
+      id: data.leavesData.id,
+      leaveType: data.leavesData.leaveType.id,
+      rejected: false
+    };
+    this.leaveService.acceptRejectUserLeaves(data.leavesData.id, leaveData).subscribe((res) => {
+      this.leaveModel.loading = false;
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
+      } else {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    });
+
+  }
+
+  rejectLeave(data) {
+
   }
 
 

@@ -483,9 +483,11 @@ export class CompilerProvider {
     let actionData = [];
     this.helperService.iterations(actionsArray.data.userLeaves, function (obj) {
       let action = {
+        leavesData: obj,
+        userData: obj.requestedBy,
         userName: obj.requestedBy.first_name + ' ' + obj.requestedBy.last_name,
         status: obj.approved ? 'approved' : obj.rejected ? 'rejected' : 'pending',
-        leaveType: obj.leaveType,
+        leaveType: obj.leaveType.name,
         dateFrom: new Date(obj.dateFrom).toDateString(),
         dateTo: new Date(obj.dateTo).toDateString(),
         reason: obj.description
