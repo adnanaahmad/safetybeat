@@ -8,7 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: 'src/app/features/navigation/navigation.module#NavigationModule'
   },
   {

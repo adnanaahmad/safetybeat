@@ -317,15 +317,7 @@ export class CompilerProvider {
         route: '/home/adminControl/dashboard',
         iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
-        disabled: true,
-        bottom: false
-      },
-      {
-        displayName: 'Member Centre',
-        route: '/home/adminControl/memberCenter',
-        iconName: this.appIcons.person,
-        toolTip: 'Member Center',
-        disabled: data.permissions.memberCentre,
+        disabled: data.permissions.dashboard,
         bottom: false
       },
       {
@@ -334,6 +326,14 @@ export class CompilerProvider {
         iconName: this.appIcons.log,
         toolTip: 'Entity Control Center',
         disabled: data.permissions.entityControl,
+        bottom: false
+      },
+      {
+        displayName: 'Member Centre',
+        route: '/home/adminControl/memberCenter',
+        iconName: this.appIcons.person,
+        toolTip: 'Member Center',
+        disabled: data.permissions.memberCentre,
         bottom: false
       },
       {

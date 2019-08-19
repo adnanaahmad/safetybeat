@@ -1,5 +1,19 @@
-<mat-grid-list cols="2" rowHeight="fit" gutterSize="10px" class="dashboard-widgets">
-  <mat-grid-tile class="mat-elevation-z2" *ngFor="let chart of mockData">
-    <div [id]="chart.containerId"></div>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="spinner-wrap" *ngIf="dashboardObj.loading">
+  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
+<div [class]="dashboardObj.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
+  <mat-grid-list cols="2" rowHeight="fit" gutterSize="10px" class="dashboard-widgets">
+    <mat-grid-tile class="mat-elevation-z2">
+      <div id="container"></div>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-elevation-z2">
+      <div id="severityReport"></div>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-elevation-z2">
+      <div id="statusReport"></div>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-elevation-z2">
+      <div id="siteReport"></div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
