@@ -63,6 +63,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {environment} from '../environments/environment';
 import {FirebaseService} from './services/common/FirebaseNotification/firebase.service';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -102,7 +103,8 @@ export function createTranslateLoader(http: HttpClient) {
     ShowSiteCodeComponent,
     FileRenameComponent,
     AddleavesComponent,
-    LeaveinfoComponent
+    LeaveinfoComponent,
+    NotificationsComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -192,7 +194,8 @@ export function createTranslateLoader(http: HttpClient) {
     ShowSiteCodeComponent,
     FileRenameComponent,
     AddleavesComponent,
-    LeaveinfoComponent
+    LeaveinfoComponent,
+    NotificationsComponent
   ]
 })
 export class AppModule {

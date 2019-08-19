@@ -80,7 +80,7 @@ export class FirebaseService {
     this.angularFireMessaging.messages.subscribe(
       (payload) => {
         this.myMessage = payload;
-        this.helperService.createSnack(
+        this.helperService.createSnackNotify(
           this.myMessage.notification.title + ' ' + this.myMessage.notification.body, this.helperService.constants.status.INFO);
         this.currentMessage.next(payload);
       });
