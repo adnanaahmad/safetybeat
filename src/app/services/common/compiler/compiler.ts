@@ -464,8 +464,8 @@ export class CompilerProvider {
         userName: obj.requestedBy.first_name + ' ' + obj.requestedBy.last_name,
         status: obj.approved ? 'approved' : obj.rejected ? 'rejected' : 'pending',
         leaveType: obj.leaveType.name,
-        dateFrom: new Date(obj.dateFrom).toDateString(),
-        dateTo: new Date(obj.dateTo).toDateString(),
+        dateFrom: new Date(obj.dateFrom),
+        dateTo: new Date(obj.dateTo),
         reason: obj.description
       };
       actionData.push(action);

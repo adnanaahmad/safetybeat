@@ -31,7 +31,7 @@ export class ManageLeaveComponent implements OnInit {
   }
 
   initialize() {
-    this.leaveModel.currentDate = new Date().toDateString();
+    this.leaveModel.currentDate = new Date();
     this.leaveModel.loading = false;
     this.leaveModel.search = '';
     this.leaveModel.firstIndex = 0;

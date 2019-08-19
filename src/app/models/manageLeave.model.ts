@@ -2,7 +2,7 @@ import {MatTableDataSource} from '@angular/material';
 import {LeaveTypes} from './profile/profile.model';
 
 export interface ManageLeave {
-  currentDate: string;
+  currentDate: Date;
   loading: boolean;
   pageCount: number;
   pageSize: number;
