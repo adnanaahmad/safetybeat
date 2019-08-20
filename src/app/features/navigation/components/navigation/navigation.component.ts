@@ -31,10 +31,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isOwner: boolean = false;
   packageInfo: PackageInfo;
   matcher: MediaQueryList;
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
 
   constructor(
     public core: CoreService,
@@ -43,12 +39,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public helperService: HelperService,
     private profile: ProfileService,
-    public breakpointObserver: BreakpointObserver,
     public mediaMatcher: MediaMatcher
   ) {
     this.initialize();
     this.getSelectedEntity();
-
   }
 
   ngOnInit() {

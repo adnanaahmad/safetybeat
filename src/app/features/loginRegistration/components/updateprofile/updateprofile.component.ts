@@ -17,13 +17,14 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
   styleUrls: ['./updateprofile.component.scss']
 })
 export class UpdateprofileComponent implements OnInit {
-  private logoutDisable: boolean;
-  private logoutResponse: any;
-  private generalForm: FormGroup;
-  private resultData: GeneralInfo;
-  private userData: User;
-  private success: any;
-  private email: any;
+  logoutDisable: boolean;
+  logoutResponse: any;
+  generalForm: FormGroup;
+  resultData: GeneralInfo;
+  userData: User;
+  success: any;
+  email: any;
+  loading: boolean = false;
 
   constructor(
     private navService: NavigationService,
@@ -43,8 +44,11 @@ export class UpdateprofileComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       contactNo: ['', Validators.required],
-      countryCode: ['', Validators.required]
-    }, {validator: this.phoneNumberValid.bind(this)});
+      countryCode: ['', Validators.required],
+      currentPassword: ['', [Validators.required, Validators.minLength(8)]],
+      password1: ['', [Validators.required, Validators.minLength(8)]],
+      password2: ['', [Validators.required, Validators.minLength(8)]]
+    }, {validator: [this.phoneNumberValid.bind(this), this.checkPasswords]});
     this.setGeneralForm();
     this.generalViewForm['email'].disable();
   }
@@ -53,20 +57,34 @@ export class UpdateprofileComponent implements OnInit {
     return this.generalForm.controls;
   }
 
+  checkPasswords(group: FormGroup) {
+    const currentPass = group.controls.currentPassword.value;
+    const savedPass = this.helperService.decrypt(localStorage.getItem('pas'), this.helperService.appConstants.key);
+    if (currentPass !== savedPass) {
+      group.controls.currentPassword.setErrors({notSame: true});
+    }
+    const pass = group.controls.password1.value;
+    const confirmPass = group.controls.password2.value;
+    return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
+  }
+
   setGeneralForm() {
     this.settings.generalData.subscribe((res) => {
-      if (res === 1) {
+      if (res && res === 1) {
         this.profile.getUser().subscribe((res) => {
-          this.resultData = this.compiler.constructGeneralInfoObject(res);
-          this.userData = this.compiler.constructProfileData(this.resultData);
-          this.navService.updateCurrentUser(this.userData);
-          this.generalViewForm['email'].setValue(this.userData.email);
-          this.generalViewForm['first_name'].setValue(this.userData.first_name);
-          this.generalViewForm['last_name'].setValue(this.userData.last_name);
-          let contact = (this.userData.contactNo).split('-', 2);
-          this.generalViewForm['contactNo'].setValue(contact[1]);
-          contact[0] = contact[0].replace('+', '');
-          this.generalViewForm['countryCode'].setValue(contact[0]);
+          if (res) {
+            this.userData = this.compiler.constructProfileData(res.data.user);
+            this.navService.updateCurrentUser(this.userData);
+            this.generalViewForm['email'].setValue(this.userData.email);
+            this.generalViewForm['first_name'].setValue(this.userData.first_name);
+            this.generalViewForm['last_name'].setValue(this.userData.last_name);
+            let contact = (this.userData.contactNo).split('-', 2);
+            this.generalViewForm['contactNo'].setValue(contact[1]);
+            contact[0] = contact[0].replace('+', '');
+            this.generalViewForm['countryCode'].setValue(contact[0]);
+          }
+        }, (error) => {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         });
       }
     });
