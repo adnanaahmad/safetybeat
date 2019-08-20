@@ -36,7 +36,7 @@ export interface AllUsersOfEntityResponse {
 }
 
 export interface ViewAllEntitiesResponse {
-  data: Array<Entity>;
+  data: { allEntities: Array<Entity> };
   responseDetails: responseDetails;
 }
 

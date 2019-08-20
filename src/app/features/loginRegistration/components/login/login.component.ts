@@ -10,6 +10,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {Login} from 'src/app/models/loginRegistration/login.model';
 import {Breakpoints, BreakpointObserver} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
+import {EntityUserData} from '../../../../models/userEntityData.model';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -89,7 +90,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
-    this.loginObj.subscription.unsubscribe();
+    // this.loginObj.subscription.unsubscribe();
   }
 
   /**
@@ -97,14 +98,6 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   get formValidation() {
     return this.loginObj.loginForm.controls;
-  }
-
-  permissionBasedNavigation() {
-    this.loginObj.subscription = this.navService.entityPermissions.subscribe((res) => {
-      if (res !== 1) {
-        res.dashboard ? this.router.navigate(['home/adminControl/dashboard']) : this.router.navigate(['home/adminControl/entityControl']);
-      }
-    })
   }
 
   /**
@@ -116,19 +109,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit({value, valid}: { value: loginCredentials; valid: boolean; }): void {
     if (!valid) {
       this.helperService.createSnack(
-        this.helperService.translated.LOGGER.MESSAGES.CREDENTIAL_REQ,
-        this.helperService.constants.status.ERROR
-      );
+        this.helperService.translated.LOGGER.MESSAGES.CREDENTIAL_REQ, this.helperService.constants.status.ERROR);
       return;
     }
     this.loginObj.loading = true;
     this.loginService.loginUser(value).subscribe(
-      data => {
+      (data) => {
         if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.loginObj.data = data;
-          data
-            ? this.loginService.setToken(this.loginObj.data.data.token)
-            : this.loginService.setToken('');
+          data ? this.loginService.setToken(this.loginObj.data.data.token) : this.loginService.setToken('');
+          localStorage.setItem('pas', this.helperService.encrypt(value.password, this.helperService.appConstants.key));
           let userData = this.compiler.constructUserData(this.loginObj.data);
           this.navService.updateCurrentUser(userData.user);
           let self = this;
@@ -144,12 +134,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.adminService.viewEntities(entityData).subscribe((res) => {
             if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
               this.loginObj.entities = res;
-              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data.allEntities);
-              this.navService.changeEntites(entityUserData);
+              this.loginObj.entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data.allEntities);
+              this.navService.changeEntites(this.loginObj.entityUserData);
               this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
                 this.helperService.constants.status.SUCCESS);
               this.loginObj.loading = false;
-              this.permissionBasedNavigation();
+              this.permissionBasedNavigation(this.loginObj.entityUserData);
             } else {
               this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
             }
@@ -175,5 +165,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loginObj.loading = false;
         this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
       });
+  }
+
+  permissionBasedNavigation(data: EntityUserData) {
+    let index = this.helperService.findIndex(data.entities, function (entity) {
+      return entity.active === true;
+    });
+    this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
+    this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
+      this.router.navigate(['home/adminControl/entityControl']);
   }
 }

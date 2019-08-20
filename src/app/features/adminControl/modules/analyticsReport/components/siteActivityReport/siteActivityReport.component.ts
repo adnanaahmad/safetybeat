@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   ActionReportApiData,
-  HazardReportData,
   HighChartType,
   Report,
   SiteDetailsReport,
@@ -16,7 +15,6 @@ import {HighchartService} from 'src/app/services/common/highchart/highchart.serv
 import * as Highcharts from 'highcharts';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {PaginationData, ViewAllSiteEntityData} from 'src/app/models/site.model';
-import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-siteActivityReport',
@@ -123,7 +121,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
         }
         this.siteReportObj.loading = false;
       } else {
-        // this.hazardObj.loading = false;
+        this.siteReportObj.loading = false;
       }
     });
   }
@@ -151,7 +149,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       charSeries: charSeries,
       categories: ['CheckIns', 'CheckOuts'],
       title: 'No of CheckIns and CheckOuts'
-    }
+    };
     return data;
   }
 
@@ -165,11 +163,11 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       checkIns.push(siteReport.siteCheckIns);
       checkOuts.push(siteReport.siteCheckOuts);
     });
-    charSeries.push( {
+    charSeries.push({
       name: 'CheckIns',
       data: checkIns
     });
-    charSeries.push( {
+    charSeries.push({
       name: 'CheckOuts',
       data: checkOuts
     });
@@ -177,7 +175,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       charSeries: charSeries,
       categories: dates,
       title: 'No of CheckIns and CheckOuts'
-    }
+    };
     return data;
   }
 
@@ -207,6 +205,8 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
         });
         this.siteFormValidations['filter'].setValue(this.siteReportObj.lastWeekObj.id);
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

@@ -249,7 +249,7 @@ export class CompilerProvider {
 
   constructAllConnectionData(connectionArray) {
     let connectionData = [];
-    this.helperService.iterations(connectionArray.data, function (obj) {
+    this.helperService.iterations(connectionArray.data.acceptedConnections, function (obj) {
       let connection = {
         name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,
