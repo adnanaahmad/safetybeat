@@ -90,9 +90,4 @@ export class AddleavesComponent implements OnInit {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
-
-  dateFrom(value: any) {
-    debugger
-
-  }
 }

@@ -102,7 +102,7 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
           };
           this.adminServices.viewEntities(data).subscribe(res => {
             this.createEntity.loading = false;
-            let entityUserData = this.compiler.constructUserEntityData(res.data);
+            let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
             this.navService.changeEntites(entityUserData);
             this.onNoClick();
           });

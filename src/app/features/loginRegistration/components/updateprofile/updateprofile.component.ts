@@ -17,7 +17,7 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
   styleUrls: ['./updateprofile.component.scss']
 })
 export class UpdateprofileComponent implements OnInit {
-  logoutDisable: boolean;
+  logoutDisable: boolean = false;
   logoutResponse: any;
   generalForm: FormGroup;
   resultData: GeneralInfo;
@@ -29,7 +29,7 @@ export class UpdateprofileComponent implements OnInit {
   constructor(
     private navService: NavigationService,
     private coreService: CoreService,
-    private helperService: HelperService,
+    public helperService: HelperService,
     private formBuilder: FormBuilder,
     private profile: ProfileService,
     private settings: SettingsService,
@@ -48,9 +48,8 @@ export class UpdateprofileComponent implements OnInit {
       currentPassword: ['', [Validators.required, Validators.minLength(8)]],
       password1: ['', [Validators.required, Validators.minLength(8)]],
       password2: ['', [Validators.required, Validators.minLength(8)]]
-    }, {validator: [this.phoneNumberValid.bind(this), this.checkPasswords]});
+    }, {validator: [this.phoneNumberValid.bind(this), this.checkPasswords(this.generalForm)]});
     this.setGeneralForm();
-    this.generalViewForm['email'].disable();
   }
 
   get generalViewForm() {

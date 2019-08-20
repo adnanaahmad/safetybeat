@@ -38,7 +38,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     this.helperService.toggleLoader(true);
 
     this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
-      if (res) {
+      if (res && res !== 1) {
         this.entityControl.currentUserData = res;
       }
     });
@@ -198,7 +198,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       if (res) {
         this.entityControl.displayLoader = false;
         this.helperService.toggleLoader(false);
-        let entityUserData = this.compiler.constructUserEntityData(res.data);
+        let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
         this.navService.changeEntites(entityUserData);
       }
     }, (error) => {
