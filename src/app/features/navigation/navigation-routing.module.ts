@@ -20,7 +20,7 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: '../settings/settings.module#SettingsModule',
-        canActivate: [NoAuthGuard]
+        // canActivate: [NoAuthGuard]
       },
       {
         path: 'adminControl',
@@ -33,8 +33,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-  providers: [NoAuthGuard]
+  exports: [RouterModule]
 })
 export class NavigationRoutingModule {
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
@@ -8,18 +8,18 @@ import {
   HazardReportByStatusData,
   HazardReportData,
   HighChartType,
-  Report, SiteReportData
+  Report
 } from 'src/app/models/analyticsReport/reports.model';
 import * as Highcharts from 'highcharts';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   translated: Translation;
   dashboardObj: Report = <Report>{};
 
@@ -30,24 +30,21 @@ export class DashboardComponent implements OnInit {
     private navigationService: NavigationService
   ) {
     this.dashboardObj.loading = false;
-    this.navigationService.selectedEntityData.subscribe((res) => {
+  }
+
+  ngOnInit() {
+    this.dashboardObj.subscription = this.navigationService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.dashboardObj.entityId = res.entityInfo.id;
-        this.makeReport(7, null, null)
-        this.makeHazardReport(7, null, null, null)
-        this.makeSiteReport(7, null, null, null)
+        this.makeReport(7, null, null);
+        this.makeHazardReport(7, null, null, null);
+        this.makePulseReport(7, null, null, null);
       }
     });
   }
 
-  ngOnInit() {
-    this.dashboardObj.loading = false;
-    this.dashboardObj.entityId = this.helperService.getEntityId();
-    this.makeReport(7, null, null)
-    this.makeHazardReport(7, null, null, null)
-    this.makeSiteReport(7, null, null, null)
-    this.makePulseReport(7, null, null, null)
-
+  ngOnDestroy(): void {
+    this.dashboardObj.subscription.unsubscribe();
   }
 
   makeReport(days, dateTo, dateFrom) {
@@ -124,35 +121,6 @@ export class DashboardComponent implements OnInit {
     Highcharts.chart('statusReport', reportByStatusData);
   }
 
-  makeSiteReport(days, dateTo, dateFrom, site) {
-    let data = {
-      'entityId': this.dashboardObj.entityId,
-      'dateTo': dateTo,
-      'dateFrom': dateFrom,
-      'days': days,
-      'site': site
-    };
-    this.analyticsService.siteActivityReport(data).subscribe((res) => {
-      if (res && res.responseDetails.code === 100) {
-        this.dashboardObj.loading = false;
-        this.dashboardObj.siteReportData = res.data.siteActivityReport;
-        let chartType: HighChartType = {
-          type: 'column',
-          title: 'All Sites Activity',
-          subtitle: ''
-        };
-        let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
-          [], this.generateCharSiteSeries(this.dashboardObj.siteReportData));
-        Highcharts.chart('siteReport', siteActivityReportData);
-      } else {
-        this.dashboardObj.loading = false;
-      }
-    }, (error) => {
-      this.dashboardObj.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
-  }
-
   makePulseReport(days, dateTo, dateFrom, userId) {
     let data = {
       'entityId': this.dashboardObj.entityId,
@@ -162,6 +130,7 @@ export class DashboardComponent implements OnInit {
       'user': userId
     };
     this.analyticsService.pulseByEntity(data).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.dashboardObj.pulseByEntityReportData = res.data.pulseByEntity;
         let chartType: HighChartType = {
           type: 'column',
@@ -172,6 +141,12 @@ export class DashboardComponent implements OnInit {
           [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData, res.data.meeting,
             res.data.visiting, res.data.travelling, res.data.other, res.data.onBreak));
         Highcharts.chart('pulseReport', data);
+        this.dashboardObj.loading = false;
+      } else {
+        this.dashboardObj.loading = false;
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -247,23 +222,6 @@ export class DashboardComponent implements OnInit {
       categories: dates,
       title: 'No of Pulse with Type'
     }
-    return data;
-  }
-
-  generateCharSiteSeries(reportData: any) {
-    let charSeries = [];
-    this.helperService.iterations(reportData, function (siteReport: SiteReportData) {
-      let pulse = {
-        name: siteReport.siteName,
-        data: [siteReport.siteCheckIns, siteReport.siteCheckOuts]
-      };
-      charSeries.push(pulse);
-    });
-    let data = {
-      charSeries: charSeries,
-      categories: ['CheckIns', 'CheckOuts'],
-      title: 'No of CheckIns and CheckOuts'
-    };
     return data;
   }
 

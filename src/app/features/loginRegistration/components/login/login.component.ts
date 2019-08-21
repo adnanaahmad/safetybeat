@@ -10,7 +10,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {Login} from 'src/app/models/loginRegistration/login.model';
 import {Breakpoints, BreakpointObserver} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
-import {EntityUserData} from '../../../../models/userEntityData.model';
+import {EntityUserData} from 'src/app/models/userEntityData.model';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -175,6 +175,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       return entity.active === true;
     });
     this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
+    this.navService.changeSelectedEntity(this.loginObj.selectedEntity);
     this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
       this.router.navigate(['home/adminControl/entityControl']);
   }

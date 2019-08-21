@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'entityControl',
     loadChildren: './modules/entityControl/entityControl.module#EntityControlModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'manageLeaves',
@@ -24,49 +24,48 @@ const routes: Routes = [
   {
     path: 'siteCenter',
     loadChildren: './modules/siteCenter/siteCenter.module#SiteCenterModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'hazardCenter',
     loadChildren: './modules/hazardCenter/hazardCenter.module#HazardCenterModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'memberCenter',
     loadChildren: './modules/memberCenter/memberCenter.module#MemberCenterModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'permissionCenter',
     loadChildren: './modules/permissionCenter/permissionCenter.module#PermissionCenterModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'questionCenter',
     loadChildren: './modules/questionCenter/questionCenter.module#QuestionCenterModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'documents',
     loadChildren: './modules/documents/documents.module#DocumentsModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'myTeam',
     loadChildren: './modules/myTeam/myTeam.module#MyTeamModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   },
   {
     path: 'analyticsReport',
     loadChildren: './modules/analyticsReport/analyticsReport.module#AnalyticsReportModule',
-    canActivate: [NoAuthGuard]
+    // canActivate: [NoAuthGuard]
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-  providers: [NoAuthGuard]
+  exports: [RouterModule]
 })
 export class AdminControlRoutingModule {
 
