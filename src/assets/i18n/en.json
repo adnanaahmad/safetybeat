@@ -198,7 +198,9 @@
     "SHOW_RESULTS": "Show Results",
     "PERMISSIONS": "Permissions",
     "REPORTS": "Reports",
-    "CHANGE_ACCESS_LEVEL": "Change Access Level"
+    "CHANGE_ACCESS_LEVEL": "Change Access Level",
+    "LOGOUT": "Logout",
+    "HOW_IT_WORKS": "How it works"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
