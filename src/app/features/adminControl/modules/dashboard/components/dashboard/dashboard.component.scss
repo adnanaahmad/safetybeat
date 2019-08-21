@@ -1,13 +1,14 @@
 @mixin amte-dashboard($primary, $accent, $warn) {
   :host,
   app-dashboard {
+    position: relative;
+    height: $fullValue;
     mat-grid-list {
       height: 90vh;
     }
-    .highcharts-background {
-      fill: transparent;
+    .hightchart-span {
+      height: 100%;
     }
-
     .dashboard-card-content {
       text-align: center;
     }

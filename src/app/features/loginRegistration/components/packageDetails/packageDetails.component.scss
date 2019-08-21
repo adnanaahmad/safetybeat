@@ -103,6 +103,9 @@
       text-align: center;
       color: #fff;
       margin-top: 30px;
+      [custom-btn] {
+        color: initial;
+      }
       h1 {
         font-weight: 500;
         margin: 0;
