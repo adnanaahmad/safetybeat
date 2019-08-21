@@ -188,7 +188,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       let self = this;
       self.helperService.iterations(events, function (obj) {
         let data: Leaveinfodata = {
-          actions: obj.actions,
+          actions: obj.meta.requestedUserData,
           end: new Date(obj.end).toDateString(),
           start: new Date(obj.start).toDateString(),
           title: obj.title
@@ -438,14 +438,14 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             end: new Date(leaveData.dateTo),
             title: leaveData.description,
             allDay: true,
-            actions: leaveData.requestedBy,
             resizable: {
               beforeStart: true,
               afterEnd: true
             },
             draggable: true,
             meta: {
-              type: 'calendarEvent'
+              type: 'calendarEvent',
+              requestedUserData: leaveData.requestedBy
             }
           };
           self.profileModel.events.push(self.profileModel.eventData);

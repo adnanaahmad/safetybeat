@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.dashboardObj.loading = false;
     this.dashboardObj.entityId = this.helperService.getEntityId();
     this.makeReport(7, null, null)
     this.makeHazardReport(7, null, null, null)

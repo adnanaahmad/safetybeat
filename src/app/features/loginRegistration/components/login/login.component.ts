@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.adminService.viewEntities(entityData).subscribe((res) => {
             if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
               this.loginObj.entities = res;
-              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data);
+              let entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data.allEntities);
               this.navService.changeEntites(entityUserData);
               this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
                 this.helperService.constants.status.SUCCESS);

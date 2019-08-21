@@ -61,6 +61,7 @@
 @import "~src/app/features/adminControl/modules/analyticsReport/components/compliantCheckoutReport/compliantCheckoutReport.component.scss";
 @import "~src/app/features/adminControl/modules/analyticsReport/components/averageDailyActionsReport/averageDailyActionsReport.component.scss";
 @import "~src/app/features/adminControl/modules/analyticsReport/components/hazardReport/hazardReport.component.scss";
+@import "~src/app/features/loginRegistration/components/updateprofile/updateprofile.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -132,4 +133,6 @@
   @include amte-compliantCheckoutReport($primary, $accent, $warn);
   @include amte-averageDailyActionsReport($primary, $accent, $warn);
   @include amte-hazardReport($primary, $accent, $warn);
+  @include amte-updateProfile($primary, $accent, $warn);
+
 }

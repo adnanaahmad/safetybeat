@@ -36,6 +36,7 @@ export class MyTeamComponent implements OnInit {
   ngOnInit() {
     this.myTeam.firstIndex = 0;
     this.myTeam.search = '';
+    this.myTeam.pageSize = 10;
     this.getAllUsers();
     this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
     this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
@@ -84,6 +85,7 @@ export class MyTeamComponent implements OnInit {
     };
     this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.myTeam.pageCount = res.data.pageCount;
         this.myTeam.allTeams = res.data.teamsList;
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
         this.myTeam.dataSource.paginator = this.paginator;

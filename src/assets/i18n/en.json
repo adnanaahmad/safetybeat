@@ -440,7 +440,8 @@
     "NO_USER": "No User Exist",
     "NO_USER_SELECTED": "No User Selected",
     "ENTITY_RES_MSG": " responsible to manage this hazard?",
-    "IS": "Is "
+    "IS": "Is ",
+    "ERROR_MSG": "Please check your internet connection or your session has been expired"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

@@ -245,7 +245,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   inviteUser() {
     this.navService.getRoles().subscribe((roles) => {
       let entityId = this.helperService.getEntityId();
-      this.helperService.createDialog(InviteUserModalComponent, {data: {'role': roles, 'entityId': entityId}});
+      this.helperService.createDialog(InviteUserModalComponent, {disableClose: true, data: {'role': roles, 'entityId': entityId}});
       this.helperService.dialogRef.afterClosed().subscribe(res => {
         if (res && res !== this.helperService.appConstants.no) {
           this.getAllUsers(this.paginator.pageIndex, '');

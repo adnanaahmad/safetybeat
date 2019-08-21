@@ -1,4 +1,5 @@
 import {responseDetails, User} from './user.model';
+import {LeaveTypes} from './profile/profile.model';
 
 export interface UserProfile {
   username: string;
@@ -44,6 +45,7 @@ export interface resetPassword {
 
 export interface UserLeavesApiResponse {
   data: {
+    pageCount: number
     userLeaves: Array<UserLeavesApiResponseData>
   };
   responseDetails: responseDetails;
@@ -57,10 +59,7 @@ export interface UserLeavesApiResponseData {
   description: string;
   entity: number;
   id: number;
-  leaveType: {
-    id: number;
-    name: string;
-  };
+  leaveType: LeaveTypes;
   rejected: boolean;
   requestedBy: User;
 }
