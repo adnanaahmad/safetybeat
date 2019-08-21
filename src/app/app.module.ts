@@ -138,7 +138,7 @@ export function createTranslateLoader(http: HttpClient) {
       useClass: TokenInterceptorService,
       multi: true
     },
-    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    // {provide: LocationStrategy, useClass: HashLocationStrategy},
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
         duration: 2000,
