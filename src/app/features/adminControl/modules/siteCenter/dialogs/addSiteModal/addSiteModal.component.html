@@ -81,7 +81,7 @@
                     color="primary" *ngIf="addSiteObj.modalType">
                 {{ helperService.translated.BUTTONS.ADD_SITE }}
             </button>
-            <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.loading || addSiteObj.addSiteForm.invalid" color="primary"
+            <button mat-raised-button custom-btn btn-primary [disabled]="addSiteObj.addSiteForm.invalid" color="primary"
                     *ngIf="!addSiteObj.modalType">
                 {{ helperService.translated.BUTTONS.SAVE }}
                 <div class="main-loader" *ngIf="addSiteObj.loading">

@@ -10,7 +10,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {Login} from 'src/app/models/loginRegistration/login.model';
 import {Breakpoints, BreakpointObserver} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
-import {EntityUserData} from '../../../../models/userEntityData.model';
+import {EntityUserData} from 'src/app/models/userEntityData.model';
 
 @Component({
   templateUrl: 'login.component.html',

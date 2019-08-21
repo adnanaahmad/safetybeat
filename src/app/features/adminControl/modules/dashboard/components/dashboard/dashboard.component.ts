@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
@@ -18,7 +18,7 @@ import {NavigationService} from '../../../../../navigation/services/navigation.s
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   translated: Translation;
   dashboardObj: Report = <Report>{};
 
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
     private navigationService: NavigationService
   ) {
     this.dashboardObj.loading = false;
-    this.navigationService.selectedEntityData.subscribe((res) => {
+    this.dashboardObj.subscription = this.navigationService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.dashboardObj.entityId = res.entityInfo.id;
         this.makeReport(7, null, null)
@@ -41,6 +41,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ngOnDestroy(): void {
+    this.dashboardObj.subscription.unsubscribe();
   }
 
   makeReport(days, dateTo, dateFrom) {
