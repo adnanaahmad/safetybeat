@@ -15,6 +15,7 @@ import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {FirebaseService} from '../../../../services/common/FirebaseNotification/firebase.service';
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -54,6 +55,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
         });
         this.navModel.selectedEntity =
           index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
+        localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
+          this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
         this.switchSideMenu(this.navModel.selectedEntity);
         this.navService.changePermissions(this.navModel.selectedEntity.permissions);
         this.navService.changeRole(this.navModel.selectedEntity.role)
@@ -182,8 +185,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
     } else {
       this.navModel.selectedEntity = data;
-      localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
-        this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
       this.navService.changeSelectedEntity(this.navModel.selectedEntity);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
