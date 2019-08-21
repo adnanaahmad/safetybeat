@@ -55,8 +55,8 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteSafetyPlan: ['', Validators.required],
       siteAddress: ['', Validators.required],
       safeZone: false,
-      siteSafetyManager: ['', Validators.required],
-      radius: [''],
+      siteSafetyManager: [''],
+      radius: ['', Validators.required],
       gpsTrackEnabled: ['']
     });
     if (this.addSiteObj.modalType === false) {

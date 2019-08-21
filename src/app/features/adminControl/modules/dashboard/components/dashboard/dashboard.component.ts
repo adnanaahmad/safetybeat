@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
+import {PulseByEntityReportData} from 'src/app/models/analyticsReport/reports.model';
 import {
   ActionReportData,
   HazardReportByStatusData,
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
     this.makeReport(7, null, null)
     this.makeHazardReport(7, null, null, null)
     this.makeSiteReport(7, null, null, null)
+    this.makePulseReport(7, null, null, null)
   }
 
   makeReport(days, dateTo, dateFrom) {
@@ -138,6 +140,103 @@ export class DashboardComponent implements OnInit {
       this.dashboardObj.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
+  }
+
+  makePulseReport(days, dateTo, dateFrom, userId) {
+    let data = {
+      'entityId': this.dashboardObj.entityId,
+      'dateTo': dateTo,
+      'dateFrom': dateFrom,
+      'days': days,
+      'user': userId
+    };
+    this.analyticsService.pulseByEntity(data).subscribe((res) => {
+        this.dashboardObj.pulseByEntityReportData = res.data.pulseByEntity;
+        let chartType: HighChartType = {
+          type: 'column',
+          title: 'Pulse Report',
+          subtitle: ''
+        };
+        let data = this.highChartSettings.reportSettings(chartType,
+          [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData, res.data.meeting,
+            res.data.visiting, res.data.travelling, res.data.other, res.data.onBreak));
+        Highcharts.chart('pulseReport', data);
+    });
+  }
+
+  generatePulseCharSeries(reportData: any, meeting, visiting, travelling, other, onBreak) {
+    let dates = [];
+    let meetings = [];
+    let visitings = [];
+    let travellings = [];
+    let others = [];
+    let onBreaks = [];
+    let charSeries = [];
+    this.helperService.iterations(reportData, function (pulseReport: PulseByEntityReportData) {
+      dates.push(pulseReport.date);
+      meetings.push(pulseReport.meeting);
+      visitings.push(pulseReport.visiting);
+      travellings.push(pulseReport.travelling);
+      others.push(pulseReport.other);
+      onBreaks.push(pulseReport.onBreak);
+    });
+    charSeries.push({
+      name: 'In a Meeting',
+      data: meetings
+    });
+    charSeries.push({
+      name: 'Visiting',
+      data: visitings
+    });
+    charSeries.push({
+      name: 'Travelling',
+      data: travellings
+    });
+    charSeries.push({
+      name: 'On a Meal Break',
+      data: onBreaks
+    });
+    charSeries.push({
+      name: 'Others',
+      data: others
+    });
+    charSeries.push({
+      type: 'pie',
+      name: 'Total Pulse',
+      data: [{
+        name: 'In a Meeting',
+        y: meeting,
+        color: Highcharts.getOptions().colors[0]
+      }, {
+        name: 'Visiting',
+        y: visiting,
+        color: Highcharts.getOptions().colors[1]
+      }, {
+        name: 'Travelling',
+        y: travelling,
+        color: Highcharts.getOptions().colors[2]
+      }, {
+        name: 'On a meal break',
+        y: onBreak,
+        color: Highcharts.getOptions().colors[3]
+      }, {
+        name: 'Others',
+        y: other,
+        color: Highcharts.getOptions().colors[4]
+      }],
+      center: [50, -10],
+      size: 100,
+      showInLegend: false,
+      dataLabels: {
+        enabled: false
+      }
+    })
+    let data = {
+      charSeries: charSeries,
+      categories: dates,
+      title: 'No of Pulse with Type'
+    }
+    return data;
   }
 
   generateCharSiteSeries(reportData: any) {
