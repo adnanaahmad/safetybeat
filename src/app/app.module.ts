@@ -144,7 +144,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateService,
     CoreService,
     AuthGuard,
-    NoAuthGuard,
+    // NoAuthGuard,
     CookieService,
     CompilerProvider,
     FirebaseService,

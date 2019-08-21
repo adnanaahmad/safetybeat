@@ -175,6 +175,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       return entity.active === true;
     });
     this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
+    this.navService.changeSelectedEntity(this.loginObj.selectedEntity);
     this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
       this.router.navigate(['home/adminControl/entityControl']);
   }

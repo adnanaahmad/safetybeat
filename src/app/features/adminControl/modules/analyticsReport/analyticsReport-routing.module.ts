@@ -15,47 +15,47 @@ const routes: Routes = [
   {
     path: 'actionAlertsReport',
     component: ActionAlertsReportsComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'actionReport',
     component: ActionReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'alertsPersonReport',
     component: AlertsPersonReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'averageDailyActionsReport',
     component: AverageDailyActionsReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'checkInActivityReport',
     component: CheckInActivityReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'compliantCheckoutReport',
     component: CompliantCheckoutReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'entityPulseReport',
     component: EntityPulseReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'hazardReport',
     component: HazardReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
   {
     path: 'siteActivityReport',
     component: SiteActivityReportComponent,
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
   },
 ];
 
