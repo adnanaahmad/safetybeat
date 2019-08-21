@@ -115,17 +115,21 @@ export class AddHazardComponent implements OnInit {
   }
 
   addHazard(value) {
+    this.hazardObj.loading = true;
     this.service.addHazard(this.generateNewHazard(value)).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.onNoClick(this.helperService.appConstants.yes);
+            this.hazardObj.loading = false;
+            this.onNoClick(this.helperService.appConstants.yes);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ADDED,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.onNoClick(null);
+            this.hazardObj.loading = false;
+            this.onNoClick(null);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
+        this.hazardObj.loading = false;
         this.onNoClick(null);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_NOT_ADDED,
           this.helperService.constants.status.ERROR);

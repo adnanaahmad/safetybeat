@@ -10,7 +10,7 @@
         <form [formGroup]="pulseEntityObj.pulseEntityForm" (ngSubmit)=formSubmit(pulseEntityObj.pulseEntityForm)
               (keydown.enter)="$event.preventDefault()">
 
-            <div class="form-group">
+            <div class="form-group inline">
                 <mat-form-field appearance="outline">
                     <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
                     <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>

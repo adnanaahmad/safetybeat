@@ -249,7 +249,7 @@ export class CompilerProvider {
 
   constructAllConnectionData(connectionArray) {
     let connectionData = [];
-    this.helperService.iterations(connectionArray.data, function (obj) {
+    this.helperService.iterations(connectionArray.data.acceptedConnections, function (obj) {
       let connection = {
         name: obj.user.first_name + ' ' + obj.user.last_name,
         email: obj.user.email,
@@ -317,15 +317,7 @@ export class CompilerProvider {
         route: '/home/adminControl/dashboard',
         iconName: this.appIcons.dashboard,
         displayName: 'Dashboard',
-        disabled: true,
-        bottom: false
-      },
-      {
-        displayName: 'Member Centre',
-        route: '/home/adminControl/memberCenter',
-        iconName: this.appIcons.person,
-        toolTip: 'Member Center',
-        disabled: data.permissions.memberCentre,
+        disabled: data.permissions.dashboard,
         bottom: false
       },
       {
@@ -334,6 +326,14 @@ export class CompilerProvider {
         iconName: this.appIcons.log,
         toolTip: 'Entity Control Center',
         disabled: data.permissions.entityControl,
+        bottom: false
+      },
+      {
+        displayName: 'Member Centre',
+        route: '/home/adminControl/memberCenter',
+        iconName: this.appIcons.person,
+        toolTip: 'Member Center',
+        disabled: data.permissions.memberCentre,
         bottom: false
       },
       {
@@ -459,11 +459,13 @@ export class CompilerProvider {
     let actionData = [];
     this.helperService.iterations(actionsArray.data.userLeaves, function (obj) {
       let action = {
+        leavesData: obj,
+        userData: obj.requestedBy,
         userName: obj.requestedBy.first_name + ' ' + obj.requestedBy.last_name,
         status: obj.approved ? 'approved' : obj.rejected ? 'rejected' : 'pending',
-        leaveType: obj.leaveType,
-        dateFrom: new Date(obj.dateFrom).toDateString(),
-        dateTo: new Date(obj.dateTo).toDateString(),
+        leaveType: obj.leaveType.name,
+        dateFrom: new Date(obj.dateFrom),
+        dateTo: new Date(obj.dateTo),
         reason: obj.description
       };
       actionData.push(action);

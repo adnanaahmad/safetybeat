@@ -14,6 +14,7 @@ import {ForgotPasswordComponent} from './components/forgotPassword/forgotPasswor
 import {ParticleContainerComponent} from './components/particleContainer/particleContainer.component';
 import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordRecovery.component';
 import {PackageDetailsComponent} from './components/packageDetails/packageDetails.component';
+import {UpdateprofileComponent} from './components/updateprofile/updateprofile.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {PackageDetailsComponent} from './components/packageDetails/packageDetail
     ForgotPasswordComponent,
     ParticleContainerComponent,
     PasswordRecoveryComponent,
-    PackageDetailsComponent
+    PackageDetailsComponent,
+    UpdateprofileComponent
   ],
   providers: [
     LoginRegistrationService,

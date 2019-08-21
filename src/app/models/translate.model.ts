@@ -527,6 +527,7 @@ export interface Messages {
   TEAM_NAME_REQ: string;
   NO_USER: string;
   NO_USER_SELECTED: string;
+  ERROR_MSG: string;
 }
 
 export interface Logger {

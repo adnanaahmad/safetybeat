@@ -77,7 +77,7 @@ export class JoinEntityModalComponent implements OnInit {
           };
           this.adminServices.viewEntities(data).subscribe(res => {
             let entityUserData = this.compiler.constructUserEntityData(
-              res.data
+              res.data.allEntities
             );
             this.joinEntity.loading = false;
             this.onNoClick();

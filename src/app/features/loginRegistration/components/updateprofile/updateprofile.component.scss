@@ -1,0 +1,250 @@
+@mixin amte-updateProfile($primary, $accent, $warn) {
+  :host,
+  app-updateprofile {
+    .topnav {
+      text-align: right;
+      padding: 20px;
+      z-index: 2;
+      position: relative;
+      background-color: mat-color($primary);
+
+      a {
+        text-decoration: none;
+        padding: 20px;
+        color: #fff;
+        font-size: 14px;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+
+      button {
+        margin-left: 20px;
+      }
+
+      .sb-logo {
+        width: 160px;
+        float: left;
+
+        svg {
+          width: 100%;
+          height: auto;
+          fill: #fff;
+        }
+      }
+    }
+
+    .legend-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 60px;
+      background-color: mat-color($primary, 50);
+
+      mat-card-title {
+        font-size: 2rem;
+      }
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+
+    .paddingbox {
+      padding: 16px 100px;
+    }
+
+    .packages-wrapper {
+      padding: 16px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .package-box {
+        border-radius: 6px;
+        width: 350px;
+        margin: 10px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        .mat-list-item {
+          font-size: 14px;
+        }
+
+        .mat-figure {
+          display: block;
+          padding: 2rem;
+        }
+
+        .package-label {
+          margin: 0;
+          text-align: center;
+        }
+
+        .package-price {
+          text-align: center;
+          margin: 1rem 0;
+          color: mat-color($primary, 500);
+          font-size: 2rem;
+
+          span {
+            font-size: 1rem;
+          }
+        }
+
+        p {
+          text-align: center;
+          font-size: 12px;
+        }
+
+        [custom-btn] {
+          display: block;
+          width: 150px;
+          margin: 0 auto;
+        }
+
+        .package-features {
+          margin-bottom: 20px;
+
+          .mat-list-item:nth-child(even) {
+            background-color: mat-color($primary, 50);
+            border-radius: 4px;
+          }
+
+          .mat-icon {
+            margin-left: auto;
+            opacity: 0.4;
+          }
+        }
+      }
+    }
+
+    .call-to-action {
+      background: mat-color($primary, 500);
+      padding: 4rem 10rem;
+      text-align: center;
+      color: #fff;
+      margin-top: 30px;
+
+      h1 {
+        font-weight: 500;
+        margin: 0;
+      }
+
+      p {
+        margin: 10px 0 20px;
+      }
+
+      a {
+        color: #fff;
+        display: flex;
+        margin: 0 auto;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
+        text-decoration: none;
+      }
+    }
+
+    .faqs {
+      margin-bottom: 50px;
+
+      h1 {
+        text-align: center;
+        margin-top: 0;
+      }
+
+      mat-panel-title {
+        font-weight: 600;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .packages-wrapper {
+        .package-box {
+          .package-price {
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      .legend-header {
+        padding: 20px;
+
+        mat-card-title {
+          font-size: 1.4rem;
+        }
+      }
+      .packages-wrapper {
+        display: block;
+
+        .package-box {
+          width: 100%;
+          margin: 10px 0;
+
+          .package-price {
+            font-size: 1.4rem;
+          }
+        }
+      }
+      .topnav {
+        text-align: center;
+
+        a {
+          padding: 10px;
+        }
+
+        .sb-logo {
+          float: none;
+          display: block;
+          margin: 0 auto;
+          text-align: center;
+        }
+      }
+      .call-to-action {
+        padding: 20px;
+
+        h1 {
+          font-size: 1.4rem;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .country-code {
+      .code-input {
+        position: relative;
+        float: left;
+
+        &:before {
+          content: "+";
+          display: block;
+          position: absolute;
+        }
+
+        input {
+          padding-right: 0;
+          border-right: 0;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          width: 37px;
+          padding-left: 10px;
+          border-right: 1px solid rgba(0, 0, 0, 0.34);
+        }
+      }
+
+      .number-input {
+        width: 400px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        float: left;
+        padding-left: 8px;
+      }
+    }
+  }
+}

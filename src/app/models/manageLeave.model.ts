@@ -2,6 +2,12 @@ import {MatTableDataSource} from '@angular/material';
 import {LeaveTypes} from './profile/profile.model';
 
 export interface ManageLeave {
+  currentDate: Date;
+  loading: boolean;
+  pageCount: number;
+  pageSize: number;
+  firstIndex: number;
+  search: string;
   leaveTypes: Array<LeaveTypes>;
   displayedColumns: Array<string>;
   userLeavesData: any;
