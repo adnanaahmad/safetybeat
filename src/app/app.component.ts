@@ -13,10 +13,12 @@ export class AppComponent implements OnInit {
   title = 'anonymous-FrontEnd';
   selectedTheme: any;
   @HostBinding('class') componentScssClass;
+  private message;
+
   constructor(protected injector: Injector,
-    public settings: SettingService,
-    public overlay: OverlayContainer,
-    private render: Renderer2) {
+              public settings: SettingService,
+              public overlay: OverlayContainer,
+              private render: Renderer2) {
     this.settings.getActiveTheme().subscribe(val => {
       this.selectedTheme = val;
       this.render.removeAttribute(document.body, 'class');
@@ -25,6 +27,7 @@ export class AppComponent implements OnInit {
       this.componentScssClass = this.selectedTheme;
     });
   }
+
   ngOnInit() {
 
     // this.overlayContanier = this.selectedTheme;
