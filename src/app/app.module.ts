@@ -57,6 +57,7 @@ import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {AddleavesComponent} from './features/profile/dialogs/addLeaves/addleaves.component';
 import {LeaveinfoComponent} from './features/profile/dialogs/leaveinfo/leaveinfo.component';
+import {NoAuthGuard} from './services/core/restrict/restrict.service';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -131,6 +132,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateService,
     CoreService,
     AuthGuard,
+    NoAuthGuard,
     CookieService,
     CompilerProvider,
     {
