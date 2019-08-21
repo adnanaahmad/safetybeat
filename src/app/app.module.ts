@@ -57,7 +57,15 @@ import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {FlatpickrModule} from 'angularx-flatpickr';
 import {AddleavesComponent} from './features/profile/dialogs/addLeaves/addleaves.component';
 import {LeaveinfoComponent} from './features/profile/dialogs/leaveinfo/leaveinfo.component';
+import {NoAuthGuard} from './services/core/restrict/restrict.service';
 
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {environment} from '../environments/environment';
+import {FirebaseService} from './services/common/FirebaseNotification/firebase.service';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -97,7 +105,8 @@ export function createTranslateLoader(http: HttpClient) {
     ShowSiteCodeComponent,
     FileRenameComponent,
     AddleavesComponent,
-    LeaveinfoComponent
+    LeaveinfoComponent,
+    NotificationsComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -124,21 +133,27 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
     NotifierModule,
     DragDropModule,
-    MyTeamModule
+    MyTeamModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [
     MatDatepickerModule,
     TranslateService,
     CoreService,
     AuthGuard,
+    NoAuthGuard,
     CookieService,
     CompilerProvider,
+    FirebaseService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
     },
-    // {provide: LocationStrategy, useClass: HashLocationStrategy},
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {
         duration: 2000,
@@ -182,7 +197,8 @@ export function createTranslateLoader(http: HttpClient) {
     ShowSiteCodeComponent,
     FileRenameComponent,
     AddleavesComponent,
-    LeaveinfoComponent
+    LeaveinfoComponent,
+    NotificationsComponent
   ]
 })
 export class AppModule {

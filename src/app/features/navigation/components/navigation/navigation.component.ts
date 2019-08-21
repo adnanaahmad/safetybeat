@@ -14,7 +14,7 @@ import {ProfileService} from 'src/app/features/profile/services/profile.service'
 import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-
+import {FirebaseService} from '../../../../services/common/FirebaseNotification/firebase.service';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -39,7 +39,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public helperService: HelperService,
     private profile: ProfileService,
-    public mediaMatcher: MediaMatcher
+    public breakpointObserver: BreakpointObserver,
+    public mediaMatcher: MediaMatcher,
+    private messagingService: FirebaseService
   ) {
     this.initialize();
     this.navModel.subscription = this.navService.data.subscribe((res) => {
@@ -60,6 +62,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
     });
     this.getSelectedEntity();
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    // this.messagingService.currentMessage.subscribe(message => {
+    //   this.message = message;
+    //   console.log(this.message.notfication);
+    // });
+
   }
 
   ngOnInit() {
