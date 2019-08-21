@@ -32,7 +32,7 @@ export class FirebaseService {
 
   /**
    * Send data to server
-   * @param data
+   * @params data
    */
   saveToken(data) {
     return this.http.post(ConstantService.apiRoutes.saveFirebaseToken, data).pipe(catchError(this.handleError));
@@ -59,7 +59,7 @@ export class FirebaseService {
   /**
    * request permission for notification from firebase cloud messaging
    *
-   * @param userId userId
+   * @params userId userId
    */
   requestPermission() {
     this.angularFireMessaging.requestToken.subscribe(

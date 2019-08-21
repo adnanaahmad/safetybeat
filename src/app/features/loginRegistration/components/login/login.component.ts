@@ -160,6 +160,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           );
           this.loginObj.loading = false;
           this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.WARNING);
+        } else {
+          this.loginObj.loading = false;
+          this.helperService.createSnack(data.responseDetails.message, this.helperService.constants.status.ERROR);
         }
       }, (error) => {
         this.loginObj.loading = false;

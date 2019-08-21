@@ -21,6 +21,7 @@ export class HighchartService {
     let charSeries = (data.length === 0) ? reportData : data;
     let highChartReport = {
       chart: {
+
         type: chartType.type,
         animation: true,
       },
