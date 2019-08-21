@@ -2,6 +2,7 @@ import {Translation} from '../translate.model';
 import {Subscription} from 'rxjs';
 
 export interface UserModel {
+  loading: boolean;
   user: any;
   userData: any;
   subscription: Subscription;

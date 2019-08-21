@@ -70,8 +70,8 @@ export class AddleavesComponent implements OnInit {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType.id,
-      dateFrom: leaveForm.value.dateFrom,
-      dateTo: leaveForm.value.dateTo
+      dateFrom: new Date(leaveForm.value.dateFrom),
+      dateTo: new Date(leaveForm.value.dateTo)
     };
     this.profileService.addLeaves(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -90,5 +90,4 @@ export class AddleavesComponent implements OnInit {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
-
 }

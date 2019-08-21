@@ -1,5 +1,5 @@
 export interface EntityUserData {
-  entities: Entity[];
+  entities: Array<Entity>;
 }
 
 export interface Entity {

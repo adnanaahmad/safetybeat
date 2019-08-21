@@ -93,7 +93,8 @@ export class ConstantService {
     leaveTypes: `${environment.apiUrl}/api/leaveTypes/`,
     addLeave: `${environment.apiUrl}/api/leaves/`,
     userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`,
-    allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`
+    allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`,
+    saveFirebaseToken: `${environment.apiUrl}/users/saveFirebaseToken/`
   };
   /**
    * all the api methods are declared here.
@@ -469,4 +470,30 @@ export class ConstantService {
     gestureHandling: 'none',
     zoomControl: false
   };
+  /**
+   * dictionary is used because component path's name and permission keys for components are not the same
+   */
+  static componentPermission = {
+    actionAlertsReport: 'actionsVsAlerts',
+    actionReport: 'actionReport',
+    alertsPersonReport: '',
+    averageDailyActionsReport: 'averageDailyReport',
+    checkInActivityReport: 'checkinByActivity',
+    compliantCheckoutReport: 'compliantCheckOut',
+    entityPulseReport: 'pulseReportByEntity',
+    hazardReport: 'hazardReports',
+    siteActivityReport: 'siteActivityReport',
+    dashboard: 'dashboard',
+    analyticsReport: 'analyticsReports',
+    myTeam: 'myTeam',
+    documents: 'documents',
+    questionCenter: 'questionCentre',
+    permissionCenter: 'permissionCentre',
+    memberCenter: 'memberCentre',
+    hazardCenter: 'hazardCentre',
+    siteCenter: 'siteCentre',
+    manageLeaves: 'manageLeaves',
+    entityControl: 'entityControl',
+    settings: 'settings',
+  }
 }

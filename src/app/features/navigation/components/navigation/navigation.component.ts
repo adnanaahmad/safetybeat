@@ -14,6 +14,7 @@ import {ProfileService} from 'src/app/features/profile/services/profile.service'
 import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {FirebaseService} from '../../../../services/common/FirebaseNotification/firebase.service';
 
 @Component({
   selector: 'app-navigation',
@@ -31,10 +32,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isOwner: boolean = false;
   packageInfo: PackageInfo;
   matcher: MediaQueryList;
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
 
   constructor(
     public core: CoreService,
@@ -44,10 +41,36 @@ export class NavigationComponent implements OnInit, OnDestroy {
     public helperService: HelperService,
     private profile: ProfileService,
     public breakpointObserver: BreakpointObserver,
-    public mediaMatcher: MediaMatcher
+    public mediaMatcher: MediaMatcher,
+    private messagingService: FirebaseService
   ) {
     this.initialize();
+    this.navModel.subscription = this.navService.data.subscribe((res) => {
+      if (res && res !== 1) {
+        this.navModel.entityUserData = res.entities;
+        this.navModel.showEntitySwitcher = res.entities.length > 1;
+        this.navModel.empty = false;
+        let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
+          return entity.active === true;
+        });
+        this.navModel.selectedEntity =
+          index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
+        localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
+          this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
+        this.switchSideMenu(this.navModel.selectedEntity);
+        this.navService.changePermissions(this.navModel.selectedEntity.permissions);
+        this.navService.changeRole(this.navModel.selectedEntity.role)
+      } else {
+        this.getAllEntities();
+      }
+    });
     this.getSelectedEntity();
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    // this.messagingService.currentMessage.subscribe(message => {
+    //   this.message = message;
+    //   console.log(this.message.notfication);
+    // });
 
   }
 
@@ -97,32 +120,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
 
   getSelectedEntity() {
-    this.navModel.subscription = this.navService.data.subscribe((res) => {
-      if (res !== 1) {
-        this.navModel.allEntitiesData = res;
-        this.navModel.entityUserData = this.navModel.allEntitiesData.entities;
-        this.navModel.showEntitySwitcher = this.navModel.allEntitiesData.entities.length > 1;
-        this.navModel.empty = false;
-        let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
-          return entity.active === true;
-        });
-        this.navModel.selectedEntity =
-          index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
-        this.switchSideMenu(this.navModel.selectedEntity);
-        this.navService.changePermissions(this.navModel.selectedEntity.permissions)
-        this.navService.changeRole(this.navModel.selectedEntity.role)
-      } else {
-        this.adminServices
-          .viewEntities(this.moduleData)
-          .subscribe(entitesData => {
-            this.navModel.allEntitiesData = entitesData;
-            this.navModel.entityUserData = this.compiler.constructUserEntityData(
-              this.navModel.allEntitiesData.data.allEntities
-            );
-            this.navService.changeEntites(this.navModel.entityUserData);
-          });
-      }
-    });
     this.navModel.subscription = this.navService.packageData.subscribe(
       (packageDataResult) => {
         if (packageDataResult !== 1) {
@@ -136,6 +133,21 @@ export class NavigationComponent implements OnInit, OnDestroy {
             this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
           });
         }
+      });
+  }
+
+  getAllEntities() {
+    this.adminServices
+      .viewEntities(this.moduleData)
+      .subscribe(entitesData => {
+        if (entitesData && entitesData.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.navModel.entityUserData = this.compiler.constructUserEntityData(entitesData.data.allEntities);
+          this.navService.changeEntites(this.navModel.entityUserData);
+        } else {
+          this.helperService.createSnack(entitesData.responseDetails.message, this.helperService.constants.status.ERROR);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       });
   }
 
@@ -173,8 +185,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
     } else {
       this.navModel.selectedEntity = data;
-      localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
-        this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
       this.navService.changeSelectedEntity(this.navModel.selectedEntity);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }

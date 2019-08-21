@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
@@ -8,37 +8,38 @@ import {
   HazardReportData,
   HighChartType,
   Report, SiteReportData
-} from '../../../../../../models/analyticsReport/reports.model';
+} from 'src/app/models/analyticsReport/reports.model';
 import * as Highcharts from 'highcharts';
-import {AnalyticsReportService} from '../../../analyticsReport/services/analyticsReport.service';
+import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
   translated: Translation;
   dashboardObj: Report = <Report>{};
 
   constructor(
     public helperService: HelperService,
     private highChartSettings: HighchartService,
-    public analyticsService: AnalyticsReportService
+    public analyticsService: AnalyticsReportService,
+    private navigationService: NavigationService
   ) {
-
+    this.dashboardObj.loading = false;
+    this.navigationService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.dashboardObj.entityId = res.entityInfo.id;
+        this.makeReport(7, null, null)
+        this.makeHazardReport(7, null, null, null)
+        this.makeSiteReport(7, null, null, null)
+      }
+    });
   }
 
   ngOnInit() {
-    this.dashboardObj.loading = false;
-    this.dashboardObj.entityId = this.helperService.getEntityId();
-    this.makeReport(7, null, null)
-    this.makeHazardReport(7, null, null, null)
-    this.makeSiteReport(7, null, null, null)
-  }
-
-
-  ngOnDestroy() {
 
   }
 
@@ -60,7 +61,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         };
         let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.dashboardObj.actionReportData));
         Highcharts.chart('container', data);
+      } else {
+        this.dashboardObj.loading = false;
       }
+    }, (error) => {
+      this.dashboardObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -80,7 +86,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.dashboardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
         this.reportBySeverity(this.dashboardObj.hazardReportData);
         this.reportByStatus(this.dashboardObj.hazardReportByStatusData);
+      } else {
+        this.dashboardObj.loading = false;
       }
+    }, (error) => {
+      this.dashboardObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -116,6 +127,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
     this.analyticsService.siteActivityReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
+        this.dashboardObj.loading = false;
         this.dashboardObj.siteReportData = res.data.siteActivityReport;
         let chartType: HighChartType = {
           type: 'column',
@@ -125,8 +137,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
           [], this.generateCharSiteSeries(this.dashboardObj.siteReportData));
         Highcharts.chart('siteReport', siteActivityReportData);
+      } else {
         this.dashboardObj.loading = false;
       }
+    }, (error) => {
+      this.dashboardObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -143,7 +159,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       charSeries: charSeries,
       categories: ['CheckIns', 'CheckOuts'],
       title: 'No of CheckIns and CheckOuts'
-    }
+    };
     return data;
   }
 
@@ -181,7 +197,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       charSeries: charSeries,
       categories: dates,
       title: 'No of Hazard with Severity'
-    }
+    };
     return data;
   }
 
@@ -204,7 +220,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       charSeries: charSeries,
       categories: ['Resolved', 'UnResolved'],
       title: 'No of Hazard with Status'
-    }
+    };
     return data;
   }
 
@@ -214,10 +230,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let checkOuts = [];
     let pulse = [];
     this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
-      checkIns.push(actionReport.checkins)
-      checkOuts.push(actionReport.checkouts)
-      pulse.push(actionReport.pulse)
-      dates.push(actionReport.date)
+      checkIns.push(actionReport.checkins);
+      checkOuts.push(actionReport.checkouts);
+      pulse.push(actionReport.pulse);
+      dates.push(actionReport.date);
     });
     let charSeries = [{
       name: 'CheckIns',
@@ -233,7 +249,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       charSeries: charSeries,
       categories: dates,
       title: 'No of Check In, Check out and Pulse'
-    }
+    };
     return data;
   }
 

@@ -15,6 +15,7 @@ import {PhoneNumberUtil} from 'google-libphonenumber';
 import {FormErrorHandler} from '../FormErrorHandler/FormErrorHandler';
 import * as CryptoJS from 'crypto-js';
 import {BreakpointState, BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {NotificationsComponent} from 'src/app/components/notifications/notifications.component';
 
 @Injectable({
   providedIn: 'root'
@@ -108,7 +109,20 @@ export class HelperService {
       horizontalPosition: 'right',
     });
   }
-
+  /**
+   * this function is used for creating snack
+   * @params message
+   * @params title
+   * @params type
+   */
+  createSnackNotify(message, type) {
+    this.snackBar.openFromComponent(NotificationsComponent, {
+      data: {message: message, type: type},
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+      duration: 10000
+    });
+  }
   /**
    * this function is used to enable and disable the loader.
    * @params res
@@ -422,7 +436,7 @@ export class HelperService {
 
   decrypt(data: string, key: string): string {
     return CryptoJS.DES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
-    
+
   }
 
   /**
@@ -474,9 +488,12 @@ export class HelperService {
   }
 
   getEntityId(): number {
-    return JSON.parse(this.decrypt
-    (localStorage.getItem(this.constants.localStorageKeys.entityId),
-      this.appConstants.key));
+    if (localStorage.getItem(this.constants.localStorageKeys.entityId)) {
+      return JSON.parse(this.decrypt
+      (localStorage.getItem(this.constants.localStorageKeys.entityId),
+        this.appConstants.key));
+    }
+
   }
 
 }
