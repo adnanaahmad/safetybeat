@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 
-const serverUrl = 'http://192.168.69.85:8000';
+const serverUrl = 'http://sb-api.svejzfb2y3.us-west-2.elasticbeanstalk.com';
 
 export const environment = {
   production: false,

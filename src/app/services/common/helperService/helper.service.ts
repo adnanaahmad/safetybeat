@@ -422,7 +422,7 @@ export class HelperService {
 
   decrypt(data: string, key: string): string {
     return CryptoJS.DES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
-    
+
   }
 
   /**
@@ -474,9 +474,12 @@ export class HelperService {
   }
 
   getEntityId(): number {
-    return JSON.parse(this.decrypt
-    (localStorage.getItem(this.constants.localStorageKeys.entityId),
-      this.appConstants.key));
+    if (localStorage.getItem(this.constants.localStorageKeys.entityId)) {
+      return JSON.parse(this.decrypt
+      (localStorage.getItem(this.constants.localStorageKeys.entityId),
+        this.appConstants.key));
+    }
+
   }
 
 }
