@@ -470,4 +470,30 @@ export class ConstantService {
     gestureHandling: 'none',
     zoomControl: false
   };
+  /**
+   * dictionary is used because component path's name and permission keys for components are not the same
+   */
+  static componentPermission = {
+    actionAlertsReport: 'actionsVsAlerts',
+    actionReport: 'actionReport',
+    alertsPersonReport: '',
+    averageDailyActionsReport: 'averageDailyReport',
+    checkInActivityReport: 'checkinByActivity',
+    compliantCheckoutReport: 'compliantCheckOut',
+    entityPulseReport: 'pulseReportByEntity',
+    hazardReport: 'hazardReports',
+    siteActivityReport: 'siteActivityReport',
+    dashboard: 'dashboard',
+    analyticsReport: 'analyticsReports',
+    myTeam: 'myTeam',
+    documents: 'documents',
+    questionCenter: 'questionCentre',
+    permissionCenter: 'permissionCentre',
+    memberCenter: 'memberCentre',
+    hazardCenter: 'hazardCentre',
+    siteCenter: 'siteCentre',
+    manageLeaves: 'manageLeaves',
+    entityControl: 'entityControl',
+    settings: 'settings',
+  }
 }

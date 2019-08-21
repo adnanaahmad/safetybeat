@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {AuthGuard} from '../../services/core/guards/auth.guard';
+import { NoAuthGuard } from 'src/app/services/core/restrict/restrict.service';
 
 const routes: Routes = [
     {
@@ -15,6 +15,7 @@ const routes: Routes = [
     {
       path: 'entityControl',
       loadChildren: './modules/entityControl/entityControl.module#EntityControlModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'manageLeaves',
@@ -22,42 +23,51 @@ const routes: Routes = [
     },
     {
       path: 'siteCenter',
-      loadChildren: './modules/siteCenter/siteCenter.module#SiteCenterModule'
+      loadChildren: './modules/siteCenter/siteCenter.module#SiteCenterModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'hazardCenter',
-      loadChildren: './modules/hazardCenter/hazardCenter.module#HazardCenterModule'
+      loadChildren: './modules/hazardCenter/hazardCenter.module#HazardCenterModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'memberCenter',
-      loadChildren: './modules/memberCenter/memberCenter.module#MemberCenterModule'
+      loadChildren: './modules/memberCenter/memberCenter.module#MemberCenterModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'permissionCenter',
-      loadChildren: './modules/permissionCenter/permissionCenter.module#PermissionCenterModule'
+      loadChildren: './modules/permissionCenter/permissionCenter.module#PermissionCenterModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'questionCenter',
-      loadChildren: './modules/questionCenter/questionCenter.module#QuestionCenterModule'
+      loadChildren: './modules/questionCenter/questionCenter.module#QuestionCenterModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'documents',
-      loadChildren: './modules/documents/documents.module#DocumentsModule'
+      loadChildren: './modules/documents/documents.module#DocumentsModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'myTeam',
-      loadChildren: './modules/myTeam/myTeam.module#MyTeamModule'
+      loadChildren: './modules/myTeam/myTeam.module#MyTeamModule',
+      canActivate: [NoAuthGuard]
     },
     {
       path: 'analyticsReport',
-      loadChildren: './modules/analyticsReport/analyticsReport.module#AnalyticsReportModule'
+      loadChildren: './modules/analyticsReport/analyticsReport.module#AnalyticsReportModule',
+      canActivate: [NoAuthGuard]
     }
   ]
 ;
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [NoAuthGuard]
 })
 export class AdminControlRoutingModule {
 
