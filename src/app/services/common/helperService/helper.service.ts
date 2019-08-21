@@ -488,9 +488,12 @@ export class HelperService {
   }
 
   getEntityId(): number {
-    return JSON.parse(this.decrypt
-    (localStorage.getItem(this.constants.localStorageKeys.entityId),
-      this.appConstants.key));
+    if (localStorage.getItem(this.constants.localStorageKeys.entityId)) {
+      return JSON.parse(this.decrypt
+      (localStorage.getItem(this.constants.localStorageKeys.entityId),
+        this.appConstants.key));
+    }
+
   }
 
 }

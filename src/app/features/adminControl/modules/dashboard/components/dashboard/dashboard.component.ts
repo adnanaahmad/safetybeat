@@ -11,6 +11,7 @@ import {
 } from 'src/app/models/analyticsReport/reports.model';
 import * as Highcharts from 'highcharts';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,17 +25,22 @@ export class DashboardComponent implements OnInit {
   constructor(
     public helperService: HelperService,
     private highChartSettings: HighchartService,
-    public analyticsService: AnalyticsReportService
+    public analyticsService: AnalyticsReportService,
+    private navigationService: NavigationService
   ) {
-
+    this.dashboardObj.loading = false;
+    this.navigationService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.dashboardObj.entityId = res.entityInfo.id;
+        this.makeReport(7, null, null)
+        this.makeHazardReport(7, null, null, null)
+        this.makeSiteReport(7, null, null, null)
+      }
+    });
   }
 
   ngOnInit() {
-    this.dashboardObj.loading = false;
-    this.dashboardObj.entityId = this.helperService.getEntityId();
-    this.makeReport(7, null, null)
-    this.makeHazardReport(7, null, null, null)
-    this.makeSiteReport(7, null, null, null)
+
   }
 
   makeReport(days, dateTo, dateFrom) {

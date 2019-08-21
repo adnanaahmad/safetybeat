@@ -55,6 +55,7 @@ export class UserComponent implements OnInit, OnDestroy {
    * this function is used for initializing the global variables.
    */
   initialize() {
+    this.userModel.loading = false;
     this.userModel.translated = this.helperService.translated;
     this.userModel.appIcons = this.helperService.constants.appIcons;
     this.userModel.displayedColumns = [
@@ -74,16 +75,24 @@ export class UserComponent implements OnInit, OnDestroy {
    */
 
   getAllUsers() {
+    this.userModel.loading = true;
     this.userService.getAllUsers().subscribe(
-      result => {
-        this.userModel.allUsers = result;
-        this.userModel.empty = true;
-        this.userModel.allUsersList = this.userModel.allUsers.data;
-        this.userService.updateUsers(this.userModel.allUsersList);
-        this.userModel.dataSource = new MatTableDataSource(this.userModel.allUsersList);
-        this.userModel.dataSource.paginator = this.paginator;
+      (result) => {
+        if (result) {
+          this.userModel.allUsers = result;
+          this.userModel.empty = true;
+          this.userModel.allUsersList = this.userModel.allUsers.data;
+          this.userService.updateUsers(this.userModel.allUsersList);
+          this.userModel.loading = false;
+          this.userModel.dataSource = new MatTableDataSource(this.userModel.allUsersList);
+          this.userModel.dataSource.paginator = this.paginator;
+        } else {
+          this.userModel.loading = false;
+        }
       },
-      error => {
+      (error) => {
+        this.userModel.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }
