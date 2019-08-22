@@ -40,7 +40,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public helperService: HelperService,
     private profile: ProfileService,
-    public breakpointObserver: BreakpointObserver,
     public mediaMatcher: MediaMatcher,
     private messagingService: FirebaseService
   ) {
@@ -67,10 +66,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.getSelectedEntity();
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
-    // this.messagingService.currentMessage.subscribe(message => {
-    //   this.message = message;
-    //   console.log(this.message.notfication);
-    // });
 
   }
 

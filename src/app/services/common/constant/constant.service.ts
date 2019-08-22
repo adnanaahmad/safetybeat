@@ -12,134 +12,134 @@ export class ConstantService {
      * all the apiRoutes are declared here.
      */
 
-    static apiRoutes = {
-        login: `${environment.apiUrl}/login/`,
-        signup: `${environment.apiUrl}/registration/`,
-        companyTypes: `${environment.apiUrl}/companyTypes/`,
-        modules: `${environment.apiUrl}/modules/`,
-        packages: `${environment.apiUrl}/packages/`,
-        passwordReset: `${environment.apiUrl}/users/resetPassword/`,
-        organization: `${environment.apiUrl}/organization/`,
-        user: `${environment.apiUrl}/users/viewUser/`,
-        userInfo: `${environment.apiUrl}/users/`,
-        checkUsername: `${environment.apiUrl}/users/checkUsername/`,
-        checkEmail: `${environment.apiUrl}/users/checkEmail/`,
-        checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
-        checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,
-        resendverification: `${environment.apiUrl}/sendEmailVerification/`,
-        changeEmail: `${environment.apiUrl}/users/editEmail/`,
-        editProfile: `${environment.apiUrl}/users`,
-        editEntity: `${environment.apiUrl}/entity`,
-        changePassword: `${environment.apiUrl}/users/changePassword/`,
-        getInvite: `${environment.apiUrl}/registration/`,
-        createEntity: `${environment.apiUrl}/entity/`,
-        viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
-        viewAllEntitiesOfUser: `${environment.apiUrl}/entity/viewAllEntitiesOfUser/`,
-        joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
-        allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
-        getRoles: `${environment.apiUrl}/role/`,
-        forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
-        profilePic: `${environment.apiUrl}/users/uploadProfileImage/`,
-        validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
-        verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
-        inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
-        viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
-        addSite: `${environment.apiUrl}/api/sites/`,
-        logout: `${environment.apiUrl}/rest-auth/logout/`,
-        packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
-        updatePackage: `${environment.apiUrl}/packages/updatePackage/`,
-        importSite: `${environment.apiUrl}/api/sites/importSite/`,
-        getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
-        editOrganization: `${environment.apiUrl}/organization`,
-        entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
-        allEntityUsers: `${environment.apiUrl}/entity/allEntityUsers/`,
-        deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
-        activateUser: `${environment.apiUrl}/users/activateUser/`,
-        viewSiteInfo: `${environment.apiUrl}/api/sites/`,
-        connectionAdding: `${environment.apiUrl}/api/connections/`,
-        connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
-        viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
-        riskList: `${environment.apiUrl}/api/riskType/`,
-        allHazards: `${environment.apiUrl}/api/hazard/viewAllHazardsOfEntity/`,
-        removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
-        getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
-        addQuestion: `${environment.apiUrl}/api/questions/`,
-        getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
-        viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
-        getAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
-        getRootDocuments: `${environment.apiUrl}/api/documents/rootFolderDocuments/`,
-        documents: `${environment.apiUrl}/api/documents/`,
-        getFolders: `${environment.apiUrl}/api/folders/folderList/`,
-        createFolder: `${environment.apiUrl}/api/folders/`,
-        actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
-        checkinByActivityReport: `${environment.apiUrl}/api/analyticsReport/checkInByActivityReport/`,
-        pulseByEntity: `${environment.apiUrl}/api/analyticsReport/pulseReportByEntity/`,
-        hazardReport: `${environment.apiUrl}/api/analyticsReport/hazardReport/`,
-        siteActivityReport: `${environment.apiUrl}/api/analyticsReport/siteActivityReport/`,
-        recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`,
-        averageDailyActionsReport: `${environment.apiUrl}/api/analyticsReport/averageDailyActionsReport/`,
-        deleteDoc: `${environment.apiUrl}/api/documents/`,
-        team: `${environment.apiUrl}/api/teams/`,
-        viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
-        parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
-        allEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
-        sendSiteCode: `${environment.apiUrl}/api/sites/sendSiteCode/`,
-        refreshSiteCode: `${environment.apiUrl}/api/sites/refreshSiteCode/`,
-        refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`,
-        userPermissions: `${environment.apiUrl}/permissions/`,
-        filters: `${environment.apiUrl}/api/filters/`,
-        requests: `${environment.apiUrl}/entity/connectionRequests/`,
-        directMessages: `${environment.apiUrl}/api/notification/`,
-        leaveTypes: `${environment.apiUrl}/api/leaveTypes/`,
-        addLeave: `${environment.apiUrl}/api/leaves/`,
-        userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`,
-        allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`,
-        saveFirebaseToken: `${environment.apiUrl}/users/saveFirebaseToken/`
-    };
-    /**
-     * all the api methods are declared here.
-     */
-    static apiMethod = {
-        get: 'get',
-        post: 'post',
-        put: 'put',
-        delete: 'delete'
-    };
-    /**
-     * all the storage keys are declared here.
-     */
-    static localStorageKeys = {
-        token: 'sb_User_Token',
-        entityUserData: 'sb_Entity_User_Data',
-        theme: 'sb_Theme_Selected',
-        packageInfo: 'sb_Package_Info',
-        role: 'sb_role',
-        entityId: 'sb_entityId',
-    };
-    /**
-     * settings for the toaster is declared here.
-     */
-    static toast = {
-        location: 'toast-top-left',
-        time: 1500,
-        time1: 3000
-    };
-    /**
-     * theme configuration is declared here.
-     */
-    static config = {
-        devMode: true,
-        theme: {
-            dark: 'dark-theme',
-            light: 'light-theme',
-            background: 'body-bg',
-            modalClass: 'verify-modal',
-            addSiteClass: 'addsite-modal'
-        }
-    };
-    /**
-     * all the themes are declared here.
-     */
+  static apiRoutes = {
+    login: `${environment.apiUrl}/login/`,
+    signup: `${environment.apiUrl}/registration/`,
+    companyTypes: `${environment.apiUrl}/companyTypes/`,
+    modules: `${environment.apiUrl}/modules/`,
+    packages: `${environment.apiUrl}/packages/`,
+    passwordReset: `${environment.apiUrl}/users/resetPassword/`,
+    organization: `${environment.apiUrl}/organization/`,
+    user: `${environment.apiUrl}/users/viewUser/`,
+    userInfo: `${environment.apiUrl}/users/`,
+    checkUsername: `${environment.apiUrl}/users/checkUsername/`,
+    checkEmail: `${environment.apiUrl}/users/checkEmail/`,
+    checkOrgName: `${environment.apiUrl}/organization/checkOrgName/`,
+    checkBilling: `${environment.apiUrl}/organization/checkOrgEmail/`,
+    resendverification: `${environment.apiUrl}/sendEmailVerification/`,
+    changeEmail: `${environment.apiUrl}/users/editEmail/`,
+    editProfile: `${environment.apiUrl}/users`,
+    editEntity: `${environment.apiUrl}/entity`,
+    changePassword: `${environment.apiUrl}/users/changePassword/`,
+    getInvite: `${environment.apiUrl}/registration/`,
+    createEntity: `${environment.apiUrl}/entity/`,
+    viewAllEntities: `${environment.apiUrl}/entity/viewAllEntities/`,
+    viewAllEntitiesOfUser: `${environment.apiUrl}/entity/viewAllEntitiesOfUser/`,
+    joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
+    allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
+    getRoles: `${environment.apiUrl}/role/`,
+    forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
+    profilePic: `${environment.apiUrl}/users/uploadProfileImage/`,
+    validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
+    verifyCode: `${environment.apiUrl}/validateCode/receiveVerificationCode/`,
+    inviteTeam: `${environment.apiUrl}/entity/iniviteUserToEntity/`,
+    viewAllSites: `${environment.apiUrl}/api/sites/viewSites/`,
+    addSite: `${environment.apiUrl}/api/sites/`,
+    logout: `${environment.apiUrl}/rest-auth/logout/`,
+    packageInfo: `${environment.apiUrl}/packages/packageDetail/`,
+    updatePackage: `${environment.apiUrl}/packages/updatePackage/`,
+    importSite: `${environment.apiUrl}/api/sites/importSite/`,
+    getOrganization: `${environment.apiUrl}/organization/getOrganizationInfo`,
+    editOrganization: `${environment.apiUrl}/organization`,
+    entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
+    allEntityUsers: `${environment.apiUrl}/entity/allEntityUsers/`,
+    deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
+    activateUser: `${environment.apiUrl}/users/activateUser/`,
+    viewSiteInfo: `${environment.apiUrl}/api/sites/`,
+    connectionAdding: `${environment.apiUrl}/api/connections/`,
+    connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
+    viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
+    riskList: `${environment.apiUrl}/api/riskType/`,
+    allHazards: `${environment.apiUrl}/api/hazard/viewAllHazardsOfEntity/`,
+    removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
+    getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
+    addQuestion: `${environment.apiUrl}/api/questions/`,
+    getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
+    viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
+    getAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
+    getRootDocuments: `${environment.apiUrl}/api/documents/rootFolderDocuments/`,
+    documents: `${environment.apiUrl}/api/documents/`,
+    getFolders: `${environment.apiUrl}/api/folders/folderList/`,
+    createFolder: `${environment.apiUrl}/api/folders/`,
+    actionsReport: `${environment.apiUrl}/api/analyticsReport/actionsReport/`,
+    checkinByActivityReport: `${environment.apiUrl}/api/analyticsReport/checkInByActivityReport/`,
+    pulseByEntity: `${environment.apiUrl}/api/analyticsReport/pulseReportByEntity/`,
+    hazardReport: `${environment.apiUrl}/api/analyticsReport/hazardReport/`,
+    siteActivityReport: `${environment.apiUrl}/api/analyticsReport/siteActivityReport/`,
+    recentActivities: `${environment.apiUrl}/api/siteCheckIns/recentActivitiesOfUser/`,
+    averageDailyActionsReport: `${environment.apiUrl}/api/analyticsReport/averageDailyActionsReport/`,
+    deleteDoc: `${environment.apiUrl}/api/documents/`,
+    team: `${environment.apiUrl}/api/teams/`,
+    viewAllTeams: `${environment.apiUrl}/api/teams/viewAllTeams/`,
+    parentChildQuestions: `${environment.apiUrl}/api/parentChildQuestion/`,
+    allEntityQuestions: `${environment.apiUrl}/api/parentChildQuestion/viewAllEntityQuestions/`,
+    sendSiteCode: `${environment.apiUrl}/api/sites/sendSiteCode/`,
+    refreshSiteCode: `${environment.apiUrl}/api/sites/refreshSiteCode/`,
+    refreshEntityCode: `${environment.apiUrl}/entity/refreshEntityCode/`,
+    userPermissions: `${environment.apiUrl}/permissions/`,
+    filters: `${environment.apiUrl}/api/filters/`,
+    requests: `${environment.apiUrl}/api/connections/connectionRequests/`,
+    directMessages: `${environment.apiUrl}/api/notification/`,
+    leaveTypes: `${environment.apiUrl}/api/leaveTypes/`,
+    addLeave: `${environment.apiUrl}/api/leaves/`,
+    userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`,
+    allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`,
+    saveFirebaseToken: `${environment.apiUrl}/users/saveFirebaseToken/`
+  };
+  /**
+   * all the api methods are declared here.
+   */
+  static apiMethod = {
+    get: 'get',
+    post: 'post',
+    put: 'put',
+    delete: 'delete'
+  };
+  /**
+   * all the storage keys are declared here.
+   */
+  static localStorageKeys = {
+    token: 'sb_User_Token',
+    entityUserData: 'sb_Entity_User_Data',
+    theme: 'sb_Theme_Selected',
+    packageInfo: 'sb_Package_Info',
+    role: 'sb_role',
+    entityId: 'sb_entityId',
+  };
+  /**
+   * settings for the toaster is declared here.
+   */
+  static toast = {
+    location: 'toast-top-left',
+    time: 1500,
+    time1: 3000
+  };
+  /**
+   * theme configuration is declared here.
+   */
+  static config = {
+    devMode: true,
+    theme: {
+      dark: 'dark-theme',
+      light: 'light-theme',
+      background: 'body-bg',
+      modalClass: 'verify-modal',
+      addSiteClass: 'addsite-modal'
+    }
+  };
+  /**
+   * all the themes are declared here.
+   */
 
     static appTheme = {
         lightTheme: 'light-theme',

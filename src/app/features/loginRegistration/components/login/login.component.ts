@@ -136,10 +136,10 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.loginObj.entities = res;
               this.loginObj.entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data.allEntities);
               this.navService.changeEntites(this.loginObj.entityUserData);
+              this.permissionBasedNavigation(this.loginObj.entityUserData);
               this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
                 this.helperService.constants.status.SUCCESS);
               this.loginObj.loading = false;
-              this.permissionBasedNavigation(this.loginObj.entityUserData);
             } else {
               this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
             }
@@ -175,7 +175,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       return entity.active === true;
     });
     this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
-    this.navService.changeSelectedEntity(this.loginObj.selectedEntity);
+    // this.navService.changeSelectedEntity(this.loginObj.selectedEntity);
     this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
       this.router.navigate(['home/adminControl/entityControl']);
   }
