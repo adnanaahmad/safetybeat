@@ -20,7 +20,7 @@
         }
       }
       &.active {
-        background: rgba(255, 255, 255, 0.2) !important;
+        background: mat-color($primary, 800) !important;
         .nav-link {
           color: #fff !important;
         }
@@ -28,7 +28,7 @@
       &:hover {
         background: mat-color($primary-pallet, 500) !important;
         &.active {
-          background: rgba(255, 255, 255, 0.2) !important;
+          background: mat-color($primary, 800) !important;
         }
       }
     }
