@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelperService } from 'src/app/services/common/helperService/helper.service';
 import { NotificationService } from 'src/app/features/navigation/services/notification.service';
 import { Translation } from 'src/app/models/translate.model';
-import {NotificationList, RequestObject} from 'src/app/models/navigation/notification.model';
+import {DirectNotificationList, DirectObject, NotificationList, RequestObject} from 'src/app/models/navigation/notification.model';
 
 @Component({
   selector: 'app-notificationNav',
@@ -10,10 +10,8 @@ import {NotificationList, RequestObject} from 'src/app/models/navigation/notific
   styleUrls: ['./notificationNav.component.scss']
 })
 export class NotificationNavComponent implements OnInit {
-  sentRequest: string = "";
-  daysAgo: string = "";
   translated: Translation;
-  directMessages: any[];
+  directMessages: DirectObject[] = [];
   requests: RequestObject[] = [];
 
   constructor(
@@ -21,39 +19,36 @@ export class NotificationNavComponent implements OnInit {
     public notificationService: NotificationService
   ) {
     this.translated = this.helperService.translated;
-    // this.constructDirectMessages()
     this.constructRequests();
+    this.constructDirectMessages();
   }
 
   ngOnInit() {
-
   }
 
   /**
    * Get direct messages
    */
   constructDirectMessages() {
-    this.notificationService.getDirectMessages().subscribe((response : any) => {
-      // if(response && response.data && response.data.Requests.length) {
-        this.directMessages = response;
-       
-      // }
+    this.notificationService.getDirectMessages().subscribe((response: DirectNotificationList) => {
+      if (response && response.data && response.data.notifications) {
+        this.directMessages = response.data.notifications;
+      }
     }, (error) => {
-
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     })
   }
 
   /**
-   * Get requests array 
+   * Get requests array
    */
   constructRequests() {
-    this.notificationService.getRequestsData().subscribe((response : NotificationList) => {
-      if(response && response.data && response.data.Requests.length) {
-        this.requests = response.data.Requests
-       
+    this.notificationService.getRequestsData().subscribe((response: NotificationList) => {
+      if (response && response.data && response.data.requestsList) {
+        this.requests = response.data.requestsList;
       }
     }, (error) => {
-
+      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     })
   }
 
