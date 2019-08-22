@@ -60,7 +60,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.navService.changePermissions(this.navModel.selectedEntity.permissions);
         this.navService.changeRole(this.navModel.selectedEntity.role)
       } else {
-        this.getAllEntities();s
+        this.getAllEntities();
       }
     });
     this.getSelectedEntity();

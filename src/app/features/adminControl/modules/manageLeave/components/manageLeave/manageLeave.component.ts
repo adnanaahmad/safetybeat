@@ -60,6 +60,7 @@ export class ManageLeaveComponent implements OnInit {
    */
 
   viewAllUserLeaves(pageIndex, search) {
+    this.leaveModel.loading = true;
     let data = {
       entityId: this.helperService.getEntityId()
     };
@@ -72,11 +73,14 @@ export class ManageLeaveComponent implements OnInit {
       this.leaveModel.pageCount = res.data.pageCount;
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.leaveModel.userLeavesData = this.compiler.manageLeaveTable(res);
+        this.leaveModel.loading = false;
         this.leaveModel.dataSource = new MatTableDataSource(this.leaveModel.userLeavesData);
       } else {
-        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        this.leaveModel.loading = false;
+        // this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.leaveModel.loading = false;
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
     });
   }
@@ -96,14 +100,16 @@ export class ManageLeaveComponent implements OnInit {
       rejected: false
     };
     this.leaveService.acceptRejectUserLeaves(data.leavesData.id, leaveData).subscribe((res) => {
-      this.leaveModel.loading = false;
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
+        this.leaveModel.loading = false;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
       } else {
+        this.leaveModel.loading = false;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.leaveModel.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
 
@@ -123,14 +129,16 @@ export class ManageLeaveComponent implements OnInit {
       rejected: true
     };
     this.leaveService.acceptRejectUserLeaves(data.leavesData.id, leaveData).subscribe((res) => {
-      this.leaveModel.loading = false;
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
+        this.leaveModel.loading = false;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
       } else {
+        this.leaveModel.loading = false;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.leaveModel.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }

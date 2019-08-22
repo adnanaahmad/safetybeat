@@ -83,7 +83,7 @@
                     *ngIf="entityControl.permissions.inviteMember && !(element.entityInfo.id === entityControl.entityId)"
                     (click)='inviteTeam(element)'>
               <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
-              {{ helperService.translated.MESSAGES.INVITEMEMBERTITLE }}
+              {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
             </button>
             <button mat-menu-item *ngIf="entityControl.permissions.deleteEntity"
                     (click)="confirmationModal(element.entityInfo.id)">
