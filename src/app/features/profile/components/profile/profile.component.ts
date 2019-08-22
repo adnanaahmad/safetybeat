@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
-        this.getUserConnections(this.profileModel.receivedData.id);
+        this.getUserConnections(this.profileModel.receivedData.id, this.profileModel.firstIndex);
       } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res !== 1) {
@@ -127,7 +127,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.profileImage = this.profileModel.profileData.profileImage;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.userLeaves(this.profileModel.userId);
-          this.getUserConnections(this.profileModel.userId);
+          this.getUserConnections(this.profileModel.userId, this.profileModel.firstIndex);
         } else {
           this.connectionsColumns = ['img', 'name', 'email', 'contact'];
           this.profileModel.contactNo = this.profileModel.receivedData.contact;
@@ -334,10 +334,16 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  getUserConnections(userId: number) {
+  getUserConnections(userId: number, paginationData) {
+    this.profileModel.pageCount = 0;
     this.profileModel.allConnectionsData = [];
-    this.adminService.allConnections({userId: userId}).subscribe((res) => {
+    let pagination: PaginationData = {
+      offset: paginationData * this.helperService.appConstants.paginationLimitForProfile,
+      limit: this.helperService.appConstants.paginationLimitForProfile
+    };
+    this.adminService.allConnections({userId: userId}, pagination).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.profileModel.pageCount = res.data.pageCount;
         this.profileModel.connectionCount = res.data.length;
         this.profileModel.allConnectionsRes = res;
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
@@ -364,7 +370,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
             this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_SUCCESS,
               this.helperService.constants.status.SUCCESS);
-            this.getUserConnections(this.profileModel.userId);
+            this.getUserConnections(this.profileModel.userId, this.profileModel.firstIndex);
           } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
             this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_CONNECTION_FAILURE,
               res.responseDetails.message);

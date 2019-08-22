@@ -219,10 +219,10 @@ export class AdminControlService {
     );
   }
 
-  allConnections(data) {
+  allConnections(data, paginationData: PaginationData) {
     return this.helperService.requestCall(
-      this.helperService.constants.apiMethod.post,
-      this.apiRoutes.viewAllConnections,
+      this.method.post,
+      `${this.apiRoutes.viewAllConnections}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
       data
     );
   }

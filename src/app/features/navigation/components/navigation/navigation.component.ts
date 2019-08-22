@@ -11,10 +11,8 @@ import {GeneralComponent} from 'src/app/features/settings/components/general/gen
 import {SecurityComponent} from 'src/app/features/settings/components/security/security.component';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
-import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {FirebaseService} from '../../../../services/common/FirebaseNotification/firebase.service';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {FirebaseService} from 'src/app/services/common/FirebaseNotification/firebase.service';
 
 @Component({
   selector: 'app-navigation',
@@ -58,7 +56,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
         this.switchSideMenu(this.navModel.selectedEntity);
         this.navService.changePermissions(this.navModel.selectedEntity.permissions);
-        this.navService.changeRole(this.navModel.selectedEntity.role)
+        this.navService.changeRole(this.navModel.selectedEntity.role);
+        this.getRoleFromStorage();
       } else {
         this.getAllEntities();
       }
@@ -210,5 +209,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
   showModel(isProfile) {
     let modal = (isProfile) ? GeneralComponent : SecurityComponent;
     this.helperService.createDialog(modal, {disableClose: true});
+  }
+
+  /**
+   * this function is used for getting the role of the user in the selected entity and is gotten from the local storage.
+   */
+
+  getRoleFromStorage() {
+    let currentRole = this.helperService.decrypt(localStorage.getItem
+    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
+    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 }
