@@ -406,7 +406,7 @@
     "DELETE_TEAM_SUCCESS": "Team deleted successfully",
     "DELETE_TEAM_FAILURE": "Team deletion failed",
     "EDIT_TEAM": "Enter Details to Edit Team",
-    "INVITETEAMTITLE": "Invite Users",
+    "INVITETEAMTITLE": "Add Members",
     "CANT_CREATE_ROOT": "Cannot create folder with this name. Please try another name!",
     "ACTIVITIES": "Activities",
     "CONNECTIONS": "Connections",
