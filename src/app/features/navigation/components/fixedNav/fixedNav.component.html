@@ -1,7 +1,7 @@
 <div class="menu-button">
   <button (click)="toggleSideNav()" mat-mini-fab color="primary">
-    <mat-icon class="opened" *ngIf="!navOpened">{{fixedNav.appIcons.arrowRight}}</mat-icon>
-    <mat-icon class="closed" *ngIf="navOpened">{{fixedNav.appIcons.arrowLeft}}</mat-icon>
+    <mat-icon class="opened" *ngIf="!navOpened">{{fixedNav.appIcons.arrowLeft}}</mat-icon>
+    <mat-icon class="closed" *ngIf="navOpened">{{fixedNav.appIcons.arrowRight}}</mat-icon>
   </button>
 </div>
 <mat-nav-list class="nav-list" *ngFor="let link of navLinks">

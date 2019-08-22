@@ -134,6 +134,10 @@ mat-dialog-container {
   }
 }
 
+.no-data {
+  padding: 2em;
+}
+
 .monogram {
   @include midBlock;
   width: 120px;
@@ -190,6 +194,7 @@ mat-dialog-container {
     align-items: center;
   }
 }
+
 .form-group.inline {
   display: flex;
   justify-content: space-between;
@@ -199,11 +204,12 @@ mat-dialog-container {
     margin: 0 10px 0 0;
     flex: 1;
     width: 100%;
-    .mat-form-field-wrapper{
+    .mat-form-field-wrapper {
       margin: 0 !important;
     }
   }
 }
+
 .text-right {
   text-align: right;
 }

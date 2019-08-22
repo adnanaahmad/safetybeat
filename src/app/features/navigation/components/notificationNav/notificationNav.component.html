@@ -1,94 +1,100 @@
 <h4>{{helperService.translated.TABLEHEADINGS.NOTIFICATIONS}}</h4>
 <mat-tab-group>
-  <mat-tab label="Direct">
-    <mat-list role="list">
-      <mat-list-item role="listitem" >
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="read-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="read-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="read-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-      <mat-list-item role="listitem">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="read-notif"></mat-icon>
-        <h5><a href="#">This is some notification</a></h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-        <span class="timelog">10 days ago</span>
-      </mat-list-item>
-    </mat-list>
-  </mat-tab>
-  <mat-tab label="Requests">
-    <mat-list role="list">
-      <mat-list-item role="listitem" *ngFor = "let request of requests">
-        <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
-        <mat-icon class="unread-notif"></mat-icon>
-        <h5><a href="#">{{request.user.first_name}} {{request.user.last_name}} {{this.translated.STRINGS.SENT_REQUEST}}</a></h5>
-        <span class="timelog">{{this.translated.STRINGS.REQUST_DAYS}}</span>
-      </mat-list-item>
-    </mat-list>
-  </mat-tab>
+    <mat-tab label="Direct">
+        <mat-list role="list">
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="read-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="read-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="read-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="read-notif"></mat-icon>
+                <h5><a href="#">This is some notification</a></h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                <span class="timelog">10 days ago</span>
+            </mat-list-item>
+        </mat-list>
+    </mat-tab>
+    <mat-tab label="Requests">
+        <div class="text-center mat-body-strong mat-hint no-data">
+            <mat-icon>{{helperService.appIcons.error}}</mat-icon>
+            <br>
+            <span>No data to show</span>
+        </div>
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let request of requests">
+                <mat-icon class="clear-notif">{{helperService.appIcons.clear}}</mat-icon>
+                <mat-icon class="unread-notif"></mat-icon>
+                <h5><a href="#">{{request.user.first_name}} {{request.user.last_name}}
+                    {{this.translated.STRINGS.SENT_REQUEST}}</a></h5>
+                <span class="timelog">{{this.translated.STRINGS.REQUST_DAYS}}</span>
+            </mat-list-item>
+        </mat-list>
+    </mat-tab>
 </mat-tab-group>
