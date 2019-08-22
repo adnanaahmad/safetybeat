@@ -93,8 +93,6 @@ export class MyTeamComponent implements OnInit {
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.myTeam.dataSource = null;
         this.myTeam.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAMS_NOT_FOUND,
-          this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.myTeam.dataSource = null;

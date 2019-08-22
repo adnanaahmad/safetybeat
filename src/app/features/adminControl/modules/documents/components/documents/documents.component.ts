@@ -63,10 +63,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.folderList = res.data.length === 0 ? [] : res.data;
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        // this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       } else {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_FOLDER_FAILURE,
-          this.helperService.constants.status.ERROR);
       }
     }, (error) => {
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);

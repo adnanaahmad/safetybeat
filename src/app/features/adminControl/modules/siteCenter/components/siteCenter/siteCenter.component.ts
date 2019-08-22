@@ -112,8 +112,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.siteCentreObj.dataSource = null;
         this.siteCentreObj.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_SITES_FAILURE,
-          this.helperService.constants.status.ERROR);
       }
     }, (error: HttpErrorResponse) => {
       this.siteCentreObj.dataSource = null;

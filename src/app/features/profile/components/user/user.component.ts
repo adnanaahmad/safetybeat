@@ -26,20 +26,11 @@ export class UserComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    this.userModel.subscription = this.userService.usersData.subscribe(res => {
-      if (res !== 1) {
-        this.userModel.empty = true;
-        this.userModel.userData = res;
-        this.userModel.dataSource = new MatTableDataSource(this.userModel.userData);
-        this.userModel.dataSource.paginator = this.paginator;
-      } else {
-        this.getAllUsers();
-      }
-    });
     this.userService.getUser().subscribe(res => {
       this.userModel.user = res;
       this.userModel.userId = this.userModel.user.data.user.id;
     });
+    this.getAllUsers();
   }
 
 
@@ -48,7 +39,6 @@ export class UserComponent implements OnInit, OnDestroy {
    */
 
   ngOnDestroy() {
-    this.userModel.subscription.unsubscribe();
   }
 
   /**

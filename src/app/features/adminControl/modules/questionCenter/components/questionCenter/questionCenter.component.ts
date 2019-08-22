@@ -99,8 +99,6 @@ export class QuestionCenterComponent implements OnInit {
             } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
                 this.QuestionObj.dataSource = null;
                 this.QuestionObj.loading = false;
-                this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
-                    res.responseDetails.message);
             }
         }, (err) => {
             this.QuestionObj.dataSource = null;
@@ -229,12 +227,8 @@ export class QuestionCenterComponent implements OnInit {
             } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
                 this.QuestionObj.entityQuestions = null;
                 this.QuestionObj.loading = false;
-                this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
-                    res.responseDetails.message);
             } else {
                 this.QuestionObj.loading = false;
-                this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_QUESTION_FAILURE,
-                    this.helperService.constants.status.ERROR);
             }
         }, (error) => {
             this.QuestionObj.entityQuestions = null;
