@@ -45,7 +45,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ) {
     this.initialize();
     this.navModel.subscription = this.navService.data.subscribe((res) => {
-      debugger
       if (res && res !== 1) {
         this.navModel.entityUserData = res.entities;
         this.navModel.showEntitySwitcher = res.entities.length > 1;
@@ -61,8 +60,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.navService.changePermissions(this.navModel.selectedEntity.permissions);
         this.navService.changeRole(this.navModel.selectedEntity.role)
       } else {
-        debugger
-        this.getAllEntities();
+        this.getAllEntities();s
       }
     });
     this.getSelectedEntity();
