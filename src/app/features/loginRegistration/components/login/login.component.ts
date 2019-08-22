@@ -171,12 +171,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   permissionBasedNavigation(data: EntityUserData) {
-    let index = this.helperService.findIndex(data.entities, function (entity) {
-      return entity.active === true;
-    });
-    this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
-    // this.navService.changeSelectedEntity(this.loginObj.selectedEntity);
-    this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
-      this.router.navigate(['home/adminControl/entityControl']);
+    if (data.entities.length === 0) {
+      this.router.navigate(['welcomeScreen/entityCreation'])
+    } else {
+      let index = this.helperService.findIndex(data.entities, function (entity) {
+        return entity.active === true;
+      });
+      this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
+      // this.navService.changeSelectedEntity(this.loginObj.selectedEntity);
+      this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
+        this.router.navigate(['home/adminControl/entityControl']);
+    }
   }
 }

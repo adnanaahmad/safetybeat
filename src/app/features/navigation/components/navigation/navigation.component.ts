@@ -44,20 +44,24 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.initialize();
     this.navModel.subscription = this.navService.data.subscribe((res) => {
       if (res && res !== 1) {
-        this.navModel.entityUserData = res.entities;
-        this.navModel.showEntitySwitcher = res.entities.length > 1;
-        this.navModel.empty = false;
-        let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
-          return entity.active === true;
-        });
-        this.navModel.selectedEntity =
-          index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
-        localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
-          this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
-        this.switchSideMenu(this.navModel.selectedEntity);
-        this.navService.changePermissions(this.navModel.selectedEntity.permissions);
-        this.navService.changeRole(this.navModel.selectedEntity.role);
-        this.getRoleFromStorage();
+        if (res.entities.length === 0) {
+          this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
+        } else {
+          this.navModel.entityUserData = res.entities;
+          this.navModel.showEntitySwitcher = res.entities.length > 1;
+          this.navModel.empty = false;
+          let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
+            return entity.active === true;
+          });
+          this.navModel.selectedEntity =
+            index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
+          localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
+            this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
+          this.switchSideMenu(this.navModel.selectedEntity);
+          this.navService.changePermissions(this.navModel.selectedEntity.permissions);
+          this.navService.changeRole(this.navModel.selectedEntity.role);
+          this.getRoleFromStorage();
+        }
       } else {
         this.getAllEntities();
       }
@@ -78,7 +82,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * Get Profile Data of User
    */
   getProfileData() {
-    this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
+    this.navModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
@@ -156,8 +160,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
-    this.profileModel.subscription.unsubscribe();
-    this.navModel.subscription.unsubscribe();
+    if (this.navModel.entityUserData === undefined || this.profileModel.username === undefined) {
+      this.navModel.subscription.unsubscribe();
+    }
   }
 
   getCurrentUser() {
