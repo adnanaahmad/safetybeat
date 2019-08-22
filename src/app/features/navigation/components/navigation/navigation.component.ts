@@ -40,12 +40,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public helperService: HelperService,
     private profile: ProfileService,
-    public breakpointObserver: BreakpointObserver,
     public mediaMatcher: MediaMatcher,
     private messagingService: FirebaseService
   ) {
     this.initialize();
     this.navModel.subscription = this.navService.data.subscribe((res) => {
+      debugger
       if (res && res !== 1) {
         this.navModel.entityUserData = res.entities;
         this.navModel.showEntitySwitcher = res.entities.length > 1;
@@ -61,16 +61,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.navService.changePermissions(this.navModel.selectedEntity.permissions);
         this.navService.changeRole(this.navModel.selectedEntity.role)
       } else {
+        debugger
         this.getAllEntities();
       }
     });
     this.getSelectedEntity();
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
-    // this.messagingService.currentMessage.subscribe(message => {
-    //   this.message = message;
-    //   console.log(this.message.notfication);
-    // });
 
   }
 
