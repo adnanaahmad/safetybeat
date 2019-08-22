@@ -198,20 +198,18 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.SUCCESS, this.helperService.translated.MESSAGES.SITE_CREATED);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_CREATED, this.helperService.constants.status.ERROR);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       } else {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
       }
     }, error => {
       this.onNoClick();
       this.addSiteObj.loading = false;
-      this.helperService.appLogger(this.helperService.constants.status.ERROR, this.helperService.translated.MESSAGES.SITE_FAILED);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_FAILED, this.helperService.constants.status.ERROR);
     });
   }
 

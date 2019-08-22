@@ -30,6 +30,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isOwner: boolean = false;
   packageInfo: PackageInfo;
   matcher: MediaQueryList;
+  notificationCount: number;
 
   constructor(
     public core: CoreService,
@@ -224,5 +225,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     let currentRole = this.helperService.decrypt(localStorage.getItem
     (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
+  }
+  getNotificationCount(count) {
+    this.notificationCount = count;
   }
 }

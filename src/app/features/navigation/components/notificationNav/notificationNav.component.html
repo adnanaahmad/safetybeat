@@ -1,6 +1,11 @@
 <h4>{{helperService.translated.TABLEHEADINGS.NOTIFICATIONS}}</h4>
 <mat-tab-group>
   <mat-tab label="Direct">
+      <div class="text-center mat-body-strong mat-hint no-data" *ngIf="!directMessages.length">
+          <mat-icon>{{helperService.appIcons.error}}</mat-icon>
+          <br>
+          <span>No data to show</span>
+      </div>
     <mat-list role="list">
       <mat-list-item role="listitem" *ngFor = "let directMessage of directMessages">
         <h5><a href="#">{{directMessage.type}}</a></h5>
@@ -10,6 +15,11 @@
     </mat-list>
   </mat-tab>
   <mat-tab label="Requests">
+      <div class="text-center mat-body-strong mat-hint no-data" *ngIf="!requests.length">
+          <mat-icon>{{helperService.appIcons.error}}</mat-icon>
+          <br>
+          <span>No data to show</span>
+      </div>
     <mat-list role="list">
       <mat-list-item role="listitem" *ngFor = "let request of requests">
         <h5><a href="#">{{request.first_name}} {{request.last_name}} {{this.translated.STRINGS.SENT_REQUEST}}</a></h5>

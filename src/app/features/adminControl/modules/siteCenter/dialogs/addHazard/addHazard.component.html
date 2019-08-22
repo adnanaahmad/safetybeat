@@ -163,11 +163,11 @@
                                         <h5 class="user-name align-items-center" mat-line>
                                             {{user.name}}
                                         </h5>
-                                        <button matTooltip="{{helperService.translated.STRINGS.ADD}}" mat-mini-fab
-                                                color="primary"
-                                                [disabled]="alreadyAddedCheck(user)" class="remove-member fab-action"
+                                        <button mat-button
+                                                color="primary" mat-raised-button
+                                                [disabled]="alreadyAddedCheck(user)" class="mat-elevation-z1 remove-member"
                                                 (click)="addToSelected(user)">
-                                            <mat-icon>{{helperService.appIcons.add}}</mat-icon>
+                                            Add
                                         </button>
                                     </div>
                                 </ng-container>
