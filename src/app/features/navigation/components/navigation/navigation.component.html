@@ -45,9 +45,10 @@
                         <button mat-button>{{navModel.selectedEntity?navModel.selectedEntity.entityInfo.name:''}}
                         </button>
                     </div>
-                    <mat-icon matBadge="15" matBadgeColor="warn" class="pointer" (click)="drawer.toggle()">
-                        {{helperService.appIcons.notificationImportant}}
-                    </mat-icon>
+                    <div class="pointer" (click)="drawer.toggle()">
+                         <mat-icon style="vertical-align: middle">{{helperService.appIcons.notificationImportant}}</mat-icon>
+                         <span *ngIf="notificationCount" matBadge="{{notificationCount}}" matBadgeColor="warn"></span>
+                    </div>
                     <div class="profile-menu mat-elevation-z4">
                         <button mat-button [matMenuTriggerFor]="menu">
                             <div *ngIf="profileModel.profileImage !== null">
@@ -84,7 +85,7 @@
                 <mat-drawer class="notification-drawer" autoFocus="false" #drawer mode="push" position="end">
                     <mat-icon class="close-notif" (click)="drawer.toggle()">{{helperService.appIcons.arrowForward}}
                     </mat-icon>
-                    <app-notificationNav></app-notificationNav>
+                    <app-notificationNav (notificationCount) = 'getNotificationCount($event)'></app-notificationNav>
                 </mat-drawer>
                 <router-outlet></router-outlet>
             </div>

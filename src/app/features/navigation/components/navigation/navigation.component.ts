@@ -32,6 +32,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isOwner: boolean = false;
   packageInfo: PackageInfo;
   matcher: MediaQueryList;
+  notificationCount: number;
 
   constructor(
     public core: CoreService,
@@ -210,5 +211,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   showModel(isProfile) {
     let modal = (isProfile) ? GeneralComponent : SecurityComponent;
     this.helperService.createDialog(modal, {disableClose: true});
+  }
+  getNotificationCount(count) {
+    this.notificationCount = count;
   }
 }
