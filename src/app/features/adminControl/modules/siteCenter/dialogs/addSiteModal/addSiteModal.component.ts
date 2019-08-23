@@ -7,6 +7,7 @@ import {AddSiteData, SiteAddData} from 'src/app/models/site.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-addSiteModal',
@@ -26,6 +27,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
     private render: Renderer2,
     private adminServices: AdminControlService,
     private memberService: MemberCenterService,
+    private navService: NavigationService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
@@ -39,6 +41,11 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       this.addSiteObj.radius = data.site.radius;
       this.addSiteObj.gpsTrackEnabled = data.site.gpsTrackEnabled;
     }
+    this.addSiteObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.addSiteObj.entityId = res.entityInfo.id;
+      }
+    })
   }
 
   /**
@@ -77,6 +84,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.helperService.hideLoggers();
+    this.addSiteObj.subscription.unsubscribe();
   }
 
   /**
@@ -157,7 +165,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       siteSafetyPlan: value.siteSafetyPlan,
       radius: value.radius,
       gpsTrackEnabled: value.gpsTrackEnabled,
-      entity: this.helperService.getEntityId(),
+      entity: this.addSiteObj.entityId,
     };
     if (editSite) {
       siteData.createdBy = this.addSiteObj.site.createdBy.id;
