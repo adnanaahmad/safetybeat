@@ -64,5 +64,20 @@ export class FileComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Download uploaded docs
+   * @param doc 
+   */
+  downloadFile(doc) {
+        //Creating new link node.
+        var link = document.createElement('a');
+        link.href = doc.file;
+        //Dispatching click event.
+        if (document.createEvent) {
+            var e = document.createEvent('MouseEvents');
+            e.initEvent('click' ,true ,true);
+            link.dispatchEvent(e);
+            return true;
+        }
+  }
 }

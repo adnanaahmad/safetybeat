@@ -19,16 +19,16 @@
                        (change)=uploadFile($event) [attr.disabled]="newDoc.disableButton ? '' : null" required/>
             </div>
         </div>
-        <mat-checkbox *ngIf="data.modalType" (change)="showFolderList()"
+        <mat-checkbox *ngIf="data.modalType && documentsData.folderLength" (change)="showFolderList()"
                       [disabled]="!documentsData.folderExist || newDoc.disableButton">Save in Folder
         </mat-checkbox>
         <ng-container *ngIf="data.modalType">
-            <mat-form-field appearance="outline" fullWidth *ngIf="newDoc.isEnabled">
+            <mat-form-field appearance="outline" fullWidth *ngIf = "documentsData.folderLength && newDoc.isEnabled">
                 <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
                 <mat-select formControlName="folders" [disabled]="newDoc.disableButton">
                     <ng-container *ngFor="let folder of newDoc.folderList">
                         <div>
-                            <mat-option [value]="folder.id">
+                            <mat-option [value]="folder.id" *ngIf = "folder">
                                 {{folder.name}}
                             </mat-option>
                         </div>

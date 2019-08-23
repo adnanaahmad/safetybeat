@@ -51,7 +51,7 @@ export class UploadDocComponent implements OnInit {
 // this function saves the file when its chosen
   uploadFile(event) {
     this.newDoc.file = <File>event.target.files[0];
-    this.newDoc.fileName = event.target.files[0].name;
+    this.newDoc.fileName = event.target.files[0] ? event.target.files[0].name : "";
   }
 // this function takes file and folder and uploads it accordingly
   upload(value, folderId) {
@@ -78,7 +78,7 @@ export class UploadDocComponent implements OnInit {
   }
 
   folderFormSubmit({value}: { value: NewDoc }) {
-    this.data.modalType ? this.uploadDoc(value) : this.uploadToFolder(value);
+    this.data.modalType && this.newDoc.isEnabled ? this.uploadDoc(value) : this.uploadToFolder(value);
   }
 // to upload file to root folder
   uploadDoc(value: NewDoc) {
