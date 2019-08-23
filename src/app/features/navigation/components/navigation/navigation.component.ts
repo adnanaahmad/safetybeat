@@ -43,6 +43,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private messagingService: FirebaseService
   ) {
     this.initialize();
+  }
+
+  ngOnInit() {
     this.navModel.subscription = this.navService.data.subscribe((res) => {
       if (res && res !== 1) {
         if (res.entities.length === 0) {
@@ -58,6 +61,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
             index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
           localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
             this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
+          this.navService.changeSelectedEntity(this.navModel.selectedEntity);
           this.switchSideMenu(this.navModel.selectedEntity);
           this.navService.changePermissions(this.navModel.selectedEntity.permissions);
           this.navService.changeRole(this.navModel.selectedEntity.role);
@@ -70,10 +74,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.getSelectedEntity();
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
-
-  }
-
-  ngOnInit() {
     this.matcher = this.mediaMatcher.matchMedia('(min-width: 500px)');
     this.getProfileData();
   }
@@ -161,7 +161,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
-    if (this.navModel.entityUserData === undefined || this.profileModel.username === undefined) {
+    if (this.navModel.entityUserData !== undefined || this.profileModel.username !== undefined && this.navModel.subscription !== null) {
       this.navModel.subscription.unsubscribe();
     }
   }
@@ -185,7 +185,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
     } else {
       this.navModel.selectedEntity = data;
-      this.navService.changeSelectedEntity(this.navModel.selectedEntity);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
 
@@ -226,6 +225,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
+
   getNotificationCount(count) {
     this.notificationCount = count;
   }
