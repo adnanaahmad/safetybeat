@@ -308,7 +308,7 @@
     "IMPORTSITE_NOTE": "Note: Only CSV file with following format would be accepted:\r\n  Site name, Site Location (in quotation), SafeZone in boolean value(true/false), Site Safety Plan (in quotation) \r\n    For example: \r\n  LondonSite, \"Office #3, Building #4, London, UK\", true, \"Bring all the safety equipment with you.\"",
     "TRIAL_EXPIRED": "Your trial package is expired. Please ",
     "TRIAL_LEFT_1": "Your trial is going to expire in ",
-    "TRIAL_LEFT_2": " day(s). Please ",
+    "TRIAL_LEFT_2": " day(s) ",
     "TRIAL_EXP_USER": "You don't have access to Safetybeat. Please contact your administrator.",
     "SAFETYBEAT_PRICING": "SafetyBeat Pricing",
     "PRICING_TAGLINE": "Choose a package that best suits your business",

@@ -44,7 +44,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dashboardObj.subscription.unsubscribe();
+    if (this.dashboardObj.entityId) {
+      this.dashboardObj.subscription.unsubscribe();
+    }
   }
 
   makeReport(days, dateTo, dateFrom) {

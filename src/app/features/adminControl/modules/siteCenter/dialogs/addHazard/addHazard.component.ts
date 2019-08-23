@@ -216,7 +216,7 @@ export class AddHazardComponent implements OnInit {
       formData.append('image', blob, this.hazardObj.image.name);
     }
     if (value.responsible) {
-      formData.append('action', JSON.stringify( this.compiler.constructActions(this.hazardObj.actionsArray)));
+      formData.append('actions', JSON.stringify( this.compiler.constructActions(this.hazardObj.actionsArray)));
     }
     if (this.hazardObj.selectedUserList.length !== 0) {
       formData.append('share', 'true');

@@ -33,37 +33,48 @@ export class UpdateprofileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private profile: ProfileService,
     private settings: SettingsService,
-    public compiler: CompilerProvider
+    public compiler: CompilerProvider,
+    private settingService: SettingsService
   ) {
-  }
-
-
-  ngOnInit() {
-    this.generalForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      contactNo: ['', Validators.required],
-      countryCode: ['', Validators.required],
-      currentPassword: ['', [Validators.required, Validators.minLength(8)]],
-      password1: ['', [Validators.required, Validators.minLength(8)]],
-      password2: ['', [Validators.required, Validators.minLength(8)]]
-    }, {validator: [this.phoneNumberValid.bind(this), this.checkPasswords(this.generalForm)]});
-    this.setGeneralForm();
   }
 
   get generalViewForm() {
     return this.generalForm.controls;
   }
 
+
+  ngOnInit() {
+    this.generalForm = this.formBuilder.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      countryCode: ['', Validators.required],
+      contactNo: ['', Validators.required],
+      password1: ['', [Validators.required, Validators.minLength(8)]],
+      password2: ['', [Validators.required, Validators.minLength(8)]]
+    }, {validator: Validators.compose([this.checkPasswords.bind(this), this.phoneNumberValid.bind(this)])});
+    this.setGeneralForm();
+  }
+
+  numberOnly(event: Event): boolean {
+    return this.compiler.numberOnly(event);
+  }
+
+  /**
+   * this function is used for entering only the characters in the input fields.
+   * @params event
+   */
+
+  characterOnly(event: Event): boolean {
+    return this.compiler.charactersOnly(event);
+  }
+
+  /**
+   * to check if password and confirm password is same
+   * @param group formGroup for user form
+   */
   checkPasswords(group: FormGroup) {
-    const currentPass = group.controls.currentPassword.value;
-    const savedPass = this.helperService.decrypt(localStorage.getItem('pas'), this.helperService.appConstants.key);
-    if (currentPass !== savedPass) {
-      group.controls.currentPassword.setErrors({notSame: true});
-    }
-    const pass = group.controls.password1.value;
-    const confirmPass = group.controls.password2.value;
+    const pass = group.value.password1;
+    const confirmPass = group.value.password2;
     return pass === confirmPass ? null : group.controls.password2.setErrors({notSame: true});
   }
 
@@ -74,7 +85,6 @@ export class UpdateprofileComponent implements OnInit {
           if (res) {
             this.userData = this.compiler.constructProfileData(res.data.user);
             this.navService.updateCurrentUser(this.userData);
-            this.generalViewForm['email'].setValue(this.userData.email);
             this.generalViewForm['first_name'].setValue(this.userData.first_name);
             this.generalViewForm['last_name'].setValue(this.userData.last_name);
             let contact = (this.userData.contactNo).split('-', 2);
@@ -89,6 +99,11 @@ export class UpdateprofileComponent implements OnInit {
     });
   }
 
+  /**
+   * this function is used for checking the validation of the phone number that the user will add.
+   * @params group
+   */
+
   phoneNumberValid(group: FormGroup) {
     try {
       const phoneNumber = phoneNumberUtil.parseAndKeepRawInput(
@@ -101,13 +116,6 @@ export class UpdateprofileComponent implements OnInit {
     }
   }
 
-  characterOnly(event): boolean {
-    return this.compiler.charactersOnly(event);
-  }
-
-  numberOnly(event): boolean {
-    return this.compiler.numberOnly(event);
-  }
 
   checkEmail(group) {
     this.email = this.formBuilder.group({
@@ -136,6 +144,33 @@ export class UpdateprofileComponent implements OnInit {
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG,
         this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG);
+    });
+  }
+
+
+  updateProfile(data: FormGroup) {
+    if (data.invalid) {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.INVALID_DATA, this.helperService.translated.STATUS.ERROR);
+      return;
+    }
+    this.loading = true;
+    let userData = {
+      username: this.userData.username,
+      first_name: data.value.first_name,
+      last_name: data.value.last_name,
+      email: this.userData.email,
+      contactNo: '+' + data.value.countryCode + '-' + data.value.contactNo,
+      password: data.value.password1,
+    };
+
+    this.settingService.editProfile(this.userData.id, userData).subscribe((res) => {
+      if (res) {
+        this.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.GENERAL_UPDATED,
+          this.helperService.constants.status.SUCCESS);
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

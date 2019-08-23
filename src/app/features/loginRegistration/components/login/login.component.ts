@@ -55,22 +55,22 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    this.navService.packageData.subscribe(
-      (packageDataResult) => {
-        if (packageDataResult !== 1) {
-          this.changeRoutes(packageDataResult.expired);
-        } else if (this.loginService.getToken()) {
-          let self = this;
-          this.navService.getPackageInfo().subscribe(res => {
-            let packageData = res.data;
-            let index = this.helperService.findIndex(packageData, function (packageVal: PackageInfo) {
-              return packageVal.module === self.helperService.appConstants.moduleName;
-            });
-            this.navService.updatePackageInfo(packageData[index]);
-            this.changeRoutes(packageData[index].expired);
-          });
-        }
-      });
+    // this.navService.packageData.subscribe(
+    //   (packageDataResult) => {
+    //     if (packageDataResult !== 1) {
+    //       this.changeRoutes(packageDataResult.expired);
+    //     } else if (this.loginService.getToken()) {
+    //       let self = this;
+    //       this.navService.getPackageInfo().subscribe(res => {
+    //         let packageData = res.data;
+    //         let index = this.helperService.findIndex(packageData, function (packageVal: PackageInfo) {
+    //           return packageVal.module === self.helperService.appConstants.moduleName;
+    //         });
+    //         this.navService.updatePackageInfo(packageData[index]);
+    //         this.changeRoutes(packageData[index].expired);
+    //       });
+    //     }
+    //   });
     this.loginObj.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required]
@@ -119,15 +119,16 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.loginObj.data = data;
           data ? this.loginService.setToken(this.loginObj.data.data.token) : this.loginService.setToken('');
           localStorage.setItem('pas', this.helperService.encrypt(value.password, this.helperService.appConstants.key));
-          let userData = this.compiler.constructUserData(this.loginObj.data);
-          this.navService.updateCurrentUser(userData.user);
+          this.loginObj.userData = this.compiler.constructUserData(this.loginObj.data);
+          this.navService.updateCurrentUser(this.loginObj.userData.user);
           let self = this;
-          let index = this.helperService.findIndex(userData.packageInfo, function (packageVal: PackageInfo) {
+          this.loginObj.index = this.helperService.findIndex(this.loginObj.userData.packageInfo, function (packageVal: PackageInfo) {
             return packageVal.module === self.helperService.appConstants.moduleName;
           });
-          this.navService.updatePackageInfo(userData.packageInfo[index]);
-          localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-          (JSON.stringify(userData.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+          this.navService.updatePackageInfo(this.loginObj.userData.packageInfo[this.loginObj.index]);
+          localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo,
+            this.helperService.encrypt(JSON.stringify(this.loginObj.userData.packageInfo),
+              this.helperService.appConstants.key).toString()); // Store package data in local storage
           let entityData = {
             'moduleName': this.helperService.appConstants.moduleName
           };
@@ -136,7 +137,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.loginObj.entities = res;
               this.loginObj.entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data.allEntities);
               this.navService.changeEntites(this.loginObj.entityUserData);
-              this.permissionBasedNavigation(this.loginObj.entityUserData);
+              this.permissionBasedNavigation(this.loginObj.entityUserData, this.loginObj.userData.packageInfo[this.loginObj.index].expired);
               this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
                 this.helperService.constants.status.SUCCESS);
               this.loginObj.loading = false;
@@ -170,13 +171,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  permissionBasedNavigation(data: EntityUserData) {
-    let index = this.helperService.findIndex(data.entities, function (entity) {
-      return entity.active === true;
-    });
-    this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
-    // this.navService.changeSelectedEntity(this.loginObj.selectedEntity);
-    this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
-      this.router.navigate(['home/adminControl/entityControl']);
+  permissionBasedNavigation(data: EntityUserData, expired: boolean) {
+    if (data.entities.length === 0) {
+      this.router.navigate(['welcomeScreen/entityCreation']);
+    } else {
+      let index = this.helperService.findIndex(data.entities, function (entity) {
+        return entity.active === true;
+      });
+      this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
+      if (expired) {
+        this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
+      } else {
+        this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
+          this.router.navigate(['home/adminControl/entityControl']);
+      }
+    }
   }
 }
