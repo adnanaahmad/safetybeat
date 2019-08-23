@@ -16,6 +16,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 })
 export class DocumentsComponent implements OnInit, OnDestroy {
   documentsData: Documents = <Documents>{};
+  loadingBar = false;
 
 
   constructor(
@@ -59,15 +60,21 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * @params entityID
    */
   getAllFolders(entityID: number) {
+    this.loadingBar = true;
     this.navService.allFolders({entityId: entityID}).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.folderList = res.data.length === 0 ? [] : res.data;
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.documentsData.folderList = [];
         // this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       } else {
+        this.documentsData.folderList = [];
       }
+      this.loadingBar = false;
     }, (error) => {
+      this.loadingBar = false;
       this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      
     });
   }
 
@@ -76,17 +83,22 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * @params entityId
    */
   getRootDocuments(entityId: number) {
+    this.loadingBar = true;
     let data = {'entityId': entityId};
     this.navService.getRootDocuments(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.documentsData.rootDocs = [];
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       } else {
+        this.documentsData.rootDocs = [];
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
           this.helperService.constants.status.ERROR);
       }
+      this.loadingBar = false;
     }, (error) => {
+      this.loadingBar = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
         this.helperService.constants.status.ERROR);
     });

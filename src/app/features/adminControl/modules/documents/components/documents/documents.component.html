@@ -1,4 +1,4 @@
-<div class="spinner-wrap" *ngIf="!documentsData.rootDocs || !documentsData.folderList">
+<div class="spinner-wrap" *ngIf="loadingBar">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
 <div class="paddingbox">
@@ -56,7 +56,7 @@
     </div>
 
     <div class="folders-wrapper"
-         *ngIf="documentsData.folderList && documentsData.rootDocs && !documentsData.folderList.length && !documentsData.rootDocs.length">
+         *ngIf="!documentsData.folderList.length && !documentsData.rootDocs.length">
         <h5 class="wrapper-heading">
             No folders or files exists
         </h5>

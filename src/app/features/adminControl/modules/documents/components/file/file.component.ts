@@ -63,6 +63,4 @@ export class FileComponent implements OnInit {
       }
     });
   }
-
-
 }
