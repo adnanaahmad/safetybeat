@@ -120,7 +120,10 @@ export class CheckInActivityReportComponent implements OnInit {
         let data = this.highChartSettings.reportSettings(chartType,
           [], this.generateCharSeries(this.checkInActivityObj.checkInByActivityReportData,
             res.data.maintenancePercentage, res.data.installationPercentage));
-        Highcharts.chart('container', data);
+        this.checkInActivityObj.containerDiv = document.getElementById('container')
+        if (this.checkInActivityObj.containerDiv) {
+          Highcharts.chart('container', data);
+        }
         this.checkInActivityObj.loading = false;
       } else {
         this.checkInActivityObj.loading = false;

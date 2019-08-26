@@ -109,7 +109,10 @@ export class EntityPulseReportComponent implements OnInit {
         let data = this.highChartSettings.reportSettings(chartType,
           [], this.generateCharSeries(this.pulseEntityObj.pulseByEntityReportData, res.data.meeting,
             res.data.visiting, res.data.travelling, res.data.other, res.data.onBreak));
-        Highcharts.chart('container', data);
+        this.pulseEntityObj.containerDiv = document.getElementById('container')
+        if (this.pulseEntityObj.containerDiv) {
+          Highcharts.chart('container', data);
+        }
         this.pulseEntityObj.loading = false;
       } else {
         this.pulseEntityObj.loading = false;

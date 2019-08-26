@@ -13,6 +13,7 @@ import {
 import * as Highcharts from 'highcharts';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
+import {container} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'dateFrom': dateFrom,
       'days': days,
     };
-    this.analyticsService.actionReport(data).subscribe((res) => {
+    this.dashboardObj.subscription = this.analyticsService.actionReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.dashboardObj.actionReportData = res.data.checkInList;
         let chartType: HighChartType = {
@@ -63,7 +64,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.dashboardObj.actionReportData));
-        Highcharts.chart('container', data);
+        this.dashboardObj.containerDiv = document.getElementById('container')
+        if (this.dashboardObj.containerDiv) {
+          Highcharts.chart(this.dashboardObj.containerDiv, data);
+        }
       } else {
         this.dashboardObj.loading = false;
       }
@@ -81,7 +85,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'days': days,
       'user': user
     };
-    this.analyticsService.getHazardReport(data).subscribe((res) => {
+    this.dashboardObj.subscription = this.analyticsService.getHazardReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.dashboardObj.hazardReportData = res.data.hazardReportBySeverity;
         this.dashboardObj.resolvedHazards = res.data.resolvedHazard;
@@ -106,7 +110,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
     let reportBySeverityData = this.highChartSettings.reportSettings(chartType,
       [], this.generateCharHazardSeries(hazardSeverityData));
-    Highcharts.chart('severityReport', reportBySeverityData);
+    this.dashboardObj.severityDiv = document.getElementById('severityReport')
+    if (this.dashboardObj.severityDiv) {
+      Highcharts.chart(this.dashboardObj.severityDiv, reportBySeverityData);
+    }
   }
 
   reportByStatus(hazardStatusData) {
@@ -117,7 +124,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
     let reportByStatusData = this.highChartSettings.reportSettings(chartTypeForStatus,
       [], this.generateHazardStatusData(hazardStatusData));
-    Highcharts.chart('statusReport', reportByStatusData);
+    this.dashboardObj.statusDiv = document.getElementById('statusReport')
+    if (this.dashboardObj.statusDiv) {
+      Highcharts.chart(this.dashboardObj.statusDiv, reportByStatusData);
+    }
   }
 
   makePulseReport(days, dateTo, dateFrom, userId) {
@@ -128,7 +138,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'days': days,
       'user': userId
     };
-    this.analyticsService.pulseByEntity(data).subscribe((res) => {
+    this.dashboardObj.subscription = this.analyticsService.pulseByEntity(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.dashboardObj.pulseByEntityReportData = res.data.pulseByEntity;
         let chartType: HighChartType = {
@@ -139,7 +149,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         let data = this.highChartSettings.reportSettings(chartType,
           [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData, res.data.meeting,
             res.data.visiting, res.data.travelling, res.data.other, res.data.onBreak));
-        Highcharts.chart('pulseReport', data);
+        this.dashboardObj.pulseDiv = document.getElementById('pulseReport')
+        if (this.dashboardObj.pulseDiv) {
+          Highcharts.chart(this.dashboardObj.pulseDiv, data);
+        }
         this.dashboardObj.loading = false;
       } else {
         this.dashboardObj.loading = false;

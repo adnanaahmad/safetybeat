@@ -117,7 +117,10 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
           };
           let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
             [], this.generateCharSeries(this.siteReportObj.siteReportData));
-          Highcharts.chart('container', siteActivityReportData);
+          this.siteReportObj.containerDiv = document.getElementById('container')
+          if (this.siteReportObj.containerDiv) {
+            Highcharts.chart('container', siteActivityReportData);
+          }
         }
         this.siteReportObj.loading = false;
       } else {

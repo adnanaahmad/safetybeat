@@ -100,7 +100,10 @@ export class ActionReportComponent implements OnInit, OnDestroy {
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
-        Highcharts.chart('container', data);
+        this.actionReportObj.containerDiv = document.getElementById('container')
+        if (this.actionReportObj.containerDiv) {
+          Highcharts.chart(this.actionReportObj.containerDiv, data);
+        }
         this.actionReportObj.loading = false;
       } else {
         this.actionReportObj.loading = false;

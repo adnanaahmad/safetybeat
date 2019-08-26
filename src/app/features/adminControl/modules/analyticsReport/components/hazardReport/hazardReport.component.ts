@@ -129,7 +129,10 @@ export class HazardReportComponent implements OnInit {
     };
     let reportBySeverityData = this.highChartSettings.reportSettings(chartType,
       [], this.generateCharSeries(hazardSeverityData));
-    Highcharts.chart('severityReport', reportBySeverityData);
+    this.hazardObj.severityDiv = document.getElementById('severityReport')
+    if (this.hazardObj.severityDiv) {
+      Highcharts.chart('severityReport', reportBySeverityData);
+    }
   }
 
   reportByStatus(hazardStatusData) {
@@ -140,7 +143,10 @@ export class HazardReportComponent implements OnInit {
     };
     let reportByStatusData = this.highChartSettings.reportSettings(chartTypeForStatus,
       [], this.generateHazardStatusData(hazardStatusData));
-    Highcharts.chart('statusReport', reportByStatusData);
+    this.hazardObj.statusDiv = document.getElementById('statusReport')
+    if (this.hazardObj.statusDiv) {
+      Highcharts.chart('statusReport', reportByStatusData);
+    }
   }
 
   generateCharSeries(reportData: any) {

@@ -6,6 +6,10 @@ import {Site} from '../site.model';
 
 
 export interface Report {
+  pulseDiv: HTMLElement;
+  statusDiv: HTMLElement;
+  severityDiv: HTMLElement;
+  containerDiv: HTMLElement;
   averageActionForm: FormGroup;
   resolvedHazards: number;
   unResolvedHazards: number;
