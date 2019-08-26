@@ -60,7 +60,8 @@ export class CreateEntityComponent implements OnInit {
       name: value.name,
       headOffice: value.headOffice,
       role: 'Owner',
-      active: true
+      active: true,
+      status: true
     };
     let data = {
       moduleName: 'Safetybeat'

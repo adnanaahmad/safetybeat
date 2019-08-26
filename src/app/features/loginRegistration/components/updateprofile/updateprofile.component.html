@@ -5,105 +5,108 @@
             d="M199.523,9.2q-9.477-9.206-26.191-9.2a29.9,29.9,0,0,0-9.439,1.6,38.225,38.225,0,0,0-8.952,4.306Q150.8,8.6,147.814,10.978a68.808,68.808,0,0,0-5.67,5.048,69.15,69.15,0,0,0-5.671-5.048q-2.985-2.375-7.126-5.084a38.282,38.282,0,0,0-8.954-4.306,29.9,29.9,0,0,0-9.439-1.6q-16.714,0-26.19,9.2T75.288,34.731a32.367,32.367,0,0,0,1.754,10.243,44.833,44.833,0,0,0,3.992,8.982,65.691,65.691,0,0,0,5.074,7.238q2.835,3.526,4.141,4.862A24.729,24.729,0,0,0,92.3,67.985l46.56,44.686a4.7,4.7,0,0,0,6.566,0l46.486-44.539Q209,51.137,209,34.731,209,18.4,199.523,9.2ZM48.289,97.994c-2.316,0-4.32-1.017-4.79-3.257L37.008,64.081l-4.275,7.282a5.042,5.042,0,0,1-4.208,2.515H4.885a4.825,4.825,0,1,1,0-9.648H25.73l9.294-15.494a4.908,4.908,0,0,1,8.994,1.473l3.93,18.735L56.909,19.9A4.807,4.807,0,0,1,61.724,16h0.021a4.794,4.794,0,0,1,4.8,3.93l9.564,55.056L79.185,67.3a4.892,4.892,0,0,1,4.545-3.073h43.387a4.825,4.825,0,1,1,0,9.648H87.052L78.777,94.507a4.906,4.906,0,0,1-9.364-.96L61.608,48.562,53.1,94.614c-0.416,2.272-2.408,3.38-4.749,3.38H48.289Z"/>
     </svg>
   </div>
-  <button custom-btn btn-white mat-button (click)="logoutUser()" [disabled]="logoutDisable">Logout</button>
+    <button custom-btn btn-white mat-button (click)="logoutUser()" [disabled]="logoutDisable">Logout</button>
 </div>
 
-<mat-card-title
-  class="mat-dialog-title mat-elevation-z6">{{helperService.translated.MESSAGES.EDITPROFILE}}</mat-card-title>
+<div class="midbox paddingbox">
+<h3>Update Profile</h3>
 <div class="mat-dialog-content">
-  <form [formGroup]="generalForm" class="settings-list">
-    <mat-form-field appearance="outline" fullWidth>
-      <mat-label>First name</mat-label>
-      <input matInput type="text" formControlName="first_name" class="showonly" required
-             (keypress)="characterOnly($event)"/>
-      <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
-        <span>Field is Required</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" fullWidth>
-      <mat-label>Last Name</mat-label>
-      <input matInput type="text" formControlName="last_name" class="showonly" required
-             (keypress)="characterOnly($event)"/>
-      <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
-        <span>Field is Required</span>
-      </mat-error>
-    </mat-form-field>
-    <div class="input country-code">
-      <label class="mat-h4 selected-entity">Contact Number</label>
-      <mat-form-field fullWidth>
-        <div class="code-input">
-          <input class="" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
-                 maxlength="3"
-                 (keypress)="numberOnly($event)" onPaste="return false" autocomplete="off"/>
-        </div>
-        <input matInput type="text" class="showonly number-input" required
-               [formControlName]="helperService.appConstants.contactNo"
-               (keypress)="numberOnly($event)&&phoneNumberValid(generalForm)" onPaste="return false"
-               autocomplete="off"/>
-        <mat-error *ngIf="generalViewForm.countryCode.errors">
-          <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
-            <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-            <span *ngIf="generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-          </mat-error>
+  <form class="update-form" [formGroup]="generalForm" (ngSubmit)="updateProfile(generalForm)" autocomplete=false>
+    <div class="input">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.AUTH.FIRSTNAME}}</mat-label>
+        <input matInput type="text" (keypress)="characterOnly($event)" onPaste="return false"
+               autocomplete="off"
+               [errorStateMatcher]="helperService.formErrorMatcher"
+               [formControlName]="helperService.appConstants.firstName"/>
+        <mat-error *ngIf="generalViewForm.first_name.errors">
+                  <span *ngIf="generalViewForm.first_name.errors.required">{{
+                    helperService.translated.AUTH.FIRSTNAME_REQ
+                    }}</span>
         </mat-error>
       </mat-form-field>
     </div>
     <div class="input">
       <mat-form-field appearance="outline" fullWidth>
-        <mat-label>Email</mat-label>
-        <input matInput type="text" formControlName="email" class="showonly" required readonly>
-        <mat-error class="text-right" *ngIf="generalViewForm.email.errors">
-          <span *ngIf="generalViewForm.email.errors.required">Field is Required</span>
-          <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>
+        <mat-label>{{helperService.translated.AUTH.LASTNAME}}</mat-label>
+        <input matInput type="text" (keypress)="characterOnly($event)" onPaste="return false"
+               autocomplete="off"
+               [errorStateMatcher]="helperService.formErrorMatcher"
+               [formControlName]="helperService.appConstants.lastName" required/>
+        <mat-error *ngIf="generalViewForm.last_name.errors">
+                  <span *ngIf="generalViewForm.last_name.errors.required">{{
+                    helperService.translated.AUTH.LASTNAME_REQ
+                    }}</span>
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="form-group">
+    <div class="input country-code">
       <mat-form-field appearance="outline" fullWidth>
-        <mat-label>Current Password</mat-label>
-        <input matInput type="password" autocomplete="password"
-               [formControlName]="helperService.appConstants.currentPassword" required/>
-        <mat-error class="text-right" *ngIf="generalViewForm.currentPassword.errors">
-          <span
-            *ngIf="generalViewForm.currentPassword.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-          <span
-            *ngIf="generalViewForm.currentPassword.errors?.notSame">{{helperService.translated.MESSAGES.MATCH_ERROR}}</span>
-          <span
-            *ngIf="generalViewForm.currentPassword.errors.minlength">{{helperService.translated.MESSAGES.PASSWORD_ERROR}}</span>
+        <mat-label>Code</mat-label>
+        <input matInput type="text" [errorStateMatcher]="helperService.formErrorMatcher"
+               [formControlName]="helperService.appConstants.countryCode"
+               (keypress)="numberOnly($event)&&phoneNumberValid(generalForm)"
+               maxlength="3"
+               onPaste="return false" autocomplete="off"/>
+        <mat-error *ngIf="generalViewForm.countryCode.errors">
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="form-group">
+    <div class="input contact-number">
       <mat-form-field appearance="outline" fullWidth>
-        <mat-label>New Password</mat-label>
-        <input matInput type="password" autocomplete="password"
+        <mat-label>Phone Number</mat-label>
+        <input matInput type="text" [errorStateMatcher]="helperService.formErrorMatcher"
+               [formControlName]="helperService.appConstants.contactNo"
+               (keypress)="numberOnly($event)"
+               onPaste="return false" autocomplete="off"/>
+        <mat-error *ngIf="generalViewForm.contactNo.errors">
+                  <span
+                    *ngIf="generalViewForm.contactNo.errors.required||generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.AUTH.PASSWORD}}</mat-label>
+        <input matInput type="password" [errorStateMatcher]="helperService.formErrorMatcher"
                [formControlName]="helperService.appConstants.password1" required/>
-        <mat-error class="text-right" *ngIf="generalViewForm.password1.errors  ">
-          <span
-            *ngIf="generalViewForm.password1.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-          <span
-            *ngIf="generalViewForm.password1.errors.minlength">{{helperService.translated.MESSAGES.PASSWORD_ERROR}}</span>
+        <mat-error *ngIf="generalViewForm.password1.errors">
+                  <span *ngIf="generalViewForm.password1.errors.required">{{
+                    helperService.translated.AUTH.PASSWORD_REQ
+                    }}</span>
+          <span *ngIf="generalViewForm.password1.errors.minlength">{{
+            helperService.translated.MESSAGES.PASSWORD_ERROR
+            }}</span>
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="form-group">
+    <div class="input">
       <mat-form-field appearance="outline" fullWidth>
-        <mat-label>Confirm Password</mat-label>
-        <input matInput type="password" autocomplete="password"
-               [formControlName]="helperService.appConstants.password2" required/>
-        <mat-error class="text-right" *ngIf="generalViewForm.password2.errors">
-          <span
-            *ngIf="generalViewForm.password2.errors.required ">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-          <span
-            *ngIf="generalViewForm.password2.errors?.notSame">{{helperService.translated.MESSAGES.MATCH_ERROR}}</span>
+        <mat-label>{{helperService.translated.AUTH.CONFIRM_PASSWORD}}</mat-label>
+        <input matInput type="password" [formControlName]="helperService.appConstants.password2"
+               [errorStateMatcher]="helperService.formErrorMatcher" required/>
+        <mat-error *ngIf="generalViewForm.password2.errors ">
+                  <span
+                    *ngIf="generalViewForm.password2.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
           <span
             *ngIf="generalViewForm.password2.errors.minlength">{{helperService.translated.MESSAGES.PASSWORD_ERROR}}</span>
+          <span
+            *ngIf="generalViewForm.password2.errors?.notSame">{{helperService.translated.MESSAGES.MATCH_ERROR}}</span>
         </mat-error>
       </mat-form-field>
     </div>
-    <button type="submit" class="mat-elevation-z6" mat-raised-button custom-btn
-            [disabled]="generalForm.pristine || !generalForm.valid">Save
-    </button>
-    <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+    <div class="button">
+      <button mat-raised-button [disabled]="loading" custom-btn
+              color="primary">
+        Update
+      </button>&nbsp;
+      <button mat-raised-button [disabled]="loading" custom-btn>Skip</button>
+      <div class="main-loader" *ngIf="loading">
+        <span class="loader1"></span>
+        <span class="loader2"></span>
+        <span class="loader3"></span>
+      </div>
+    </div>
   </form>
+</div>
 </div>

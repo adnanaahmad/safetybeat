@@ -159,91 +159,50 @@
         font-weight: 600;
       }
     }
-
-    @media (max-width: 992px) {
-      .packages-wrapper {
-        .package-box {
-          .package-price {
-            font-size: 1.4rem;
-          }
-        }
-      }
-    }
-    @media (max-width: 768px) {
-      .legend-header {
-        padding: 20px;
-
-        mat-card-title {
-          font-size: 1.4rem;
-        }
-      }
-      .packages-wrapper {
-        display: block;
-
-        .package-box {
-          width: 100%;
-          margin: 10px 0;
-
-          .package-price {
-            font-size: 1.4rem;
-          }
-        }
-      }
-      .topnav {
-        text-align: center;
-
-        a {
-          padding: 10px;
-        }
-
-        .sb-logo {
-          float: none;
-          display: block;
-          margin: 0 auto;
-          text-align: center;
-        }
-      }
-      .call-to-action {
-        padding: 20px;
-
-        h1 {
-          font-size: 1.4rem;
-        }
-
-        p {
-          font-size: 14px;
-        }
-      }
-    }
-
     .country-code {
-      .code-input {
-        position: relative;
-        float: left;
-
+      width: 20%;
+      float: left;
+      position: relative;
+      &:before {
+        content: "+";
+        display: block;
+        position: absolute;
+        left: 6px;
+        color: #000;
+        opacity: 0.4;
+        font-size: 1.4em;
+        top: 20px;
+      }
+      &:focus {
         &:before {
-          content: "+";
-          display: block;
-          position: absolute;
-        }
-
-        input {
-          padding-right: 0;
-          border-right: 0;
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-          width: 37px;
-          padding-left: 10px;
-          border-right: 1px solid rgba(0, 0, 0, 0.34);
+          top: 25px;
         }
       }
-
-      .number-input {
-        width: 400px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        float: left;
-        padding-left: 8px;
+      label {
+        padding-left: 10px;
+      }
+      input {
+        padding-left: 10px;
+      }
+    }
+    .contact-number {
+      width: 77%;
+      float: left;
+      margin-left: 3%;
+    }
+    .midbox{
+      width: 50%;
+      margin:0 auto;
+    }
+    @media (max-width: 575px){
+      .paddingbox{
+        padding: 16px;
+      }
+      .update-form{
+        .input{
+          width: 100%;
+          margin-left: 0;
+        }
       }
     }
   }

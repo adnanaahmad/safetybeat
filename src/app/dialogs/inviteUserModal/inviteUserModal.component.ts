@@ -32,6 +32,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     public memberService: MemberCenterService,
     @Inject(MAT_DIALOG_DATA) public data: InviteUserModelData
   ) {
+    console.log('this is the data', this.data);
     this.inviteUserModal.roleList = Object.assign([], this.data.role);
     this.inviteUserModal.selectedRole = this.inviteUserModal.roleList[0];
     this.changeSelection(this.inviteUserModal.selectedRole);
@@ -112,7 +113,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       roleId: value.role.id,
       contactNo: '545535456',
       moduleName: 'Safetybeat',
-      entityId: this.data.entityId,
+      entityId: this.selectedEntity.id,
       siteId: value.sites,
       teamId: value.team
     };

@@ -277,7 +277,8 @@
                 {{helperService.translated.MESSAGES.NO_CONNECTIONS}}
               </mat-card>
             </div>
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.pageCount"
+                           (page)="getUserConnections(profileModel.userId, paginator.pageIndex)"></mat-paginator>
           </mat-card-content>
         </mat-card>
       </mat-grid-tile>

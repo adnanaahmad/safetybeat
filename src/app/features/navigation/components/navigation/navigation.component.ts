@@ -11,10 +11,10 @@ import {GeneralComponent} from 'src/app/features/settings/components/general/gen
 import {SecurityComponent} from 'src/app/features/settings/components/security/security.component';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
+import {FirebaseService} from 'src/app/services/common/FirebaseNotification/firebase.service';
 import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {FirebaseService} from '../../../../services/common/FirebaseNotification/firebase.service';
 import {PermissionsModel} from '../../../../models/adminControl/permissions.model';
 
 @Component({
@@ -46,21 +46,30 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private messagingService: FirebaseService
   ) {
     this.initialize();
+  }
+
+  ngOnInit() {
     this.navModel.subscription = this.navService.data.subscribe((res) => {
       if (res && res !== 1) {
-        this.navModel.entityUserData = res.entities;
-        this.navModel.showEntitySwitcher = res.entities.length > 1;
-        this.navModel.empty = false;
-        let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
-          return entity.active === true;
-        });
-        this.navModel.selectedEntity =
-          index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
-        localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
-          this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
-        this.switchSideMenu(this.navModel.selectedEntity);
-        this.navService.changePermissions(this.navModel.selectedEntity.permissions);
-        this.navService.changeRole(this.navModel.selectedEntity.role)
+        if (res.entities.length === 0) {
+          this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
+        } else {
+          this.navModel.entityUserData = res.entities;
+          this.navModel.showEntitySwitcher = res.entities.length > 1;
+          this.navModel.empty = false;
+          let index = this.helperService.findIndex(this.navModel.entityUserData, function (entity) {
+            return entity.active === true;
+          });
+          this.navModel.selectedEntity =
+            index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
+          localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
+            this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
+          this.navService.changeSelectedEntity(this.navModel.selectedEntity);
+          this.switchSideMenu(this.navModel.selectedEntity);
+          this.navService.changePermissions(this.navModel.selectedEntity.permissions);
+          this.navService.changeRole(this.navModel.selectedEntity.role);
+          this.getRoleFromStorage();
+        }
       } else {
         this.getAllEntities();
       }
@@ -68,10 +77,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.getSelectedEntity();
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
-
-  }
-
-  ngOnInit() {
     this.matcher = this.mediaMatcher.matchMedia('(min-width: 500px)');
     this.getProfileData();
     this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
@@ -86,7 +91,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * Get Profile Data of User
    */
   getProfileData() {
-    this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
+    this.navModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
@@ -164,11 +169,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
-    if (this.profileModel.subscription !== null || this.navModel.subscription !== null) {
-      this.profileModel.subscription.unsubscribe();
+    if (this.navModel.entityUserData !== undefined || this.profileModel.username !== undefined && this.navModel.subscription !== null) {
       this.navModel.subscription.unsubscribe();
     }
-
   }
 
   getCurrentUser() {
@@ -190,7 +193,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
     } else {
       this.navModel.selectedEntity = data;
-      this.navService.changeSelectedEntity(this.navModel.selectedEntity);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
 
@@ -220,6 +222,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   showModel(isProfile) {
     let modal = (isProfile) ? GeneralComponent : SecurityComponent;
     this.helperService.createDialog(modal, {disableClose: true});
+  }
+
+  /**
+   * this function is used for getting the role of the user in the selected entity and is gotten from the local storage.
+   */
+
+  getRoleFromStorage() {
+    let currentRole = this.helperService.decrypt(localStorage.getItem
+    (this.helperService.constants.localStorageKeys.role), this.helperService.appConstants.key);
+    this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 
   getNotificationCount(count) {
