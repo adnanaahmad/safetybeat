@@ -49,6 +49,8 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.actionReportObj.entityId = this.helperService.getEntityId();
     this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.actionReportObj.maxDate = new Date();
+    this.actionReportObj.minDate = null;
   }
 
   setEntityName() {
@@ -59,16 +61,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
         this.actionFormValidations['entityName'].disable();
       }
     });
-  }
-
-  isDateValid() {
-    let dateTo = this.actionReportObj.actionReportForm.get('dateTo')
-    let dateFrom = this.actionReportObj.actionReportForm.get('dateFrom')
-    if (dateTo > dateFrom) {
-      return true
-    } else {
-      return false
-    }
   }
 
   getFilters() {
@@ -160,10 +152,14 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     });
     if (value === this.actionReportObj.dateEnableObj.id) {
       this.actionFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
     } else {
       this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
     }
+  }
+
+  enableDateFrom() {
+    this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
+    this.actionReportObj.minDate = this.actionFormValidations[this.helperService.appConstants.dateFrom].value;
   }
 }

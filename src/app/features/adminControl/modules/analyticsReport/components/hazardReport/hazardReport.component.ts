@@ -56,6 +56,8 @@ export class HazardReportComponent implements OnInit {
     this.hazardObj.entityId = this.helperService.getEntityId();
     this.hazardFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.hazardFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.hazardObj.maxDate = new Date();
+    this.hazardObj.minDate = null;
   }
 
   setEntityName() {
@@ -163,19 +165,19 @@ export class HazardReportComponent implements OnInit {
       major.push(hazardReport.major);
       extreme.push(hazardReport.extreme);
     });
-    charSeries.push( {
+    charSeries.push({
       name: 'Minor',
       data: minor
     });
-    charSeries.push( {
+    charSeries.push({
       name: 'Moderate',
       data: moderate
     });
-    charSeries.push( {
+    charSeries.push({
       name: 'Major',
       data: major
     });
-    charSeries.push( {
+    charSeries.push({
       name: 'Extreme',
       data: extreme
     });
@@ -216,7 +218,6 @@ export class HazardReportComponent implements OnInit {
     });
     if (value === this.hazardObj.dateEnableObj.id) {
       this.hazardFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.hazardFormValidations[this.helperService.appConstants.dateTo].enable();
     } else {
       this.hazardFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.hazardFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -232,5 +233,10 @@ export class HazardReportComponent implements OnInit {
       return obj.id === value.filter;
     });
     this.makeReport(this.hazardObj.days.days, value.dateTo, value.dateFrom, value.user)
+  }
+
+  enableDateFrom() {
+    this.hazardFormValidations[this.helperService.appConstants.dateTo].enable();
+    this.hazardObj.minDate = this.hazardFormValidations[this.helperService.appConstants.dateFrom].value;
   }
 }

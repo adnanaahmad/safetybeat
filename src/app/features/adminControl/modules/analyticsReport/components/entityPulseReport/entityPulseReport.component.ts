@@ -48,6 +48,8 @@ export class EntityPulseReportComponent implements OnInit {
     this.pulseEntityObj.entityId = this.helperService.getEntityId();
     this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.pulseEntityObj.maxDate = new Date();
+    this.pulseEntityObj.minDate = null;
   }
 
   setEntityName() {
@@ -82,7 +84,6 @@ export class EntityPulseReportComponent implements OnInit {
     });
     if (value === this.pulseEntityObj.dateEnableObj.id) {
       this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].enable();
     } else {
       this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -216,5 +217,9 @@ export class EntityPulseReportComponent implements OnInit {
       return obj.id === value.filter;
     });
     this.makeReport(this.pulseEntityObj.days.days, value.dateTo, value.dateFrom, value.user)
+  }
+  enableDateFrom() {
+    this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].enable();
+    this.pulseEntityObj.minDate = this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].value;
   }
 }
