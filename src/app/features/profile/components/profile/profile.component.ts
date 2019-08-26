@@ -26,6 +26,7 @@ import {AddleavesComponent} from 'src/app/features/profile/dialogs/addLeaves/add
 import {LeaveinfoComponent} from 'src/app/features/profile/dialogs/leaveinfo/leaveinfo.component';
 import {Leaveinfodata} from 'src/app/models/profile.model';
 import {Subject} from 'rxjs';
+import {PermissionsModel} from '../../../../models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-profile',
@@ -106,6 +107,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         });
         this.getCurrentUser();
         this.getFilters();
+      }
+    });
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.profileModel.permissions = data;
       }
     });
   }

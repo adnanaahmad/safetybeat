@@ -11,8 +11,11 @@ import {GeneralComponent} from 'src/app/features/settings/components/general/gen
 import {SecurityComponent} from 'src/app/features/settings/components/security/security.component';
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
-import {MediaMatcher} from '@angular/cdk/layout';
 import {FirebaseService} from 'src/app/services/common/FirebaseNotification/firebase.service';
+import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {PermissionsModel} from '../../../../models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-navigation',
@@ -76,6 +79,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.messagingService.receiveMessage();
     this.matcher = this.mediaMatcher.matchMedia('(min-width: 500px)');
     this.getProfileData();
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.navModel.permissions = data;
+      }
+    });
   }
 
 

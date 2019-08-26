@@ -1,7 +1,9 @@
 import {MatTableDataSource} from '@angular/material';
 import {LeaveTypes} from './profile/profile.model';
+import {PermissionsModel} from './adminControl/permissions.model';
 
 export interface ManageLeave {
+  permissions: PermissionsModel;
   currentDate: Date;
   loading: boolean;
   pageCount: number;

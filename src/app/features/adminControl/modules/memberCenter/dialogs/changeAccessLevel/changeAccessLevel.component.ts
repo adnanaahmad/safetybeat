@@ -89,6 +89,13 @@ export class ChangeAccessLevelComponent implements OnInit {
       refreshEntityCode: this.permissions.permissionsData.refreshEntityCode,
       supportCentre: this.permissions.permissionsData.supportCentre,
       settings: this.permissions.permissionsData.settings,
+      manageLeaves: this.permissions.permissionsData.manageLeaves,
+      addLeaves: this.permissions.permissionsData.addLeaves,
+      deleteLeaves: this.permissions.permissionsData.deleteLeaves,
+      editLeaves: this.permissions.permissionsData.editLeaves,
+      viewLeaves: this.permissions.permissionsData.viewLeaves,
+      approveLeaves: this.permissions.permissionsData.approveLeaves,
+      viewProfile: this.permissions.permissionsData.viewProfile,
     });
     this.permissions.permissionsForm.valueChanges.subscribe(result => {
       this.checkChange(this.permissions.permissionsForm)

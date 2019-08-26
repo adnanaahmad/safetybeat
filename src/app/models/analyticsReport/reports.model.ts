@@ -6,6 +6,13 @@ import {Site} from '../site.model';
 
 
 export interface Report {
+  minDate: Date;
+  maxDate: Date;
+  dateValid: boolean;
+  pulseDiv: HTMLElement;
+  statusDiv: HTMLElement;
+  severityDiv: HTMLElement;
+  containerDiv: HTMLElement;
   averageActionForm: FormGroup;
   resolvedHazards: number;
   unResolvedHazards: number;

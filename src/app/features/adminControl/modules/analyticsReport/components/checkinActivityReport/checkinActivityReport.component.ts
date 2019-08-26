@@ -46,6 +46,8 @@ export class CheckInActivityReportComponent implements OnInit {
     this.checkInActivityObj.entityId = this.helperService.getEntityId();
     this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.checkInActivityObj.maxDate = new Date();
+    this.checkInActivityObj.minDate = null;
   }
 
   setEntityName() {
@@ -93,7 +95,6 @@ export class CheckInActivityReportComponent implements OnInit {
     });
     if (value === this.checkInActivityObj.dateEnableObj.id) {
       this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].enable();
     } else {
       this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -120,7 +121,10 @@ export class CheckInActivityReportComponent implements OnInit {
         let data = this.highChartSettings.reportSettings(chartType,
           [], this.generateCharSeries(this.checkInActivityObj.checkInByActivityReportData,
             res.data.maintenancePercentage, res.data.installationPercentage));
-        Highcharts.chart('container', data);
+        this.checkInActivityObj.containerDiv = document.getElementById('container')
+        if (this.checkInActivityObj.containerDiv) {
+          Highcharts.chart('container', data);
+        }
         this.checkInActivityObj.loading = false;
       } else {
         this.checkInActivityObj.loading = false;
@@ -183,5 +187,10 @@ export class CheckInActivityReportComponent implements OnInit {
       return obj.id === value.filter;
     });
     this.makeReport(this.checkInActivityObj.days.days, value.dateTo, value.dateFrom, value.user)
+  }
+
+  enableDateFrom() {
+    this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].enable();
+    this.checkInActivityObj.minDate = this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].value;
   }
 }

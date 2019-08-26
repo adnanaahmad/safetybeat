@@ -2,8 +2,10 @@ import {Translation} from '../translate.model';
 import {NavItem} from '../navItems.model';
 import {EntityUserData} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
+import {PermissionsModel} from '../adminControl/permissions.model';
 
 export interface NavigationModel {
+  permissions: PermissionsModel;
   navItems: NavItem[];
   showEntitySwitcher: boolean;
   logoutDisable: boolean;
