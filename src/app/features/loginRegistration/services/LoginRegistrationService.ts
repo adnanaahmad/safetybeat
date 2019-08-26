@@ -180,4 +180,8 @@ export class LoginRegistrationService {
   updatePackage(data: any) {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.updatePackage, data);
   }
+
+  updateProfile(id: number, data: any) {
+    return this.helperService.requestCall(this.method.post, `${this.helperService.constants.apiRoutes.updateProfile}${id}/`, data);
+  }
 }

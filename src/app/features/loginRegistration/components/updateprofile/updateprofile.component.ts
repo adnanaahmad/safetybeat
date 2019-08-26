@@ -8,6 +8,7 @@ import {SettingsService} from 'src/app/features/settings/services/settings.servi
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {User} from 'src/app/models/user.model';
+import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
 
 const phoneNumberUtil = HelperService.getPhoneNumberUtil();
 
@@ -34,7 +35,7 @@ export class UpdateprofileComponent implements OnInit {
     private profile: ProfileService,
     private settings: SettingsService,
     public compiler: CompilerProvider,
-    private settingService: SettingsService
+    private loginRegService: LoginRegistrationService
   ) {
   }
 
@@ -163,7 +164,7 @@ export class UpdateprofileComponent implements OnInit {
       password: data.value.password1,
     };
 
-    this.settingService.editProfile(this.userData.id, userData).subscribe((res) => {
+    this.loginRegService.updateProfile(this.userData.id, userData).subscribe((res) => {
       if (res) {
         this.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GENERAL_UPDATED,
