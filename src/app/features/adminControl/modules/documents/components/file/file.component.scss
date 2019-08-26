@@ -1,14 +1,13 @@
 @mixin amte-appfile($primary, $accent, $warn) {
   :host,
+  a:link{
+    text-decoration: none!important;
+  }
   app-file {
     position: relative;
     height: $fullValue;
     .go-back {
       padding: 0;
-    }
-    .file-wrap{
-      text-decoration: none;
-      color: inherit;
     }
     .document-inline,
     .file-inline {

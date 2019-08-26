@@ -230,7 +230,7 @@
                 {{helperService.translated.STRINGS.NO_ACTIVITIES}}
               </mat-card>
             </div>
-            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.pageCount"
+            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.activitiesCount"
                            (page)="viewActivities(profileModel.filterForm, paginator.pageIndex)"></mat-paginator>
           </mat-card-content>
 
@@ -276,7 +276,7 @@
                 {{helperService.translated.MESSAGES.NO_CONNECTIONS}}
               </mat-card>
             </div>
-            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.pageCount"
+            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.connectionCount"
                            (page)="getUserConnections(profileModel.userId, paginator.pageIndex)"></mat-paginator>
           </mat-card-content>
         </mat-card>
