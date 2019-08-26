@@ -120,7 +120,7 @@ export class HelperService {
       data: {message: message, type: type},
       verticalPosition: 'top',
       horizontalPosition: 'right',
-      duration: 10000
+      duration: 2000
     });
   }
   /**
