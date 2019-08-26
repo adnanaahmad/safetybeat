@@ -6,6 +6,7 @@ import {MatTableDataSource} from '@angular/material';
 import {Subscription} from 'rxjs';
 
 export interface HazardModel {
+  subscription: Subscription;
   permissions: PermissionsModel;
   hazardOption: boolean;
   entityId: number;

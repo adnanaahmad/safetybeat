@@ -61,7 +61,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
             index !== -1 ? this.navModel.entityUserData[index] : this.navModel.entityUserData[0];
           localStorage.setItem(this.helperService.constants.localStorageKeys.entityId,
             this.helperService.encrypt(JSON.stringify(this.navModel.selectedEntity.entityInfo.id), this.helperService.appConstants.key));
-          this.navService.changeSelectedEntity(this.navModel.selectedEntity);
           this.switchSideMenu(this.navModel.selectedEntity);
           this.navService.changePermissions(this.navModel.selectedEntity.permissions);
           this.navService.changeRole(this.navModel.selectedEntity.role);
@@ -106,7 +105,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.navModel.appIcons = this.helperService.constants.appIcons;
     this.navModel.logoutDisable = false;
     this.packageInfo = {
-      days: 0,
+      daysLeft: 0,
       expired: false,
       package: 'None',
       module: this.helperService.appConstants.moduleName
@@ -185,9 +184,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
     } else {
       this.navModel.selectedEntity = data;
+      this.navService.changeSelectedEntity(this.navModel.selectedEntity);
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
-
   }
 
   /**

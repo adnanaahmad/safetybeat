@@ -72,7 +72,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+    this.siteCentreObj.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.siteCentreObj.permissions = data;
       }
