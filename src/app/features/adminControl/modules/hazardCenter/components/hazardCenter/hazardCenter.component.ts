@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HazardList, HazardModel} from 'src/app/models/hazard.model';
@@ -17,7 +17,7 @@ import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/site
   templateUrl: './hazardCenter.component.html',
   styleUrls: ['./hazardCenter.component.scss']
 })
-export class HazardCenterComponent implements OnInit {
+export class HazardCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   hazardTable: HazardModel = <HazardModel>{};
   search: string;
@@ -35,8 +35,17 @@ export class HazardCenterComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
-    this.getHazardList(this.firstIndex, this.search);
+    this.hazardTable.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.hazardTable.entityId = res.entityInfo.id;
+        this.getHazardList(this.firstIndex, this.search);
 
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.hazardTable.subscription.unsubscribe();
   }
 
   /**
@@ -73,7 +82,7 @@ export class HazardCenterComponent implements OnInit {
    */
   getHazardList(pageIndex, search) {
     let entityData = {
-      'entityId': this.helperService.getEntityId(),
+      'entityId': this.hazardTable.entityId,
     };
     let paginationData: PaginationData = {
       limit: this.helperService.constants.appConstant.paginationLimit,
@@ -178,14 +187,14 @@ export class HazardCenterComponent implements OnInit {
    */
 
   testingFunc(image) {
-      if (image) {
-          this.helperService.createDialog(ImageLightboxComponent,
-              {
-                  data:
-                      {
-                          image: image
-                      }
-              });
-      }
+    if (image) {
+      this.helperService.createDialog(ImageLightboxComponent,
+        {
+          data:
+            {
+              image: image
+            }
+        });
+    }
   }
 }
