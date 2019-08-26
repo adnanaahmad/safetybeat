@@ -314,8 +314,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         if (res.data.recentActivities.length === 0) {
           this.profileModel.recentActivities = null;
         } else {
-          this.profileModel.pageCount = res.data.pageCount;
-          this.profileModel.activitiesCount = res.data.recentActivities.length;
+          this.profileModel.activitiesCount = res.data.pageCount;
           this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res.data);
           this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
         }
@@ -341,7 +340,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getUserConnections(userId: number, paginationData) {
-    this.profileModel.pageCount = 0;
     this.profileModel.allConnectionsData = [];
     let pagination: PaginationData = {
       offset: paginationData * this.helperService.appConstants.paginationLimitForProfile,
@@ -349,8 +347,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     };
     this.adminService.allConnections({userId: userId}, pagination).subscribe((res) => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.profileModel.pageCount = res.data.pageCount;
-        this.profileModel.connectionCount = res.data.length;
+        this.profileModel.connectionCount = res.data.pageCount;
         this.profileModel.allConnectionsRes = res;
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
