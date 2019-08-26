@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {GetAllTeamsData, MyTeamModel, TeamList} from 'src/app/models/adminControl/myTeam.model';
 import {RegisterTeamComponent} from 'src/app/features/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
@@ -17,7 +17,7 @@ import {PaginationData} from 'src/app/models/site.model';
   templateUrl: './myTeam.component.html',
   styleUrls: ['./myTeam.component.scss']
 })
-export class MyTeamComponent implements OnInit {
+export class MyTeamComponent implements OnInit, OnDestroy {
 
   myTeam: MyTeamModel = <MyTeamModel>{};
   displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
@@ -38,12 +38,21 @@ export class MyTeamComponent implements OnInit {
     this.myTeam.search = '';
     this.myTeam.pageSize = 10;
     this.getAllUsers();
-    this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+    this.myTeam.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.myTeam.entityId = res.entityInfo.id;
+        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+      }
+    });
+    this.myTeam.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.myTeam.permissions = data;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.myTeam.subscription.unsubscribe();
   }
 
   getAllUsers() {
@@ -76,7 +85,7 @@ export class MyTeamComponent implements OnInit {
   getAllTeams(pageIndex, search) {
     this.myTeam.loading = true;
     let data: GetAllTeamsData = {
-      entityId: this.helperService.getEntityId()
+      entityId: this.myTeam.entityId
     };
     let paginationData: PaginationData = {
       offset: pageIndex * this.helperService.appConstants.paginationLimit,

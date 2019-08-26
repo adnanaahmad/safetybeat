@@ -23,22 +23,28 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+                   [max]="actionReportObj.maxDate"
+                   (dateChange)="enableDateFrom()"
                    placeholder="Date From" readonly>
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
             <mat-error class="text-right" *ngIf="actionFormValidations.errors">
             <span
-              *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+              *ngIf="actionFormValidations.dateFrom.errors.required">
+              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+                   [max]="actionReportObj.maxDate"
+                   [min]="actionReportObj.minDate"
                    placeholder="Date To" readonly>
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
             <mat-error class="text-right" *ngIf="actionFormValidations.errors">
             <span
-              *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+              *ngIf="actionFormValidations.dateTo.errors.required">
+              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">

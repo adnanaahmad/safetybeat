@@ -80,7 +80,8 @@
         <mat-card class="dashboard-card" fullWidth *ngIf="card.title=='userData'">
           <mat-card-content *ngIf="profileFeatures.leaves">
             <mat-card-title>{{ helperService.translated.SITETITLE.LEAVES }}
-              <button style="float:right;" mat-raised-button color="primary" class="addEvent" (click)="addLeaves()"> Add
+              <button style="float:right;" mat-raised-button color="primary" class="addEvent" (click)="addLeaves()"
+              *ngIf="profileModel.permissions.addLeaves"> Add
                 Leaves
               </button>
             </mat-card-title>
@@ -230,7 +231,7 @@
                 {{helperService.translated.STRINGS.NO_ACTIVITIES}}
               </mat-card>
             </div>
-            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.pageCount"
+            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.activitiesCount"
                            (page)="viewActivities(profileModel.filterForm, paginator.pageIndex)"></mat-paginator>
           </mat-card-content>
 
@@ -276,7 +277,7 @@
                 {{helperService.translated.MESSAGES.NO_CONNECTIONS}}
               </mat-card>
             </div>
-            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.pageCount"
+            <mat-paginator [pageSize]="profileModel.pageSize" [length]="profileModel.connectionCount"
                            (page)="getUserConnections(profileModel.userId, paginator.pageIndex)"></mat-paginator>
           </mat-card-content>
         </mat-card>

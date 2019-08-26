@@ -31,12 +31,16 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+                           [max]="checkInActivityObj.maxDate"
+                           (dateChange)="enableDateFrom()"
                            placeholder="Date From" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+                           [max]="checkInActivityObj.maxDate"
+                           [min]="checkInActivityObj.minDate"
                            placeholder="Date To" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>

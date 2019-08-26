@@ -341,7 +341,7 @@ export class CompilerProvider {
         route: '/home/adminControl/manageLeaves',
         iconName: this.appIcons.manageLeaves,
         toolTip: 'Manage Leaves',
-        disabled: true,
+        disabled: data.permissions.manageLeaves,
         bottom: false
       },
       {
