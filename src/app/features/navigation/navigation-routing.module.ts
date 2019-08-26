@@ -15,16 +15,18 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        loadChildren: '../profile/profile.module#ProfileModule'
+        loadChildren: '../profile/profile.module#ProfileModule',
+        canActivate: [NoAuthGuard]
       },
       {
         path: 'settings',
         loadChildren: '../settings/settings.module#SettingsModule',
-        // canActivate: [NoAuthGuard]
+        canActivate: [NoAuthGuard]
       },
       {
         path: 'adminControl',
-        loadChildren: '../adminControl/adminControl.module#AdminControlModule'
+        loadChildren: '../adminControl/adminControl.module#AdminControlModule',
+        canActivate: [NoAuthGuard]
       }
     ]
   }
@@ -33,7 +35,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  // providers: [NoAuthGuard]
 })
 export class NavigationRoutingModule {
 }
