@@ -7,8 +7,10 @@ import {responseDetails} from '../user.model';
 import {EntityInfo} from '../userEntityData.model';
 import {Leaveinfodata, UserLeavesApiResponseData} from '../profile.model';
 import {CalendarEvent} from 'angular-calendar';
+import {PermissionsModel} from '../adminControl/permissions.model';
 
 export interface ProfileModel {
+  permissions: PermissionsModel;
   refresh: Subject<any>;
   userLeavesData: Array<Leaveinfodata>;
   leavesCount: number;

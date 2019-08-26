@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ActionReportApiData, ActionReportData, HighChartType, Report} from 'src/app/models/analyticsReport/reports.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
@@ -59,6 +59,16 @@ export class ActionReportComponent implements OnInit, OnDestroy {
         this.actionFormValidations['entityName'].disable();
       }
     });
+  }
+
+  isDateValid() {
+    let dateTo = this.actionReportObj.actionReportForm.get('dateTo')
+    let dateFrom = this.actionReportObj.actionReportForm.get('dateFrom')
+    if (dateTo > dateFrom) {
+      return true
+    } else {
+      return false
+    }
   }
 
   getFilters() {

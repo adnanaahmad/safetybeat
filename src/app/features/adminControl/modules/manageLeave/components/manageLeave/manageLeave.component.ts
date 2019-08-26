@@ -6,6 +6,8 @@ import {ManageLeave} from 'src/app/models/manageLeave.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
 import {PaginationData} from 'src/app/models/site.model';
+import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-manageLeave',
@@ -20,7 +22,8 @@ export class ManageLeaveComponent implements OnInit {
     public helperService: HelperService,
     private leaveService: ManageleaveService,
     private compiler: CompilerProvider,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    public navService: NavigationService
   ) {
     this.initialize();
     this.getLeaveTypes();
@@ -28,6 +31,11 @@ export class ManageLeaveComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.leaveModel.permissions = data;
+      }
+    });
   }
 
   initialize() {

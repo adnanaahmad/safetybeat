@@ -15,6 +15,7 @@ import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {FirebaseService} from '../../../../services/common/FirebaseNotification/firebase.service';
+import {PermissionsModel} from '../../../../models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-navigation',
@@ -73,6 +74,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.matcher = this.mediaMatcher.matchMedia('(min-width: 500px)');
     this.getProfileData();
+    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.navModel.permissions = data;
+      }
+    });
   }
 
 
@@ -158,8 +164,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
-    this.profileModel.subscription.unsubscribe();
-    this.navModel.subscription.unsubscribe();
+    if (this.profileModel.subscription !== null || this.navModel.subscription !== null) {
+      this.profileModel.subscription.unsubscribe();
+      this.navModel.subscription.unsubscribe();
+    }
+
   }
 
   getCurrentUser() {
@@ -212,6 +221,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     let modal = (isProfile) ? GeneralComponent : SecurityComponent;
     this.helperService.createDialog(modal, {disableClose: true});
   }
+
   getNotificationCount(count) {
     this.notificationCount = count;
   }

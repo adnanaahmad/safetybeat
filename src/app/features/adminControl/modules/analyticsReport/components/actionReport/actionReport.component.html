@@ -28,7 +28,8 @@
             <mat-datepicker #picker1></mat-datepicker>
             <mat-error class="text-right" *ngIf="actionFormValidations.errors">
             <span
-              *ngIf="actionFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+              *ngIf="actionFormValidations.dateFrom.errors.required && isDateValid()">
+              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
@@ -38,7 +39,8 @@
             <mat-datepicker #picker2></mat-datepicker>
             <mat-error class="text-right" *ngIf="actionFormValidations.errors">
             <span
-              *ngIf="actionFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+              *ngIf="actionFormValidations.dateTo.errors.required && isDateValid()">
+              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">

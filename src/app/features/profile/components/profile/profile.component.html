@@ -80,7 +80,8 @@
         <mat-card class="dashboard-card" fullWidth *ngIf="card.title=='userData'">
           <mat-card-content *ngIf="profileFeatures.leaves">
             <mat-card-title>{{ helperService.translated.SITETITLE.LEAVES }}
-              <button style="float:right;" mat-raised-button color="primary" class="addEvent" (click)="addLeaves()"> Add
+              <button style="float:right;" mat-raised-button color="primary" class="addEvent" (click)="addLeaves()"
+              *ngIf="profileModel.permissions.addLeaves"> Add
                 Leaves
               </button>
             </mat-card-title>
