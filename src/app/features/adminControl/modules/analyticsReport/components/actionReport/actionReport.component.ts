@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ActionReportApiData, ActionReportData, HighChartType, Report} from 'src/app/models/analyticsReport/reports.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
@@ -49,6 +49,8 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.actionReportObj.entityId = this.helperService.getEntityId();
     this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.actionReportObj.maxDate = new Date();
+    this.actionReportObj.minDate = null;
   }
 
   setEntityName() {
@@ -90,7 +92,10 @@ export class ActionReportComponent implements OnInit, OnDestroy {
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
-        Highcharts.chart('container', data);
+        this.actionReportObj.containerDiv = document.getElementById('container')
+        if (this.actionReportObj.containerDiv) {
+          Highcharts.chart(this.actionReportObj.containerDiv, data);
+        }
         this.actionReportObj.loading = false;
       } else {
         this.actionReportObj.loading = false;
@@ -147,10 +152,14 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     });
     if (value === this.actionReportObj.dateEnableObj.id) {
       this.actionFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
     } else {
       this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
     }
+  }
+
+  enableDateFrom() {
+    this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
+    this.actionReportObj.minDate = this.actionFormValidations[this.helperService.appConstants.dateFrom].value;
   }
 }

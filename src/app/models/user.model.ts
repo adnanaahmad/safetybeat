@@ -18,7 +18,8 @@ export interface PackageInfo {
   package: string;
   module: string;
   expired: boolean;
-  days: number;
+  daysLeft: number;
+  packageTotalDays?: number;
 }
 
 export interface responseDetails {
@@ -40,11 +41,12 @@ export interface moduleRole {
 }
 
 export interface LoginResponse {
-  token: string;
-  user: User;
-  userId: number;
-  orgId: number;
-  moduleRole: moduleRole;
+  data: {
+    firstLogin: boolean;
+    token: string;
+    user: User;
+    packageInfo: Array<PackageInfo>
+  }
   responseDetails: responseDetails;
 
 }

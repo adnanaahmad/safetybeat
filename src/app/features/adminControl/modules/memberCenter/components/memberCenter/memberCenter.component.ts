@@ -49,10 +49,10 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
       this.memberCenter.user = res;
       this.memberCenter.userId = this.memberCenter.user.data.user.id;
     });
-    this.navService.selectedEntityData.subscribe((res) => {
+    this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
       this.memberCenter.currentRole = res.role;
     });
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+    this.memberCenter.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.memberCenter.permissions = data;
       }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {CoreService} from 'src/app/services/core/authorization/core.service';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
@@ -9,6 +9,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {GeneralInfo} from 'src/app/models/general.model';
 import {User} from 'src/app/models/user.model';
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
+import {Subscription} from 'rxjs';
 
 const phoneNumberUtil = HelperService.getPhoneNumberUtil();
 
@@ -17,7 +18,7 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
   templateUrl: './updateprofile.component.html',
   styleUrls: ['./updateprofile.component.scss']
 })
-export class UpdateprofileComponent implements OnInit {
+export class UpdateprofileComponent implements OnInit, OnDestroy {
   logoutDisable: boolean = false;
   logoutResponse: any;
   generalForm: FormGroup;
@@ -26,6 +27,7 @@ export class UpdateprofileComponent implements OnInit {
   success: any;
   email: any;
   loading: boolean = false;
+  private subscription: Subscription;
 
   constructor(
     private navService: NavigationService,
@@ -56,6 +58,10 @@ export class UpdateprofileComponent implements OnInit {
     this.setGeneralForm();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   numberOnly(event: Event): boolean {
     return this.compiler.numberOnly(event);
   }
@@ -80,6 +86,7 @@ export class UpdateprofileComponent implements OnInit {
   }
 
   setGeneralForm() {
+    this.loading = true;
     this.settings.generalData.subscribe((res) => {
       if (res && res === 1) {
         this.profile.getUser().subscribe((res) => {
@@ -88,12 +95,17 @@ export class UpdateprofileComponent implements OnInit {
             this.navService.updateCurrentUser(this.userData);
             this.generalViewForm['first_name'].setValue(this.userData.first_name);
             this.generalViewForm['last_name'].setValue(this.userData.last_name);
-            let contact = (this.userData.contactNo).split('-', 2);
-            this.generalViewForm['contactNo'].setValue(contact[1]);
-            contact[0] = contact[0].replace('+', '');
-            this.generalViewForm['countryCode'].setValue(contact[0]);
+            if (this.userData.contactNo !== null) {
+              let contact = (this.userData.contactNo).split('-', 2);
+              this.generalViewForm['contactNo'].setValue(contact[1]);
+              contact[0] = contact[0].replace('+', '');
+              this.generalViewForm['countryCode'].setValue(contact[0]);
+            }
+            this.loading = false;
           }
+          this.loading = false;
         }, (error) => {
+          this.loading = false;
           this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         });
       }
@@ -136,13 +148,16 @@ export class UpdateprofileComponent implements OnInit {
   }
 
   logoutUser() {
+    this.loading = true;
     this.navService.logoutUser().subscribe((res) => {
       this.logoutDisable = true;
       this.logoutResponse = res;
       if (this.logoutResponse.detail === this.helperService.translated.AUTH.LOGOUTSUCCESSION) {
         this.coreService.logoutUser();
       }
+      this.loading = false;
     }, (error) => {
+      this.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG,
         this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG);
     });
@@ -165,13 +180,28 @@ export class UpdateprofileComponent implements OnInit {
     };
 
     this.loginRegService.updateProfile(this.userData.id, userData).subscribe((res) => {
-      if (res) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.GENERAL_UPDATED,
+        this.permissionBasedNavigation();
+        this.helperService.createSnack(this.helperService.translated.LOGGER.MESSAGES.PROFILE_UPDATED,
           this.helperService.constants.status.SUCCESS);
+      } else {
+        this.loading = false;
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  permissionBasedNavigation() {
+    this.subscription = this.navService.entityPermissions.subscribe((res) => {
+      if (res !== 1 && res.dashboard) {
+        this.helperService.navigateTo(['home/adminControl/dashboard']);
+      } else if (res !== 1 && res.entityControl) {
+        this.helperService.navigateTo(['home/adminControl/entityControl']);
+      }
     });
   }
 

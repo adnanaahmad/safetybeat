@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
-import {loginCredentials, PackageInfo} from 'src/app/models/user.model';
+import {loginCredentials, LoginResponse, PackageInfo} from 'src/app/models/user.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
@@ -118,7 +118,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.loginObj.data = data;
           data ? this.loginService.setToken(this.loginObj.data.data.token) : this.loginService.setToken('');
-          localStorage.setItem('pas', this.helperService.encrypt(value.password, this.helperService.appConstants.key));
           this.loginObj.userData = this.compiler.constructUserData(this.loginObj.data);
           this.navService.updateCurrentUser(this.loginObj.userData.user);
           let self = this;
@@ -137,7 +136,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.loginObj.entities = res;
               this.loginObj.entityUserData = this.compiler.constructUserEntityData(this.loginObj.entities.data.allEntities);
               this.navService.changeEntites(this.loginObj.entityUserData);
-              this.permissionBasedNavigation(this.loginObj.entityUserData, this.loginObj.userData.packageInfo[this.loginObj.index].expired);
+              this.permissionBasedNavigation(this.loginObj.entityUserData,
+                this.loginObj.userData.packageInfo[this.loginObj.index].expired, this.loginObj.data);
               this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
                 this.helperService.constants.status.SUCCESS);
               this.loginObj.loading = false;
@@ -171,20 +171,25 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  permissionBasedNavigation(data: EntityUserData, expired: boolean) {
-    if (data.entities.length === 0) {
-      this.router.navigate(['welcomeScreen/entityCreation']);
+  permissionBasedNavigation(data: EntityUserData, expired: boolean, loginData: LoginResponse) {
+    if (loginData.data.firstLogin) {
+      this.router.navigate(['updateProfile']);
     } else {
-      let index = this.helperService.findIndex(data.entities, function (entity) {
-        return entity.active === true;
-      });
-      this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
-      if (expired) {
-        this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
+      if (data.entities.length === 0) {
+        this.router.navigate(['welcomeScreen/entityCreation']);
       } else {
-        this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
-          this.router.navigate(['home/adminControl/entityControl']);
+        let index = this.helperService.findIndex(data.entities, function (entity) {
+          return entity.active === true;
+        });
+        this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
+        if (expired) {
+          this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
+        } else {
+          this.loginObj.selectedEntity.permissions.dashboard ? this.router.navigate(['home/adminControl/dashboard']) :
+            this.router.navigate(['home/adminControl/entityControl']);
+        }
       }
     }
+
   }
 }

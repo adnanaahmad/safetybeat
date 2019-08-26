@@ -69,7 +69,14 @@ export interface PermissionsModel {
   refreshEntityCode: boolean,
   supportCentre: boolean,
   settings: boolean,
-  dashboard: boolean
+  dashboard: boolean,
+  manageLeaves: boolean,
+  viewProfile: boolean,
+  addLeaves: boolean,
+  deleteLeaves: boolean,
+  editLeaves: boolean,
+  viewLeaves: boolean,
+  approveLeaves: boolean
 }
 
 export interface ChangePermissionsObj {

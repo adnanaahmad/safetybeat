@@ -55,6 +55,8 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.siteReportObj.entityId = this.helperService.getEntityId();
     this.siteFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.siteFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.siteReportObj.maxDate = new Date();
+    this.siteReportObj.minDate = null;
   }
 
   setEntityName() {
@@ -117,7 +119,10 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
           };
           let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
             [], this.generateCharSeries(this.siteReportObj.siteReportData));
-          Highcharts.chart('container', siteActivityReportData);
+          this.siteReportObj.containerDiv = document.getElementById('container')
+          if (this.siteReportObj.containerDiv) {
+            Highcharts.chart('container', siteActivityReportData);
+          }
         }
         this.siteReportObj.loading = false;
       } else {
@@ -189,7 +194,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     });
     if (value === this.siteReportObj.dateEnableObj.id) {
       this.siteFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.siteFormValidations[this.helperService.appConstants.dateTo].enable();
     } else {
       this.siteFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.siteFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -208,6 +212,11 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
+  }
+
+  enableDateFrom() {
+    this.siteFormValidations[this.helperService.appConstants.dateTo].enable();
+    this.siteReportObj.minDate = this.siteFormValidations[this.helperService.appConstants.dateFrom].value;
   }
 
 }
