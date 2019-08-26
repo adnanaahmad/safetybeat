@@ -85,4 +85,6 @@ export interface Leaveinfodata {
   end: string;
   start: string;
   title: string;
+  leaveType:any;
+  leaveId: number;
 }

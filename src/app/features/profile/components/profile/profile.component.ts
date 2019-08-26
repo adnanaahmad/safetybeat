@@ -182,7 +182,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * @params date
    * @params events
    */
-  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }, isEdit? : boolean): void {
     this.profileModel.userLeavesData = [];
     if (events.length !== 0) {
       let self = this;
@@ -191,12 +191,37 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           actions: obj.meta.requestedUserData,
           end: new Date(obj.end).toDateString(),
           start: new Date(obj.start).toDateString(),
-          title: obj.title
+          title: obj.title,
+          leaveType: obj.meta.leavesType,
+          leaveId: obj.meta.leaveId
         };
         self.profileModel.userLeavesData.push(data);
       });
       this.helperService.createDialog(LeaveinfoComponent, {data: this.profileModel.userLeavesData});
+      this.helperService.dialogRef.afterClosed().subscribe(result => {
+        this.editLeaveDate(result);
+      });
     }
+  }
+
+  /**
+   * this function will be overrided that's why we have keep this here
+   * @params date
+   * @params events
+   */
+  editLeaveDate(dataObj): void {
+    this.helperService.createDialog(AddleavesComponent, {
+      disableClose: true,
+      data: {
+        leaveTypes: this.profileModel.leaveTypes,
+        currentData: dataObj
+      }
+    });
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      if (res !== this.helperService.appConstants.no) {
+        this.userLeaves(this.profileModel.userId);
+      }
+    });
   }
 
   /**
@@ -415,7 +440,10 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   addLeaves() {
     this.helperService.createDialog(AddleavesComponent, {
       disableClose: true,
-      data: this.profileModel.leaveTypes
+      data: {
+        leaveTypes: this.profileModel.leaveTypes,
+        currentData: null
+      }
     });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       if (res !== this.helperService.appConstants.no) {
@@ -448,6 +476,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             draggable: true,
             meta: {
               type: 'calendarEvent',
+              leaveId: leaveData.id,
+              leavesType: leaveData.leaveType,
               requestedUserData: leaveData.requestedBy
             }
           };
