@@ -109,7 +109,7 @@ export class ManageLeaveComponent implements OnInit {
     };
     this.leaveService.acceptRejectUserLeaves(data.leavesData.id, leaveData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
+        this.viewAllUserLeaves(this.paginator.pageIndex, this.leaveModel.search);
         this.leaveModel.loading = false;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
       } else {
@@ -138,7 +138,7 @@ export class ManageLeaveComponent implements OnInit {
     };
     this.leaveService.acceptRejectUserLeaves(data.leavesData.id, leaveData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
+        this.viewAllUserLeaves(this.paginator.pageIndex, this.leaveModel.search);
         this.leaveModel.loading = false;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
       } else {
