@@ -123,7 +123,7 @@ export class ChangeAccessLevelComponent implements OnInit {
         }
       }, (error) => {
         this.permissions.loading = false;
-        this.helperService.createSnack(error.error,
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
           this.helperService.constants.status.ERROR);
       }
     );

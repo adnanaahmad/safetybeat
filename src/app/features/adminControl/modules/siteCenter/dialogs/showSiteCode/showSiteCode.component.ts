@@ -53,7 +53,7 @@ export class ShowSiteCodeComponent implements OnInit, OnDestroy {
       }
     }, (error) => {
       this.siteCentreObj.loading = false;
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     })
   }
 }

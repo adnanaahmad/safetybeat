@@ -9,6 +9,12 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+            <a [href]="docData.file" download="{{docData.title}}">
+              <button mat-menu-item>
+                  <mat-icon>{{ helperService.appIcons.cloudDownload }}</mat-icon>
+                  <span>{{helperService.translated.BUTTONS.DOWNLOAD}}</span>
+              </button>
+            </a>
             <button mat-menu-item (click)="renameDoc(docData)">
                 <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
                 <span>{{helperService.translated.BUTTONS.RENAME}}</span>
@@ -17,12 +23,6 @@
                 <mat-icon>{{ helperService.appIcons.deleteForever }}</mat-icon>
                 <span>{{helperService.translated.BUTTONS.DELETE}}</span>
             </button>
-            <a [href]="docData.file" download="{{docData.title}}">
-            <button mat-menu-item>
-                <mat-icon>{{ helperService.appIcons.cloudDownload }}</mat-icon>
-                <span>{{helperService.translated.BUTTONS.DOWNLOAD}}</span>
-            </button>
-            </a>
         </mat-menu>
         <div class="content">
             <div class="filetype">

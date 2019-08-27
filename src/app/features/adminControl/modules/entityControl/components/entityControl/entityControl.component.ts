@@ -154,7 +154,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.entityControl.displayLoader = false;
       this.helperService.toggleLoader(false);
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -180,7 +180,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
         });
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

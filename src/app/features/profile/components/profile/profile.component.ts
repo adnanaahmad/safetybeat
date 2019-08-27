@@ -26,7 +26,7 @@ import {AddleavesComponent} from 'src/app/features/profile/dialogs/addLeaves/add
 import {LeaveinfoComponent} from 'src/app/features/profile/dialogs/leaveinfo/leaveinfo.component';
 import {Leaveinfodata} from 'src/app/models/profile.model';
 import {Subject} from 'rxjs';
-import {PermissionsModel} from '../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-profile',
@@ -339,7 +339,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -353,7 +353,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
       this.navService.updateCurrentUser(userData);
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -384,7 +384,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }, (error) => {
       this.profileModel.recentActivities = null;
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -417,7 +417,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -438,7 +438,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
               res.responseDetails.message);
           }
         }, (error) => {
-          this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         });
       }
     });
@@ -460,7 +460,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.viewActivities(this.profileModel.filterForm, this.profileModel.firstIndex);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -473,7 +473,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.leaveTypes = res;
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -530,7 +530,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.userLeaves = null;
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 }

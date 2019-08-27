@@ -3,6 +3,7 @@ import {ProfileService} from 'src/app/features/profile/services/profile.service'
 import {MatTableDataSource, MatPaginator} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {UserModel} from 'src/app/models/profile/user.model';
+import {PaginationData} from '../../../../models/site.model';
 
 @Component({
   selector: 'app-user',
@@ -12,6 +13,8 @@ import {UserModel} from 'src/app/models/profile/user.model';
 export class UserComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   userModel: UserModel = <UserModel>{};
+  private pageSize: number;
+  private pageCount: number;
 
   constructor(
     public userService: ProfileService,
@@ -30,7 +33,7 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userModel.user = res;
       this.userModel.userId = this.userModel.user.data.user.id;
     });
-    this.getAllUsers();
+    this.getAllUsers(0);
   }
 
 
@@ -52,10 +55,10 @@ export class UserComponent implements OnInit, OnDestroy {
       'Firstname',
       'Lastname',
       'Email',
-      'Contact No.',
-      'symbol'
+      'Contact No.'
     ];
     this.userModel.dataSource = [];
+    this.pageSize = 10;
     this.userModel.allUsers = [];
     this.userModel.empty = false;
   }
@@ -64,18 +67,21 @@ export class UserComponent implements OnInit, OnDestroy {
    * this function is used for getting all the usersData who have been invited.
    */
 
-  getAllUsers() {
+  getAllUsers(pageIndex) {
     this.userModel.loading = true;
-    this.userService.getAllUsers().subscribe(
+    let paginationData: PaginationData = {
+      limit: this.helperService.constants.appConstant.paginationLimit,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
+    };
+    this.userService.getAllUsers(paginationData).subscribe(
       (result) => {
         if (result) {
-          this.userModel.allUsers = result;
+          this.userModel.allUsers = result.data.allUser;
           this.userModel.empty = true;
-          this.userModel.allUsersList = this.userModel.allUsers.data;
           this.userService.updateUsers(this.userModel.allUsersList);
           this.userModel.loading = false;
-          this.userModel.dataSource = new MatTableDataSource(this.userModel.allUsersList);
-          this.userModel.dataSource.paginator = this.paginator;
+          this.pageCount = result.data.pageCount;
+          this.userModel.dataSource = new MatTableDataSource(this.userModel.allUsers);
         } else {
           this.userModel.loading = false;
         }
