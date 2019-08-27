@@ -117,7 +117,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   accessLevel(user) {
     this.helperService.createDialog(ChangeAccessLevelComponent, {data: user});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllUsers(this.paginator.pageIndex, '');
+      if (res !== this.helperService.appConstants.no) {
+        this.getAllUsers(this.paginator.pageIndex, '');
+      }
     });
   }
 
