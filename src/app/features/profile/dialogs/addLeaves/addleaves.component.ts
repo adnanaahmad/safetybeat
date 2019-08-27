@@ -47,7 +47,7 @@ export class AddleavesComponent implements OnInit {
       }
     });
     this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
-    if(this.data.currentData !== null) {
+    if (this.data.currentData !== null) {
       this.addLeaveFormValidations['description'].setValue(this.data.currentData[0].title);
       this.addLeaveFormValidations['dateFrom'].setValue(new Date(this.data.currentData[0].start));
       this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData[0].end));
@@ -78,7 +78,7 @@ export class AddleavesComponent implements OnInit {
 
   /**
    * Add new leave
-   * @param leaveForm 
+   * @params leaveForm
    */
   addLeave(leaveForm: FormGroup) {
     this.leavesModel.loading = true;
@@ -86,8 +86,8 @@ export class AddleavesComponent implements OnInit {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType,
-      dateFrom: new Date(leaveForm.value.dateFrom),
-      dateTo: new Date(leaveForm.value.dateTo)
+      dateFrom: leaveForm.value.dateFrom,
+      dateTo: leaveForm.value.dateTo
     };
     this.profileService.addLeaves(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -109,7 +109,7 @@ export class AddleavesComponent implements OnInit {
 
   /**
    * Edit current leave
-   * @param leaveForm 
+   * @params leaveForm
    */
   editLeave(leaveForm: FormGroup) {
     this.leavesModel.loading = true;

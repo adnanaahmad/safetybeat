@@ -26,7 +26,7 @@ import {AddleavesComponent} from 'src/app/features/profile/dialogs/addLeaves/add
 import {LeaveinfoComponent} from 'src/app/features/profile/dialogs/leaveinfo/leaveinfo.component';
 import {Leaveinfodata} from 'src/app/models/profile.model';
 import {Subject} from 'rxjs';
-import {PermissionsModel} from '../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-profile',
