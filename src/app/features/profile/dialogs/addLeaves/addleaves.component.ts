@@ -91,7 +91,7 @@ export class AddleavesComponent implements OnInit {
     let data: AddLeaveData = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
-      leaveType: leaveForm.value.leaveType,
+      leaveType: leaveForm.value.leaveType.id,
       dateFrom: leaveForm.value.dateFrom,
       dateTo: leaveForm.value.dateTo
     };
