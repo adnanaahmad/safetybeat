@@ -57,7 +57,7 @@ export class UserComponent implements OnInit, OnDestroy {
       'Contact No.'
     ];
     this.userModel.dataSource = [];
-    this.pageSize = 10;
+    this.pageSize = 5;
     this.userModel.allUsers = [];
     this.userModel.empty = false;
   }
