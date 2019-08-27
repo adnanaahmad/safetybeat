@@ -80,7 +80,7 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
         this.averageActionObj.entityUsers = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

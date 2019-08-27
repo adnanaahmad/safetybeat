@@ -103,7 +103,7 @@ export class QuestionCenterComponent implements OnInit {
         }, (err) => {
             this.QuestionObj.dataSource = null;
             this.QuestionObj.loading = false;
-            this.helperService.createSnack(err.error,
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
                 this.helperService.constants.status.ERROR);
         });
 
@@ -233,7 +233,7 @@ export class QuestionCenterComponent implements OnInit {
         }, (error) => {
             this.QuestionObj.entityQuestions = null;
             this.QuestionObj.loading = false;
-            this.helperService.createSnack(error.error,
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
                 this.helperService.constants.status.ERROR);
         });
     }
@@ -251,7 +251,7 @@ export class QuestionCenterComponent implements OnInit {
             this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
                 this.helperService.constants.status.SUCCESS);
         }, (error) => {
-            this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         });
     }
 

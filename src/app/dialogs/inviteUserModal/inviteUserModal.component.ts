@@ -32,6 +32,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     public memberService: MemberCenterService,
     @Inject(MAT_DIALOG_DATA) public data: InviteUserModelData
   ) {
+    console.log('this is the data', this.data);
     this.inviteUserModal.roleList = Object.assign([], this.data.role);
     this.inviteUserModal.selectedRole = this.inviteUserModal.roleList[0];
     this.changeSelection(this.inviteUserModal.selectedRole);
@@ -89,7 +90,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
           group.controls.email.setErrors({exists: true});
         }
       }, (err) => {
-        this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       });
     }
   }
@@ -108,9 +109,9 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       last_name: value.last_name,
       username: value.first_name + value.last_name,
       email: value.email,
-      contactNo: null,
       invitation: true,
       roleId: value.role.id,
+      contactNo: '545535456',
       moduleName: 'Safetybeat',
       entityId: this.selectedEntity.id,
       siteId: value.sites,
@@ -129,14 +130,13 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
         this.dialogRef.close('YES');
         this.helperService.createSnack(this.helperService.translated.MESSAGES.INVITE_SUCCESS, this.helperService.constants.status.SUCCESS);
       } else {
-        this.inviteUserModal.loading = false;
         this.dialogRef.close('NO');
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (err) => {
       this.inviteUserModal.loading = false;
-      this.dialogRef.close();
-      this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR);
+      this.dialogRef.close('NO');
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

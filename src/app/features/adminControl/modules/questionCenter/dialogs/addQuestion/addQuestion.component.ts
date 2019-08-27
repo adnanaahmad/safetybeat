@@ -94,7 +94,7 @@ export class AddQuestionComponent implements OnInit {
     }, (error) => {
       this.QuestionObj.loading = false;
       this.onNoClick();
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -114,7 +114,7 @@ export class AddQuestionComponent implements OnInit {
     }, (error) => {
       this.QuestionObj.loading = false;
       this.onNoClick();
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
