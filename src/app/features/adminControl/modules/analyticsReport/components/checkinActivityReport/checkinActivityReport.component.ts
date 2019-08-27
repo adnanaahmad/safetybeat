@@ -31,7 +31,11 @@ export class CheckInActivityReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.makeReport(7, null, null, null)
+    this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.makeReport(7, null, null, null)
+      }
+    });
   }
 
   initialize() {
@@ -43,7 +47,6 @@ export class CheckInActivityReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.checkInActivityObj.entityId = this.helperService.getEntityId();
     this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].disable();
     this.checkInActivityObj.maxDate = new Date();
@@ -53,6 +56,7 @@ export class CheckInActivityReportComponent implements OnInit {
   setEntityName() {
     this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
+        this.checkInActivityObj.entityId = res.entityInfo.id;
         this.checkInActivityObj.entityName = res.entityInfo.name;
         this.checkInActivityFormValidations['entityName'].setValue(this.checkInActivityObj.entityName);
         this.checkInActivityFormValidations['entityName'].disable();
