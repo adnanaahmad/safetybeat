@@ -41,7 +41,11 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.makeReport(7, null, null, null)
+    this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.makeReport(7, null, null, null)
+      }
+    });
   }
 
   initialize() {
@@ -52,7 +56,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       site: [''],
       filter: ['']
     });
-    this.siteReportObj.entityId = this.helperService.getEntityId();
     this.siteFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.siteFormValidations[this.helperService.appConstants.dateTo].disable();
     this.siteReportObj.maxDate = new Date();
@@ -62,6 +65,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   setEntityName() {
     this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
+        this.siteReportObj.entityId = res.entityInfo.id;
         this.siteReportObj.entityName = res.entityInfo.name;
         this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
         this.siteFormValidations['entityName'].disable();

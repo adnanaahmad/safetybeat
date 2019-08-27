@@ -31,7 +31,11 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.makeReport(7, null, null);
+    this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.makeReport(7, null, null);
+      }
+    });
   }
 
   get actionFormValidations() {
@@ -46,7 +50,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       dateTo: ['', Validators.required],
       dateFrom: ['', Validators.required]
     });
-    this.actionReportObj.entityId = this.helperService.getEntityId();
     this.actionFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.actionFormValidations[this.helperService.appConstants.dateTo].disable();
     this.actionReportObj.maxDate = new Date();
@@ -56,6 +59,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   setEntityName() {
     this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
+        this.actionReportObj.entityId = res.entityInfo.id;
         this.actionReportObj.entityName = res.entityInfo.name;
         this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
         this.actionFormValidations['entityName'].disable();

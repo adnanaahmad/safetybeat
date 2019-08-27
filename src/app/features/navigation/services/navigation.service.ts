@@ -176,7 +176,7 @@ export class NavigationService {
     );
   }
 
-  uploadDocuments(data: object) {
+  uploadDocuments(data: any) {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
       this.helperService.constants.apiRoutes.documents,
