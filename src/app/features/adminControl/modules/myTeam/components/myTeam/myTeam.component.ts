@@ -66,7 +66,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -78,7 +78,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -133,7 +133,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       this.helperService.createSnack(
         this.helperService.translated.MESSAGES.DELETE_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
 
     });
   }

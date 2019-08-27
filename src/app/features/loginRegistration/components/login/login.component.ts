@@ -145,7 +145,7 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
             }
           }, (err) => {
-            this.helperService.createSnack(err.error, this.helperService.constants.status.ERROR);
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
           });
         } else if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
           this.helperService.createSnack(
@@ -167,7 +167,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       }, (error) => {
         this.loginObj.loading = false;
-        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       });
   }
 

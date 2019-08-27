@@ -136,7 +136,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
             localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
             (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
           }, error => {
-            this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
           });
         }
       });
