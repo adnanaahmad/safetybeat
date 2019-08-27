@@ -188,7 +188,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * @params date
    * @params events
    */
-  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
+  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }, isEdit? : boolean): void {
     this.profileModel.userLeavesData = [];
     if (events.length !== 0) {
       let self = this;
@@ -197,12 +197,37 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           actions: obj.meta.requestedUserData,
           end: new Date(obj.end).toDateString(),
           start: new Date(obj.start).toDateString(),
-          title: obj.title
+          title: obj.title,
+          leaveType: obj.meta.leavesType,
+          leaveId: obj.meta.leaveId
         };
         self.profileModel.userLeavesData.push(data);
       });
       this.helperService.createDialog(LeaveinfoComponent, {data: this.profileModel.userLeavesData});
+      this.helperService.dialogRef.afterClosed().subscribe(result => {
+        this.editLeaveDate(result);
+      });
     }
+  }
+
+  /**
+   * this function will be overrided that's why we have keep this here
+   * @params date
+   * @params events
+   */
+  editLeaveDate(dataObj): void {
+    this.helperService.createDialog(AddleavesComponent, {
+      disableClose: true,
+      data: {
+        leaveTypes: this.profileModel.leaveTypes,
+        currentData: dataObj
+      }
+    });
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      if (res !== this.helperService.appConstants.no) {
+        this.userLeaves(this.profileModel.userId);
+      }
+    });
   }
 
   /**
@@ -280,7 +305,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
 
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -294,7 +319,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
       this.navService.updateCurrentUser(userData);
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -325,7 +350,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }, (error) => {
       this.profileModel.recentActivities = null;
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -358,7 +383,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -379,7 +404,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
               res.responseDetails.message);
           }
         }, (error) => {
-          this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         });
       }
     });
@@ -401,7 +426,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.viewActivities(this.profileModel.filterForm, this.profileModel.firstIndex);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -414,14 +439,17 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.leaveTypes = res;
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
   addLeaves() {
     this.helperService.createDialog(AddleavesComponent, {
       disableClose: true,
-      data: this.profileModel.leaveTypes
+      data: {
+        leaveTypes: this.profileModel.leaveTypes,
+        currentData: null
+      }
     });
     this.helperService.dialogRef.afterClosed().subscribe((res) => {
       if (res !== this.helperService.appConstants.no) {
@@ -454,6 +482,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             draggable: true,
             meta: {
               type: 'calendarEvent',
+              leaveId: leaveData.id,
+              leavesType: leaveData.leaveType,
               requestedUserData: leaveData.requestedBy
             }
           };
@@ -464,7 +494,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         this.profileModel.userLeaves = null;
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 }

@@ -38,7 +38,7 @@ export class NotificationNavComponent implements OnInit {
         this.notificationCount.emit(this.counter);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     })
   }
 
@@ -53,7 +53,7 @@ export class NotificationNavComponent implements OnInit {
         this.notificationCount.emit(this.counter);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     })
   }
 

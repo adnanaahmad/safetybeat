@@ -32,8 +32,11 @@ export class EntityPulseReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.makeReport(7, null, null, null);
-
+    this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.makeReport(7, null, null, null);
+      }
+    });
   }
 
   initialize() {
@@ -45,7 +48,6 @@ export class EntityPulseReportComponent implements OnInit {
       dateTo: [],
       dateFrom: []
     });
-    this.pulseEntityObj.entityId = this.helperService.getEntityId();
     this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].disable();
     this.pulseEntityObj.maxDate = new Date();
@@ -55,6 +57,7 @@ export class EntityPulseReportComponent implements OnInit {
   setEntityName() {
     this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
+        this.pulseEntityObj.entityId = res.entityInfo.id;
         this.pulseEntityObj.entityName = res.entityInfo.name;
         this.pulseEntityFormValidations['entityName'].setValue(this.pulseEntityObj.entityName);
         this.pulseEntityFormValidations['entityName'].disable();
@@ -130,7 +133,7 @@ export class EntityPulseReportComponent implements OnInit {
         this.pulseEntityObj.entityUsers = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -218,6 +221,7 @@ export class EntityPulseReportComponent implements OnInit {
     });
     this.makeReport(this.pulseEntityObj.days.days, value.dateTo, value.dateFrom, value.user)
   }
+
   enableDateFrom() {
     this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].enable();
     this.pulseEntityObj.minDate = this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].value;

@@ -117,7 +117,7 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
       }, ((error) => {
         this.onNoClick();
         this.createEntity.loading = false;
-        this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       })
     );
   }

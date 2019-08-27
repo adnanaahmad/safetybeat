@@ -8,6 +8,7 @@ import {ProfileService} from 'src/app/features/profile/services/profile.service'
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {SettingsService} from 'src/app/features/settings/services/settings.service';
+import {PaginationData} from '../../../../models/site.model';
 
 @Component({
   selector: 'app-entity-setting',
@@ -36,7 +37,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       if (res !== 1) {
         this.entitySettingObj.allUsersList = res;
       } else {
-        this.getAllUsers();
+        this.getAllUsers(0);
       }
     });
     this.selectedEntityData();
@@ -74,8 +75,12 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.entitySettingObj.subscription.unsubscribe();
   }
 
-  getAllUsers() {
-    this.profile.getAllUsers().subscribe(
+  getAllUsers(pageIndex) {
+    let paginationData: PaginationData = {
+      limit: this.helperService.constants.appConstant.paginationLimit,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
+    };
+    this.profile.getAllUsers(paginationData).subscribe(
       result => {
         this.entitySettingObj.allUsers = result;
         this.entitySettingObj.allUsersList = this.entitySettingObj.allUsers.data;
@@ -121,7 +126,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED, this.helperService.constants.status.SUCCESS);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

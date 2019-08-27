@@ -34,9 +34,10 @@ export class ProfileService {
    * this api function is used to return all the users of the organization.
    */
 
-  getAllUsers(): Observable<AllUsersOfEntityResponse> {
+  getAllUsers(paginationData: PaginationData): Observable<AllUsersOfEntityResponse> {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
-      this.helperService.constants.apiRoutes.allUsersOfOrganization);
+      `${this.helperService.constants.apiRoutes.allUsersOfOrganization}?limit=${paginationData.limit}&offset=${paginationData.offset}`
+    );
   }
 
   /**
@@ -90,12 +91,16 @@ export class ProfileService {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.addLeave, data);
   }
 
+  editLeaves(id: number, data: AddLeaveData): Observable<AddLeaveApiResponse> {
+    return this.helperService.requestCall(this.method.put, `${this.apiRoutes.addLeave}${id}/`, data);
+  }
+
   viewAllUserLeaves(data): Observable<UserLeavesApiResponse> {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.userLeaves, data);
   }
 
-  allUserLeavesData(data){
-    return this.helperService.requestCall(this.method.post, this.apiRoutes.allUserLeaves,data)
+  allUserLeavesData(data) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.allUserLeaves, data)
   }
 
 }

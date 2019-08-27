@@ -31,8 +31,13 @@ export interface EntityUserData {
 }
 
 export interface AllUsersOfEntityResponse {
-  data: Array<User>;
+  data: apiData
   reponseDetails: responseDetails;
+}
+
+export interface apiData {
+  allUser: Array<User>;
+  pageCount: number;
 }
 
 export interface ViewAllEntitiesResponse {

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Leaveinfodata} from 'src/app/models/profile.model';
 
 @Component({
@@ -13,6 +13,7 @@ export class LeaveinfoComponent implements OnInit {
 
   constructor(
     public helperService: HelperService,
+    private dialogRef: MatDialogRef<LeaveinfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Array<Leaveinfodata>,
   ) {
     if (data) {
@@ -21,6 +22,10 @@ export class LeaveinfoComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  editLeave() {
+    this.dialogRef.close(this.userLeavesData);
   }
 
 }

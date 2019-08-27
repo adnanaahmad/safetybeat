@@ -41,7 +41,11 @@ export class HazardReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.makeReport(7, null, null, null)
+    this.hazardObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res !== 1) {
+        this.makeReport(7, null, null, null)
+      }
+    });
   }
 
   initialize() {
@@ -53,7 +57,6 @@ export class HazardReportComponent implements OnInit {
       dateFrom: [],
       user: ['']
     });
-    this.hazardObj.entityId = this.helperService.getEntityId();
     this.hazardFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.hazardFormValidations[this.helperService.appConstants.dateTo].disable();
     this.hazardObj.maxDate = new Date();
@@ -63,6 +66,7 @@ export class HazardReportComponent implements OnInit {
   setEntityName() {
     this.hazardObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
+        this.hazardObj.entityId = res.entityInfo.id;
         this.hazardObj.entityName = res.entityInfo.name;
         this.hazardFormValidations['entityName'].setValue(this.hazardObj.entityName);
         this.hazardFormValidations['entityName'].disable();
@@ -95,7 +99,7 @@ export class HazardReportComponent implements OnInit {
         this.hazardObj.entityUsers = this.compiler.constructDataForTeams(res.data);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

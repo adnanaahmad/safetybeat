@@ -99,7 +99,7 @@ export class ImportSiteModalComponent implements OnInit {
     }, (error) => {
       this.importSiteModal.loading = false;
       this.onNoClick();
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
 
   }

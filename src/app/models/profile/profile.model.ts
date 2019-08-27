@@ -140,3 +140,13 @@ export interface LeaveTypes {
   id: number;
   name: string;
 }
+
+export interface myleave {
+  id: number;
+  name: string;
+}
+
+export interface LeavesData {
+  leaveTypes: Array<myleave>,
+  currentData: object
+}
