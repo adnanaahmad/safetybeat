@@ -95,6 +95,10 @@ export class ProfileService {
     return this.helperService.requestCall(this.method.put, `${this.apiRoutes.addLeave}${id}/`, data);
   }
 
+  deleteLeave(id: number){
+    return this.helperService.requestCall(this.method.delete,`${this.apiRoutes.addLeave}${id}/`);
+  }
+
   viewAllUserLeaves(data): Observable<UserLeavesApiResponse> {
     return this.helperService.requestCall(this.method.post, this.apiRoutes.userLeaves, data);
   }

@@ -87,4 +87,23 @@ export interface Leaveinfodata {
   title: string;
   leaveType:any;
   leaveId: number;
+  approved: boolean;
+  rejected: boolean;
+}
+
+export interface leaveDeleteData {
+  leaveData: Leaveinfodata;
+  delete: boolean;
+}
+
+
+export interface EditLeaveData {
+  entity: number;
+  description: string;
+  leaveType: number;
+  dateFrom: Date;
+  dateTo: Date;
+  approved: boolean;
+  rejected: boolean;
+  approveReject: boolean;
 }

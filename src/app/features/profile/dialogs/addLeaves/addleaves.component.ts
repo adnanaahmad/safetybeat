@@ -5,7 +5,7 @@ import {LeaveTypes, LeavesData, ProfileModel} from 'src/app/models/profile/profi
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {AddLeaveData} from 'src/app/models/profile.model';
+import {AddLeaveData, EditLeaveData} from 'src/app/models/profile.model';
 
 @Component({
   selector: 'app-addleaves',
@@ -15,6 +15,7 @@ import {AddLeaveData} from 'src/app/models/profile.model';
 export class AddleavesComponent implements OnInit {
   leavesModel: ProfileModel = <ProfileModel>{};
   isEdit = false;
+  rangeAt: Date;
 
   constructor(
     public helperService: HelperService,
@@ -28,6 +29,7 @@ export class AddleavesComponent implements OnInit {
     this.leavesModel.leaveTypes = Object.assign([], this.data.leaveTypes);
     this.leavesModel.selectedLeave = this.leavesModel.leaveTypes[0];
     this.leavesModel.startAt = new Date();
+    this.rangeAt = new Date();
   }
 
   ngOnInit() {
@@ -47,12 +49,16 @@ export class AddleavesComponent implements OnInit {
       }
     });
     this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
-    if(this.data.currentData !== null) {
-      this.addLeaveFormValidations['description'].setValue(this.data.currentData[0].title);
-      this.addLeaveFormValidations['dateFrom'].setValue(new Date(this.data.currentData[0].start));
-      this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData[0].end));
-      this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData[0].leaveType.id);
+    if(this.data.currentData !== null && this.data && this.data.currentData) {
+      this.addLeaveFormValidations['description'].setValue(this.data.currentData.title);
+      this.addLeaveFormValidations['dateFrom'].setValue(new Date(this.data.currentData.start));
+      this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData.end));
+      this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
+  }
+
+  dateSelected(data, event) {
+    this.rangeAt = event.value;
   }
 
   /**
@@ -78,16 +84,16 @@ export class AddleavesComponent implements OnInit {
 
   /**
    * Add new leave
-   * @param leaveForm 
+   * @params leaveForm
    */
   addLeave(leaveForm: FormGroup) {
     this.leavesModel.loading = true;
     let data: AddLeaveData = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
-      leaveType: leaveForm.value.leaveType,
-      dateFrom: new Date(leaveForm.value.dateFrom),
-      dateTo: new Date(leaveForm.value.dateTo)
+      leaveType: leaveForm.value.leaveType.id,
+      dateFrom: leaveForm.value.dateFrom,
+      dateTo: leaveForm.value.dateTo
     };
     this.profileService.addLeaves(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -109,18 +115,21 @@ export class AddleavesComponent implements OnInit {
 
   /**
    * Edit current leave
-   * @param leaveForm 
+   * @params leaveForm
    */
   editLeave(leaveForm: FormGroup) {
     this.leavesModel.loading = true;
-    let data: AddLeaveData = {
+    let data: EditLeaveData = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType,
       dateFrom: new Date(leaveForm.value.dateFrom),
-      dateTo: new Date(leaveForm.value.dateTo)
+      dateTo: new Date(leaveForm.value.dateTo),
+      approved: this.data.currentData.approved,
+      rejected: this.data.currentData.rejected,
+      approveReject: false
     };
-    this.profileService.editLeaves(this.data.currentData[0].leaveId, data).subscribe((res) => {
+    this.profileService.editLeaves(this.data.currentData.leaveId, data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.leavesModel.leave = res.data.leave;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);

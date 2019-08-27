@@ -441,7 +441,9 @@
     "NO_USER_SELECTED": "No User Selected",
     "ENTITY_RES_MSG": " responsible to manage this hazard?",
     "IS": "Is ",
-    "ERROR_MSG": "Please check your internet connection or your session has been expired"
+    "ERROR_MSG": "Please check your internet connection or your session has been expired",
+    "REMOVE_LEAVE_SUCCESS": "Leave has been deleted",
+    "REMOVE_LEAVE_FAILURE": "Leave wasn't deleted"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
@@ -573,6 +575,7 @@
     "CONFIRM_CONNECTION": "Are you sure you want to Add this user to your Connections.",
     "DELETE_DOCUMENT": "Are you sure you want to delete this document?",
     "DELETE_FOLDER": "Are you sure you want to delete this folder? Its all documents will be deleted.",
-    "DELETE_QUESTION": "Are you sure you want to delete this question?"
+    "DELETE_QUESTION": "Are you sure you want to delete this question?",
+    "DELETE_LEAVE": "Are you sure you want to delete this leave?"
   }
 }

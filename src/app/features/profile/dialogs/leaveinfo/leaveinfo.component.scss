@@ -45,6 +45,14 @@
             padding: 0 6px 0 0;
           }
         }
+
+        .delete-btn {
+          width: 60px;
+          float: right;
+          margin-top: -36px;
+          margin-right: -20px;
+          text-align: center;
+        }
       }
 
       .remove-btn {
@@ -54,6 +62,8 @@
         padding: 4px;
         cursor: pointer;
       }
+
+      
     }
 
     .role {
