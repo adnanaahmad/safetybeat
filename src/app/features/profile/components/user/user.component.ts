@@ -14,6 +14,7 @@ export class UserComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   userModel: UserModel = <UserModel>{};
   private pageSize: number;
+  private pageCount: number;
 
   constructor(
     public userService: ProfileService,
@@ -57,7 +58,7 @@ export class UserComponent implements OnInit, OnDestroy {
       'Contact No.'
     ];
     this.userModel.dataSource = [];
-    this.pageSize = 5;
+    this.pageSize = 10;
     this.userModel.allUsers = [];
     this.userModel.empty = false;
   }
@@ -75,13 +76,12 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.getAllUsers(paginationData).subscribe(
       (result) => {
         if (result) {
-          this.userModel.allUsers = result;
+          this.userModel.allUsers = result.data.allUser;
           this.userModel.empty = true;
-          this.userModel.allUsersList = this.userModel.allUsers.data;
           this.userService.updateUsers(this.userModel.allUsersList);
           this.userModel.loading = false;
-          this.userModel.dataSource = new MatTableDataSource(this.userModel.allUsersList);
-          this.userModel.dataSource.paginator = this.paginator;
+          this.pageCount = result.data.pageCount;
+          this.userModel.dataSource = new MatTableDataSource(this.userModel.allUsers);
         } else {
           this.userModel.loading = false;
         }

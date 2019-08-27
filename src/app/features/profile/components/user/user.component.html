@@ -76,6 +76,6 @@
     </table>
   </div>
 
-  <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize"
+  <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount"
                  (page)="getAllUsers(paginator.pageIndex)"></mat-paginator>
 </div>
