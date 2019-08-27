@@ -97,7 +97,6 @@ export class MyTeamComponent implements OnInit, OnDestroy {
         this.myTeam.pageCount = res.data.pageCount;
         this.myTeam.allTeams = res.data.teamsList;
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
-        this.myTeam.dataSource.paginator = this.paginator;
         this.myTeam.loading = false;
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.myTeam.dataSource = null;
