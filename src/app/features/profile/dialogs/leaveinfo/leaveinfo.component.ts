@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Leaveinfodata} from 'src/app/models/profile.model';
+import {Leaveinfodata, leaveDeleteData} from 'src/app/models/profile.model';
 
 @Component({
   selector: 'app-leaveinfo',
@@ -9,15 +9,19 @@ import {Leaveinfodata} from 'src/app/models/profile.model';
   styleUrls: ['./leaveinfo.component.scss']
 })
 export class LeaveinfoComponent implements OnInit {
-  userLeavesData: Array<Leaveinfodata>;
+  userLeaveData: Leaveinfodata;
+  isEditable: boolean = false;
 
   constructor(
     public helperService: HelperService,
     private dialogRef: MatDialogRef<LeaveinfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Array<Leaveinfodata>,
+    @Inject(MAT_DIALOG_DATA) public data: Leaveinfodata,
   ) {
     if (data) {
-      this.userLeavesData = this.data;
+      this.userLeaveData = this.data[0];
+      if(this.userLeaveData && !this.userLeaveData.approved) {
+        this.isEditable = true
+      }
     }
   }
 
@@ -25,7 +29,19 @@ export class LeaveinfoComponent implements OnInit {
   }
 
   editLeave() {
-    this.dialogRef.close(this.userLeavesData);
+    let obj = {
+      leaveData: this.userLeaveData,
+      delete: false
+    }
+    this.dialogRef.close(obj);
+  }
+
+  deleteLeave() {
+    let obj = {
+      leaveData: this.userLeaveData,
+      delete: true
+    }
+    this.dialogRef.close(obj);
   }
 
 }

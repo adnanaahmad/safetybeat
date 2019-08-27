@@ -199,19 +199,53 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           start: new Date(obj.start).toDateString(),
           title: obj.title,
           leaveType: obj.meta.leavesType,
-          leaveId: obj.meta.leaveId
+          leaveId: obj.meta.leaveId,
+          approved: obj.meta.approved,
+          rejected: obj.meta.rejected
         };
         self.profileModel.userLeavesData.push(data);
       });
-      this.helperService.createDialog(LeaveinfoComponent, {data: this.profileModel.userLeavesData});
+      this.helperService.createDialog(LeaveinfoComponent, {disableClose: true,data: this.profileModel.userLeavesData});
       this.helperService.dialogRef.afterClosed().subscribe(result => {
-        this.editLeaveDate(result);
+        if(this.profileModel.userLeavesData && !this.profileModel.userLeavesData[0].approved && result !== "NO" && !result.delete) {
+          this.editLeaveDate(result.leaveData);
+        } else if(this.profileModel.userLeavesData && result.delete) {
+          this.deleteLeaveDate(result.leaveData);
+        }
       });
     }
   }
 
   /**
-   * this function will be overrided that's why we have keep this here
+   * this function will be delete leave
+   * @params date
+   * @params events
+   */
+  deleteLeaveDate(dataObj): void {
+    this.helperService.createDialog(ConfirmationModalComponent,
+      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_LEAVE}});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res === this.helperService.appConstants.yes) {
+        this.helperService.toggleLoader(true);
+        this.profileService.deleteLeave(dataObj.leaveId).subscribe((res) => {
+          if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_LEAVE_SUCCESS,
+              this.helperService.constants.status.SUCCESS);
+              this.userLeaves(this.profileModel.userId);
+          } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_LEAVE_FAILURE,
+              res.responseDetails.message);
+              this.userLeaves(this.profileModel.userId);
+          }
+        }, (error) => {
+          this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+        });
+      }
+    });
+  }
+
+  /**
+   * this function will edit leave
    * @params date
    * @params events
    */
@@ -483,6 +517,8 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             meta: {
               type: 'calendarEvent',
               leaveId: leaveData.id,
+              approved: leaveData.approved,
+              rejected: leaveData.rejected,
               leavesType: leaveData.leaveType,
               requestedUserData: leaveData.requestedBy
             }

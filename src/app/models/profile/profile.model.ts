@@ -146,7 +146,18 @@ export interface myleave {
   name: string;
 }
 
+export interface LeaveDataObject {
+  actions: Object;
+  approved: boolean;
+  end: string;
+  leaveId: number;
+  leaveType: myleave;
+  rejected: boolean;
+  start: string;
+  title: string;
+}
+
 export interface LeavesData {
   leaveTypes: Array<myleave>,
-  currentData: object
+  currentData: LeaveDataObject
 }

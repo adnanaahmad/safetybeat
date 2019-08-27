@@ -529,6 +529,8 @@ export interface Messages {
   NO_USER: string;
   NO_USER_SELECTED: string;
   ERROR_MSG: string;
+  REMOVE_LEAVE_SUCCESS: string;
+  REMOVE_LEAVE_FAILURE: string;
 }
 
 export interface Logger {
@@ -671,5 +673,5 @@ export interface Confirmation {
     REMOVE_CONNECTION: string
     DELETE_TEAM: string;
     DELETE_QUESTION: string;
-
+    DELETE_LEAVE: string;
 }
