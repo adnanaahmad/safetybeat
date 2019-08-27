@@ -70,10 +70,11 @@ export class AddleavesComponent implements OnInit {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType.id,
-      dateFrom: new Date(leaveForm.value.dateFrom),
-      dateTo: new Date(leaveForm.value.dateTo)
+      dateFrom: leaveForm.value.dateFrom,
+      dateTo: leaveForm.value.dateTo
     };
     this.profileService.addLeaves(data).subscribe((res) => {
+      debugger
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.leavesModel.leave = res.data.leave;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
