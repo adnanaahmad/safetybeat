@@ -30,7 +30,8 @@
       <mat-form-field appearance="outline">
         <input matInput [matDatepicker]="picker1"
                [formControlName]="helperService.appConstants.dateFrom" [min]="leavesModel.startAt"
-               placeholder="Date From" readonly>
+               placeholder="Date From" readonly
+               (dateChange) = "dateSelected('change', $event)">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker [startAt]="leavesModel.startAt" #picker1></mat-datepicker>
         <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
@@ -40,10 +41,10 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-               [min]="leavesModel.startAt"
+               [min]="rangeAt"
                placeholder="Date To" readonly>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2 [startAt]="leavesModel.startAt"></mat-datepicker>
+        <mat-datepicker #picker2 [startAt]="rangeAt"></mat-datepicker>
         <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">
             <span
               *ngIf="addLeaveFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
