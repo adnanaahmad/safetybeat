@@ -121,7 +121,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED, this.helperService.constants.status.SUCCESS);
       }
     }, (error) => {
-      this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
