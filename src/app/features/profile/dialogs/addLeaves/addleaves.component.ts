@@ -74,7 +74,6 @@ export class AddleavesComponent implements OnInit {
       dateTo: leaveForm.value.dateTo
     };
     this.profileService.addLeaves(data).subscribe((res) => {
-      debugger
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.leavesModel.leave = res.data.leave;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
