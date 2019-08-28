@@ -13,8 +13,8 @@ import {PaginationData} from '../../../../models/site.model';
 export class UserComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   userModel: UserModel = <UserModel>{};
-  private pageSize: number;
-  private pageCount: number;
+  pageSize: number;
+  pageCount: number;
 
   constructor(
     public userService: ProfileService,
