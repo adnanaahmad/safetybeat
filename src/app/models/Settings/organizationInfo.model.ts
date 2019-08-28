@@ -20,4 +20,5 @@ export interface Organization {
   name: string
   phoneNo: string
   type: string
+  countryCode: string
 }

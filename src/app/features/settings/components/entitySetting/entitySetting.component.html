@@ -33,7 +33,7 @@
     </mat-card>
     <div *ngIf="entitySettingObj.disabled" class="btn-grp">
         <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
-                [disabled]="entitySettingObj.entityForm.pristine">
+                [disabled]="entitySettingObj.entityForm.pristine || entitySettingObj.entityForm.invalid">
                 <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
                 {{ helperService.translated.BUTTONS.SAVE }}
             </button>
