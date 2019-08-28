@@ -46,21 +46,27 @@ export class GeneralComponent implements OnInit {
   }
 
   setGeneralForm() {
-    this.settings.generalData.subscribe((res) => {
-      if (res === 1) {
-        this.profile.getUser().subscribe((res) => {
-          this.generalObj.resultData = this.compiler.constructGeneralInfoObject(res);
-          this.generalObj.userData = this.compiler.constructProfileData(this.generalObj.resultData.user);
-          this.navService.updateCurrentUser(this.generalObj.userData);
-          this.generalViewForm['email'].setValue(this.generalObj.userData.email);
-          this.generalViewForm['first_name'].setValue(this.generalObj.userData.first_name);
-          this.generalViewForm['last_name'].setValue(this.generalObj.userData.last_name);
-          let contact = (this.generalObj.userData.contactNo).split('-', 2);
-          this.generalViewForm['contactNo'].setValue(contact[1]);
-          contact[0] = contact[0].replace('+', '');
-          this.generalViewForm['countryCode'].setValue(contact[0]);
-        });
+    this.generalObj.loading = true;
+    this.profile.getUser().subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.generalObj.resultData = this.compiler.constructGeneralInfoObject(res);
+        this.generalObj.userData = this.compiler.constructProfileData(this.generalObj.resultData.user);
+        this.navService.updateCurrentUser(this.generalObj.userData);
+        this.generalViewForm['email'].setValue(this.generalObj.userData.email);
+        this.generalViewForm['first_name'].setValue(this.generalObj.userData.first_name);
+        this.generalViewForm['last_name'].setValue(this.generalObj.userData.last_name);
+        let contact = (this.generalObj.userData.contactNo).split('-', 2);
+        this.generalViewForm['contactNo'].setValue(contact[1]);
+        contact[0] = contact[0].replace('+', '');
+        this.generalViewForm['countryCode'].setValue(contact[0]);
+        this.generalObj.loading = false;
+      } else {
+        this.generalObj.loading = false;
       }
+
+    }, (error) => {
+      this.generalObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

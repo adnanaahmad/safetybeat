@@ -138,8 +138,6 @@ export class LoginComponent implements OnInit, OnDestroy {
               this.navService.changeEntites(this.loginObj.entityUserData);
               this.permissionBasedNavigation(this.loginObj.entityUserData,
                 this.loginObj.userData.packageInfo[this.loginObj.index].expired, this.loginObj.data);
-              this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
-                this.helperService.constants.status.SUCCESS);
               this.loginObj.loading = false;
             } else {
               this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
@@ -172,6 +170,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   permissionBasedNavigation(data: EntityUserData, expired: boolean, loginData: LoginResponse) {
+    this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGIN_SUCCESS,
+      this.helperService.constants.status.SUCCESS);
     if (loginData.data.firstLogin) {
       this.router.navigate(['updateProfile']);
     } else {

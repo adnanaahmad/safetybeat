@@ -34,7 +34,7 @@ export class OrganizationInfoComponent implements OnInit {
       address: ['', Validators.required],
       billingEmail: ['', [Validators.required, Validators.email]],
       dateJoined: ['', Validators.required],
-      countryCode: ['', Validators.required],
+      countryCode: ['', [Validators.required, Validators.maxLength(3)]],
       phoneNo: ['', Validators.required],
       type: ['', Validators.required]
     }, {validator: this.phoneNumberValid.bind(this)});
@@ -90,6 +90,7 @@ export class OrganizationInfoComponent implements OnInit {
       this.organizationViewForm['countryCode'].setValue(contact[0]);
       this.organizationViewForm['phoneNo'].setValue(contact[1]);
       this.organizationViewForm['type'].setValue(orgObject.type);
+      this.helperService.setAddress(orgObject.address, this.gMapElement, this.organizationViewForm.address);
       this.helperService.setLocationGeocode(orgObject.address,
         this.helperService.createMap(this.gMapElement));
       this.orgObj.orgID = orgObject.id;
@@ -120,7 +121,7 @@ export class OrganizationInfoComponent implements OnInit {
       'accountNo': value.accountNo,
       'address': this.helperService.address,
       'dateJoined': value.dateJoined,
-      'phoneNo': value.phoneNo,
+      'phoneNo': value.countryCode + '-' + value.phoneNo,
       'billingEmail': value.billingEmail,
       'type': value.type
     };
@@ -131,8 +132,8 @@ export class OrganizationInfoComponent implements OnInit {
     }
     this.settingService.editOrganization(this.orgObj.orgID, data).subscribe((res) => {
       if (res) {
-        this.orgObj.enabled = true;
-        this.orgObj.organizationForm.enable();
+        this.orgObj.organizationForm.disable();
+        this.orgObj.enabled = false;
         this.orgObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ORG_DETAILS, this.helperService.constants.status.SUCCESS);
       }
