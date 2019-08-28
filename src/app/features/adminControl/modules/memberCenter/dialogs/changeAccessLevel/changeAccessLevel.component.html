@@ -46,7 +46,7 @@
           <span class="loader3"></span>
         </div>
       </button>
-      <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+      <button mat-button [mat-dialog-close]="'NO'">{{helperService.translated.BUTTONS.CANCEL}}</button>
     </mat-dialog-actions>
   </form>
 </div>
