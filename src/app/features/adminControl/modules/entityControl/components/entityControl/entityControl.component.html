@@ -15,12 +15,25 @@
         {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
       </button>
     </div>
+
+    <!--Filter-->
+    <div class="data-filter">
+      <div class="input-wrap">
+        <input class="search-input" autocomplete="off" matInput placeholder="Search"
+               (keyup)=viewEntitiesApiCall(entityControl.firstIndex,$event.target.value)>
+        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+      </div>
+      <a (click)="advanceSearch()"
+         class="mat-body-strong mat-small pointer">&nbsp;</a>
+    </div>
+    <!--/Filter-->
   </div>
   <div class="table-wrap">
     <div class="spinner-wrap" *ngIf="entityControl.displayLoader">
       <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
     </div>
-    <table mat-table [dataSource]="entityControl.dataSource" *ngIf="!entityControl.displayLoader && entityControl.dataSource" class="customTable mat-elevation-z3">
+    <table mat-table [dataSource]="entityControl.dataSource"
+           *ngIf="!entityControl.displayLoader && entityControl.dataSource" class="customTable mat-elevation-z3">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
@@ -98,5 +111,10 @@
     </table>
   </div>
 
-  <mat-paginator class="mat-elevation-z1" *ngIf="!entityControl.displayLoader && entityControl.dataSource" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <div class="paddingbox text-center" *ngIf="!entityControl.displayLoader && !entityControl.dataSource">
+    {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+  </div>
+
+  <mat-paginator class="mat-elevation-z1" [pageSize]="entityControl.pageSize" [length]="entityControl.pageCount"
+                 (page)="viewEntitiesApiCall(paginator.pageIndex, entityControl.search)"></mat-paginator>
 </div>

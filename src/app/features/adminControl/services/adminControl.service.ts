@@ -59,6 +59,20 @@ export class AdminControlService {
     );
   }
 
+  /**
+   * this function is used for getting all the entities information with pagination data.
+   * @params data
+   * @params paginationData
+   */
+
+  viewAllEntitiesWithPagination(data: object, paginationData: PaginationData): Observable<ViewAllEntitiesResponse> {
+    return this.helperService.requestCall(
+      this.method.post,
+      `${this.apiRoutes.viewAllEntities}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      data
+    );
+  }
+
   viewEntitiesOfUser(data: object) {
     return this.helperService.requestCall(
       this.method.post,

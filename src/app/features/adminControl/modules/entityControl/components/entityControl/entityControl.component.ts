@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy, AfterViewInit} from '@angular/core';
 import {MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
 import {CreateEntityComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/createEntityModal/createEntity.component';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
@@ -14,13 +14,14 @@ import {JoinEntityModalComponent} from 'src/app/features/adminControl/modules/en
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {Entity} from 'src/app/models/userEntityData.model';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-entityControl',
   templateUrl: './entityControl.component.html',
   styleUrls: ['./entityControl.component.scss']
 })
-export class EntityControlComponent implements OnInit, OnDestroy {
+export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit {
 
   entityControl: EntityControl = <EntityControl>{};
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,7 +50,8 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * initialization of the component.
    */
   ngOnInit() {
-    this.viewAllEntities();
+    // this.viewAllEntities();
+    this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
     this.entityControl.entityId = this.helperService.getEntityId();
   }
 
@@ -61,12 +63,22 @@ export class EntityControlComponent implements OnInit, OnDestroy {
     this.entityControl.subscription.unsubscribe();
   }
 
+  ngAfterViewInit(): void {
+    if (this.entityControl.dataSource !== undefined) {
+      this.entityControl.dataSource.paginator = this.paginator;
+    }
+  }
+
   /**
    * this function is used for initialization of all the global varibales that we have made in the model
    * file.
    */
 
   initialize() {
+    this.entityControl.search = '';
+    this.entityControl.firstIndex = 0;
+    this.entityControl.pageSize = 10;
+    this.entityControl.pageCount = 0;
     this.entityControl.createEntityOption = false;
     this.entityControl.allEntitiesData = [];
     this.entityControl.empty = false;
@@ -81,7 +93,7 @@ export class EntityControlComponent implements OnInit, OnDestroy {
       'administrator',
       'symbol'
     ];
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+    this.entityControl.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.entityControl.permissions = data;
       }
@@ -94,6 +106,12 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
   createEntity() {
     this.helperService.createDialog(CreateEntityComponent, {disableClose: true});
+    this.helperService.dialogRef.afterClosed().subscribe((res) => {
+      if (res !== this.helperService.appConstants.no) {
+        this.helperService.toggleLoader(true);
+        this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
+      }
+    })
   }
 
   /**
@@ -139,21 +157,18 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * this function is used to show all the existing entities
    */
   viewAllEntities() {
-    this.helperService.toggleLoader(true);
     this.entityControl.displayLoader = true;
     this.entityControl.subscription = this.navService.data.subscribe((res) => {
       if (res && res !== 1) {
-        this.entityControl.displayLoader = false;
-        this.helperService.toggleLoader(false);
         this.entityControl.allEntitiesData = res.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
-        this.entityControl.dataSource.paginator = this.paginator;
+        this.entityControl.displayLoader = false;
+        // this.entityControl.dataSource.paginator = this.paginator;
       } else {
-        this.viewEntitiesApiCall();
+        // this.viewEntitiesApiCall();
       }
     }, (error) => {
       this.entityControl.displayLoader = false;
-      this.helperService.toggleLoader(false);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
@@ -188,18 +203,26 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    * this function is used to get the entities info regarding the user from the api call.
    */
 
-  viewEntitiesApiCall() {
-    this.helperService.toggleLoader(true);
+  viewEntitiesApiCall(pageIndex, search) {
     let data = {
       moduleName: 'Safetybeat'
     };
+    let paginationData: PaginationData = {
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit,
+      search: search
+    };
     this.entityControl.displayLoader = true;
-    this.adminServices.viewEntities(data).subscribe((res) => {
-      if (res) {
-        this.entityControl.displayLoader = false;
-        this.helperService.toggleLoader(false);
+    this.adminServices.viewAllEntitiesWithPagination(data, paginationData).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.entityControl.pageCount = res.data.pageCount;
         let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
+        this.entityControl.allEntitiesData = entityUserData.entities;
+        this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
+        this.entityControl.displayLoader = false;
         this.navService.changeEntites(entityUserData);
+      } else {
+        this.entityControl.displayLoader = false;
       }
     }, (error) => {
       this.entityControl.displayLoader = false;
@@ -213,14 +236,20 @@ export class EntityControlComponent implements OnInit, OnDestroy {
    */
 
   deleteEntity(entityId: number) {
-    this.helperService.toggleLoader(true);
+    this.entityControl.displayLoader = true;
     this.adminServices.deleteEntity(entityId).subscribe(res => {
-      this.viewEntitiesApiCall();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE, this.helperService.translated.STATUS.SUCCESS);
-      this.helperService.toggleLoader(false);
+      this.entityControl.pageCount = 0;
+      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE,
+        this.helperService.translated.STATUS.SUCCESS);
+      this.entityControl.displayLoader = false;
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL, this.helperService.translated.STATUS.ERROR);
-      this.helperService.toggleLoader(false);
+      this.entityControl.displayLoader = false;
     });
+  }
+
+  advanceSearch() {
+
   }
 }

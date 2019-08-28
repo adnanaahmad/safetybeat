@@ -44,7 +44,7 @@
             </button>
 
             <!-- <img *ngIf="createEntity.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
-            <button mat-button mat-dialog-close type="button">
+            <button mat-button [mat-dialog-close]="'NO'" type="button">
                 {{ helperService.translated.BUTTONS.CANCEL }}
             </button>
         </mat-dialog-actions>
