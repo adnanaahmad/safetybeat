@@ -2,7 +2,7 @@
   class="mat-dialog-title mat-elevation-z6">{{helperService.translated.MESSAGES.EDITPROFILE}}</mat-card-title>
 <div class="mat-dialog-content">
   <div class="spinner-wrap" *ngIf="generalObj.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
   </div>
   <form [formGroup]="generalObj.generalForm" class="settings-list"
         (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
