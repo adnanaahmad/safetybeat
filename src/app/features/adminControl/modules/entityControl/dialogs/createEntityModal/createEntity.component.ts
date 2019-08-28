@@ -97,15 +97,17 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.createEntity.loading = true;
     this.adminServices.createEntity(this.createEntity.entityDetails).subscribe((result) => {
         if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          let data = {
-            'moduleName': 'Safetybeat'
-          };
-          this.adminServices.viewEntities(data).subscribe(res => {
-            this.createEntity.loading = false;
-            let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
-            this.navService.changeEntites(entityUserData);
-            this.onNoClick();
-          });
+          // let data = {
+          //   'moduleName': 'Safetybeat'
+          // };
+          // this.adminServices.viewEntities(data).subscribe(res => {
+          //   this.createEntity.loading = false;
+          //   let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
+          //   this.navService.changeEntites(entityUserData);
+          //   this.onNoClick();
+          // });
+          this.createEntity.loading = false;
+          this.onNoClick();
         } else if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
           this.helperService.appConstants.codeValidations[4]) {
           this.createEntity.loading = false;

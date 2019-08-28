@@ -213,7 +213,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
   deleteSite(siteId) {
     this.adminServices.deleteSite(siteId).subscribe((res) => {
-      this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+      this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_SITE_SUCCESS,
         this.helperService.constants.status.SUCCESS);
 

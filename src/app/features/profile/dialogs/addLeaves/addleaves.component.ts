@@ -49,7 +49,7 @@ export class AddleavesComponent implements OnInit {
       }
     });
     this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
-    if(this.data.currentData !== null && this.data && this.data.currentData) {
+    if (this.data.currentData !== null && this.data && this.data.currentData) {
       this.addLeaveFormValidations['description'].setValue(this.data.currentData.title);
       this.addLeaveFormValidations['dateFrom'].setValue(new Date(this.data.currentData.start));
       this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData.end));
@@ -123,8 +123,8 @@ export class AddleavesComponent implements OnInit {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType,
-      dateFrom: new Date(leaveForm.value.dateFrom),
-      dateTo: new Date(leaveForm.value.dateTo),
+      dateFrom: leaveForm.value.dateFrom,
+      dateTo: leaveForm.value.dateTo,
       approved: this.data.currentData.approved,
       rejected: this.data.currentData.rejected,
       approveReject: false

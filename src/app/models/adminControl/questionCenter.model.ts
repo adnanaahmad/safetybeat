@@ -17,7 +17,8 @@ export class QuestionCenter {
   filteredChildNoQuestion: Array<Questions>;
   filteredChildYesQuestion: Array<Questions>;
   pageSize: number;
-  pageCount: number;
+  parentPageCount: number;
+  entityPageCount: number
   questionBankPageCount: number;
   dataSource: MatTableDataSource<Questions>;
   canProceed: boolean;
