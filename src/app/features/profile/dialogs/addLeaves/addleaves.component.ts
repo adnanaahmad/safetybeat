@@ -15,6 +15,7 @@ import {AddLeaveData, EditLeaveData} from 'src/app/models/profile.model';
 export class AddleavesComponent implements OnInit {
   leavesModel: ProfileModel = <ProfileModel>{};
   isEdit = false;
+  rangeAt: Date;
 
   constructor(
     public helperService: HelperService,
@@ -28,6 +29,7 @@ export class AddleavesComponent implements OnInit {
     this.leavesModel.leaveTypes = Object.assign([], this.data.leaveTypes);
     this.leavesModel.selectedLeave = this.leavesModel.leaveTypes[0];
     this.leavesModel.startAt = new Date();
+    this.rangeAt = new Date();
   }
 
   ngOnInit() {
@@ -53,6 +55,10 @@ export class AddleavesComponent implements OnInit {
       this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData.end));
       this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
+  }
+
+  dateSelected(data, event) {
+    this.rangeAt = event.value;
   }
 
   /**
@@ -117,8 +123,8 @@ export class AddleavesComponent implements OnInit {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType,
-      dateFrom: new Date(leaveForm.value.dateFrom),
-      dateTo: new Date(leaveForm.value.dateTo),
+      dateFrom: leaveForm.value.dateFrom,
+      dateTo: leaveForm.value.dateTo,
       approved: this.data.currentData.approved,
       rejected: this.data.currentData.rejected,
       approveReject: false
