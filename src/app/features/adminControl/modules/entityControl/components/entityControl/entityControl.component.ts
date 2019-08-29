@@ -37,12 +37,17 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
   ) {
     this.initialize();
     this.helperService.toggleLoader(true);
-
     this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res && res !== 1) {
         this.entityControl.currentUserData = res;
       }
     });
+
+    this.entityControl.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.entityControl.entityId = res.entityInfo.id;
+      }
+    })
   }
 
   /**
@@ -50,9 +55,8 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
    * initialization of the component.
    */
   ngOnInit() {
-    // this.viewAllEntities();
     this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
-    this.entityControl.entityId = this.helperService.getEntityId();
+    this.viewAllEntities();
   }
 
   /**
@@ -110,6 +114,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       if (res !== this.helperService.appConstants.no) {
         this.helperService.toggleLoader(true);
         this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
+        this.viewAllEntities();
       }
     })
   }
@@ -154,26 +159,6 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   /**
-   * this function is used to show all the existing entities
-   */
-  viewAllEntities() {
-    this.entityControl.displayLoader = true;
-    this.entityControl.subscription = this.navService.data.subscribe((res) => {
-      if (res && res !== 1) {
-        this.entityControl.allEntitiesData = res.entities;
-        this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
-        this.entityControl.displayLoader = false;
-        // this.entityControl.dataSource.paginator = this.paginator;
-      } else {
-        // this.viewEntitiesApiCall();
-      }
-    }, (error) => {
-      this.entityControl.displayLoader = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
-  }
-
-  /**
    *  this function will be used when we will make the teams of the users and in that team we will add the users.
    * @params entityData
    */
@@ -188,13 +173,32 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         let inviteTeamData = {
           entityData: entityData.entityInfo.code,
           usersData: users
-        }
+        };
         this.helperService.createDialog(InviteTeamModalComponent, {
           data: {inviteTeamData},
           disableClose: true
         });
       }
     }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  viewAllEntities() {
+    let data = {
+      moduleName: 'Safetybeat'
+    };
+    this.adminServices.viewEntities(data).subscribe((res) => {
+      this.entityControl.displayLoader = true;
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        let entityData = this.compiler.constructUserEntityData(res.data.allEntities);
+        this.entityControl.displayLoader = false;
+        this.navService.changeEntites(entityData);
+      } else {
+        this.entityControl.displayLoader = false;
+      }
+    }, (error) => {
+      this.entityControl.displayLoader = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
@@ -220,13 +224,12 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         this.entityControl.allEntitiesData = entityUserData.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
         this.entityControl.displayLoader = false;
-        this.navService.changeEntites(entityUserData);
       } else {
         this.entityControl.displayLoader = false;
       }
     }, (error) => {
       this.entityControl.displayLoader = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL, this.helperService.translated.STATUS.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -240,6 +243,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
     this.adminServices.deleteEntity(entityId).subscribe(res => {
       this.entityControl.pageCount = 0;
       this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+      this.viewAllEntities();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE,
         this.helperService.translated.STATUS.SUCCESS);
       this.entityControl.displayLoader = false;

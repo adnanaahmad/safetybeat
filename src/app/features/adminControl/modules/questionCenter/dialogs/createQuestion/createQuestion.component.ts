@@ -1,10 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AddQuestionData, QuestionCenter} from 'src/app/models/adminControl/questionCenter.model';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   templateUrl: './createQuestion.component.html',
   styleUrls: ['./createQuestion.component.scss']
 })
-export class CreateQuestionComponent implements OnInit {
+export class CreateQuestionComponent implements OnInit, OnDestroy {
   QuestionObj: QuestionCenter = <QuestionCenter>{};
 
   constructor(
@@ -21,12 +22,18 @@ export class CreateQuestionComponent implements OnInit {
     private compiler: CompilerProvider,
     private questionCenterService: QuestionCenterService,
     public dialogRef: MatDialogRef<CreateQuestionComponent>,
+    private navService: NavigationService,
     @Inject(MAT_DIALOG_DATA) public data,
   ) {
     this.QuestionObj.translated = this.helperService.translated;
     this.QuestionObj.canProceed = true;
     this.QuestionObj.parent = true;
     this.QuestionObj.canSafe = this.helperService.appConstants.safeQuestionYes;
+    this.QuestionObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.QuestionObj.entityId = res.entityInfo.id;
+      }
+    });
   }
 
   ngOnInit() {
@@ -48,6 +55,10 @@ export class CreateQuestionComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.QuestionObj.subscription.unsubscribe();
+  }
+
   get formValidation() {
     return this.QuestionObj.addQuestionForm.controls;
   }
@@ -60,7 +71,7 @@ export class CreateQuestionComponent implements OnInit {
       warning: value.questionWarning,
       canProceed: value.canProceed,
       default: false,
-      entity: this.helperService.getEntityId()
+      entity: this.QuestionObj.entityId
     };
     return questionData;
   }

@@ -93,6 +93,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   getSitesData(pageIndex, search) {
+    this.siteCentreObj.pageCount = 0;
     let entityData: ViewAllSiteEntityData = {
       entityId: this.siteCentreObj.entityId,
     };

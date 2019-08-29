@@ -1,4 +1,5 @@
 import {FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 export interface Permissions {
   permissions: PermissionsModel
@@ -80,6 +81,8 @@ export interface PermissionsModel {
 }
 
 export interface ChangePermissionsObj {
+  entityId: number;
+  subscription: Subscription;
   disable: boolean;
   unChanged: boolean;
   permissionsForm: FormGroup;

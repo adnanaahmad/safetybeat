@@ -1,17 +1,18 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {RegisterTeamModel} from 'src/app/models/adminControl/registerTeam.model';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-register-team',
   templateUrl: './registerTeam.component.html',
   styleUrls: ['./registerTeam.component.scss']
 })
-export class RegisterTeamComponent implements OnInit {
+export class RegisterTeamComponent implements OnInit, OnDestroy {
 
   registerTeamObj: RegisterTeamModel = <RegisterTeamModel>{};
   @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
@@ -22,9 +23,14 @@ export class RegisterTeamComponent implements OnInit {
               public formBuilder: FormBuilder,
               public compiler: CompilerProvider,
               private adminServices: AdminControlService,
+              private navService: NavigationService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.initialize();
-
+    this.registerTeamObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.registerTeamObj.entityId = res.entityInfo.id;
+      }
+    })
   }
 
   ngOnInit() {
@@ -38,6 +44,10 @@ export class RegisterTeamComponent implements OnInit {
       this.registerTeamObj.selectedUsers = this.compiler.constructUserDataOfTeam(this.data.teamList.users);
       this.registerTeamObj.filteredSelectedList = Array.from(this.registerTeamObj.selectedUsers)
     }
+  }
+
+  ngOnDestroy(): void {
+    this.registerTeamObj.subscription.unsubscribe();
   }
 
   get getFormControls() {
@@ -172,7 +182,7 @@ export class RegisterTeamComponent implements OnInit {
       teamMembersIds.push(obj.id);
     });
     let team: any = {
-      entity: this.helperService.getEntityId(),
+      entity: this.registerTeamObj.entityId,
       title: value.title,
       teamLead: this.registerTeamObj.teamLeadID,
       teamMembers: teamMembersIds,

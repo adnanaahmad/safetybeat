@@ -134,8 +134,8 @@ export class InviteTeamModalComponent implements OnInit {
     };
     this.inviteTeamModel.loading = true;
     this.adminServices.inviteTeam(inviteTeamData).subscribe(
-      res => {
-        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+      (res) => {
+        if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.createSnack(
             res.responseDetails.message,
             this.helperService.constants.status.SUCCESS

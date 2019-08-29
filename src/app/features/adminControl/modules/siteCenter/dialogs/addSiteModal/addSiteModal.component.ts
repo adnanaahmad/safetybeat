@@ -84,7 +84,9 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.helperService.hideLoggers();
-    this.addSiteObj.subscription.unsubscribe();
+    if (this.addSiteObj.entityId) {
+      this.addSiteObj.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -138,7 +140,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
 
   getAllUsers() {
     let data = {
-      entityId: this.helperService.getEntityId()
+      entityId: this.addSiteObj.entityId
     };
     this.memberService.allEntityUsers(data).subscribe((res) => {
       if (res) {
@@ -206,7 +208,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.addSiteObj.loading = false;
         this.onNoClick();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_CREATED, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_CREATED, this.helperService.constants.status.SUCCESS);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.addSiteObj.loading = false;
         this.onNoClick();

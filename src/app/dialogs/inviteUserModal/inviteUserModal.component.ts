@@ -46,6 +46,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     this.initialize();
     this.inviteUserModal.subscription = this.navService.selectedEntityData.subscribe(res => {
       this.selectedEntity = res.entityInfo;
+      this.inviteUserModal.entityID = this.selectedEntity.id;
     });
     this.inviteUserModal.inviteUserForm = this.formBuilder.group({
       first_name: ['', Validators.required],
@@ -147,7 +148,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
 
   viewSitesData() {
     let entityData = {
-      'entityId': this.helperService.getEntityId(),
+      'entityId': this.inviteUserModal.entityID,
     };
     let paginationData: PaginationData = {
       offset: null,
@@ -167,7 +168,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
 
   viewTeamsData() {
     let entityData = {
-      'entityId': this.helperService.getEntityId(),
+      'entityId': this.inviteUserModal.entityID,
     };
     let paginationData: PaginationData = {
       offset: null,

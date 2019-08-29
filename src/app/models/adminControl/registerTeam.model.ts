@@ -5,6 +5,7 @@ import {User} from '../user.model';
 
 
 export interface RegisterTeamModel {
+  entityId: number;
   filteredSelectedList: Array<any>;
   teamLeadID: any;
   teamLead: any;

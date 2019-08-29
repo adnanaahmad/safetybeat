@@ -103,13 +103,14 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
             this.profileModel.role = res.role;
             this.profileModel.entityName = res.entityInfo.name;
             this.profileModel.currentUserProfile = true;
+            this.profileModel.entityId = res.entityInfo.id;
           }
         });
         this.getCurrentUser();
         this.getFilters();
       }
     });
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+    this.profileModel.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.profileModel.permissions = data;
       }
@@ -495,7 +496,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
   userLeaves(userId: number) {
     let data = {
       userId: userId,
-      entityId: this.helperService.getEntityId()
+      entityId: this.profileModel.entityId
     };
     this.profileService.viewAllUserLeaves(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {

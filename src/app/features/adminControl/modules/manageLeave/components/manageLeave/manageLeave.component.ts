@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ManageleaveService} from 'src/app/features/adminControl/modules/manageLeave/services/manageleave.service';
@@ -6,15 +6,15 @@ import {ManageLeave} from 'src/app/models/manageLeave.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
 import {PaginationData} from 'src/app/models/site.model';
-import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-manageLeave',
   templateUrl: './manageLeave.component.html',
   styleUrls: ['./manageLeave.component.scss']
 })
-export class ManageLeaveComponent implements OnInit {
+export class ManageLeaveComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   leaveModel: ManageLeave = <ManageLeave>{};
 
@@ -27,15 +27,26 @@ export class ManageLeaveComponent implements OnInit {
   ) {
     this.initialize();
     this.getLeaveTypes();
-    this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
+    this.leaveModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.leaveModel.entityId = res.entityInfo.id;
+        this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
+      }
+    });
   }
 
   ngOnInit() {
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+    this.leaveModel.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.leaveModel.permissions = data;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.leaveModel.subscription !== null) {
+      this.leaveModel.subscription.unsubscribe();
+    }
   }
 
   initialize() {
@@ -68,9 +79,10 @@ export class ManageLeaveComponent implements OnInit {
    */
 
   viewAllUserLeaves(pageIndex, search) {
+    this.leaveModel.dataSource = null;
     this.leaveModel.loading = true;
     let data = {
-      entityId: this.helperService.getEntityId()
+      entityId: this.leaveModel.entityId
     };
     let pagination: PaginationData = {
       offset: pageIndex * this.helperService.appConstants.paginationLimit,

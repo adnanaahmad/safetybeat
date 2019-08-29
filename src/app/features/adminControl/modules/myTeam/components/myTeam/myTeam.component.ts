@@ -30,7 +30,6 @@ export class MyTeamComponent implements OnInit, OnDestroy {
               private navService: NavigationService,
               private adminServices: AdminControlService) {
     this.myTeam.loading = false;
-
   }
 
   ngOnInit() {
@@ -57,7 +56,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
 
   getAllUsers() {
     let data = {
-      entityId: this.helperService.getEntityId()
+      entityId: this.myTeam.entityId ? this.myTeam.entityId : this.helperService.getEntityId()
     };
     this.memberService.getUsersList(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -83,9 +82,10 @@ export class MyTeamComponent implements OnInit, OnDestroy {
   }
 
   getAllTeams(pageIndex, search) {
+    this.myTeam.pageCount = 0;
     this.myTeam.loading = true;
     let data: GetAllTeamsData = {
-      entityId: this.myTeam.entityId
+      entityId: this.myTeam.entityId ? this.myTeam.entityId : this.helperService.getEntityId()
     };
     let paginationData: PaginationData = {
       offset: pageIndex * this.helperService.appConstants.paginationLimit,
