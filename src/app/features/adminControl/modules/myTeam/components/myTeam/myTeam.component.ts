@@ -36,10 +36,10 @@ export class MyTeamComponent implements OnInit, OnDestroy {
     this.myTeam.firstIndex = 0;
     this.myTeam.search = '';
     this.myTeam.pageSize = 10;
-    this.getAllUsers();
     this.myTeam.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.myTeam.entityId = res.entityInfo.id;
+        this.getAllUsers();
         this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
       }
     });
@@ -55,8 +55,9 @@ export class MyTeamComponent implements OnInit, OnDestroy {
   }
 
   getAllUsers() {
+    this.allUsers = null;
     let data = {
-      entityId: this.myTeam.entityId ? this.myTeam.entityId : this.helperService.getEntityId()
+      entityId: this.myTeam.entityId
     };
     this.memberService.getUsersList(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -85,7 +86,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
     this.myTeam.pageCount = 0;
     this.myTeam.loading = true;
     let data: GetAllTeamsData = {
-      entityId: this.myTeam.entityId ? this.myTeam.entityId : this.helperService.getEntityId()
+      entityId: this.myTeam.entityId
     };
     let paginationData: PaginationData = {
       offset: pageIndex * this.helperService.appConstants.paginationLimit,
