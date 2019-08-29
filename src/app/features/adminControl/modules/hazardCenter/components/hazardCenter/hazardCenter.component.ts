@@ -81,6 +81,7 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
    * @params search
    */
   getHazardList(pageIndex, search) {
+    this.pageCount = 0;
     let entityData = {
       'entityId': this.hazardTable.entityId,
     };

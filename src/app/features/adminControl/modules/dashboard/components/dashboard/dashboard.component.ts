@@ -31,11 +31,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private navigationService: NavigationService
   ) {
     this.dashboardObj.loading = false;
+    this.dashboardObj.subscription = this.navigationService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.dashboardObj.entityId = res.entityInfo.id;
+      }
+    })
   }
 
   ngOnInit() {
     this.dashboardObj.loading = true;
-    this.dashboardObj.entityId = this.helperService.getEntityId();
     this.makeReport(7, null, null)
     this.makeHazardReport(7, null, null, null)
     this.makePulseReport(7, null, null, null)

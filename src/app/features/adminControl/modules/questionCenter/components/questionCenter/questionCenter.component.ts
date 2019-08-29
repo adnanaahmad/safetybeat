@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AddQuestionComponent} from 'src/app/features/adminControl/modules/questionCenter/dialogs/addQuestion/addQuestion.component';
 import {CreateQuestionComponent} from 'src/app/features/adminControl/modules/questionCenter/dialogs/createQuestion/createQuestion.component';
@@ -18,7 +18,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './questionCenter.component.html',
   styleUrls: ['./questionCenter.component.scss'],
 })
-export class QuestionCenterComponent implements OnInit {
+export class QuestionCenterComponent implements OnInit, OnDestroy {
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
@@ -49,16 +49,26 @@ export class QuestionCenterComponent implements OnInit {
     private breakpointObserver: BreakpointObserver
   ) {
     this.initialize();
+    this.QuestionObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.QuestionObj.entityId = res.entityInfo.id;
+        this.getAllQuestions(this.QuestionObj.firstIndex);
+        this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
+      }
+    })
   }
 
   ngOnInit() {
-    this.getAllQuestions(this.QuestionObj.firstIndex);
-    this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
+
     this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.QuestionObj.permissions = data;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.QuestionObj.subscription.unsubscribe();
   }
 
   /**
@@ -78,9 +88,10 @@ export class QuestionCenterComponent implements OnInit {
    * this function is used to call the api to get all the questions for Question bank by passing the entityId.
    */
   getAllQuestions(pageIndex, search?: string) {
+    this.QuestionObj.parentPageCount = 0;
     this.QuestionObj.loading = true;
     let data = {
-      'entityId': this.helperService.getEntityId()
+      'entityId': this.QuestionObj.entityId ? this.QuestionObj.entityId : this.helperService.getEntityId()
     };
 
     let paginationData: PaginationData = {
@@ -205,9 +216,10 @@ export class QuestionCenterComponent implements OnInit {
    * this function is used to call the api to get all the question for Entity in the Question Table.
    */
   getAllEntityQuestions(pageIndex, search) {
+    this.QuestionObj.entityPageCount = 0;
     this.QuestionObj.loading = true;
     let data = {
-      'entityId': this.helperService.getEntityId(),
+      'entityId': this.QuestionObj.entityId ? this.QuestionObj.entityId : this.helperService.getEntityId()
     };
     let paginationData: PaginationData = {
       offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,

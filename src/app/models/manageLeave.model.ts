@@ -1,8 +1,11 @@
 import {MatTableDataSource} from '@angular/material';
 import {LeaveTypes} from './profile/profile.model';
 import {PermissionsModel} from './adminControl/permissions.model';
+import {Subscription} from 'rxjs';
 
 export interface ManageLeave {
+  entityId: number;
+  subscription: Subscription;
   permissions: PermissionsModel;
   currentDate: Date;
   loading: boolean;

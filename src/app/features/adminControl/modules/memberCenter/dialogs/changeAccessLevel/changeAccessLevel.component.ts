@@ -1,16 +1,17 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {ChangePermissionsObj, PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {FormBuilder} from '@angular/forms';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-changeAccessLevel',
   templateUrl: './changeAccessLevel.component.html',
   styleUrls: ['./changeAccessLevel.component.scss']
 })
-export class ChangeAccessLevelComponent implements OnInit {
+export class ChangeAccessLevelComponent implements OnInit, OnDestroy {
   permissions: ChangePermissionsObj = <ChangePermissionsObj>{};
 
   constructor(
@@ -18,9 +19,15 @@ export class ChangeAccessLevelComponent implements OnInit {
     public helperService: HelperService,
     public memberService: MemberCenterService,
     private formBuilder: FormBuilder,
+    private navService: NavigationService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
-    this.permissions.permissionsData = this.data.permissions
+    this.permissions.permissionsData = this.data.permissions;
+    this.permissions.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.permissions.entityId = res.entityInfo.id;
+      }
+    })
   }
 
   ngOnInit() {
@@ -102,10 +109,16 @@ export class ChangeAccessLevelComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    if (this.permissions.entityId) {
+      this.permissions.subscription.unsubscribe();
+    }
+  }
+
   permissionsFormSubmit({value}: { value: PermissionsModel }) {
     this.permissions.loading = true;
     value.userId = this.data.id;
-    value.entityId = this.helperService.getEntityId();
+    value.entityId = this.permissions.entityId;
     this.memberService.updateUserPermission(value, this.permissions.permissionsData.id).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.permissions.loading = false;

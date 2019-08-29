@@ -1,16 +1,17 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatAutocomplete, MatCheckboxChange, MatDialogRef} from '@angular/material';
 import {GenerateQuestionData, QuestionCenter, Questions} from 'src/app/models/adminControl/questionCenter.model';
 import {FormBuilder, Validators} from '@angular/forms';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
+import {NavigationService} from '../../../../../navigation/services/navigation.service';
 
 @Component({
   selector: 'app-addQuestion',
   templateUrl: './addQuestion.component.html',
   styleUrls: ['./addQuestion.component.scss']
 })
-export class AddQuestionComponent implements OnInit {
+export class AddQuestionComponent implements OnInit, OnDestroy {
   QuestionObj: QuestionCenter = <QuestionCenter>{};
   @ViewChild('questionInput') userInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -20,6 +21,7 @@ export class AddQuestionComponent implements OnInit {
     public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddQuestionComponent>,
     private questionCenterService: QuestionCenterService,
+    private navService: NavigationService,
     @Inject(MAT_DIALOG_DATA) public data,
   ) {
     this.initialize();
@@ -27,6 +29,11 @@ export class AddQuestionComponent implements OnInit {
     this.QuestionObj.childQuestions = data.childQuestions;
     this.QuestionObj.edit = data.edit;
     this.QuestionObj.loading = false;
+    this.QuestionObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.QuestionObj.entityId = res.entityInfo.id;
+      }
+    })
   }
 
   ngOnInit() {
@@ -46,6 +53,10 @@ export class AddQuestionComponent implements OnInit {
         childNoSafe: this.data.questionData.childNoSafe,
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.QuestionObj.subscription.unsubscribe();
   }
 
   initialize() {
@@ -74,7 +85,7 @@ export class AddQuestionComponent implements OnInit {
       childNoSafe: questionForm.value.childNoSafe,
     };
     if (!this.QuestionObj.edit) {
-      questionData.entity = this.helperService.getEntityId();
+      questionData.entity = this.QuestionObj.entityId;
     }
     return questionData;
   }

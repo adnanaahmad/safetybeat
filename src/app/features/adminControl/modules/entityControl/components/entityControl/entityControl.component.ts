@@ -173,7 +173,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         let inviteTeamData = {
           entityData: entityData.entityInfo.code,
           usersData: users
-        }
+        };
         this.helperService.createDialog(InviteTeamModalComponent, {
           data: {inviteTeamData},
           disableClose: true

@@ -3,6 +3,7 @@ import {Translation} from '../translate.model';
 import {MatTableDataSource} from '@angular/material';
 import {PermissionsModel} from './permissions.model';
 import {responseDetails} from '../user.model';
+import {Subscription} from 'rxjs';
 
 
 export class QuestionCenter {
@@ -32,6 +33,8 @@ export class QuestionCenter {
   permissions: PermissionsModel;
   childYes: boolean;
   childNo: boolean;
+  subscription: Subscription;
+  entityId: number;
 }
 
 
