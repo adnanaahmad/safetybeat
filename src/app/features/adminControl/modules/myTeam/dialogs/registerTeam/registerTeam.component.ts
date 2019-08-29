@@ -5,7 +5,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-register-team',
@@ -35,8 +35,7 @@ export class RegisterTeamComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.registerTeamObj.registerTeamForm = this.formBuilder.group({
-      title: ['', Validators.required],
-
+      title: ['', Validators.required]
     });
     if (this.registerTeamObj.editTeam) {
       this.getFormControls['title'].setValue(this.data.teamList.team.title);

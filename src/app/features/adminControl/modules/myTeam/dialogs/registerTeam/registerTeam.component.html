@@ -28,12 +28,12 @@
                 <div class="data-search">
                     <div class="data-result">
                         <!--User-->
-                        <mat-card class="text-center"
-                                  *ngIf="registerTeamObj.allUsersList.length === 0">
-                            {{this.helperService.translated.MESSAGES.NO_USER}}
-                        </mat-card>
-                        <ng-container *ngIf="registerTeamObj.allUsersList.length !== 0">
-                            <div class="list-item mat-elevation-z2" *ngFor="let user of registerTeamObj.allUsers">
+<!--                        <mat-card class="text-center"-->
+<!--                                  *ngIf="registerTeamObj.allUsersList.length === 0">-->
+<!--                            {{this.helperService.translated.MESSAGES.NO_USER}}-->
+<!--                        </mat-card>-->
+                        <ng-container>
+                            <div class="list-item mat-elevation-z2" *ngFor="let user of registerTeamObj?.allUsers">
                                 <div class="user-thumbnail">
                                     <img src="{{ user.profileImage != null ? user.profileImage : helperService.appConstants.avatar}}">
                                 </div>
