@@ -40,6 +40,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
     this.myTeam.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.myTeam.entityId = res.entityInfo.id;
+        this.getAllUsers();
         this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
       }
     });
@@ -56,7 +57,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
 
   getAllUsers() {
     let data = {
-      entityId: this.myTeam.entityId ? this.myTeam.entityId : this.helperService.getEntityId()
+      entityId: this.myTeam.entityId
     };
     this.memberService.getUsersList(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
