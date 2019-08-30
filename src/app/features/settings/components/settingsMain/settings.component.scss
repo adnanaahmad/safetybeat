@@ -11,11 +11,11 @@
       clear: both;
     }
     .number-fields {
+      width: 100px !important;
       .country-code {
         width: 35px;
         float: left;
         padding-left: 10px;
-        border-right: 1px solid #ccc;
       }
       .number-input {
         width: 80%;
