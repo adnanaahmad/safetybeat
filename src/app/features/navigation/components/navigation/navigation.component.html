@@ -59,8 +59,7 @@
               </div>
             </button>
             <mat-menu class="mdropdown2" #menu="matMenu">
-              <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile"
-                      *ngIf="navModel.permissions?.viewProfile">
+              <button mat-menu-item [routerLink]="helperService.appConstants.paths.profile">
                 <mat-icon>{{helperService.appIcons.person}}</mat-icon>
                 {{helperService.translated.BUTTONS.VIEWPROFILE}}
               </button>
