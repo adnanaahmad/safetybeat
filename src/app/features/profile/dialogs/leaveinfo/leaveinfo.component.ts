@@ -19,7 +19,7 @@ export class LeaveinfoComponent implements OnInit {
   ) {
     if (data) {
       this.userLeaveData = this.data[0];
-      if(this.userLeaveData && !this.userLeaveData.approved) {
+      if (this.userLeaveData && !this.userLeaveData.approved) {
         this.isEditable = true
       }
     }
@@ -32,7 +32,7 @@ export class LeaveinfoComponent implements OnInit {
     let obj = {
       leaveData: this.userLeaveData,
       delete: false
-    }
+    };
     this.dialogRef.close(obj);
   }
 
@@ -40,7 +40,7 @@ export class LeaveinfoComponent implements OnInit {
     let obj = {
       leaveData: this.userLeaveData,
       delete: true
-    }
+    };
     this.dialogRef.close(obj);
   }
 
