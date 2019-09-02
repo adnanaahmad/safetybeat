@@ -44,26 +44,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <!--<div class="input country-code">
-      <label class="mat-h4 selected-entity">Contact Number</label>
-      <mat-form-field fullWidth>
-        <div class="code-input">
-          <input class="" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
-                 maxlength="3"
-                 (keypress)="numberOnly($event)" onPaste="return false" autocomplete="off"/>
-        </div>
-        <input matInput type="text" class="showonly number-input" required
-               [formControlName]="helperService.appConstants.contactNo"
-               (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)" onPaste="return false"
-               autocomplete="off"/>
-        <mat-error *ngIf="generalViewForm.countryCode.errors">
-          <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
-            <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-            <span *ngIf="generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-          </mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div> -->
+
     <div class="input">
       <mat-form-field appearance="outline" fullWidth>
         <mat-label>Email</mat-label>
