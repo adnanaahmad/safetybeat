@@ -189,7 +189,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * @params date
    * @params events
    */
-  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }, isEdit? : boolean): void {
+  dayClicked({date, events}: { date: Date; events: CalendarEvent[] }, isEdit?: boolean): void {
     this.profileModel.userLeavesData = [];
     if (events.length !== 0) {
       let self = this;
@@ -206,11 +206,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
         };
         self.profileModel.userLeavesData.push(data);
       });
-      this.helperService.createDialog(LeaveinfoComponent, {disableClose: true,data: this.profileModel.userLeavesData});
+      this.helperService.createDialog(LeaveinfoComponent, {disableClose: true, data: this.profileModel.userLeavesData});
       this.helperService.dialogRef.afterClosed().subscribe(result => {
-        if(this.profileModel.userLeavesData && !this.profileModel.userLeavesData[0].approved && result !== "NO" && !result.delete) {
+        if (this.profileModel.userLeavesData && !this.profileModel.userLeavesData[0].approved && result !== 'NO' && !result.delete) {
           this.editLeaveDate(result.leaveData);
-        } else if(this.profileModel.userLeavesData && result.delete) {
+        } else if (this.profileModel.userLeavesData && result.delete) {
           this.deleteLeaveDate(result.leaveData);
         }
       });
@@ -232,11 +232,11 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
             this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_LEAVE_SUCCESS,
               this.helperService.constants.status.SUCCESS);
-              this.userLeaves(this.profileModel.userId);
+            this.userLeaves(this.profileModel.userId);
           } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
             this.helperService.createSnack(this.helperService.translated.MESSAGES.REMOVE_LEAVE_FAILURE,
               res.responseDetails.message);
-              this.userLeaves(this.profileModel.userId);
+            this.userLeaves(this.profileModel.userId);
           }
         }, (error) => {
           this.helperService.createSnack(error.error, this.helperService.constants.status.ERROR);
@@ -244,7 +244,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
-  
+
 
   /**
    * this function will edit leave
