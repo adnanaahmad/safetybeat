@@ -244,6 +244,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
   }
+  
 
   /**
    * this function will edit leave
