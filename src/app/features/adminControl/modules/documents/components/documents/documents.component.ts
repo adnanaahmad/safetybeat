@@ -90,7 +90,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.documentsData.rootDocs = [];
-        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        //this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       } else {
         this.documentsData.rootDocs = [];
         this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
