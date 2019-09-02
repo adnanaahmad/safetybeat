@@ -93,8 +93,8 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         //this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       } else {
         this.documentsData.rootDocs = [];
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
-          this.helperService.constants.status.ERROR);
+        // this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
+        //   this.helperService.constants.status.ERROR);
       }
       this.loadingBar = false;
     }, (error) => {
