@@ -52,7 +52,8 @@ export class ShowFolderDocumentsComponent implements OnInit {
         this.helperService.iterations(this.documentsData.docList, function (obj) {
           obj.sourceUrl = 'https//docs.google.com/gview?url=' + obj.file + '&embedded=true';
         });
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4] ||
+        res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.documentsData.docList = [];
         this.documentsData.folderDoc = false;
       } else {
@@ -62,7 +63,7 @@ export class ShowFolderDocumentsComponent implements OnInit {
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-          // some code here
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
