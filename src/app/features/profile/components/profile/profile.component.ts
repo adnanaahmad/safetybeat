@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.name = this.profileModel.profileData.first_name + ' ' + this.profileModel.profileData.last_name;
           this.profileModel.username = this.profileModel.profileData.username;
           this.profileModel.email = this.profileModel.profileData.email;
-          this.profileModel.profileImage = this.profileModel.profileData.profileImage;
+          this.profileModel.profileImage = this.profileModel.profileData.thumbnail;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.userLeaves(this.profileModel.userId);
           this.getUserConnections(this.profileModel.userId, this.profileModel.firstIndex);
@@ -141,7 +141,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.name = this.profileModel.receivedData.name;
           this.profileModel.email = this.profileModel.receivedData.email;
-          this.profileModel.profileImage = this.profileModel.profileData.profileImage;
+          this.profileModel.profileImage = this.profileModel.profileData.thumbnail;
           this.userLeaves(this.profileModel.profileData.id);
         }
       } else {
