@@ -11,6 +11,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'entityControl',

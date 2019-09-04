@@ -182,6 +182,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           return entity.active === true;
         });
         this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
+        let permissionData = JSON.stringify(this.loginObj.selectedEntity.permissions);
+        localStorage.setItem('url', this.helperService.encrypt(permissionData , this.helperService.appConstants.key));
         if (expired) {
           this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
         } else {
