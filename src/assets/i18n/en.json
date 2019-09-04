@@ -443,7 +443,9 @@
     "IS": "Is ",
     "ERROR_MSG": "Please check your internet connection or your session has been expired",
     "REMOVE_LEAVE_SUCCESS": "Leave has been deleted",
-    "REMOVE_LEAVE_FAILURE": "Leave wasn't deleted"
+    "REMOVE_LEAVE_FAILURE": "Leave wasn't deleted",
+    "CHECKIN_CATEGORIES": "Check-in Categories",
+    "PULSE_CATEGORIES": "Pulse Categories"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",
