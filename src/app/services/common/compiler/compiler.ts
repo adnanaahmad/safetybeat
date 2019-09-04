@@ -186,6 +186,7 @@ export class CompilerProvider {
         email: obj.user.email,
         contact: obj.user.contactNo,
         profileImage: obj.user.profileImage,
+        thumbnail: obj.user.thumbnail,
         accessLevel: obj.role,
         id: obj.user.id,
         status: obj.status,
@@ -207,6 +208,7 @@ export class CompilerProvider {
         email: obj.email,
         contact: obj.contactNo,
         profileImage: obj.profileImage,
+        thumbnail: obj.thumbnail,
         id: obj.id,
         username: obj.username
       };

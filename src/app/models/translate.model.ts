@@ -531,6 +531,8 @@ export interface Messages {
   ERROR_MSG: string;
   REMOVE_LEAVE_SUCCESS: string;
   REMOVE_LEAVE_FAILURE: string;
+  CHECKIN_CATEGORIES: string;
+  PULSE_CATEGORIES: string;
 }
 
 export interface Logger {

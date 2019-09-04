@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dashboardObj.loading = false;
     this.dashboardObj.subscription = this.navigationService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
+        debugger
         this.dashboardObj.entityId = res.entityInfo.id;
-        this.dashboardObj.loading = true;
         this.makeReport(7, null, null);
         this.makeHazardReport(7, null, null, null);
         this.makePulseReport(7, null, null, null);
@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'dateFrom': dateFrom,
       'days': days,
     };
-    this.dashboardObj.subscription = this.analyticsService.actionReport(data).subscribe((res) => {
+    this.analyticsService.actionReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.dashboardObj.actionReportData = res.data.checkInList;
         let chartType: HighChartType = {
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.dashboardObj.actionReportData));
-        this.dashboardObj.containerDiv = document.getElementById('container')
+        this.dashboardObj.containerDiv = document.getElementById('actionReport')
         if (this.dashboardObj.containerDiv) {
           Highcharts.chart(this.dashboardObj.containerDiv, data);
         }
@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'days': days,
       'user': user
     };
-    this.dashboardObj.subscription = this.analyticsService.getHazardReport(data).subscribe((res) => {
+     this.analyticsService.getHazardReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.dashboardObj.hazardReportData = res.data.hazardReportBySeverity;
         this.dashboardObj.resolvedHazards = res.data.resolvedHazard;
@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'days': days,
       'user': userId
     };
-    this.dashboardObj.subscription = this.analyticsService.pulseByEntity(data).subscribe((res) => {
+    this.analyticsService.pulseByEntity(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.dashboardObj.pulseByEntityReportData = res.data.pulseByEntity;
         let chartType: HighChartType = {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
@@ -22,7 +22,7 @@ import * as Highcharts from 'highcharts';
   templateUrl: './hazardReport.component.html',
   styleUrls: ['./hazardReport.component.scss']
 })
-export class HazardReportComponent implements OnInit {
+export class HazardReportComponent implements OnInit, OnDestroy {
   hazardObj: Report = <Report>{};
   private data: any;
 
@@ -35,14 +35,18 @@ export class HazardReportComponent implements OnInit {
               private navService: NavigationService,
               private highChartSettings: HighchartService) {
     this.initialize();
-    this.setEntityName();
+    // this.setEntityName();
     this.getFilters();
     this.getAllUsers();
   }
 
   ngOnInit() {
     this.hazardObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
+        this.hazardObj.entityId = res.entityInfo.id;
+        this.hazardObj.entityName = res.entityInfo.name;
+        this.hazardFormValidations['entityName'].setValue(this.hazardObj.entityName);
+        this.hazardFormValidations['entityName'].disable();
         this.makeReport(7, null, null, null)
       }
     });
@@ -63,16 +67,13 @@ export class HazardReportComponent implements OnInit {
     this.hazardObj.minDate = null;
   }
 
-  setEntityName() {
-    this.hazardObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.hazardObj.entityId = res.entityInfo.id;
-        this.hazardObj.entityName = res.entityInfo.name;
-        this.hazardFormValidations['entityName'].setValue(this.hazardObj.entityName);
-        this.hazardFormValidations['entityName'].disable();
-      }
-    });
-  }
+  // setEntityName() {
+  //   this.hazardObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+  //     if (res && res !== 1) {
+  //
+  //     }
+  //   });
+  // }
 
   get hazardFormValidations() {
     return this.hazardObj.hazardReportForm.controls;
@@ -242,5 +243,9 @@ export class HazardReportComponent implements OnInit {
   enableDateFrom() {
     this.hazardFormValidations[this.helperService.appConstants.dateTo].enable();
     this.hazardObj.minDate = this.hazardFormValidations[this.helperService.appConstants.dateFrom].value;
+  }
+
+  ngOnDestroy() {
+    this.hazardObj.subscription.unsubscribe();
   }
 }
