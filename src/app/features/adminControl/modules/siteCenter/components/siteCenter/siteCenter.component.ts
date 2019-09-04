@@ -11,6 +11,7 @@ import {PaginationData, Site, SitesInfo, ViewAllSiteEntityData} from 'src/app/mo
 import {AddHazardComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import {ArchivedSitesComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/archivedSites/archivedSites.component';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
@@ -230,6 +231,21 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   viewMap() {
     this.helperService.createDialog(SiteMapComponent,
       {disableClose: true, height: '75%', width: '80%', data: {'siteData': this.siteCentreObj.sitesData, type: false}});
+  }
+
+  /**
+   * this function is used to open the viewMap dialog.
+   */
+  getArchivedSites() {
+      this.helperService.createDialog(ArchivedSitesComponent, {
+        disableClose: true,
+        data: {Modal: false, 'siteData': this.siteCentreObj.sitesData}
+      });
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res !== this.helperService.appConstants.no) {
+          this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+        }
+      });
   }
 
   getAllUsers(entityId: number) {

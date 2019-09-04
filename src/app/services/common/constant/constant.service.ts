@@ -436,7 +436,8 @@ export class ConstantService {
     teamLead: 'stars',
     Launch: 'launch',
     themeSwitcher: 'color_lens',
-    error: 'error'
+    error: 'error',
+    archived: 'archive'
   };
   /**
    * all the particle container icon names are declared here.

@@ -1,46 +1,9 @@
-<div class="spinner-wrap" *ngIf="siteCentreObj.loading">
+<div class="spinner-wrap" *ngIf="siteCentreObj?.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
 <div class="paddingbox">
-    <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
-        <div class="buttonRow">
-            <button class="mat-elevation-z6" mat-raised-button color="primary"
-                 (click)="getArchivedSites()">
-                <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
-                {{ helperService.translated.BUTTONS.ARCHIVED_SITES }}
-            </button>
-            <button class="mat-elevation-z6" mat-raised-button color="primary"
-                    *ngIf="siteCentreObj.permissions.viewSite" (click)="viewMap()">
-                <mat-icon>{{ helperService.appIcons.place }}</mat-icon>
-                {{ helperService.translated.BUTTONS.VIEW_MAP }}
-            </button>
-            <button class="mat-elevation-z6" mat-raised-button color="primary"
-                    *ngIf="siteCentreObj.permissions.addSite" (click)="addSite()">
-                <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
-                {{ helperService.translated.BUTTONS.ADD_SITE }}
-            </button>
-            <button class="mat-elevation-z6" mat-raised-button color="primary"
-                    *ngIf="siteCentreObj.permissions.ImportSite" (click)="importSite()">
-                <mat-icon>{{ helperService.appIcons.import }}</mat-icon>
-                {{ helperService.translated.BUTTONS.IMPORT_SITE }}
-            </button>
-        </div>
-        <!--Filter-->
-        <div class="data-filter">
-            <div class="input-wrap">
-                <input class="search-input" autocomplete="off" matInput placeholder="Search"
-                       (keyup)=getSitesData(siteCentreObj.firstIndex,$event.target.value)>
-                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
-            </div>
-          <a (click)="advanceSearch()"
-             class="mat-body-strong mat-small pointer">&nbsp;</a>
-        </div>
-        <!--/Filter-->
-    </div>
-
     <div class="table-wrap">
-        <table matSort mat-table [dataSource]="siteCentreObj.dataSource" class="customTable mat-elevation-z3">
+        <table matSort mat-table [dataSource]="siteCentreObj?.dataSource" class="customTable mat-elevation-z3">
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>
                     {{ helperService.translated.TABLEHEADINGS.SITE_NAME }}
@@ -134,10 +97,11 @@
         </table>
     </div>
 
-        <div class="paddingbox text-center" *ngIf="!siteCentreObj.loading && !siteCentreObj.dataSource">
+    <div class="paddingbox text-center" *ngIf="!siteCentreObj?.loading && !siteCentreObj?.dataSource">
             {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
         </div>
 
-    <mat-paginator class="mat-elevation-z1" [pageSize]="siteCentreObj.pageSize" [length]="siteCentreObj.pageCount"
-                   (page)="getSitesData(paginator.pageIndex, siteCentreObj.search)"></mat-paginator>
+    <mat-paginator class="mat-elevation-z1" [pageSize]="siteCentreObj?.pageSize" [length]="siteCentreObj?.pageCount"
+                   (page)="getSitesData(paginator.pageIndex, siteCentreObj?.search)"></mat-paginator>
+
 </div>

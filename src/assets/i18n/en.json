@@ -200,7 +200,8 @@
     "REPORTS": "Reports",
     "CHANGE_ACCESS_LEVEL": "Change Access Level",
     "LOGOUT": "Logout",
-    "HOW_IT_WORKS": "How it works"
+    "HOW_IT_WORKS": "How it works",
+    "ARCHIVED_SITES": "Archived Sites"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
