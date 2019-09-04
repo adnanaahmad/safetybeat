@@ -104,5 +104,6 @@ export interface HazardList {
   site: Site;
   title: string;
   createdTime: Date;
+  thumbnail: string;
 }
 

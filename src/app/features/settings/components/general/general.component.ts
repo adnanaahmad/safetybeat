@@ -35,7 +35,7 @@ export class GeneralComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       contactNo: ['', Validators.required],
-      countryCode: ['', Validators.required]
+      countryCode: ['', [Validators.required,  Validators.maxLength(3)]]
     }, {validator: this.phoneNumberValid.bind(this)});
     this.setGeneralForm();
     this.generalViewForm['email'].disable();

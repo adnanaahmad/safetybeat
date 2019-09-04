@@ -208,6 +208,7 @@ export class CompilerProvider {
         email: obj.email,
         contact: obj.contactNo,
         profileImage: obj.profileImage,
+        thumbnail: obj.thumbnail,
         id: obj.id,
         username: obj.username
       };

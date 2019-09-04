@@ -15,7 +15,7 @@ import {FirebaseService} from 'src/app/services/common/FirebaseNotification/fire
 import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {PermissionsModel} from '../../../../models/adminControl/permissions.model';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({
   selector: 'app-navigation',

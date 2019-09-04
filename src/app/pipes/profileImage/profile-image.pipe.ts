@@ -10,7 +10,7 @@ export class ProfileImagePipe implements PipeTransform {
   }
 
   transform(value: any, args?: any): any {
-    return value.profileImage != null ? value.profileImage : this.helperService.appConstants.avatar;
+    return value.thumbnail != null ? value.thumbnail : this.helperService.appConstants.avatar;
   }
 
 }

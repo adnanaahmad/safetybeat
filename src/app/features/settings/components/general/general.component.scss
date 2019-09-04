@@ -28,5 +28,28 @@
         padding-left: 8px;
       }
     }
+    .form-row {
+      display: flex;
+      mat-form-field {
+        width: 100%;
+        padding: 0 3px;
+      }
+    }
+    .number-fields {
+      width: 100px !important;
+      .country-code {
+        width: 35px;
+        float: left;
+        padding-left: 10px;
+      }
+      &:before {
+        content: "+";
+        position: absolute;
+        left: 13px;
+        top: 28px;
+        z-index: 2;
+        opacity: 0.3;
+      }
+    }
   }
 }
