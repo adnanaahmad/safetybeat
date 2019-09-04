@@ -55,10 +55,12 @@ export class AddleavesComponent implements OnInit {
       this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData.end));
       this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
+    this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
   }
 
   dateSelected(data, event) {
     this.rangeAt = event.value;
+    this.addLeaveFormValidations[this.helperService.appConstants.dateTo].enable();
   }
 
   /**
