@@ -1,17 +1,27 @@
 <div class="paddingbox">
   <div class="page-title">
     <h3>{{ helperService.translated.SITETITLE.HAZARD_CENTER }}</h3>
-    <!--Filter-->
-    <div class="data-filter">
-      <div class="input-wrap">
-        <input class="search-input" autocomplete="off" matInput placeholder="Search"
-               (keyup)=getHazardList(firstIndex,$event.target.value)>
-        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
-      </div>
-<!--      <a (click)="advanceSearch()" class="mat-body-strong mat-small pointer">{{helperService.translated.STRINGS.ADVSEARCH}}</a>-->
-      <a (click)="advanceSearch()" class="mat-body-strong mat-small pointer">&nbsp;</a>
+
+    <div class="buttonRow">
+        <button class="mat-elevation-z6" mat-raised-button color="primary"
+        (click)="getArchivedSites()">
+        <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
+        {{ helperService.translated.BUTTONS.ARCHIVED_HAZARDS }}
+      </button>
     </div>
-    <!--/Filter-->
+    
+    
+    <!--Filter-->
+      <div class="data-filter">
+        <div class="input-wrap">
+          <input class="search-input" autocomplete="off" matInput placeholder="Search"
+                (keyup)=getHazardList(firstIndex,$event.target.value)>
+          <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+        </div>
+        <a (click)="advanceSearch()"
+        class="mat-body-strong mat-small pointer">&nbsp;</a>
+      </div>
+      <!--/Filter-->
   </div>
 
   <div class="spinner-wrap" *ngIf="hazardTable.loading">
@@ -79,8 +89,8 @@
               {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
             </button>
             <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="confirmationModal(element.id)">
-              <mat-icon>{{ helperService.appIcons.deleteSweep }}</mat-icon>
-              Delete
+                <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
+                Archive
             </button>
           </mat-menu>
         </td>

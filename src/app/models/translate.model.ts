@@ -284,6 +284,7 @@ export interface Buttons {
     CHANGE_ACCESS_LEVEL: string;
     LOGOUT: string;
     HOW_IT_WORKS: string;
+    ARCHIVED_HAZARDS: string;
 }
 
 export interface Messages {
@@ -453,9 +454,9 @@ export interface Messages {
   HAZARD_NOT_ADDED: string;
   HAZARD_LIST_FAIL: string;
   HAZARD_EDIT_SUCCESS: string;
-  HAZARD_DELETE_SUCCESS: string;
+  HAZARD_ARCHIVE_SUCCESS: string;
   HAZARD_EDIT_FAILURE: string;
-  HAZARD_DELETE_FAILURE: string;
+  HAZARD_ARCHIVE_FAILURE: string;
   ADD_HAZARD: string;
   EDIT_HAZARD: string;
   SITE_HAZARD_DETAIL: string;
@@ -677,4 +678,7 @@ export interface Confirmation {
     DELETE_QUESTION: string;
     DELETE_LEAVE: string;
     ARCHIVE_SITE: string;
+    ARCHIVE_HAZARD: string;
+    ARCHIVE_ENTITY: string;
+    ARCHIVE_TEAM: string;
 }

@@ -60,6 +60,7 @@ export class ConstantService {
     connectionAdding: `${environment.apiUrl}/api/connections/`,
     connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
     viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
+    archiveHazard: `${environment.apiUrl}/api/hazard/archiveHazard/`,
     riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazardsOfEntity/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,

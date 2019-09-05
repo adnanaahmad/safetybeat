@@ -133,6 +133,14 @@ export class CompilerProvider {
     return siteData;
   }
 
+  constructAllHazardsData(hazardApiResponse: any): Array<any> {
+    return hazardApiResponse.filter((hazardData: any) => !hazardData.isArchived);
+  }
+
+  constructAllArchivedHazardsData(hazardApiResponse: any): Array<any> {
+    return hazardApiResponse.filter((hazardData: any) => hazardData.isArchived);
+  }
+
   constructAllSitesData(siteApiResponse: any): Array<SitesInfo> {
     return siteApiResponse.filter((siteData: any) => !siteData.isArchived);
   }
