@@ -12,6 +12,7 @@ export interface User {
   contactNo: string;
   profileImage: Blob;
   name: string;
+  thumbnail: string;
 }
 
 export interface PackageInfo {

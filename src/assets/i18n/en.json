@@ -265,6 +265,7 @@
     "EMAIL_ALREADY_EXISTS": "User with this email already exists",
     "ENTITYNAME_REQ": "Entity Name is Required.",
     "OFFICELOCATION_REQ": "Head Office Location is Required.",
+    "SITELOCATION_REQ": "Site Location is Required",
     "CREATEENTITY_MSG": "Enter Details to create Entity",
     "INVITE_USER": "Enter Details to Invite User",
     "ENTITYNAME": "Entity Name",
@@ -443,7 +444,9 @@
     "IS": "Is ",
     "ERROR_MSG": "Please check your internet connection or your session has been expired",
     "REMOVE_LEAVE_SUCCESS": "Leave has been deleted",
-    "REMOVE_LEAVE_FAILURE": "Leave wasn't deleted"
+    "REMOVE_LEAVE_FAILURE": "Leave wasn't deleted",
+    "CHECKIN_CATEGORIES": "Check-in Categories",
+    "PULSE_CATEGORIES": "Pulse Categories"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

@@ -18,15 +18,10 @@ export class NoAuthGuard implements CanActivate, OnDestroy {
     if (route.routeConfig.path === 'adminControl' || route.routeConfig.path === 'profile' ) {
       return true;
     }
-    this.subscription = this.navService.data.subscribe((res) => {
+    this.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        let index = this.helperService.findIndex(res.entities, function (entity) {
-          return entity.active === true;
-        });
-        let selectedEntity = index !== -1 ? res.entities[index] : res.entities[0];
+        let selectedEntity = res;
         this.permission = selectedEntity.permissions[this.helperService.constants.componentPermission[route.routeConfig.path]];
-        let data = JSON.stringify(selectedEntity.permissions);
-        localStorage.setItem('url', this.helperService.encrypt(data , this.helperService.appConstants.key));
       } else {
         let selectedEntity = JSON.parse(this.helperService.decrypt((localStorage.getItem('url')), this.helperService.appConstants.key));
         this.permission = selectedEntity[this.helperService.constants.componentPermission[route.routeConfig.path]];

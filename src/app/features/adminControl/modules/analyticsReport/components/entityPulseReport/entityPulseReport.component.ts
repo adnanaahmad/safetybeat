@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
@@ -14,7 +14,7 @@ import {MemberCenterService} from 'src/app/features/adminControl/modules/memberC
   templateUrl: './entityPulseReport.component.html',
   styleUrls: ['./entityPulseReport.component.scss']
 })
-export class EntityPulseReportComponent implements OnInit {
+export class EntityPulseReportComponent implements OnInit, OnDestroy {
   pulseEntityObj: Report = <Report>{};
 
 
@@ -26,14 +26,18 @@ export class EntityPulseReportComponent implements OnInit {
               private memberService: MemberCenterService,
               private highChartSettings: HighchartService) {
     this.initialize();
-    this.setEntityName();
+    // this.setEntityName();
     this.getFilters();
     this.getAllUsers();
   }
 
   ngOnInit() {
     this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
+        this.pulseEntityObj.entityId = res.entityInfo.id;
+        this.pulseEntityObj.entityName = res.entityInfo.name;
+        this.pulseEntityFormValidations['entityName'].setValue(this.pulseEntityObj.entityName);
+        this.pulseEntityFormValidations['entityName'].disable();
         this.makeReport(7, null, null, null);
       }
     });
@@ -54,16 +58,15 @@ export class EntityPulseReportComponent implements OnInit {
     this.pulseEntityObj.minDate = null;
   }
 
-  setEntityName() {
-    this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.pulseEntityObj.entityId = res.entityInfo.id;
-        this.pulseEntityObj.entityName = res.entityInfo.name;
-        this.pulseEntityFormValidations['entityName'].setValue(this.pulseEntityObj.entityName);
-        this.pulseEntityFormValidations['entityName'].disable();
-      }
-    });
-  }
+  // setEntityName() {
+  //   this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+  //     if (res && res !== 1) {
+  //
+  //     }
+
+
+  //   });
+  // }
 
   get pulseEntityFormValidations() {
     return this.pulseEntityObj.pulseEntityForm.controls;
@@ -225,5 +228,9 @@ export class EntityPulseReportComponent implements OnInit {
   enableDateFrom() {
     this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].enable();
     this.pulseEntityObj.minDate = this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].value;
+  }
+
+  ngOnDestroy() {
+    this.pulseEntityObj.subscription.unsubscribe();
   }
 }

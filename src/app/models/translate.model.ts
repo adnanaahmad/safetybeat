@@ -354,6 +354,7 @@ export interface Messages {
   ORGSIGNUPMESSAGE: string;
   ENTITYNAME_REQ: string;
   OFFICELOCATION_REQ: string;
+  SITELOCATION_REQ: string;
   CREATEENTITY_MSG: string;
   INVITE_USER: string;
   ENTITYNAME: string;
@@ -531,6 +532,8 @@ export interface Messages {
   ERROR_MSG: string;
   REMOVE_LEAVE_SUCCESS: string;
   REMOVE_LEAVE_FAILURE: string;
+  CHECKIN_CATEGORIES: string;
+  PULSE_CATEGORIES: string;
 }
 
 export interface Logger {

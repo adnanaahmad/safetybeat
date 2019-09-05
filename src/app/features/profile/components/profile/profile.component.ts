@@ -122,6 +122,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    * to the behavior subject of the profile data.
    */
   ngOnInit() {
+    this.profileModel.loading = true;
     this.profileModel.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         if (this.profileModel.currentUserProfile) {
@@ -131,7 +132,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.name = this.profileModel.profileData.first_name + ' ' + this.profileModel.profileData.last_name;
           this.profileModel.username = this.profileModel.profileData.username;
           this.profileModel.email = this.profileModel.profileData.email;
-          this.profileModel.profileImage = this.profileModel.profileData.profileImage;
+          this.profileModel.profileImage = this.profileModel.profileData.thumbnail;
           this.profileModel.userId = this.profileModel.profileData.id;
           this.userLeaves(this.profileModel.userId);
           this.getUserConnections(this.profileModel.userId, this.profileModel.firstIndex);
@@ -141,7 +142,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
           this.profileModel.profileData = this.profileModel.receivedData;
           this.profileModel.name = this.profileModel.receivedData.name;
           this.profileModel.email = this.profileModel.receivedData.email;
-          this.profileModel.profileImage = this.profileModel.profileData.profileImage;
+          this.profileModel.profileImage = this.profileModel.profileData.thumbnail;
           this.userLeaves(this.profileModel.profileData.id);
         }
       } else {
@@ -182,6 +183,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       'role',
       'administrator'
     ];
+    this.profileModel.loading = false;
   }
 
   /**
@@ -322,6 +324,7 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   uploadProfileImage(event) {
+    this.profileModel.loading = true;
     this.profileModel.imageFile = <File>event.target.files[0];
     let blob = new Blob([this.profileModel.imageFile], {type: 'image/*'});
     let formData = new FormData();
@@ -338,7 +341,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.PIC_EXCEEDS_LIMIT,
           this.helperService.constants.status.WARNING);
-
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
@@ -534,5 +536,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
+  }
+
+  onImageLoad() {
+    this.profileModel.loading = false;
   }
 }
