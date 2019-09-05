@@ -56,6 +56,7 @@ export class ConstantService {
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
+    archiveSite: `${environment.apiUrl}/api/sites/archiveSite/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
     connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
     viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
@@ -437,7 +438,8 @@ export class ConstantService {
     Launch: 'launch',
     themeSwitcher: 'color_lens',
     error: 'error',
-    archived: 'archive'
+    archived: 'archive',
+    undo: 'undo'
   };
   /**
    * all the particle container icon names are declared here.

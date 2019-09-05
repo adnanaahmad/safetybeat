@@ -105,7 +105,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     };
     this.siteCentreObj.loading = true;
     this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.siteCentreObj.pageCount = res.data.pageCount;
         this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
         this.adminServices.changeSites(this.siteCentreObj.sitesData);
@@ -201,7 +201,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * this function is used to open delete dialog.
    */
   confirmationModal(siteId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_SITE}});
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.ARCHIVE_SITE}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);

@@ -9,6 +9,7 @@ export interface Site {
   location: string,
   safeZone: boolean,
   siteSafetyPlan: string,
+  isArchived: boolean,
   createdBy: User,
   entity: number,
   gpsTrackEnabled: boolean,
@@ -62,6 +63,11 @@ export interface PaginationData {
 
 export interface ViewAllSiteEntityData {
   entityId: number;
+}
+
+export interface ViewAllSiteArchivedData {
+  entityId: number;
+  archived: boolean
 }
 
 export interface ViewAllSitesApiResponse {

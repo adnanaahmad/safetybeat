@@ -1,10 +1,16 @@
-import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {FormBuilder, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatBottomSheet, MatDialogRef} from '@angular/material';
+import {FormBuilder} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource, MatPaginator, MatDialog} from '@angular/material';
+import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
-import {AddSite} from 'src/app/models/adminControl/addSite.model';
+import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
 import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {PaginationData, ViewAllSiteArchivedData} from 'src/app/models/site.model';
+import {HttpErrorResponse} from '@angular/common/http';
+import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
+
+import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-archivedSites',
@@ -12,34 +18,47 @@ import {NavigationService} from '../../../../../navigation/services/navigation.s
   styleUrls: ['./archivedSites.component.scss']
 })
 export class ArchivedSitesComponent implements OnInit, OnDestroy {
-  addSiteObj: AddSite = <AddSite>{};
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  archivedSitesObj: SiteCentre = <SiteCentre>{};
+  displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'siteSafetyManager', 'symbol'];
 
 
   constructor(
     public helperService: HelperService,
-    public formBuilder: FormBuilder,
+    public adminServices: AdminControlService,
     public dialogRef: MatDialogRef<ArchivedSitesComponent>,
     public compiler: CompilerProvider,
     private render: Renderer2,
     private navService: NavigationService,
-    @Inject(MAT_DIALOG_DATA) public data
+    public dialog: MatDialog,
+    private memberCenterService: MemberCenterService
   ) {
-    this.render.addClass(document.body, this.helperService.constants.config.theme.addSiteClass);
-    this.addSiteObj.loading = false;
-    this.addSiteObj.modalType = data.Modal;
-    this.addSiteObj.enableRadius = false;
-    if (data && data.site) {
-      this.addSiteObj.site = data.site;
-      this.addSiteObj.siteSafetyManager = data.site.siteSafetyManager;
-      this.addSiteObj.createdBy = data.site.createdBy;
-      this.addSiteObj.radius = data.site.radius;
-      this.addSiteObj.gpsTrackEnabled = data.site.gpsTrackEnabled;
-    }
-    this.addSiteObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+    this.archivedSitesObj.loading = true;
+    this.initialize();
+    this.archivedSitesObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        this.addSiteObj.entityId = res.entityInfo.id;
+        // this.getAllUsers(res.entityInfo.id);
+        this.archivedSitesObj.entityId = res.entityInfo.id;
+        this.getSitesData(this.archivedSitesObj.firstIndex, this.archivedSitesObj.search);
       }
-    })
+    });
+    this.archivedSitesObj.subscription = this.navService.currentUserData.subscribe((res) => {
+      if (res) {
+        this.archivedSitesObj.currentUserData = res;
+      }
+    });
+  }
+
+  /**
+   * this function is used to initialize the global variables that we have made in the models.
+   */
+  initialize() {
+    this.archivedSitesObj.search = '';
+    this.archivedSitesObj.firstIndex = 0;
+    this.archivedSitesObj.pageSize = 10;
+    this.archivedSitesObj.dataSource = null;
+    this.archivedSitesObj.allUsersList = [];
+    this.archivedSitesObj.loading = false;
   }
 
   /**
@@ -48,7 +67,13 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    * here that we need in the addSiteForm.
    */
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.archivedSitesObj.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.archivedSitesObj.permissions = data;
+      }
+    });
+  }
 
   /**
    * this function is called when the component is destroyed and it removes the assigned body class to this particular
@@ -57,9 +82,53 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.helperService.hideLoggers();
-    if (this.addSiteObj.entityId) {
-      this.addSiteObj.subscription.unsubscribe();
+    if (this.archivedSitesObj.entityId) {
+      this.archivedSitesObj.subscription.unsubscribe();
     }
+  }
+
+  /**
+   * this function is used to view all the sites data against the particular entity id.
+   */
+  getSitesData(pageIndex, search) {
+    this.archivedSitesObj.pageCount = 0;
+    let entityData: ViewAllSiteArchivedData = {
+      entityId: this.archivedSitesObj.entityId,
+      archived: true
+    };
+    let paginationData: PaginationData = {
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit,
+      search: search
+    };
+    if(typeof(search) === 'string' && search.length === 0) {
+      this.archivedSitesObj.loading = true;
+    }  
+    this.adminServices.viewArchivedSites(entityData, paginationData).subscribe((res) => {
+      if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.archivedSitesObj.pageCount = res.data.pageCount;
+        this.archivedSitesObj.sitesData = this.compiler.constructAllSitesArchivedData(res.data.sitesList);
+        this.adminServices.changeSites(this.archivedSitesObj.sitesData);
+        this.archivedSitesObj.dataSource = new MatTableDataSource(this.archivedSitesObj.sitesData);
+        this.archivedSitesObj.loading = false;
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        this.archivedSitesObj.dataSource = null;
+        this.archivedSitesObj.loading = false;
+      }
+    }, (error: HttpErrorResponse) => {
+      this.archivedSitesObj.dataSource = null;
+      this.archivedSitesObj.loading = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
+        this.helperService.constants.status.ERROR);
+    });
+  }
+
+  /**
+   * Unarchive site 
+   * @param siteData 
+   */
+  unarchiveSite(siteData: any) {
+    // api need to be build
   }
 
   /**

@@ -674,4 +674,5 @@ export interface Confirmation {
     DELETE_TEAM: string;
     DELETE_QUESTION: string;
     DELETE_LEAVE: string;
+    ARCHIVE_SITE: string;
 }

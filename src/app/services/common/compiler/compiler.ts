@@ -134,9 +134,12 @@ export class CompilerProvider {
   }
 
   constructAllSitesData(siteApiResponse: any): Array<SitesInfo> {
-    return siteApiResponse;
+    return siteApiResponse.filter((siteData: any) => !siteData.isArchived);
   }
 
+  constructAllSitesArchivedData(siteApiResponse: any): Array<SitesInfo> {
+    return siteApiResponse.filter((siteData: any) => siteData.isArchived);
+  }
 
   constructDocuments(documentsApiResponse: any): Array<DocumentObj> {
     return documentsApiResponse.data;
