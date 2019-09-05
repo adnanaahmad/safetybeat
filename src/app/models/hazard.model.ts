@@ -16,6 +16,7 @@ export interface HazardModel {
 }
 
 export interface AddHazardModel {
+  thumbnail: File;
   emails: string[];
   shareHazard: boolean;
   filteredSelectedUsers: any;
@@ -104,5 +105,6 @@ export interface HazardList {
   site: Site;
   title: string;
   createdTime: Date;
+  thumbnail: string;
 }
 

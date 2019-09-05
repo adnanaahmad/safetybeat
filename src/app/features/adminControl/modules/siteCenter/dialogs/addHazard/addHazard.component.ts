@@ -55,7 +55,7 @@ export class AddHazardComponent implements OnInit {
       this.addHazardControls['risk'].setValue(this.data.hazardInfo.risk.id);
       this.addHazardControls['note'].setValue(this.data.hazardInfo.precautionaryNote);
       this.addHazardControls['responsible'].setValue(this.data.hazardInfo.isEntityResponsible);
-      this.hazardObj.url = this.data.hazardInfo.image ? this.data.hazardInfo.image : this.helperService.appConstants.noHazard;
+      this.hazardObj.url = this.data.hazardInfo.thumbnail ? this.data.hazardInfo.thumbnail : this.helperService.appConstants.noHazard;
       this.hazardObj.actionsArray = this.data.hazardInfo.actions;
     } else {
       this.hazardObj.siteName = this.data.siteName;
@@ -101,6 +101,7 @@ export class AddHazardComponent implements OnInit {
   onFileSelected(file: FileList) {
     this.hazardObj.removeImage = 'False';
     this.hazardObj.image = file.item(0);
+    this.hazardObj.thumbnail = file.item(0);
     let reader = new FileReader();
     reader.onload = (event: any) => {
       this.hazardObj.url = event.target.result;

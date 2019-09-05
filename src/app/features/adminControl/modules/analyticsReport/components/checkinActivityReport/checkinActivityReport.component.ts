@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
@@ -14,7 +14,7 @@ import {HighchartService} from 'src/app/services/common/highchart/highchart.serv
   templateUrl: './checkinActivityReport.component.html',
   styleUrls: ['./checkinActivityReport.component.scss']
 })
-export class CheckInActivityReportComponent implements OnInit {
+export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   checkInActivityObj: Report = <Report>{};
 
   constructor(public helperService: HelperService,
@@ -32,7 +32,7 @@ export class CheckInActivityReportComponent implements OnInit {
 
   ngOnInit() {
     this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
         this.makeReport(7, null, null, null)
       }
     });
@@ -55,7 +55,7 @@ export class CheckInActivityReportComponent implements OnInit {
 
   setEntityName() {
     this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
         this.checkInActivityObj.entityId = res.entityInfo.id;
         this.checkInActivityObj.entityName = res.entityInfo.name;
         this.checkInActivityFormValidations['entityName'].setValue(this.checkInActivityObj.entityName);
@@ -197,4 +197,9 @@ export class CheckInActivityReportComponent implements OnInit {
     this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].enable();
     this.checkInActivityObj.minDate = this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].value;
   }
+
+  ngOnDestroy() {
+    this.checkInActivityObj.subscription.unsubscribe();
+  }
+
 }

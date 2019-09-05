@@ -26,13 +26,17 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     private highChartSettings: HighchartService
   ) {
     this.initialize();
-    this.setEntityName();
+    // this.setEntityName();
     this.getFilters();
   }
 
   ngOnInit() {
     this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
+        this.actionReportObj.entityId = res.entityInfo.id;
+        this.actionReportObj.entityName = res.entityInfo.name;
+        this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
+        this.actionFormValidations['entityName'].disable();
         this.makeReport(7, null, null);
       }
     });
@@ -56,16 +60,13 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.actionReportObj.minDate = null;
   }
 
-  setEntityName() {
-    this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.actionReportObj.entityId = res.entityInfo.id;
-        this.actionReportObj.entityName = res.entityInfo.name;
-        this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
-        this.actionFormValidations['entityName'].disable();
-      }
-    });
-  }
+  // setEntityName() {
+  //   this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+  //     if ( res && res !== 1) {
+  //
+  //     }
+  //   });
+  // }
 
   getFilters() {
     this.analyticsService.filter().subscribe((res) => {
@@ -96,7 +97,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
-        this.actionReportObj.containerDiv = document.getElementById('container')
+        this.actionReportObj.containerDiv = document.getElementById('action')
         if (this.actionReportObj.containerDiv) {
           Highcharts.chart(this.actionReportObj.containerDiv, data);
         }
@@ -166,4 +167,5 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.actionFormValidations[this.helperService.appConstants.dateTo].enable();
     this.actionReportObj.minDate = this.actionFormValidations[this.helperService.appConstants.dateFrom].value;
   }
+
 }

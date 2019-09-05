@@ -35,14 +35,18 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     public adminServices: AdminControlService,
   ) {
     this.initialize();
-    this.setEntityName();
+    // this.setEntityName();
     this.getFilters();
     this.getSites();
   }
 
   ngOnInit() {
     this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
+      if (res && res !== 1) {
+        this.siteReportObj.entityId = res.entityInfo.id;
+        this.siteReportObj.entityName = res.entityInfo.name;
+        this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
+        this.siteFormValidations['entityName'].disable();
         this.makeReport(7, null, null, null)
       }
     });
@@ -62,16 +66,13 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.siteReportObj.minDate = null;
   }
 
-  setEntityName() {
-    this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.siteReportObj.entityId = res.entityInfo.id;
-        this.siteReportObj.entityName = res.entityInfo.name;
-        this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
-        this.siteFormValidations['entityName'].disable();
-      }
-    });
-  }
+  // setEntityName() {
+  //   this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+  //     if (res && res !== 1) {
+  //
+  //     }
+  //   });
+  // }
 
   get siteFormValidations() {
     return this.siteReportObj.siteReportForm.controls;
@@ -188,10 +189,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     return data;
   }
 
-  ngOnDestroy() {
-    this.siteReportObj.subscription.unsubscribe();
-  }
-
   enableDates(value: any) {
     this.siteReportObj.dateEnableObj = this.helperService.find(this.siteReportObj.filters, function (obj) {
       return obj.name === 'Choose a Range';
@@ -221,6 +218,10 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   enableDateFrom() {
     this.siteFormValidations[this.helperService.appConstants.dateTo].enable();
     this.siteReportObj.minDate = this.siteFormValidations[this.helperService.appConstants.dateFrom].value;
+  }
+
+  ngOnDestroy() {
+    this.siteReportObj.subscription.unsubscribe();
   }
 
 }
