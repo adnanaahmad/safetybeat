@@ -31,15 +31,26 @@ export class CreateFolderComponent implements OnInit {
     }
   }
 
+  /**
+   * this function is used to handle the errors of the forms and their invalidity too.
+   */
   get folderFormControls() {
     return this.documentsData.folderForm.controls;
   }
+
+  /**
+   *
+   * @params value
+   */
 
   folderFormSubmit({value}: { value: Folders }) {
     this.documentsData.modalType ? this.createFolder(value) : this.renameFolder(value);
   }
 
-// this function opens a dialog to create new folder
+  /**
+   * this function is used to create a folder
+   * @params value
+   */
   createFolder(value: Folders) {
     this.documentsData.loader = true;
     if (value.title === this.helperService.appConstants.Root) {

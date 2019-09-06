@@ -44,7 +44,9 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.entitySettingObj.subscription.unsubscribe();
+    if (this.entitySettingObj.subscription !== null && this.entitySettingObj.subscription !== undefined) {
+      this.entitySettingObj.subscription.unsubscribe();
+    }
   }
 
   selectedEntityData() {

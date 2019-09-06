@@ -68,7 +68,9 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.QuestionObj.subscription.unsubscribe();
+    if (this.QuestionObj.subscription !== null && this.QuestionObj.subscription !== undefined) {
+      this.QuestionObj.subscription.unsubscribe();
+    }
   }
 
   /**

@@ -99,6 +99,8 @@ export class JoinEntityModalComponent implements OnInit {
             this.helperService.translated.MESSAGES.ENTITYNOTFOUND,
             this.helperService.constants.status.ERROR
           );
+        } else {
+          this.joinEntity.loading = false;
         }
       },
       (error) => {

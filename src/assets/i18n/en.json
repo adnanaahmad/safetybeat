@@ -200,7 +200,8 @@
     "REPORTS": "Reports",
     "CHANGE_ACCESS_LEVEL": "Change Access Level",
     "LOGOUT": "Logout",
-    "HOW_IT_WORKS": "How it works"
+    "HOW_IT_WORKS": "How it works",
+    "ARCHIVED_SITES": "Archived Sites"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -324,8 +325,8 @@
     "SITE_IS_NOT_SAFE": " is not safe.",
     "VIEW_SITE_SUCCESS": "View site success.",
     "VIEW_SITE_FAILURE": "Site not found.",
-    "DELETE_SITE_SUCCESS": "Site has been delete successfully.",
-    "DELETE_SITE_FAILURE": "Site deletion failed.",
+    "DELETE_SITE_SUCCESS": "Site has been archived successfully.",
+    "DELETE_SITE_FAILURE": "Site archive failed.",
     "EDIT_SITE_MSG": "Enter Site Details to Edit Site.",
     "VERIFY_ERR": "You have not been verified",
     "VERIFIED": "You have been verified",
@@ -570,6 +571,7 @@
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
     "DELETE_SITE": "Are you sure you want Delete this site?",
+    "ARCHIVE_SITE": "Are you sure you want archive this site?",
     "DELETE_HAZARD": "Are you sure you want Delete this hazard?",
     "DELETE_ENTITY": "Are you sure you want Delete this entity?",
     "DELETE_TEAM": "Are you sure you want Delete this team?",

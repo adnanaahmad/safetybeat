@@ -26,7 +26,6 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
               private memberService: MemberCenterService,
               private highChartSettings: HighchartService) {
     this.initialize();
-    // this.setEntityName();
     this.getFilters();
     this.getAllUsers();
   }
@@ -57,16 +56,6 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
     this.pulseEntityObj.maxDate = new Date();
     this.pulseEntityObj.minDate = null;
   }
-
-  // setEntityName() {
-  //   this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-  //     if (res && res !== 1) {
-  //
-  //     }
-
-
-  //   });
-  // }
 
   get pulseEntityFormValidations() {
     return this.pulseEntityObj.pulseEntityForm.controls;
@@ -231,6 +220,8 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.pulseEntityObj.subscription.unsubscribe();
+    if (this.pulseEntityObj.subscription !== null && this.pulseEntityObj.subscription !== undefined) {
+      this.pulseEntityObj.subscription.unsubscribe();
+    }
   }
 }

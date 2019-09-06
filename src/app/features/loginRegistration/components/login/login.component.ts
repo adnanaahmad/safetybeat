@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
@@ -17,7 +17,7 @@ import {EntityUserData} from 'src/app/models/userEntityData.model';
   selector: 'app-login',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   loginObj: Login = <Login>{};
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -55,22 +55,6 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    // this.navService.packageData.subscribe(
-    //   (packageDataResult) => {
-    //     if (packageDataResult !== 1) {
-    //       this.changeRoutes(packageDataResult.expired);
-    //     } else if (this.loginService.getToken()) {
-    //       let self = this;
-    //       this.navService.getPackageInfo().subscribe(res => {
-    //         let packageData = res.data;
-    //         let index = this.helperService.findIndex(packageData, function (packageVal: PackageInfo) {
-    //           return packageVal.module === self.helperService.appConstants.moduleName;
-    //         });
-    //         this.navService.updatePackageInfo(packageData[index]);
-    //         this.changeRoutes(packageData[index].expired);
-    //       });
-    //     }
-    //   });
     this.loginObj.loginForm = this.formBuilder.group({
       email: ['', Validators.email],
       password: ['', Validators.required]
@@ -86,11 +70,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       (expired) ? this.helperService.navigateTo([this.helperService.appConstants.paths.package]) :
         this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
     }
-  }
-
-  ngOnDestroy() {
-    this.helperService.hideLoggers();
-    // this.loginObj.subscription.unsubscribe();
   }
 
   /**

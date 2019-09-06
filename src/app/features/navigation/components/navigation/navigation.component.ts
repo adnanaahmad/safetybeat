@@ -12,9 +12,7 @@ import {SecurityComponent} from 'src/app/features/settings/components/security/s
 import {ProfileModel} from 'src/app/models/profile/profile.model';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
 import {FirebaseService} from 'src/app/services/common/FirebaseNotification/firebase.service';
-import {BreakpointObserver, Breakpoints, MediaMatcher} from '@angular/cdk/layout';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { MediaMatcher} from '@angular/cdk/layout';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 
 @Component({

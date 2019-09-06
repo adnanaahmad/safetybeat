@@ -5,7 +5,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {PaginationData} from 'src/app/models/site.model';
-import {Report} from '../../../../../../models/analyticsReport/reports.model';
+import {Report} from 'src/app/models/analyticsReport/reports.model';
 
 @Component({
   selector: 'app-alerts-person-report',

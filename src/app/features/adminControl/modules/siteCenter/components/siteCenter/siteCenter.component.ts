@@ -11,6 +11,7 @@ import {PaginationData, Site, SitesInfo, ViewAllSiteEntityData} from 'src/app/mo
 import {AddHazardComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/addHazard/addHazard.component';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {SiteMapComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/siteMap/siteMap.component';
+import {ArchivedSitesComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/archivedSites/archivedSites.component';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
@@ -85,7 +86,9 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   ngOnDestroy() {
-    this.siteCentreObj.subscription.unsubscribe();
+    if (this.siteCentreObj.subscription !== null && this.siteCentreObj.subscription !== undefined) {
+      this.siteCentreObj.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -104,7 +107,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     };
     this.siteCentreObj.loading = true;
     this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.siteCentreObj.pageCount = res.data.pageCount;
         this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
         this.adminServices.changeSites(this.siteCentreObj.sitesData);
@@ -200,7 +203,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * this function is used to open delete dialog.
    */
   confirmationModal(siteId: number) {
-    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.DELETE_SITE}});
+    this.helperService.createDialog(ConfirmationModalComponent, {data: {message: this.helperService.translated.CONFIRMATION.ARCHIVE_SITE}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
@@ -230,6 +233,21 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   viewMap() {
     this.helperService.createDialog(SiteMapComponent,
       {disableClose: true, height: '75%', width: '80%', data: {'siteData': this.siteCentreObj.sitesData, type: false}});
+  }
+
+  /**
+   * this function is used to open the viewMap dialog.
+   */
+  getArchivedSites() {
+    this.helperService.createDialog(ArchivedSitesComponent, {
+      disableClose: true,
+      data: {Modal: false, 'siteData': this.siteCentreObj.sitesData}
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res !== this.helperService.appConstants.no) {
+        this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+      }
+    });
   }
 
   getAllUsers(entityId: number) {

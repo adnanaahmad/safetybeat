@@ -1,14 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Leaveinfodata, leaveDeleteData} from 'src/app/models/profile.model';
+import {Leaveinfodata} from 'src/app/models/profile.model';
 
 @Component({
   selector: 'app-leaveinfo',
   templateUrl: './leaveinfo.component.html',
   styleUrls: ['./leaveinfo.component.scss']
 })
-export class LeaveinfoComponent implements OnInit {
+export class LeaveinfoComponent {
   userLeaveData: Leaveinfodata;
   isEditable: boolean = false;
 
@@ -23,9 +23,6 @@ export class LeaveinfoComponent implements OnInit {
         this.isEditable = true
       }
     }
-  }
-
-  ngOnInit() {
   }
 
   editLeave() {

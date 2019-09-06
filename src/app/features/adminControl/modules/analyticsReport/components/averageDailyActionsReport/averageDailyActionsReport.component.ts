@@ -4,8 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {Report} from '../../../../../../models/analyticsReport/reports.model';
-import {AnalyticsReportService} from '../../services/analyticsReport.service';
+import {Report} from 'src/app/models/analyticsReport/reports.model';
+import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 
 @Component({
   selector: 'app-averageDailyActionsReport',
@@ -46,7 +46,9 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.averageActionObj.subscription.unsubscribe();
+    if (this.averageActionObj.subscription !== null && this.averageActionObj.subscription !== undefined) {
+      this.averageActionObj.subscription.unsubscribe();
+    }
   }
 
   setEntityName() {
