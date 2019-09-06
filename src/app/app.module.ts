@@ -28,6 +28,7 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatN
 import {ToasterComponent} from './components/toaster/toaster.component';
 import {ArchivedSitesComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/archivedSites/archivedSites.component';
 import {ArchivedHazardsComponent} from 'src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component';
+import {ArchivedEntitiesComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/archived-entities/archived-entities.component';
 import {AddSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {ConfirmationModalComponent} from './dialogs/conformationModal/confirmationModal.component';
@@ -77,6 +78,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     ArchivedSitesComponent,
     ArchivedHazardsComponent,
+    ArchivedEntitiesComponent,
     AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
@@ -169,6 +171,7 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     ArchivedSitesComponent,
     ArchivedHazardsComponent,
+    ArchivedEntitiesComponent,
     AdvanceSearchComponent,
     AddActionsComponent,
     CreateEntityComponent,
