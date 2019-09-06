@@ -207,7 +207,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
-        this.deleteSite(siteId);
+        this.archiveSite(siteId);
       }
     });
   }
@@ -215,7 +215,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   /**
    * this function is used to call the api for deleting the site.
    */
-  deleteSite(siteId) {
+  archiveSite(siteId) {
     this.adminServices.deleteSite(siteId).subscribe((res) => {
       this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_SITE_SUCCESS,

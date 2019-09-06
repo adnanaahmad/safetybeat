@@ -216,14 +216,12 @@ export class AdminControlService {
     );
   }
 
-  deleteHazard(id
-                 :
-                 number
-  ):
-    Observable<DeleteHazardApiResponse> {
+  deleteHazard(id:number) {
+    const data = {"id": id};
     return this.helperService.requestCall(
-      this.method.delete,
-      `${this.apiRoutes.viewHazardInfo}${id}/`,
+      this.method.put,
+      `${this.apiRoutes.archiveHazard}`,
+      data
     );
   }
 

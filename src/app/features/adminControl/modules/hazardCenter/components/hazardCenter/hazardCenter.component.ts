@@ -11,6 +11,8 @@ import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/conf
 import {ImageLightboxComponent} from 'src/app/dialogs/imageLightbox/imageLightbox.component';
 import {PaginationData} from 'src/app/models/site.model';
 import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
+import {ArchivedHazardsComponent} from 'src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component';
+
 
 @Component({
   selector: 'app-hazardCenter',
@@ -84,7 +86,7 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
   getHazardList(pageIndex, search) {
     this.pageCount = 0;
     let entityData = {
-      'entityId': this.hazardTable.entityId,
+      'entityId': this.hazardTable.entityId
     };
     let paginationData: PaginationData = {
       limit: this.helperService.constants.appConstant.paginationLimit,
@@ -93,11 +95,14 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
     };
     this.hazardTable.loading = true;
     this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+      if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pageCount = res.data.pageCount;
+        this.hazardTable.loading = false;
+        this.hazardTable.hazardsData = this.compiler.constructAllHazardsData(res.data.hazardList);
         this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.hazardTable.dataSource = null;
+        this.hazardTable.loading = false;
       } else {
         this.hazardTable.loading = false;
       }
@@ -153,38 +158,50 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
 
   confirmationModal(id: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
-      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_HAZARD}});
+      {data: {message: this.helperService.translated.CONFIRMATION.ARCHIVE_HAZARD}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res && res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
-        this.deleteHazard(id);
+        this.archiveHazard(id);
       }
     });
   }
 
   /**
-   * this function is used for deleting the hazard
+   * this function is used for archive the hazard
    * @params id
    */
 
-  deleteHazard(id: number) {
+  archiveHazard(id: number) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.getHazardList(this.firstIndex, this.search);
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_SUCCESS,
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
             this.helperService.constants.status.ERROR);
         } else {
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_DELETE_FAILURE,
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
           this.helperService.constants.status.ERROR);
       }
     );
+  }
+
+  getArchivedSites() {
+    this.helperService.createDialog(ArchivedHazardsComponent, {
+      disableClose: true,
+      data: {Modal: false, 'hazardsData': this.hazardTable.hazardsData}
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res !== this.helperService.appConstants.no) {
+        this.getHazardList(this.paginator.pageIndex, this.search);
+      }
+    });
   }
 
   /**
