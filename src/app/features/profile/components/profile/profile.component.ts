@@ -154,6 +154,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.userId = this.profileModel.profileData.id;
           this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
             if (res !== 1) {
+              this.profileModel.currentUserProfile = true;
               this.profileModel.role = res.role;
               this.profileModel.entityName = res.entityInfo.name;
               this.profileModel.entityId = res.entityInfo.id;
