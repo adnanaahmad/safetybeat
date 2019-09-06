@@ -92,19 +92,38 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((data) => {
       if (!helperService.isEmpty(data)) {
         this.profileModel.receivedData = JSON.parse(data.data);
+        this.profileModel.entityId = this.profileModel.receivedData.entityId;
         this.profileModel.role = this.profileModel.receivedData.accessLevel;
         this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id, this.profileModel.firstIndex);
-      } else {
         this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
-          if (res !== 1) {
-            this.profileModel.role = res.role;
-            this.profileModel.entityName = res.entityInfo.name;
-            this.profileModel.currentUserProfile = true;
+          if (res && res !== 1) {
             this.profileModel.entityId = res.entityInfo.id;
+            let entityId = {
+              entityId: res.entityInfo.id
+            };
+            if (!this.profileModel.currentUserProfile ) {
+              this.memberService.entityAllUsers(entityId).subscribe((res) => {
+                if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+                  if (!(res.data.allUser.find(x => x.user.id === this.profileModel.userId))) {
+                    this.removeActivities();
+                    this.removeLeaves();
+                    this.profileModel.role = 'none';
+                  } else {
+                    this.profileModel.role = this.profileModel.receivedData.accessLevel;
+                    this.getFilters();
+                    this.userLeaves(this.profileModel.profileData.id);
+                  }
+                }
+              }, (error) => {
+                this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+                });
+            }
           }
         });
+      } else {
+        this.profileModel.currentUserProfile = true;
         this.getCurrentUser();
         this.getFilters();
       }
@@ -133,7 +152,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.email = this.profileModel.profileData.email;
           this.profileModel.profileImage = this.profileModel.profileData.thumbnail;
           this.profileModel.userId = this.profileModel.profileData.id;
-          this.userLeaves(this.profileModel.userId);
+          this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+            if (res !== 1) {
+              this.profileModel.role = res.role;
+              this.profileModel.entityName = res.entityInfo.name;
+              this.profileModel.entityId = res.entityInfo.id;
+              this.userLeaves(this.profileModel.userId);
+            }
+          });
           this.getUserConnections(this.profileModel.userId, this.profileModel.firstIndex);
         } else {
           this.connectionsColumns = ['img', 'name', 'email', 'contact'];
@@ -528,13 +554,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
           self.refresh.next();
         });
       } else {
-        this.profileModel.userLeaves = null;
+        this.removeLeaves();
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
-
+  removeActivities() {
+    this.profileModel.recentActivities = null;
+    this.profileModel.activitiesCount = 0;
+    this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
+  }
+  removeLeaves() {
+    this.profileModel.userLeaves = null;
+    this.profileModel.leavesCount = 0;
+    this.profileModel.events = [];
+  }
   onImageLoad() {
     this.profileModel.loading = false;
   }
