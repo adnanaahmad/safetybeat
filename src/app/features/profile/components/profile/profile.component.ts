@@ -2,8 +2,7 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ViewChild,
-  AfterViewInit
+  ViewChild
 } from '@angular/core';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
@@ -34,7 +33,7 @@ import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
   styleUrls: ['./profile.component.scss']
 })
 
-export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   profileModel: ProfileModel = <ProfileModel>{};
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
@@ -157,9 +156,6 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
       dateFrom: ['', Validators.required]
     });
     this.getLeaveTypes();
-  }
-
-  ngAfterViewInit() {
   }
 
 
@@ -310,8 +306,9 @@ export class ProfileComponent implements OnInit, OnDestroy, AfterViewInit {
    */
 
   ngOnDestroy() {
-    this.helperService.hideLoggers();
-    this.profileModel.subscription.unsubscribe();
+    if (this.profileModel.subscription !== null && this.profileModel.subscription !== undefined) {
+      this.profileModel.subscription.unsubscribe();
+    }
   }
 
   get filterFormValidations() {

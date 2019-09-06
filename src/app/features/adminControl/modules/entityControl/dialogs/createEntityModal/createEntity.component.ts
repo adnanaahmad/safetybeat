@@ -5,7 +5,6 @@ import {AdminControlService} from 'src/app/features/adminControl/services/adminC
 import {MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {CreateEntity} from 'src/app/models/adminControl/createEntity.model';
 
 @Component({
@@ -24,7 +23,6 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
     private adminServices: AdminControlService,
     public helperService: HelperService,
     private navService: NavigationService,
-    private compiler: CompilerProvider,
     public dialogRef: MatDialogRef<CreateEntityComponent>
   ) {
   }
@@ -54,7 +52,9 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.onNoClick();
-    this.createEntity.subscription.unsubscribe();
+    if (this.createEntity.subscription !== null && this.createEntity.subscription !== undefined) {
+      this.createEntity.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -97,15 +97,6 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
     this.createEntity.loading = true;
     this.adminServices.createEntity(this.createEntity.entityDetails).subscribe((result) => {
         if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          // let data = {
-          //   'moduleName': 'Safetybeat'
-          // };
-          // this.adminServices.viewEntities(data).subscribe(res => {
-          //   this.createEntity.loading = false;
-          //   let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
-          //   this.navService.changeEntites(entityUserData);
-          //   this.onNoClick();
-          // });
           this.createEntity.loading = false;
           this.onNoClick();
         } else if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
@@ -113,6 +104,9 @@ export class CreateEntityComponent implements OnInit, AfterViewInit, OnDestroy {
           this.createEntity.loading = false;
           this.helperService.createSnack(result.responseDetails.message, this.helperService.constants.status.ERROR);
         } else if (result && result.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
+          this.createEntity.loading = false;
+          this.helperService.createSnack(result.responseDetails.message, this.helperService.constants.status.ERROR);
+        } else {
           this.createEntity.loading = false;
           this.helperService.createSnack(result.responseDetails.message, this.helperService.constants.status.ERROR);
         }

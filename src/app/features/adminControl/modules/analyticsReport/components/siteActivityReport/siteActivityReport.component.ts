@@ -35,7 +35,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     public adminServices: AdminControlService,
   ) {
     this.initialize();
-    // this.setEntityName();
     this.getFilters();
     this.getSites();
   }
@@ -65,14 +64,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.siteReportObj.maxDate = new Date();
     this.siteReportObj.minDate = null;
   }
-
-  // setEntityName() {
-  //   this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-  //     if (res && res !== 1) {
-  //
-  //     }
-  //   });
-  // }
 
   get siteFormValidations() {
     return this.siteReportObj.siteReportForm.controls;
@@ -221,7 +212,9 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.siteReportObj.subscription.unsubscribe();
+    if (this.siteReportObj.subscription !== null && this.siteReportObj.subscription !== undefined) {
+      this.siteReportObj.subscription.unsubscribe();
+    }
   }
 
 }

@@ -269,6 +269,7 @@
     "EMAIL_ALREADY_EXISTS": "User with this email already exists",
     "ENTITYNAME_REQ": "Entity Name is Required.",
     "OFFICELOCATION_REQ": "Head Office Location is Required.",
+    "SITELOCATION_REQ": "Site Location is Required",
     "CREATEENTITY_MSG": "Enter Details to create Entity",
     "INVITE_USER": "Enter Details to Invite User",
     "ENTITYNAME": "Entity Name",

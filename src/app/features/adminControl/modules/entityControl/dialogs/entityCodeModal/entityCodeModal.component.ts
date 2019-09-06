@@ -10,7 +10,7 @@ import {EntityCodeModel} from 'src/app/models/code.model';
   templateUrl: './entityCodeModal.component.html',
   styleUrls: ['./entityCodeModal.component.scss']
 })
-export class EntityCodeModalComponent implements OnInit, OnDestroy {
+export class EntityCodeModalComponent implements OnDestroy {
   loading: boolean = false;
 
   constructor(
@@ -21,9 +21,6 @@ export class EntityCodeModalComponent implements OnInit, OnDestroy {
     private adminServices: AdminControlService
   ) {
 
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
@@ -56,6 +53,7 @@ export class EntityCodeModalComponent implements OnInit, OnDestroy {
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
       }
     }, (error) => {
+      this.onNoClick();
       this.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     })

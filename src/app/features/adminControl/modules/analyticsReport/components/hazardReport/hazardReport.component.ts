@@ -35,7 +35,6 @@ export class HazardReportComponent implements OnInit, OnDestroy {
               private navService: NavigationService,
               private highChartSettings: HighchartService) {
     this.initialize();
-    // this.setEntityName();
     this.getFilters();
     this.getAllUsers();
   }
@@ -66,14 +65,6 @@ export class HazardReportComponent implements OnInit, OnDestroy {
     this.hazardObj.maxDate = new Date();
     this.hazardObj.minDate = null;
   }
-
-  // setEntityName() {
-  //   this.hazardObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-  //     if (res && res !== 1) {
-  //
-  //     }
-  //   });
-  // }
 
   get hazardFormValidations() {
     return this.hazardObj.hazardReportForm.controls;
@@ -246,6 +237,8 @@ export class HazardReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.hazardObj.subscription.unsubscribe();
+    if (this.hazardObj.subscription !== null && this.hazardObj.subscription !== undefined) {
+      this.hazardObj.subscription.unsubscribe();
+    }
   }
 }

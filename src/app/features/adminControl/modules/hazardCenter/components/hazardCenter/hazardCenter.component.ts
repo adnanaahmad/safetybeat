@@ -41,13 +41,14 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
       if (res !== 1) {
         this.hazardTable.entityId = res.entityInfo.id;
         this.getHazardList(this.firstIndex, this.search);
-
       }
     });
   }
 
   ngOnDestroy(): void {
-    this.hazardTable.subscription.unsubscribe();
+    if (this.hazardTable.subscription !== null && this.hazardTable.subscription !== undefined) {
+      this.hazardTable.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -96,12 +97,15 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
     this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
       if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pageCount = res.data.pageCount;
+        this.hazardTable.loading = false;
         this.hazardTable.hazardsData = this.compiler.constructAllHazardsData(res.data.hazardList);
         this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.hazardTable.dataSource = null;
+        this.hazardTable.loading = false;
+      } else {
+        this.hazardTable.loading = false;
       }
-      this.hazardTable.loading = false;
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       this.hazardTable.loading = false;
@@ -175,6 +179,9 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
+            this.helperService.constants.status.ERROR);
+        } else {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
             this.helperService.constants.status.ERROR);
         }

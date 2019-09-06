@@ -27,7 +27,6 @@ export class ShowFolderDocumentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.documentsData.docList = [];
     this.docsOfFolder(this.documentsData.folderId);
   }
 
@@ -40,7 +39,6 @@ export class ShowFolderDocumentsComponent implements OnInit {
    * @params folderID
    */
   docsOfFolder(folderID: number) {
-    // this.documentsData.docList = [];
     this.documentsData.panelOpenState = true;
     let data = {
       'folderId': folderID
@@ -63,7 +61,7 @@ export class ShowFolderDocumentsComponent implements OnInit {
           this.helperService.constants.status.ERROR);
       }
     }, (error) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -87,8 +85,8 @@ export class ShowFolderDocumentsComponent implements OnInit {
    * Refresh Files data after renaming or removing
    * @params status
    */
-  refreshFiles(status: boolean){
-    if(status) {
+  refreshFiles(status: boolean) {
+    if (status) {
       this.docsOfFolder(this.documentsData.folderId);
     }
   }

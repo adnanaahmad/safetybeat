@@ -2,7 +2,7 @@
     Confirmation Alert
 </mat-card-title>
 <div mat-dialog-content>
-    <p>{{message}}</p>
+    <p>{{message? message : 'Are you sure to delete?'}}</p>
     <mat-dialog-actions>
         <button class="mat-elevation-z6" mat-raised-button cdkFocusInitial custom-btn color="primary"
                 [mat-dialog-close]="'YES'">Yes

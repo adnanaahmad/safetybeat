@@ -73,7 +73,8 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   }
 
   setRadius(mapProp, radius) {
-    this.helperService.setLocationGeocode(this.helperService.address, this.helperService.createMap(this.gMapElement), parseInt(radius, 10));
+    let radiusInMeters: number = (parseInt(radius, 10)) / 3.281;
+    this.helperService.setLocationGeocode(this.helperService.address, this.helperService.createMap(this.gMapElement), radiusInMeters);
   }
 
   /**

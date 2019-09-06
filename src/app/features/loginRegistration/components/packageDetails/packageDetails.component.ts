@@ -11,7 +11,7 @@ import {CoreService} from 'src/app/services/core/authorization/core.service';
   templateUrl: './packageDetails.component.html',
   styleUrls: ['./packageDetails.component.scss']
 })
-export class PackageDetailsComponent implements OnInit, OnDestroy {
+export class PackageDetailsComponent implements OnInit {
 
   packages: Packages[] = [];
   logoutDisable: boolean = false;
@@ -45,9 +45,6 @@ export class PackageDetailsComponent implements OnInit, OnDestroy {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG,
         this.helperService.translated.MESSAGES.LOGOUT_FAIL_MSG);
     });
-  }
-
-  ngOnDestroy() {
   }
 
   updatePackage(packageId) {

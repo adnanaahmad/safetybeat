@@ -1,16 +1,13 @@
-import {Component, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {FormBuilder} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource, MatPaginator, MatDialog} from '@angular/material';
+import {MatDialogRef, MatTableDataSource, MatPaginator, MatDialog} from '@angular/material';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {SiteCentre} from 'src/app/models/adminControl/siteCentre.model';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {PaginationData, ViewAllSiteArchivedData} from 'src/app/models/site.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
-
-import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-archivedSites',
@@ -30,14 +27,12 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
     public compiler: CompilerProvider,
     private render: Renderer2,
     private navService: NavigationService,
-    public dialog: MatDialog,
-    private memberCenterService: MemberCenterService
+    public dialog: MatDialog
   ) {
     this.archivedSitesObj.loading = true;
     this.initialize();
     this.archivedSitesObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        // this.getAllUsers(res.entityInfo.id);
         this.archivedSitesObj.entityId = res.entityInfo.id;
         this.getSitesData(this.archivedSitesObj.firstIndex, this.archivedSitesObj.search);
       }
@@ -80,9 +75,7 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    * component so that this would not affect the other components and this function is also used for hiding the debugging messages.
    */
   ngOnDestroy() {
-    this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
-    this.helperService.hideLoggers();
-    if (this.archivedSitesObj.entityId) {
+    if (this.archivedSitesObj.subscription !== null && this.archivedSitesObj.subscription !== undefined) {
       this.archivedSitesObj.subscription.unsubscribe();
     }
   }
@@ -97,13 +90,13 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
       archived: true
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.appConstants.paginationLimit,
-      limit: this.helperService.appConstants.paginationLimit,
+      offset: pageIndex * this.helperService.appConstants.paginationLimitForProfile,
+      limit: this.helperService.appConstants.paginationLimitForProfile,
       search: search
     };
-    if(typeof(search) === 'string' && search.length === 0) {
+    if (typeof (search) === 'string' && search.length === 0) {
       this.archivedSitesObj.loading = true;
-    }  
+    }
     this.adminServices.viewArchivedSites(entityData, paginationData).subscribe((res) => {
       if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.archivedSitesObj.pageCount = res.data.pageCount;
@@ -114,8 +107,12 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.archivedSitesObj.dataSource = null;
         this.archivedSitesObj.loading = false;
+      } else {
+        this.archivedSitesObj.dataSource = null;
+        this.archivedSitesObj.loading = false;
       }
     }, (error: HttpErrorResponse) => {
+      this.onNoClick();
       this.archivedSitesObj.dataSource = null;
       this.archivedSitesObj.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
@@ -124,8 +121,8 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Unarchive site 
-   * @param siteData 
+   * Unarchive site
+   * @params siteData
    */
   unarchiveSite(siteData: any) {
     // api need to be build

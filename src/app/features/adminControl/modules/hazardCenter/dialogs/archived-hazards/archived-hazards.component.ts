@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HazardModel} from 'src/app/models/hazard.model';
@@ -21,12 +21,13 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
   pageSize: number;
   dataSource: any;
   pageCount: number;
-  constructor(public helperService: HelperService,
-    private navService: NavigationService,
-    private compiler: CompilerProvider,
-    private adminControlService: AdminControlService) {
 
-     }
+  constructor(public helperService: HelperService,
+              private navService: NavigationService,
+              private compiler: CompilerProvider,
+              private adminControlService: AdminControlService) {
+
+  }
 
   ngOnInit() {
     this.initialize();
@@ -73,9 +74,9 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
       offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
       search: search
     };
-    if(typeof(search) === 'string' && search.length === 0) {
+    if (typeof (search) === 'string' && search.length === 0) {
       this.hazardTable.loading = true;
-    }  
+    }
     this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
       if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pageCount = res.data.pageCount;
@@ -91,9 +92,9 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
     });
   }
 
-   /**
-   * Unarchive hazard 
-   * @param hazardData 
+  /**
+   * Unarchive hazard
+   * @params hazardData
    */
   unarchiveHazards(hazardData: any) {
     // api need to be build
