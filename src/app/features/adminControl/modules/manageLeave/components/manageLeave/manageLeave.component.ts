@@ -44,7 +44,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.leaveModel.subscription !== null) {
+    if (this.leaveModel.subscription !== null && this.leaveModel.subscription!==undefined) {
       this.leaveModel.subscription.unsubscribe();
     }
   }

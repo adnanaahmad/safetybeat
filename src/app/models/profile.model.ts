@@ -85,7 +85,7 @@ export interface Leaveinfodata {
   end: string;
   start: string;
   title: string;
-  leaveType:any;
+  leaveType: any;
   leaveId: number;
   approved: boolean;
   rejected: boolean;

@@ -1,11 +1,10 @@
-import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {RegistrationComp, RegistrationResponseObject} from 'src/app/models/loginRegistration/registration.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import {RegistrationComp} from 'src/app/models/loginRegistration/registration.model';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 
@@ -17,7 +16,7 @@ const phoneNumberUtil = HelperService.getPhoneNumberUtil();
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit, OnDestroy {
+export class RegistrationComponent implements OnInit {
   @ViewChild('gmap') gMapElement: ElementRef;
   registerObj: RegistrationComp = <RegistrationComp>{};
   /** Based on the screen size, switch from standard to one column per row */
@@ -119,13 +118,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * this function is used for hiding the debugging messages when this component is destroyed.
-   */
-
-  ngOnDestroy() {
-    this.helperService.hideLoggers();
-  }
 
   /**
    * this function is used for entering the only numbers in the contact number input field.

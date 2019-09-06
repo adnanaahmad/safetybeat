@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { HelperService } from 'src/app/services/common/helperService/helper.service';
 import { NotificationService } from 'src/app/features/navigation/services/notification.service';
 import { Translation } from 'src/app/models/translate.model';
@@ -9,7 +9,7 @@ import {DirectNotificationList, DirectObject, NotificationList, RequestObject} f
   templateUrl: './notificationNav.component.html',
   styleUrls: ['./notificationNav.component.scss']
 })
-export class NotificationNavComponent implements OnInit {
+export class NotificationNavComponent {
   @Output() notificationCount = new EventEmitter();
   translated: Translation;
   directMessages: DirectObject[] = [];
@@ -22,9 +22,6 @@ export class NotificationNavComponent implements OnInit {
     this.translated = this.helperService.translated;
     this.constructRequests();
     this.constructDirectMessages();
-  }
-
-  ngOnInit() {
   }
 
   /**

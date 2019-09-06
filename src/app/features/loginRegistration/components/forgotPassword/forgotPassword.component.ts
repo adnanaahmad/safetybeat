@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ForgotPasswordComp} from 'src/app/models/loginRegistration/forgotPassword.model';
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
@@ -12,7 +12,7 @@ import {map} from 'rxjs/operators';
   templateUrl: './forgotPassword.component.html',
   styleUrls: ['./forgotPassword.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit, OnDestroy {
+export class ForgotPasswordComponent implements OnInit {
   forgotPassObj: ForgotPasswordComp = <ForgotPasswordComp>{};
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -49,15 +49,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.forgotPassObj.forgotPassForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
-  }
-
-  /**
-   * this function is called when the component is destroyed and this function will
-   * hide all the debugging messages on the destroy of this component.
-   */
-
-  ngOnDestroy() {
-    this.helperService.hideLoggers();
   }
 
   /**

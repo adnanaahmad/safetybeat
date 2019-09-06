@@ -60,7 +60,9 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.memberCenter.subscription.unsubscribe();
+    if (this.memberCenter.subscription !== null && this.memberCenter.subscription !== undefined) {
+      this.memberCenter.subscription.unsubscribe();
+    }
   }
 
   initialize() {

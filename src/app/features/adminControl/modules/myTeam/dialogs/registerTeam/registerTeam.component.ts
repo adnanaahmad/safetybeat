@@ -46,7 +46,9 @@ export class RegisterTeamComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.registerTeamObj.subscription.unsubscribe();
+    if (this.registerTeamObj.subscription !== null && this.registerTeamObj.subscription !== undefined) {
+      this.registerTeamObj.subscription.unsubscribe();
+    }
   }
 
   get getFormControls() {

@@ -59,7 +59,9 @@ export class UpdateprofileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription !== null && this.subscription !== undefined) {
+      this.subscription.unsubscribe();
+    }
   }
 
   numberOnly(event: Event): boolean {

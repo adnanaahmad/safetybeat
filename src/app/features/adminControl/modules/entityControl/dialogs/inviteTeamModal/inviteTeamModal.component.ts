@@ -10,8 +10,7 @@ import {FormControl} from '@angular/forms';
 import {startWith, map} from 'rxjs/operators';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {InviteTeamModel, InviteTeamModelData} from 'src/app/models/adminControl/inviteTeam.model';
-import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
+import {InviteTeamModel} from 'src/app/models/adminControl/inviteTeam.model';
 import {User} from 'src/app/models/user.model';
 
 @Component({
@@ -19,7 +18,7 @@ import {User} from 'src/app/models/user.model';
   templateUrl: './inviteTeamModal.component.html',
   styleUrls: ['./inviteTeamModal.component.scss']
 })
-export class InviteTeamModalComponent implements OnInit {
+export class InviteTeamModalComponent {
   inviteTeamModel: InviteTeamModel = <InviteTeamModel>{};
 
   @ViewChild('userInput') userInput: ElementRef<HTMLInputElement>;
@@ -43,9 +42,6 @@ export class InviteTeamModalComponent implements OnInit {
           : this.inviteTeamModel.allUsers.slice();
       })
     );
-  }
-
-  ngOnInit() {
   }
 
   /**
@@ -133,8 +129,7 @@ export class InviteTeamModalComponent implements OnInit {
       entityCode: this.data.inviteTeamData.entityData
     };
     this.inviteTeamModel.loading = true;
-    this.adminServices.inviteTeam(inviteTeamData).subscribe(
-      (res) => {
+    this.adminServices.inviteTeam(inviteTeamData).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.createSnack(
             res.responseDetails.message,
@@ -154,7 +149,7 @@ export class InviteTeamModalComponent implements OnInit {
       (error) => {
         this.onNoClick();
         this.inviteTeamModel.loading = false;
-        this.helperService.handleError(error, this);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }
     );
   }

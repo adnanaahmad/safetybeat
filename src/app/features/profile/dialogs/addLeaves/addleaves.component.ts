@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
-import {LeaveTypes, LeavesData, ProfileModel} from 'src/app/models/profile/profile.model';
+import {LeavesData, ProfileModel} from 'src/app/models/profile/profile.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -12,7 +12,7 @@ import {AddLeaveData, EditLeaveData} from 'src/app/models/profile.model';
   templateUrl: './addleaves.component.html',
   styleUrls: ['./addleaves.component.scss']
 })
-export class AddleavesComponent implements OnInit {
+export class AddleavesComponent implements OnInit, OnDestroy {
   leavesModel: ProfileModel = <ProfileModel>{};
   isEdit = false;
   rangeAt: Date;
@@ -56,6 +56,16 @@ export class AddleavesComponent implements OnInit {
       this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
     this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
+  }
+
+  /**
+   * this function calls when this component is destroyed
+   */
+
+  ngOnDestroy(): void {
+    if (this.leavesModel.subscription !== null && this.leavesModel.subscription !== undefined) {
+      this.leavesModel.subscription.unsubscribe();
+    }
   }
 
   dateSelected(data, event) {

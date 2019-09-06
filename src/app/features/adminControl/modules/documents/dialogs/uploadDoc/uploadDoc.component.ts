@@ -35,7 +35,9 @@ export class UploadDocComponent implements OnInit {
     this.getAllFolders();
   }
 
-// this function saves the folders taken from passed data
+  /**
+   * this function gets the folders taken from passed data
+   */
   getAllFolders() {
     this.documentsData.folderLength = (this.data && this.data.folders && this.data.folders.length) ? this.data.folders.length : 0;
     if (this.documentsData.folderLength === 0) {
@@ -46,17 +48,27 @@ export class UploadDocComponent implements OnInit {
     this.newDoc.folderList = this.data.folders;
   }
 
+  /**
+   * this function is used to handle the errors and invalidity in the forms
+   */
   get formControls() {
     return this.newDoc.uploadDocForm.controls;
   }
 
-// this function saves the file when its chosen
+  /**
+   * this function saves the file when its chosen
+   * @params event
+   */
   uploadFile(event) {
     this.newDoc.file = <File>event.target.files[0];
     this.newDoc.fileName = event.target.files[0] ? event.target.files[0].name : '';
   }
 
-// this function takes file and folder and uploads it accordingly
+  /**
+   * this function takes file and folder and uploads it accordingly
+   * @params value
+   * @params folderId
+   */
   upload(value, folderId) {
     this.documentsData.loader = true;
     let blob = new Blob([this.newDoc.file]);
@@ -84,7 +96,10 @@ export class UploadDocComponent implements OnInit {
     this.data.modalType && this.newDoc.isEnabled ? this.uploadDoc(value) : this.uploadToFolder(value);
   }
 
-// to upload file to root folder
+  /**
+   * to upload file to root folder
+   * @params value
+   */
   uploadDoc(value: NewDoc) {
     this.documentsData.loader = true;
     this.newDoc.disableButton = true;
@@ -95,14 +110,19 @@ export class UploadDocComponent implements OnInit {
     }
   }
 
-// to upload a file to a folder
+  /**
+   * to upload a file to a folder
+   * @params value
+   */
   uploadToFolder(value: NewDoc) {
     this.documentsData.loader = true;
     this.newDoc.disableButton = true;
     this.upload(value, this.data.folderId);
   }
 
-// to enable or disable folderList
+  /**
+   * to enable or disable folderList
+   */
   showFolderList() {
     this.newDoc.isEnabled = !this.newDoc.isEnabled;
     return;

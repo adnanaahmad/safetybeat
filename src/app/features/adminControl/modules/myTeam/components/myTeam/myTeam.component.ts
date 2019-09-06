@@ -51,7 +51,9 @@ export class MyTeamComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.myTeam.subscription.unsubscribe();
+    if (this.myTeam.subscription !== null && this.myTeam.subscription !== undefined) {
+      this.myTeam.subscription.unsubscribe();
+    }
   }
 
   getAllUsers() {

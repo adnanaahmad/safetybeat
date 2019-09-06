@@ -86,7 +86,9 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   ngOnDestroy() {
-    this.siteCentreObj.subscription.unsubscribe();
+    if (this.siteCentreObj.subscription !== null && this.siteCentreObj.subscription !== undefined) {
+      this.siteCentreObj.subscription.unsubscribe();
+    }
   }
 
   /**
@@ -237,15 +239,15 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * this function is used to open the viewMap dialog.
    */
   getArchivedSites() {
-      this.helperService.createDialog(ArchivedSitesComponent, {
-        disableClose: true,
-        data: {Modal: false, 'siteData': this.siteCentreObj.sitesData}
-      });
-      this.helperService.dialogRef.afterClosed().subscribe(res => {
-        if (res !== this.helperService.appConstants.no) {
-          this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
-        }
-      });
+    this.helperService.createDialog(ArchivedSitesComponent, {
+      disableClose: true,
+      data: {Modal: false, 'siteData': this.siteCentreObj.sitesData}
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res !== this.helperService.appConstants.no) {
+        this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+      }
+    });
   }
 
   getAllUsers(entityId: number) {

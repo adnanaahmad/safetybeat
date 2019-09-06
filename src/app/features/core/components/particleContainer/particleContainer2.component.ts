@@ -7,7 +7,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
   templateUrl: './particleContainer2.component.html',
   styleUrls: ['./particleContainer2.component.scss']
 })
-export class ParticleContainer2Component implements OnInit, OnDestroy {
+export class ParticleContainer2Component implements OnDestroy {
   translated: Translation;
   particlesIcons: any;
 
@@ -18,9 +18,6 @@ export class ParticleContainer2Component implements OnInit, OnDestroy {
     this.particlesIcons = this.helperService.constants.particlesIcons;
   }
 
-  ngOnInit() {
-
-  }
 
   /**
    * this function is called when the component is destroyed and in this function debugger messages are being hidden.
