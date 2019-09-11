@@ -66,6 +66,7 @@ import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {environment} from '../environments/environment';
 import {FirebaseService} from './services/common/FirebaseNotification/firebase.service';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import {CheckInCategoryModalComponent} from './features/adminControl/modules/entityControl/dialogs/checkInCategoryModal/checkInCategoryModal.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -77,6 +78,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
+    CheckInCategoryModalComponent,
     EntityCodeModalComponent,
     InviteUserModalComponent,
     InviteTeamModalComponent,
@@ -168,6 +170,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
+    CheckInCategoryModalComponent,
     EntityCodeModalComponent,
     InviteUserModalComponent,
     CreateEntityComponent,

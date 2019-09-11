@@ -3,6 +3,8 @@ import {PermissionsModel} from './permissions.model';
 import {responseDetails, User} from '../user.model';
 import {Administrator, Entity, EntityInfo, EntityPermissions, ReportAccess} from '../userEntityData.model';
 import {MatTableDataSource} from '@angular/material';
+import {FormGroup} from '@angular/forms';
+
 
 export interface EntityControl {
   pageCount: number;
@@ -68,4 +70,17 @@ export interface RefreshEntityCodeResponse {
     entityCode: string;
   }
   responseDetails: responseDetails;
+}
+
+export interface CheckInCategory {
+  checkInTypes: Array<CheckInTypesCat>;
+  addCheckInTypeForm: FormGroup;
+
+}
+
+
+export interface CheckInTypesCat {
+  id: number;
+  name: string;
+  entity: number;
 }

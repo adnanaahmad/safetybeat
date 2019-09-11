@@ -14,7 +14,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {PaginationData, ViewAllSiteEntityData} from 'src/app/models/site.model';
+import {PaginationData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-siteActivityReport',
@@ -37,19 +37,20 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.initialize();
     // this.setEntityName();
     this.getFilters();
-    this.getSites();
-  }
-
-  ngOnInit() {
     this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.siteReportObj.entityId = res.entityInfo.id;
         this.siteReportObj.entityName = res.entityInfo.name;
         this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
         this.siteFormValidations['entityName'].disable();
-        this.makeReport(7, null, null, null)
+        this.getSites();
+        this.makeReport(7, null, null, null);
       }
     });
+  }
+
+  ngOnInit() {
+
   }
 
   initialize() {
@@ -66,32 +67,27 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.siteReportObj.minDate = null;
   }
 
-  // setEntityName() {
-  //   this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-  //     if (res && res !== 1) {
-  //
-  //     }
-  //   });
-  // }
 
   get siteFormValidations() {
     return this.siteReportObj.siteReportForm.controls;
   }
 
   getSites() {
-    let entityData: ViewAllSiteEntityData = {
-      entityId: this.siteReportObj.entityId,
-    };
-    let paginationData: PaginationData = {
-      offset: null,
-      limit: null,
-      search: ''
-    };
-    this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
-      if (res) {
-        this.siteReportObj.sites = res.data.sitesList;
-      }
-    });
+      let entityData: ViewAllSiteEntityData = {
+        entityId: this.siteReportObj.entityId
+      };
+      let paginationData: PaginationData = {
+        offset: null,
+        limit: null,
+        search: ''
+      };
+
+      this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.siteReportObj.sites = res.data.sitesList;
+        }
+      });
+
   }
 
   makeReport(days, dateTo, dateFrom, site) {

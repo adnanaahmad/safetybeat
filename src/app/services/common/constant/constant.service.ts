@@ -95,7 +95,8 @@ export class ConstantService {
     userLeaves: `${environment.apiUrl}/api/leaves/viewAllUserLeaves/`,
     allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`,
     saveFirebaseToken: `${environment.apiUrl}/users/saveFirebaseToken/`,
-    updateProfile: `${environment.apiUrl}/users/updateProfile/`
+    updateProfile: `${environment.apiUrl}/users/updateProfile/`,
+    checkInType: `${environment.apiUrl}/api/checkInType/`
   };
   /**
    * all the api methods are declared here.

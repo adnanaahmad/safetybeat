@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {RefreshEntityCodeResponse, ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
+import {CheckInTypesCat, RefreshEntityCodeResponse, ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
 import {CreateEntityResponse} from 'src/app/models/adminControl/createEntity.model';
 import {AllHazardsApiData, AllHazardsApiResponseData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
@@ -56,6 +56,28 @@ export class AdminControlService {
       this.method.post,
       this.apiRoutes.viewAllEntities,
       data
+    );
+  }
+
+  checkInTypes(entityId: number) {
+    return this.helperService.requestCall(
+      this.method.get,
+      this.apiRoutes.checkInType
+    );
+  }
+
+  addCheckInTypes(data: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.checkInType,
+      data
+    );
+  }
+
+  deleteCheckInType(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.checkInType}${id}/`
     );
   }
 

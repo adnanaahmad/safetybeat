@@ -15,6 +15,7 @@ import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {Entity} from 'src/app/models/userEntityData.model';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {PaginationData} from 'src/app/models/site.model';
+import {CheckInCategoryModalComponent} from '../../dialogs/checkInCategoryModal/checkInCategoryModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -155,6 +156,12 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         entity: entityData.entityInfo,
         permissions: this.entityControl.permissions.refreshEntityCode
       }
+    });
+  }
+
+  checkInCategories(entityId: number) {
+    this.helperService.createDialog(CheckInCategoryModalComponent, {
+      data: entityId
     });
   }
 

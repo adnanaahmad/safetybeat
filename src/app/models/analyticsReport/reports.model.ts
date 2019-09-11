@@ -2,7 +2,7 @@ import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {FilterModel} from 'src/app/models/filter.model';
 import {User} from '../user.model';
-import {Site} from '../site.model';
+import {Site} from 'src/app/models/site.model';
 
 
 export interface Report {
