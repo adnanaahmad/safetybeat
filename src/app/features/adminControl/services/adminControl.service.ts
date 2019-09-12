@@ -259,13 +259,12 @@ export class AdminControlService {
     );
   }
 
-  deleteTeam(id
-               :
-               number
-  ) {
+  archiveTeam(id:number) {
+    const data = {"id": id};
     return this.helperService.requestCall(
-      this.method.delete,
-      `${this.apiRoutes.team}${id}/`
+      this.method.put,
+      `${this.apiRoutes.archiveTeam}`,
+      data
     );
   }
 

@@ -57,6 +57,7 @@ export class ConstantService {
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     archiveSite: `${environment.apiUrl}/api/sites/archiveSite/`,
+    archiveTeam: `${environment.apiUrl}/api/teams/archiveTeam/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
     connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
     viewHazardInfo: `${environment.apiUrl}/api/hazard/`,

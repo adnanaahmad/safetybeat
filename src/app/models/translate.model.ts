@@ -417,6 +417,7 @@ export interface Messages {
   DELETE_QUESTION_SUCCESS: string;
   DELETE_QUESTION_FAILURE: string;
   DELETE_TEAM_SUCCESS: string;
+  ARCHIVED_TEAM_SUCCESS: string;
   DELETE_TEAM_FAILURE: string;
   EDIT_SITE_MSG: string;
   SAFETYBEAT_PRICING: string;
@@ -683,4 +684,5 @@ export interface Confirmation {
     ARCHIVE_HAZARD: string;
     ARCHIVE_ENTITY: string;
     ARCHIVE_TEAM: string;
+    UNARCHIVE_TEAM:string;
 }

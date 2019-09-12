@@ -409,6 +409,7 @@
     "TEAM": "Team",
     "REGISTER_TEAM": "Enter Details to Register Team",
     "DELETE_TEAM_SUCCESS": "Team deleted successfully",
+    "ARCHIVED_TEAM_SUCCESS": "Team archived successfully",
     "DELETE_TEAM_FAILURE": "Team deletion failed",
     "EDIT_TEAM": "Enter Details to Edit Team",
     "INVITETEAMTITLE": "Add Members",
@@ -587,6 +588,7 @@
     "DELETE_DOCUMENT": "Are you sure you want to delete this document?",
     "DELETE_FOLDER": "Are you sure you want to delete this folder? Its all documents will be deleted.",
     "DELETE_QUESTION": "Are you sure you want to delete this question?",
-    "DELETE_LEAVE": "Are you sure you want to delete this leave?"
+    "DELETE_LEAVE": "Are you sure you want to delete this leave?",
+    "UNARCHIVE_TEAM": "Are you sure you want unarchive this team?"
   }
 }
