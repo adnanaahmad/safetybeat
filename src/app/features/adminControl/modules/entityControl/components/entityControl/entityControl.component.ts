@@ -282,7 +282,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
       this.viewAllEntities();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE,
-        this.helperService.translated.STATUS.SUCCESS);
+        this.helperService.constants.status.SUCCESS);
       this.entityControl.displayLoader = false;
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE_FAIL,
@@ -297,6 +297,9 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
   getArchivedEntities() {
     this.helperService.createDialog(ArchivedEntityComponent, {
       disableClose: true,
+    });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
     });
   }
 

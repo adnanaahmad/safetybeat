@@ -81,7 +81,11 @@ app-toaster {
 .mini-fab {
   transform: scale(0.7) !important;
 }
-
+.ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .spinner-wrap {
   @include midBlock;
   height: $fullValue;
@@ -232,6 +236,7 @@ mat-dialog-container {
 
 .paddingbox {
   padding: 16px;
+  position: relative;
 }
 
 .text-center {

@@ -40,7 +40,6 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
    */
   ngOnInit() {
     this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
-    //this.viewAllEntities();
   }
 
   /**
@@ -108,4 +107,25 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
+
+   /**
+   * Unarchive site
+   * @params siteData
+   */
+  unarchiveEntity(entityData: any) {
+    this.entityControl.displayLoader = true;
+    this.adminServices.unarchiveEntity(entityData.entityInfo.id).subscribe(res => {
+      this.entityControl.pageCount = 0;
+      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE,
+        this.helperService.constants.status.SUCCESS);
+      this.entityControl.displayLoader = false;
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE_FAIL,
+        this.helperService.translated.STATUS.ERROR);
+      this.entityControl.displayLoader = false;
+    });
+  }
 }
+
+

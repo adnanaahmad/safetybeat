@@ -14,6 +14,7 @@ export interface MyTeamModel {
   permissions: PermissionsModel;
   subscription: Subscription;
   allTeams: Array<TeamList>;
+  teamsData?: Array<TeamList>;
   dataSource: MatTableDataSource<TeamList>;
 }
 
@@ -33,6 +34,11 @@ export interface TeamList {
 
 export interface GetAllTeamsData {
   entityId: number;
+}
+
+export interface GetAllArchivedTeamsData {
+  entityId: number;
+  archived: boolean;
 }
 
 export interface AllTeamsApiResponse {

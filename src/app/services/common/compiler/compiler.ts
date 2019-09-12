@@ -149,6 +149,14 @@ export class CompilerProvider {
     return siteApiResponse.filter((siteData: any) => siteData.isArchived);
   }
 
+  constructAllTeamsArchivedData(teamApiResponse: any): Array<any> {
+    var archivedTeams = []
+    teamApiResponse.forEach((teamData: any) =>  {
+      archivedTeams.push(teamData.team);
+    });
+    return archivedTeams;
+  }
+
   constructDocuments(documentsApiResponse: any): Array<DocumentObj> {
     return documentsApiResponse.data;
   }
