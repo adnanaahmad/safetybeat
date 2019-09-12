@@ -103,6 +103,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   }
 
   viewProfile(element) {
+    element['entityId'] = this.memberCenter.entityId;
     this.helperService.navigateWithData([this.helperService.appConstants.paths.profile,
       {data: JSON.stringify(element)}], {skipLocationChange: true});
   }

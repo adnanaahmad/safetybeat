@@ -35,11 +35,17 @@ export class MemberCenterService {
       entityId
     );
   }
-
+  entityAllUsers(entityId: ViewAllSiteEntityData): Observable<entityUsersApiResponse> {
+    return this.helperService.requestCall(
+      this.method.post,
+      `${this.apiRoutes.entitiesUsers}`,
+      entityId
+    );
+  }
   getUsersList(entityId: ViewAllSiteEntityData): Observable<entityUsersApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.allEntityUsers,
+      `${this.apiRoutes.allEntityUsers}`,
       entityId
     );
   }

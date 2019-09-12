@@ -68,6 +68,7 @@ import {environment} from '../environments/environment';
 import {FirebaseService} from './services/common/FirebaseNotification/firebase.service';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import {CheckInCategoryModalComponent} from './features/adminControl/modules/entityControl/dialogs/checkInCategoryModal/checkInCategoryModal.component';
+import {ArchivedEntityComponent} from './features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -76,6 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    ArchivedEntityComponent,
     ArchivedSitesComponent,
     ArchivedHazardsComponent,
     AddActionsComponent,
@@ -169,6 +171,7 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent],
   exports: [],
   entryComponents: [
+    ArchivedEntityComponent,
     ArchivedSitesComponent,
     ArchivedHazardsComponent,
     AdvanceSearchComponent,
