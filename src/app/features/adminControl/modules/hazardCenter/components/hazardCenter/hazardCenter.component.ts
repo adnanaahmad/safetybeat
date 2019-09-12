@@ -192,15 +192,13 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
     );
   }
 
-  getArchivedSites() {
+  getArchivedHazards() {
     this.helperService.createDialog(ArchivedHazardsComponent, {
       disableClose: true,
       data: {Modal: false, 'hazardsData': this.hazardTable.hazardsData}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res !== this.helperService.appConstants.no) {
-        this.getHazardList(this.paginator.pageIndex, this.search);
-      }
+      this.getHazardList(this.paginator.pageIndex, this.search);
     });
   }
 

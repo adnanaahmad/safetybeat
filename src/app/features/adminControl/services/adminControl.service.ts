@@ -210,6 +210,14 @@ export class AdminControlService {
       data
     );
   }
+  unarchiveSite(id:number) {
+    const data = {"id": id};
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.unarchiveSite}`,
+      data
+    );
+  }
 
   editSite(id
              :
@@ -252,7 +260,14 @@ export class AdminControlService {
       data
     );
   }
-
+  unarchiveHazard(id:number) {
+    const data = {"id": id};
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.unarchiveHazard}`,
+      data
+    );
+  }
 
   getRisks()
     :

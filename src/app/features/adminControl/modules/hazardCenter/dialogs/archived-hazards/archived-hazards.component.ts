@@ -96,8 +96,24 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
    * Unarchive hazard
    * @params hazardData
    */
-  unarchiveHazards(hazardData: any) {
-    // api need to be build
+  unarchiveHazard(hazardData: any) {
+    this.adminControlService.unarchiveHazard(hazardData.id).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.getHazardList(this.firstIndex, this.search);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_SUCCESS,
+            this.helperService.constants.status.SUCCESS);
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_FAILURE,
+            this.helperService.constants.status.ERROR);
+        } else {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_FAILURE,
+            this.helperService.constants.status.ERROR);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
+          this.helperService.constants.status.ERROR);
+      }
+    );
   }
 
 }

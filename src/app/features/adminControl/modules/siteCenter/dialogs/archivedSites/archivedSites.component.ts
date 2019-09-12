@@ -125,7 +125,19 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    * @params siteData
    */
   unarchiveSite(siteData: any) {
-    // api need to be build
+    this.adminServices.unarchiveSite(siteData.id).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.getSitesData(this.archivedSitesObj.firstIndex, this.archivedSitesObj.search);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+
+    });
   }
 
   /**

@@ -58,7 +58,7 @@
           {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
         </th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn-table" mat-raised-button (click)="unarchiveHazards(element)" mat-button color="primary">
+          <button class="btn-table" mat-raised-button (click)="unarchiveHazard(element)" mat-button color="primary">
             <mat-icon style="padding-right:0;">{{ helperService.appIcons.undo }}</mat-icon>
             Revert
           </button>
