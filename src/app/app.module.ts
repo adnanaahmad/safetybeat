@@ -28,7 +28,6 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatN
 import {ToasterComponent} from './components/toaster/toaster.component';
 import {ArchivedSitesComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/archivedSites/archivedSites.component';
 import {ArchivedHazardsComponent} from 'src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component';
-import {ArchivedEntitiesComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/archived-entities/archived-entities.component';
 import { ArchivedTeamComponent } from 'src/app/features/adminControl/modules/myTeam/dialogs/archived-team/archived-team.component';
 import {AddSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
@@ -69,6 +68,7 @@ import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {environment} from '../environments/environment';
 import {FirebaseService} from './services/common/FirebaseNotification/firebase.service';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import {ArchivedEntityComponent} from './features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -77,9 +77,9 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    ArchivedEntityComponent,
     ArchivedSitesComponent,
     ArchivedHazardsComponent,
-    ArchivedEntitiesComponent,
     AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
@@ -170,9 +170,9 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent],
   exports: [],
   entryComponents: [
+    ArchivedEntityComponent,
     ArchivedSitesComponent,
     ArchivedHazardsComponent,
-    ArchivedEntitiesComponent,
     ArchivedTeamComponent,
     AdvanceSearchComponent,
     AddActionsComponent,

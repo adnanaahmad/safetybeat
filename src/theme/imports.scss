@@ -65,6 +65,7 @@
 @import "~src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component.scss";
 @import "~src/app/features/adminControl/modules/siteCenter/dialogs/archivedSites/archivedSites.component.scss";
 @import "~src/app/features/adminControl/modules/myTeam/dialogs/archived-team/archived-team.component.scss";
+@import "~src/app/features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -140,4 +141,5 @@
   @include amte-archivedHazards($primary, $accent, $warn);
   @include amte-archiveSites($primary, $accent, $warn);
   @include amte-archivedTeams($primary, $accent, $warn);
+  @include app-archived-entity($primary, $accent, $warn);
 }

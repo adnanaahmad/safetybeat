@@ -15,6 +15,7 @@ import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {Entity} from 'src/app/models/userEntityData.model';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {PaginationData} from 'src/app/models/site.model';
+import {ArchivedEntityComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -133,11 +134,12 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
 
   confirmationModal(entityId: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
-      {data: {message: this.helperService.translated.CONFIRMATION.DELETE_ENTITY}});
+      {data: {message: this.helperService.translated.CONFIRMATION.ARCHIVE_ENTITY}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
-        this.deleteEntity(entityId);
+        //this.deleteEntity(entityId);
+        this.archiveEntity(entityId);
       }
     });
   }
@@ -261,6 +263,34 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE_FAIL, this.helperService.translated.STATUS.ERROR);
       this.entityControl.displayLoader = false;
+    });
+  }
+  /**
+   * this function is used for archive the entities using their entity ids.
+   * @params entityId
+   */
+  archiveEntity(entityId: number) {
+    this.entityControl.displayLoader = true;
+    this.adminServices.archiveEntity(entityId).subscribe(res => {
+      this.entityControl.pageCount = 0;
+      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+      this.viewAllEntities();
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE,
+        this.helperService.constants.status.SUCCESS);
+      this.entityControl.displayLoader = false;
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE_FAIL,
+        this.helperService.translated.STATUS.ERROR);
+      this.entityControl.displayLoader = false;
+    });
+  }
+  /**
+   * this function is used to show archived entities in dialogue.
+   * @params entityId
+   */
+  getArchivedEntities() {
+    this.helperService.createDialog(ArchivedEntityComponent, {
+      disableClose: true,
     });
   }
 

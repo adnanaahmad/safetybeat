@@ -150,6 +150,20 @@ export class AdminControlService {
   }
 
   /**
+   * this function is used to archive the entity using the entityId and return response.
+   * @params id
+   */
+
+  archiveEntity(id:number) {
+    const data = {"id": id};
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.archiveEntity}`,
+      data
+    );
+  }
+
+  /**
    * this function is used to return the api response for import Site api
    * call. when the csv file is sent to this api call then the sites data
    * that is written in that particular csv file is added into the sites this function returns the success or failure response.

@@ -1,6 +1,4 @@
-<div class="spinner-wrap" *ngIf="hazardTable.loading">
-  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
-</div>
+
 <mat-card-title class="mat-dialog-title mat-elevation-z12">
   {{helperService.translated.BUTTONS.ARCHIVED_HAZARDS}}
 </mat-card-title>
@@ -70,6 +68,10 @@
       <tr mat-row *matRowDef="let row; columns: hazardTable.displayedColumns"></tr>
     </table>
   </div>
+
+    <div class="spinner-wrap" *ngIf="hazardTable.loading">
+      <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    </div>
 
   <div class="paddingbox text-center" *ngIf="!hazardTable.loading && !hazardTable.dataSource">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
