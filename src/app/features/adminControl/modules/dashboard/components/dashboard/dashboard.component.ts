@@ -13,14 +13,13 @@ import {
 import * as Highcharts from 'highcharts';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {container} from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnDestroy {
   translated: Translation;
   dashboardObj: Report = <Report>{};
 
@@ -41,12 +40,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnInit() {
-
-  }
-
   ngOnDestroy(): void {
-    if (this.dashboardObj.entityId) {
+    if (this.dashboardObj.subscription !== null && this.dashboardObj.subscription !== undefined) {
       this.dashboardObj.subscription.unsubscribe();
     }
   }
@@ -89,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'days': days,
       'user': user
     };
-     this.analyticsService.getHazardReport(data).subscribe((res) => {
+    this.analyticsService.getHazardReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.dashboardObj.hazardReportData = res.data.hazardReportBySeverity;
         this.dashboardObj.resolvedHazards = res.data.resolvedHazard;

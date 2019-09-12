@@ -65,8 +65,14 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
    * and this unsubscription will be called when the component will be destroyed.
    */
   ngOnDestroy() {
-    this.entityControl.subscription.unsubscribe();
+    if (this.entityControl.subscription !== null && this.entityControl.subscription !== undefined) {
+      this.entityControl.subscription.unsubscribe();
+    }
   }
+
+  /**
+   * this function is called when the view of this component is successfully loaded
+   */
 
   ngAfterViewInit(): void {
     if (this.entityControl.dataSource !== undefined) {
@@ -190,6 +196,11 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
+
+  /**
+   * this function is used to get all the entities without pagination data so that when the new entity is added this function calls and
+   * updates the state of entitySwitcher entities
+   */
 
   viewAllEntities() {
     let data = {

@@ -13,6 +13,7 @@ export interface HazardModel {
   dataSource: MatTableDataSource<any>;
   displayedColumns: Array<string>;
   loading: boolean;
+  hazardsData: any;
 }
 
 export interface AddHazardModel {

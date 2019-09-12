@@ -133,10 +133,21 @@ export class CompilerProvider {
     return siteData;
   }
 
-  constructAllSitesData(siteApiResponse: any): Array<SitesInfo> {
-    return siteApiResponse;
+  constructAllHazardsData(hazardApiResponse: any): Array<any> {
+    return hazardApiResponse.filter((hazardData: any) => !hazardData.isArchived);
   }
 
+  constructAllArchivedHazardsData(hazardApiResponse: any): Array<any> {
+    return hazardApiResponse.filter((hazardData: any) => hazardData.isArchived);
+  }
+
+  constructAllSitesData(siteApiResponse: any): Array<SitesInfo> {
+    return siteApiResponse.filter((siteData: any) => !siteData.isArchived);
+  }
+
+  constructAllSitesArchivedData(siteApiResponse: any): Array<SitesInfo> {
+    return siteApiResponse.filter((siteData: any) => siteData.isArchived);
+  }
 
   constructDocuments(documentsApiResponse: any): Array<DocumentObj> {
     return documentsApiResponse.data;

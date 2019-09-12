@@ -7,10 +7,11 @@ import {CheckInTypesCat, RefreshEntityCodeResponse, ViewAllEntitiesResponse} fro
 import {CreateEntityResponse} from 'src/app/models/adminControl/createEntity.model';
 import {AllHazardsApiData, AllHazardsApiResponseData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
+
 import {
   AddSiteApiResponse,
   AddSiteData, PaginationData, RefreshSiteCodeApiResponse, sendSiteCodeApiData, SendSiteCodeApiResponse,
-  ViewAllSiteEntityData, ViewAllSitesApiResponse,
+  ViewAllSiteEntityData, ViewAllSitesApiResponse, ViewAllSiteArchivedData
 } from 'src/app/models/site.model';
 
 @Injectable({
@@ -59,10 +60,11 @@ export class AdminControlService {
     );
   }
 
-  checkInTypes(entityId: number) {
+  checkInTypes(entityId: object) {
     return this.helperService.requestCall(
-      this.method.get,
-      this.apiRoutes.checkInType
+      this.method.post,
+      this.apiRoutes.getCheckInTypes,
+      entityId
     );
   }
 
@@ -77,7 +79,7 @@ export class AdminControlService {
   deleteCheckInType(id: number) {
     return this.helperService.requestCall(
       this.method.delete,
-      `${this.apiRoutes.checkInType}${id}/`
+      `${this.apiRoutes.checkInTypeEntity}${id}/`
     );
   }
 
@@ -120,6 +122,18 @@ export class AdminControlService {
    * @params data
    */
   viewSites(entityData: ViewAllSiteEntityData, paginationData: PaginationData): Observable<ViewAllSitesApiResponse> {
+    return this.helperService.requestCall(
+      this.method.post,
+      `${this.apiRoutes.viewAllSites}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      entityData
+    );
+  }
+
+  /**
+   * this function is used to return the response for archived viewAllSites api call.
+   * @params data
+   */
+  viewArchivedSites(entityData: ViewAllSiteArchivedData, paginationData: PaginationData): Observable<ViewAllSitesApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
       `${this.apiRoutes.viewAllSites}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
@@ -183,13 +197,12 @@ export class AdminControlService {
     );
   }
 
-  deleteSite(id
-               :
-               number
-  ) {
+  deleteSite(id:number) {
+    const data = {"id": id};
     return this.helperService.requestCall(
-      this.method.delete,
-      `${this.apiRoutes.viewSiteInfo}${id}/`
+      this.method.put,
+      `${this.apiRoutes.archiveSite}`,
+      data
     );
   }
 
@@ -226,14 +239,12 @@ export class AdminControlService {
     );
   }
 
-  deleteHazard(id
-                 :
-                 number
-  ):
-    Observable<DeleteHazardApiResponse> {
+  deleteHazard(id:number) {
+    const data = {"id": id};
     return this.helperService.requestCall(
-      this.method.delete,
-      `${this.apiRoutes.viewHazardInfo}${id}/`,
+      this.method.put,
+      `${this.apiRoutes.archiveHazard}`,
+      data
     );
   }
 

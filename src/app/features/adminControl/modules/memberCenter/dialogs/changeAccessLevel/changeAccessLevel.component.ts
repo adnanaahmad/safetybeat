@@ -110,7 +110,7 @@ export class ChangeAccessLevelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.permissions.entityId) {
+    if (this.permissions.subscription !== null && this.permissions.subscription !== undefined) {
       this.permissions.subscription.unsubscribe();
     }
   }

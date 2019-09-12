@@ -73,6 +73,7 @@ export interface RefreshEntityCodeResponse {
 }
 
 export interface CheckInCategory {
+  filteredCheckInTypes: CheckInTypesCat[];
   checkInTypes: Array<CheckInTypesCat>;
   addCheckInTypeForm: FormGroup;
 
@@ -81,6 +82,14 @@ export interface CheckInCategory {
 
 export interface CheckInTypesCat {
   id: number;
-  name: string;
+  checkInType: CheckIn;
   entity: number;
 }
+
+export interface CheckIn {
+  id: number;
+  name: string;
+  default: boolean;
+}
+
+

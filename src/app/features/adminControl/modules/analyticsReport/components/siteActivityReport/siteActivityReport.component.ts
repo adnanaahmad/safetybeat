@@ -35,7 +35,6 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     public adminServices: AdminControlService,
   ) {
     this.initialize();
-    // this.setEntityName();
     this.getFilters();
     this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
@@ -217,7 +216,9 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.siteReportObj.subscription.unsubscribe();
+    if (this.siteReportObj.subscription !== null && this.siteReportObj.subscription !== undefined) {
+      this.siteReportObj.subscription.unsubscribe();
+    }
   }
 
 }

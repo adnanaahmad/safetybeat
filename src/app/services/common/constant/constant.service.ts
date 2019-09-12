@@ -56,9 +56,11 @@ export class ConstantService {
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
+    archiveSite: `${environment.apiUrl}/api/sites/archiveSite/`,
     connectionAdding: `${environment.apiUrl}/api/connections/`,
     connectionConfirm: `${environment.apiUrl}/api/connections/confirmConnection/`,
     viewHazardInfo: `${environment.apiUrl}/api/hazard/`,
+    archiveHazard: `${environment.apiUrl}/api/hazard/archiveHazard/`,
     riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazardsOfEntity/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
@@ -96,7 +98,9 @@ export class ConstantService {
     allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`,
     saveFirebaseToken: `${environment.apiUrl}/users/saveFirebaseToken/`,
     updateProfile: `${environment.apiUrl}/users/updateProfile/`,
-    checkInType: `${environment.apiUrl}/api/checkInType/`
+    checkInType: `${environment.apiUrl}/api/checkInType/`,
+    checkInTypeEntity: `${environment.apiUrl}/api/checkInTypeEntity/`,
+    getCheckInTypes: `${environment.apiUrl}/api/checkInType/getCheckInTypes/`
   };
   /**
    * all the api methods are declared here.
@@ -437,7 +441,9 @@ export class ConstantService {
     teamLead: 'stars',
     Launch: 'launch',
     themeSwitcher: 'color_lens',
-    error: 'error'
+    error: 'error',
+    archived: 'archive',
+    undo: 'undo'
   };
   /**
    * all the particle container icon names are declared here.

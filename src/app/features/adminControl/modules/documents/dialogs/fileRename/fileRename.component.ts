@@ -26,6 +26,10 @@ export class FileRenameComponent implements OnInit {
     this.fileNameControls['fileName'].setValue(this.data.docInfo.title.split('.')[0]);
   }
 
+  /**
+   * this function is used to rename the file
+   * @params value
+   */
   fileRenameSubmit({value}: { value: NewDoc }) {
     this.documentsData.loader = true;
     let newName = value.fileName + '.' + this.data.docInfo.title.split('.')[1];
@@ -45,6 +49,9 @@ export class FileRenameComponent implements OnInit {
 
   }
 
+  /**
+   * this function is used to handle the errors and invalidity in the forms
+   */
   get fileNameControls() {
     return this.documentsData.fileRenameForm.controls;
   }

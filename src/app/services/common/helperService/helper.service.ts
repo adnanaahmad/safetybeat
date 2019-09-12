@@ -109,6 +109,7 @@ export class HelperService {
       horizontalPosition: 'right',
     });
   }
+
   /**
    * this function is used for creating snack
    * @params message
@@ -123,6 +124,7 @@ export class HelperService {
       duration: 2000
     });
   }
+
   /**
    * this function is used to enable and disable the loader.
    * @params res

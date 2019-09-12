@@ -26,6 +26,8 @@ import {CompilerProvider} from './services/common/compiler/compiler';
 import {InviteTeamModalComponent} from './features/adminControl/modules/entityControl/dialogs/inviteTeamModal/inviteTeamModal.component';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatNativeDateModule} from '@angular/material';
 import {ToasterComponent} from './components/toaster/toaster.component';
+import {ArchivedSitesComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/archivedSites/archivedSites.component';
+import {ArchivedHazardsComponent} from 'src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component';
 import {AddSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {ConfirmationModalComponent} from './dialogs/conformationModal/confirmationModal.component';
@@ -58,7 +60,6 @@ import {FlatpickrModule} from 'angularx-flatpickr';
 import {AddleavesComponent} from './features/profile/dialogs/addLeaves/addleaves.component';
 import {LeaveinfoComponent} from './features/profile/dialogs/leaveinfo/leaveinfo.component';
 import {NoAuthGuard} from './services/core/restrict/restrict.service';
-
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
@@ -75,6 +76,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    ArchivedSitesComponent,
+    ArchivedHazardsComponent,
     AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
@@ -166,6 +169,8 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent],
   exports: [],
   entryComponents: [
+    ArchivedSitesComponent,
+    ArchivedHazardsComponent,
     AdvanceSearchComponent,
     AddActionsComponent,
     CreateEntityComponent,

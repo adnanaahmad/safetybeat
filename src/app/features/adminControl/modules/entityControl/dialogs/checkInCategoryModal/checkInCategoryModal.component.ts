@@ -29,8 +29,11 @@ export class CheckInCategoryModalComponent implements OnInit {
   }
 
   getCheckInsType() {
-    this.adminServices.checkInTypes(this.data).subscribe((res: Array<CheckInTypesCat>) => {
-      this.checkInCategoryModal.checkInTypes = res;
+    let entity = {
+      id: this.data
+    }
+    this.adminServices.checkInTypes(entity).subscribe((res) => {
+      this.checkInCategoryModal.checkInTypes = res.data;
     });
   }
 
@@ -40,9 +43,18 @@ export class CheckInCategoryModalComponent implements OnInit {
       entity: this.data
     }
     this.adminServices.addCheckInTypes(data).subscribe((res) => {
-      if (res) {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS)
+        this.getCheckInsType();
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.WARNING)
+        this.getCheckInsType();
+      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR)
         this.getCheckInsType();
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -51,5 +63,6 @@ export class CheckInCategoryModalComponent implements OnInit {
       this.getCheckInsType();
     });
   }
+
 
 }

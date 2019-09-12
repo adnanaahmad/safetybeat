@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MatDialog} from '@angular/material';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
@@ -16,9 +16,10 @@ export class FileComponent implements OnInit {
   @Input() docData: DocumentObj;
   @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor( public dialog: MatDialog,
+  constructor(public dialog: MatDialog,
               public helperService: HelperService,
-              public navService: NavigationService) { }
+              public navService: NavigationService) {
+  }
 
   ngOnInit() {
     this.showLoader = false;
@@ -38,6 +39,8 @@ export class FileComponent implements OnInit {
         this.navService.deleteDoc(id).subscribe((res: Object) => {
           this.showLoader = false;
           this.processAction.emit(true);
+        }, (error) => {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         });
       } else {
         this.showLoader = false;
@@ -47,14 +50,11 @@ export class FileComponent implements OnInit {
   }
 
   /**
-   * View Document
+   * Rename Document
    * @params doc
    */
-  // viewDoc(doc: any) {
-  //   this.helperService.createDialog(ViewDocComponent, {data: doc, disableClose: true});
-  // }
-  renameDoc (doc) {
-    this.helperService.createDialog(FileRenameComponent, {disableClose: true, data : {docInfo: doc}});
+  renameDoc(doc) {
+    this.helperService.createDialog(FileRenameComponent, {disableClose: true, data: {docInfo: doc}});
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res !== 'cancel') {
         this.processAction.emit(true);

@@ -199,7 +199,9 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.checkInActivityObj.subscription.unsubscribe();
+    if (this.checkInActivityObj.subscription !== null && this.checkInActivityObj.subscription !== undefined) {
+      this.checkInActivityObj.subscription.unsubscribe();
+    }
   }
 
 }

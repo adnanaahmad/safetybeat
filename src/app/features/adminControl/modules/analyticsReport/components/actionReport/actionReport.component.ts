@@ -60,14 +60,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.actionReportObj.minDate = null;
   }
 
-  // setEntityName() {
-  //   this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-  //     if ( res && res !== 1) {
-  //
-  //     }
-  //   });
-  // }
-
   getFilters() {
     this.analyticsService.filter().subscribe((res) => {
       if (res) {
@@ -148,7 +140,9 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.actionReportObj.subscription.unsubscribe();
+    if (this.actionReportObj.subscription !== null && this.actionReportObj.subscription !== undefined) {
+      this.actionReportObj.subscription.unsubscribe();
+    }
   }
 
   enableDates(value: any) {
