@@ -4,6 +4,11 @@
     <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
     <div class="buttonRow">
       <button class="mat-elevation-z6" mat-raised-button color="primary"
+              (click)="getArchivedEntities()">
+        <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
+        {{ helperService.translated.BUTTONS.ARCHIVED_ENTITIES }}
+      </button>
+      <button class="mat-elevation-z6" mat-raised-button color="primary"
               *ngIf="entityControl.permissions?.joinEntity"
               (click)="joinEntity()">
         <mat-icon>{{ helperService.appIcons.joinEntity }}</mat-icon>
@@ -110,7 +115,7 @@
             </button>
             <button mat-menu-item *ngIf="entityControl.permissions.deleteEntity"
                     (click)="confirmationModal(element.entityInfo.id)">
-              <mat-icon>{{ helperService.constants.appIcons.archive }}</mat-icon>
+              <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.ARCHIVE_ENTITY }}
             </button>
           </mat-menu>

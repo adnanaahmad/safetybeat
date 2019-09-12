@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ArchivedEntitiesComponent } from './archived-entities.component';
+import { ArchivedEntityComponent } from './archived-entity.component';
 
-describe('ArchivedEntitiesComponent', () => {
-  let component: ArchivedEntitiesComponent;
-  let fixture: ComponentFixture<ArchivedEntitiesComponent>;
+describe('ArchivedEntityComponent', () => {
+  let component: ArchivedEntityComponent;
+  let fixture: ComponentFixture<ArchivedEntityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ArchivedEntitiesComponent ]
+      declarations: [ ArchivedEntityComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ArchivedEntitiesComponent);
+    fixture = TestBed.createComponent(ArchivedEntityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
