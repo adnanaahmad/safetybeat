@@ -292,6 +292,9 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
     this.helperService.createDialog(ArchivedEntityComponent, {
       disableClose: true,
     });
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+    });
   }
 
   advanceSearch() {

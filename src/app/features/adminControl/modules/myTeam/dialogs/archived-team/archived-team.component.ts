@@ -121,38 +121,12 @@ export class ArchivedTeamComponent implements OnInit {
    * @params siteData
    */
   unarchiveTeam(teamData: any) {
-    this.helperService.createDialog(ConfirmationModalComponent,
-      {data: {message: this.helperService.translated.CONFIRMATION.UNARCHIVE_TEAM}});
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
-        this.helperService.toggleLoader(true);
-        this.updateTeam(teamData);
-      }
-    });
-  }
-
-  /**
-   * revert team archive
-   * @param teamData 
-   */
-  updateTeam(teamData: any) {
-    this.myTeam.loading = true;
-    teamData.isArchived = false;
-    this.adminServices.editTeam(teamData.id, teamData).subscribe(res => {
-      if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.myTeam.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_UPDATED,
-          this.helperService.constants.status.SUCCESS);
-        this.onNoClick();
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.myTeam.loading = false;
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_UPDATE_FAILED,
-          this.helperService.constants.status.ERROR);
-      }
+    this.adminServices.unarchiveTeam(teamData.id).subscribe((res) => {
+      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+      this.helperService.createSnack(
+        this.helperService.translated.MESSAGES.ARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
     }, (error) => {
-      this.myTeam.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_UPDATE_FAILED,
-        this.helperService.constants.status.ERROR);
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

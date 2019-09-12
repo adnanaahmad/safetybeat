@@ -128,7 +128,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.archiveTeam(teamId);
-      }
+      } 
     });
   }
 
@@ -161,9 +161,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       data: {Modal: false, 'teamData': this.myTeam.allTeams}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res !== this.helperService.appConstants.no) {
-        this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
-      }
+        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
     });
   }
 

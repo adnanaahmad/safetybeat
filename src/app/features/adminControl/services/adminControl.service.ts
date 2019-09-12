@@ -163,6 +163,20 @@ export class AdminControlService {
     );
   }
 
+   /**
+   * this function is used to unarchive the entity using the entityId and return response.
+   * @params id
+   */
+
+  unarchiveEntity(id:number) {
+    const data = {"id": id};
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.unarchiveEntity}`,
+      data
+    );
+  }
+
   /**
    * this function is used to return the api response for import Site api
    * call. when the csv file is sent to this api call then the sites data
@@ -278,6 +292,15 @@ export class AdminControlService {
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.archiveTeam}`,
+      data
+    );
+  }
+
+  unarchiveTeam(id:number) {
+    const data = {"id": id};
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.unarchiveTeam}`,
       data
     );
   }
