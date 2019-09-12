@@ -1,4 +1,4 @@
-@mixin amte-viewSite($primary, $accent, $warn) {
+@mixin amte-app-check-in-category-modal($primary, $accent, $warn) {
   :host,
   app-check-in-category-modal {
     .safe-icon {
@@ -10,6 +10,11 @@
 
       &.unsafe {
         background-color: mat-color($warn);
+      }
+    }
+    .data-search {
+      .remove-type {
+        margin-left: auto;
       }
     }
   }

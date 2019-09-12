@@ -1,48 +1,60 @@
 <mat-card-title class="mat-dialog-title">
-  {{helperService.translated.MESSAGES.CHECKIN_CATEGORIES}}
+    {{helperService.translated.MESSAGES.CHECKIN_CATEGORIES}}
 </mat-card-title>
 <div class="mat-dialog-content">
-  <form [formGroup]="checkInCategoryModal.addCheckInTypeForm">
-    <mat-form-field fullWidth appearance="outline">
-      <mat-label>{{helperService.translated.MESSAGES.CHECKIN_CATEGORY_TITLE}}</mat-label>
-      <input matInput type="text" [formControlName]=helperService.appConstants.title required/>
-    </mat-form-field>
-  </form>
-  <mat-dialog-actions>
-    <button mat-raised-button (click)="addCheckIn(checkInCategoryModal.addCheckInTypeForm)"
-            [disabled]="checkInCategoryModal.addCheckInTypeForm.invalid"
-            matTooltip="{{helperService.translated.STRINGS.ADD}}"
-            color="primary"
-            class="mat-elevation-z1 remove-member">
-      Add
-    </button>
-  </mat-dialog-actions>
-  <mat-form-field class="searchbar" fullWidth appearance="outline">
-    <mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>
-    <input type="text" matInput>
-    <mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>
-  </mat-form-field>
-  <div class="data-search">
-    <div class="data-result">
-      <!--      <mat-card class="text-center"-->
-      <!--                *ngIf="registerTeamObj.allUsersList.length === 0">-->
-      <!--        {{this.helperService.translated.MESSAGES.NO_USER}}-->
-      <!--      </mat-card>-->
-      <ng-container>
-        <mat-list>
-          <mat-list-item *ngFor="let element of this.checkInCategoryModal.checkInTypes">
-            <!--          <div class="user-thumbnail">-->
-            <!--            <img src="{{ user.thumbnail != null ? user.thumbnail : helperService.appConstants.avatar}}">-->
-            <!--          </div>-->
-            <h5 class="user-name align-items-center" mat-line>
-              {{element.checkInType.name}}
-            </h5>
-            <button class="safe-icon unsafe" (click)="deleteCheckIn(element.id)">
-              Remove
-            </button>
-          </mat-list-item>
-        </mat-list>
-      </ng-container>
+    <form [formGroup]="checkInCategoryModal.addCheckInTypeForm">
+        <!--<mat-form-field fullWidth appearance="outline">-->
+        <!--<mat-label>{{helperService.translated.MESSAGES.CHECKIN_CATEGORY_TITLE}}</mat-label>-->
+        <!--<input matInput type="text" [formControlName]=helperService.appConstants.title required/>-->
+        <!--</mat-form-field>-->
+
+        <mat-form-field fullWidth appearance="outline">
+            <mat-label>{{helperService.translated.MESSAGES.CHECKIN_CATEGORY_TITLE}}</mat-label>
+            <input matInput type="text" [formControlName]=helperService.appConstants.title required/>
+            <mat-icon color="primary" class="pointer" (click)="addCheckIn(checkInCategoryModal.addCheckInTypeForm)"
+                      matSuffix>
+                {{helperService.appIcons.addCircle}}
+            </mat-icon>
+        </mat-form-field>
+    </form>
+
+    <!--<mat-form-field class="searchbar" fullWidth appearance="outline">-->
+    <!--<mat-label>{{helperService.translated.STRINGS.SEARCHUSERS}}</mat-label>-->
+    <!--<input type="text" matInput>-->
+    <!--<mat-icon matSuffix>{{helperService.appIcons.search}}</mat-icon>-->
+    <!--</mat-form-field>-->
+    <div class="data-search">
+        <div class="data-result">
+            <!--      <mat-card class="text-center"-->
+            <!--                *ngIf="registerTeamObj.allUsersList.length === 0">-->
+            <!--        {{this.helperService.translated.MESSAGES.NO_USER}}-->
+            <!--      </mat-card>-->
+            <ng-container>
+                <mat-list *ngFor="let element of this.checkInCategoryModal.checkInTypes">
+                    <mat-list-item>
+                        <!--          <div class="user-thumbnail">-->
+                        <!--            <img src="{{ user.thumbnail != null ? user.thumbnail : helperService.appConstants.avatar}}">-->
+                        <!--          </div>-->
+                        {{element.checkInType.name}}
+                        <button custom-btn mat-raised-button class="remove-type mat-elevation-z1"
+                                (click)="deleteCheckIn(element.id)">Remove
+                        </button>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                </mat-list>
+            </ng-container>
+        </div>
     </div>
-  </div>
+    <mat-dialog-actions>
+        <!--<button mat-raised-button (click)="addCheckIn(checkInCategoryModal.addCheckInTypeForm)"-->
+        <!--[disabled]="checkInCategoryModal.addCheckInTypeForm.invalid"-->
+        <!--matTooltip="{{helperService.translated.STRINGS.ADD}}"-->
+        <!--color="primary"-->
+        <!--class="mat-elevation-z1 remove-member">-->
+        <!--Add-->
+        <!--</button>-->
+        <button mat-button [mat-dialog-close]="'NO'" type="button">
+            {{ helperService.translated.BUTTONS.CANCEL }}
+        </button>
+    </mat-dialog-actions>
 </div>
