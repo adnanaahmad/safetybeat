@@ -37,8 +37,7 @@
     <div class="spinner-wrap" *ngIf="entityControl.displayLoader">
       <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
     </div>
-    <table mat-table [dataSource]="entityControl.dataSource"
-           *ngIf="!entityControl.displayLoader && entityControl.dataSource" class="customTable mat-elevation-z3">
+    <table mat-table [dataSource]="entityControl.dataSource" class="customTable mat-elevation-z3">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>
           {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
