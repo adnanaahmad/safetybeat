@@ -1,0 +1,11 @@
+@mixin amte-pulse-categoy-modal($primary, $accent, $warn) {
+  :host,
+  app-pulse-categoy-modal {
+    .data-search {
+      .remove-type {
+        margin-left: auto;
+      }
+    }
+  }
+}
+

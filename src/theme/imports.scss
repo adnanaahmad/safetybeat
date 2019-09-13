@@ -67,6 +67,7 @@
 @import "~src/app/features/adminControl/modules/myTeam/dialogs/archived-team/archived-team.component.scss";
 @import "~src/app/features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component.scss";
 @import "~src/app/features/adminControl/modules/entityControl/dialogs/checkInCategoryModal/checkInCategoryModal.component.scss";
+@import "~src/app/features/adminControl/modules/entityControl/dialogs/pulseCategoyModal/pulseCategoyModal.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -143,5 +144,6 @@
   @include amte-archiveSites($primary, $accent, $warn);
   @include amte-archivedTeams($primary, $accent, $warn);
   @include app-archived-entity($primary, $accent, $warn);
-  @include amte-app-check-in-category-modal($primary, $accent, $warn);
+  @include amte-check-in-category-modal($primary, $accent, $warn);
+  @include amte-pulse-categoy-modal($primary, $accent, $warn);
 }
