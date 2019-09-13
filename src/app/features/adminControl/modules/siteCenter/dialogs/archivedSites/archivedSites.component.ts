@@ -90,8 +90,8 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
       archived: true
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.appConstants.paginationLimitForProfile,
-      limit: this.helperService.appConstants.paginationLimitForProfile,
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit,
       search: search
     };
     if (typeof (search) === 'string' && search.length === 0) {
