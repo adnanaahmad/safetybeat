@@ -17,6 +17,7 @@ import {MemberCenterService} from 'src/app/features/adminControl/modules/memberC
 import {PaginationData} from 'src/app/models/site.model';
 import {CheckInCategoryModalComponent} from '../../dialogs/checkInCategoryModal/checkInCategoryModal.component';
 import {ArchivedEntityComponent} from 'src/app/features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component';
+import {PulseCategoyModalComponent} from '../../dialogs/pulseCategoyModal/pulseCategoyModal.component';
 
 @Component({
   selector: 'app-entityControl',
@@ -168,6 +169,12 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
 
   checkInCategories(entityId: number) {
     this.helperService.createDialog(CheckInCategoryModalComponent, {
+      data: entityId
+    });
+  }
+
+  pulseCategories(entityId: number) {
+    this.helperService.createDialog(PulseCategoyModalComponent, {
       data: entityId
     });
   }

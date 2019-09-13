@@ -454,7 +454,8 @@
     "REMOVE_LEAVE_FAILURE": "Leave wasn't deleted",
     "CHECKIN_CATEGORIES": "Check-in Categories",
     "PULSE_CATEGORIES": "Pulse Categories",
-    "CHECKIN_CATEGORY_TITLE": "Add Check-in Title"
+    "CHECKIN_CATEGORY_TITLE": "Add Check-in Title",
+    "PULSE_CATEGORY_TITLE": "Add Pulse Title"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

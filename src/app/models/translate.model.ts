@@ -540,6 +540,7 @@ export interface Messages {
   CHECKIN_CATEGORIES: string;
   PULSE_CATEGORIES: string;
   CHECKIN_CATEGORY_TITLE: string;
+  PULSE_CATEGORY_TITLE: string;
 }
 
 export interface Logger {

@@ -68,6 +68,14 @@ export class AdminControlService {
     );
   }
 
+    pulseTypes(entityId: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.getPulseTypes,
+      entityId
+    );
+  }
+
   addCheckInTypes(data: object) {
     return this.helperService.requestCall(
       this.method.post,
@@ -76,10 +84,25 @@ export class AdminControlService {
     );
   }
 
+  addPulseTypes(data: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.pulseType,
+      data
+    );
+  }
+
   deleteCheckInType(id: number) {
     return this.helperService.requestCall(
       this.method.delete,
       `${this.apiRoutes.checkInTypeEntity}${id}/`
+    );
+  }
+
+  deletePulseType(id: number) {
+    return this.helperService.requestCall(
+      this.method.delete,
+      `${this.apiRoutes.sendPulseTypeEntity}${id}/`
     );
   }
 

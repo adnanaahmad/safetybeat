@@ -70,6 +70,7 @@ import {FirebaseService} from './services/common/FirebaseNotification/firebase.s
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import {CheckInCategoryModalComponent} from './features/adminControl/modules/entityControl/dialogs/checkInCategoryModal/checkInCategoryModal.component';
 import {ArchivedEntityComponent} from './features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component';
+import {PulseCategoyModalComponent} from './features/adminControl/modules/entityControl/dialogs/pulseCategoyModal/pulseCategoyModal.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -85,6 +86,7 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     CheckInCategoryModalComponent,
+    PulseCategoyModalComponent,
     EntityCodeModalComponent,
     InviteUserModalComponent,
     InviteTeamModalComponent,
@@ -181,6 +183,7 @@ export function createTranslateLoader(http: HttpClient) {
     CreateEntityComponent,
     JoinEntityModalComponent,
     CheckInCategoryModalComponent,
+    PulseCategoyModalComponent,
     EntityCodeModalComponent,
     InviteUserModalComponent,
     CreateEntityComponent,

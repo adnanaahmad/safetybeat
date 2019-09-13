@@ -73,10 +73,14 @@ export interface RefreshEntityCodeResponse {
 }
 
 export interface CheckInCategory {
-  filteredCheckInTypes: CheckInTypesCat[];
   checkInTypes: Array<CheckInTypesCat>;
   addCheckInTypeForm: FormGroup;
 
+}
+
+export interface PulseCategory {
+  pulseTypes: Array<PulseTypesCat>;
+  addPulseTypeForm: FormGroup;
 }
 
 
@@ -87,6 +91,18 @@ export interface CheckInTypesCat {
 }
 
 export interface CheckIn {
+  id: number;
+  name: string;
+  default: boolean;
+}
+
+export interface PulseTypesCat {
+  id: number;
+  pulseType: Pulse;
+  entity: number;
+}
+
+export interface Pulse {
   id: number;
   name: string;
   default: boolean;

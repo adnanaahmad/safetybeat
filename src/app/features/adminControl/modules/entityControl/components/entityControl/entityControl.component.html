@@ -110,7 +110,7 @@
                             {{ helperService.translated.MESSAGES.CHECKIN_CATEGORIES }}
                         </button>
                         <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
-                                (click)="confirmationModal(element.entityInfo.id)">
+                                (click)="pulseCategories(element.entityInfo.id)">
                             <mat-icon>list</mat-icon>
                             {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}
                         </button>

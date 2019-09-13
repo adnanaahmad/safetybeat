@@ -101,7 +101,10 @@ export class ConstantService {
         updateProfile: `${environment.apiUrl}/users/updateProfile/`,
         checkInType: `${environment.apiUrl}/api/checkInType/`,
         checkInTypeEntity: `${environment.apiUrl}/api/checkInTypeEntity/`,
-        getCheckInTypes: `${environment.apiUrl}/api/checkInType/getCheckInTypes/`
+        sendPulseTypeEntity: `${environment.apiUrl}/api/sendPulseTypeEntity/`,
+        getCheckInTypes: `${environment.apiUrl}/api/checkInType/getCheckInTypes/`,
+        getPulseTypes: `${environment.apiUrl}/api/sendPulseType/getPulseTypes/`,
+        pulseType: `${environment.apiUrl}/api/sendPulseType/`,
     };
     /**
      * all the api methods are declared here.

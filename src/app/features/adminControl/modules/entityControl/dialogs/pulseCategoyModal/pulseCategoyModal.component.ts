@@ -1,17 +1,18 @@
 import {Component, Inject, OnInit} from '@angular/core';
+import {CheckInCategory, PulseCategory} from '../../../../../../models/adminControl/entityControl.model';
 import {MAT_DIALOG_DATA} from '@angular/material';
-import {HelperService} from 'src/app/services/common/helperService/helper.service';
+import {HelperService} from '../../../../../../services/common/helperService/helper.service';
 import {FormBuilder, Validators} from '@angular/forms';
-import {CheckInCategory, CheckInTypesCat, PulseCategory} from 'src/app/models/adminControl/entityControl.model';
-import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
+import {AdminControlService} from '../../../../services/adminControl.service';
 
 @Component({
-  selector: 'app-check-in-category-modal',
-  templateUrl: './checkInCategoryModal.component.html',
-  styleUrls: ['./checkInCategoryModal.component.scss']
+  selector: 'app-pulse-categoy-modal',
+  templateUrl: './pulseCategoyModal.component.html',
+  styleUrls: ['./pulseCategoyModal.component.scss']
 })
-export class CheckInCategoryModalComponent implements OnInit {
-  checkInCategoryModal: CheckInCategory = <CheckInCategory>{};
+export class PulseCategoyModalComponent implements OnInit {
+
+  pulseCategoryModal: PulseCategory = <PulseCategory>{};
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data,
@@ -21,52 +22,53 @@ export class CheckInCategoryModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkInCategoryModal.addCheckInTypeForm = this.formBuilder.group({
+    this.pulseCategoryModal.addPulseTypeForm = this.formBuilder.group({
       title: ['', Validators.required]
     });
-    this.getCheckInsType();
+    this.getPulseType();
   }
 
-  getCheckInsType() {
+  getPulseType() {
     let entity = {
       id: this.data
     }
-    this.adminServices.checkInTypes(entity).subscribe((res) => {
+    this.adminServices.pulseTypes(entity).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.checkInCategoryModal.checkInTypes = res.data;
+        this.pulseCategoryModal.pulseTypes = res.data;
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.checkInCategoryModal.checkInTypes = null;
+        this.pulseCategoryModal.pulseTypes = null;
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
-  addCheckIn(form) {
+  addPulse(form) {
     let data = {
       name: form.value.title,
       entity: this.data
     }
-    this.adminServices.addCheckInTypes(data).subscribe((res) => {
+    this.adminServices.addPulseTypes(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS)
-        this.getCheckInsType();
+        this.getPulseType();
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.WARNING)
-        this.getCheckInsType();
+        this.getPulseType();
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR)
-        this.getCheckInsType();
+        this.getPulseType();
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
-  deleteCheckIn(id) {
-    this.adminServices.deleteCheckInType(id).subscribe((res) => {
-      this.getCheckInsType();
+  deletePulse(id) {
+    this.adminServices.deletePulseType(id).subscribe((res) => {
+      this.getPulseType();
     });
   }
+
 
 }
