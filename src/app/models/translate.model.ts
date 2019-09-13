@@ -398,6 +398,8 @@ export interface Messages {
   QUESTION_DESCRIPTION_REQ: string;
   ENTITY_ARCHIVE: string;
   ENTITY_ARCHIVE_FAIL: string;
+  ENTITY_UNARCHIVE_SUCCESS: string;
+  ENTITY_UNARCHIVE_FAIL: string;
   ENTITY_DELETE: string;
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
@@ -416,10 +418,14 @@ export interface Messages {
   VIEW_SITE_FAILURE: string;
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
+  SITE_UNARCHIVE_SUCCESS: string;
+  SITE_UNARCHIVE_FAILURE: string;
   DELETE_QUESTION_SUCCESS: string;
   DELETE_QUESTION_FAILURE: string;
   DELETE_TEAM_SUCCESS: string;
   ARCHIVED_TEAM_SUCCESS: string;
+  UNARCHIVED_TEAM_SUCCESS: string;
+  UNARCHIVED_TEAM_FAIL: string;
   DELETE_TEAM_FAILURE: string;
   EDIT_SITE_MSG: string;
   SAFETYBEAT_PRICING: string;
@@ -460,6 +466,8 @@ export interface Messages {
   HAZARD_LIST_FAIL: string;
   HAZARD_EDIT_SUCCESS: string;
   HAZARD_ARCHIVE_SUCCESS: string;
+  HAZARD_UNARCHIVE_SUCCESS: string;
+  HAZARD_UNARCHIVE_FAILURE: string;
   HAZARD_EDIT_FAILURE: string;
   HAZARD_ARCHIVE_FAILURE: string;
   ADD_HAZARD: string;

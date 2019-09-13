@@ -122,9 +122,14 @@ export class ArchivedTeamComponent implements OnInit {
    */
   unarchiveTeam(teamData: any) {
     this.adminServices.unarchiveTeam(teamData.id).subscribe((res) => {
-      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
-      this.helperService.createSnack(
-        this.helperService.translated.MESSAGES.ARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+        this.helperService.createSnack(
+          this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
+      } else {
+        this.helperService.createSnack(
+          this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_FAIL, this.helperService.constants.status.ERROR);
+      }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });

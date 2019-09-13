@@ -244,9 +244,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       data: {Modal: false, 'siteData': this.siteCentreObj.sitesData}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res !== this.helperService.appConstants.no) {
-        this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
-      }
+      this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
     });
   }
 

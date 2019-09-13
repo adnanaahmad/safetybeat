@@ -113,17 +113,19 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
    * @params siteData
    */
   unarchiveEntity(entityData: any) {
-    this.entityControl.displayLoader = true;
     this.adminServices.unarchiveEntity(entityData.entityInfo.id).subscribe(res => {
-      this.entityControl.pageCount = 0;
-      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE,
-        this.helperService.constants.status.SUCCESS);
-      this.entityControl.displayLoader = false;
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.entityControl.pageCount = 0;
+        this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_FAIL,
+          this.helperService.constants.status.ERROR);
+      }
     }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE_FAIL,
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
         this.helperService.translated.STATUS.ERROR);
-      this.entityControl.displayLoader = false;
     });
   }
 }
