@@ -40,7 +40,8 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
     this.hazardTable.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.hazardTable.entityId = res.entityInfo.id;
-        this.getHazardList(this.firstIndex, this.search);
+        this.paginator.pageIndex = this.firstIndex;
+        this.getHazardList(this.paginator.pageIndex, this.search);
       }
     });
   }
