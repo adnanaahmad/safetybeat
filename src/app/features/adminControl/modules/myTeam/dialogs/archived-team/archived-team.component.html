@@ -1,6 +1,4 @@
-<div class="spinner-wrap" *ngIf="myTeam.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
-  </div>
+
   <mat-card-title class="mat-dialog-title mat-elevation-z12">
     {{helperService.translated.BUTTONS.ARCHIVED_TEAMS}}
   </mat-card-title>
@@ -18,6 +16,7 @@
     </div>
     <!--/Filter-->
     <div class="table-wrap">
+
       <table matSort mat-table [dataSource]="myTeam.dataSource" class="customTable mat-elevation-z3">
         <ng-container matColumnDef="title">
           <th mat-header-cell *matHeaderCellDef>
@@ -25,7 +24,7 @@
           </th>
           <td mat-cell *matCellDef="let element">{{ element.title }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="teamLead">
           <th mat-header-cell *matHeaderCellDef>
             {{ helperService.translated.TABLEHEADINGS.TEAM_LEAD }}
@@ -47,18 +46,19 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>
-  
+    <div class="spinner-wrap" *ngIf="myTeam.loading">
+      <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+    </div>
     <div class="paddingbox text-center" *ngIf="!myTeam.loading && !myTeam.dataSource">
       {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
-  
+
     <mat-paginator class="mat-elevation-z1" [pageSize]="myTeam?.pageSize" [length]="myTeam?.pageCount"
                    (page)="getAllTeams(paginator.pageIndex, myTeam?.search)"></mat-paginator>
-  
+
     <mat-dialog-actions>
       <button mat-button [mat-dialog-close]="'NO'">{{ helperService.translated.BUTTONS.CANCEL }}
       </button>
     </mat-dialog-actions>
   </div>
-  
-  
+
