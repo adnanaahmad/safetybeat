@@ -103,6 +103,9 @@ export class ArchivedTeamComponent implements OnInit {
         this.myTeam.teamsData = this.compiler.constructAllTeamsArchivedData(res.data.teamsList);
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.teamsData);
         this.myTeam.loading = false;
+        if (this.myTeam.allTeams.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.myTeam.dataSource = null;
         this.myTeam.loading = false;
@@ -123,7 +126,7 @@ export class ArchivedTeamComponent implements OnInit {
   unarchiveTeam(teamData: any) {
     this.adminServices.unarchiveTeam(teamData.id).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+        this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
         this.helperService.createSnack(
           this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
       } else {
@@ -141,5 +144,8 @@ export class ArchivedTeamComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
+  }
 }

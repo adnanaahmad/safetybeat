@@ -80,7 +80,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       data: {Modal: false, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+      this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
@@ -103,6 +103,9 @@ export class MyTeamComponent implements OnInit, OnDestroy {
         this.myTeam.allTeams = res.data.teamsList;
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
         this.myTeam.loading = false;
+        if (this.myTeam.allTeams.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.myTeam.dataSource = null;
         this.myTeam.loading = false;
@@ -128,13 +131,13 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.archiveTeam(teamId);
-      } 
+      }
     });
   }
 
   archiveTeam(teamId) {
     this.adminServices.archiveTeam(teamId).subscribe((res) => {
-      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+      this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
       this.helperService.createSnack(
         this.helperService.translated.MESSAGES.ARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
     }, (error) => {
@@ -148,7 +151,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       data: {Modal: true, teamList: teamInfo, allUsersOfTeam: this.allUsers}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+      this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
     });
   }
 
@@ -161,8 +164,14 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       data: {Modal: false, 'teamData': this.myTeam.allTeams}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+        this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
     });
   }
-
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
+  }
 }
