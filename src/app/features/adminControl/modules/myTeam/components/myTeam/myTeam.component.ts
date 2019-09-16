@@ -102,11 +102,13 @@ export class MyTeamComponent implements OnInit, OnDestroy {
         this.myTeam.pageCount = res.data.pageCount;
         this.myTeam.allTeams = res.data.teamsList;
         this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
+        this.paginator.pageIndex = pageIndex;
         this.myTeam.loading = false;
         if (this.myTeam.allTeams.length === 0 && this.paginator.pageIndex !== 0) {
           this.goToPreviousTable();
         }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        this.paginator.pageIndex = pageIndex;
         this.myTeam.dataSource = null;
         this.myTeam.loading = false;
       }

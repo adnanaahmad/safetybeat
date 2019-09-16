@@ -100,10 +100,12 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
         this.hazardTable.loading = false;
         this.hazardTable.hazardsData = this.compiler.constructAllHazardsData(res.data.hazardList);
         this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
+        this.paginator.pageIndex = pageIndex;
         if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
           this.goToPreviousTable();
         }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        this.paginator.pageIndex = pageIndex;
         this.hazardTable.dataSource = null;
         this.hazardTable.loading = false;
       } else {
