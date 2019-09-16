@@ -104,6 +104,9 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
         this.adminServices.changeSites(this.archivedSitesObj.sitesData);
         this.archivedSitesObj.dataSource = new MatTableDataSource(this.archivedSitesObj.sitesData);
         this.archivedSitesObj.loading = false;
+        if (this.archivedSitesObj.sitesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.archivedSitesObj.dataSource = null;
         this.archivedSitesObj.loading = false;
@@ -127,7 +130,7 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
   unarchiveSite(siteData: any) {
     this.adminServices.unarchiveSite(siteData.id).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.getSitesData(this.archivedSitesObj.firstIndex, this.archivedSitesObj.search);
+        this.getSitesData(this.paginator.pageIndex, this.archivedSitesObj.search);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else {
@@ -145,5 +148,13 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    */
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getSitesData(this.paginator.pageIndex, this.archivedSitesObj.search);
   }
 }

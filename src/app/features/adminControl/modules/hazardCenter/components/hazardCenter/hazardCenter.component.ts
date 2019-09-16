@@ -100,7 +100,12 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
         this.hazardTable.loading = false;
         this.hazardTable.hazardsData = this.compiler.constructAllHazardsData(res.data.hazardList);
         this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
+        this.paginator.pageIndex = pageIndex;
+        if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        this.paginator.pageIndex = pageIndex;
         this.hazardTable.dataSource = null;
         this.hazardTable.loading = false;
       } else {
@@ -146,7 +151,7 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res && res === this.helperService.appConstants.yes) {
-        this.getHazardList(this.firstIndex, this.search);
+        this.getHazardList(this.paginator.pageIndex, this.search);
       }
     });
   }
@@ -175,7 +180,7 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
   archiveHazard(id: number) {
     this.adminControlService.deleteHazard(id).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.getHazardList(this.firstIndex, this.search);
+          this.getHazardList(this.paginator.pageIndex, this.search);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
@@ -217,5 +222,12 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
             }
         });
     }
+  }
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getHazardList(this.paginator.pageIndex, this.search);
   }
 }

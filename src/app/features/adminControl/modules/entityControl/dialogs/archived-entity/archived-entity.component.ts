@@ -99,6 +99,9 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
         this.entityControl.allEntitiesData = entityUserData.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
         this.entityControl.displayLoader = false;
+        if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else {
         this.entityControl.displayLoader = false;
       }
@@ -116,7 +119,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
     this.adminServices.unarchiveEntity(entityData.entityInfo.id).subscribe(res => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.entityControl.pageCount = 0;
-        this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+        this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       } else {
@@ -127,6 +130,13 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
         this.helperService.translated.STATUS.ERROR);
     });
+  }
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
   }
 }
 

@@ -112,7 +112,7 @@
               <mat-icon>list</mat-icon>
               {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}
             </button>
-            <button mat-menu-item *ngIf="entityControl.permissions.deleteEntity && entityControl.allEntitiesData.length > 1"
+            <button mat-menu-item *ngIf="paginator.pageIndex !== 0? entityControl.permissions.deleteEntity : entityControl.permissions.deleteEntity && entityControl.allEntitiesData.length > 1"
                     (click)="confirmationModal(element.entityInfo.id)">
               <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.ARCHIVE_ENTITY }}

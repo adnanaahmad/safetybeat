@@ -82,6 +82,9 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
         this.pageCount = res.data.pageCount;
         this.hazardTable.hazardsData = this.compiler.constructAllArchivedHazardsData(res.data.hazardList);
         this.hazardTable.dataSource = new MatTableDataSource(this.hazardTable.hazardsData);
+        if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.hazardTable.dataSource = null;
       }
@@ -99,7 +102,7 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
   unarchiveHazard(hazardData: any) {
     this.adminControlService.unarchiveHazard(hazardData.id).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.getHazardList(this.firstIndex, this.search);
+          this.getHazardList(this.paginator.pageIndex, this.search);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_SUCCESS,
             this.helperService.constants.status.SUCCESS);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
@@ -114,6 +117,13 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
           this.helperService.constants.status.ERROR);
       }
     );
+  }
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getHazardList(this.paginator.pageIndex, this.search);
   }
 
 }
