@@ -162,6 +162,40 @@ mat-dialog-container {
   }
 }
 
+.customTable.modal {
+  .mat-header-row {
+    .mat-header-cell {
+      color: initial;
+    }
+  }
+  .mat-header-row {
+    background: transparent;
+  }
+}
+
+.heading-search {
+  float: right;
+  position: relative;
+  input {
+    border: 0;
+    border-radius: 4px;
+    height: 30px;
+    padding: 0 10px;
+    width: 135px;
+    &:focus {
+      outline: 0 none;
+      border: 0;
+    }
+  }
+  mat-icon {
+    vertical-align: middle;
+    position: absolute;
+    right: 4px;
+    top: 8px;
+    font-size: 20px;
+  }
+}
+
 .page-title {
   padding: 0 0 20px;
   display: flex;
