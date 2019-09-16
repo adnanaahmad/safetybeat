@@ -273,18 +273,15 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
    * @params entityId
    */
   archiveEntity(entityId: number) {
-    this.entityControl.displayLoader = true;
     this.adminServices.archiveEntity(entityId).subscribe(res => {
       this.entityControl.pageCount = 0;
       this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
       this.viewAllEntities();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE,
         this.helperService.constants.status.SUCCESS);
-      this.entityControl.displayLoader = false;
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE_FAIL,
         this.helperService.translated.STATUS.ERROR);
-      this.entityControl.displayLoader = false;
     });
   }
   /**
