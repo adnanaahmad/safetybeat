@@ -44,8 +44,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       if (res && res !== 1) {
         this.getAllUsers(res.entityInfo.id);
         this.siteCentreObj.entityId = res.entityInfo.id;
-        this.paginator.pageIndex = this.siteCentreObj.firstIndex;
-        this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
+        this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
       }
     });
     this.siteCentreObj.subscription = this.navService.currentUserData.subscribe((res) => {

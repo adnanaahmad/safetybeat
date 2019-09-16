@@ -42,8 +42,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       if (res !== 1) {
         this.myTeam.entityId = res.entityInfo.id;
         this.getAllUsers();
-        this.paginator.pageIndex = this.myTeam.firstIndex;
-        this.getAllTeams(this.paginator.pageIndex , this.myTeam.search);
+        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
       }
     });
     this.myTeam.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
