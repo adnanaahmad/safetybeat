@@ -15,6 +15,7 @@ import {ParticleContainerComponent} from './components/particleContainer/particl
 import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordRecovery.component';
 import {PackageDetailsComponent} from './components/packageDetails/packageDetails.component';
 import {UpdateprofileComponent} from './components/updateprofile/updateprofile.component';
+import {NgxStripeModule} from 'ngx-stripe';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {UpdateprofileComponent} from './components/updateprofile/updateprofile.c
     LoginRegisterRoutingModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxStripeModule
   ],
   declarations: [
     LoginComponent,

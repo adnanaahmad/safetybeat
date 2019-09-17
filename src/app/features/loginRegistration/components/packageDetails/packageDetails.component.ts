@@ -1,10 +1,12 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginRegistrationService} from 'src/app/features/loginRegistration/services/LoginRegistrationService';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {CoreService} from 'src/app/services/core/authorization/core.service';
+import {UpdatepackgaeComponent} from '../../dialogs/updatepackgae/updatepackgae.component';
+import {FileRenameComponent} from '../../../adminControl/modules/documents/dialogs/fileRename/fileRename.component';
 
 @Component({
   selector: 'app-org-registration-modal',
@@ -17,6 +19,7 @@ export class PackageDetailsComponent implements OnInit {
   logoutDisable: boolean = false;
   logoutResponse;
 
+
   constructor(private loginRegisterService: LoginRegistrationService,
               private navService: NavigationService,
               private coreService: CoreService,
@@ -25,6 +28,7 @@ export class PackageDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.loginRegisterService.getPackagesData().subscribe((res) => {
       this.packages = CompilerProvider.constructPackageDetail(res);
       this.packages = this.helperService.sortBy(this.packages, function (pkg) {
@@ -47,17 +51,12 @@ export class PackageDetailsComponent implements OnInit {
     });
   }
 
-  updatePackage(packageId) {
-    let data = {
-      'packageId': packageId
-    };
-    this.loginService.updatePackage(data).subscribe((res) => {
-        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
-        }
-      }, (error) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+  updatePackage(packages) {
+    this.helperService.createDialog(UpdatepackgaeComponent, {disableClose: true, data: packages});
+    this.helperService.dialogRef.afterClosed().subscribe(res => {
+      if (res && res === this.helperService.appConstants.yes) {
+        this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
       }
-    );
+    });
   }
 }

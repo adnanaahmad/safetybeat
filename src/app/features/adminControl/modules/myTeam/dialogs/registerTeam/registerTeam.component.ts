@@ -86,7 +86,6 @@ export class RegisterTeamComponent implements OnInit, OnDestroy {
 
   editTeam(value) {
     this.registerTeamObj.loading = true;
-    debugger;
     this.adminServices.editTeam(this.data.teamList.team.id, this.teamData(value)).subscribe(res => {
       if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.registerTeamObj.loading = false;

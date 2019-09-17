@@ -286,6 +286,7 @@ export interface Buttons {
   HOW_IT_WORKS: string;
   ARCHIVED_HAZARDS: string;
   ARCHIVED_SITES: string;
+  BUYPACKAGE: string;
 }
 
 export interface Messages {
@@ -547,6 +548,7 @@ export interface Messages {
   REMOVE_LEAVE_FAILURE: string;
   CHECKIN_CATEGORIES: string;
   PULSE_CATEGORIES: string;
+  BUYPACKAGE: string;
 }
 
 export interface Logger {
@@ -677,22 +679,22 @@ export interface Status {
 }
 
 export interface Confirmation {
-    ACTIVATE_USER: string;
-    DEACTIVATE_USER: string;
-    DELETE_SITE: string;
-    DELETE_HAZARD: string;
-    DELETE_ENTITY: string;
-    ADD_CONNECTION: string;
-    CONFIRM_CONNECTION: string;
-    DELETE_DOCUMENT: string;
-    DELETE_FOLDER: string;
-    REMOVE_CONNECTION: string
-    DELETE_TEAM: string;
-    DELETE_QUESTION: string;
-    DELETE_LEAVE: string;
-    ARCHIVE_SITE: string;
-    ARCHIVE_HAZARD: string;
-    ARCHIVE_ENTITY: string;
-    ARCHIVE_TEAM: string;
-    UNARCHIVE_TEAM:string;
+  ACTIVATE_USER: string;
+  DEACTIVATE_USER: string;
+  DELETE_SITE: string;
+  DELETE_HAZARD: string;
+  DELETE_ENTITY: string;
+  ADD_CONNECTION: string;
+  CONFIRM_CONNECTION: string;
+  DELETE_DOCUMENT: string;
+  DELETE_FOLDER: string;
+  REMOVE_CONNECTION: string
+  DELETE_TEAM: string;
+  DELETE_QUESTION: string;
+  DELETE_LEAVE: string;
+  ARCHIVE_SITE: string;
+  ARCHIVE_HAZARD: string;
+  ARCHIVE_ENTITY: string;
+  ARCHIVE_TEAM: string;
+  UNARCHIVE_TEAM: string;
 }
