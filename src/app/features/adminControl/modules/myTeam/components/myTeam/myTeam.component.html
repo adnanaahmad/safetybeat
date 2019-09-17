@@ -3,6 +3,7 @@
     <h3>{{ helperService.translated.SITETITLE.MY_TEAM}}</h3>
     <div class="buttonRow">
         <button class="mat-elevation-z6" mat-raised-button color="primary"
+                *ngIf="myTeam.permissions?.canArchiveTeam"
             (click)="getArchivedTeams()">
           <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
           {{ helperService.translated.BUTTONS.ARCHIVED_TEAMS }}
@@ -68,7 +69,7 @@
               Delete
             </button> -->
 
-            <button mat-menu-item *ngIf="myTeam.permissions.deleteTeam" (click)="confirmationModal(element.team.id)">
+            <button mat-menu-item *ngIf="myTeam.permissions?.canArchiveTeam" (click)="confirmationModal(element.team.id)">
             <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
             Archive
           </button>

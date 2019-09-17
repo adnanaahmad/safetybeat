@@ -12,6 +12,7 @@ import {ImageLightboxComponent} from 'src/app/dialogs/imageLightbox/imageLightbo
 import {PaginationData} from 'src/app/models/site.model';
 import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import {ArchivedHazardsComponent} from 'src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component';
+import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
 
 
 @Component({
@@ -57,13 +58,17 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
 
   initialize() {
     this.hazardTable.displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
-    this.editorDeleteEnable();
     this.search = '';
     this.firstIndex = 0;
     this.pageSize = 10;
     this.dataSource = null;
     this.hazardTable.loading = false;
     this.hazardTable.dataSource = null;
+    this.hazardTable.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+      if (data) {
+        this.hazardTable.permissions = data;
+      }
+    });
   }
 
   /**
@@ -123,20 +128,6 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
   advanceSearch() {
     this.helperService.createDialog(AdvanceSearchComponent, {
       data: {disableClose: true}
-    });
-  }
-
-  editorDeleteEnable() {
-    this.navService.currentRole.subscribe(res => {
-      if (res &&
-        res === this.helperService.appConstants.roles.owner ||
-        res === this.helperService.appConstants.roles.teamLead ||
-        res === this.helperService.appConstants.roles.entityManager
-      ) {
-        this.hazardTable.hazardOption = true;
-      } else {
-        this.hazardTable.hazardOption = false;
-      }
     });
   }
 
