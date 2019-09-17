@@ -72,7 +72,7 @@
             <tr mat-row *matRowDef="let row; columns: entityControl.displayedColumns"></tr>
         </table>
     </div>
-    <div class="paddingbox text-center" *ngIf="!entityControl.displayLoader && !entityControl.allEntitiesData.length">
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="!entityControl.displayLoader && !entityControl.allEntitiesData.length">
         {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
 

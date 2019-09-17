@@ -1,93 +1,94 @@
 <div class="paddingbox">
-  <div class="page-title">
-    <h3>Manage Leaves</h3>
-    <div class="data-filter">
-      <div class="input-wrap">
-        <input class="search-input" autocomplete="off" matInput placeholder="Search"
-               (keyup)=viewAllUserLeaves(leaveModel.firstIndex,$event.target.value)>
-        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
-      </div>
-      <a _ngcontent-c19="" class="mat-body-strong mat-small pointer">&nbsp;</a>
+    <div class="page-title">
+        <h3>Manage Leaves</h3>
+        <div class="data-filter">
+            <div class="input-wrap">
+                <input class="search-input" autocomplete="off" matInput placeholder="Search"
+                       (keyup)=viewAllUserLeaves(leaveModel.firstIndex,$event.target.value)>
+                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+            </div>
+            <a _ngcontent-c19="" class="mat-body-strong mat-small pointer">&nbsp;</a>
+        </div>
     </div>
-  </div>
-  <div class="table-wrap">
-    <div class="spinner-wrap" *ngIf="leaveModel.loading">
-      <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    <div class="table-wrap mat-elevation-z2">
+        <div class="spinner-wrap" *ngIf="leaveModel.loading">
+            <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+        </div>
+        <table matSort mat-table [dataSource]="leaveModel.dataSource" class="customTable mat-elevation-z3">
+            <ng-container matColumnDef="userName">
+                <th mat-header-cell *matHeaderCellDef>
+                    Username
+                </th>
+                <td mat-cell *matCellDef="let element">{{element.userName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="leaveType">
+                <th mat-header-cell *matHeaderCellDef>
+                    Leave Type
+                </th>
+                <td mat-cell *matCellDef="let element">{{element.leaveType}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateFrom">
+                <th mat-header-cell *matHeaderCellDef>
+                    Date From
+                </th>
+                <td mat-cell *matCellDef="let element">{{element.dateFrom}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateTo">
+                <th mat-header-cell *matHeaderCellDef>
+                    Date To
+                </th>
+                <td mat-cell *matCellDef="let element">{{element.dateTo}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="reason">
+                <th mat-header-cell *matHeaderCellDef>
+                    Reason
+                </th>
+                <td mat-cell *matCellDef="let element">{{element.reason}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>
+                    Status
+                </th>
+                <td mat-cell *matCellDef="let element">{{element.status}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <button class="btn-table" mat-raised-button color="primary" mat-button [matMenuTriggerFor]="menu"
+                            *ngIf="element.dateFrom > leaveModel.currentDate"
+                            [disabled]="!leaveModel.permissions?.approveLeaves">
+                        <mat-icon style="padding-right:0;">keyboard_arrow_down</mat-icon>
+                        Actions
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="approveLeave(element)" *ngIf="element.status!=='approved'">
+                            <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
+                            Accept
+                        </button>
+                        <button mat-menu-item (click)="rejectLeave(element)" *ngIf="element.status!=='rejected'">
+                            <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
+                            Reject
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="leaveModel.displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: leaveModel.displayedColumns"></tr>
+        </table>
     </div>
-    <table matSort mat-table [dataSource]="leaveModel.dataSource" class="customTable mat-elevation-z3">
-      <ng-container matColumnDef="userName">
-        <th mat-header-cell *matHeaderCellDef>
-          Username
-        </th>
-        <td mat-cell *matCellDef="let element">{{element.userName}}</td>
-      </ng-container>
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="!leaveModel.dataSource">
+        {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+    </div>
 
-      <ng-container matColumnDef="leaveType">
-        <th mat-header-cell *matHeaderCellDef>
-          Leave Type
-        </th>
-        <td mat-cell *matCellDef="let element">{{element.leaveType}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="dateFrom">
-        <th mat-header-cell *matHeaderCellDef>
-          Date From
-        </th>
-        <td mat-cell *matCellDef="let element">{{element.dateFrom}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="dateTo">
-        <th mat-header-cell *matHeaderCellDef>
-          Date To
-        </th>
-        <td mat-cell *matCellDef="let element">{{element.dateTo}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="reason">
-        <th mat-header-cell *matHeaderCellDef>
-          Reason
-        </th>
-        <td mat-cell *matCellDef="let element">{{element.reason}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>
-          Status
-        </th>
-        <td mat-cell *matCellDef="let element">{{element.status}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          <button class="btn-table" mat-raised-button color="primary" mat-button [matMenuTriggerFor]="menu"
-                  *ngIf="element.dateFrom > leaveModel.currentDate" [disabled]="!leaveModel.permissions?.approveLeaves">
-            <mat-icon style="padding-right:0;">keyboard_arrow_down</mat-icon>
-            Actions
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="approveLeave(element)" *ngIf="element.status!=='approved'">
-              <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
-              Accept
-            </button>
-            <button mat-menu-item (click)="rejectLeave(element)" *ngIf="element.status!=='rejected'">
-              <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
-              Reject
-            </button>
-          </mat-menu>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="leaveModel.displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: leaveModel.displayedColumns"></tr>
-    </table>
-  </div>
-  <div class="paddingbox text-center" *ngIf="!leaveModel.dataSource">
-    {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
-  </div>
-
-  <mat-paginator class="mat-elevation-z1" [pageSize]="leaveModel.pageSize" [length]="leaveModel.pageCount"
-                 (page)="viewAllUserLeaves(paginator.pageIndex, leaveModel.search)"></mat-paginator>
+    <mat-paginator class="mat-elevation-z2" [pageSize]="leaveModel.pageSize" [length]="leaveModel.pageCount"
+                   (page)="viewAllUserLeaves(paginator.pageIndex, leaveModel.search)"></mat-paginator>
 
 </div>
