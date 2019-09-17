@@ -4,6 +4,7 @@
     <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
     <div class="buttonRow">
       <button class="mat-elevation-z6" mat-raised-button color="primary"
+              *ngIf="entityControl.permissions?.canArchiveEntity"
               (click)="getArchivedEntities()">
         <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
         {{ helperService.translated.BUTTONS.ARCHIVED_ENTITIES }}
@@ -112,7 +113,7 @@
               <mat-icon>list</mat-icon>
               {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}
             </button>
-            <button mat-menu-item *ngIf="paginator.pageIndex !== 0? entityControl.permissions.deleteEntity : entityControl.permissions.deleteEntity && entityControl.allEntitiesData.length > 1"
+            <button mat-menu-item *ngIf="paginator.pageIndex !== 0? entityControl.permissions.canArchiveEntity : entityControl.permissions.canArchiveEntity && entityControl.allEntitiesData.length > 1"
                     (click)="confirmationModal(element.entityInfo.id)">
               <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.ARCHIVE_ENTITY }}

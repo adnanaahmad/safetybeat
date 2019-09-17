@@ -1,34 +1,35 @@
 <div class="paddingbox">
-    <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.MY_TEAM}}</h3>
-        <div class="buttonRow">
-            <button class="mat-elevation-z6" mat-raised-button color="primary"
-                    (click)="getArchivedTeams()">
-                <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
-                {{ helperService.translated.BUTTONS.ARCHIVED_TEAMS }}
-            </button>
-            <button class="mat-elevation-z6" mat-raised-button color="primary" *ngIf="myTeam.permissions.registerTeam"
-                    (click)="registerTeam()">
-                <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
-                {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM}}
-            </button>
-        </div>
-        <!--Filter-->
-        <div class="data-filter">
-            <div class="input-wrap">
-                <input class="search-input" autocomplete="off" matInput placeholder="Search"
-                       (keyup)=getAllTeams(myTeam.firstIndex,$event.target.value)>
-                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
-            </div>
-            <a class="mat-body-strong mat-small pointer">&nbsp;</a>
-        </div>
-        <!--/Filter-->
+  <div class="page-title">
+    <h3>{{ helperService.translated.SITETITLE.MY_TEAM}}</h3>
+    <div class="buttonRow">
+        <button class="mat-elevation-z6" mat-raised-button color="primary"
+                *ngIf="myTeam.permissions?.canArchiveTeam"
+            (click)="getArchivedTeams()">
+          <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
+          {{ helperService.translated.BUTTONS.ARCHIVED_TEAMS }}
+      </button>
+      <button class="mat-elevation-z6" mat-raised-button color="primary" *ngIf="myTeam.permissions.registerTeam"
+              (click)="registerTeam()">
+        <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
+        {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM}}
+      </button>
     </div>
-    <div class="table-wrap mat-elevation-z2">
-        <div class="spinner-wrap" *ngIf="myTeam.loading">
-            <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
-        </div>
-        <table mat-table [dataSource]="myTeam.dataSource" class="customTable mat-elevation-z3">
+    <!--Filter-->
+    <div class="data-filter">
+      <div class="input-wrap">
+        <input class="search-input" autocomplete="off" matInput placeholder="Search"
+               (keyup)=getAllTeams(myTeam.firstIndex,$event.target.value)>
+        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+      </div>
+      <a class="mat-body-strong mat-small pointer">&nbsp;</a>
+    </div>
+    <!--/Filter-->
+  </div>
+  <div class="table-wrap mat-elevation-z2">
+    <div class="spinner-wrap" *ngIf="myTeam.loading">
+      <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    </div>
+    <table mat-table [dataSource]="myTeam.dataSource" class="customTable mat-elevation-z3">
 
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef>
@@ -70,21 +71,19 @@
                           Delete
                         </button> -->
 
-                        <button mat-menu-item *ngIf="myTeam.permissions.deleteTeam"
-                                (click)="confirmationModal(element.team.id)">
-                            <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
-                            Archive
-                        </button>
-                    </mat-menu>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-    </div>
-    <div class="paddingbox text-center mat-select-placeholder" *ngIf="myTeam.dataSource === null">
-        {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
-    </div>
-    <mat-paginator class="mat-elevation-z2" [pageSize]="myTeam.pageSize" [length]="myTeam.pageCount"
-                   (page)="getAllTeams(paginator.pageIndex,myTeam.search)"></mat-paginator>
+            <button mat-menu-item *ngIf="myTeam.permissions?.canArchiveTeam" (click)="confirmationModal(element.team.id)">
+            <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
+            Archive
+          </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <div class="paddingbox text-center mat-select-placeholder" *ngIf="myTeam.dataSource === null">
+    {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}</div>
+  <mat-paginator class="mat-elevation-z2" [pageSize]="myTeam.pageSize" [length]="myTeam.pageCount"
+                 (page)="getAllTeams(paginator.pageIndex,myTeam.search)"></mat-paginator>
 </div>

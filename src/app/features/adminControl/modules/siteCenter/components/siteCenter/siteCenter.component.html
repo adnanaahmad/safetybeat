@@ -6,7 +6,8 @@
         <h3>{{ helperService.translated.SITETITLE.SITE_CENTRE }}</h3>
         <div class="buttonRow">
             <button class="mat-elevation-z6" mat-raised-button color="primary"
-                    (click)="getArchivedSites()">
+                    *ngIf="siteCentreObj.permissions?.canArchiveSite"
+                 (click)="getArchivedSites()">
                 <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
                 {{ helperService.translated.BUTTONS.ARCHIVED_SITES }}
             </button>
@@ -120,7 +121,7 @@
                             <mat-icon>{{ helperService.appIcons.warning }}</mat-icon>
                             Log Hazard
                         </button>
-                        <button mat-menu-item *ngIf="siteCentreObj.permissions.deleteSite"
+                        <button mat-menu-item *ngIf="siteCentreObj.permissions?.canArchiveSite"
                                 (click)="confirmationModal(element.id)">
                             <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
                             Archive

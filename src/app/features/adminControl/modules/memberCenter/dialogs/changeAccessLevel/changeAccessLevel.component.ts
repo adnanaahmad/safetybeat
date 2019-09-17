@@ -103,6 +103,10 @@ export class ChangeAccessLevelComponent implements OnInit, OnDestroy {
       viewLeaves: this.permissions.permissionsData.viewLeaves,
       approveLeaves: this.permissions.permissionsData.approveLeaves,
       viewProfile: this.permissions.permissionsData.viewProfile,
+      // canArchiveEntity: this.permissions.permissionsData.canArchiveEntity,
+      // canArchiveTeam: this.permissions.permissionsData.canArchiveTeam,
+      // canArchiveSite: this.permissions.permissionsData.canArchiveSite,
+      // canArchiveHazard: this.permissions.permissionsData.canArchiveHazard,
     });
     this.permissions.permissionsForm.valueChanges.subscribe(result => {
       this.checkChange(this.permissions.permissionsForm)
