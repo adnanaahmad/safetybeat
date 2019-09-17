@@ -33,7 +33,7 @@
     </div>
     <!--/Filter-->
   </div>
-  <div class="table-wrap">
+  <div class="table-wrap mat-elevation-z2">
     <div class="spinner-wrap" *ngIf="entityControl.displayLoader">
       <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
     </div>
@@ -125,10 +125,10 @@
     </table>
   </div>
 
-  <div class="paddingbox text-center" *ngIf="!entityControl.displayLoader && !entityControl.dataSource">
+  <div class="paddingbox text-center mat-select-placeholder" *ngIf="!entityControl.displayLoader && !entityControl.dataSource">
     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
   </div>
 
-  <mat-paginator class="mat-elevation-z1" [pageSize]="entityControl.pageSize" [length]="entityControl.pageCount"
+  <mat-paginator class="mat-elevation-z2" [pageSize]="entityControl.pageSize" [length]="entityControl.pageCount"
                  (page)="viewEntitiesApiCall(paginator.pageIndex, entityControl.search)"></mat-paginator>
 </div>

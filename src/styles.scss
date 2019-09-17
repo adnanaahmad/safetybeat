@@ -50,8 +50,14 @@ h4,
 h5,
 h6,
 notifier-notification,
-app-toaster {
+app-toaster,
+.highcharts-title {
   font-family: $fontFamily;
+}
+
+.highcharts-title {
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .m-0 {
@@ -160,6 +166,23 @@ mat-dialog-container {
       fill-rule: evenodd;
     }
   }
+}
+
+mat-form-field[appearance="outline"] {
+  .mat-form-field-prefix {
+    top: -4px;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
 }
 
 .customTable.modal {
