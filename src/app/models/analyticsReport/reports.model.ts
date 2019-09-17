@@ -30,7 +30,7 @@ export interface Report {
   actionReportForm: FormGroup;
   actionReportData: Array<ActionReportData>;
   filters: Array<FilterModel>;
-  checkInByActivityReportData: Array<CheckInByActivityData>;
+  checkInByActivityReportData: Array<ActivityData>;
   entityUsers: User[];
   checkInActivityForm: FormGroup;
   pulseByEntityReportData: PulseByEntityReportData;
@@ -61,6 +61,17 @@ export interface ActionReportData {
   checkouts: number,
   pulse: number
 
+}
+
+export interface ActivityData {
+  result: Array<Report>,
+  type: string,
+  totalCount: number
+}
+
+export interface Report {
+  date: string,
+  count: number
 }
 
 export interface CheckInByActivityData {
