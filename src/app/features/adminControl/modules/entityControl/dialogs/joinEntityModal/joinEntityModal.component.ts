@@ -89,12 +89,14 @@ export class JoinEntityModalComponent implements OnInit {
           );
         } else if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.joinEntity.loading = false;
+          this.onNoClick();
           this.helperService.createSnack(
             this.helperService.translated.MESSAGES.ALREADYJOINED_ENTITY,
             this.helperService.constants.status.ERROR
           );
         } else if (this.joinEntity.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
           this.joinEntity.loading = false;
+          this.onNoClick();
           this.helperService.createSnack(
             this.helperService.translated.MESSAGES.ENTITYNOTFOUND,
             this.helperService.constants.status.ERROR

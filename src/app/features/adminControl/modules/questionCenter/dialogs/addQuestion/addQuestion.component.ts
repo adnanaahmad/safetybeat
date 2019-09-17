@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatAutocomplete, MatCheckboxChange, MatDialogRef} from 
 import {GenerateQuestionData, QuestionCenter, Questions} from 'src/app/models/adminControl/questionCenter.model';
 import {FormBuilder, Validators} from '@angular/forms';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-addQuestion',

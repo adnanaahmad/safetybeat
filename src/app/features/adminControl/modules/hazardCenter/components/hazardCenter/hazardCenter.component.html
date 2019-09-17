@@ -4,6 +4,7 @@
 
     <div class="buttonRow">
         <button class="mat-elevation-z6" mat-raised-button color="primary"
+                *ngIf="hazardTable.permissions?.canArchiveHazard"
         (click)="getArchivedHazards()">
         <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
         {{ helperService.translated.BUTTONS.ARCHIVED_HAZARDS }}
@@ -80,7 +81,7 @@
           {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
         </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="editHazard(element)">
+            <button mat-menu-item *ngIf="hazardTable.permissions?.editHazard" (click)="editHazard(element)">
               <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
               Edit
             </button>
@@ -88,7 +89,7 @@
               <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
               {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
             </button>
-            <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="confirmationModal(element.id)">
+            <button mat-menu-item *ngIf="hazardTable.permissions?.canArchiveHazard" (click)="confirmationModal(element.id)">
                 <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
                 Archive
             </button>

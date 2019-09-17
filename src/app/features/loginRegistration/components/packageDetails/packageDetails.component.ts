@@ -5,8 +5,7 @@ import {Packages} from 'src/app/models/loginRegistration/packageDetails.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {CoreService} from 'src/app/services/core/authorization/core.service';
-import {UpdatepackgaeComponent} from '../../dialogs/updatepackgae/updatepackgae.component';
-import {FileRenameComponent} from '../../../adminControl/modules/documents/dialogs/fileRename/fileRename.component';
+import {UpdatepackgaeComponent} from 'src/app/features/loginRegistration/dialogs/updatepackgae/updatepackgae.component';
 
 @Component({
   selector: 'app-org-registration-modal',
@@ -23,12 +22,11 @@ export class PackageDetailsComponent implements OnInit {
   constructor(private loginRegisterService: LoginRegistrationService,
               private navService: NavigationService,
               private coreService: CoreService,
-              private loginService: LoginRegistrationService,
               public helperService: HelperService) {
+
   }
 
   ngOnInit() {
-
     this.loginRegisterService.getPackagesData().subscribe((res) => {
       this.packages = CompilerProvider.constructPackageDetail(res);
       this.packages = this.helperService.sortBy(this.packages, function (pkg) {

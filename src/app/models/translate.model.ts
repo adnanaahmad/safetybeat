@@ -667,6 +667,7 @@ export interface TableHeadings {
   TITLE: string;
   HAZARD_DETAILS: string;
   TEAM_LEAD: string;
+  ARCHIVE_ENTITY: string;
 }
 
 export interface Status {

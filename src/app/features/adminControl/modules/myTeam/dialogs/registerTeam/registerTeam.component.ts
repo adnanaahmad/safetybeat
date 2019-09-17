@@ -118,19 +118,19 @@ export class RegisterTeamComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.SUCCESS);
           this.onNoClick();
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[5]) {
-          this.onNoClick();
           this.registerTeamObj.loading = false;
+          this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_ALREADY_EXIST,
             this.helperService.constants.status.ERROR);
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-          this.onNoClick();
           this.registerTeamObj.loading = false;
+          this.onNoClick();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
-        this.onNoClick();
         this.registerTeamObj.loading = false;
+        this.onNoClick();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.TEAM_REGISTRATION_FAILED,
           this.helperService.constants.status.ERROR);
       }
