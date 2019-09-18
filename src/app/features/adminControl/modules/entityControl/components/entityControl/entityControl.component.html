@@ -1,86 +1,86 @@
+<div class="spinner-wrap" *ngIf="entityControl.displayLoader">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
 <!-- <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar> -->
 <div class="paddingbox">
-  <div class="page-title">
-    <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
-    <div class="buttonRow">
-      <button class="mat-elevation-z6" mat-raised-button color="primary"
-              *ngIf="entityControl.permissions?.canArchiveEntity"
-              (click)="getArchivedEntities()">
-        <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
-        {{ helperService.translated.BUTTONS.ARCHIVED_ENTITIES }}
-      </button>
-      <button class="mat-elevation-z6" mat-raised-button color="primary"
-              *ngIf="entityControl.permissions?.joinEntity"
-              (click)="joinEntity()">
-        <mat-icon>{{ helperService.appIcons.joinEntity }}</mat-icon>
-        {{ helperService.translated.BUTTONS.JOIN_ENTITY }}
-      </button>
-      <button class="mat-elevation-z6" mat-raised-button color="primary"
-              *ngIf="entityControl.permissions?.createEntity" (click)="createEntity()">
-        <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
-        {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
-      </button>
+    <div class="page-title">
+        <h3>{{ helperService.translated.SITETITLE.ENTITYCONTROL_TITLE }}</h3>
+        <div class="buttonRow">
+            <button class="mat-elevation-z6" mat-raised-button color="primary"
+                    *ngIf="entityControl.permissions?.canArchiveEntity"
+                    (click)="getArchivedEntities()">
+                <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
+                {{ helperService.translated.BUTTONS.ARCHIVED_ENTITIES }}
+            </button>
+            <button class="mat-elevation-z6" mat-raised-button color="primary"
+                    *ngIf="entityControl.permissions?.joinEntity"
+                    (click)="joinEntity()">
+                <mat-icon>{{ helperService.appIcons.joinEntity }}</mat-icon>
+                {{ helperService.translated.BUTTONS.JOIN_ENTITY }}
+            </button>
+            <button class="mat-elevation-z6" mat-raised-button color="primary"
+                    *ngIf="entityControl.permissions?.createEntity" (click)="createEntity()">
+                <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
+                {{ helperService.translated.BUTTONS.CREATE_ENTITY }}
+            </button>
+        </div>
+
+        <!--Filter-->
+        <div class="data-filter">
+            <div class="input-wrap">
+                <input class="search-input" autocomplete="off" matInput placeholder="Search"
+                       (keyup)=viewEntitiesApiCall(entityControl.firstIndex,$event.target.value)>
+                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+            </div>
+            <a (click)="advanceSearch()"
+               class="mat-body-strong mat-small pointer">&nbsp;</a>
+        </div>
+        <!--/Filter-->
     </div>
+    <div class="table-wrap mat-elevation-z2">
+        <table mat-table [dataSource]="entityControl.dataSource" class="customTable mat-elevation-z3">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.entityInfo.name }}</td>
+            </ng-container>
 
-    <!--Filter-->
-    <div class="data-filter">
-      <div class="input-wrap">
-        <input class="search-input" autocomplete="off" matInput placeholder="Search"
-               (keyup)=viewEntitiesApiCall(entityControl.firstIndex,$event.target.value)>
-        <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
-      </div>
-      <a (click)="advanceSearch()"
-         class="mat-body-strong mat-small pointer">&nbsp;</a>
-    </div>
-    <!--/Filter-->
-  </div>
-  <div class="table-wrap mat-elevation-z2">
-    <div class="spinner-wrap" *ngIf="entityControl.displayLoader">
-      <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
-    </div>
-    <table mat-table [dataSource]="entityControl.dataSource" class="customTable mat-elevation-z3">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ helperService.translated.TABLEHEADINGS.ENTITY_NAME }}
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.entityInfo.name }}</td>
-      </ng-container>
+            <ng-container matColumnDef="headOffice">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
+                </th>
+                <td matTooltip="{{ element.entityInfo.headOffice }}" mat-cell *matCellDef="let element">
+                    {{ element.entityInfo.headOffice }}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="headOffice">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
-        </th>
-        <td matTooltip="{{ element.entityInfo.headOffice }}" mat-cell *matCellDef="let element">
-          {{ element.entityInfo.headOffice }}
-        </td>
-      </ng-container>
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{ helperService.translated.TABLEHEADINGS.ACCESS_LEVEL }}
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+            </ng-container>
 
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ helperService.translated.TABLEHEADINGS.ACCESS_LEVEL }}
-        </th>
-        <td mat-cell *matCellDef="let element">{{ element.role }}</td>
-      </ng-container>
+            <ng-container matColumnDef="administrator">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{ helperService.translated.TABLEHEADINGS.ADMINISTRATED_BY }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.administrator.first_name + ' ' + element.administrator.last_name}}
+                    <br>
+                    {{ element.administrator.email }}
+                </td>
+            </ng-container>
 
-      <ng-container matColumnDef="administrator">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ helperService.translated.TABLEHEADINGS.ADMINISTRATED_BY }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.administrator.first_name + ' ' + element.administrator.last_name}}
-          <br>
-          {{ element.administrator.email }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="managedBy">
-        <th mat-header-cell *matHeaderCellDef>
-          {{ helperService.translated.TABLEHEADINGS.MANAGED_BY }}
-        </th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.managedBy.email }}
-        </td>
-      </ng-container>
+            <ng-container matColumnDef="managedBy">
+                <th mat-header-cell *matHeaderCellDef>
+                    {{ helperService.translated.TABLEHEADINGS.MANAGED_BY }}
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.managedBy.email }}
+                </td>
+            </ng-container>
 
       <ng-container matColumnDef="symbol">
         <th mat-header-cell *matHeaderCellDef>
@@ -126,10 +126,11 @@
     </table>
   </div>
 
-  <div class="paddingbox text-center mat-select-placeholder" *ngIf="!entityControl.displayLoader && !entityControl.dataSource">
-    {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
-  </div>
+    <div class="paddingbox text-center mat-select-placeholder"
+         *ngIf="!entityControl.displayLoader && !entityControl.dataSource">
+        {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+    </div>
 
-  <mat-paginator class="mat-elevation-z2" [pageSize]="entityControl.pageSize" [length]="entityControl.pageCount"
-                 (page)="viewEntitiesApiCall(paginator.pageIndex, entityControl.search)"></mat-paginator>
+    <mat-paginator class="mat-elevation-z2" [pageSize]="entityControl.pageSize" [length]="entityControl.pageCount"
+                   (page)="viewEntitiesApiCall(paginator.pageIndex, entityControl.search)"></mat-paginator>
 </div>
