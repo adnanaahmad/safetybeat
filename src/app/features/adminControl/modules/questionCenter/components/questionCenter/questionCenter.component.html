@@ -1,3 +1,6 @@
+<div class="spinner-wrap" *ngIf="QuestionObj.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
 <div class="paddingbox">
     <div class="page-title">
         <h3>{{ helperService.translated.SITETITLE.QUESTION_CENTER }}</h3>
@@ -22,9 +25,6 @@
             </div>
             <a class="mat-body-strong mat-small pointer">&nbsp;</a>
         </div>
-    </div>
-    <div class="spinner-wrap" *ngIf="QuestionObj.loading">
-        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
     </div>
     <mat-grid-list cols="3" rowHeight="fit" gutterSize="10px" class="dashboard-widgets">
         <mat-grid-tile class="overflow-unset" *ngFor="let card of cards | async" [colspan]="card.cols"
