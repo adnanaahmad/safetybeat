@@ -287,6 +287,8 @@ export interface Buttons {
   ARCHIVED_HAZARDS: string;
   ARCHIVED_SITES: string;
   BUYPACKAGE: string;
+  ARCHIVED_TEAMS: string;
+  ARCHIVED_ENTITIES: string;
 }
 
 export interface Messages {
