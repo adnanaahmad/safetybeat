@@ -131,15 +131,18 @@ export class ChangeAccessLevelComponent implements OnInit, OnDestroy {
             this.helperService.constants.status.SUCCESS);
         } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.permissions.loading = false;
+          this.dialogRef.close();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.PERMISSIONS_UPDATION_FAILED,
             this.helperService.constants.status.ERROR);
         } else {
           this.permissions.loading = false;
+          this.dialogRef.close();
           this.helperService.createSnack(this.helperService.translated.MESSAGES.PERMISSIONS_UPDATION_FAILED,
             this.helperService.constants.status.ERROR);
         }
       }, (error) => {
         this.permissions.loading = false;
+        this.dialogRef.close();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
           this.helperService.constants.status.ERROR);
       }

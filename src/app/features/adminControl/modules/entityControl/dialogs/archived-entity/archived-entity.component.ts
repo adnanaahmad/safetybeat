@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, OnDestroy, AfterViewInit} from '@angular/core';
-import {MatDialog, MatTableDataSource, MatPaginator} from '@angular/material';
+import {MatDialog, MatTableDataSource, MatPaginator, MatDialogRef} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
@@ -25,6 +25,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
     private navService: NavigationService,
     private userService: ProfileService,
     private compiler: CompilerProvider,
+    public dialogRef: MatDialogRef<ArchivedEntityComponent>,
   ) {
     this.initialize();
     this.helperService.toggleLoader(true);
@@ -34,6 +35,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       }
     })
   }
+
   /**
    * this function is used to calling the functions that we need to be called on the
    * initialization of the component.
@@ -61,6 +63,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       this.entityControl.dataSource.paginator = this.paginator;
     }
   }
+
   initialize() {
     this.entityControl.search = '';
     this.entityControl.firstIndex = 0;
@@ -81,6 +84,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       'symbol',
     ];
   }
+
   viewEntitiesApiCall(pageIndex, search) {
     let data = {
       moduleName: 'Safetybeat',
@@ -111,7 +115,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
     });
   }
 
-   /**
+  /**
    * Unarchive site
    * @params siteData
    */
@@ -122,15 +126,19 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
         this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_SUCCESS,
           this.helperService.constants.status.SUCCESS);
+        this.dialogRef.close();
       } else {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_FAIL,
           this.helperService.constants.status.ERROR);
+        this.dialogRef.close();
       }
     }, (error) => {
+      this.dialogRef.close();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
         this.helperService.translated.STATUS.ERROR);
     });
   }
+
   /**
    * this function is used to navigate user to previous table if current table is empty.
    */
