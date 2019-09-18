@@ -52,7 +52,7 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
     this.hazardTable.displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
     this.search = '';
     this.firstIndex = 0;
-    this.pageSize = 10;
+    this.pageSize = 6;
     this.dataSource = null;
     this.hazardTable.loading = false;
     this.hazardTable.dataSource = null;
@@ -70,8 +70,8 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
       archived: true
     };
     let paginationData: PaginationData = {
-      limit: this.helperService.constants.appConstant.paginationLimit,
-      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
+      limit: this.helperService.constants.appConstant.paginationLimitForArchive,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimitForArchive,
       search: search
     };
     if (typeof (search) === 'string' && search.length === 0) {

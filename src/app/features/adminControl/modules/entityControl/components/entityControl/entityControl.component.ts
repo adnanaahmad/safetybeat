@@ -48,7 +48,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       if (res && res !== 1) {
         this.entityControl.entityId = res.entityInfo.id;
       }
-    })
+    });
   }
 
   /**
@@ -123,7 +123,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
         this.viewAllEntities();
       }
-    })
+    });
   }
 
   /**
@@ -139,6 +139,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.archiveEntity(entityId);
+        this.viewAllEntities();
       }
     });
   }
@@ -204,8 +205,12 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       this.entityControl.displayLoader = true;
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         let entityData = this.compiler.constructUserEntityData(res.data.allEntities);
+        this.entityControl.allEntitiesData = entityData.entities;
         this.entityControl.displayLoader = false;
         this.navService.changeEntites(entityData);
+        if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else {
         this.entityControl.displayLoader = false;
       }
@@ -267,6 +272,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       this.entityControl.displayLoader = false;
     });
   }
+
   /**
    * this function is used for archive the entities using their entity ids.
    * @params entityId
@@ -283,6 +289,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         this.helperService.translated.STATUS.ERROR);
     });
   }
+
   /**
    * this function is used to show archived entities in dialogue.
    * @params entityId
