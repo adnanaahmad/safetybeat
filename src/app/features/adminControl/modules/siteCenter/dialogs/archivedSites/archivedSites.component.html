@@ -71,7 +71,7 @@
         <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
     </div>
 
-    <div class="paddingbox text-center" *ngIf="!archivedSitesObj.loading && !archivedSitesObj.dataSource">
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="!archivedSitesObj.loading && !archivedSitesObj.dataSource">
         {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
 

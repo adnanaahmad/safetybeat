@@ -20,7 +20,7 @@
         </div>
         <!--/Filter-->
     </div>
-    <div class="table-wrap">
+    <div class="table-wrap mat-elevation-z2">
         <div class="spinner-wrap" *ngIf="memberCenter.displayLoader">
             <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
         </div>
@@ -96,7 +96,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
     </div>
-    <mat-paginator *ngIf="memberCenter.dataSource" class="mat-elevation-z1" [pageSize]="memberCenter.pageSize"
+    <mat-paginator *ngIf="memberCenter.dataSource" class="mat-elevation-z2" [pageSize]="memberCenter.pageSize"
                    [length]=memberCenter.pageCount
                    (page)="getAllUsers(paginator.pageIndex, memberCenter.search)"></mat-paginator>
 </div>
