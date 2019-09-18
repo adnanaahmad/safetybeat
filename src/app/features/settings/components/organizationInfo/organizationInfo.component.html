@@ -84,7 +84,7 @@
     <div #gmap class="site-map"></div>
   </mat-card>
   <div class="btn-grp" *ngIf="orgObj.enabled">
-    <button type="submit" mat-raised-button class="mat-elevation-z6" custom-btn
+    <button type="submit" mat-raised-button class="mat-elevation-z6" custom-btn color="primary"
             [disabled]="orgObj.organizationForm.pristine || orgObj.organizationForm.invalid">
       <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
       Save

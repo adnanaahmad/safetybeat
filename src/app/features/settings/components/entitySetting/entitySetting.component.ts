@@ -75,6 +75,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.entitySettingObj.disabled = false;
     this.selectedEntityData();
     this.entitySettingObj.subscription.unsubscribe();
+    this.entitySettingObj.entityForm.markAsPristine();
   }
 
   getAllUsers(pageIndex) {
@@ -124,6 +125,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.settings.editEntity(this.entitySettingObj.entitiesData.id, data).subscribe((res) => {
       if (res) {
         this.viewEntitiesApiCall();
+        this.entitySettingObj.entityForm.markAsPristine();
         this.entitySettingObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UPDATED, this.helperService.constants.status.SUCCESS);
       }

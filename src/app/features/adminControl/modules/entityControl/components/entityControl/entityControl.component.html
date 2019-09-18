@@ -103,7 +103,7 @@
               <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
               {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
             </button>
-            <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
+            <!--<button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
                     (click)="confirmationModal(element.entityInfo.id)">
               <mat-icon>view_list</mat-icon>
               {{ helperService.translated.MESSAGES.CHECKIN_CATEGORIES }}
@@ -112,7 +112,7 @@
                     (click)="confirmationModal(element.entityInfo.id)">
               <mat-icon>list</mat-icon>
               {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}
-            </button>
+            </button>-->
             <button mat-menu-item *ngIf="paginator.pageIndex !== 0? entityControl.permissions.canArchiveEntity : entityControl.permissions.canArchiveEntity && entityControl.allEntitiesData.length > 1"
                     (click)="confirmationModal(element.entityInfo.id)">
               <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
