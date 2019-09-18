@@ -82,51 +82,49 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef>
-                    {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
-                </th>
-                <td mat-cell *matCellDef="let element">
-                    <button class="btn-table mat-elevation-z1" mat-raised-button color="primary" mat-button
-                            [matMenuTriggerFor]="menu">
-                        <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
-                        {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="entityCode(element)"
-                                *ngIf="entityControl.permissions?.viewEntityCode">
-                            <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
-                            {{ helperService.translated.TABLEHEADINGS.ENTITYCODE }}
-                        </button>
-                        <button mat-menu-item
-                                *ngIf="entityControl.permissions.inviteMember && !(element.entityInfo.id === entityControl.entityId)"
-                                (click)='inviteTeam(element)'>
-                            <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
-                            {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
-                        </button>
-                        <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
-                                (click)="confirmationModal(element.entityInfo.id)">
-                            <mat-icon>view_list</mat-icon>
-                            {{ helperService.translated.MESSAGES.CHECKIN_CATEGORIES }}
-                        </button>
-                        <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
-                                (click)="confirmationModal(element.entityInfo.id)">
-                            <mat-icon>list</mat-icon>
-                            {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}
-                        </button>
-                        <button mat-menu-item
-                                *ngIf="paginator.pageIndex !== 0? entityControl.permissions.canArchiveEntity : entityControl.permissions.canArchiveEntity && entityControl.allEntitiesData.length > 1"
-                                (click)="confirmationModal(element.entityInfo.id)">
-                            <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
-                            {{ helperService.translated.TABLEHEADINGS.ARCHIVE_ENTITY }}
-                        </button>
-                    </mat-menu>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="entityControl.displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: entityControl.displayedColumns"></tr>
-        </table>
-    </div>
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <button class="btn-table mat-elevation-z1" mat-raised-button color="primary" mat-button
+                  [matMenuTriggerFor]="menu">
+            <mat-icon style="padding-right:0;">{{ helperService.appIcons.keyboardArrowDown }}</mat-icon>
+            {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="entityCode(element)" *ngIf="entityControl.permissions?.viewEntityCode">
+              <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
+              {{ helperService.translated.TABLEHEADINGS.ENTITYCODE }}
+            </button>
+            <button mat-menu-item
+                    *ngIf="entityControl.permissions.inviteMember && !(element.entityInfo.id === entityControl.entityId)"
+                    (click)='inviteTeam(element)'>
+              <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
+              {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
+            </button>
+            <!--<button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
+                    (click)="confirmationModal(element.entityInfo.id)">
+              <mat-icon>view_list</mat-icon>
+              {{ helperService.translated.MESSAGES.CHECKIN_CATEGORIES }}
+            </button>
+            <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
+                    (click)="confirmationModal(element.entityInfo.id)">
+              <mat-icon>list</mat-icon>
+              {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}
+            </button>-->
+            <button mat-menu-item *ngIf="paginator.pageIndex !== 0? entityControl.permissions.canArchiveEntity : entityControl.permissions.canArchiveEntity && entityControl.allEntitiesData.length > 1"
+                    (click)="confirmationModal(element.entityInfo.id)">
+              <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
+              {{ helperService.translated.TABLEHEADINGS.ARCHIVE_ENTITY }}
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="entityControl.displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: entityControl.displayedColumns"></tr>
+    </table>
+  </div>
 
     <div class="paddingbox text-center mat-select-placeholder"
          *ngIf="!entityControl.displayLoader && !entityControl.dataSource">

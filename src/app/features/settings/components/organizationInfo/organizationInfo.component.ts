@@ -109,6 +109,7 @@ export class OrganizationInfoComponent implements OnInit {
   cancelOrgForm() {
     this.orgObj.enabled = false;
     this.orgObj.organizationForm.disable();
+    this.orgObj.organizationForm.markAsPristine();
     this.getOrganizationInfo();
   }
 
@@ -133,6 +134,7 @@ export class OrganizationInfoComponent implements OnInit {
     this.settingService.editOrganization(this.orgObj.orgID, data).subscribe((res) => {
       if (res) {
         this.orgObj.organizationForm.disable();
+        this.orgObj.organizationForm.markAsPristine();
         this.orgObj.enabled = false;
         this.orgObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ORG_DETAILS, this.helperService.constants.status.SUCCESS);
