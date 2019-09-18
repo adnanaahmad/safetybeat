@@ -5,7 +5,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {QuestionCenterService} from 'src/app/features/adminControl/modules/questionCenter/services/questionCenter.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 
 
 @Component({

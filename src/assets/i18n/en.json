@@ -204,7 +204,8 @@
     "ARCHIVED_SITES": "Archived Sites",
     "ARCHIVED_HAZARDS": "Archived Hazards",
     "ARCHIVED_ENTITIES": "Archived Entities",
-    "ARCHIVED_TEAMS": "Archived Teams"
+    "ARCHIVED_TEAMS": "Archived Teams",
+    "BUYPACKAGE": "Pay"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -461,7 +462,8 @@
     "REMOVE_LEAVE_SUCCESS": "Leave has been deleted",
     "REMOVE_LEAVE_FAILURE": "Leave wasn't deleted",
     "CHECKIN_CATEGORIES": "Check-in Categories",
-    "PULSE_CATEGORIES": "Pulse Categories"
+    "PULSE_CATEGORIES": "Pulse Categories",
+    "BUYPACKAGE": "Buy Package"
   },
   "SITETITLE": {
     "MEMBERCENTER_TITLE": "Member Centre",

@@ -136,8 +136,10 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
       } else {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_FAILURE,
           this.helperService.constants.status.ERROR);
+        this.onNoClick();
       }
     }, (error) => {
+      this.onNoClick();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
 
     });

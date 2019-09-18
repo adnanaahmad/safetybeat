@@ -28,7 +28,7 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatDatepickerModule, MatInputModule, MatN
 import {ToasterComponent} from './components/toaster/toaster.component';
 import {ArchivedSitesComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/archivedSites/archivedSites.component';
 import {ArchivedHazardsComponent} from 'src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component';
-import { ArchivedTeamComponent } from 'src/app/features/adminControl/modules/myTeam/dialogs/archived-team/archived-team.component';
+import {ArchivedTeamComponent} from 'src/app/features/adminControl/modules/myTeam/dialogs/archived-team/archived-team.component';
 import {AddSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/addSiteModal/addSiteModal.component';
 import {ImportSiteModalComponent} from './features/adminControl/modules/siteCenter/dialogs/ImportSiteModal/ImportSiteModal.component';
 import {ConfirmationModalComponent} from './dialogs/conformationModal/confirmationModal.component';
@@ -67,8 +67,10 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {environment} from '../environments/environment';
 import {FirebaseService} from './services/common/FirebaseNotification/firebase.service';
-import { NotificationsComponent } from './components/notifications/notifications.component';
+import {NotificationsComponent} from './components/notifications/notifications.component';
 import {ArchivedEntityComponent} from './features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component';
+import {NgxStripeModule} from 'ngx-stripe';
+import {UpdatepackgaeComponent} from './features/loginRegistration/dialogs/updatepackgae/updatepackgae.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -112,7 +114,8 @@ export function createTranslateLoader(http: HttpClient) {
     FileRenameComponent,
     AddleavesComponent,
     LeaveinfoComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    UpdatepackgaeComponent
   ],
   imports: [
     MatDatepickerModule,
@@ -144,6 +147,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    NgxStripeModule.forRoot('pk_test_Lb57rKyiksjzP2bgLisJ9ZZH00VjtkbY9Y')
   ],
   providers: [
     MatDatepickerModule,
@@ -208,7 +212,8 @@ export function createTranslateLoader(http: HttpClient) {
     FileRenameComponent,
     AddleavesComponent,
     LeaveinfoComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    UpdatepackgaeComponent
   ]
 })
 export class AppModule {

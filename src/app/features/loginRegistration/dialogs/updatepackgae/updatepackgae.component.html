@@ -1,0 +1,31 @@
+<mat-card-title
+  class="mat-dialog-title mat-elevation-z6">{{helperService.translated.MESSAGES.BUYPACKAGE}}</mat-card-title>
+<div mat-dialog-content>
+  <div class="spinner-wrap" *ngIf="loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
+  <form (ngSubmit)="buy(stripeForm)" [formGroup]="stripeForm">
+    <div class="form-group">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.MESSAGES.EMAIL_MSG}}</mat-label>
+        <input matInput type="text" [formControlName]="helperService.appConstants.email" required/>
+        <mat-error *ngIf="formValidation.email.errors">
+          <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+    </div>
+
+    <mat-dialog-actions>
+      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn color="primary"
+              [disabled]="stripeForm.invalid||loading">
+        {{ helperService.translated.BUTTONS.BUYPACKAGE }} {{data.cost}} $
+      </button>
+
+      <!-- <img *ngIf="createEntity.loading" [src]="helperService.translated.MESSAGES.LOADING_URL" /> -->
+      <button mat-button [mat-dialog-close]="'NO'" type="button">
+        {{ helperService.translated.BUTTONS.CANCEL }}
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

@@ -43,7 +43,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    this.initialize();
     this.inviteUserModal.subscription = this.navService.selectedEntityData.subscribe(res => {
       this.selectedEntity = res.entityInfo;
       this.inviteUserModal.entityID = this.selectedEntity.id;
@@ -59,9 +58,6 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
     this.formValidation['role'].setValue(this.inviteUserModal.selectedRole);
     this.viewSitesData();
     this.viewTeamsData();
-  }
-
-  initialize() {
   }
 
   ngOnDestroy(): void {
@@ -163,6 +159,8 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       } else {
         this.removeRole(this.helperService.appConstants.roles.siteSafetyManager);
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 
@@ -183,6 +181,8 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       } else {
         this.removeRole(this.helperService.appConstants.roles.teamLead);
       }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

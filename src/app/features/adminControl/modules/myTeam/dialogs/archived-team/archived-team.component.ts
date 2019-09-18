@@ -1,13 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {GetAllArchivedTeamsData, MyTeamModel, TeamList} from 'src/app/models/adminControl/myTeam.model';
-import {RegisterTeamComponent} from 'src/app/features/adminControl/modules/myTeam/dialogs/registerTeam/registerTeam.component';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {MatPaginator, MatDialogRef, MatTableDataSource} from '@angular/material';
-import {ViewTeamComponent} from 'src/app/features/adminControl/modules/myTeam/dialogs/viewTeam/viewTeam.component';
-import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {PaginationData} from 'src/app/models/site.model';
@@ -17,20 +14,21 @@ import {PaginationData} from 'src/app/models/site.model';
   templateUrl: './archived-team.component.html',
   styleUrls: ['./archived-team.component.scss']
 })
-export class ArchivedTeamComponent implements OnInit {
+export class ArchivedTeamComponent implements OnInit, OnDestroy {
   myTeam: MyTeamModel = <MyTeamModel>{};
   displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   allUsers: any = [];
 
   constructor(public helperService: HelperService,
-    public compiler: CompilerProvider,
-    private memberService: MemberCenterService,
-    public dialogRef: MatDialogRef<ArchivedTeamComponent>,
-    private navService: NavigationService,
-    private adminServices: AdminControlService) { }
+              public compiler: CompilerProvider,
+              private memberService: MemberCenterService,
+              public dialogRef: MatDialogRef<ArchivedTeamComponent>,
+              private navService: NavigationService,
+              private adminServices: AdminControlService) {
+  }
 
-     /**
+  /**
    * this function is used to initialize the global variables that we have made in the models.
    */
   initialize() {
@@ -129,12 +127,15 @@ export class ArchivedTeamComponent implements OnInit {
         this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
         this.helperService.createSnack(
           this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
+        this.dialogRef.close();
       } else {
         this.helperService.createSnack(
           this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_FAIL, this.helperService.constants.status.ERROR);
+        this.dialogRef.close();
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      this.dialogRef.close();
     });
   }
 
@@ -144,6 +145,7 @@ export class ArchivedTeamComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   goToPreviousTable() {
     this.paginator.pageIndex = this.paginator.pageIndex - 1;
     this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);

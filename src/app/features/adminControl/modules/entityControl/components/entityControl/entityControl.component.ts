@@ -138,7 +138,6 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
     this.helperService.dialogRef.afterClosed().subscribe(res => {
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
-        //this.deleteEntity(entityId);
         this.archiveEntity(entityId);
       }
     });
