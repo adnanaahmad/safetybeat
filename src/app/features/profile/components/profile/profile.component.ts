@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             let entityId = {
               entityId: res.entityInfo.id
             };
-            if (!this.profileModel.currentUserProfile ) {
+            if (!this.profileModel.currentUserProfile) {
               this.memberService.entityAllUsers(entityId).subscribe((res) => {
                 if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
                   if (!(res.data.allUser.find(x => x.user.id === this.profileModel.userId))) {
@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 }
               }, (error) => {
                 this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-                });
+              });
             }
           }
         });
@@ -386,6 +386,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   viewActivities(filters, paginationData) {
+    this.profileModel.loading = true;
     let data: ActivityFilterData = {
       days: filters.value.filter,
       dateTo: filters.value.dateTo,
@@ -400,19 +401,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         if (res.data.recentActivities.length === 0) {
           this.profileModel.recentActivities = null;
+          this.profileModel.loading = false;
         } else {
           this.profileModel.activitiesCount = res.data.pageCount;
           this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res.data);
           this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
+          this.profileModel.loading = false;
         }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.recentActivities = null;
+        this.profileModel.loading = false;
       } else {
         this.profileModel.recentActivities = null;
+        this.profileModel.loading = false;
       }
     }, (error) => {
       this.profileModel.recentActivities = null;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      this.profileModel.loading = false;
     });
   }
 
@@ -427,6 +433,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   getUserConnections(userId: number, paginationData) {
+    this.profileModel.loading = true;
     this.profileModel.allConnectionsData = [];
     let pagination: PaginationData = {
       offset: paginationData * this.helperService.appConstants.paginationLimitForProfile,
@@ -437,15 +444,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileModel.connectionCount = res.data.pageCount;
         this.profileModel.allConnectionsRes = res;
         this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
+        this.profileModel.loading = false;
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.profileModel.noConnection = true;
+        this.profileModel.loading = false;
       } else {
         this.profileModel.noConnection = true;
         this.helperService.createSnack(
           this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE, this.helperService.constants.status.ERROR);
+        this.profileModel.loading = false;
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      this.profileModel.loading = false;
     });
   }
 
@@ -521,6 +532,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   userLeaves(userId: number) {
+    this.profileModel.loading = true;
     let data = {
       userId: userId,
       entityId: this.profileModel.entityId
@@ -554,23 +566,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
           self.profileModel.events.push(self.profileModel.eventData);
           self.refresh.next();
         });
+        this.profileModel.loading = false;
       } else {
         this.removeLeaves();
       }
     }, (error) => {
+      this.profileModel.loading  = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
+
   removeActivities() {
     this.profileModel.recentActivities = null;
     this.profileModel.activitiesCount = 0;
     this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
   }
+
   removeLeaves() {
     this.profileModel.userLeaves = null;
     this.profileModel.leavesCount = 0;
     this.profileModel.events = [];
+    this.profileModel.loading = false
   }
+
   onImageLoad() {
     this.profileModel.loading = false;
   }
