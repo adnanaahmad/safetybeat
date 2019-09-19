@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
-import {PulseByEntityReportData} from 'src/app/models/analyticsReport/reports.model';
+import {ActivityData} from 'src/app/models/analyticsReport/reports.model';
 import {
   ActionReportData,
   HazardReportByStatusData,
@@ -146,8 +146,7 @@ export class DashboardComponent implements OnDestroy {
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType,
-          [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData, res.data.meeting,
-            res.data.visiting, res.data.travelling, res.data.other, res.data.onBreak));
+          [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData));
         this.dashboardObj.pulseDiv = document.getElementById('pulseReport')
         if (this.dashboardObj.pulseDiv) {
           Highcharts.chart(this.dashboardObj.pulseDiv, data);
@@ -161,66 +160,34 @@ export class DashboardComponent implements OnDestroy {
     });
   }
 
-  generatePulseCharSeries(reportData: any, meeting, visiting, travelling, other, onBreak) {
+  generatePulseCharSeries(reportData: any) {
     let dates = [];
-    let meetings = [];
-    let visitings = [];
-    let travellings = [];
-    let others = [];
-    let onBreaks = [];
+    let data = [];
     let charSeries = [];
-    this.helperService.iterations(reportData, function (pulseReport: PulseByEntityReportData) {
-      dates.push(pulseReport.date);
-      meetings.push(pulseReport.meeting);
-      visitings.push(pulseReport.visiting);
-      travellings.push(pulseReport.travelling);
-      others.push(pulseReport.other);
-      onBreaks.push(pulseReport.onBreak);
-    });
-    charSeries.push({
-      name: 'In a Meeting',
-      data: meetings
-    });
-    charSeries.push({
-      name: 'Visiting',
-      data: visitings
-    });
-    charSeries.push({
-      name: 'Travelling',
-      data: travellings
-    });
-    charSeries.push({
-      name: 'On a Meal Break',
-      data: onBreaks
-    });
-    charSeries.push({
-      name: 'Others',
-      data: others
+    let self = this;
+    let pieChart = [];
+    self.helperService.iterations(reportData, function (pulseReport: ActivityData) {
+      dates = [];
+      data = [];
+      self.helperService.iterations(pulseReport.result, function (pulse: Report) {
+        dates.push(pulse.date);
+        data.push(pulse.count)
+      });
+      charSeries.push({
+        name: pulseReport.type,
+        data: data
+      });
+      let index = self.helperService.findIndex(pulseReport)
+      pieChart.push({
+        name: pulseReport.type,
+        y: pulseReport.totalCount,
+        color: Highcharts.getOptions().colors[index]
+      });
     });
     charSeries.push({
       type: 'pie',
       name: 'Total Pulse',
-      data: [{
-        name: 'In a Meeting',
-        y: meeting,
-        color: Highcharts.getOptions().colors[0]
-      }, {
-        name: 'Visiting',
-        y: visiting,
-        color: Highcharts.getOptions().colors[1]
-      }, {
-        name: 'Travelling',
-        y: travelling,
-        color: Highcharts.getOptions().colors[2]
-      }, {
-        name: 'On a meal break',
-        y: onBreak,
-        color: Highcharts.getOptions().colors[3]
-      }, {
-        name: 'Others',
-        y: other,
-        color: Highcharts.getOptions().colors[4]
-      }],
+      data: pieChart,
       center: [50, -10],
       size: 100,
       showInLegend: false,
@@ -228,12 +195,12 @@ export class DashboardComponent implements OnDestroy {
         enabled: false
       }
     })
-    let data = {
+    let pulseData = {
       charSeries: charSeries,
       categories: dates,
       title: 'No of Pulse with Type'
     }
-    return data;
+    return pulseData;
   }
 
   generateCharHazardSeries(reportData: any) {

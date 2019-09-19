@@ -7,7 +7,6 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
 import {
   ActionReportApiData,
   ActivityData,
-  CheckInByActivityData,
   HighChartType,
   Report
 } from 'src/app/models/analyticsReport/reports.model';
@@ -125,7 +124,7 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
         this.checkInActivityObj.checkInByActivityReportData = res.data.checkInByActivity;
         let chartType: HighChartType = {
           type: 'column',
-          title: 'Check In By Activity Report ( Maintenance / Installation )',
+          title: 'Check In By Activity Report',
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType,
@@ -145,10 +144,12 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
     let dates = [];
     let charSeries = [];
     let data = [];
-    this.helperService.iterations(reportData, function (checkIns: ActivityData) {
+    let self = this;
+    let pieChart = [];
+    self.helperService.iterations(reportData, function (checkIns: ActivityData) {
       dates = []
       data = []
-      this.helperService.iterations(reportData.result, function (checkInByActivityReport: Report) {
+      self.helperService.iterations(checkIns.result, function (checkInByActivityReport: Report) {
         dates.push(checkInByActivityReport.date)
         data.push(checkInByActivityReport.count)
       });
@@ -157,26 +158,28 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
         name: checkIns.type,
         data: data
       });
-      charSeries.push({
-        type: 'pie',
-        name: 'Total CheckIns',
-        data: [{
-          name: 'Maintenance',
-          y: checkIns.totalCount,
-          color: Highcharts.getOptions().colors[0]
-        }],
-        center: [50, -10],
-        size: 100,
-        showInLegend: false,
-        dataLabels: {
-          enabled: false
-        }
-      });
+      let index = self.helperService.findIndex(checkIns)
+      pieChart.push({
+        name: checkIns.type,
+        y: checkIns.totalCount,
+        color: Highcharts.getOptions().colors[index]
+      })
+    });
+    charSeries.push({
+      type: 'pie',
+      name: 'Total CheckIns',
+      data: pieChart,
+      center: [50, -10],
+      size: 100,
+      showInLegend: false,
+      dataLabels: {
+        enabled: false
+      }
     });
     let result = {
       charSeries: charSeries,
       categories: dates,
-      title: 'No of Check In By Activity ( Maintenance / Installation )'
+      title: 'No of Check In By Activity'
     }
     return result;
   }
