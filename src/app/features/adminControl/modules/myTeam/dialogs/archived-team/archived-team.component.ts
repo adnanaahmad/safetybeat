@@ -34,7 +34,7 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
   initialize() {
     this.myTeam.search = '';
     this.myTeam.firstIndex = 0;
-    this.myTeam.pageSize = 10;
+    this.myTeam.pageSize = 6;
     this.myTeam.dataSource = null;
     this.myTeam.teamsData = [];
     this.myTeam.loading = false;
@@ -43,7 +43,7 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.myTeam.firstIndex = 0;
     this.myTeam.search = '';
-    this.myTeam.pageSize = 10;
+    this.myTeam.pageSize = 6;
     this.myTeam.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res !== 1) {
         this.myTeam.entityId = res.entityInfo.id;
@@ -87,8 +87,8 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
       archived: true
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.appConstants.paginationLimit,
-      limit: this.helperService.appConstants.paginationLimit,
+      offset: pageIndex * this.helperService.appConstants.paginationLimitForArchive,
+      limit: this.helperService.appConstants.paginationLimitForArchive,
       search: search
     };
     if (typeof (search) === 'string' && search.length === 0) {

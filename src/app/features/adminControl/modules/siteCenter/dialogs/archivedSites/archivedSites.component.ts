@@ -50,7 +50,7 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
   initialize() {
     this.archivedSitesObj.search = '';
     this.archivedSitesObj.firstIndex = 0;
-    this.archivedSitesObj.pageSize = 10;
+    this.archivedSitesObj.pageSize = 6;
     this.archivedSitesObj.dataSource = null;
     this.archivedSitesObj.allUsersList = [];
     this.archivedSitesObj.loading = false;
@@ -90,8 +90,8 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
       archived: true
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.appConstants.paginationLimit,
-      limit: this.helperService.appConstants.paginationLimit,
+      offset: pageIndex * this.helperService.appConstants.paginationLimitForArchive,
+      limit: this.helperService.appConstants.paginationLimitForArchive,
       search: search
     };
     if (typeof (search) === 'string' && search.length === 0) {
