@@ -30,10 +30,10 @@ export interface Report {
   actionReportForm: FormGroup;
   actionReportData: Array<ActionReportData>;
   filters: Array<FilterModel>;
-  checkInByActivityReportData: Array<CheckInByActivityData>;
+  checkInByActivityReportData: Array<ActivityData>;
   entityUsers: User[];
   checkInActivityForm: FormGroup;
-  pulseByEntityReportData: PulseByEntityReportData;
+  pulseByEntityReportData: Array<ActivityData>;
   pulseEntityForm: FormGroup;
   hazardReportByStatusData: HazardReportByStatusData;
   hazardReportData: HazardReportData;
@@ -63,19 +63,15 @@ export interface ActionReportData {
 
 }
 
-export interface CheckInByActivityData {
-  date: string,
-  maintenance: number,
-  installation: number
+export interface ActivityData {
+  result: Array<Report>,
+  type: string,
+  totalCount: number
 }
 
-export interface PulseByEntityReportData {
+export interface Report {
   date: string,
-  meeting: number,
-  visiting: number,
-  travelling: number,
-  onBreak: number,
-  other: number
+  count: number
 }
 
 export interface HazardReportData {

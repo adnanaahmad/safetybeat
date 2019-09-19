@@ -50,8 +50,14 @@ h4,
 h5,
 h6,
 notifier-notification,
-app-toaster {
+app-toaster,
+.highcharts-title {
   font-family: $fontFamily;
+}
+
+.highcharts-title {
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .m-0 {
@@ -163,6 +169,57 @@ mat-dialog-container {
       fill: $hexWhite;
       fill-rule: evenodd;
     }
+  }
+}
+
+mat-form-field[appearance="outline"] {
+  .mat-form-field-prefix {
+    top: -4px;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.customTable.modal {
+  .mat-header-row {
+    .mat-header-cell {
+      color: initial;
+    }
+  }
+  .mat-header-row {
+    background: transparent;
+  }
+}
+
+.heading-search {
+  float: right;
+  position: relative;
+  input {
+    border: 0;
+    border-radius: 4px;
+    height: 30px;
+    padding: 0 10px;
+    width: 135px;
+    &:focus {
+      outline: 0 none;
+      border: 0;
+    }
+  }
+  mat-icon {
+    vertical-align: middle;
+    position: absolute;
+    right: 4px;
+    top: 8px;
+    font-size: 20px;
   }
 }
 

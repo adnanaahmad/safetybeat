@@ -64,8 +64,11 @@ export class PulseCategoyModalComponent implements OnInit {
     });
   }
 
-  deletePulse(id) {
-    this.adminServices.deletePulseType(id).subscribe((res) => {
+  archivePulse(id) {
+    let data = {
+      'id': id
+    }
+    this.adminServices.archivePulse(data).subscribe((res) => {
       this.getPulseType();
     });
   }

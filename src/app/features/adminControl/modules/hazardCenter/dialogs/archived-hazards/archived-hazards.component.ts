@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatDialogRef, MatPaginator, MatTableDataSource} from '@angular/material';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HazardModel} from 'src/app/models/hazard.model';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
-import {ImageLightboxComponent} from 'src/app/dialogs/imageLightbox/imageLightbox.component';
 import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
@@ -25,7 +24,8 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
   constructor(public helperService: HelperService,
               private navService: NavigationService,
               private compiler: CompilerProvider,
-              private adminControlService: AdminControlService) {
+              private adminControlService: AdminControlService,
+              public dialogRef: MatDialogRef<ArchivedHazardsComponent>) {
 
   }
 
@@ -52,7 +52,7 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
     this.hazardTable.displayedColumns = ['site', 'title', 'resolved', 'dateTime', 'Image', 'actions'];
     this.search = '';
     this.firstIndex = 0;
-    this.pageSize = 10;
+    this.pageSize = 6;
     this.dataSource = null;
     this.hazardTable.loading = false;
     this.hazardTable.dataSource = null;
@@ -70,8 +70,8 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
       archived: true
     };
     let paginationData: PaginationData = {
-      limit: this.helperService.constants.appConstant.paginationLimit,
-      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
+      limit: this.helperService.constants.appConstant.paginationLimitForArchive,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimitForArchive,
       search: search
     };
     if (typeof (search) === 'string' && search.length === 0) {
@@ -82,6 +82,9 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
         this.pageCount = res.data.pageCount;
         this.hazardTable.hazardsData = this.compiler.constructAllArchivedHazardsData(res.data.hazardList);
         this.hazardTable.dataSource = new MatTableDataSource(this.hazardTable.hazardsData);
+        if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.hazardTable.dataSource = null;
       }
@@ -96,8 +99,36 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
    * Unarchive hazard
    * @params hazardData
    */
-  unarchiveHazards(hazardData: any) {
-    // api need to be build
+  unarchiveHazard(hazardData: any) {
+    this.adminControlService.unarchiveHazard(hazardData.id).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.getHazardList(this.paginator.pageIndex, this.search);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_SUCCESS,
+            this.helperService.constants.status.SUCCESS);
+          this.dialogRef.close();
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_FAILURE,
+            this.helperService.constants.status.ERROR);
+          this.dialogRef.close();
+        } else {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_FAILURE,
+            this.helperService.constants.status.ERROR);
+          this.dialogRef.close();
+        }
+      }, (error) => {
+        this.dialogRef.close();
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
+          this.helperService.constants.status.ERROR);
+      }
+    );
+  }
+
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getHazardList(this.paginator.pageIndex, this.search);
   }
 
 }

@@ -52,8 +52,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.STRINGS.DESCRIPTION}}</mat-label>
-        <textarea matTooltip="Warning messages to users if they answer the question incorrectly"
-                  matTooltipPosition="below" maxlength="500" rows="6" cols="6" matInput
+        <textarea maxlength="500" rows="6" cols="6" matInput
                   [formControlName]="helperService.appIcons.description">
           </textarea>
         <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">

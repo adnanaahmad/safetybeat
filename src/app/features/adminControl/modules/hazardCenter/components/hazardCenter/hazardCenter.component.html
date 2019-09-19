@@ -1,18 +1,19 @@
 <div class="spinner-wrap" *ngIf="hazardTable.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
-
 <div class="paddingbox">
     <div class="page-title">
         <h3>{{ helperService.translated.SITETITLE.HAZARD_CENTER }}</h3>
 
         <div class="buttonRow">
             <button class="mat-elevation-z6" mat-raised-button color="primary"
-                    (click)="getArchivedSites()">
+                    *ngIf="hazardTable.permissions?.canArchiveHazard"
+                    (click)="getArchivedHazards()">
                 <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
                 {{ helperService.translated.BUTTONS.ARCHIVED_HAZARDS }}
             </button>
         </div>
+
 
         <!--Filter-->
         <div class="data-filter">
@@ -26,8 +27,9 @@
         </div>
         <!--/Filter-->
     </div>
-    <div class="table-wrap">
-        <table mat-table [dataSource]="hazardTable.dataSource" class="customTable mat-elevation-z3">
+
+    <div class="table-wrap mat-elevation-z2">
+        <table mat-table [dataSource]="hazardTable.dataSource" class="customTable">
             <ng-container [matColumnDef]="hazardTable.displayedColumns[0]">
                 <th mat-header-cell *matHeaderCellDef>
                     {{ helperService.translated.TABLEHEADINGS.SITE }}
@@ -78,7 +80,7 @@
                     {{ helperService.translated.TABLEHEADINGS.ACTIONS }}
                 </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="editHazard(element)">
+                        <button mat-menu-item *ngIf="hazardTable.permissions?.editHazard" (click)="editHazard(element)">
                             <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
                             Edit
                         </button>
@@ -86,7 +88,8 @@
                             <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
                             {{ helperService.translated.TABLEHEADINGS.HAZARD_DETAILS }}
                         </button>
-                        <button mat-menu-item *ngIf="hazardTable.hazardOption" (click)="confirmationModal(element.id)">
+                        <button mat-menu-item *ngIf="hazardTable.permissions?.canArchiveHazard"
+                                (click)="confirmationModal(element.id)">
                             <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
                             Archive
                         </button>
@@ -98,10 +101,10 @@
             <tr mat-row *matRowDef="let row; columns: hazardTable.displayedColumns"></tr>
         </table>
     </div>
-    <div class="paddingbox text-center" *ngIf="hazardTable.dataSource === null">
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="hazardTable.dataSource === null">
         {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
 
-    <mat-paginator class="mat-elevation-z1" [pageSize]="pageSize" [length]="pageCount"
+    <mat-paginator class="mat-elevation-z2" [pageSize]="pageSize" [length]="pageCount"
                    (page)="getHazardList(paginator.pageIndex, search)"></mat-paginator>
 </div>

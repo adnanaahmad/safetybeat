@@ -4,7 +4,12 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
-import {ActionReportApiData, HighChartType, PulseByEntityReportData, Report} from 'src/app/models/analyticsReport/reports.model';
+import {
+  ActionReportApiData,
+  ActivityData,
+  HighChartType,
+  Report
+} from 'src/app/models/analyticsReport/reports.model';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
@@ -103,8 +108,7 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType,
-          [], this.generateCharSeries(this.pulseEntityObj.pulseByEntityReportData, res.data.meeting,
-            res.data.visiting, res.data.travelling, res.data.other, res.data.onBreak));
+          [], this.generateCharSeries(this.pulseEntityObj.pulseByEntityReportData));
         this.pulseEntityObj.containerDiv = document.getElementById('container')
         if (this.pulseEntityObj.containerDiv) {
           Highcharts.chart('container', data);
@@ -129,66 +133,34 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
     });
   }
 
-  generateCharSeries(reportData: any, meeting, visiting, travelling, other, onBreak) {
+  generateCharSeries(reportData: any) {
     let dates = [];
-    let meetings = [];
-    let visitings = [];
-    let travellings = [];
-    let others = [];
-    let onBreaks = [];
+    let data = [];
     let charSeries = [];
-    this.helperService.iterations(reportData, function (pulseReport: PulseByEntityReportData) {
-      dates.push(pulseReport.date);
-      meetings.push(pulseReport.meeting);
-      visitings.push(pulseReport.visiting);
-      travellings.push(pulseReport.travelling);
-      others.push(pulseReport.other);
-      onBreaks.push(pulseReport.onBreak);
-    });
-    charSeries.push({
-      name: 'In a Meeting',
-      data: meetings
-    });
-    charSeries.push({
-      name: 'Visiting',
-      data: visitings
-    });
-    charSeries.push({
-      name: 'Travelling',
-      data: travellings
-    });
-    charSeries.push({
-      name: 'On a Meal Break',
-      data: onBreaks
-    });
-    charSeries.push({
-      name: 'Others',
-      data: others
+    let self = this;
+    let pieChart = [];
+    self.helperService.iterations(reportData, function (pulseReport: ActivityData) {
+      dates = [];
+      data = [];
+      self.helperService.iterations(pulseReport.result, function (pulse: Report) {
+        dates.push(pulse.date);
+        data.push(pulse.count)
+      });
+      charSeries.push({
+        name: pulseReport.type,
+        data: data
+      });
+      let index = self.helperService.findIndex(pulseReport)
+      pieChart.push({
+        name: pulseReport.type,
+        y: pulseReport.totalCount,
+        color: Highcharts.getOptions().colors[index]
+      });
     });
     charSeries.push({
       type: 'pie',
       name: 'Total Pulse',
-      data: [{
-        name: 'In a Meeting',
-        y: meeting,
-        color: Highcharts.getOptions().colors[0]
-      }, {
-        name: 'Visiting',
-        y: visiting,
-        color: Highcharts.getOptions().colors[1]
-      }, {
-        name: 'Travelling',
-        y: travelling,
-        color: Highcharts.getOptions().colors[2]
-      }, {
-        name: 'On a meal break',
-        y: onBreak,
-        color: Highcharts.getOptions().colors[3]
-      }, {
-        name: 'Others',
-        y: other,
-        color: Highcharts.getOptions().colors[4]
-      }],
+      data: pieChart,
       center: [50, -10],
       size: 100,
       showInLegend: false,
@@ -196,12 +168,12 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
         enabled: false
       }
     })
-    let data = {
+    let pulseData = {
       charSeries: charSeries,
       categories: dates,
       title: 'No of Pulse with Type'
     }
-    return data;
+    return pulseData;
   }
 
   formSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {

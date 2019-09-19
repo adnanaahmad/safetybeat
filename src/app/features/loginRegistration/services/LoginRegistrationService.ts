@@ -35,6 +35,10 @@ export class LoginRegistrationService {
     return this.Login$;
   }
 
+  updateAmount(data) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.charge, data);
+  }
+
   getPackagesData() {
     return this.helperService.requestCall(this.method.get, this.apiRoutes.packages);
   }
