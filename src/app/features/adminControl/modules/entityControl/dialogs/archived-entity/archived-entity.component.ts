@@ -33,7 +33,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       if (res && res !== 1) {
         this.entityControl.entityId = res.entityInfo.id;
       }
-    })
+    });
   }
 
   /**
@@ -67,7 +67,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
   initialize() {
     this.entityControl.search = '';
     this.entityControl.firstIndex = 0;
-    this.entityControl.pageSize = 10;
+    this.entityControl.pageSize = 6;
     this.entityControl.pageCount = 0;
     this.entityControl.createEntityOption = false;
     this.entityControl.allEntitiesData = [];
@@ -84,15 +84,14 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       'symbol',
     ];
   }
-
   viewEntitiesApiCall(pageIndex, search) {
     let data = {
       moduleName: 'Safetybeat',
       archived: true
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.appConstants.paginationLimit,
-      limit: this.helperService.appConstants.paginationLimit,
+      offset: pageIndex * this.helperService.appConstants.paginationLimitForArchive,
+      limit: this.helperService.appConstants.paginationLimitForArchive,
       search: search
     };
     this.entityControl.displayLoader = true;
@@ -116,6 +115,34 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   /**
+   * this function is used to get all the entities without pagination data so that when the new entity is added this function calls and
+   * updates the state of entitySwitcher entities
+   */
+
+  viewAllEntities() {
+    let data = {
+      moduleName: 'Safetybeat'
+    };
+    this.adminServices.viewEntities(data).subscribe((res) => {
+      this.entityControl.displayLoader = true;
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        let entityData = this.compiler.constructUserEntityData(res.data.allEntities);
+        this.entityControl.allEntitiesData = entityData.entities;
+        this.entityControl.displayLoader = false;
+        this.navService.changeEntites(entityData);
+        if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
+      } else {
+        this.entityControl.displayLoader = false;
+      }
+    }, (error) => {
+      this.entityControl.displayLoader = false;
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  /**
    * Unarchive site
    * @params siteData
    */
@@ -124,6 +151,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.entityControl.pageCount = 0;
         this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
+        this.viewAllEntities();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_SUCCESS,
           this.helperService.constants.status.SUCCESS);
         this.dialogRef.close();

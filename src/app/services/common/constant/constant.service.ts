@@ -168,6 +168,7 @@ export class ConstantService {
     entity: 'entity',
     paginationLimitForProfile: 7,
     paginationLimit: 10,
+    paginationLimitForArchive: 6,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',

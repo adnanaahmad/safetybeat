@@ -1,3 +1,6 @@
+<div class="spinner-wrap" *ngIf="leaveModel.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
 <div class="paddingbox">
     <div class="page-title">
         <h3>Manage Leaves</h3>
@@ -11,9 +14,6 @@
         </div>
     </div>
     <div class="table-wrap mat-elevation-z2">
-        <div class="spinner-wrap" *ngIf="leaveModel.loading">
-            <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
-        </div>
         <table matSort mat-table [dataSource]="leaveModel.dataSource" class="customTable mat-elevation-z3">
             <ng-container matColumnDef="userName">
                 <th mat-header-cell *matHeaderCellDef>
