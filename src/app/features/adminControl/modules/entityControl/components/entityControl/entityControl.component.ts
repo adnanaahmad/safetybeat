@@ -50,7 +50,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       if (res && res !== 1) {
         this.entityControl.entityId = res.entityInfo.id;
       }
-    })
+    });
   }
 
   /**
@@ -125,7 +125,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
         this.viewAllEntities();
       }
-    })
+    });
   }
 
   /**
@@ -141,6 +141,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       if (res === this.helperService.appConstants.yes) {
         this.helperService.toggleLoader(true);
         this.archiveEntity(entityId);
+        this.viewAllEntities();
       }
     });
   }
@@ -218,8 +219,12 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       this.entityControl.displayLoader = true;
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         let entityData = this.compiler.constructUserEntityData(res.data.allEntities);
+        this.entityControl.allEntitiesData = entityData.entities;
         this.entityControl.displayLoader = false;
         this.navService.changeEntites(entityData);
+        if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else {
         this.entityControl.displayLoader = false;
       }
@@ -250,6 +255,9 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         this.entityControl.allEntitiesData = entityUserData.entities;
         this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
         this.entityControl.displayLoader = false;
+        if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else {
         this.entityControl.displayLoader = false;
       }
@@ -268,7 +276,7 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
     this.entityControl.displayLoader = true;
     this.adminServices.deleteEntity(entityId).subscribe(res => {
       this.entityControl.pageCount = 0;
-      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+      this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
       this.viewAllEntities();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_DELETE,
         this.helperService.translated.STATUS.SUCCESS);
@@ -278,25 +286,24 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       this.entityControl.displayLoader = false;
     });
   }
+
   /**
    * this function is used for archive the entities using their entity ids.
    * @params entityId
    */
   archiveEntity(entityId: number) {
-    this.entityControl.displayLoader = true;
     this.adminServices.archiveEntity(entityId).subscribe(res => {
       this.entityControl.pageCount = 0;
-      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+      this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
       this.viewAllEntities();
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE,
         this.helperService.constants.status.SUCCESS);
-      this.entityControl.displayLoader = false;
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_ARCHIVE_FAIL,
         this.helperService.translated.STATUS.ERROR);
-      this.entityControl.displayLoader = false;
     });
   }
+
   /**
    * this function is used to show archived entities in dialogue.
    * @params entityId
@@ -306,11 +313,19 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
       disableClose: true,
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
+      this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
     });
   }
 
   advanceSearch() {
 
+  }
+
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
   }
 }

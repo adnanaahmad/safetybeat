@@ -140,6 +140,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * this function is used to get all entities
+   */
+
   getAllEntities() {
     this.adminServices
       .viewEntities(this.moduleData)
@@ -171,6 +175,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * this function is used to get current user
+   */
   getCurrentUser() {
     this.profile.getUser().subscribe((res) => {
       this.profileModel.dataRecieved = res;
@@ -231,6 +238,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.isOwner = (currentRole === this.helperService.appConstants.roles.owner);
   }
 
+  /**
+   * this function is used to get notifications count
+   * @params count
+   */
   getNotificationCount(count) {
     this.notificationCount = count;
   }

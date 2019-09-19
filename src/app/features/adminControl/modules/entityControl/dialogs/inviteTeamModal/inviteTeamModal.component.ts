@@ -142,13 +142,13 @@ export class InviteTeamModalComponent {
             res.responseDetails.message,
             this.helperService.constants.status.ERROR
           );
-          this.onNoClick();
           this.inviteTeamModel.loading = false;
+          this.onNoClick();
         }
       },
       (error) => {
-        this.onNoClick();
         this.inviteTeamModel.loading = false;
+        this.onNoClick();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }
     );

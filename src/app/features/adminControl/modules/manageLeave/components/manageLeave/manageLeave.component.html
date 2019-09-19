@@ -13,7 +13,7 @@
             <a _ngcontent-c19="" class="mat-body-strong mat-small pointer">&nbsp;</a>
         </div>
     </div>
-    <div class="table-wrap">
+    <div class="table-wrap mat-elevation-z2">
         <table matSort mat-table [dataSource]="leaveModel.dataSource" class="customTable mat-elevation-z3">
             <ng-container matColumnDef="userName">
                 <th mat-header-cell *matHeaderCellDef>
@@ -84,11 +84,11 @@
             <tr mat-row *matRowDef="let row; columns: leaveModel.displayedColumns"></tr>
         </table>
     </div>
-    <div class="paddingbox text-center" *ngIf="!leaveModel.dataSource">
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="!leaveModel.dataSource">
         {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
 
-    <mat-paginator class="mat-elevation-z1" [pageSize]="leaveModel.pageSize" [length]="leaveModel.pageCount"
+    <mat-paginator class="mat-elevation-z2" [pageSize]="leaveModel.pageSize" [length]="leaveModel.pageCount"
                    (page)="viewAllUserLeaves(paginator.pageIndex, leaveModel.search)"></mat-paginator>
 
 </div>

@@ -286,6 +286,9 @@ export interface Buttons {
   HOW_IT_WORKS: string;
   ARCHIVED_HAZARDS: string;
   ARCHIVED_SITES: string;
+  BUYPACKAGE: string;
+  ARCHIVED_TEAMS: string;
+  ARCHIVED_ENTITIES: string;
 }
 
 export interface Messages {
@@ -398,6 +401,8 @@ export interface Messages {
   QUESTION_DESCRIPTION_REQ: string;
   ENTITY_ARCHIVE: string;
   ENTITY_ARCHIVE_FAIL: string;
+  ENTITY_UNARCHIVE_SUCCESS: string;
+  ENTITY_UNARCHIVE_FAIL: string;
   ENTITY_DELETE: string;
   ENTITY_DELETE_TITLE: string;
   ENTITY_DELETE_FAIL: string;
@@ -416,10 +421,14 @@ export interface Messages {
   VIEW_SITE_FAILURE: string;
   DELETE_SITE_SUCCESS: string;
   DELETE_SITE_FAILURE: string;
+  SITE_UNARCHIVE_SUCCESS: string;
+  SITE_UNARCHIVE_FAILURE: string;
   DELETE_QUESTION_SUCCESS: string;
   DELETE_QUESTION_FAILURE: string;
   DELETE_TEAM_SUCCESS: string;
   ARCHIVED_TEAM_SUCCESS: string;
+  UNARCHIVED_TEAM_SUCCESS: string;
+  UNARCHIVED_TEAM_FAIL: string;
   DELETE_TEAM_FAILURE: string;
   EDIT_SITE_MSG: string;
   SAFETYBEAT_PRICING: string;
@@ -460,6 +469,8 @@ export interface Messages {
   HAZARD_LIST_FAIL: string;
   HAZARD_EDIT_SUCCESS: string;
   HAZARD_ARCHIVE_SUCCESS: string;
+  HAZARD_UNARCHIVE_SUCCESS: string;
+  HAZARD_UNARCHIVE_FAILURE: string;
   HAZARD_EDIT_FAILURE: string;
   HAZARD_ARCHIVE_FAILURE: string;
   ADD_HAZARD: string;
@@ -541,6 +552,7 @@ export interface Messages {
   PULSE_CATEGORIES: string;
   CHECKIN_CATEGORY_TITLE: string;
   PULSE_CATEGORY_TITLE: string;
+  BUYPACKAGE: string;
 }
 
 export interface Logger {
@@ -659,6 +671,7 @@ export interface TableHeadings {
   TITLE: string;
   HAZARD_DETAILS: string;
   TEAM_LEAD: string;
+  ARCHIVE_ENTITY: string;
 }
 
 export interface Status {
@@ -671,22 +684,22 @@ export interface Status {
 }
 
 export interface Confirmation {
-    ACTIVATE_USER: string;
-    DEACTIVATE_USER: string;
-    DELETE_SITE: string;
-    DELETE_HAZARD: string;
-    DELETE_ENTITY: string;
-    ADD_CONNECTION: string;
-    CONFIRM_CONNECTION: string;
-    DELETE_DOCUMENT: string;
-    DELETE_FOLDER: string;
-    REMOVE_CONNECTION: string
-    DELETE_TEAM: string;
-    DELETE_QUESTION: string;
-    DELETE_LEAVE: string;
-    ARCHIVE_SITE: string;
-    ARCHIVE_HAZARD: string;
-    ARCHIVE_ENTITY: string;
-    ARCHIVE_TEAM: string;
-    UNARCHIVE_TEAM:string;
+  ACTIVATE_USER: string;
+  DEACTIVATE_USER: string;
+  DELETE_SITE: string;
+  DELETE_HAZARD: string;
+  DELETE_ENTITY: string;
+  ADD_CONNECTION: string;
+  CONFIRM_CONNECTION: string;
+  DELETE_DOCUMENT: string;
+  DELETE_FOLDER: string;
+  REMOVE_CONNECTION: string
+  DELETE_TEAM: string;
+  DELETE_QUESTION: string;
+  DELETE_LEAVE: string;
+  ARCHIVE_SITE: string;
+  ARCHIVE_HAZARD: string;
+  ARCHIVE_ENTITY: string;
+  ARCHIVE_TEAM: string;
+  UNARCHIVE_TEAM: string;
 }

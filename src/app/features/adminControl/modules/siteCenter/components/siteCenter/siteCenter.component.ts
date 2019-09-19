@@ -112,8 +112,13 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
         this.siteCentreObj.sitesData = this.compiler.constructAllSitesData(res.data.sitesList);
         this.adminServices.changeSites(this.siteCentreObj.sitesData);
         this.siteCentreObj.dataSource = new MatTableDataSource(this.siteCentreObj.sitesData);
+        this.paginator.pageIndex = pageIndex;
         this.siteCentreObj.loading = false;
+        if (this.siteCentreObj.sitesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+        this.paginator.pageIndex = pageIndex;
         this.siteCentreObj.dataSource = null;
         this.siteCentreObj.loading = false;
       }
@@ -217,7 +222,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
   archiveSite(siteId) {
     this.adminServices.deleteSite(siteId).subscribe((res) => {
-      this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
+      this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
       this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_SITE_SUCCESS,
         this.helperService.constants.status.SUCCESS);
 
@@ -244,9 +249,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       data: {Modal: false, 'siteData': this.siteCentreObj.sitesData}
     });
     this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res !== this.helperService.appConstants.no) {
-        this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
-      }
+      this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
     });
   }
 
@@ -290,6 +293,13 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
         permissions: this.siteCentreObj.permissions.shareSiteCode
       }
     });
+  }
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getSitesData(this.paginator.pageIndex, this.siteCentreObj.search);
   }
 }
 

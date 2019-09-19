@@ -30,7 +30,7 @@
         <mat-grid-tile class="overflow-unset" *ngFor="let card of cards | async" [colspan]="card.cols"
                        [rowspan]="card.rows">
             <div class="table-wrap" *ngIf="card.title==='qBank'">
-                <table class="customTable question-table mat-elevation-z3" mat-table
+                <table class="customTable question-table mat-elevation-z2" mat-table
                        [dataSource]="QuestionObj.entityQuestions">
 
                     <!--- Note that these columns can be defined in any order.
@@ -79,16 +79,17 @@
                     <tr mat-header-row *matHeaderRowDef="questionTableColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: questionTableColumns;"></tr>
                 </table>
-                <div class="paddingbox text-center" *ngIf="!QuestionObj.entityQuestions && !QuestionObj.loading">
+                <div class="paddingbox text-center mat-select-placeholder"
+                     *ngIf="!QuestionObj.entityQuestions && !QuestionObj.loading">
                     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
                 </div>
-                <mat-paginator #entityQuestionMatPage class="mat-elevation-z3" [pageSize]="QuestionObj.pageSize"
+                <mat-paginator #entityQuestionMatPage class="mat-elevation-z2" [pageSize]="QuestionObj.pageSize"
                                [length]="QuestionObj.entityPageCount"
                                (page)="getAllEntityQuestions(entityQuestionPaginator.pageIndex, QuestionObj.search)"></mat-paginator>
             </div>
             <div class="table-wrap" *ngIf="card.title==='pcqBank'">
 
-                <table class="customTable question-table mat-elevation-z3" mat-table
+                <table class="customTable question-table mat-elevation-z2" mat-table
                        [dataSource]="QuestionObj.dataSource">
 
                     <ng-container matColumnDef="questionbank">
@@ -120,11 +121,11 @@
                     <tr mat-header-row *matHeaderRowDef="questionBankColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns:questionBankColumns;"></tr>
                 </table>
-                <div class="paddingbox text-center" *ngIf="QuestionObj.dataSource === null">
+                <div class="paddingbox text-center mat-select-placeholder" *ngIf="QuestionObj.dataSource === null">
                     {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
                 </div>
 
-                <mat-paginator #questionBankMatPage class="mat-elevation-z1" [pageSize]="QuestionObj.pageSize"
+                <mat-paginator #questionBankMatPage class="mat-elevation-z2" [pageSize]="QuestionObj.pageSize"
                                [length]="QuestionObj.parentPageCount"
                                (page)="getAllQuestions(questionBankPaginator.pageIndex)"></mat-paginator>
             </div>

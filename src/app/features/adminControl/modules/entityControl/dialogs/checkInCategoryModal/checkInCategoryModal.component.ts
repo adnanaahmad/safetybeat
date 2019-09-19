@@ -63,8 +63,11 @@ export class CheckInCategoryModalComponent implements OnInit {
     });
   }
 
-  deleteCheckIn(id) {
-    this.adminServices.deleteCheckInType(id).subscribe((res) => {
+  archiveCheckIn(id) {
+    let data = {
+      'id': id
+    }
+    this.adminServices.archiveCheckInType(data).subscribe((res) => {
       this.getCheckInsType();
     });
   }

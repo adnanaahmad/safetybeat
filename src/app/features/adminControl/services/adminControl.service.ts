@@ -92,17 +92,19 @@ export class AdminControlService {
     );
   }
 
-  deleteCheckInType(id: number) {
+  archiveCheckInType(data: object) {
     return this.helperService.requestCall(
-      this.method.delete,
-      `${this.apiRoutes.checkInTypeEntity}${id}/`
+      this.method.put,
+      this.apiRoutes.checkInTypeArchive,
+      data
     );
   }
 
-  deletePulseType(id: number) {
+  archivePulse(data: object) {
     return this.helperService.requestCall(
-      this.method.delete,
-      `${this.apiRoutes.sendPulseTypeEntity}${id}/`
+      this.method.put,
+      this.apiRoutes.archivePulse,
+      data
     );
   }
 
@@ -256,6 +258,14 @@ export class AdminControlService {
       data
     );
   }
+  unarchiveSite(id:number) {
+    const data = {"id": id};
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.unarchiveSite}`,
+      data
+    );
+  }
 
   editSite(id
              :
@@ -298,7 +308,14 @@ export class AdminControlService {
       data
     );
   }
-
+  unarchiveHazard(id:number) {
+    const data = {"id": id};
+    return this.helperService.requestCall(
+      this.method.put,
+      `${this.apiRoutes.unarchiveHazard}`,
+      data
+    );
+  }
 
   getRisks()
     :

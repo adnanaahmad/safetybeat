@@ -6,6 +6,7 @@
         <h3>{{ helperService.translated.SITETITLE.MY_TEAM}}</h3>
         <div class="buttonRow">
             <button class="mat-elevation-z6" mat-raised-button color="primary"
+                    *ngIf="myTeam.permissions?.canArchiveTeam"
                     (click)="getArchivedTeams()">
                 <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
                 {{ helperService.translated.BUTTONS.ARCHIVED_TEAMS }}
@@ -27,7 +28,7 @@
         </div>
         <!--/Filter-->
     </div>
-    <div class="table-wrap">
+    <div class="table-wrap mat-elevation-z2">
         <table mat-table [dataSource]="myTeam.dataSource" class="customTable mat-elevation-z3">
 
             <ng-container matColumnDef="title">
@@ -70,7 +71,7 @@
                           Delete
                         </button> -->
 
-                        <button mat-menu-item *ngIf="myTeam.permissions.deleteTeam"
+                        <button mat-menu-item *ngIf="myTeam.permissions?.canArchiveTeam"
                                 (click)="confirmationModal(element.team.id)">
                             <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
                             Archive
@@ -82,9 +83,9 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
     </div>
-    <div class="paddingbox text-center" *ngIf="myTeam.dataSource === null">
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="myTeam.dataSource === null">
         {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
-    <mat-paginator class="mat-elevation-z1" [pageSize]="myTeam.pageSize" [length]="myTeam.pageCount"
+    <mat-paginator class="mat-elevation-z2" [pageSize]="myTeam.pageSize" [length]="myTeam.pageCount"
                    (page)="getAllTeams(paginator.pageIndex,myTeam.search)"></mat-paginator>
 </div>

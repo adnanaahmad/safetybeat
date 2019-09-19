@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
+import {Router} from '@angular/router';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import {ActivityData} from 'src/app/models/analyticsReport/reports.model';
@@ -19,7 +20,7 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnDestroy {
+export class DashboardComponent implements OnDestroy, OnInit {
   translated: Translation;
   dashboardObj: Report = <Report>{};
 
@@ -27,12 +28,16 @@ export class DashboardComponent implements OnDestroy {
     public helperService: HelperService,
     private highChartSettings: HighchartService,
     public analyticsService: AnalyticsReportService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private router: Router
   ) {
     this.dashboardObj.loading = false;
+  }
+
+  ngOnInit() {
     this.dashboardObj.subscription = this.navigationService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        this.dashboardObj.entityId = res.entityInfo.id;
+        this.dashboardObj.entityId = res.entityInfo.id;   
         this.makeReport(7, null, null);
         this.makeHazardReport(7, null, null, null);
         this.makePulseReport(7, null, null, null);

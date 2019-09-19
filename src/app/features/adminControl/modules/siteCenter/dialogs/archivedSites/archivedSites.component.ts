@@ -50,7 +50,7 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
   initialize() {
     this.archivedSitesObj.search = '';
     this.archivedSitesObj.firstIndex = 0;
-    this.archivedSitesObj.pageSize = 10;
+    this.archivedSitesObj.pageSize = 6;
     this.archivedSitesObj.dataSource = null;
     this.archivedSitesObj.allUsersList = [];
     this.archivedSitesObj.loading = false;
@@ -90,8 +90,8 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
       archived: true
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.appConstants.paginationLimitForProfile,
-      limit: this.helperService.appConstants.paginationLimitForProfile,
+      offset: pageIndex * this.helperService.appConstants.paginationLimitForArchive,
+      limit: this.helperService.appConstants.paginationLimitForArchive,
       search: search
     };
     if (typeof (search) === 'string' && search.length === 0) {
@@ -104,6 +104,9 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
         this.adminServices.changeSites(this.archivedSitesObj.sitesData);
         this.archivedSitesObj.dataSource = new MatTableDataSource(this.archivedSitesObj.sitesData);
         this.archivedSitesObj.loading = false;
+        if (this.archivedSitesObj.sitesData.length === 0 && this.paginator.pageIndex !== 0) {
+          this.goToPreviousTable();
+        }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
         this.archivedSitesObj.dataSource = null;
         this.archivedSitesObj.loading = false;
@@ -125,7 +128,21 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    * @params siteData
    */
   unarchiveSite(siteData: any) {
-    // api need to be build
+    this.adminServices.unarchiveSite(siteData.id).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.getSitesData(this.paginator.pageIndex, this.archivedSitesObj.search);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      } else {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_FAILURE,
+          this.helperService.constants.status.ERROR);
+        this.onNoClick();
+      }
+    }, (error) => {
+      this.onNoClick();
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+
+    });
   }
 
   /**
@@ -133,5 +150,13 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    */
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousTable() {
+    this.paginator.pageIndex = this.paginator.pageIndex - 1;
+    this.getSitesData(this.paginator.pageIndex, this.archivedSitesObj.search);
   }
 }
