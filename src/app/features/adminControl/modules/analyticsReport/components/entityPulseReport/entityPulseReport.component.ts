@@ -170,7 +170,6 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
         enabled: false
       }
     })
-    console.log(dates);
     let pulseData = {
       charSeries: charSeries,
       categories: dates,
@@ -186,7 +185,6 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
     this.pulseEntityObj.days = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    console.log(value);
     this.makeReport(this.pulseEntityObj.days.days, value.dateTo, value.dateFrom, value.user, value.archive)
   }
 

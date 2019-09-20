@@ -14,7 +14,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {PaginationData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
+import {PaginationData, ViewAllSiteArchivedData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-siteActivityReport',
@@ -42,7 +42,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
         this.siteReportObj.entityName = res.entityInfo.name;
         this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
         this.siteFormValidations['entityName'].disable();
-        this.getSites();
+        this.getSites(false);
         this.makeReport(7, null, null, null, false);
       }
     });
@@ -72,21 +72,21 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     return this.siteReportObj.siteReportForm.controls;
   }
 
-  getSites() {
-      let entityData: ViewAllSiteEntityData = {
-        entityId: this.siteReportObj.entityId
-      };
-      let paginationData: PaginationData = {
-        offset: null,
-        limit: null,
-        search: ''
-      };
+  onArchivedChange(value) {
+    this.getSites(value)
+  }
 
-      this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
-        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.siteReportObj.sites = res.data.sitesList;
-        }
-      });
+  getSites(archive) {
+    let entityData: ViewAllSiteArchivedData = {
+      entityId: this.siteReportObj.entityId,
+      archived: archive
+    };
+
+    this.adminServices.viewArchivedSites(entityData).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.siteReportObj.sites = res.data.sitesList;
+      }
+    });
 
   }
 
