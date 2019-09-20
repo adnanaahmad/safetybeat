@@ -42,7 +42,7 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
         this.pulseEntityObj.entityName = res.entityInfo.name;
         this.pulseEntityFormValidations['entityName'].setValue(this.pulseEntityObj.entityName);
         this.pulseEntityFormValidations['entityName'].disable();
-        this.makeReport(7, null, null, null);
+        this.makeReport(7, null, null, null, false);
       }
     });
   }
@@ -54,7 +54,8 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
       entityName: ['', Validators.required],
       user: [''],
       dateTo: [],
-      dateFrom: []
+      dateFrom: [],
+      archive: [false],
     });
     this.pulseEntityFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.pulseEntityFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -90,14 +91,15 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  makeReport(days, dateTo, dateFrom, userId) {
+  makeReport(days, dateTo, dateFrom, userId, archive) {
     this.pulseEntityObj.loading = true;
     let data = {
       'entityId': this.pulseEntityObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'user': userId
+      'user': userId,
+      'archive': archive
     };
     this.analyticsService.pulseByEntity(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
@@ -184,7 +186,8 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
     this.pulseEntityObj.days = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.pulseEntityObj.days.days, value.dateTo, value.dateFrom, value.user)
+    console.log(value);
+    this.makeReport(this.pulseEntityObj.days.days, value.dateTo, value.dateFrom, value.user, value.archive)
   }
 
   enableDateFrom() {

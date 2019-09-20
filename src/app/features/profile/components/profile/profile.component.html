@@ -5,8 +5,7 @@
     <div>
         <div class="user-avatar mat-elevation-z2">
             <div [class]="profileModel.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
-                <img
-                        src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}"
+                <img src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}"
                         (load)="onImageLoad()"/>
                 <span class="change-avatar" *ngIf="profileModel.currentUserProfile">
         <input type='file' name="{{helperService.appConstants.profileImage}}"
