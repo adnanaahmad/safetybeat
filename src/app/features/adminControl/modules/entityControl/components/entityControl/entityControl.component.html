@@ -100,17 +100,17 @@
             <button mat-menu-item
                     *ngIf="entityControl.permissions.inviteMember && !(element.entityInfo.id === entityControl.entityId)"
                     (click)='inviteTeam(element)'>
-              <mat-icon>{{ helperService.appIcons.folderShared }}</mat-icon>
+              <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
               {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
             </button>
             <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
                     (click)="checkInCategories(element.entityInfo.id)">
-              <mat-icon>view_list</mat-icon>
+              <mat-icon>{{helperService.appIcons.checkIn}}</mat-icon>
               {{ helperService.translated.MESSAGES.CHECKIN_CATEGORIES }}
             </button>
             <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
                     (click)="pulseCategories(element.entityInfo.id)">
-              <mat-icon>list</mat-icon>
+              <mat-icon>{{helperService.appIcons.favorite}}</mat-icon>
               {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}
             </button>
             <button mat-menu-item *ngIf="paginator.pageIndex !== 0? entityControl.permissions.canArchiveEntity : entityControl.permissions.canArchiveEntity && entityControl.allEntitiesData.length > 1"

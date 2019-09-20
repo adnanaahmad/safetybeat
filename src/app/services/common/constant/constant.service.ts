@@ -455,7 +455,9 @@ export class ConstantService {
     themeSwitcher: 'color_lens',
     error: 'error',
     archived: 'archive',
-    undo: 'undo'
+    undo: 'undo',
+    favorite: 'favorite',
+    checkIn: 'person_pin'
   };
   /**
    * all the particle container icon names are declared here.

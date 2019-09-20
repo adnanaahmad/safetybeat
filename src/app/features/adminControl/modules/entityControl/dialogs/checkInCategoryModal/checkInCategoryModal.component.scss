@@ -1,23 +1,11 @@
 @mixin amte-app-check-in-category-modal($primary, $accent, $warn) {
   :host,
   app-check-in-category-modal {
-    .safe-icon {
-      color: #fff;
-
-      &.safe {
-        background-color: green;
-      }
-
-      &.unsafe {
-        background-color: mat-color($warn);
-      }
-    }
     .data-search {
       .remove-type {
         margin-left: auto;
       }
     }
   }
-
 }
 
