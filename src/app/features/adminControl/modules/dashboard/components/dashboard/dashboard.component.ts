@@ -37,10 +37,10 @@ export class DashboardComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.dashboardObj.subscription = this.navigationService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        this.dashboardObj.entityId = res.entityInfo.id;   
+        this.dashboardObj.entityId = res.entityInfo.id;
         this.makeReport(7, null, null);
-        this.makeHazardReport(7, null, null, null);
-        this.makePulseReport(7, null, null, null);
+        this.makeHazardReport(7, null, null, null, false);
+        this.makePulseReport(7, null, null, null, false);
       }
     })
   }
@@ -81,13 +81,14 @@ export class DashboardComponent implements OnDestroy, OnInit {
     });
   }
 
-  makeHazardReport(days, dateTo, dateFrom, user) {
+  makeHazardReport(days, dateTo, dateFrom, user, archive) {
     let data = {
       'entityId': this.dashboardObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'user': user
+      'user': user,
+      'archive': archive
     };
     this.analyticsService.getHazardReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
@@ -134,13 +135,14 @@ export class DashboardComponent implements OnDestroy, OnInit {
     }
   }
 
-  makePulseReport(days, dateTo, dateFrom, userId) {
+  makePulseReport(days, dateTo, dateFrom, userId, archive) {
     let data = {
       'entityId': this.dashboardObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'user': userId
+      'user': userId,
+      'archive': archive
     };
     this.analyticsService.pulseByEntity(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
