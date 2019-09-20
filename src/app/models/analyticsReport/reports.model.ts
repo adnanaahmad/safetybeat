@@ -47,6 +47,7 @@ export interface ActionReportApiData {
   site: number;
   filter: string;
   user: number;
+  archive: boolean;
 }
 
 export interface HighChartType {

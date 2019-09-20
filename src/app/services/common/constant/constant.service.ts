@@ -354,7 +354,8 @@ export class ConstantService {
     childYes: 'childYes',
     childNo: 'childNo',
     childYesSafe: 'childYesSafe',
-    childNoSafe: 'childNoSafe'
+    childNoSafe: 'childNoSafe',
+    archive: 'archive'
   };
   /**
    * all the material icon names are declared here.

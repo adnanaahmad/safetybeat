@@ -38,7 +38,7 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        this.makeReport(7, null, null, null)
+        this.makeReport(7, null, null, null, false)
       }
     });
   }
@@ -50,7 +50,8 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
       user: [''],
       entityName: ['', Validators.required],
       dateTo: [],
-      dateFrom: []
+      dateFrom: [],
+      archive: [false]
     });
     this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -110,14 +111,15 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  makeReport(days, dateTo, dateFrom, userId) {
+  makeReport(days, dateTo, dateFrom, userId, archive) {
     this.checkInActivityObj.loading = true
     let data = {
       'entityId': this.checkInActivityObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'user': userId
+      'user': userId,
+      'archive': archive
     };
     this.analyticsService.checkInByActivityReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
@@ -191,7 +193,7 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
     this.checkInActivityObj.days = this.helperService.find(this.checkInActivityObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.checkInActivityObj.days.days, value.dateTo, value.dateFrom, value.user)
+    this.makeReport(this.checkInActivityObj.days.days, value.dateTo, value.dateFrom, value.user, value.archive)
   }
 
   enableDateFrom() {

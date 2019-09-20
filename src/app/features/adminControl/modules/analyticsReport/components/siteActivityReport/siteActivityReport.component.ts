@@ -43,7 +43,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
         this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
         this.siteFormValidations['entityName'].disable();
         this.getSites();
-        this.makeReport(7, null, null, null);
+        this.makeReport(7, null, null, null, false);
       }
     });
   }
@@ -58,7 +58,8 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       dateTo: [],
       dateFrom: [],
       site: [''],
-      filter: ['']
+      filter: [''],
+      archive: [false]
     });
     this.siteFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.siteFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -89,14 +90,15 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   }
 
-  makeReport(days, dateTo, dateFrom, site) {
+  makeReport(days, dateTo, dateFrom, site, archive) {
     this.siteReportObj.loading = true;
     let data = {
       'entityId': this.siteReportObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'site': site
+      'site': site,
+      'archive': archive
     };
     this.analyticsService.siteActivityReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
@@ -138,7 +140,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.siteReportObj.days = this.helperService.find(this.siteReportObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.siteReportObj.days.days, value.dateTo, value.dateFrom, value.site)
+    this.makeReport(this.siteReportObj.days.days, value.dateTo, value.dateFrom, value.site, value.archive)
   }
 
   generateCharSeries(reportData: any) {
