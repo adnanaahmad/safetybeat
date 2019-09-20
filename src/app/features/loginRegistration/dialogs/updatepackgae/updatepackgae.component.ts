@@ -47,8 +47,6 @@ export class UpdatepackgaeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginRegistrationService,
     private navService: NavigationService,
-    private adminServices: AdminControlService,
-    private compiler: CompilerProvider,
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<UpdatepackgaeComponent>
   ) {
@@ -102,7 +100,7 @@ export class UpdatepackgaeComponent implements OnInit {
     this.loginService.updatePackage(data).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
-          // this.getAllEntities();
+          this.navService.updatePackageInfo(res.data);
           this.loading = false;
           this.dialogRef.close('YES');
         } else {

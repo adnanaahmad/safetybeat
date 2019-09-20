@@ -35,16 +35,17 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
               public userService: ProfileService) {
     this.memberCenter.userStatus = false;
     this.initialize();
+
+  }
+
+
+  ngOnInit() {
     this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.memberCenter.entityId = res.entityInfo.id;
         this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
       }
-    })
-  }
-
-
-  ngOnInit() {
+    });
     this.userService.getUser().subscribe(res => {
       this.memberCenter.user = res;
       this.memberCenter.userId = this.memberCenter.user.data.user.id;

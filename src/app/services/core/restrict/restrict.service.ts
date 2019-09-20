@@ -9,13 +9,13 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 export class NoAuthGuard implements CanActivate, OnDestroy {
   private subscription: Subscription;
   private permission: boolean = false;
-
   constructor(
     private navService: NavigationService,
-    private helperService: HelperService, ) {
+    private helperService: HelperService) {
   }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (route.routeConfig.path === 'adminControl' || route.routeConfig.path === 'profile' ) {
+    if (route.routeConfig.path === 'adminControl' || route.routeConfig.path === 'profile') {
       return true;
     }
     this.subscription = this.navService.selectedEntityData.subscribe((res) => {
@@ -31,7 +31,6 @@ export class NoAuthGuard implements CanActivate, OnDestroy {
       this.helperService.navigateTo([state.url + '/404']);
     }
     return this.permission;
-
   }
 
   ngOnDestroy(): void {
