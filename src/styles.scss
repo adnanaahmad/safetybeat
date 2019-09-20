@@ -87,11 +87,13 @@ app-toaster,
 .mini-fab {
   transform: scale(0.7) !important;
 }
-.ellipsis{
+
+.ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .spinner-wrap {
   @include midBlock;
   height: $fullValue;
@@ -271,14 +273,16 @@ input[type=number] {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+  margin-bottom: 10px;
 
   .mat-form-field {
-    margin: 0 10px 0 0;
+    margin: 10px 10px 10px 0;
     flex: 1;
     width: 100%;
 
     .mat-form-field-wrapper {
       margin: 0 !important;
+      padding: 0 !important;
     }
   }
 }

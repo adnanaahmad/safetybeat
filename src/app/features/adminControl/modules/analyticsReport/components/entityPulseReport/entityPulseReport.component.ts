@@ -168,6 +168,7 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
         enabled: false
       }
     })
+    console.log(dates);
     let pulseData = {
       charSeries: charSeries,
       categories: dates,

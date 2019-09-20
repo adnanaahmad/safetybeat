@@ -68,7 +68,11 @@ export class CheckInCategoryModalComponent implements OnInit {
       'id': id
     }
     this.adminServices.archiveCheckInType(data).subscribe((res) => {
-      this.getCheckInsType();
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.getCheckInsType();
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

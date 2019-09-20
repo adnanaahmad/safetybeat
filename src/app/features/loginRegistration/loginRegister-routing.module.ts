@@ -39,7 +39,7 @@ const authRoutes: Routes = [
     path: 'package',
     component: PackageDetailsComponent,
     canActivate: [AuthGuard],
-    canDeactivate: ['canDeactivatePackageDetails']
+    // canDeactivate: ['canDeactivatePackageDetails']
   }
 ];
 

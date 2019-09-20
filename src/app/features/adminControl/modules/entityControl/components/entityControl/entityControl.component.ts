@@ -170,12 +170,14 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
 
   checkInCategories(entityId: number) {
     this.helperService.createDialog(CheckInCategoryModalComponent, {
+      disableClose: true,
       data: entityId
     });
   }
 
   pulseCategories(entityId: number) {
     this.helperService.createDialog(PulseCategoyModalComponent, {
+      disableClose: true,
       data: entityId
     });
   }

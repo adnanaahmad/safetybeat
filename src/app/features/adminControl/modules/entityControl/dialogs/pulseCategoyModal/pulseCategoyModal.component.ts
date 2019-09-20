@@ -69,7 +69,11 @@ export class PulseCategoyModalComponent implements OnInit {
       'id': id
     }
     this.adminServices.archivePulse(data).subscribe((res) => {
-      this.getPulseType();
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.getPulseType();
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
 

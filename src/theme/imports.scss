@@ -144,6 +144,6 @@
   @include amte-archiveSites($primary, $accent, $warn);
   @include amte-archivedTeams($primary, $accent, $warn);
   @include app-archived-entity($primary, $accent, $warn);
-  @include amte-check-in-category-modal($primary, $accent, $warn);
-  @include amte-pulse-categoy-modal($primary, $accent, $warn);
+  @include amte-app-check-in-category-modal($primary, $accent, $warn);
+  @include amte-app-pulse-category-modal($primary, $accent, $warn);
 }
