@@ -4,7 +4,12 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {ActionReportApiData, CheckInByActivityData, HighChartType, Report} from 'src/app/models/analyticsReport/reports.model';
+import {
+  ActionReportApiData,
+  ActivityData,
+  HighChartType,
+  Report
+} from 'src/app/models/analyticsReport/reports.model';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import * as Highcharts from 'highcharts';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
@@ -33,7 +38,7 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
-        this.makeReport(7, null, null, null)
+        this.makeReport(7, null, null, null, false)
       }
     });
   }
@@ -45,7 +50,8 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
       user: [''],
       entityName: ['', Validators.required],
       dateTo: [],
-      dateFrom: []
+      dateFrom: [],
+      archive: [false]
     });
     this.checkInActivityFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.checkInActivityFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -105,26 +111,26 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  makeReport(days, dateTo, dateFrom, userId) {
+  makeReport(days, dateTo, dateFrom, userId, archive) {
     this.checkInActivityObj.loading = true
     let data = {
       'entityId': this.checkInActivityObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'user': userId
+      'user': userId,
+      'archive': archive
     };
     this.analyticsService.checkInByActivityReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
         this.checkInActivityObj.checkInByActivityReportData = res.data.checkInByActivity;
         let chartType: HighChartType = {
           type: 'column',
-          title: 'Check In By Activity Report ( Maintenance / Installation )',
+          title: 'Check In By Activity Report',
           subtitle: ''
         };
         let data = this.highChartSettings.reportSettings(chartType,
-          [], this.generateCharSeries(this.checkInActivityObj.checkInByActivityReportData,
-            res.data.maintenancePercentage, res.data.installationPercentage));
+          [], this.generateCharSeries(this.checkInActivityObj.checkInByActivityReportData));
         this.checkInActivityObj.containerDiv = document.getElementById('container')
         if (this.checkInActivityObj.containerDiv) {
           Highcharts.chart('container', data);
@@ -136,38 +142,35 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
     });
   }
 
-  generateCharSeries(reportData: any, maintenancePercentage, installationPercentage) {
+  generateCharSeries(reportData: any) {
     let dates = [];
-    let maintenance = [];
-    let installation = [];
     let charSeries = [];
-    this.helperService.iterations(reportData, function (checkInByActivityReport: CheckInByActivityData) {
-      dates.push(checkInByActivityReport.date)
-      maintenance.push(checkInByActivityReport.maintenance)
-      installation.push(checkInByActivityReport.installation)
-    });
-    charSeries.push({
-      type: 'column',
-      name: 'Maintenance',
-      data: maintenance
-    });
-    charSeries.push({
-      type: 'column',
-      name: 'Installation',
-      data: installation
+    let data = [];
+    let self = this;
+    let pieChart = [];
+    self.helperService.iterations(reportData, function (checkIns: ActivityData) {
+      dates = []
+      data = []
+      self.helperService.iterations(checkIns.result, function (checkInByActivityReport: Report) {
+        dates.push(checkInByActivityReport.date)
+        data.push(checkInByActivityReport.count)
+      });
+      charSeries.push({
+        type: 'column',
+        name: checkIns.type,
+        data: data
+      });
+      let index = self.helperService.findIndex(checkIns)
+      pieChart.push({
+        name: checkIns.type,
+        y: checkIns.totalCount,
+        color: Highcharts.getOptions().colors[index]
+      })
     });
     charSeries.push({
       type: 'pie',
       name: 'Total CheckIns',
-      data: [{
-        name: 'Maintenance',
-        y: maintenancePercentage,
-        color: Highcharts.getOptions().colors[0]
-      }, {
-        name: 'Installation',
-        y: installationPercentage,
-        color: Highcharts.getOptions().colors[1]
-      }],
+      data: pieChart,
       center: [50, -10],
       size: 100,
       showInLegend: false,
@@ -175,12 +178,12 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
         enabled: false
       }
     });
-    let data = {
+    let result = {
       charSeries: charSeries,
       categories: dates,
-      title: 'No of Check In By Activity ( Maintenance / Installation )'
+      title: 'No of Check In By Activity'
     }
-    return data;
+    return result;
   }
 
   checkInActivityFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
@@ -190,7 +193,7 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
     this.checkInActivityObj.days = this.helperService.find(this.checkInActivityObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.checkInActivityObj.days.days, value.dateTo, value.dateFrom, value.user)
+    this.makeReport(this.checkInActivityObj.days.days, value.dateTo, value.dateFrom, value.user, value.archive)
   }
 
   enableDateFrom() {

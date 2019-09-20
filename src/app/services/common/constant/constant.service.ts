@@ -53,8 +53,8 @@ export class ConstantService {
     editOrganization: `${environment.apiUrl}/organization`,
     entitiesUsers: `${environment.apiUrl}/entity/allUserOfEntity/`,
     allEntityUsers: `${environment.apiUrl}/entity/allEntityUsers/`,
-    archiveEntity:  `${environment.apiUrl}/entity/archiveEntity/`,
-    unarchiveEntity:  `${environment.apiUrl}/entity/unArchiveEntity/`,
+    archiveEntity: `${environment.apiUrl}/entity/archiveEntity/`,
+    unarchiveEntity: `${environment.apiUrl}/entity/unArchiveEntity/`,
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
@@ -104,7 +104,15 @@ export class ConstantService {
     allUserLeaves: `${environment.apiUrl}/api/leaves/allUserLeaves/`,
     saveFirebaseToken: `${environment.apiUrl}/users/saveFirebaseToken/`,
     updateProfile: `${environment.apiUrl}/users/updateProfile/`,
-    charge: `${environment.apiUrl}/packages/charge/`
+    charge: `${environment.apiUrl}/packages/charge/`,
+    checkInType: `${environment.apiUrl}/api/checkInType/`,
+    checkInTypeEntity: `${environment.apiUrl}/api/checkInTypeEntity/`,
+    checkInTypeArchive: `${environment.apiUrl}/api/checkInType/archiveCheckIn/`,
+    sendPulseTypeEntity: `${environment.apiUrl}/api/sendPulseTypeEntity/`,
+    getCheckInTypes: `${environment.apiUrl}/api/checkInType/getCheckInTypes/`,
+    getPulseTypes: `${environment.apiUrl}/api/sendPulseType/getPulseTypes/`,
+    archivePulse: `${environment.apiUrl}/api/sendPulseType/archivePulse/`,
+    pulseType: `${environment.apiUrl}/api/sendPulseType/`,
   };
   /**
    * all the api methods are declared here.
@@ -316,7 +324,7 @@ export class ConstantService {
         name: 'Profile',
         key: 'viewProfile',
         values: [{key: 'addLeaves', value: 'Add Leaves'}, {key: 'deleteLeaves', value: 'Delete Leaves'},
-           {key: 'editLeaves', value: 'Edit Leaves'}]
+          {key: 'editLeaves', value: 'Edit Leaves'}]
       },
       {
         name: 'Question Centre',
@@ -348,7 +356,8 @@ export class ConstantService {
     childYes: 'childYes',
     childNo: 'childNo',
     childYesSafe: 'childYesSafe',
-    childNoSafe: 'childNoSafe'
+    childNoSafe: 'childNoSafe',
+    archive: 'archive'
   };
   /**
    * all the material icon names are declared here.
@@ -448,7 +457,9 @@ export class ConstantService {
     themeSwitcher: 'color_lens',
     error: 'error',
     archived: 'archive',
-    undo: 'undo'
+    undo: 'undo',
+    favorite: 'favorite',
+    checkIn: 'person_pin'
   };
   /**
    * all the particle container icon names are declared here.

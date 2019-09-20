@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {entity, joinEntity} from 'src/app/models/entity.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {Observable, BehaviorSubject} from 'rxjs';
-import {RefreshEntityCodeResponse, ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
+import {CheckInTypesCat, RefreshEntityCodeResponse, ViewAllEntitiesResponse} from 'src/app/models/adminControl/entityControl.model';
 import {CreateEntityResponse} from 'src/app/models/adminControl/createEntity.model';
 import {AllHazardsApiData, AllHazardsApiResponseData, DeleteHazardApiResponse, Hazard, RiskType} from 'src/app/models/hazard.model';
 import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adminControl/myTeam.model';
@@ -60,6 +60,54 @@ export class AdminControlService {
     );
   }
 
+  checkInTypes(entityId: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.getCheckInTypes,
+      entityId
+    );
+  }
+
+  pulseTypes(entityId: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.getPulseTypes,
+      entityId
+    );
+  }
+
+  addCheckInTypes(data: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.checkInType,
+      data
+    );
+  }
+
+  addPulseTypes(data: object) {
+    return this.helperService.requestCall(
+      this.method.post,
+      this.apiRoutes.pulseType,
+      data
+    );
+  }
+
+  archiveCheckInType(data: object) {
+    return this.helperService.requestCall(
+      this.method.put,
+      this.apiRoutes.checkInTypeArchive,
+      data
+    );
+  }
+
+  archivePulse(data: object) {
+    return this.helperService.requestCall(
+      this.method.put,
+      this.apiRoutes.archivePulse,
+      data
+    );
+  }
+
   /**
    * this function is used for getting all the entities information with pagination data.
    * @params data
@@ -98,7 +146,7 @@ export class AdminControlService {
    * this function is used to return the response for viewAllSites api call.
    * @params data
    */
-  viewSites(entityData: ViewAllSiteEntityData, paginationData: PaginationData): Observable<ViewAllSitesApiResponse> {
+  viewSites(entityData: ViewAllSiteEntityData, paginationData?: PaginationData): Observable<ViewAllSitesApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
       `${this.apiRoutes.viewAllSites}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
@@ -110,10 +158,18 @@ export class AdminControlService {
    * this function is used to return the response for archived viewAllSites api call.
    * @params data
    */
-  viewArchivedSites(entityData: ViewAllSiteArchivedData, paginationData: PaginationData): Observable<ViewAllSitesApiResponse> {
+  viewArchivedSites(entityData: ViewAllSiteArchivedData, paginationData?: PaginationData): Observable<ViewAllSitesApiResponse> {
+    let path
+    if (paginationData) {
+      path = `${this.apiRoutes.viewAllSites}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`
+
+    } else {
+      path = this.apiRoutes.viewAllSites
+
+    }
     return this.helperService.requestCall(
       this.method.post,
-      `${this.apiRoutes.viewAllSites}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      path,
       entityData
     );
   }
@@ -154,8 +210,8 @@ export class AdminControlService {
    * @params id
    */
 
-  archiveEntity(id:number) {
-    const data = {"id": id};
+  archiveEntity(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.archiveEntity}`,
@@ -163,13 +219,13 @@ export class AdminControlService {
     );
   }
 
-   /**
+  /**
    * this function is used to unarchive the entity using the entityId and return response.
    * @params id
    */
 
-  unarchiveEntity(id:number) {
-    const data = {"id": id};
+  unarchiveEntity(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.unarchiveEntity}`,
@@ -202,16 +258,17 @@ export class AdminControlService {
     );
   }
 
-  deleteSite(id:number) {
-    const data = {"id": id};
+  deleteSite(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.archiveSite}`,
       data
     );
   }
-  unarchiveSite(id:number) {
-    const data = {"id": id};
+
+  unarchiveSite(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.unarchiveSite}`,
@@ -252,16 +309,17 @@ export class AdminControlService {
     );
   }
 
-  deleteHazard(id:number) {
-    const data = {"id": id};
+  deleteHazard(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.archiveHazard}`,
       data
     );
   }
-  unarchiveHazard(id:number) {
-    const data = {"id": id};
+
+  unarchiveHazard(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.unarchiveHazard}`,
@@ -302,8 +360,8 @@ export class AdminControlService {
     );
   }
 
-  archiveTeam(id:number) {
-    const data = {"id": id};
+  archiveTeam(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.archiveTeam}`,
@@ -311,8 +369,8 @@ export class AdminControlService {
     );
   }
 
-  unarchiveTeam(id:number) {
-    const data = {"id": id};
+  unarchiveTeam(id: number) {
+    const data = {'id': id};
     return this.helperService.requestCall(
       this.method.put,
       `${this.apiRoutes.unarchiveTeam}`,

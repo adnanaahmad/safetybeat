@@ -1,71 +1,80 @@
 <div class="spinner-wrap" *ngIf="siteReportObj.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
 <div [class]="siteReportObj.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
-    <div class="paddingbox">
-        <div class="page-title">
-            <h3>{{helperService.translated.SITETITLE.SITE_ACTIVITY_REPORT}}</h3>
-        </div>
-        <p style="margin-top:0;">{{helperService.translated.MESSAGES.SITE_ACTIVITY_MSG}}</p>
-        <mat-card>
-            <form class="form-group inline" [formGroup]="siteReportObj.siteReportForm"
-                  (ngSubmit)=siteReportFormSubmit(siteReportObj.siteReportForm)
-                  (keydown.enter)="$event.preventDefault()">
-                <mat-form-field appearance="outline">
-                    <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
-                    <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>
-                    <mat-error class="text-right" *ngIf="siteFormValidations.errors">
-                        <span *ngIf="siteFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>{{helperService.translated.STRINGS.SITE}}</mat-label>
-                    <mat-select [formControlName]="helperService.appConstants.site">
-                        <mat-option value="">None</mat-option>
-                        <mat-option *ngFor="let site of siteReportObj.sites" [value]="site.id">
-                            {{ site.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>{{helperService.translated.STRINGS.DATE_FROM}}</mat-label>
-                    <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
-                           [max]="siteReportObj.maxDate"
-                           (dateChange)="enableDateFrom()"
-                           placeholder="Date From" readonly>
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error class="text-right" *ngIf="siteFormValidations.errors">
-                        <span *ngIf="siteFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>{{helperService.translated.STRINGS.DATE_TO}}</mat-label>
-                    <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-                           [max]="siteReportObj.maxDate"
-                           [min]="siteReportObj.minDate"
-                           placeholder="Date To" readonly>
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                    <mat-error class="text-right" *ngIf="siteFormValidations.errors">
-                        <span *ngIf="siteFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
-                    <mat-select [formControlName]="helperService.appConstants.filter"
-                                (selectionChange)="enableDates($event.value)">
-                        <mat-option *ngFor="let filter of siteReportObj.filters" [value]="filter.id">
-                            {{ filter.name }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <br>
-                <button mat-raised-button custom-btn color="primary">
-                    {{helperService.translated.BUTTONS.GENERATE_REPORT}}
-                </button>
-            </form>
-            <div id="container"></div>
-        </mat-card>
+  <div class="paddingbox">
+    <div class="page-title">
+      <h3>{{helperService.translated.SITETITLE.SITE_ACTIVITY_REPORT}}</h3>
     </div>
+    <p style="margin-top:0;">{{helperService.translated.MESSAGES.SITE_ACTIVITY_MSG}}</p>
+    <mat-card>
+      <form class="form-group inline" [formGroup]="siteReportObj.siteReportForm"
+            (ngSubmit)=siteReportFormSubmit(siteReportObj.siteReportForm)
+            (keydown.enter)="$event.preventDefault()">
+        <div>
+          <mat-slide-toggle [formControlName]="helperService.appConstants.archive" (change)="onArchivedChange($event.checked)" >Archived Sites</mat-slide-toggle>
+        </div>
+        <br>
+        <div class="form-group inline">
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
+            <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>
+            <mat-error class="text-right" *ngIf="siteFormValidations.errors">
+              <span
+                *ngIf="siteFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.STRINGS.SITE}}</mat-label>
+            <mat-select [formControlName]="helperService.appConstants.site">
+              <mat-option value="">None</mat-option>
+              <mat-option *ngFor="let site of siteReportObj.sites" [value]="site.id">
+                {{ site.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.STRINGS.DATE_FROM}}</mat-label>
+            <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
+                   [max]="siteReportObj.maxDate"
+                   (dateChange)="enableDateFrom()"
+                   placeholder="Date From" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error class="text-right" *ngIf="siteFormValidations.errors">
+              <span
+                *ngIf="siteFormValidations.dateFrom.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.STRINGS.DATE_TO}}</mat-label>
+            <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+                   [max]="siteReportObj.maxDate"
+                   [min]="siteReportObj.minDate"
+                   placeholder="Date To" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error class="text-right" *ngIf="siteFormValidations.errors">
+              <span
+                *ngIf="siteFormValidations.dateTo.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
+            <mat-select [formControlName]="helperService.appConstants.filter"
+                        (selectionChange)="enableDates($event.value)">
+              <mat-option *ngFor="let filter of siteReportObj.filters" [value]="filter.id">
+                {{ filter.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button custom-btn color="primary">
+            {{helperService.translated.BUTTONS.GENERATE_REPORT}}
+          </button>
+        </div>
+      </form>
+      <div id="container"></div>
+    </mat-card>
+  </div>
 </div>

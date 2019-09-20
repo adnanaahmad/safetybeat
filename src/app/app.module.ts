@@ -67,8 +67,10 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {environment} from '../environments/environment';
 import {FirebaseService} from './services/common/FirebaseNotification/firebase.service';
-import {NotificationsComponent} from './components/notifications/notifications.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import {CheckInCategoryModalComponent} from './features/adminControl/modules/entityControl/dialogs/checkInCategoryModal/checkInCategoryModal.component';
 import {ArchivedEntityComponent} from './features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component';
+import {PulseCategoyModalComponent} from './features/adminControl/modules/entityControl/dialogs/pulseCategoyModal/pulseCategoyModal.component';
 import {NgxStripeModule} from 'ngx-stripe';
 import {UpdatepackgaeComponent} from './features/loginRegistration/dialogs/updatepackgae/updatepackgae.component';
 
@@ -85,6 +87,8 @@ export function createTranslateLoader(http: HttpClient) {
     AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
+    CheckInCategoryModalComponent,
+    PulseCategoyModalComponent,
     EntityCodeModalComponent,
     InviteUserModalComponent,
     InviteTeamModalComponent,
@@ -182,6 +186,8 @@ export function createTranslateLoader(http: HttpClient) {
     AddActionsComponent,
     CreateEntityComponent,
     JoinEntityModalComponent,
+    CheckInCategoryModalComponent,
+    PulseCategoyModalComponent,
     EntityCodeModalComponent,
     InviteUserModalComponent,
     CreateEntityComponent,

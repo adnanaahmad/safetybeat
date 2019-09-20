@@ -10,7 +10,10 @@
     <mat-card>
       <form [formGroup]="hazardObj.hazardReportForm" (ngSubmit)=formSubmit(hazardObj.hazardReportForm)
             (keydown.enter)="$event.preventDefault()">
-
+        <div>
+          <mat-slide-toggle [formControlName]="helperService.appConstants.archive">Archived Hazards</mat-slide-toggle>
+        </div>
+        <br>
         <div class="form-group inline">
           <mat-form-field appearance="outline">
             <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>

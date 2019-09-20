@@ -3,6 +3,8 @@ import {PermissionsModel} from './permissions.model';
 import {responseDetails, User} from '../user.model';
 import {Administrator, Entity, EntityInfo, EntityPermissions, ReportAccess} from '../userEntityData.model';
 import {MatTableDataSource} from '@angular/material';
+import {FormGroup} from '@angular/forms';
+
 
 export interface EntityControl {
   pageCount: number;
@@ -69,3 +71,41 @@ export interface RefreshEntityCodeResponse {
   }
   responseDetails: responseDetails;
 }
+
+export interface CheckInCategory {
+  checkInTypes: Array<CheckInTypesCat>;
+  addCheckInTypeForm: FormGroup;
+
+}
+
+export interface PulseCategory {
+  pulseTypes: Array<PulseTypesCat>;
+  addPulseTypeForm: FormGroup;
+}
+
+
+export interface CheckInTypesCat {
+  id: number;
+  checkInType: CheckIn;
+  entity: number;
+}
+
+export interface CheckIn {
+  id: number;
+  name: string;
+  default: boolean;
+}
+
+export interface PulseTypesCat {
+  id: number;
+  pulseType: Pulse;
+  entity: number;
+}
+
+export interface Pulse {
+  id: number;
+  name: string;
+  default: boolean;
+}
+
+

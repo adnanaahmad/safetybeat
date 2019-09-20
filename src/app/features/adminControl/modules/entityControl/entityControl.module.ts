@@ -7,7 +7,7 @@ import {MaterialModule} from 'src/app/material.module';
 
 @NgModule({
   declarations: [
-    EntityControlComponent
+    EntityControlComponent,
   ],
   imports: [
     CommonModule,

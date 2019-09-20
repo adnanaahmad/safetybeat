@@ -2,7 +2,7 @@ import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {FilterModel} from 'src/app/models/filter.model';
 import {User} from '../user.model';
-import {Site} from '../site.model';
+import {Site} from 'src/app/models/site.model';
 
 
 export interface Report {
@@ -30,10 +30,10 @@ export interface Report {
   actionReportForm: FormGroup;
   actionReportData: Array<ActionReportData>;
   filters: Array<FilterModel>;
-  checkInByActivityReportData: Array<CheckInByActivityData>;
+  checkInByActivityReportData: Array<ActivityData>;
   entityUsers: User[];
   checkInActivityForm: FormGroup;
-  pulseByEntityReportData: PulseByEntityReportData;
+  pulseByEntityReportData: Array<ActivityData>;
   pulseEntityForm: FormGroup;
   hazardReportByStatusData: HazardReportByStatusData;
   hazardReportData: HazardReportData;
@@ -47,6 +47,7 @@ export interface ActionReportApiData {
   site: number;
   filter: string;
   user: number;
+  archive: boolean;
 }
 
 export interface HighChartType {
@@ -63,19 +64,15 @@ export interface ActionReportData {
 
 }
 
-export interface CheckInByActivityData {
-  date: string,
-  maintenance: number,
-  installation: number
+export interface ActivityData {
+  result: Array<Report>,
+  type: string,
+  totalCount: number
 }
 
-export interface PulseByEntityReportData {
+export interface Report {
   date: string,
-  meeting: number,
-  visiting: number,
-  travelling: number,
-  onBreak: number,
-  other: number
+  count: number
 }
 
 export interface HazardReportData {
