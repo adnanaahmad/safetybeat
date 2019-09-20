@@ -73,12 +73,14 @@ export interface RefreshEntityCodeResponse {
 }
 
 export interface CheckInCategory {
+  disableRemove: boolean;
   checkInTypes: Array<CheckInTypesCat>;
   addCheckInTypeForm: FormGroup;
 
 }
 
 export interface PulseCategory {
+  disableRemove: boolean;
   pulseTypes: Array<PulseTypesCat>;
   addPulseTypeForm: FormGroup;
 }
