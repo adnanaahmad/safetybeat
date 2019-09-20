@@ -17,6 +17,7 @@ export class PackageDetailsComponent implements OnInit {
   packages: Packages[] = [];
   logoutDisable: boolean = false;
   logoutResponse;
+  loading: boolean = false;
 
 
   constructor(private loginRegisterService: LoginRegistrationService,
@@ -27,12 +28,16 @@ export class PackageDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.loginRegisterService.getPackagesData().subscribe((res) => {
       this.packages = CompilerProvider.constructPackageDetail(res);
       this.packages = this.helperService.sortBy(this.packages, function (pkg) {
         return pkg.package.cost;
       });
       this.packages.splice(0, 1);
+      this.loading = false;
+    }, (error) => {
+      this.loading = false;
     });
   }
 

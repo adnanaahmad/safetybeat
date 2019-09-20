@@ -46,7 +46,7 @@ export class HazardReportComponent implements OnInit, OnDestroy {
         this.hazardObj.entityName = res.entityInfo.name;
         this.hazardFormValidations['entityName'].setValue(this.hazardObj.entityName);
         this.hazardFormValidations['entityName'].disable();
-        this.makeReport(7, null, null, null)
+        this.makeReport(7, null, null, null, false)
       }
     });
   }
@@ -58,7 +58,9 @@ export class HazardReportComponent implements OnInit, OnDestroy {
       entityName: ['', Validators.required],
       dateTo: [],
       dateFrom: [],
-      user: ['']
+      user: [''],
+      archive: [false]
+
     });
     this.hazardFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.hazardFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -95,14 +97,15 @@ export class HazardReportComponent implements OnInit, OnDestroy {
     });
   }
 
-  makeReport(days, dateTo, dateFrom, user) {
+  makeReport(days, dateTo, dateFrom, user, archive) {
     this.hazardObj.loading = true;
     let data = {
       'entityId': this.hazardObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'user': user
+      'user': user,
+      'archive': archive
     };
     this.analyticsService.getHazardReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
@@ -228,7 +231,7 @@ export class HazardReportComponent implements OnInit, OnDestroy {
     this.hazardObj.days = this.helperService.find(this.hazardObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.hazardObj.days.days, value.dateTo, value.dateFrom, value.user)
+    this.makeReport(this.hazardObj.days.days, value.dateTo, value.dateFrom, value.user, value.archive)
   }
 
   enableDateFrom() {
