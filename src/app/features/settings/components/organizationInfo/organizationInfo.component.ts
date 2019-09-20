@@ -30,7 +30,6 @@ export class OrganizationInfoComponent implements OnInit {
   ngOnInit() {
     this.orgObj.organizationForm = this.formBuilder.group({
       name: ['', Validators.required],
-      accountNo: ['', Validators.required],
       address: ['', Validators.required],
       billingEmail: ['', [Validators.required, Validators.email]],
       dateJoined: ['', Validators.required],
@@ -82,7 +81,6 @@ export class OrganizationInfoComponent implements OnInit {
     this.settingService.getOrganization().subscribe((res) => {
       let orgObject = this.compiler.constructOrganizationObject(res);
       this.organizationViewForm['name'].setValue(orgObject.name);
-      this.organizationViewForm['accountNo'].setValue(orgObject.accountNo);
       this.organizationViewForm['address'].setValue(orgObject.address);
       this.organizationViewForm['billingEmail'].setValue(orgObject.billingEmail);
       this.organizationViewForm['dateJoined'].setValue(this.orgObj.pipe.transform(orgObject.dateJoined));
@@ -119,7 +117,6 @@ export class OrganizationInfoComponent implements OnInit {
     this.orgObj.organizationForm.disable();
     let data = {
       'name': value.name,
-      'accountNo': value.accountNo,
       'address': this.helperService.address,
       'dateJoined': value.dateJoined,
       'phoneNo': value.countryCode + '-' + value.phoneNo,
