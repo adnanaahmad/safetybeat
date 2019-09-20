@@ -459,7 +459,8 @@ export class ConstantService {
     archived: 'archive',
     undo: 'undo',
     favorite: 'favorite',
-    checkIn: 'person_pin'
+    checkIn: 'person_pin',
+    addCircle: 'add_circle'
   };
   /**
    * all the particle container icon names are declared here.
