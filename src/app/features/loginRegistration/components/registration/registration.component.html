@@ -25,7 +25,7 @@
         <mat-card class="loginbox">
           <mat-card-title>User Info</mat-card-title>
           <p class="subheading">Please tell us about yourself</p>
-          <form [formGroup]="registerObj.userForm" autocomplete=false>
+          <form [formGroup]="registerObj.userForm" autocomplete="off">
             <div class="input">
               <mat-form-field appearance="outline" fullWidth>
                 <mat-label>{{helperService.translated.AUTH.FIRSTNAME}}</mat-label>

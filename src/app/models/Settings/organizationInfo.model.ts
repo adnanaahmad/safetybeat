@@ -12,7 +12,6 @@ export interface OrganizationInfo {
   type: any;
 }
 export interface Organization {
-  accountNo: string
   address: string
   billingEmail: string
   dateJoined: string

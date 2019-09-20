@@ -34,34 +34,34 @@
              onPaste="return false"
              autocomplete="off"/>
       <mat-error class="text-right" *ngIf="organizationViewForm.countryCode.errors">
-          <span *ngIf="organizationViewForm.countryCode.errors.maxlength">Invalid code</span>
+        <span *ngIf="organizationViewForm.countryCode.errors.maxlength">Invalid code</span>
       </mat-error>
     </mat-form-field>
-     <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline">
       <mat-label>Contact Number</mat-label>
       <input matInput type="text" [formControlName]="helperService.appConstants.phoneNo"
              (keypress)="numberOnly($event)" autocomplete="off" required/>
       <mat-error class="text-right" *ngIf="organizationViewForm.phoneNo.errors">
-          <span *ngIf="organizationViewForm.phoneNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-          <span *ngIf="organizationViewForm.phoneNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+        <span *ngIf="organizationViewForm.phoneNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+        <span *ngIf="organizationViewForm.phoneNo.errors?.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
       </mat-error>
-   </mat-form-field>
+    </mat-form-field>
     <mat-form-field appearance="outline">
-     <mat-label>Type</mat-label>
-     <mat-select [formControlName]="helperService.appConstants.type" required>
-       <mat-option *ngFor="let type of orgObj.types" [value]="type.id">
-         {{ type.name }}
-       </mat-option>
-     </mat-select>
-   </mat-form-field>
-   <!-- <mat-form-field appearance="outline">
-      <mat-label>Account Number</mat-label>
-      <input matInput type="text" [formControlName]="helperService.appConstants.accountNo" class="showonly"
-             required/>
-      <mat-error class="text-right" *ngIf="organizationViewForm.accountNo.errors">
-        <span>Field is Required</span>
-      </mat-error>
-    </mat-form-field> -->
+      <mat-label>Type</mat-label>
+      <mat-select [formControlName]="helperService.appConstants.type" required>
+        <mat-option *ngFor="let type of orgObj.types" [value]="type.id">
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="outline">
+       <mat-label>Account Number</mat-label>
+       <input matInput type="text" [formControlName]="helperService.appConstants.accountNo" class="showonly"
+              required/>
+       <mat-error class="text-right" *ngIf="organizationViewForm.accountNo.errors">
+         <span>Field is Required</span>
+       </mat-error>
+     </mat-form-field> -->
   </div>
   <div class="form-row">
     <mat-form-field appearance="outline">
@@ -69,16 +69,16 @@
       <input matInput type="text" [readonly]="true" [formControlName]="helperService.appConstants.dateJoined"
              class="showonly"/>
     </mat-form-field>
-      <mat-form-field fullWidth appearance="outline">
-        <mat-label>Address</mat-label>
-        <input matInput type="text" appGooglePlaces [formControlName]="helperService.appConstants.address"
-               class="showonly"
-               (onSelect)="helperService.setAddress($event,gMapElement,organizationViewForm.address)"
-               (keyup)="helperService.setFalse($event)" required/>
-        <mat-error class="text-right" *ngIf="organizationViewForm.address.errors">
-          <span>Field is Required</span>
-        </mat-error>
-      </mat-form-field>
+    <mat-form-field fullWidth appearance="outline">
+      <mat-label>Address</mat-label>
+      <input matInput type="text" appGooglePlaces [formControlName]="helperService.appConstants.address"
+             class="showonly"
+             (onSelect)="helperService.setAddress($event,gMapElement,organizationViewForm.address)"
+             (keyup)="helperService.setFalse($event)" required/>
+      <mat-error class="text-right" *ngIf="organizationViewForm.address.errors">
+        <span>Field is Required</span>
+      </mat-error>
+    </mat-form-field>
   </div>
   <mat-card>
     <div #gmap class="site-map"></div>
