@@ -1,7 +1,6 @@
 <div class="spinner-wrap" *ngIf="userModel.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
-<mat-progress-bar mode="indeterminate" *ngIf="!userModel.empty"></mat-progress-bar>
 <div class="paddingbox">
     <div class="page-title">
         <h3>{{ userModel.translated.SITETITLE.USERS_TITLE }}</h3>
