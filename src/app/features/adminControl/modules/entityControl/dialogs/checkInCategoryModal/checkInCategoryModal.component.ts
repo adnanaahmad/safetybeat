@@ -4,6 +4,7 @@ import {HelperService} from 'src/app/services/common/helperService/helper.servic
 import {FormBuilder, Validators} from '@angular/forms';
 import {CheckInCategory, CheckInTypesCat, PulseCategory} from 'src/app/models/adminControl/entityControl.model';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
+import {removeDisabledFailures} from 'tslint';
 
 @Component({
   selector: 'app-check-in-category-modal',
@@ -34,6 +35,10 @@ export class CheckInCategoryModalComponent implements OnInit {
     this.adminServices.checkInTypes(entity).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.checkInCategoryModal.checkInTypes = res.data;
+        this.checkInCategoryModal.disableRemove = false;
+        if (this.checkInCategoryModal.checkInTypes.length === 1) {
+          this.checkInCategoryModal.disableRemove = true;
+        }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.checkInCategoryModal.checkInTypes = null;
       }

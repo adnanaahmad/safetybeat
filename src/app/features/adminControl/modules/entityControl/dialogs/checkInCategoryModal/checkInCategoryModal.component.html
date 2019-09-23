@@ -21,6 +21,7 @@
 
                         {{element.checkInType.name}}
                         <button custom-btn mat-raised-button class="remove-type mat-elevation-z1"
+                                [disabled] ="checkInCategoryModal.disableRemove"
                                 (click)="archiveCheckIn(element.id)">Remove
                         </button>
                     </mat-list-item>
