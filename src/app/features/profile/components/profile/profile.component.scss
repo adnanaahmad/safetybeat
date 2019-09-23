@@ -1,6 +1,8 @@
 @mixin amte-profile($primary, $accent, $warn) {
   :host,
   app-profile {
+    position: relative;
+    height: $fullValue;
     .not-checked {
       color: mat-color($warn-pallete, 500);
     }

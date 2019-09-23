@@ -550,6 +550,8 @@ export interface Messages {
   REMOVE_LEAVE_FAILURE: string;
   CHECKIN_CATEGORIES: string;
   PULSE_CATEGORIES: string;
+  CHECKIN_CATEGORY_TITLE: string;
+  PULSE_CATEGORY_TITLE: string;
   BUYPACKAGE: string;
 }
 

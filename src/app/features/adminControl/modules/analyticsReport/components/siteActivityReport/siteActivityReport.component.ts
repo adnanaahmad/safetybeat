@@ -14,7 +14,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
-import {PaginationData, ViewAllSiteEntityData} from 'src/app/models/site.model';
+import {PaginationData, ViewAllSiteArchivedData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-siteActivityReport',
@@ -36,19 +36,20 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   ) {
     this.initialize();
     this.getFilters();
-    this.getSites();
-  }
-
-  ngOnInit() {
     this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.siteReportObj.entityId = res.entityInfo.id;
         this.siteReportObj.entityName = res.entityInfo.name;
         this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
         this.siteFormValidations['entityName'].disable();
-        this.makeReport(7, null, null, null)
+        this.getSites(false);
+        this.makeReport(7, null, null, null, false);
       }
     });
+  }
+
+  ngOnInit() {
+
   }
 
   initialize() {
@@ -57,7 +58,8 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       dateTo: [],
       dateFrom: [],
       site: [''],
-      filter: ['']
+      filter: [''],
+      archive: [false]
     });
     this.siteFormValidations[this.helperService.appConstants.dateFrom].disable();
     this.siteFormValidations[this.helperService.appConstants.dateTo].disable();
@@ -65,34 +67,38 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.siteReportObj.minDate = null;
   }
 
+
   get siteFormValidations() {
     return this.siteReportObj.siteReportForm.controls;
   }
 
-  getSites() {
-    let entityData: ViewAllSiteEntityData = {
+  onArchivedChange(value) {
+    this.getSites(value)
+  }
+
+  getSites(archive) {
+    let entityData: ViewAllSiteArchivedData = {
       entityId: this.siteReportObj.entityId,
+      archived: archive
     };
-    let paginationData: PaginationData = {
-      offset: null,
-      limit: null,
-      search: ''
-    };
-    this.adminServices.viewSites(entityData, paginationData).subscribe((res) => {
-      if (res) {
+
+    this.adminServices.viewArchivedSites(entityData).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.siteReportObj.sites = res.data.sitesList;
       }
     });
+
   }
 
-  makeReport(days, dateTo, dateFrom, site) {
+  makeReport(days, dateTo, dateFrom, site, archive) {
     this.siteReportObj.loading = true;
     let data = {
       'entityId': this.siteReportObj.entityId,
       'dateTo': dateTo,
       'dateFrom': dateFrom,
       'days': days,
-      'site': site
+      'site': site,
+      'archive': archive
     };
     this.analyticsService.siteActivityReport(data).subscribe((res) => {
       if (res && res.responseDetails.code === 100) {
@@ -134,7 +140,7 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
     this.siteReportObj.days = this.helperService.find(this.siteReportObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.siteReportObj.days.days, value.dateTo, value.dateFrom, value.site)
+    this.makeReport(this.siteReportObj.days.days, value.dateTo, value.dateFrom, value.site, value.archive)
   }
 
   generateCharSeries(reportData: any) {

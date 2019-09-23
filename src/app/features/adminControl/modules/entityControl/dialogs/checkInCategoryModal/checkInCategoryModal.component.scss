@@ -1,0 +1,11 @@
+@mixin amte-app-check-in-category-modal($primary, $accent, $warn) {
+  :host,
+  app-check-in-category-modal {
+    .data-search {
+      .remove-type {
+        margin-left: auto;
+      }
+    }
+  }
+}
+
