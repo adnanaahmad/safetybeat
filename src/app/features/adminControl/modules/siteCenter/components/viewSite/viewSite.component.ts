@@ -73,7 +73,7 @@ export class ViewSiteComponent implements OnInit {
     this.viewSiteObj.activityLoading = false;
     this.viewSiteObj.search = '';
     this.viewSiteObj.firstIndex = 0;
-    this.viewSiteObj.pageSize = 3;
+    this.viewSiteObj.pageSize = 6;
   }
 
   /**

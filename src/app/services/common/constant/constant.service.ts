@@ -179,7 +179,7 @@ export class ConstantService {
     paginationLimitForProfile: 7,
     paginationLimit: 10,
     paginationLimitForArchive: 6,
-    paginationLimitForViewSite: 3,
+    paginationLimitForViewSite: 6,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',

@@ -156,5 +156,13 @@
         }
       }
     }
+    .customTable{
+      .mat-header-row{
+        background: transparent;
+      }
+      .mat-header-cell{
+        color: inherit;
+      }
+    }
   }
 }

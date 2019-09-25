@@ -13,7 +13,7 @@
 </mat-toolbar>
 
 <div class="grid-container">
-    <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-list cols="2" rowHeight="400px">
         <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
           <mat-card class="dashboard-card activities" *ngIf="card.title==='location'">
               <mat-card-header class="infoTitle">
@@ -64,6 +64,9 @@
                 </mat-card-content>
             </mat-card>
             <mat-card class="dashboard-card activities" *ngIf="card.title==='hazards'">
+                 <mat-card-header class="infoTitle">
+                      <mat-card-title>{{card.title}}</mat-card-title>
+                  </mat-card-header>
                 <table mat-table [dataSource]="viewSiteObj.hazardTable" class="customTable">
 
                     <ng-container [matColumnDef]="viewSiteObj.hazardColumns[0]">
@@ -113,6 +116,9 @@
 
             </mat-card>
              <mat-card class="dashboard-card activities" *ngIf="card.title==='activity'">
+                   <mat-card-header class="infoTitle">
+                        <mat-card-title>{{card.title}}</mat-card-title>
+                    </mat-card-header>
                   <table mat-table [dataSource]="viewSiteObj.activityTable" class="customTable">
                       <ng-container [matColumnDef] = "viewSiteObj.activityColumns[0]">
                           <th mat-header-cell *matHeaderCellDef> Name</th>
