@@ -24,6 +24,13 @@ export class PackageDetailsComponent implements OnInit {
               private navService: NavigationService,
               private coreService: CoreService,
               public helperService: HelperService) {
+    this.navService.getPackageInfo().subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.navService.updatePackageInfo(res.data[0]);
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    });
 
   }
 

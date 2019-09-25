@@ -21,6 +21,7 @@ const routes: Routes = [
   {
     path: 'manageLeaves',
     loadChildren: './modules/manageLeave/manageLeave.module#ManageLeaveModule',
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'siteCenter',

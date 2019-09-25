@@ -7,6 +7,8 @@ import {PasswordRecoveryComponent} from './components/passwordRecovery/passwordR
 import {PackageDetailsComponent} from './components/packageDetails/packageDetails.component';
 import {AuthGuard} from 'src/app/services/core/guards/auth.guard';
 import {UpdateprofileComponent} from './components/updateprofile/updateprofile.component';
+import {NoAuthGuard} from 'src/app/services/core/restrict/restrict.service';
+import {Observable} from 'rxjs';
 
 const authRoutes: Routes = [
   {
@@ -40,6 +42,7 @@ const authRoutes: Routes = [
     component: PackageDetailsComponent,
     canActivate: [AuthGuard],
     // canDeactivate: ['canDeactivatePackageDetails']
+    canDeactivate: [NoAuthGuard],
   }
 ];
 
