@@ -9,6 +9,7 @@ import {map} from 'rxjs/operators';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {PaginationData} from 'src/app/models/site.model';
+import {ImageLightboxComponent} from 'src/app/dialogs/imageLightbox/imageLightbox.component';
 
 @Component({
   selector: 'app-ViewSite',
@@ -161,4 +162,20 @@ export class ViewSiteComponent implements OnInit {
     this.router.navigate(['/home/adminControl/siteCenter']);
   }
 
+  /**
+   * this function is used for viewing the image
+   * @params image
+   */
+
+  testingFunc(image) {
+    if (image) {
+      this.helperService.createDialog(ImageLightboxComponent,
+        {
+          data:
+            {
+              image: image
+            }
+        });
+    }
+  }
 }
