@@ -30,8 +30,7 @@ export class SiteMapComponent implements OnInit {
       center: {lat: this.data.siteData ? this.data.siteData[0].longitude : 0, lng: this.data.siteData ? this.data.siteData[0].latitude : 0},
       draggable: true, draggableCursor: ''
     });
-    for (let i = 0; i < this.data.siteData && this.data.siteData.length; i++) {
-      // this.helperService.addMarker(val, {lat: this.data.siteData[i].longitude, lng: this.data.siteData[i].latitude});
+    for (let i = 0; i < this.data.siteData.length; i++) {
       this.helperService.setLocationGeocode(this.data.siteData[i].location,
         val, this.data.siteData[i].radius);
     }

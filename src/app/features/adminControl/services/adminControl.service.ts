@@ -11,8 +11,9 @@ import {AllTeamsApiResponse, GetAllTeamsData, TeamList} from 'src/app/models/adm
 import {
   AddSiteApiResponse,
   AddSiteData, PaginationData, RefreshSiteCodeApiResponse, sendSiteCodeApiData, SendSiteCodeApiResponse,
-  ViewAllSiteEntityData, ViewAllSitesApiResponse, ViewAllSiteArchivedData
+  ViewAllSiteEntityData, ViewAllSitesApiResponse, ViewAllSiteArchivedData,
 } from 'src/app/models/site.model';
+import {SiteActivityApiResponse, ViewSiteActivityData, ViewSiteHazardData} from 'src/app/models/adminControl/viewSite.model';
 
 @Injectable({
   providedIn: 'root'
@@ -273,6 +274,22 @@ export class AdminControlService {
       this.method.put,
       `${this.apiRoutes.unarchiveSite}`,
       data
+    );
+  }
+
+  siteHazards(siteData: ViewSiteHazardData,  paginationData: PaginationData): Observable<AllHazardsApiData> {
+    return this.helperService.requestCall(
+      this.method.post,
+      `${this.apiRoutes.siteHazards}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      siteData
+    );
+  }
+
+  siteActivities(siteData: ViewSiteActivityData, paginationData: PaginationData): Observable<SiteActivityApiResponse> {
+    return this.helperService.requestCall(
+      this.method.post,
+      `${this.apiRoutes.siteActivities}?limit=${paginationData.limit}&offset=${paginationData.offset}&search=${paginationData.search}`,
+      siteData
     );
   }
 
