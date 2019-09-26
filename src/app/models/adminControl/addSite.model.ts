@@ -13,6 +13,7 @@ export interface AddSite {
   entityUsers: User[];
   site: Site;
   siteSafetyManager: User;
+  currentUser: User;
   createdBy: User;
   modalType: boolean;
   addSiteForm: FormGroup;

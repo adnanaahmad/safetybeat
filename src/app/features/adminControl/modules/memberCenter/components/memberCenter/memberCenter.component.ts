@@ -126,6 +126,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     });
   }
 
+
   /**
    * this function is used for deactivating the users
    * userId  id of the selected user.

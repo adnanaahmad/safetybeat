@@ -78,6 +78,10 @@ export class NavigationService {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.getRoles);
   }
 
+  changeUserRole(data) {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.put, this.helperService.constants.apiRoutes.changeRoles, data);
+  }
+
   /**
    * this function is used for inviting the user to the particular entity.
    * @params data

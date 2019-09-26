@@ -38,6 +38,7 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
+    changeRoles: `${environment.apiUrl}/role/changeRole/`,
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     profilePic: `${environment.apiUrl}/users/uploadProfileImage/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
@@ -357,7 +358,8 @@ export class ConstantService {
     childNo: 'childNo',
     childYesSafe: 'childYesSafe',
     childNoSafe: 'childNoSafe',
-    archive: 'archive'
+    archive: 'archive',
+    entityManager: 'entityManager'
   };
   /**
    * all the material icon names are declared here.
