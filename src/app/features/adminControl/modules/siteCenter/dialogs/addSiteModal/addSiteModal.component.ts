@@ -7,7 +7,7 @@ import {AddSiteData, SiteAddData} from 'src/app/models/site.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {AddSite} from 'src/app/models/adminControl/addSite.model';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
-import {NavigationService} from '../../../../../navigation/services/navigation.service';
+import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 
 @Component({
   selector: 'app-addSiteModal',
@@ -17,7 +17,6 @@ import {NavigationService} from '../../../../../navigation/services/navigation.s
 export class AddSiteModalComponent implements OnInit, OnDestroy {
   @ViewChild('gmap') gMapElement: ElementRef;
   addSiteObj: AddSite = <AddSite>{};
-
 
   constructor(
     public helperService: HelperService,
@@ -56,6 +55,11 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.helperService.displayButton = false;
+    this.addSiteObj.subscription = this.navService.currentUserData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.addSiteObj.currentUser = res
+      }
+    });
     this.helperService.createMap(this.gMapElement);
     this.addSiteObj.addSiteForm = this.formBuilder.group({
       siteName: ['', Validators.required],
@@ -66,9 +70,11 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       radius: ['', Validators.required],
       gpsTrackEnabled: ['']
     });
+    this.addSiteObj.siteSafetyManager ? this.formValidation['siteSafetyManager'].setValue(this.addSiteObj.siteSafetyManager.id) :
+      this.formValidation['siteSafetyManager'].setValue(this.addSiteObj.currentUser.id);
+    this.getAllUsers();
     if (this.addSiteObj.modalType === false) {
       this.viewSiteInfo();
-      this.getAllUsers();
     }
   }
 
@@ -85,7 +91,7 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.addSiteClass);
     this.helperService.hideLoggers();
-    if (this.addSiteObj.entityId) {
+    if (this.addSiteObj.subscription !== undefined && this.addSiteObj.subscription !== null) {
       this.addSiteObj.subscription.unsubscribe();
     }
   }
@@ -169,10 +175,10 @@ export class AddSiteModalComponent implements OnInit, OnDestroy {
       radius: value.radius,
       gpsTrackEnabled: value.gpsTrackEnabled,
       entity: this.addSiteObj.entityId,
+      siteSafetyManager: value.siteSafetyManager
     };
     if (editSite) {
       siteData.createdBy = this.addSiteObj.site.createdBy.id;
-      siteData.siteSafetyManager = value.siteSafetyManager;
     }
     return siteData;
   }
