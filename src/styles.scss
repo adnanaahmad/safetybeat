@@ -94,6 +94,16 @@ app-toaster,
   text-overflow: ellipsis;
 }
 
+.dual-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  .grid-box {
+    flex-basis: calc(50% - 5px);
+    margin-top: 10px;
+  }
+}
+
 .spinner-wrap {
   @include midBlock;
   height: $fullValue;
@@ -622,6 +632,17 @@ input:-internal-autofill-selected {
     margin: 0 0 10px;
     text-align: left;
     float: none;
+  }
+  .dual-grid {
+    display: block;
+    .grid-box {
+      flex-basis: unset;
+    }
+  }
+  app-viewSite {
+    .go-back {
+      position: absolute;
+    }
   }
 }
 

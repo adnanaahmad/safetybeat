@@ -47,7 +47,7 @@
                 <mat-form-field appearance="outline" fullWidth>
                     <span matPrefix>ft. &nbsp;</span>
                     <mat-label>{{helperService.translated.TABLEHEADINGS.RADIUS}}</mat-label>
-                    <input matInput type="number" [formControlName]="helperService.appConstants.radius"
+                    <input class="radius-input" matInput type="number" [formControlName]="helperService.appConstants.radius"
                            [readonly]="!addSiteObj.enableRadius" (keyup)=setRadius(gMapElement,$event.target.value)
                            required>
                     <mat-hint>Location must be selected to apply radius</mat-hint>

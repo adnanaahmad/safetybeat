@@ -30,7 +30,7 @@
     }
     .site-map {
       width: 100%;
-      height: 100%;
+      height: 180px;
     }
     .mat-figure {
       align-items: normal;
@@ -38,10 +38,6 @@
     .dashboard-card {
       padding: 0;
       width: 100%;
-      mat-card-content {
-        height: 80%;
-        overflow: auto;
-      }
       .siteinfo-row {
         display: flex;
         padding: 10px;
@@ -156,11 +152,11 @@
         }
       }
     }
-    .customTable{
-      .mat-header-row{
+    .customTable {
+      .mat-header-row {
         background: transparent;
       }
-      .mat-header-cell{
+      .mat-header-cell {
         color: inherit;
       }
     }
