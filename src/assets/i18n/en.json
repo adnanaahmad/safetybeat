@@ -143,7 +143,8 @@
     "ADDITIONAL_NOTE": "Additional note",
     "COMPLETE_BY": "Complete by:",
     "ACTION_TO_RESOLVE": "Actions to resolve",
-    "RATE_HAZARD": "Rate Hazard"
+    "RATE_HAZARD": "Rate Hazard",
+    "ENTITYMANAGER": "Entity Manager"
   },
   "BUTTONS": {
     "DOWNLOAD": "Download",
