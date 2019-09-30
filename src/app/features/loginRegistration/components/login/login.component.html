@@ -23,8 +23,8 @@
             <form [formGroup]="loginObj.loginForm" (ngSubmit)="onSubmit(loginObj.loginForm)">
                 <div class="input">
                     <mat-form-field appearance="outline" fullWidth>
-                        <mat-label>{{helperService.translated.AUTH.EMAIL}}</mat-label>
-                        <input matInput type="email" [formControlName]="helperService.appConstants.email"
+                        <mat-label id="login-label">{{helperService.translated.AUTH.EMAIL}}</mat-label>
+                        <input id="email-field" matInput type="email" [formControlName]="helperService.appConstants.email"
                                [errorStateMatcher]="helperService.formErrorMatcher" required/>
                         <mat-icon color="primary" matSuffix>{{ helperService.appIcons.email }}</mat-icon>
                         <mat-error *ngIf="formValidation.email.errors">
@@ -37,7 +37,7 @@
                 <div class="password">
                     <mat-form-field appearance="outline" fullWidth>
                         <mat-label>{{helperService.translated.AUTH.PASSWORD}}</mat-label>
-                        <input matInput type="password" [formControlName]="helperService.appConstants.password"
+                        <input id="password-field" matInput type="password" [formControlName]="helperService.appConstants.password"
                                [errorStateMatcher]="helperService.formErrorMatcher" required/>
                         <mat-icon color="primary" matSuffix>{{ helperService.appIcons.vpnKey }}</mat-icon>
                         <mat-error *ngIf="formValidation.password.errors">

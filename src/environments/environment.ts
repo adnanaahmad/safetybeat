@@ -3,12 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 
-const serverUrl = 'http://localhost:8080';
+const serverUrl = 'http://192.168.69.70:8000';
+const clientUrl = 'http://localhost:4200/#'
 
 export const environment = {
   production: false,
   apiUrl: `${serverUrl}/safetybeat`,
   serverUrl: `${serverUrl}`,
+  clientUrl: `${clientUrl}`,
   firebaseConfig: {
     apiKey: 'AIzaSyA5fX1GOd488hjQnYnih4aFLmJhoRBBiMs',
     authDomain: 'safetybeat-12abc.firebaseapp.com',
