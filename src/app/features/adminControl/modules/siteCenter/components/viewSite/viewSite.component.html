@@ -12,176 +12,158 @@
     </div>
 </mat-toolbar>
 
-<div class="grid-container">
-    <mat-grid-list cols="2" rowHeight="300px">
-        <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-            <mat-card class="dashboard-card activities" *ngIf="card.title==='activity'">
-                <mat-card-header class="infoTitle">
-                    <mat-card-title>{{card.title}}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="activity-card">
-                        <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-                        <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                        <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                        <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                    </div>
-                    <mat-divider></mat-divider>
-
-                    <div class="activity-card">
-                        <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-                        <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                        <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                        <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                    </div>
-                    <mat-divider></mat-divider>
-
-                    <div class="activity-card">
-                        <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-                        <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                        <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                        <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                    </div>
-                    <mat-divider></mat-divider>
-
-                    <div class="activity-card">
-                        <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-                        <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                        <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                        <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                    </div>
-                    <mat-divider></mat-divider>
-
-                    <div class="activity-card">
-                        <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-                        <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                        <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                        <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                    </div>
-                    <mat-divider></mat-divider>
-
-                    <div class="activity-card">
-                        <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-                        <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                        <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                        <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                    </div>
-                    <mat-divider></mat-divider>
-
-                    <div class="activity-card">
-                        <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                  <mat-icon>link</mat-icon> View Site
-                </a></span></div>
-                        <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                        <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                        <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-
-            <mat-card class="dashboard-card activities" *ngIf="card.title==='information'">
-                <mat-card-header class="infoTitle">
-                    <mat-card-title>{{card.title}}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div *ngIf="viewSiteObj.siteInfo">
-                        <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
+<div class="dual-grid">
+    <div class="grid-box">
+        <mat-card class="dashboard-card activities">
+            <mat-card-header class="infoTitle">
+                <mat-card-title>Site Map</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div #gmap class="site-map"></div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="grid-box">
+        <mat-card class="dashboard-card activities">
+            <mat-card-header class="infoTitle">
+                <mat-card-title>Site Info</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div *ngIf="viewSiteObj.siteInfo">
+                    <div class="siteinfo-row" *ngIf="viewSiteObj.siteSafetyManager">
               <span>
                 <mat-icon color="primary">{{helperService.appIcons.permIdentity}}</mat-icon>
               </span>
-                            <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
-                            <p>{{viewSiteObj.siteSafetyManager.first_name}}
-                                {{viewSiteObj.siteSafetyManager.last_name}}</p>
-                        </div>
-                        <mat-divider></mat-divider>
-                        <div class="siteinfo-row">
+                        <strong>{{helperService.translated.STRINGS.SITESAFETYMANAGER}}</strong>
+                        <p>{{viewSiteObj.siteSafetyManager.first_name}}
+                            {{viewSiteObj.siteSafetyManager.last_name}}</p>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="siteinfo-row">
               <span>
                 <mat-icon class="safe-icon safe" *ngIf="viewSiteObj.siteInfo.safeZone">{{helperService.appIcons.check}}
                 </mat-icon>
               </span>
-                            <span>
+                        <span>
                 <mat-icon class="safe-icon unsafe" *ngIf="!viewSiteObj.siteInfo.safeZone">
                   {{helperService.appIcons.clear}}</mat-icon>
               </span>
-                            <strong>{{helperService.translated.STRINGS.SAFEZONE}}</strong>
-                            <p *ngIf="viewSiteObj.siteInfo.safeZone">
-                                {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
-                            <p *ngIf="!viewSiteObj.siteInfo.safeZone">
-                                {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
-                        </div>
-                        <mat-divider></mat-divider>
-                        <div class="siteinfo-row">
-                            <mat-icon color="primary">{{helperService.appIcons.security}}</mat-icon>
-                            <strong>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</strong>
-                            <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
-                        </div>
+                        <strong>{{helperService.translated.STRINGS.SAFEZONE}}</strong>
+                        <p *ngIf="viewSiteObj.siteInfo.safeZone">
+                            {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_SAFE}}</p>
+                        <p *ngIf="!viewSiteObj.siteInfo.safeZone">
+                            {{viewSiteObj.siteInfo.name}}{{helperService.translated.MESSAGES.SITE_IS_NOT_SAFE}}</p>
                     </div>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="dashboard-card activities" *ngIf="card.title==='hazards'">
-                <mat-card-header class="infoTitle">
-                    <mat-card-title>{{card.title}}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div *ngIf="viewSiteObj.siteInfo">
-                        <div class="activity-card">
-                            <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                    <mat-icon>link</mat-icon> View Site
-                  </a></span></div>
-                            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                        </div>
-                        <mat-divider></mat-divider>
-                        <div class="activity-card">
-                            <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                    <mat-icon>link</mat-icon> View Site
-                  </a></span></div>
-                            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                        </div>
-                        <mat-divider></mat-divider>
-                        <div class="activity-card">
-                            <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                    <mat-icon>link</mat-icon> View Site
-                  </a></span></div>
-                            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                        </div>
-                        <mat-divider></mat-divider>
-                        <div class="activity-card">
-                            <div class="row"><strong>BlueSky Software</strong><span><a routerLink="">
-                    <mat-icon>link</mat-icon> View Site
-                  </a></span></div>
-                            <div class="row"><strong>Check-in</strong><span>12-Mar | 12:40 PM</span></div>
-                            <div class="row"><strong>Check-out</strong><span>13-Apr | 06:12 AM</span></div>
-                            <div class="row"><strong>Duration</strong><span>10 days</span></div>
-                        </div>
+                    <mat-divider></mat-divider>
+                    <div class="siteinfo-row">
+                        <mat-icon color="primary">{{helperService.appIcons.security}}</mat-icon>
+                        <strong>{{helperService.translated.STRINGS.SITESAFETYPLAN}}</strong>
+                        <p>{{viewSiteObj.siteInfo.siteSafetyPlan}}</p>
                     </div>
-                </mat-card-content>
-            </mat-card>
-            <mat-card class="dashboard-card activities" *ngIf="card.title==='location'">
-                <mat-card-header class="infoTitle">
-                    <mat-card-title>{{card.title}}</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div #gmap class="site-map"></div>
-                </mat-card-content>
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="grid-box">
+        <mat-card class="dashboard-card activities">
+            <mat-card-header class="infoTitle">
+                <mat-card-title>klakslkl</mat-card-title>
+            </mat-card-header>
+            <table mat-table [dataSource]="viewSiteObj.hazardTable" class="customTable">
+
+                <ng-container [matColumnDef]="viewSiteObj.hazardColumns[0]">
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{ helperService.translated.TABLEHEADINGS.TITLE }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="viewSiteObj.hazardColumns[1]">
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{ helperService.translated.STRINGS.RESOLVED }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.resolved }}</td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="viewSiteObj.hazardColumns[2]">
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{ helperService.translated.STRINGS.DATE_TIME }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">{{ element.createdTime | date }}</td>
+                </ng-container>
+
+                <ng-container [matColumnDef]="viewSiteObj.hazardColumns[3]">
+                    <th mat-header-cell *matHeaderCellDef>
+                        {{ helperService.translated.STRINGS.IMAGE }}
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <img (click)="testingFunc(element.image ? element.image : null)"
+                             class="table-img pointer mat-elevation-z4"
+                             src="{{ element.thumbnail ? element.thumbnail : helperService.appConstants.noHazard}}"/>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="viewSiteObj.hazardColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: viewSiteObj.hazardColumns"></tr>
+            </table>
+            <div class="spinner-wrap" *ngIf="viewSiteObj.hazardLoading">
+                <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+            </div>
+            <div class="paddingbox text-center mat-select-placeholder" *ngIf="viewSiteObj.hazardTable === null">
+                {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+            </div>
+            <mat-paginator #hazardMatPage class="mat-elevation-z2" [pageSize]="viewSiteObj.pageSize"
+                           [length]="viewSiteObj.hazardPageCount"
+                           (page)="viewSiteHazards(hazardPaginator.pageIndex, viewSiteObj.search)">
+            </mat-paginator>
+        </mat-card>
+    </div>
+    <div class="grid-box">
+        <mat-card class="dashboard-card activities">
+            <mat-card-header class="infoTitle">
+                <mat-card-title>info</mat-card-title>
+            </mat-card-header>
+            <table mat-table [dataSource]="viewSiteObj.activityTable" class="customTable">
+                <ng-container [matColumnDef]="viewSiteObj.activityColumns[0]">
+                    <th mat-header-cell *matHeaderCellDef> Name</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.user.username}}
+                    </td>
+                </ng-container>
+                <ng-container [matColumnDef]="viewSiteObj.activityColumns[1]">
+                    <th mat-header-cell *matHeaderCellDef> Check-in</th>
+                    <td mat-cell *matCellDef="let element"> {{element.checkInCheckOut.checkedInAt |
+                        date:'medium'}}
+                    </td>
+                </ng-container>
+                <ng-container [matColumnDef]="viewSiteObj.activityColumns[2]">
+                    <th mat-header-cell *matHeaderCellDef> Check-Out</th>
+                    <td mat-cell *matCellDef="let element"
+                        [ngClass]="{'not-checked' : !element.checkInCheckOut.checkedOutAt}">
+                        {{element.checkInCheckOut.checkedOutAt ? (element.checkInCheckOut.checkedOutAt |
+                        date:'medium') : helperService.translated.MESSAGES.NOT_CHECKED_OUT}}
+                    </td>
+                </ng-container>
+                <ng-container [matColumnDef]="viewSiteObj.activityColumns[3]">
+                    <th mat-header-cell *matHeaderCellDef> Duration</th>
+                    <td mat-cell *matCellDef="let element"
+                        [ngClass]="{'not-checked' : !element.duration}"> {{element.duration ?
+                        element.duration : helperService.translated.MESSAGES.NOT_CHECKED_OUT}}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="viewSiteObj.activityColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: viewSiteObj.activityColumns;"></tr>
+            </table>
+            <div class="spinner-wrap" *ngIf="viewSiteObj.activityLoading">
+                <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+            </div>
+            <div class="paddingbox text-center mat-select-placeholder" *ngIf="viewSiteObj.activityTable === null">
+                {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+            </div>
+            <mat-paginator #activityMatPage [pageSize]="viewSiteObj.pageSize" [length]="viewSiteObj.activityPageCount"
+                           (page)="viewSiteActivities(activityPaginator.pageIndex, viewSiteObj.search)">
+            </mat-paginator>
+        </mat-card>
+    </div>
 </div>

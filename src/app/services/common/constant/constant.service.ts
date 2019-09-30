@@ -38,6 +38,7 @@ export class ConstantService {
     joinEntity: `${environment.apiUrl}/entity/joinEntity/`,
     allUsersOfOrganization: `${environment.apiUrl}/users/allUserOfOrganization/`,
     getRoles: `${environment.apiUrl}/role/`,
+    changeRoles: `${environment.apiUrl}/role/changeRole/`,
     forgotPassword: `${environment.apiUrl}/users/forgotPassword/`,
     profilePic: `${environment.apiUrl}/users/uploadProfileImage/`,
     validateUser: `${environment.apiUrl}/validateCode/sendVerificationCode/`,
@@ -69,6 +70,8 @@ export class ConstantService {
     unarchiveHazard: `${environment.apiUrl}/api/hazard/unArchiveHazard/`,
     riskList: `${environment.apiUrl}/api/riskType/`,
     allHazards: `${environment.apiUrl}/api/hazard/viewAllHazardsOfEntity/`,
+    siteHazards: `${environment.apiUrl}/api/hazard/viewAllHazardsOfSite/`,
+    siteActivities: `${environment.apiUrl}/api/sites/siteActivities/`,
     removeConnection: `${environment.apiUrl}/api/connections/removeConnection/`,
     getQuestionTypes: `${environment.apiUrl}/api/questionTypes/`,
     addQuestion: `${environment.apiUrl}/api/questions/`,
@@ -177,6 +180,7 @@ export class ConstantService {
     paginationLimitForProfile: 7,
     paginationLimit: 10,
     paginationLimitForArchive: 6,
+    paginationLimitForViewSite: 6,
     moduleName: 'Safetybeat',
     key: 'AIzaSyBnOzbMr90FUKJOFHDErlHbX1WGIkBLYPE',
     email: 'email',
@@ -357,7 +361,8 @@ export class ConstantService {
     childNo: 'childNo',
     childYesSafe: 'childYesSafe',
     childNoSafe: 'childNoSafe',
-    archive: 'archive'
+    archive: 'archive',
+    entityManager: 'entityManager'
   };
   /**
    * all the material icon names are declared here.
@@ -459,7 +464,8 @@ export class ConstantService {
     archived: 'archive',
     undo: 'undo',
     favorite: 'favorite',
-    checkIn: 'person_pin'
+    checkIn: 'person_pin',
+    addCircle: 'add_circle'
   };
   /**
    * all the particle container icon names are declared here.

@@ -35,6 +35,10 @@ export class PulseCategoyModalComponent implements OnInit {
     this.adminServices.pulseTypes(entity).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.pulseCategoryModal.pulseTypes = res.data;
+        this.pulseCategoryModal.disableRemove = false;
+        if (this.pulseCategoryModal.pulseTypes.length === 1) {
+          this.pulseCategoryModal.disableRemove = true;
+        }
       } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
         this.pulseCategoryModal.pulseTypes = null;
       }
