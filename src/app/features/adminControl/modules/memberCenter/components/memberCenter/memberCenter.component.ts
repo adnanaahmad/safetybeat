@@ -35,23 +35,20 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
               public userService: ProfileService) {
     this.memberCenter.userStatus = false;
     this.initialize();
-
   }
 
 
   ngOnInit() {
-    this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
+    this.memberCenter.subscriptions = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
+        this.memberCenter.currentRole = res.role;
         this.memberCenter.entityId = res.entityInfo.id;
         this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
       }
     });
-    this.userService.getUser().subscribe(res => {
+    this.userService.getUser().subscribe((res) => {
       this.memberCenter.user = res;
       this.memberCenter.userId = this.memberCenter.user.data.user.id;
-    });
-    this.memberCenter.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      this.memberCenter.currentRole = res.role;
     });
     this.memberCenter.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
@@ -63,6 +60,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.memberCenter.subscription !== null && this.memberCenter.subscription !== undefined) {
       this.memberCenter.subscription.unsubscribe();
+      this.memberCenter.subscriptions.unsubscribe();
     }
   }
 
@@ -83,7 +81,7 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
     let entityId = {
       entityId: this.memberCenter.entityId,
     };
-    this.memberService.entityUsers(entityId, data).subscribe((res) => {
+    this.memberCenter.subscription = this.memberService.entityUsers(entityId, data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.memberCenter.pageCount = res.data.pageCount;
         if (this.paginator && pageIndex === 0) {

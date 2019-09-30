@@ -15,6 +15,7 @@ export interface MemberCenter {
   responseObj: any;
   userStatus: boolean;
   subscription: Subscription;
+  subscriptions: Subscription;
   displayLoader: boolean;
   dialogConfig: any;
   displayedColumns: string[];

@@ -40,6 +40,14 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
   ) {
     this.initialize();
     this.helperService.toggleLoader(true);
+
+  }
+
+  /**
+   * this function is used to calling the functions that we need to be called on the
+   * initialization of the component.
+   */
+  ngOnInit() {
     this.entityControl.subscription = this.navService.currentUserData.subscribe((res) => {
       if (res && res !== 1) {
         this.entityControl.currentUserData = res;
@@ -51,13 +59,6 @@ export class EntityControlComponent implements OnInit, OnDestroy, AfterViewInit 
         this.entityControl.entityId = res.entityInfo.id;
       }
     });
-  }
-
-  /**
-   * this function is used to calling the functions that we need to be called on the
-   * initialization of the component.
-   */
-  ngOnInit() {
     this.viewEntitiesApiCall(this.entityControl.firstIndex, this.entityControl.search);
     this.viewAllEntities();
   }

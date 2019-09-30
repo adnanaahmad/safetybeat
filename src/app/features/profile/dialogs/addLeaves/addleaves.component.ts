@@ -16,6 +16,7 @@ export class AddleavesComponent implements OnInit, OnDestroy {
   leavesModel: ProfileModel = <ProfileModel>{};
   isEdit = false;
   rangeAt: Date;
+  leaveFormdata: AddLeaveData;
 
   constructor(
     public helperService: HelperService,
@@ -48,13 +49,13 @@ export class AddleavesComponent implements OnInit, OnDestroy {
         this.addLeaveFormValidations['entity'].disable();
       }
     });
-    this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
     if (this.data.currentData !== null && this.data && this.data.currentData) {
       this.addLeaveFormValidations['description'].setValue(this.data.currentData.title);
       this.addLeaveFormValidations['dateFrom'].setValue(new Date(this.data.currentData.start));
       this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData.end));
       this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
+    this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
     this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
   }
 
@@ -100,14 +101,15 @@ export class AddleavesComponent implements OnInit, OnDestroy {
    */
   addLeave(leaveForm: FormGroup) {
     this.leavesModel.loading = true;
-    let data: AddLeaveData = {
+    this.leaveFormdata = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
-      leaveType: leaveForm.value.leaveType.id,
+      leaveType: leaveForm.value.leaveType,
       dateFrom: leaveForm.value.dateFrom,
       dateTo: leaveForm.value.dateTo
     };
-    this.profileService.addLeaves(data).subscribe((res) => {
+
+    this.profileService.addLeaves(this.leaveFormdata).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.leavesModel.leave = res.data.leave;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
