@@ -8,7 +8,7 @@ describe('Dashboard Page Testing', () => {
   
   beforeAll(async () => {
     browser.ignoreSynchronization = true
-    await browser.sleep(5000)
+    await browser.sleep(10000)
     let url = await browser.getCurrentUrl();
     if(url !== values.urls.dashboardPage) {
         browser.quit();
