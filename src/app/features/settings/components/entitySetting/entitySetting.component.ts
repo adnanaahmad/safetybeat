@@ -9,6 +9,7 @@ import {AdminControlService} from 'src/app/features/adminControl/services/adminC
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {SettingsService} from 'src/app/features/settings/services/settings.service';
 import {PaginationData} from '../../../../models/site.model';
+import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
 
 @Component({
   selector: 'app-entity-setting',
@@ -25,7 +26,8 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
               private profile: ProfileService,
               private adminServices: AdminControlService,
               private compiler: CompilerProvider,
-              public settings: SettingsService) {
+              public settings: SettingsService,
+              private memberService: MemberCenterService) {
 
     this.entitySettingObj.disabled = false;
     this.entitySettingObj.loading = false;
@@ -41,6 +43,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       }
     });
     this.selectedEntityData();
+    this.getAllEntityUsers();
   }
 
   ngOnDestroy() {
@@ -53,16 +56,19 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.entitySettingObj.entityForm = this.formBuilder.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
-      headOffice: ['', Validators.required]
+      headOffice: ['', Validators.required],
+      entityManager: [''],
     });
     this.entitySettingObj.entityForm.disable();
     this.entitySettingObj.subscription = this.navService.selectedEntityData.subscribe((selectedEntity) => {
       if (selectedEntity !== 1) {
         this.entitySettingObj.entitiesData = selectedEntity.entityInfo;
         this.entitySettingObj.entityManagedBy = selectedEntity.managedBy;
+        console.log(selectedEntity)
         this.entityFormValidations['name'].setValue(this.entitySettingObj.entitiesData.name);
         this.entityFormValidations['code'].setValue(this.entitySettingObj.entitiesData.code);
         this.entityFormValidations['headOffice'].setValue(this.entitySettingObj.entitiesData.headOffice);
+        this.entityFormValidations['entityManager'].setValue(this.entitySettingObj.entityManagedBy.id);
         this.helperService.address = this.entitySettingObj.entitiesData.headOffice;
         this.helperService.setLocationGeocode(this.entitySettingObj.entitiesData.headOffice,
           this.helperService.createMap(this.gMapElement)).then();
@@ -114,7 +120,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       'name': value.name,
       'code': value.code,
       'headOffice': this.helperService.address,
-      'managedBy': this.entitySettingObj.entitiesData.managedBy,
+      'entityManager': value.entityManager,
       'createdBy': this.entitySettingObj.entitiesData.createdBy
     };
     if (!valid) {
@@ -142,5 +148,18 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
 
   get entityFormValidations() {
     return this.entitySettingObj.entityForm.controls;
+  }
+
+  getAllEntityUsers() {
+    let data = {
+      entityId: this.entitySettingObj.entitiesData.id
+    };
+    this.memberService.allEntityUsers(data).subscribe((res) => {
+      if (res) {
+        this.entitySettingObj.entityUsers = this.compiler.constructDataForTeams(res.data);
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    });
   }
 }

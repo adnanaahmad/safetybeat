@@ -23,7 +23,7 @@ export interface EditEntity {
   name: string;
   code: string;
   headOffice: string;
-  managedBy: any;
+  entityManager: any;
 }
 
 export interface changePassword {
