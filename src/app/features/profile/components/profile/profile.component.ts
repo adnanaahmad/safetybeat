@@ -539,8 +539,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     };
     this.profileService.viewAllUserLeaves(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.profileModel.leavesCount = res.data.userLeaves.length;
-        this.profileModel.userLeaves = res.data.userLeaves;
+        this.profileModel.leavesCount = res.data.length;
+        this.profileModel.userLeaves = res.data;
         let self = this;
         self.profileModel.events = [];
         this.helperService.iterations(self.profileModel.userLeaves, function (leaveData) {
