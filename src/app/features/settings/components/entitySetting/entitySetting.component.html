@@ -21,6 +21,19 @@
             <mat-label>Entity Code</mat-label>
             <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required/>
         </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.STRINGS.ENTITYMANAGER}}</mat-label>
+        <mat-select
+          [formControlName]="helperService.appConstants.entityManager">
+          <mat-option *ngFor="let user of entitySettingObj.entityUsers" [value]="user.id">
+            {{user.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="entityFormValidations.entityManager.errors">
+              <span
+                *ngIf="entityFormValidations.entityManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
     </div>
     <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</mat-label>

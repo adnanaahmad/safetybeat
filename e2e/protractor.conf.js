@@ -4,9 +4,13 @@
 const { SpecReporter } = require('jasmine-spec-reporter');
 
 exports.config = {
+  SELENIUM_PROMISE_MANAGER: false,
   allScriptsTimeout: 11000,
+  // Tests will run in sequence in below array. Other wise files which comes first in tests folder will be executed, if we uncomment first line in array.
   specs: [
-    './src/**/*.e2e-spec.ts'
+    // './src/tests/**/*.e2e-spec.ts'
+    './src/tests/**/login.e2e-spec.ts',
+    './src/tests/**/dashboard.e2e-spec.ts'
   ],
   capabilities: {
     'browserName': 'chrome'
