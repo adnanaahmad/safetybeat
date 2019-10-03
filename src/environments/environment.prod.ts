@@ -1,4 +1,4 @@
-const serverUrl = 'http://sb-api.biyb3mphdp.us-west-2.elasticbeanstalk.com';
+const serverUrl = 'sb-api.uktc83jniw.ap-south-1.elasticbeanstalk.com';
 
 export const environment = {
   production: true,
