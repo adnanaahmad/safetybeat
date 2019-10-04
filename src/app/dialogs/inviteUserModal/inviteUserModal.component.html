@@ -12,7 +12,7 @@
       <br>
       <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.AUTH.FIRSTNAME}}</mat-label>
-        <input matInput type="text" [formControlName]=helperService.appConstants.firstName required />
+        <input matInput type="text" (keypress)="characterOnly($event)" [formControlName]=helperService.appConstants.firstName required />
         <mat-error *ngIf="formValidation.first_name.errors">
           <span *ngIf="formValidation.first_name.errors.required">{{helperService.translated.AUTH.FIRSTNAME_REQ}}</span>
         </mat-error>
@@ -21,7 +21,7 @@
     <div class="input">
       <mat-form-field appearance="outline" fullWidth>
         <mat-label>{{helperService.translated.AUTH.LASTNAME}}</mat-label>
-        <input matInput type="text" [formControlName]=helperService.appConstants.lastName required />
+        <input matInput type="text" (keypress)="characterOnly($event)" [formControlName]=helperService.appConstants.lastName required />
         <mat-error *ngIf="formValidation.last_name.errors">
           <span *ngIf="formValidation.last_name.errors.required">{{helperService.translated.AUTH.LASTNAME_REQ}}</span>
         </mat-error>
