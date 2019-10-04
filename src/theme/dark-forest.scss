@@ -96,66 +96,78 @@ $gray-pallete: (
                 A700: white
         )
 );
-$theme-background: (
-        status-bar: white,
-        app-bar: mat-color($primary-pallet, 600),
-        background: mat-color($primary-pallet, 600),
-        hover: rgba(white, 0.05),
-        card: mat-color($primary-pallet, 800),
-        dialog: mat-color($primary-pallet, 600),
-        disabled-button: $white-12-opacity,
-        raised-button: mat-color($primary-pallet, 600),
-        focused-button: $white-6-opacity,
-        selected-button: mat-color($primary-pallet, 50),
-        selected-disabled-button: mat-color($primary-pallet, 50),
-        disabled-button-toggle: black,
-        unselected-chip: mat-color($primary-pallet, 50),
-        disabled-list-option: black
-);
-$theme-foreground: (
-        base: white,
-        divider: mat-color($primary-pallet, 50),
-        dividers: mat-color($primary-pallet, 50),
-        disabled: white,
-        disabled-button: white,
-        disabled-text: white,
-        hint-text: white,
-        secondary-text: white,
-        icon: white,
-        icons: white,
-        text: white,
-        slider-min: white,
-        slider-off: white,
-        slider-off-active: white
-);
-@function createTheme($primary, $secondary, $warn) {
-  @return (
-          primary: $primary,
-          accent: $secondary,
-          warn: $warn,
-          is-dark: false,
-          foreground: $theme-foreground,
-          background: $theme-background
-  );
-}
-
+// $theme-background: (
+// status-bar: map_get($mat-grey, 300),
+// app-bar:    map_get($mat-grey, 100),
+// background: map_get($mat-grey, 50),
+// hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+// card:       white,
+// dialog:     white,
+// disabled-button: rgba(black, 0.12),
+// raised-button: white,
+// focused-button: $dark-focused,
+// selected-button: map_get($mat-grey, 300),
+// selected-disabled-button: map_get($mat-grey, 400),
+// disabled-button-toggle: map_get($mat-grey, 200),
+// unselected-chip: map_get($mat-grey, 300),
+// disabled-list-option: map_get($mat-grey, 200),
+// );
+// $theme-foreground: (
+// base:              black,
+// divider:           $dark-dividers,
+// dividers:          $dark-dividers,
+// disabled:          $dark-disabled-text,
+// disabled-button:   rgba(black, 0.26),
+// disabled-text:     $dark-disabled-text,
+// elevation:         black,
+// hint-text:         $dark-disabled-text,
+// secondary-text:    $dark-secondary-text,
+// icon:              rgba(black, 0.54),
+// icons:             rgba(black, 0.54),
+// text:              rgba(black, 0.87),
+// slider-min:        rgba(black, 0.87),
+// slider-off:        rgba(black, 0.26),
+// slider-off-active: rgba(black, 0.38),
+// );
+// @function createTheme($primary,$secondary,$warn){
+// @return(
+// primary: $primary,
+// accent: $secondary,
+// warn: $warn,
+// is-dark: false,
+// foreground: $theme-foreground,
+// background: $theme-background,
+// )
+// };
 $primary: mat-palette($primary-pallet);
 $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
-$theme: createTheme($primary, $secondary, $warn);
+$theme: mat-light-theme($primary, $secondary, $warn);
+// createTheme(
+// $primary,
+// $secondary,
+// $warn
+// );
 .dark-forest {
-  app-login,
-  app-forgot-password {
-    .mat-figure {
-      background-color: mat-color($primary, 500) !important;
-    }
+  &.body-bg {
+    background-color: mat-color($primary, 700);
   }
-  .monogram {
-    border-color: mat-color($primary, 400) !important;
+  a {
+    color: mat-color($primary);
+  }
+  .pagehead {
+    background-color: mat-color($primary, 50) !important;
+  }
+  .sideLegend {
+    background-color: mat-color($primary, 700) !important;
+  }
+  mat-dialog-container {
+    mat-card-title {
+      background-color: mat-color($primary, 500);
+    }
   }
   app-notificationnav {
     mat-list-item[role="listitem"] {
-      border-bottom: 1px solid rgba(221, 221, 221, 0.2) !important;
       .unread-notif {
         background: mat-color($primary-pallet, 400);
       }
@@ -163,33 +175,6 @@ $theme: createTheme($primary, $secondary, $warn);
         background: mat-color($primary-pallet, 100);
       }
     }
-  }
-  mat-dialog-container {
-    mat-card-title {
-      background-color: mat-color($primary, 700);
-    }
-  }
-  .mat-option.mat-selected:not(.mat-option-disabled) {
-    color: #fff !important;
-  }
-  .mat-pseudo-checkbox-checked {
-    background: #fff !important;
-  }
-  .loginbox {
-    .mat-form-field.mat-focused {
-      .mat-form-field-label {
-        color: #fff !important;
-      }
-    }
-  }
-  a {
-    color: mat-color($primary, 50);
-  }
-  &.body-bg {
-    background-color: mat-color($primary, 700);
-  }
-  .pagehead {
-    background-color: mat-color($primary, 400) !important;
   }
   .topbar,
   .mini-sidenav {
@@ -199,13 +184,7 @@ $theme: createTheme($primary, $secondary, $warn);
   .mini-sidenav,
   mat-nav-list {
     .nav-link {
-      color: #fff !important;
-    }
-  }
-  .sideLegend {
-    background-color: mat-color($primary, 800) !important;
-    &:after {
-      background: mat-color($primary, 400);
+      color: mat-color($primary, 50) !important;
     }
   }
   .midbox:before {
@@ -214,122 +193,63 @@ $theme: createTheme($primary, $secondary, $warn);
   app-registration {
     .loginbox {
       mat-step-header {
-        .mat-step-label {
-          mat-icon {
-            border-color: mat-color($primary, 50);
-            color: mat-color($primary, 50);
-          }
+        mat-icon {
+          border: 2px dashed mat-color($primary);
+          color: mat-color($primary);
         }
         .mat-step-label-active {
           mat-icon {
-            border-color: mat-color($primary);
+            border: 2px solid mat-color($primary);
             background-color: mat-color($primary);
-            color: #fff !important;
+            color: mat-color($primary, 50);
           }
+          color: mat-color($primary);
         }
       }
     }
   }
   .customTable {
     .mat-header-row {
-      background-color: mat-color($primary, 900);
-    }
-    .mat-header-cell,
-    .mat-cell {
-      border-bottom-color: mat-color($primary);
+      background-color: mat-color($primary);
     }
   }
   app-settings {
-    .settings-parent {
-      background: transparent !important;
-    }
     .navigator {
       mat-list-item {
         span {
-          color: #fff !important;
           &:hover,
           &.settingNav {
-            border-color: mat-color($primary-pallet, 50);
+            border-color: mat-color($primary-pallet, 500);
           }
         }
       }
+      .mat-icon {
+        color: mat-color($primary-pallet, 500);
+      }
     }
     .settings-wrap {
-      .mat-list-item {
-        border-color: mat-color($primary-pallet, 400) !important;
+      input,
+      mat-select {
+        background-color: #fff;
       }
     }
   }
   .activity-card {
     &:before {
-      background-color: #fff;
+      background-color: mat-color($primary, 500);
     }
   }
   .infoTitle {
-    background-color: mat-color($primary-pallet, 800);
+    background-color: mat-color($primary-pallet, 500);
   }
   app-importsitemodal {
     .site-note {
-      background-color: mat-color($primary, 400);
+      background-color: mat-color($primary, 50);
     }
   }
   .siteinfo-row {
     mat-icon {
-      background-color: mat-color($primary, 50);
-    }
-  }
-  app-viewsite {
-    .siteicon {
-      opacity: 1 !important;
-    }
-  }
-
-  // Styling for native elements
-
-  .mat-form-field-appearance-outline {
-    &.mat-focused {
-      .mat-form-field-outline-thick {
-        color: #fff !important;
-      }
-    }
-  }
-
-  .mat-input-element {
-    caret-color: #fff !important;
-  }
-  .mat-form-field.mat-focused {
-    .mat-form-field-label,
-    .mat-form-field-required-marker {
-      color: #fff !important;
-    }
-    .mat-form-field-underline {
-      .mat-form-field-ripple {
-        background-color: mat-color($primary, 300);
-      }
-    }
-  }
-  td.mat-cell,
-  th.mat-header-cell {
-    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
-  }
-  app-profile {
-    .mat-header-row {
-      background-color: mat-color($primary, 400) !important;
-    }
-  }
-  .entity-code {
-    -webkit-text-fill-color: rgba(255, 255, 255, 0.25) !important;
-  }
-  app-questionCenter {
-    .list,
-    .list-item {
-      background: transparent !important;
-      border-color: mat-color($primary, 400) !important;
-    }
-    .container {
-      h4 {
-        background-color: mat-color($primary, 800);
-      }
+      background-color: #fff;
     }
   }
   @include amte-setTheme($theme);
