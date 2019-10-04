@@ -191,4 +191,8 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       {name: roleName});
 
   }
+
+  characterOnly(event: Event): boolean {
+    return this.compiler.charactersOnly(event);
+  }
 }
