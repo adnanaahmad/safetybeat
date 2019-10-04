@@ -515,6 +515,11 @@ input:-internal-autofill-selected {
 }
 
 @media (max-width: 768px) {
+  app-addsitemodal {
+    .site-map {
+      min-height: 260px;
+    }
+  }
   app-settings {
     .settings-parent {
       width: 90% !important;
