@@ -5,15 +5,17 @@
     <div class="page-title">
         <h3>{{ helperService.translated.SITETITLE.QUESTION_CENTER }}</h3>
         <div class="buttonRow">
-            <button class="mat-elevation-z6" *ngIf="QuestionObj.permissions.addQuestion" (click)="addQuestion()"
+            <button matTooltip="{{ helperService.translated.BUTTONS.CREATENEWQUESTION}}"
+                    class="mat-elevation-z6" *ngIf="QuestionObj.permissions.createQuestion" (click)="createQuestion()"
+                    mat-raised-button color="primary">
+                <mat-icon>{{ helperService.appIcons.createNote }}</mat-icon>
+                {{ helperService.translated.BUTTONS.CREATE_QUESTION}}
+            </button>
+            <button matTooltip="{{ helperService.translated.BUTTONS.ADDQUESTION}}"
+                    class="mat-elevation-z6" *ngIf="QuestionObj.permissions.addQuestion" (click)="addQuestion()"
                     mat-raised-button color="primary">
                 <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
                 {{ helperService.translated.BUTTONS.ADD_QUESTION}}
-            </button>
-            <button class="mat-elevation-z6" *ngIf="QuestionObj.permissions.createQuestion" (click)="createQuestion()"
-                    mat-raised-button color="primary">
-                <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
-                {{ helperService.translated.BUTTONS.CREATE_QUESTION}}
             </button>
         </div>
         <div class="data-filter">

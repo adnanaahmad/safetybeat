@@ -85,7 +85,7 @@
         <mat-step [stepControl] *ngIf="addHazardControls.responsible.value === true">
             <form>
                 <ng-template matStepLabel>{{helperService.translated.STRINGS.ACTION_TO_RESOLVE}}</ng-template>
-                <div class="tabcontent">
+                <div class="tabcontent paddingbox">
                     <div class="text-center" *ngIf="hazardObj.actionsArray.length === 0">
                         <p class="mat-hint">No actions found</p>
                         <button mat-raised-button (click)="openBottomSheet()" mat-mini-fab color="primary">
@@ -99,7 +99,7 @@
                                     <mat-panel-title>
                                         {{action.title}}
                                     </mat-panel-title>
-                                    <mat-panel-description>
+                                    <mat-panel-description class="mat-small">
                                         {{helperService.translated.STRINGS.COMPLETE_BY}} {{action.completeByTime |
                                         date}}
                                         <mat-icon class="remove-action pointer" (click)="deleteAction(action)">
@@ -165,7 +165,8 @@
                                         </h5>
                                         <button mat-button
                                                 color="primary" mat-raised-button
-                                                [disabled]="alreadyAddedCheck(user)" class="mat-elevation-z1 remove-member"
+                                                [disabled]="alreadyAddedCheck(user)"
+                                                class="mat-elevation-z1 remove-member"
                                                 (click)="addToSelected(user)">
                                             Add
                                         </button>
