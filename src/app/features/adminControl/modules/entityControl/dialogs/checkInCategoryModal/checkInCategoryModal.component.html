@@ -2,14 +2,17 @@
     {{helperService.translated.MESSAGES.CHECKIN_CATEGORIES}}
 </mat-card-title>
 <div class="mat-dialog-content">
-    <form [formGroup]="checkInCategoryModal.addCheckInTypeForm">
+    <form [formGroup]="checkInCategoryModal.addCheckInTypeForm"
+          (ngSubmit)="addCheckIn(checkInCategoryModal.addCheckInTypeForm)">
         <mat-form-field fullWidth appearance="outline">
             <mat-label>{{helperService.translated.MESSAGES.CHECKIN_CATEGORY_TITLE}}</mat-label>
-            <input matInput type="text" [formControlName]=helperService.appConstants.title required/>
-            <mat-icon color="primary" class="pointer" (click)="addCheckIn(checkInCategoryModal.addCheckInTypeForm)"
-                      matSuffix>
-                {{helperService.appIcons.addCircle}}
-            </mat-icon>
+            <input matInput type="text" [formControlName]=helperService.appConstants.title>
+            <button class="add-cat" type="submit">
+                <mat-icon color="primary" class="pointer"
+                          matSuffix>
+                    {{helperService.appIcons.addCircle}}
+                </mat-icon>
+            </button>
         </mat-form-field>
     </form>
     <div class="data-search">
@@ -21,7 +24,7 @@
 
                         {{element.checkInType.name}}
                         <button custom-btn mat-raised-button class="remove-type mat-elevation-z1"
-                                [disabled] ="checkInCategoryModal.disableRemove"
+                                [disabled]="checkInCategoryModal.disableRemove"
                                 (click)="archiveCheckIn(element.id)">Remove
                         </button>
                     </mat-list-item>
@@ -32,7 +35,7 @@
     </div>
     <mat-dialog-actions>
 
-        <button mat-button [mat-dialog-close]="'NO'" type="button">
+        <button mat-button [mat-dialog-close]="'NO'">
             {{ helperService.translated.BUTTONS.CLOSE }}
         </button>
     </mat-dialog-actions>

@@ -199,7 +199,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
   addHazard(siteInfo: any) {
     this.helperService.createDialog(AddHazardComponent, {
-      disableClose: false,
+      disableClose: true,
       data: {Modal: false, siteId: siteInfo.id, siteName: siteInfo.name, location: siteInfo.location}
     });
   }
