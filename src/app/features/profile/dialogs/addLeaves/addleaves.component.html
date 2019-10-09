@@ -46,7 +46,7 @@
                [matDatepickerFilter]="myFilter"
                [formControlName]="helperService.appConstants.dateTo"
                [min]="rangeAt"
-               placeholder="Date To" readonly>
+               placeholder="Date To">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2 [startAt]="rangeAt"></mat-datepicker>
         <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">

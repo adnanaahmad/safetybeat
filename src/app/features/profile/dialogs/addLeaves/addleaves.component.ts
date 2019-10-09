@@ -137,6 +137,7 @@ export class AddleavesComponent implements OnInit, OnDestroy {
    * @params leaveForm
    */
   editLeave(leaveForm: FormGroup) {
+    debugger
     this.leavesModel.loading = true;
     let data: EditLeaveData = {
       entity: this.leavesModel.entity.id,
