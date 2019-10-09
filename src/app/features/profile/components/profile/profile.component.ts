@@ -160,6 +160,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
               this.profileModel.role = res.role;
               this.profileModel.entityName = res.entityInfo.name;
               this.profileModel.entityId = res.entityInfo.id;
+              // this.getUserData();
               this.userLeaves(this.profileModel.userId);
             }
           });
@@ -324,6 +325,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  /**
+   * get user data count for activities, connections and leaves
+   */
+
+  // getUserData() {
+  //   let entityIdData = {
+  //     entityId: this.profileModel.entityId
+  //   };
+  //   this.profileService.getUserData(entityIdData).subscribe(res => {
+  //     debugger
+  //   })
+  // }
 
 
   /**
@@ -571,7 +585,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.removeLeaves();
       }
     }, (error) => {
-      this.profileModel.loading  = false;
+      this.profileModel.loading = false;
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
   }
