@@ -1,4 +1,5 @@
-<mat-card-title class="mat-dialog-title mat-elevation-z6">{{ this.isEdit ? "Edit Leave" : helperService.translated.SITETITLE.ADDLEAVES}}</mat-card-title>
+<mat-card-title
+  class="mat-dialog-title mat-elevation-z6">{{ this.isEdit ? "Edit Leave" : helperService.translated.SITETITLE.ADDLEAVES}}</mat-card-title>
 <div mat-dialog-content>
   <div class="spinner-wrap" *ngIf="leavesModel.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
@@ -29,6 +30,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <input matInput [matDatepicker]="picker1"
+               [matDatepickerFilter]="myFilter"
                [formControlName]="helperService.appConstants.dateFrom" [min]="leavesModel.startAt"
                placeholder="Date From" readonly
                (dateChange)="dateSelected('change', $event)">
@@ -40,7 +42,9 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+        <input matInput [matDatepicker]="picker2"
+               [matDatepickerFilter]="myFilter"
+               [formControlName]="helperService.appConstants.dateTo"
                [min]="rangeAt"
                placeholder="Date To" readonly>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>

@@ -444,17 +444,17 @@ export class CompilerProvider {
           }
         ]
       },
-      {
-        route: '/home',
-        iconName: this.helperService.constants.appIcons.questionAnswer,
-        disabled: data.permissions.supportCentre,
-        toolTip: 'Support Center',
-        bottom: true
-      },
+      // {
+      //   route: '/home',
+      //   iconName: this.helperService.constants.appIcons.questionAnswer,
+      //   disabled: data.permissions.supportCentre,
+      //   toolTip: 'Support Center',
+      //   bottom: true
+      // },
       {
         route: '/home/settings',
         iconName: this.helperService.constants.appIcons.settings,
-        disabled: data.permissions.settings,
+        disabled: true,
         toolTip: 'Settings',
         bottom: true
       }
