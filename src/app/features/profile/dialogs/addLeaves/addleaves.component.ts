@@ -61,7 +61,8 @@ export class AddleavesComponent implements OnInit, OnDestroy {
       this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
     this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
-    this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.data ? this.addLeaveFormValidations[this.helperService.appConstants.dateTo].enable()
+      : this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
   }
 
   /**
@@ -137,7 +138,6 @@ export class AddleavesComponent implements OnInit, OnDestroy {
    * @params leaveForm
    */
   editLeave(leaveForm: FormGroup) {
-    debugger
     this.leavesModel.loading = true;
     let data: EditLeaveData = {
       entity: this.leavesModel.entity.id,
