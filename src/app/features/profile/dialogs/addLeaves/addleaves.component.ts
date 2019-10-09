@@ -22,6 +22,7 @@ export class AddleavesComponent implements OnInit, OnDestroy {
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   }
+
   constructor(
     public helperService: HelperService,
     private profileService: ProfileService,
@@ -108,7 +109,7 @@ export class AddleavesComponent implements OnInit, OnDestroy {
     this.leaveFormdata = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
-      leaveType: leaveForm.value.leaveType,
+      leaveType: leaveForm.value.leaveType.id,
       dateFrom: leaveForm.value.dateFrom,
       dateTo: leaveForm.value.dateTo
     };
@@ -140,7 +141,7 @@ export class AddleavesComponent implements OnInit, OnDestroy {
     let data: EditLeaveData = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
-      leaveType: leaveForm.value.leaveType,
+      leaveType: leaveForm.value.leaveType.id,
       dateFrom: leaveForm.value.dateFrom,
       dateTo: leaveForm.value.dateTo,
       approved: this.data.currentData.approved,

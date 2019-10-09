@@ -206,7 +206,9 @@
     "ARCHIVED_HAZARDS": "Archived Hazards",
     "ARCHIVED_ENTITIES": "Archived Entities",
     "ARCHIVED_TEAMS": "Archived Teams",
-    "BUYPACKAGE": "Pay"
+    "BUYPACKAGE": "Pay",
+    "CREATENEWQUESTION": "Create a new question",
+    "ADDQUESTION": "Add existing question"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",

@@ -50,7 +50,7 @@
                 <th mat-header-cell *matHeaderCellDef>
                     {{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}
                 </th>
-                <td matTooltip="{{ element.entityInfo.headOffice }}" mat-cell *matCellDef="let element">
+                <td mat-cell *matCellDef="let element">
                     {{ element.entityInfo.headOffice }}
                 </td>
             </ng-container>
@@ -103,12 +103,12 @@
               <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
               {{ helperService.translated.MESSAGES.INVITETEAMTITLE }}
             </button>
-            <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
+            <button mat-menu-item *ngIf="entityControl.permissions.addCheckInCategories"
                     (click)="checkInCategories(element.entityInfo.id)">
               <mat-icon>{{helperService.appIcons.checkIn}}</mat-icon>
               {{ helperService.translated.MESSAGES.CHECKIN_CATEGORIES }}
             </button>
-            <button mat-menu-item *ngIf="entityControl.permissions.viewEntityCode"
+            <button mat-menu-item *ngIf="entityControl.permissions.addPulseCategories"
                     (click)="pulseCategories(element.entityInfo.id)">
               <mat-icon>{{helperService.appIcons.favorite}}</mat-icon>
               {{ helperService.translated.MESSAGES.PULSE_CATEGORIES }}

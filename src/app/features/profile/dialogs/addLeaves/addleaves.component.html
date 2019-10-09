@@ -17,9 +17,9 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>{{leavesModel.selectedLeave.name}}</mat-label>
-        <mat-select [(value)]="leavesModel.selectedLeave.id"
+        <mat-select [(value)]="leavesModel.selectedLeave"
                     [formControlName]="helperService.appConstants.leaveType">
-          <mat-option *ngFor="let leaves of leavesModel.leaveTypes" [value]="leaves.id">
+          <mat-option *ngFor="let leaves of leavesModel.leaveTypes" [value]="leaves">
             {{ leaves.name }}
           </mat-option>
         </mat-select>

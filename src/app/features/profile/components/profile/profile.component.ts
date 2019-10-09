@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   activitiesColumn: string[] = ['name', 'checkIn', 'checkOut', 'duration'];
   connectionsColumns: string[];
+  excludeDays: number[] = [0, 6];
   refresh: Subject<any> = new Subject();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -89,7 +90,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder
   ) {
     this.initialize();
-    this.route.params.subscribe((data) => {
+    this.profileModel.subscription = this.route.params.subscribe((data) => {
       if (!helperService.isEmpty(data)) {
         this.profileModel.receivedData = JSON.parse(data.data);
         this.profileModel.entityId = this.profileModel.receivedData.entityId;
@@ -97,7 +98,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileModel.userId = this.profileModel.receivedData.id;
         this.profileModel.currentUserProfile = false;
         this.getUserConnections(this.profileModel.receivedData.id, this.profileModel.firstIndex);
-        this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+        this.profileModel.selectedEntitySubscription = this.navService.selectedEntityData.subscribe((res) => {
           if (res && res !== 1) {
             this.profileModel.entityId = res.entityInfo.id;
             let entityId = {
@@ -152,7 +153,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.email = this.profileModel.profileData.email;
           this.profileModel.profileImage = this.profileModel.profileData.thumbnail;
           this.profileModel.userId = this.profileModel.profileData.id;
-          this.profileModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+          this.getUserConnections(this.profileModel.userId, this.profileModel.firstIndex);
+          this.profileModel.selectedEntitySubscription = this.navService.selectedEntityData.subscribe((res) => {
             if (res !== 1) {
               this.profileModel.currentUserProfile = true;
               this.profileModel.role = res.role;
@@ -161,7 +163,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
               this.userLeaves(this.profileModel.userId);
             }
           });
-          this.getUserConnections(this.profileModel.userId, this.profileModel.firstIndex);
         } else {
           this.connectionsColumns = ['img', 'name', 'email', 'contact'];
           this.profileModel.contactNo = this.profileModel.receivedData.contact;
@@ -175,8 +176,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.getCurrentUser();
       }
     });
-
-    this.getFilters();
     this.profileModel.filterForm = this.formBuilder.group({
       filter: [''],
       dateTo: ['', Validators.required],
@@ -336,6 +335,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.profileModel.subscription !== null && this.profileModel.subscription !== undefined) {
       this.profileModel.subscription.unsubscribe();
     }
+    this.profileModel.selectedEntitySubscription.unsubscribe();
   }
 
   get filterFormValidations() {

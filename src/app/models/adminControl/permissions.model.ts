@@ -81,7 +81,9 @@ export interface PermissionsModel {
   canArchiveEntity: boolean,
   canArchiveTeam: boolean,
   canArchiveSite: boolean,
-  canArchiveHazard: boolean
+  canArchiveHazard: boolean,
+  addCheckInCategories: boolean,
+  addPulseCategories: boolean
 }
 
 export interface ChangePermissionsObj {

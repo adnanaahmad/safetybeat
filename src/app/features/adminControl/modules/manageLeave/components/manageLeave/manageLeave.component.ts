@@ -30,7 +30,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.leaveModel.subscription = this.navService.selectedEntityData.subscribe((res) => {
+    this.leaveModel.selectedEntitySubscription = this.navService.selectedEntityData.subscribe((res) => {
       if (res && res !== 1) {
         this.leaveModel.entityId = res.entityInfo.id;
         this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
@@ -47,6 +47,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
     if (this.leaveModel.subscription !== null && this.leaveModel.subscription !== undefined) {
       this.leaveModel.subscription.unsubscribe();
     }
+    this.leaveModel.selectedEntitySubscription.unsubscribe();
   }
 
   initialize() {
