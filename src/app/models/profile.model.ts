@@ -44,9 +44,14 @@ export interface resetPassword {
 }
 
 export interface UserLeavesApiResponse {
+  data: Array<UserLeavesApiResponseData>;
+  responseDetails: responseDetails;
+}
+
+export interface AllUsersLeavesApiResponse {
   data: {
-    pageCount: number
-    userLeaves: Array<UserLeavesApiResponseData>
+    userLeaves: Array<UserLeavesApiResponseData>;
+    pageCount: number;
   };
   responseDetails: responseDetails;
 }

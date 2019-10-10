@@ -40,18 +40,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     private memberCenterService: MemberCenterService
   ) {
     this.initialize();
-    this.siteCentreObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.getAllUsers(res.entityInfo.id);
-        this.siteCentreObj.entityId = res.entityInfo.id;
-        this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
-      }
-    });
-    this.siteCentreObj.subscription = this.navService.currentUserData.subscribe((res) => {
-      if (res) {
-        this.siteCentreObj.currentUserData = res;
-      }
-    });
   }
 
 
@@ -73,6 +61,18 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
+    this.siteCentreObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
+      if (res && res !== 1) {
+        this.getAllUsers(res.entityInfo.id);
+        this.siteCentreObj.entityId = res.entityInfo.id;
+        this.getSitesData(this.siteCentreObj.firstIndex, this.siteCentreObj.search);
+      }
+    });
+    this.siteCentreObj.subscription = this.navService.currentUserData.subscribe((res) => {
+      if (res) {
+        this.siteCentreObj.currentUserData = res;
+      }
+    });
     this.siteCentreObj.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
         this.siteCentreObj.permissions = data;
@@ -294,6 +294,7 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   /**
    * this function is used to navigate user to previous table if current table is empty.
    */

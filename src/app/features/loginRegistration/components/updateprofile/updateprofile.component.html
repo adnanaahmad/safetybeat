@@ -50,7 +50,7 @@
                  [formControlName]="helperService.appConstants.countryCode"
                  (keypress)="numberOnly($event)&&phoneNumberValid(generalForm)"
                  maxlength="3"
-                 onPaste="return false" autocomplete="off"/>
+                 onPaste="return false" autocomplete="off" prefix="+"/>
           <mat-error *ngIf="generalViewForm.countryCode.errors">
           </mat-error>
         </mat-form-field>

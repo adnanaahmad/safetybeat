@@ -3,5 +3,5 @@
   <h1>{{translated.MESSAGES.NOT_FOUND_CODE}}</h1>
   <h5>{{translated.MESSAGES.NOTFOUND_HEADING}}...</h5>
   <p>{{translated.MESSAGES.NOTFOUND_DESCRIPTION}}</p>
-  <a routerLink="/" mat-raised-button class="mat-elevation-z6" custom-btn btn-white>{{translated.BUTTONS.BACK}}</a>
+  <a mat-raised-button class="mat-elevation-z6" custom-btn btn-white (click)="backClicked()">{{translated.BUTTONS.BACK}}</a>
 </div>
