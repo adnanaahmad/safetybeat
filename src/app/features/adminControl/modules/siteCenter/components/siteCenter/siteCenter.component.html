@@ -60,7 +60,11 @@
                 <th mat-header-cell *matHeaderCellDef>
                     {{ helperService.translated.TABLEHEADINGS.SITE_SAFE_ZONE }}
                 </th>
-                <td mat-cell *matCellDef="let element">{{ element.safeZone }}</td>
+
+                <td mat-cell *matCellDef="let element">
+                  <mat-icon [ngClass]="element.safeZone ? 'safe-icon safe' : 'safe-icon unsafe'"> {{ element.safeZone ? helperService.appIcons.check : helperService.appIcons.clear}}
+                  </mat-icon>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="createdBy">
@@ -104,7 +108,7 @@
                             Edit Site
                         </button>
                         <button mat-menu-item *ngIf="siteCentreObj.permissions.viewSite"
-                                (click)='goToViewSite(element.id)'>
+                                (click)='goToViewSite(element)'>
                             <mat-icon>{{ helperService.appIcons.view }}</mat-icon>
                             View Site
                         </button>

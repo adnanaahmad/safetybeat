@@ -18,6 +18,7 @@ import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {SendSiteCodeComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/sendEntityCode/sendSiteCode.component';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {ShowSiteCodeComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/showSiteCode/showSiteCode.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-siteCenter',
@@ -37,7 +38,8 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
     public adminServices: AdminControlService,
     public compiler: CompilerProvider,
     private navService: NavigationService,
-    private memberCenterService: MemberCenterService
+    private memberCenterService: MemberCenterService,
+    private router: Router
   ) {
     this.initialize();
   }
@@ -179,9 +181,11 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
    * to the view site component in which all the details of the particular site is shown.
    */
 
-  goToViewSite(id) {
-    let encryptedId = this.helperService.encrypt(JSON.stringify(id), this.helperService.appConstants.key);
-    this.helperService.navigateTo(['/home/adminControl/siteCenter/viewSite', {data: encryptedId}]);
+  goToViewSite(data) {
+    let encryptedData = this.helperService.encrypt(JSON.stringify(data), this.helperService.appConstants.key);
+    this.router.navigate(['/home/adminControl/siteCenter/viewSite', {
+      data: encryptedData
+    }]);
   }
 
   /**
