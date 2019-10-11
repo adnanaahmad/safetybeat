@@ -64,7 +64,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       if (selectedEntity !== 1) {
         this.entitySettingObj.entitiesData = selectedEntity.entityInfo;
         this.entitySettingObj.entityManagedBy = selectedEntity.managedBy;
-        console.log(selectedEntity)
         this.entityFormValidations['name'].setValue(this.entitySettingObj.entitiesData.name);
         this.entityFormValidations['code'].setValue(this.entitySettingObj.entitiesData.code);
         this.entityFormValidations['headOffice'].setValue(this.entitySettingObj.entitiesData.headOffice);
