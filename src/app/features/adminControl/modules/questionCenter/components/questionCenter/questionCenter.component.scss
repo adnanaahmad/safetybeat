@@ -116,18 +116,6 @@
       display: block;
     }
     .question-table {
-      thead {
-        background: mat-color($primary-pallet, 500);
-        color: #fff;
-      }
-      th,
-      td {
-        padding: 10px;
-        font-size: 14px;
-        text-overflow: unset !important;
-        overflow: auto !important;
-        white-space: normal !important;
-      }
       [custom-btn] {
         width: 20px;
         height: 20px;

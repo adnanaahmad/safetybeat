@@ -13,18 +13,10 @@
 </mat-toolbar>
 
 <div class="dual-grid">
+
+    <!-- Site Info -->
     <div class="grid-box">
-        <mat-card class="dashboard-card activities">
-            <mat-card-header class="infoTitle">
-                <mat-card-title>Site Map</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <div #gmap class="site-map"></div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="grid-box">
-        <mat-card class="dashboard-card activities">
+        <mat-card class="dashboard-card activities" style="min-height: 300px">
             <mat-card-header class="infoTitle">
                 <mat-card-title>Site Info</mat-card-title>
             </mat-card-header>
@@ -64,10 +56,24 @@
             </mat-card-content>
         </mat-card>
     </div>
+
+    <!-- Site Map -->
     <div class="grid-box">
         <mat-card class="dashboard-card activities">
             <mat-card-header class="infoTitle">
-                <mat-card-title>klakslkl</mat-card-title>
+                <mat-card-title>Site Map</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div #gmap class="site-map"></div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- Site Hazard -->
+    <div class="grid-box">
+        <mat-card class="dashboard-card activities">
+            <mat-card-header class="infoTitle">
+                <mat-card-title>Site Hazard</mat-card-title>
             </mat-card-header>
             <table mat-table [dataSource]="viewSiteObj.hazardTable" class="customTable">
 
@@ -118,10 +124,12 @@
             </mat-paginator>
         </mat-card>
     </div>
+
+    <!-- Site Activities -->
     <div class="grid-box">
         <mat-card class="dashboard-card activities">
             <mat-card-header class="infoTitle">
-                <mat-card-title>info</mat-card-title>
+                <mat-card-title>Site Activities</mat-card-title>
             </mat-card-header>
             <table mat-table [dataSource]="viewSiteObj.activityTable" class="customTable">
                 <ng-container [matColumnDef]="viewSiteObj.activityColumns[0]">
