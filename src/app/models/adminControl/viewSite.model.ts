@@ -1,4 +1,4 @@
-import {Site} from '../site.model';
+import {Site, SiteObj, SitesInfo} from '../site.model';
 import {responseDetails, User} from '../user.model';
 import {checkInCheckOut} from '../profile/profile.model';
 import {MatTableDataSource} from '@angular/material';
@@ -9,7 +9,7 @@ export interface ViewSite {
   siteOption: boolean;
   entitySelectedRole: string;
   siteApi: any;
-  siteInfo: Site;
+  siteInfo: SiteObj;
   siteId: any;
   activityTable: MatTableDataSource<any>;
   activityPageCount: number;

@@ -3,6 +3,17 @@
   app-siteCenter {
     position: relative;
     height: 100%;
+    .safe-icon {
+      color: #fff;
+      border-radius: 100px;
+      padding: 5px;
+      &.safe {
+        background-color: green;
+      }
+      &.unsafe {
+        background-color: mat-color($warn);
+      }
+    }
     .data-filter {
       padding: 0 0 0 10px;
       top: 11px;
