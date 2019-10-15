@@ -321,8 +321,7 @@ export class ConstantService {
             {
                 name: 'Manage Leaves',
                 key: 'manageLeaves',
-                values: [{key: 'approveLeaves', value: 'Approve Leaves'},
-                    {key: 'viewLeaves', value: 'View Leaves'}]
+                values: [{key: 'approveLeaves', value: 'Approve Leaves'}]
             },
             {
                 name: 'Profile',

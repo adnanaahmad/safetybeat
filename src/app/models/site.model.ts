@@ -17,11 +17,28 @@ export interface Site {
   longitude: number,
   code: string;
   radius?: number;
-  siteSafetyManager: Array<User>
+  siteSafetyManager: number
 }
 
 export interface SitesInfo {
   site: Site,
+  createdBy: User
+  siteSafetyManager: User
+}
+
+export interface SiteObj {
+  id: number,
+  name: string,
+  location: string,
+  safeZone: boolean,
+  siteSafetyPlan: string,
+  isArchived: boolean,
+  entity: number,
+  gpsTrackEnabled: boolean,
+  latitude: number,
+  longitude: number,
+  code: string;
+  radius?: number;
   createdBy: User
   siteSafetyManager: User
 }

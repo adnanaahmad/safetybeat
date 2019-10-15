@@ -4,6 +4,7 @@ import {PermissionsModel} from './adminControl/permissions.model';
 import {Subscription} from 'rxjs';
 
 export interface ManageLeave {
+  selectedEntitySubscription: Subscription;
   entityId: number;
   subscription: Subscription;
   permissions: PermissionsModel;

@@ -76,7 +76,6 @@ export interface PermissionsModel {
   addLeaves: boolean,
   deleteLeaves: boolean,
   editLeaves: boolean,
-  viewLeaves: boolean,
   approveLeaves: boolean,
   canArchiveEntity: boolean,
   canArchiveTeam: boolean,

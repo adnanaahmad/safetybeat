@@ -184,7 +184,7 @@ export class UpdateprofileComponent implements OnInit, OnDestroy {
     this.loginRegService.updateProfile(this.userData.id, userData).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.loading = false;
-        this.permissionBasedNavigation();
+        this.logoutUser();
         this.helperService.createSnack(this.helperService.translated.LOGGER.MESSAGES.PROFILE_UPDATED,
           this.helperService.constants.status.SUCCESS);
       } else {

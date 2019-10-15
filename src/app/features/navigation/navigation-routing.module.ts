@@ -21,7 +21,7 @@ const routes: Routes = [
       {
         path: 'settings',
         loadChildren: '../settings/settings.module#SettingsModule',
-        canActivate: [NoAuthGuard]
+        // canActivate: [NoAuthGuard]
       },
       {
         path: 'adminControl',

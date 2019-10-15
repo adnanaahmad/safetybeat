@@ -19,7 +19,7 @@ export class LeaveinfoComponent {
   ) {
     if (data) {
       this.userLeaveData = this.data[0];
-      if (this.userLeaveData && !this.userLeaveData.approved) {
+      if (this.userLeaveData && !this.userLeaveData.approved && !this.userLeaveData.rejected) {
         this.isEditable = true
       }
     }

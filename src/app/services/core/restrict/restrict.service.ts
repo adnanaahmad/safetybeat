@@ -16,7 +16,6 @@ export class NoAuthGuard implements CanActivate, OnDestroy, CanDeactivate<Packag
     private navService: NavigationService,
     private helperService: HelperService, ) {
   }
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (route.routeConfig.path === 'adminControl' || route.routeConfig.path === 'profile' ) {
       return true;
@@ -34,7 +33,6 @@ export class NoAuthGuard implements CanActivate, OnDestroy, CanDeactivate<Packag
       this.helperService.navigateTo([state.url + '/404']);
     }
     return this.permission;
-
   }
 
   ngOnDestroy(): void {
