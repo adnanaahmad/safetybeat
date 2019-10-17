@@ -7,6 +7,7 @@ import {AdminControlService} from 'src/app/features/adminControl/services/adminC
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {EntityControl} from 'src/app/models/adminControl/entityControl.model';
 import {PaginationData} from 'src/app/models/site.model';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-archived-entity',
@@ -17,6 +18,7 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
 
   entityControl: EntityControl = <EntityControl>{};
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  private subs = new SubSink();
 
   constructor(
     public dialog: MatDialog,
@@ -29,11 +31,12 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
   ) {
     this.initialize();
     this.helperService.toggleLoader(true);
-    this.entityControl.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.entityControl.entityId = res.entityInfo.id;
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.entityControl.entityId = res.entityInfo.id;
+        }
+      }));
   }
 
   /**
@@ -49,9 +52,10 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
    * and this unsubscription will be called when the component will be destroyed.
    */
   ngOnDestroy() {
-    if (this.entityControl.subscription !== null && this.entityControl.subscription !== undefined) {
-      this.entityControl.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.entityControl.subscription !== null && this.entityControl.subscription !== undefined) {
+    //   this.entityControl.subscription.unsubscribe();
+    // }
   }
 
   /**
@@ -95,23 +99,24 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
       search: search
     };
     this.entityControl.displayLoader = true;
-    this.adminServices.viewAllEntitiesWithPagination(data, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.entityControl.pageCount = res.data.pageCount;
-        let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
-        this.entityControl.allEntitiesData = entityUserData.entities;
-        this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
-        this.entityControl.displayLoader = false;
-        if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
-          this.goToPreviousTable();
+    this.subs.add(
+      this.adminServices.viewAllEntitiesWithPagination(data, paginationData).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.entityControl.pageCount = res.data.pageCount;
+          let entityUserData = this.compiler.constructUserEntityData(res.data.allEntities);
+          this.entityControl.allEntitiesData = entityUserData.entities;
+          this.entityControl.dataSource = new MatTableDataSource(this.entityControl.allEntitiesData);
+          this.entityControl.displayLoader = false;
+          if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
+            this.goToPreviousTable();
+          }
+        } else {
+          this.entityControl.displayLoader = false;
         }
-      } else {
+      }, (error) => {
         this.entityControl.displayLoader = false;
-      }
-    }, (error) => {
-      this.entityControl.displayLoader = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -123,23 +128,24 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
     let data = {
       moduleName: 'Safetybeat'
     };
-    this.adminServices.viewEntities(data).subscribe((res) => {
-      this.entityControl.displayLoader = true;
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        let entityData = this.compiler.constructUserEntityData(res.data.allEntities);
-        this.entityControl.allEntitiesData = entityData.entities;
-        this.entityControl.displayLoader = false;
-        this.navService.changeEntites(entityData);
-        if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
-          this.goToPreviousTable();
+    this.subs.add(
+      this.adminServices.viewEntities(data).subscribe((res) => {
+        this.entityControl.displayLoader = true;
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          let entityData = this.compiler.constructUserEntityData(res.data.allEntities);
+          this.entityControl.allEntitiesData = entityData.entities;
+          this.entityControl.displayLoader = false;
+          this.navService.changeEntites(entityData);
+          if (this.entityControl.allEntitiesData.length === 0 && this.paginator.pageIndex !== 0) {
+            this.goToPreviousTable();
+          }
+        } else {
+          this.entityControl.displayLoader = false;
         }
-      } else {
+      }, (error) => {
         this.entityControl.displayLoader = false;
-      }
-    }, (error) => {
-      this.entityControl.displayLoader = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -147,24 +153,25 @@ export class ArchivedEntityComponent implements OnInit, OnDestroy, AfterViewInit
    * @params siteData
    */
   unarchiveEntity(entityData: any) {
-    this.adminServices.unarchiveEntity(entityData.entityInfo.id).subscribe(res => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.entityControl.pageCount = 0;
-        this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
-        this.viewAllEntities();
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
+    this.subs.add(
+      this.adminServices.unarchiveEntity(entityData.entityInfo.id).subscribe(res => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.entityControl.pageCount = 0;
+          this.viewEntitiesApiCall(this.paginator.pageIndex, this.entityControl.search);
+          this.viewAllEntities();
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_SUCCESS,
+            this.helperService.constants.status.SUCCESS);
+          this.dialogRef.close();
+        } else {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_FAIL,
+            this.helperService.constants.status.ERROR);
+          this.dialogRef.close();
+        }
+      }, (error) => {
         this.dialogRef.close();
-      } else {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ENTITY_UNARCHIVE_FAIL,
-          this.helperService.constants.status.ERROR);
-        this.dialogRef.close();
-      }
-    }, (error) => {
-      this.dialogRef.close();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
-        this.helperService.translated.STATUS.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
+          this.helperService.translated.STATUS.ERROR);
+      }));
   }
 
   /**

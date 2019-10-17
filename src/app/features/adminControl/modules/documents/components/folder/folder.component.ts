@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {MatDialog} from '@angular/material';
 import {ConfirmationModalComponent} from 'src/app/dialogs/conformationModal/confirmationModal.component';
@@ -6,19 +6,21 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
 import {Router} from '@angular/router';
 import {CreateFolderComponent} from 'src/app/features/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-folder',
   templateUrl: './folder.component.html',
   styleUrls: ['./folder.component.scss']
 })
-export class FolderComponent implements OnInit {
+export class FolderComponent implements OnInit, OnDestroy {
   showLoader: boolean;
   @Input() folderData: any;
   @Input() documentsData: any;
   @Input() folderList: any[];
   folders: Array<string>;
   @Output() processAction: EventEmitter<any> = new EventEmitter<any>();
+  private subs = new SubSink();
 
   constructor(public dialog: MatDialog,
               public helperService: HelperService,
@@ -35,6 +37,10 @@ export class FolderComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
   /**
    * Delete folder
    * @params id
@@ -42,19 +48,21 @@ export class FolderComponent implements OnInit {
   deleteFolder(id: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_FOLDER}});
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
-        this.showLoader = true;
-        this.helperService.toggleLoader(true);
-        this.navService.deleteFolder(id).subscribe((res) => {
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res === this.helperService.appConstants.yes) {
+          this.showLoader = true;
+          this.helperService.toggleLoader(true);
+          this.subs.add(
+            this.navService.deleteFolder(id).subscribe((res) => {
+              this.showLoader = false;
+              this.processAction.emit(true);
+            }));
+        } else {
           this.showLoader = false;
-          this.processAction.emit(true);
-        });
-      } else {
-        this.showLoader = false;
-        this.processAction.emit(false);
-      }
-    });
+          this.processAction.emit(false);
+        }
+      }));
   }
 
   /**
@@ -66,9 +74,10 @@ export class FolderComponent implements OnInit {
       disableClose: true,
       data: {type: false, folderId: folderInfo.id, name: folderInfo.name, folderList: this.folders}
     });
-    this.helperService.dialogRef.afterClosed().subscribe((res) => {
-      this.processAction.emit(true);
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe((res) => {
+        this.processAction.emit(true);
+      }));
   }
 
   /**

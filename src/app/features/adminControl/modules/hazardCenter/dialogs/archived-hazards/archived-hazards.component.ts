@@ -6,6 +6,7 @@ import {AdminControlService} from 'src/app/features/adminControl/services/adminC
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {PaginationData} from 'src/app/models/site.model';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-archived-hazards',
@@ -20,6 +21,7 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
   pageSize: number;
   dataSource: any;
   pageCount: number;
+  private subs = new SubSink();
 
   constructor(public helperService: HelperService,
               private navService: NavigationService,
@@ -31,17 +33,19 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initialize();
-    this.hazardTable.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.hazardTable.entityId = res.entityInfo.id;
-        this.getHazardList(this.firstIndex, this.search);
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res !== 1) {
+          this.hazardTable.entityId = res.entityInfo.id;
+          this.getHazardList(this.firstIndex, this.search);
 
-      }
-    });
+        }
+      }));
   }
 
   ngOnDestroy(): void {
-    this.hazardTable.subscription.unsubscribe();
+    this.subs.unsubscribe();
+    //this.hazardTable.subscription.unsubscribe();
   }
 
   /**
@@ -77,22 +81,23 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
     if (typeof (search) === 'string' && search.length === 0) {
       this.hazardTable.loading = true;
     }
-    this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
-      if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.pageCount = res.data.pageCount;
-        this.hazardTable.hazardsData = this.compiler.constructAllArchivedHazardsData(res.data.hazardList);
-        this.hazardTable.dataSource = new MatTableDataSource(this.hazardTable.hazardsData);
-        if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
-          this.goToPreviousTable();
+    this.subs.add(
+      this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
+        if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.pageCount = res.data.pageCount;
+          this.hazardTable.hazardsData = this.compiler.constructAllArchivedHazardsData(res.data.hazardList);
+          this.hazardTable.dataSource = new MatTableDataSource(this.hazardTable.hazardsData);
+          if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
+            this.goToPreviousTable();
+          }
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+          this.hazardTable.dataSource = null;
         }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.hazardTable.dataSource = null;
-      }
-      this.hazardTable.loading = false;
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-      this.hazardTable.loading = false;
-    });
+        this.hazardTable.loading = false;
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+        this.hazardTable.loading = false;
+      }));
   }
 
   /**
@@ -100,7 +105,8 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
    * @params hazardData
    */
   unarchiveHazard(hazardData: any) {
-    this.adminControlService.unarchiveHazard(hazardData.id).subscribe((res) => {
+    this.subs.add(
+      this.adminControlService.unarchiveHazard(hazardData.id).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.getHazardList(this.paginator.pageIndex, this.search);
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_UNARCHIVE_SUCCESS,
@@ -119,8 +125,7 @@ export class ArchivedHazardsComponent implements OnInit, OnDestroy {
         this.dialogRef.close();
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
           this.helperService.constants.status.ERROR);
-      }
-    );
+      }));
   }
 
   /**

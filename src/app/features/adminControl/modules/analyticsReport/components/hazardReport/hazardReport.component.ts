@@ -15,6 +15,7 @@ import {
   Report
 } from 'src/app/models/analyticsReport/reports.model';
 import * as Highcharts from 'highcharts';
+import {SubSink} from 'subsink';
 
 
 @Component({
@@ -25,6 +26,7 @@ import * as Highcharts from 'highcharts';
 export class HazardReportComponent implements OnInit, OnDestroy {
   hazardObj: Report = <Report>{};
   private data: any;
+  private subs = new SubSink();
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
@@ -40,15 +42,16 @@ export class HazardReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.hazardObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.hazardObj.entityId = res.entityInfo.id;
-        this.hazardObj.entityName = res.entityInfo.name;
-        this.hazardFormValidations['entityName'].setValue(this.hazardObj.entityName);
-        this.hazardFormValidations['entityName'].disable();
-        this.makeReport(7, null, null, null, false)
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.hazardObj.entityId = res.entityInfo.id;
+          this.hazardObj.entityName = res.entityInfo.name;
+          this.hazardFormValidations['entityName'].setValue(this.hazardObj.entityName);
+          this.hazardFormValidations['entityName'].disable();
+          this.makeReport(7, null, null, null, false)
+        }
+      }));
   }
 
   initialize() {
@@ -73,28 +76,30 @@ export class HazardReportComponent implements OnInit, OnDestroy {
   }
 
   getFilters() {
-    this.analyticsService.filter().subscribe((res) => {
-      if (res) {
-        this.hazardObj.filters = res;
-        this.hazardObj.lastWeekObj = this.helperService.find(this.hazardObj.filters, function (obj) {
-          return obj.name === 'Last Week';
-        });
-        this.hazardFormValidations['filter'].setValue(this.hazardObj.lastWeekObj.id);
-      }
-    });
+    this.subs.add(
+      this.analyticsService.filter().subscribe((res) => {
+        if (res) {
+          this.hazardObj.filters = res;
+          this.hazardObj.lastWeekObj = this.helperService.find(this.hazardObj.filters, function (obj) {
+            return obj.name === 'Last Week';
+          });
+          this.hazardFormValidations['filter'].setValue(this.hazardObj.lastWeekObj.id);
+        }
+      }));
   }
 
   getAllUsers() {
     let data = {
       entityId: this.helperService.getEntityId()
     };
-    this.memberService.allEntityUsers(data).subscribe((res) => {
-      if (res) {
-        this.hazardObj.entityUsers = this.compiler.constructDataForTeams(res.data);
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.memberService.allEntityUsers(data).subscribe((res) => {
+        if (res) {
+          this.hazardObj.entityUsers = this.compiler.constructDataForTeams(res.data);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   makeReport(days, dateTo, dateFrom, user, archive) {
@@ -107,19 +112,20 @@ export class HazardReportComponent implements OnInit, OnDestroy {
       'user': user,
       'archive': archive
     };
-    this.analyticsService.getHazardReport(data).subscribe((res) => {
-      if (res && res.responseDetails.code === 100) {
-        this.hazardObj.hazardReportData = res.data.hazardReportBySeverity;
-        this.hazardObj.resolvedHazards = res.data.resolvedHazard;
-        this.hazardObj.unResolvedHazards = res.data.unResolvedHazard;
-        this.hazardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
-        this.reportBySeverity(this.hazardObj.hazardReportData);
-        this.reportByStatus(this.hazardObj.hazardReportByStatusData);
-        this.hazardObj.loading = false;
-      } else {
-        this.hazardObj.loading = false;
-      }
-    });
+    this.subs.add(
+      this.analyticsService.getHazardReport(data).subscribe((res) => {
+        if (res && res.responseDetails.code === 100) {
+          this.hazardObj.hazardReportData = res.data.hazardReportBySeverity;
+          this.hazardObj.resolvedHazards = res.data.resolvedHazard;
+          this.hazardObj.unResolvedHazards = res.data.unResolvedHazard;
+          this.hazardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
+          this.reportBySeverity(this.hazardObj.hazardReportData);
+          this.reportByStatus(this.hazardObj.hazardReportByStatusData);
+          this.hazardObj.loading = false;
+        } else {
+          this.hazardObj.loading = false;
+        }
+      }));
   }
 
   reportBySeverity(hazardSeverityData) {
@@ -240,8 +246,9 @@ export class HazardReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.hazardObj.subscription !== null && this.hazardObj.subscription !== undefined) {
-      this.hazardObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.hazardObj.subscription !== null && this.hazardObj.subscription !== undefined) {
+    //   this.hazardObj.subscription.unsubscribe();
+    // }
   }
 }

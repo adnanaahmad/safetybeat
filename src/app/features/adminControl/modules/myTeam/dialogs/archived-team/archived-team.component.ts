@@ -8,6 +8,7 @@ import {MatPaginator, MatDialogRef, MatTableDataSource} from '@angular/material'
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {PaginationData} from 'src/app/models/site.model';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-archived-team',
@@ -19,6 +20,7 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
   displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   allUsers: any = [];
+  private subs = new SubSink();
 
   constructor(public helperService: HelperService,
               public compiler: CompilerProvider,
@@ -44,24 +46,26 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
     this.myTeam.firstIndex = 0;
     this.myTeam.search = '';
     this.myTeam.pageSize = 6;
-    this.myTeam.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.myTeam.entityId = res.entityInfo.id;
-        this.getAllUsers();
-        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
-      }
-    });
-    this.myTeam.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.myTeam.permissions = data;
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res !== 1) {
+          this.myTeam.entityId = res.entityInfo.id;
+          this.getAllUsers();
+          this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+        }
+      }),
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.myTeam.permissions = data;
+        }
+      }));
   }
 
   ngOnDestroy(): void {
-    if (this.myTeam.subscription !== null && this.myTeam.subscription !== undefined) {
-      this.myTeam.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.myTeam.subscription !== null && this.myTeam.subscription !== undefined) {
+    //   this.myTeam.subscription.unsubscribe();
+    // }
   }
 
   getAllUsers() {
@@ -69,15 +73,16 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
     let data = {
       entityId: this.myTeam.entityId
     };
-    this.memberService.getUsersList(data).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.allUsers = this.compiler.constructUserDataOfTeam(res.data);
-      } else {
-        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.memberService.getUsersList(data).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.allUsers = this.compiler.constructUserDataOfTeam(res.data);
+        } else {
+          this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   getAllTeams(pageIndex, search) {
@@ -94,26 +99,27 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
     if (typeof (search) === 'string' && search.length === 0) {
       this.myTeam.loading = true;
     }
-    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.myTeam.pageCount = res.data.pageCount;
-        this.myTeam.allTeams = res.data.teamsList;
-        this.myTeam.teamsData = this.compiler.constructAllTeamsArchivedData(res.data.teamsList);
-        this.myTeam.dataSource = new MatTableDataSource(this.myTeam.teamsData);
-        this.myTeam.loading = false;
-        if (this.myTeam.allTeams.length === 0 && this.paginator.pageIndex !== 0) {
-          this.goToPreviousTable();
+    this.subs.add(
+      this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.myTeam.pageCount = res.data.pageCount;
+          this.myTeam.allTeams = res.data.teamsList;
+          this.myTeam.teamsData = this.compiler.constructAllTeamsArchivedData(res.data.teamsList);
+          this.myTeam.dataSource = new MatTableDataSource(this.myTeam.teamsData);
+          this.myTeam.loading = false;
+          if (this.myTeam.allTeams.length === 0 && this.paginator.pageIndex !== 0) {
+            this.goToPreviousTable();
+          }
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+          this.myTeam.dataSource = null;
+          this.myTeam.loading = false;
         }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+      }, (error) => {
         this.myTeam.dataSource = null;
         this.myTeam.loading = false;
-      }
-    }, (error) => {
-      this.myTeam.dataSource = null;
-      this.myTeam.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
-        this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }));
   }
 
 
@@ -122,21 +128,22 @@ export class ArchivedTeamComponent implements OnInit, OnDestroy {
    * @params siteData
    */
   unarchiveTeam(teamData: any) {
-    this.adminServices.unarchiveTeam(teamData.id).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
-        this.helperService.createSnack(
-          this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
+    this.subs.add(
+      this.adminServices.unarchiveTeam(teamData.id).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
+          this.helperService.createSnack(
+            this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
+          this.dialogRef.close();
+        } else {
+          this.helperService.createSnack(
+            this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_FAIL, this.helperService.constants.status.ERROR);
+          this.dialogRef.close();
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         this.dialogRef.close();
-      } else {
-        this.helperService.createSnack(
-          this.helperService.translated.MESSAGES.UNARCHIVED_TEAM_FAIL, this.helperService.constants.status.ERROR);
-        this.dialogRef.close();
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-      this.dialogRef.close();
-    });
+      }));
   }
 
   /**

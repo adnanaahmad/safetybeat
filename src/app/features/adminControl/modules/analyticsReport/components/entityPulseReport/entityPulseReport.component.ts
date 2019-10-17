@@ -13,6 +13,7 @@ import {
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-entityPulseReport',
@@ -21,7 +22,7 @@ import {MemberCenterService} from 'src/app/features/adminControl/modules/memberC
 })
 export class EntityPulseReportComponent implements OnInit, OnDestroy {
   pulseEntityObj: Report = <Report>{};
-
+  private subs = new SubSink();
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
@@ -36,15 +37,16 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pulseEntityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.pulseEntityObj.entityId = res.entityInfo.id;
-        this.pulseEntityObj.entityName = res.entityInfo.name;
-        this.pulseEntityFormValidations['entityName'].setValue(this.pulseEntityObj.entityName);
-        this.pulseEntityFormValidations['entityName'].disable();
-        this.makeReport(7, null, null, null, false);
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.pulseEntityObj.entityId = res.entityInfo.id;
+          this.pulseEntityObj.entityName = res.entityInfo.name;
+          this.pulseEntityFormValidations['entityName'].setValue(this.pulseEntityObj.entityName);
+          this.pulseEntityFormValidations['entityName'].disable();
+          this.makeReport(7, null, null, null, false);
+        }
+      }));
   }
 
   initialize() {
@@ -68,15 +70,16 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
   }
 
   getFilters() {
-    this.analyticsService.filter().subscribe((res) => {
-      if (res) {
-        this.pulseEntityObj.filters = res;
-        this.pulseEntityObj.lastWeekObj = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
-          return obj.name === 'Last Week';
-        });
-        this.pulseEntityFormValidations['filter'].setValue(this.pulseEntityObj.lastWeekObj.id);
-      }
-    });
+    this.subs.add(
+      this.analyticsService.filter().subscribe((res) => {
+        if (res) {
+          this.pulseEntityObj.filters = res;
+          this.pulseEntityObj.lastWeekObj = this.helperService.find(this.pulseEntityObj.filters, function (obj) {
+            return obj.name === 'Last Week';
+          });
+          this.pulseEntityFormValidations['filter'].setValue(this.pulseEntityObj.lastWeekObj.id);
+        }
+      }));
   }
 
   enableDates(value: any) {
@@ -101,38 +104,40 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
       'user': userId,
       'archive': archive
     };
-    this.analyticsService.pulseByEntity(data).subscribe((res) => {
-      if (res && res.responseDetails.code === 100) {
-        this.pulseEntityObj.pulseByEntityReportData = res.data.pulseByEntity;
-        let chartType: HighChartType = {
-          type: 'column',
-          title: 'Pulse Report',
-          subtitle: ''
-        };
-        let data = this.highChartSettings.reportSettings(chartType,
-          [], this.generateCharSeries(this.pulseEntityObj.pulseByEntityReportData));
-        this.pulseEntityObj.containerDiv = document.getElementById('container')
-        if (this.pulseEntityObj.containerDiv) {
-          Highcharts.chart('container', data);
+    this.subs.add(
+      this.analyticsService.pulseByEntity(data).subscribe((res) => {
+        if (res && res.responseDetails.code === 100) {
+          this.pulseEntityObj.pulseByEntityReportData = res.data.pulseByEntity;
+          let chartType: HighChartType = {
+            type: 'column',
+            title: 'Pulse Report',
+            subtitle: ''
+          };
+          let data = this.highChartSettings.reportSettings(chartType,
+            [], this.generateCharSeries(this.pulseEntityObj.pulseByEntityReportData));
+          this.pulseEntityObj.containerDiv = document.getElementById('container')
+          if (this.pulseEntityObj.containerDiv) {
+            Highcharts.chart('container', data);
+          }
+          this.pulseEntityObj.loading = false;
+        } else {
+          this.pulseEntityObj.loading = false;
         }
-        this.pulseEntityObj.loading = false;
-      } else {
-        this.pulseEntityObj.loading = false;
-      }
-    });
+      }));
   }
 
   getAllUsers() {
     let data = {
       entityId: this.helperService.getEntityId()
     };
-    this.memberService.allEntityUsers(data).subscribe((res) => {
-      if (res) {
-        this.pulseEntityObj.entityUsers = this.compiler.constructDataForTeams(res.data);
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.memberService.allEntityUsers(data).subscribe((res) => {
+        if (res) {
+          this.pulseEntityObj.entityUsers = this.compiler.constructDataForTeams(res.data);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   generateCharSeries(reportData: any) {
@@ -194,8 +199,9 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.pulseEntityObj.subscription !== null && this.pulseEntityObj.subscription !== undefined) {
-      this.pulseEntityObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.pulseEntityObj.subscription !== null && this.pulseEntityObj.subscription !== undefined) {
+    //   this.pulseEntityObj.subscription.unsubscribe();
+    // }
   }
 }

@@ -13,6 +13,7 @@ import {PaginationData} from 'src/app/models/site.model';
 import {AdvanceSearchComponent} from 'src/app/features/adminControl/modules/siteCenter/dialogs/advanceSearch/advanceSearch.component';
 import {ArchivedHazardsComponent} from 'src/app/features/adminControl/modules/hazardCenter/dialogs/archived-hazards/archived-hazards.component';
 import {PermissionsModel} from '../../../../../../models/adminControl/permissions.model';
+import {SubSink} from 'subsink';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
   pageSize: number;
   dataSource: any;
   pageCount: number;
+  private subs = new SubSink();
 
   constructor(
     public helperService: HelperService,
@@ -38,18 +40,20 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initialize();
-    this.hazardTable.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.hazardTable.entityId = res.entityInfo.id;
-        this.getHazardList(this.firstIndex, this.search);
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res !== 1) {
+          this.hazardTable.entityId = res.entityInfo.id;
+          this.getHazardList(this.firstIndex, this.search);
+        }
+      }));
   }
 
   ngOnDestroy(): void {
-    if (this.hazardTable.subscription !== null && this.hazardTable.subscription !== undefined) {
-      this.hazardTable.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.hazardTable.subscription !== null && this.hazardTable.subscription !== undefined) {
+    //   this.hazardTable.subscription.unsubscribe();
+    // }
   }
 
   /**
@@ -64,11 +68,12 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
     this.dataSource = null;
     this.hazardTable.loading = false;
     this.hazardTable.dataSource = null;
-    this.hazardTable.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.hazardTable.permissions = data;
-      }
-    });
+    this.subs.add(
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.hazardTable.permissions = data;
+        }
+      }));
   }
 
   /**
@@ -99,27 +104,28 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
       search: search
     };
     this.hazardTable.loading = true;
-    this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
-      if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.pageCount = res.data.pageCount;
-        this.hazardTable.loading = false;
-        this.hazardTable.hazardsData = this.compiler.constructAllHazardsData(res.data.hazardList);
-        this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
-        this.paginator.pageIndex = pageIndex;
-        if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
-          this.goToPreviousTable();
+    this.subs.add(
+      this.adminControlService.allHazards(entityData, paginationData).subscribe((res) => {
+        if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.pageCount = res.data.pageCount;
+          this.hazardTable.loading = false;
+          this.hazardTable.hazardsData = this.compiler.constructAllHazardsData(res.data.hazardList);
+          this.hazardTable.dataSource = new MatTableDataSource(res.data.hazardList);
+          this.paginator.pageIndex = pageIndex;
+          if (this.hazardTable.hazardsData.length === 0 && this.paginator.pageIndex !== 0) {
+            this.goToPreviousTable();
+          }
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+          this.paginator.pageIndex = pageIndex;
+          this.hazardTable.dataSource = null;
+          this.hazardTable.loading = false;
+        } else {
+          this.hazardTable.loading = false;
         }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.paginator.pageIndex = pageIndex;
-        this.hazardTable.dataSource = null;
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         this.hazardTable.loading = false;
-      } else {
-        this.hazardTable.loading = false;
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-      this.hazardTable.loading = false;
-    });
+      }));
   }
 
   /**
@@ -140,11 +146,12 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
       disableClose: false,
       data: {Modal: true, hazardInfo: hazard}
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res && res === this.helperService.appConstants.yes) {
-        this.getHazardList(this.paginator.pageIndex, this.search);
-      }
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res && res === this.helperService.appConstants.yes) {
+          this.getHazardList(this.paginator.pageIndex, this.search);
+        }
+      }))
   }
 
   /**
@@ -155,12 +162,13 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
   confirmationModal(id: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.ARCHIVE_HAZARD}});
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res && res === this.helperService.appConstants.yes) {
-        this.helperService.toggleLoader(true);
-        this.archiveHazard(id);
-      }
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res && res === this.helperService.appConstants.yes) {
+          this.helperService.toggleLoader(true);
+          this.archiveHazard(id);
+        }
+      }));
   }
 
   /**
@@ -169,23 +177,23 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
    */
 
   archiveHazard(id: number) {
-    this.adminControlService.deleteHazard(id).subscribe((res) => {
-        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.getHazardList(this.paginator.pageIndex, this.search);
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_SUCCESS,
-            this.helperService.constants.status.SUCCESS);
-        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+    this.subs.add(
+      this.adminControlService.deleteHazard(id).subscribe((res) => {
+          if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.getHazardList(this.paginator.pageIndex, this.search);
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_SUCCESS,
+              this.helperService.constants.status.SUCCESS);
+          } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
+              this.helperService.constants.status.ERROR);
+          } else {
+            this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
+              this.helperService.constants.status.ERROR);
+          }
+        }, (error) => {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
             this.helperService.constants.status.ERROR);
-        } else {
-          this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
-            this.helperService.constants.status.ERROR);
-        }
-      }, (error) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.HAZARD_ARCHIVE_FAILURE,
-          this.helperService.constants.status.ERROR);
-      }
-    );
+        }));
   }
 
   getArchivedHazards() {
@@ -193,9 +201,10 @@ export class HazardCenterComponent implements OnInit, OnDestroy {
       disableClose: true,
       data: {Modal: false, 'hazardsData': this.hazardTable.hazardsData}
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getHazardList(this.paginator.pageIndex, this.search);
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getHazardList(this.paginator.pageIndex, this.search);
+      }));
   }
 
   /**
