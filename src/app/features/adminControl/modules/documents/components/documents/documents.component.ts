@@ -7,6 +7,7 @@ import {UploadDocComponent} from 'src/app/features/adminControl/modules/document
 import {CreateFolderComponent} from 'src/app/features/adminControl/modules/documents/dialogs/createFolder/createFolder.component';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
+import {SubSink} from 'subsink';
 
 
 @Component({
@@ -17,7 +18,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 export class DocumentsComponent implements OnInit, OnDestroy {
   documentsData: Documents = <Documents>{};
   loadingBar = false;
-
+  private subs = new SubSink();
 
   constructor(
     public dialog: MatDialog,
@@ -37,24 +38,26 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.documentsData.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.documentsData.entityID = res.entityInfo.id;
-        this.refreshFiles(true);
-        this.refreshFolders(true);
-      }
-    });
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.documentsData.permissions = data;
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.documentsData.entityID = res.entityInfo.id;
+          this.refreshFiles(true);
+          this.refreshFolders(true);
+        }
+      }),
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.documentsData.permissions = data;
+        }
+      }));
   }
 
   ngOnDestroy(): void {
-    if (this.documentsData.subscription !== null && this.documentsData.subscription !== undefined) {
-      this.documentsData.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.documentsData.subscription !== null && this.documentsData.subscription !== undefined) {
+    //   this.documentsData.subscription.unsubscribe();
+    // }
   }
 
   /**
@@ -63,21 +66,22 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    */
   getAllFolders(entityID: number) {
     this.loadingBar = true;
-    this.navService.allFolders({entityId: entityID}).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.documentsData.folderList = res.data.length === 0 ? [] : res.data;
-      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.documentsData.folderList = [];
-        // this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
-      } else {
-        this.documentsData.folderList = [];
-      }
-      this.loadingBar = false;
-    }, (error) => {
-      this.loadingBar = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    this.subs.add(
+      this.navService.allFolders({entityId: entityID}).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.documentsData.folderList = res.data.length === 0 ? [] : res.data;
+        } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.documentsData.folderList = [];
+          // this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        } else {
+          this.documentsData.folderList = [];
+        }
+        this.loadingBar = false;
+      }, (error) => {
+        this.loadingBar = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
 
-    });
+      }));
   }
 
   /**
@@ -87,20 +91,21 @@ export class DocumentsComponent implements OnInit, OnDestroy {
   getRootDocuments(entityId: number) {
     this.loadingBar = true;
     let data = {'entityId': entityId};
-    this.navService.getRootDocuments(data).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);
-      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
-        this.documentsData.rootDocs = [];
-      } else {
-        this.documentsData.rootDocs = [];
-      }
-      this.loadingBar = false;
-    }, (error) => {
-      this.loadingBar = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
-        this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.navService.getRootDocuments(data).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);
+        } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.documentsData.rootDocs = [];
+        } else {
+          this.documentsData.rootDocs = [];
+        }
+        this.loadingBar = false;
+      }, (error) => {
+        this.loadingBar = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.GET_DOCUMENT_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -114,11 +119,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         modalType: true
       }
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res !== 'cancel') {
-        this.refreshFiles(true);
-      }
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res !== 'cancel') {
+          this.refreshFiles(true);
+        }
+      }));
   }
 
   /**
@@ -131,11 +137,12 @@ export class DocumentsComponent implements OnInit, OnDestroy {
         folderList: this.documentsData.folderList
       }
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res !== 'cancel') {
-        this.getAllFolders(this.documentsData.entityID);
-      }
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res !== 'cancel') {
+          this.getAllFolders(this.documentsData.entityID);
+        }
+      }));
   }
 
   /**

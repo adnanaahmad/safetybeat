@@ -15,6 +15,7 @@ import {HighchartService} from 'src/app/services/common/highchart/highchart.serv
 import * as Highcharts from 'highcharts';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {PaginationData, ViewAllSiteArchivedData, ViewAllSiteEntityData, ViewAllSitesApiResponse} from 'src/app/models/site.model';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-siteActivityReport',
@@ -24,6 +25,7 @@ import {PaginationData, ViewAllSiteArchivedData, ViewAllSiteEntityData, ViewAllS
 export class SiteActivityReportComponent implements OnInit, OnDestroy {
 
   siteReportObj: Report = <Report>{};
+  private subs = new SubSink();
 
   constructor(
     public helperService: HelperService,
@@ -36,16 +38,17 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   ) {
     this.initialize();
     this.getFilters();
-    this.siteReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.siteReportObj.entityId = res.entityInfo.id;
-        this.siteReportObj.entityName = res.entityInfo.name;
-        this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
-        this.siteFormValidations['entityName'].disable();
-        this.getSites(false);
-        this.makeReport(7, null, null, null, false);
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.siteReportObj.entityId = res.entityInfo.id;
+          this.siteReportObj.entityName = res.entityInfo.name;
+          this.siteFormValidations['entityName'].setValue(this.siteReportObj.entityName);
+          this.siteFormValidations['entityName'].disable();
+          this.getSites(false);
+          this.makeReport(7, null, null, null, false);
+        }
+      }));
   }
 
   ngOnInit() {
@@ -81,12 +84,12 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       entityId: this.siteReportObj.entityId,
       archived: archive
     };
-
-    this.adminServices.viewArchivedSites(entityData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.siteReportObj.sites = res.data.sitesList;
-      }
-    });
+    this.subs.add(
+      this.adminServices.viewArchivedSites(entityData).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.siteReportObj.sites = res.data.sitesList;
+        }
+      }));
 
   }
 
@@ -100,37 +103,38 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
       'site': site,
       'archive': archive
     };
-    this.analyticsService.siteActivityReport(data).subscribe((res) => {
-      if (res && res.responseDetails.code === 100) {
-        if (res.data.details) {
-          this.siteReportObj.siteReportDetails = res.data.siteActivityReport;
-          let chartType: HighChartType = {
-            type: 'column',
-            title: 'Site Detail Activity',
-            subtitle: ''
-          };
-          let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
-            [], this.generateSiteDetailReport(this.siteReportObj.siteReportDetails));
-          Highcharts.chart('container', siteActivityReportData);
-        } else {
-          this.siteReportObj.siteReportData = res.data.siteActivityReport;
-          let chartType: HighChartType = {
-            type: 'column',
-            title: 'All Sites Activity',
-            subtitle: ''
-          };
-          let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
-            [], this.generateCharSeries(this.siteReportObj.siteReportData));
-          this.siteReportObj.containerDiv = document.getElementById('container')
-          if (this.siteReportObj.containerDiv) {
+    this.subs.add(
+      this.analyticsService.siteActivityReport(data).subscribe((res) => {
+        if (res && res.responseDetails.code === 100) {
+          if (res.data.details) {
+            this.siteReportObj.siteReportDetails = res.data.siteActivityReport;
+            let chartType: HighChartType = {
+              type: 'column',
+              title: 'Site Detail Activity',
+              subtitle: ''
+            };
+            let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
+              [], this.generateSiteDetailReport(this.siteReportObj.siteReportDetails));
             Highcharts.chart('container', siteActivityReportData);
+          } else {
+            this.siteReportObj.siteReportData = res.data.siteActivityReport;
+            let chartType: HighChartType = {
+              type: 'column',
+              title: 'All Sites Activity',
+              subtitle: ''
+            };
+            let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
+              [], this.generateCharSeries(this.siteReportObj.siteReportData));
+            this.siteReportObj.containerDiv = document.getElementById('container')
+            if (this.siteReportObj.containerDiv) {
+              Highcharts.chart('container', siteActivityReportData);
+            }
           }
+          this.siteReportObj.loading = false;
+        } else {
+          this.siteReportObj.loading = false;
         }
-        this.siteReportObj.loading = false;
-      } else {
-        this.siteReportObj.loading = false;
-      }
-    });
+      }));
   }
 
   siteReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
@@ -199,17 +203,18 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   getFilters() {
-    this.analyticsService.filter().subscribe((res) => {
-      if (res) {
-        this.siteReportObj.filters = res;
-        this.siteReportObj.lastWeekObj = this.helperService.find(this.siteReportObj.filters, function (obj) {
-          return obj.name === 'Last Week';
-        });
-        this.siteFormValidations['filter'].setValue(this.siteReportObj.lastWeekObj.id);
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.analyticsService.filter().subscribe((res) => {
+        if (res) {
+          this.siteReportObj.filters = res;
+          this.siteReportObj.lastWeekObj = this.helperService.find(this.siteReportObj.filters, function (obj) {
+            return obj.name === 'Last Week';
+          });
+          this.siteFormValidations['filter'].setValue(this.siteReportObj.lastWeekObj.id);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   enableDateFrom() {
@@ -218,9 +223,10 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.siteReportObj.subscription !== null && this.siteReportObj.subscription !== undefined) {
-      this.siteReportObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.siteReportObj.subscription !== null && this.siteReportObj.subscription !== undefined) {
+    //   this.siteReportObj.subscription.unsubscribe();
+    // }
   }
 
 }

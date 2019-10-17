@@ -12,6 +12,7 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
 import {PaginationData} from 'src/app/models/site.model';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-questionCenter',
@@ -40,6 +41,7 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
   QuestionObj: QuestionCenter = <QuestionCenter>{};
   @ViewChild('entityQuestionMatPage') entityQuestionPaginator: MatPaginator;
   @ViewChild('questionBankMatPage') questionBankPaginator: MatPaginator;
+  private subs = new SubSink();
 
   constructor(
     public helperService: HelperService,
@@ -49,28 +51,30 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver
   ) {
     this.initialize();
-    this.QuestionObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.QuestionObj.entityId = res.entityInfo.id;
-        this.getAllQuestions(this.QuestionObj.firstIndex);
-        this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
-      }
-    })
+    this.subs.add (
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.QuestionObj.entityId = res.entityInfo.id;
+          this.getAllQuestions(this.QuestionObj.firstIndex);
+          this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
+        }
+      }));
   }
 
   ngOnInit() {
-
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.QuestionObj.permissions = data;
-      }
-    });
+    this.subs.add(
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.QuestionObj.permissions = data;
+        }
+      }));
   }
 
   ngOnDestroy(): void {
-    if (this.QuestionObj.subscription !== null && this.QuestionObj.subscription !== undefined) {
-      this.QuestionObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.QuestionObj.subscription !== null && this.QuestionObj.subscription !== undefined) {
+    //   this.QuestionObj.subscription.unsubscribe();
+    // }
   }
 
   /**
@@ -101,25 +105,25 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
       limit: this.helperService.constants.appConstant.paginationLimit,
       search: search ? search : ''
     };
-
-    this.questionCenterService.getAllQuestions(data, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.QuestionObj.parentPageCount = res.data.pageCount;
-        this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);
-        this.getParentChildQuestions(this.QuestionObj.allQuestions.questionList);
-        this.QuestionObj.loading = false;
-        this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList);
-        // this.QuestionObj.dataSource.paginator = this.questionBankPaginator;
-      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+    this.subs.add(
+      this.questionCenterService.getAllQuestions(data, paginationData).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.QuestionObj.parentPageCount = res.data.pageCount;
+          this.QuestionObj.allQuestions = this.compiler.constructAllQuestionsData(res);
+          this.getParentChildQuestions(this.QuestionObj.allQuestions.questionList);
+          this.QuestionObj.loading = false;
+          this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList);
+          // this.QuestionObj.dataSource.paginator = this.questionBankPaginator;
+        } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+          this.QuestionObj.dataSource = null;
+          this.QuestionObj.loading = false;
+        }
+      }, (err) => {
         this.QuestionObj.dataSource = null;
         this.QuestionObj.loading = false;
-      }
-    }, (err) => {
-      this.QuestionObj.dataSource = null;
-      this.QuestionObj.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
-        this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
+          this.helperService.constants.status.ERROR);
+      }));
 
   }
 
@@ -153,9 +157,10 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
           edit: false
         }
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
+      }));
   }
 
   /**
@@ -173,9 +178,10 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
           questionData: questionsData
         }
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
+      }));
   }
 
   /**
@@ -188,11 +194,11 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
         {
           edit: false
         }
-    })
-    ;
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllQuestions(this.questionBankPaginator.pageIndex);
     });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getAllQuestions(this.questionBankPaginator.pageIndex);
+      }));
   }
 
   /**
@@ -207,11 +213,11 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
           edit: true,
           questionData: question
         }
-    })
-    ;
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllQuestions(this.questionBankPaginator.pageIndex);
     });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getAllQuestions(this.questionBankPaginator.pageIndex);
+      }));
   }
 
   /**
@@ -228,30 +234,31 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
       limit: this.helperService.constants.appConstant.paginationLimit,
       search: search ? search : ''
     };
-    this.questionCenterService.viewAllEntityQuestions(data, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.QuestionObj.entityPageCount = res.data.pageCount;
-        this.QuestionObj.entityQuestionsResponse = this.compiler.constructAllEntityQuestionsData(res);
-        if (res && res.data.entityQuestionList) {
-          this.QuestionObj.loading = false;
-          this.QuestionObj.entityQuestions = new MatTableDataSource(this.QuestionObj.entityQuestionsResponse.entityQuestionList);
-          // this.QuestionObj.entityQuestions.paginator = this.entityQuestionPaginator;
-        } else if (res && !res.data.entityQuestionList) {
-          this.QuestionObj.loading = false;
+    this.subs.add(
+      this.questionCenterService.viewAllEntityQuestions(data, paginationData).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.QuestionObj.entityPageCount = res.data.pageCount;
+          this.QuestionObj.entityQuestionsResponse = this.compiler.constructAllEntityQuestionsData(res);
+          if (res && res.data.entityQuestionList) {
+            this.QuestionObj.loading = false;
+            this.QuestionObj.entityQuestions = new MatTableDataSource(this.QuestionObj.entityQuestionsResponse.entityQuestionList);
+            // this.QuestionObj.entityQuestions.paginator = this.entityQuestionPaginator;
+          } else if (res && !res.data.entityQuestionList) {
+            this.QuestionObj.loading = false;
+            this.QuestionObj.entityQuestions = null;
+          }
+        } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.QuestionObj.entityQuestions = null;
+          this.QuestionObj.loading = false;
+        } else {
+          this.QuestionObj.loading = false;
         }
-      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
+      }, (error) => {
         this.QuestionObj.entityQuestions = null;
         this.QuestionObj.loading = false;
-      } else {
-        this.QuestionObj.loading = false;
-      }
-    }, (error) => {
-      this.QuestionObj.entityQuestions = null;
-      this.QuestionObj.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
-        this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
+          this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -261,14 +268,15 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
 
   deleteQuestion(questionId: number) {
     this.QuestionObj.loading = true;
-    this.questionCenterService.deleteQuestion(questionId).subscribe((res) => {
-      this.QuestionObj.loading = false;
-      this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
-        this.helperService.constants.status.SUCCESS);
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.questionCenterService.deleteQuestion(questionId).subscribe((res) => {
+        this.QuestionObj.loading = false;
+        this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -278,16 +286,17 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
 
   deleteQuestionFromQuestionBank(questionId: number) {
     this.QuestionObj.loading = true;
-    this.questionCenterService.deleteQuestionFromQuestionBank(questionId).subscribe((res) => {
-      this.getAllQuestions(this.QuestionObj.firstIndex);
-      this.QuestionObj.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
-        this.helperService.constants.status.SUCCESS);
-    }, (error) => {
-      this.QuestionObj.loading = false;
-      this.helperService.createSnack(
-        this.helperService.translated.MESSAGES.DELETE_QUESTION_FAILURE, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.questionCenterService.deleteQuestionFromQuestionBank(questionId).subscribe((res) => {
+        this.getAllQuestions(this.QuestionObj.firstIndex);
+        this.QuestionObj.loading = false;
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
+          this.helperService.constants.status.SUCCESS);
+      }, (error) => {
+        this.QuestionObj.loading = false;
+        this.helperService.createSnack(
+          this.helperService.translated.MESSAGES.DELETE_QUESTION_FAILURE, this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -300,11 +309,12 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
   confirmationModal(questionId: number, deleteModal: boolean) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.DELETE_QUESTION}});
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
-        this.helperService.toggleLoader(true);
-        deleteModal ? this.deleteQuestion(questionId) : this.deleteQuestionFromQuestionBank(questionId);
-      }
-    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res === this.helperService.appConstants.yes) {
+          this.helperService.toggleLoader(true);
+          deleteModal ? this.deleteQuestion(questionId) : this.deleteQuestionFromQuestionBank(questionId);
+        }
+      }));
   }
 }
