@@ -1,4 +1,5 @@
-<mat-card-title class="mat-dialog-title mat-elevation-z6">{{ this.isEdit ? "Edit Leave" : helperService.translated.SITETITLE.ADDLEAVES}}</mat-card-title>
+<mat-card-title
+  class="mat-dialog-title mat-elevation-z6">{{ this.isEdit ? "Edit Leave" : helperService.translated.SITETITLE.ADDLEAVES}}</mat-card-title>
 <div mat-dialog-content>
   <div class="spinner-wrap" *ngIf="leavesModel.loading">
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
@@ -16,9 +17,9 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>{{leavesModel.selectedLeave.name}}</mat-label>
-        <mat-select [(value)]="leavesModel.selectedLeave.id"
+        <mat-select [(value)]="leavesModel.selectedLeave"
                     [formControlName]="helperService.appConstants.leaveType">
-          <mat-option *ngFor="let leaves of leavesModel.leaveTypes" [value]="leaves.id">
+          <mat-option *ngFor="let leaves of leavesModel.leaveTypes" [value]="leaves">
             {{ leaves.name }}
           </mat-option>
         </mat-select>
@@ -29,6 +30,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <input matInput [matDatepicker]="picker1"
+               [matDatepickerFilter]="myFilter"
                [formControlName]="helperService.appConstants.dateFrom" [min]="leavesModel.startAt"
                placeholder="Date From" readonly
                (dateChange)="dateSelected('change', $event)">
@@ -40,9 +42,11 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+        <input matInput [matDatepicker]="picker2"
+               [matDatepickerFilter]="myFilter"
+               [formControlName]="helperService.appConstants.dateTo"
                [min]="rangeAt"
-               placeholder="Date To" readonly>
+               placeholder="Date To">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2 [startAt]="rangeAt"></mat-datepicker>
         <mat-error class="text-right" *ngIf="addLeaveFormValidations.errors">

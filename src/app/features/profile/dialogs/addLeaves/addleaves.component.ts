@@ -16,6 +16,12 @@ export class AddleavesComponent implements OnInit, OnDestroy {
   leavesModel: ProfileModel = <ProfileModel>{};
   isEdit = false;
   rangeAt: Date;
+  leaveFormdata: AddLeaveData;
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  }
 
   constructor(
     public helperService: HelperService,
@@ -48,14 +54,15 @@ export class AddleavesComponent implements OnInit, OnDestroy {
         this.addLeaveFormValidations['entity'].disable();
       }
     });
-    this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
     if (this.data.currentData !== null && this.data && this.data.currentData) {
       this.addLeaveFormValidations['description'].setValue(this.data.currentData.title);
       this.addLeaveFormValidations['dateFrom'].setValue(new Date(this.data.currentData.start));
       this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData.end));
       this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
-    this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
+    this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
+    this.data ? this.addLeaveFormValidations[this.helperService.appConstants.dateTo].enable()
+      : this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
   }
 
   /**
@@ -100,14 +107,15 @@ export class AddleavesComponent implements OnInit, OnDestroy {
    */
   addLeave(leaveForm: FormGroup) {
     this.leavesModel.loading = true;
-    let data: AddLeaveData = {
+    this.leaveFormdata = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
       leaveType: leaveForm.value.leaveType.id,
       dateFrom: leaveForm.value.dateFrom,
       dateTo: leaveForm.value.dateTo
     };
-    this.profileService.addLeaves(data).subscribe((res) => {
+
+    this.profileService.addLeaves(this.leaveFormdata).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.leavesModel.leave = res.data.leave;
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
@@ -134,7 +142,7 @@ export class AddleavesComponent implements OnInit, OnDestroy {
     let data: EditLeaveData = {
       entity: this.leavesModel.entity.id,
       description: leaveForm.value.description,
-      leaveType: leaveForm.value.leaveType,
+      leaveType: leaveForm.value.leaveType.id,
       dateFrom: leaveForm.value.dateFrom,
       dateTo: leaveForm.value.dateTo,
       approved: this.data.currentData.approved,

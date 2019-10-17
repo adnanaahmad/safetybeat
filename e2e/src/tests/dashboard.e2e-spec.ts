@@ -5,7 +5,7 @@ import { browser} from 'protractor';
 describe('Dashboard Page Testing', () => {
   let page: DashboardPage;
   page = new DashboardPage();
-  
+
   beforeAll(async () => {
     browser.ignoreSynchronization = true
     await browser.sleep(10000)
@@ -13,7 +13,6 @@ describe('Dashboard Page Testing', () => {
     if(url !== values.urls.dashboardPage) {
         browser.quit();
     }
-    console.log(url);
   });
 
   it('It should test page title', async () => {

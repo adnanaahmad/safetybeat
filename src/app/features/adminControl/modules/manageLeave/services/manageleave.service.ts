@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {AllUserLeavesApiData} from 'src/app/models/manageLeave.model';
 import {Observable} from 'rxjs';
-import {AddLeaveApiResponse, UserLeavesApiResponse} from 'src/app/models/profile.model';
+import {AddLeaveApiResponse, AllUsersLeavesApiResponse, UserLeavesApiResponse} from 'src/app/models/profile.model';
 import {PaginationData} from 'src/app/models/site.model';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ManageleaveService {
   }
 
 
-  viewAllUserLeavesData(data: AllUserLeavesApiData, pagination: PaginationData): Observable<UserLeavesApiResponse> {
+  viewAllUserLeavesData(data: AllUserLeavesApiData, pagination: PaginationData): Observable<AllUsersLeavesApiResponse> {
     return this.helperService.requestCall(
       this.method.post,
       `${this.apiRoutes.allUserLeaves}?limit=${pagination.limit}&offset=${pagination.offset}&search=${pagination.search}`,

@@ -4,7 +4,7 @@
 
 
 const serverUrl = 'http://192.168.69.13:8000';
-const clientUrl = 'http://localhost:4200/#'
+const clientUrl = 'http://localhost:4200/#';
 
 export const environment = {
   production: false,

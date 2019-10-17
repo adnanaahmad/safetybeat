@@ -10,6 +10,7 @@ import {CalendarEvent} from 'angular-calendar';
 import {PermissionsModel} from '../adminControl/permissions.model';
 
 export interface ProfileModel {
+  selectedEntitySubscription: Subscription;
   entityId: number;
   permissions: PermissionsModel;
   refresh: Subject<any>;

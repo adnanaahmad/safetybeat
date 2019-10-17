@@ -100,7 +100,6 @@ export class ChangeAccessLevelComponent implements OnInit, OnDestroy {
       addLeaves: this.permissions.permissionsData.addLeaves,
       deleteLeaves: this.permissions.permissionsData.deleteLeaves,
       editLeaves: this.permissions.permissionsData.editLeaves,
-      viewLeaves: this.permissions.permissionsData.viewLeaves,
       approveLeaves: this.permissions.permissionsData.approveLeaves,
       viewProfile: this.permissions.permissionsData.viewProfile,
       // canArchiveEntity: this.permissions.permissionsData.canArchiveEntity,

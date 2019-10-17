@@ -1,6 +1,7 @@
 import {Component, OnInit, Renderer2, OnDestroy} from '@angular/core';
 import {Translation} from 'src/app/models/translate.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-page-not-found',
@@ -13,7 +14,8 @@ export class PageNotFoundComponent implements OnDestroy {
 
   constructor(
     private render: Renderer2,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private location: Location
   ) {
     this.render.addClass(document.body, this.helperService.constants.config.theme.background);
     this.translated = this.helperService.translated;
@@ -25,6 +27,13 @@ export class PageNotFoundComponent implements OnDestroy {
    */
   ngOnDestroy() {
     this.render.removeClass(document.body, this.helperService.constants.config.theme.background);
+  }
+
+  /**
+   * go back routing
+   */
+  backClicked() {
+    this.location.back();
   }
 
 }

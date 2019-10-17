@@ -119,9 +119,11 @@ export class LoginComponent implements OnInit {
                 this.loginObj.userData.packageInfo[this.loginObj.index].expired, this.loginObj.data);
               this.loginObj.loading = false;
             } else {
+              this.loginObj.loading = false;
               this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
             }
           }, (err) => {
+            this.loginObj.loading = false;
             this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
           });
         } else if (data && data.responseDetails.code === this.helperService.appConstants.codeValidations[1]) {
@@ -162,7 +164,7 @@ export class LoginComponent implements OnInit {
         });
         this.loginObj.selectedEntity = index !== -1 ? data.entities[index] : data.entities[0];
         let permissionData = JSON.stringify(this.loginObj.selectedEntity.permissions);
-        localStorage.setItem('url', this.helperService.encrypt(permissionData , this.helperService.appConstants.key));
+        localStorage.setItem('url', this.helperService.encrypt(permissionData, this.helperService.appConstants.key));
         if (expired) {
           this.helperService.navigateTo([this.helperService.appConstants.paths.package]);
         } else {

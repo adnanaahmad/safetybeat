@@ -44,6 +44,9 @@
         align-items: center;
         .safe-icon {
           color: #fff;
+          width: auto;
+          height: auto;
+          font-size: 10px;
           &.safe {
             background-color: green;
           }

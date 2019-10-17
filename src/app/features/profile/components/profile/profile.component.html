@@ -105,6 +105,7 @@
                                     </mat-button-toggle>
                                     <mat-button-toggle mat-button mwlCalendarNextView [view]="view"
                                                        [(viewDate)]="viewDate"
+                                                       [excludeDays]="excludeDays"
                                                        (viewDateChange)="closeOpenMonthViewDay()">Next
                                     </mat-button-toggle>
                                 </mat-button-toggle-group>
@@ -139,6 +140,7 @@
                                     [events]="profileModel.events"
                                     [activeDayIsOpen]="activeDayIsOpen"
                                     [refresh]="refresh"
+                                    [excludeDays]="excludeDays"
                                     (dayClicked)="dayClicked($event.day)"
                                     (click)="selectDate()">
                             </mwl-calendar-month-view>
@@ -146,6 +148,7 @@
                                     *ngSwitchCase="CalendarView.Week"
                                     [viewDate]="viewDate"
                                     [events]="profileModel.events"
+                                    [excludeDays]="excludeDays"
                                     [refresh]="refresh"
                                     (click)="selectDate()">
                             </mwl-calendar-week-view>
