@@ -3,7 +3,8 @@ import {environment} from '../../../src/environments/environment';
 export const values = {
     urls: {
         loginPage: environment.clientUrl + "/login",
-        dashboardPage: environment.clientUrl + "/home/adminControl/dashboard"
+        dashboardPage: environment.clientUrl + "/home/adminControl/dashboard",
+        signUpPage: environment.clientSignupUrl
     },
     loginPage: {
         appTitle: "SafetyBeat",
@@ -16,6 +17,11 @@ export const values = {
         loginForgetPassText: "Forgot Password?",
         email: "k.basharat@optergy.com",
         password: "lahore123"
+    },
+    signUpPage: {
+        appTitle: "SafetyBeat",
+        emailToSignUp: "",
+        signupUserInfoLink: environment.clientUrl + "/signup/bW90aUBhbWFpbHIubmV0"
     },
     dashboardPage: {
         appTitle: "SafetyBeat"

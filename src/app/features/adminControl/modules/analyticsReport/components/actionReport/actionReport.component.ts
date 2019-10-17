@@ -7,6 +7,7 @@ import {AnalyticsReportService} from 'src/app/features/adminControl/modules/anal
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
 import * as Highcharts from 'highcharts';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-action-report',
@@ -16,6 +17,7 @@ import * as Highcharts from 'highcharts';
 export class ActionReportComponent implements OnInit, OnDestroy {
 
   actionReportObj: Report = <Report>{};
+  private subs = new SubSink();
 
   constructor(
     public helperService: HelperService,
@@ -31,15 +33,16 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.actionReportObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.actionReportObj.entityId = res.entityInfo.id;
-        this.actionReportObj.entityName = res.entityInfo.name;
-        this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
-        this.actionFormValidations['entityName'].disable();
-        this.makeReport(7, null, null);
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res !== 1) {
+          this.actionReportObj.entityId = res.entityInfo.id;
+          this.actionReportObj.entityName = res.entityInfo.name;
+          this.actionFormValidations['entityName'].setValue(this.actionReportObj.entityName);
+          this.actionFormValidations['entityName'].disable();
+          this.makeReport(7, null, null);
+        }
+      }));
   }
 
   get actionFormValidations() {
@@ -61,15 +64,16 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   getFilters() {
-    this.analyticsService.filter().subscribe((res) => {
-      if (res) {
-        this.actionReportObj.filters = res;
-        this.actionReportObj.lastWeekObj = this.helperService.find(this.actionReportObj.filters, function (obj) {
-          return obj.name === 'Last Week';
-        });
-        this.actionFormValidations['filter'].setValue(this.actionReportObj.lastWeekObj.id);
-      }
-    });
+    this.subs.add(
+      this.analyticsService.filter().subscribe((res) => {
+        if (res) {
+          this.actionReportObj.filters = res;
+          this.actionReportObj.lastWeekObj = this.helperService.find(this.actionReportObj.filters, function (obj) {
+            return obj.name === 'Last Week';
+          });
+          this.actionFormValidations['filter'].setValue(this.actionReportObj.lastWeekObj.id);
+        }
+      }));
   }
 
   makeReport(days, dateTo, dateFrom) {
@@ -80,24 +84,25 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       'dateFrom': dateFrom,
       'days': days,
     };
-    this.analyticsService.actionReport(data).subscribe((res) => {
-      if (res && res.responseDetails.code === 100) {
-        this.actionReportObj.actionReportData = res.data.checkInList;
-        let chartType: HighChartType = {
-          type: 'column',
-          title: 'Action Report',
-          subtitle: ''
-        };
-        let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
-        this.actionReportObj.containerDiv = document.getElementById('action')
-        if (this.actionReportObj.containerDiv) {
-          Highcharts.chart(this.actionReportObj.containerDiv, data);
+    this.subs.add(
+      this.analyticsService.actionReport(data).subscribe((res) => {
+        if (res && res.responseDetails.code === 100) {
+          this.actionReportObj.actionReportData = res.data.checkInList;
+          let chartType: HighChartType = {
+            type: 'column',
+            title: 'Action Report',
+            subtitle: ''
+          };
+          let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
+          this.actionReportObj.containerDiv = document.getElementById('action');
+          if (this.actionReportObj.containerDiv) {
+            Highcharts.chart(this.actionReportObj.containerDiv, data);
+          }
+          this.actionReportObj.loading = false;
+        } else {
+          this.actionReportObj.loading = false;
         }
-        this.actionReportObj.loading = false;
-      } else {
-        this.actionReportObj.loading = false;
-      }
-    });
+      }));
   }
 
   generateCharSeries(reportData: any) {
@@ -106,10 +111,10 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     let checkOuts = [];
     let pulse = [];
     this.helperService.iterations(reportData, function (actionReport: ActionReportData) {
-      checkIns.push(actionReport.checkins)
-      checkOuts.push(actionReport.checkouts)
-      pulse.push(actionReport.pulse)
-      dates.push(actionReport.date)
+      checkIns.push(actionReport.checkins);
+      checkOuts.push(actionReport.checkouts);
+      pulse.push(actionReport.pulse);
+      dates.push(actionReport.date);
     });
     let charSeries = [{
       name: 'CheckIns',
@@ -125,7 +130,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
       charSeries: charSeries,
       categories: dates,
       title: 'No of Check In, Check out and Pulse'
-    }
+    };
     return data;
   }
 
@@ -136,13 +141,14 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     this.actionReportObj.days = this.helperService.find(this.actionReportObj.filters, function (obj) {
       return obj.id === value.filter;
     });
-    this.makeReport(this.actionReportObj.days.days, value.dateTo, value.dateFrom)
+    this.makeReport(this.actionReportObj.days.days, value.dateTo, value.dateFrom);
   }
 
   ngOnDestroy() {
-    if (this.actionReportObj.subscription !== null && this.actionReportObj.subscription !== undefined) {
-      this.actionReportObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.actionReportObj.subscription !== null && this.actionReportObj.subscription !== undefined) {
+    //   this.actionReportObj.subscription.unsubscribe();
+    // }
   }
 
   enableDates(value: any) {

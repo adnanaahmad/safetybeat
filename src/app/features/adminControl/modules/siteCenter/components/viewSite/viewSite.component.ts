@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
@@ -9,17 +9,19 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {PaginationData} from 'src/app/models/site.model';
 import {ImageLightboxComponent} from 'src/app/dialogs/imageLightbox/imageLightbox.component';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-ViewSite',
   templateUrl: './viewSite.component.html',
   styleUrls: ['./viewSite.component.scss']
 })
-export class ViewSiteComponent implements OnInit {
+export class ViewSiteComponent implements OnInit, OnDestroy {
   @ViewChild('hazardMatPage') hazardPaginator: MatPaginator;
   @ViewChild('activityMatPage') activityPaginator: MatPaginator;
   @ViewChild('gmap') gMapElement: ElementRef;
   viewSiteObj: ViewSite = <ViewSite>{};
+  private subs = new SubSink();
 
   constructor(
     private route: ActivatedRoute,
@@ -33,12 +35,13 @@ export class ViewSiteComponent implements OnInit {
      * site id is passed when we want to view any site here and in the following we are getting the siteId that is in form of
      * site.data
      */
-    this.route.params.subscribe((site) => {
-      if (site.data) {
-        this.viewSiteObj.siteInfo = JSON.parse(this.helperService.decrypt(site.data,
-          this.helperService.appConstants.key))
-      }
-    });
+    this.subs.add(
+      this.route.params.subscribe((site) => {
+        if (site.data) {
+          this.viewSiteObj.siteInfo = JSON.parse(this.helperService.decrypt(site.data,
+            this.helperService.appConstants.key))
+        }
+      }));
     this.initialize();
   }
 
@@ -64,6 +67,10 @@ export class ViewSiteComponent implements OnInit {
     this.viewSiteActivities(this.viewSiteObj.firstIndex, this.viewSiteObj.search);
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
   /**
    * this function is used for viewing all hazards belonging to a site.
    */
@@ -77,19 +84,20 @@ export class ViewSiteComponent implements OnInit {
       offset: pageIndex * this.helperService.appConstants.paginationLimitForViewSite,
       search: search
     };
-    this.adminServices.siteHazards(data, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.viewSiteObj.hazardPageCount = res.data.pageCount;
-        this.viewSiteObj.hazardTable = new MatTableDataSource(res.data.hazardList);
+    this.subs.add(
+      this.adminServices.siteHazards(data, paginationData).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.viewSiteObj.hazardPageCount = res.data.pageCount;
+          this.viewSiteObj.hazardTable = new MatTableDataSource(res.data.hazardList);
+          this.viewSiteObj.hazardLoading = false;
+        } else {
+          this.viewSiteObj.hazardLoading = false;
+          this.viewSiteObj.hazardTable = null;
+        }
+      }, (error) => {
         this.viewSiteObj.hazardLoading = false;
-      } else {
-        this.viewSiteObj.hazardLoading = false;
-        this.viewSiteObj.hazardTable = null;
-      }
-    }, (error) => {
-      this.viewSiteObj.hazardLoading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -105,19 +113,20 @@ export class ViewSiteComponent implements OnInit {
       offset: pageIndex * this.helperService.appConstants.paginationLimitForViewSite,
       search: search
     };
-    this.adminServices.siteActivities(data, paginationData).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.viewSiteObj.activityPageCount = res.data.pageCount;
-        this.viewSiteObj.activityTable = new MatTableDataSource(res.data.siteLogs);
+    this.subs.add(
+      this.adminServices.siteActivities(data, paginationData).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.viewSiteObj.activityPageCount = res.data.pageCount;
+          this.viewSiteObj.activityTable = new MatTableDataSource(res.data.siteLogs);
+          this.viewSiteObj.activityLoading = false;
+        } else {
+          this.viewSiteObj.activityLoading = false;
+          this.viewSiteObj.activityTable = null;
+        }
+      }, (error) => {
         this.viewSiteObj.activityLoading = false;
-      } else {
-        this.viewSiteObj.activityLoading = false;
-        this.viewSiteObj.activityTable = null;
-      }
-    }, (error) => {
-      this.viewSiteObj.activityLoading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   goBack() {

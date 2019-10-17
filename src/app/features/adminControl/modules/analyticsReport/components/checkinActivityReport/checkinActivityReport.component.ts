@@ -13,6 +13,7 @@ import {
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import * as Highcharts from 'highcharts';
 import {HighchartService} from 'src/app/services/common/highchart/highchart.service';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-checkinActivityReport',
@@ -21,6 +22,7 @@ import {HighchartService} from 'src/app/services/common/highchart/highchart.serv
 })
 export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   checkInActivityObj: Report = <Report>{};
+  private subs = new SubSink();
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
@@ -36,11 +38,12 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.makeReport(7, null, null, null, false)
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.makeReport(7, null, null, null, false)
+        }
+      }));
   }
 
   initialize() {
@@ -60,26 +63,28 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   }
 
   setEntityName() {
-    this.checkInActivityObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.checkInActivityObj.entityId = res.entityInfo.id;
-        this.checkInActivityObj.entityName = res.entityInfo.name;
-        this.checkInActivityFormValidations['entityName'].setValue(this.checkInActivityObj.entityName);
-        this.checkInActivityFormValidations['entityName'].disable();
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.checkInActivityObj.entityId = res.entityInfo.id;
+          this.checkInActivityObj.entityName = res.entityInfo.name;
+          this.checkInActivityFormValidations['entityName'].setValue(this.checkInActivityObj.entityName);
+          this.checkInActivityFormValidations['entityName'].disable();
+        }
+      }));
   }
 
   getFilters() {
-    this.analyticsService.filter().subscribe((res) => {
-      if (res) {
-        this.checkInActivityObj.filters = res;
-        this.checkInActivityObj.lastWeekObj = this.helperService.find(this.checkInActivityObj.filters, function (obj) {
-          return obj.name === 'Last Week';
-        });
-        this.checkInActivityFormValidations['filter'].setValue(this.checkInActivityObj.lastWeekObj.id);
-      }
-    });
+    this.subs.add(
+      this.analyticsService.filter().subscribe((res) => {
+        if (res) {
+          this.checkInActivityObj.filters = res;
+          this.checkInActivityObj.lastWeekObj = this.helperService.find(this.checkInActivityObj.filters, function (obj) {
+            return obj.name === 'Last Week';
+          });
+          this.checkInActivityFormValidations['filter'].setValue(this.checkInActivityObj.lastWeekObj.id);
+        }
+      }));
   }
 
   get checkInActivityFormValidations() {
@@ -90,13 +95,14 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
     let data = {
       entityId: this.helperService.getEntityId()
     };
-    this.memberService.allEntityUsers(data).subscribe((res) => {
-      if (res) {
-        this.checkInActivityObj.entityUsers = this.compiler.constructDataForTeams(res.data);
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.memberService.allEntityUsers(data).subscribe((res) => {
+        if (res) {
+          this.checkInActivityObj.entityUsers = this.compiler.constructDataForTeams(res.data);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   enableDates(value: any) {
@@ -121,25 +127,26 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
       'user': userId,
       'archive': archive
     };
-    this.analyticsService.checkInByActivityReport(data).subscribe((res) => {
-      if (res && res.responseDetails.code === 100) {
-        this.checkInActivityObj.checkInByActivityReportData = res.data.checkInByActivity;
-        let chartType: HighChartType = {
-          type: 'column',
-          title: 'Check In By Activity Report',
-          subtitle: ''
-        };
-        let data = this.highChartSettings.reportSettings(chartType,
-          [], this.generateCharSeries(this.checkInActivityObj.checkInByActivityReportData));
-        this.checkInActivityObj.containerDiv = document.getElementById('container')
-        if (this.checkInActivityObj.containerDiv) {
-          Highcharts.chart('container', data);
+    this.subs.add(
+      this.analyticsService.checkInByActivityReport(data).subscribe((res) => {
+        if (res && res.responseDetails.code === 100) {
+          this.checkInActivityObj.checkInByActivityReportData = res.data.checkInByActivity;
+          let chartType: HighChartType = {
+            type: 'column',
+            title: 'Check In By Activity Report',
+            subtitle: ''
+          };
+          let data = this.highChartSettings.reportSettings(chartType,
+            [], this.generateCharSeries(this.checkInActivityObj.checkInByActivityReportData));
+          this.checkInActivityObj.containerDiv = document.getElementById('container')
+          if (this.checkInActivityObj.containerDiv) {
+            Highcharts.chart('container', data);
+          }
+          this.checkInActivityObj.loading = false;
+        } else {
+          this.checkInActivityObj.loading = false;
         }
-        this.checkInActivityObj.loading = false;
-      } else {
-        this.checkInActivityObj.loading = false;
-      }
-    });
+      }));
   }
 
   generateCharSeries(reportData: any) {
@@ -202,9 +209,10 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.checkInActivityObj.subscription !== null && this.checkInActivityObj.subscription !== undefined) {
-      this.checkInActivityObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.checkInActivityObj.subscription !== null && this.checkInActivityObj.subscription !== undefined) {
+    //   this.checkInActivityObj.subscription.unsubscribe();
+    // }
   }
 
 }
