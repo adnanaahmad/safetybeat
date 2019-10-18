@@ -38,8 +38,8 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
     });
     this.leaveModel.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
+        debugger
         this.leaveModel.permissions = data;
-        console.log(this.leaveModel.permissions)
       }
     });
   }
