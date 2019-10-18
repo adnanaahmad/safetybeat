@@ -11,7 +11,7 @@ export const environment = {
   apiUrl: `${serverUrl}/safetybeat`,
   serverUrl: `${serverUrl}`,
   clientUrl: `${clientUrl}`,
-  clientSignupUrl: `${clientSignupUrl}`,
+  // clientSignupUrl: `${clientSignupUrl}`,
   firebaseConfig: {
     apiKey: 'AIzaSyA5fX1GOd488hjQnYnih4aFLmJhoRBBiMs',
     authDomain: 'safetybeat-12abc.firebaseapp.com',
