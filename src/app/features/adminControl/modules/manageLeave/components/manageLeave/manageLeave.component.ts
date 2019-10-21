@@ -41,7 +41,6 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
       }),
     this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
       if (data) {
-        debugger
         this.leaveModel.permissions = data;
       }
     }));
