@@ -6,6 +6,7 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {Report} from 'src/app/models/analyticsReport/reports.model';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-averageDailyActionsReport',
@@ -14,6 +15,7 @@ import {AnalyticsReportService} from 'src/app/features/adminControl/modules/anal
 })
 export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   averageActionObj: Report = <Report>{};
+  private subs = new SubSink();
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
@@ -46,44 +48,48 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.averageActionObj.subscription !== null && this.averageActionObj.subscription !== undefined) {
-      this.averageActionObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.averageActionObj.subscription !== null && this.averageActionObj.subscription !== undefined) {
+    //   this.averageActionObj.subscription.unsubscribe();
+    // }
   }
 
   setEntityName() {
-    this.averageActionObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.averageActionObj.entityName = res.entityInfo.name;
-        this.averageDailyActionsValidations['entityName'].setValue(this.averageActionObj.entityName);
-        this.averageDailyActionsValidations['entityName'].disable();
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res !== 1) {
+          this.averageActionObj.entityName = res.entityInfo.name;
+          this.averageDailyActionsValidations['entityName'].setValue(this.averageActionObj.entityName);
+          this.averageDailyActionsValidations['entityName'].disable();
+        }
+      }));
   }
 
   getFilters() {
-    this.analyticsService.filter().subscribe((res) => {
-      if (res) {
-        this.averageActionObj.filters = res;
-        this.averageActionObj.lastWeekObj = this.helperService.find(this.averageActionObj.filters, function (obj) {
-          return obj.name === 'Last Week';
-        });
-        this.averageDailyActionsValidations['filter'].setValue(this.averageActionObj.lastWeekObj.id);
-      }
-    });
+    this.subs.add(
+      this.analyticsService.filter().subscribe((res) => {
+        if (res) {
+          this.averageActionObj.filters = res;
+          this.averageActionObj.lastWeekObj = this.helperService.find(this.averageActionObj.filters, function (obj) {
+            return obj.name === 'Last Week';
+          });
+          this.averageDailyActionsValidations['filter'].setValue(this.averageActionObj.lastWeekObj.id);
+        }
+      }));
   }
 
   getAllUsers() {
     let data = {
       entityId: this.helperService.getEntityId()
     };
-    this.memberService.allEntityUsers(data).subscribe((res) => {
-      if (res) {
-        this.averageActionObj.entityUsers = this.compiler.constructDataForTeams(res.data);
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add(
+      this.memberService.allEntityUsers(data).subscribe((res) => {
+        if (res) {
+          this.averageActionObj.entityUsers = this.compiler.constructDataForTeams(res.data);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   averageActionSubmit(averageActionForm: FormGroup) {
@@ -116,18 +122,19 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       'days': days,
       'user': user
     };
-    this.analyticsService.averageDailyActionsReport(data).subscribe((res) => {
-      if (res && res.responseDetails.code === 100) {
-        // this.hazardObj.hazardReportData = res.data.hazardReportBySeverity;
-        // this.hazardObj.resolvedHazards = res.data.resolvedHazard;
-        // this.hazardObj.unResolvedHazards = res.data.unResolvedHazard;
-        // this.hazardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
-        // this.reportBySeverity(this.hazardObj.hazardReportData);
-        // this.reportByStatus(this.hazardObj.hazardReportByStatusData);
-        // this.hazardObj.loading = false;
-      } else {
-        // this.hazardObj.loading = false;
-      }
-    });
+    this.subs.add(
+      this.analyticsService.averageDailyActionsReport(data).subscribe((res) => {
+        if (res && res.responseDetails.code === 100) {
+          // this.hazardObj.hazardReportData = res.data.hazardReportBySeverity;
+          // this.hazardObj.resolvedHazards = res.data.resolvedHazard;
+          // this.hazardObj.unResolvedHazards = res.data.unResolvedHazard;
+          // this.hazardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
+          // this.reportBySeverity(this.hazardObj.hazardReportData);
+          // this.reportByStatus(this.hazardObj.hazardReportByStatusData);
+          // this.hazardObj.loading = false;
+        } else {
+          // this.hazardObj.loading = false;
+        }
+      }));
   }
 }

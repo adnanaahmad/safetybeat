@@ -12,6 +12,7 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {PaginationData} from 'src/app/models/site.model';
 import { ArchivedTeamComponent } from 'src/app/features/adminControl/modules/myTeam/dialogs/archived-team/archived-team.component';
+import {SubSink} from 'subsink';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class MyTeamComponent implements OnInit, OnDestroy {
   displayedColumns: Array<string> = ['title', 'teamLead', 'symbol'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   allUsers: any = [];
+  private subs = new SubSink();
 
   constructor(public helperService: HelperService,
               public compiler: CompilerProvider,
@@ -38,24 +40,26 @@ export class MyTeamComponent implements OnInit, OnDestroy {
     this.myTeam.firstIndex = 0;
     this.myTeam.search = '';
     this.myTeam.pageSize = 10;
-    this.myTeam.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res !== 1) {
-        this.myTeam.entityId = res.entityInfo.id;
-        this.getAllUsers();
-        this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
-      }
-    });
-    this.myTeam.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.myTeam.permissions = data;
-      }
-    });
+    this.subs.add (
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res !== 1) {
+          this.myTeam.entityId = res.entityInfo.id;
+          this.getAllUsers();
+          this.getAllTeams(this.myTeam.firstIndex, this.myTeam.search);
+        }
+      }),
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.myTeam.permissions = data;
+        }
+      }));
   }
 
   ngOnDestroy(): void {
-    if (this.myTeam.subscription !== null && this.myTeam.subscription !== undefined) {
-      this.myTeam.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.myTeam.subscription !== null && this.myTeam.subscription !== undefined) {
+    //   this.myTeam.subscription.unsubscribe();
+    // }
   }
 
   getAllUsers() {
@@ -63,15 +67,16 @@ export class MyTeamComponent implements OnInit, OnDestroy {
     let data = {
       entityId: this.myTeam.entityId
     };
-    this.memberService.getUsersList(data).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.allUsers = this.compiler.constructUserDataOfTeam(res.data);
-      } else {
-        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
-      }
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add (
+      this.memberService.getUsersList(data).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.allUsers = this.compiler.constructUserDataOfTeam(res.data);
+        } else {
+          this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.ERROR);
+        }
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   registerTeam() {
@@ -79,11 +84,12 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       disableClose: true,
       data: {Modal: false, allUsersOfTeam: this.allUsers}
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add (
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   getAllTeams(pageIndex, search) {
@@ -97,27 +103,28 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       limit: this.helperService.appConstants.paginationLimit,
       search: search
     };
-    this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.myTeam.pageCount = res.data.pageCount;
-        this.myTeam.allTeams = res.data.teamsList;
-        this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
-        this.paginator.pageIndex = pageIndex;
-        this.myTeam.loading = false;
-        if (this.myTeam.allTeams.length === 0 && this.paginator.pageIndex !== 0) {
-          this.goToPreviousTable();
+    this.subs.add (
+      this.adminServices.allTeamsData(data, paginationData).subscribe(res => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.myTeam.pageCount = res.data.pageCount;
+          this.myTeam.allTeams = res.data.teamsList;
+          this.myTeam.dataSource = new MatTableDataSource(this.myTeam.allTeams);
+          this.paginator.pageIndex = pageIndex;
+          this.myTeam.loading = false;
+          if (this.myTeam.allTeams.length === 0 && this.paginator.pageIndex !== 0) {
+            this.goToPreviousTable();
+          }
+        } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+          this.paginator.pageIndex = pageIndex;
+          this.myTeam.dataSource = null;
+          this.myTeam.loading = false;
         }
-      } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
-        this.paginator.pageIndex = pageIndex;
+      }, (error) => {
         this.myTeam.dataSource = null;
         this.myTeam.loading = false;
-      }
-    }, (error) => {
-      this.myTeam.dataSource = null;
-      this.myTeam.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
-        this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ALL_TEAMS_FAILURE,
+          this.helperService.constants.status.ERROR);
+      }));
   }
 
   viewTeam(teamsData) {
@@ -129,22 +136,24 @@ export class MyTeamComponent implements OnInit, OnDestroy {
   confirmationModal(teamId: number) {
     this.helperService.createDialog(ConfirmationModalComponent,
       {data: {message: this.helperService.translated.CONFIRMATION.ARCHIVE_TEAM}});
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      if (res === this.helperService.appConstants.yes) {
-        this.helperService.toggleLoader(true);
-        this.archiveTeam(teamId);
-      }
-    });
+    this.subs.add (
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res === this.helperService.appConstants.yes) {
+          this.helperService.toggleLoader(true);
+          this.archiveTeam(teamId);
+        }
+      }));
   }
 
   archiveTeam(teamId) {
-    this.adminServices.archiveTeam(teamId).subscribe((res) => {
-      this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
-      this.helperService.createSnack(
-        this.helperService.translated.MESSAGES.ARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
-    }, (error) => {
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-    });
+    this.subs.add (
+      this.adminServices.archiveTeam(teamId).subscribe((res) => {
+        this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
+        this.helperService.createSnack(
+          this.helperService.translated.MESSAGES.ARCHIVED_TEAM_SUCCESS, this.helperService.constants.status.SUCCESS);
+      }, (error) => {
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      }));
   }
 
   editTeam(teamInfo: TeamList) {
@@ -152,9 +161,10 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       disableClose: true,
       data: {Modal: true, teamList: teamInfo, allUsersOfTeam: this.allUsers}
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
-      this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
-    });
+    this.subs.add (
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
+      }));
   }
 
   /**
@@ -165,9 +175,10 @@ export class MyTeamComponent implements OnInit, OnDestroy {
       disableClose: true,
       data: {Modal: false, 'teamData': this.myTeam.allTeams}
     });
-    this.helperService.dialogRef.afterClosed().subscribe(res => {
+    this.subs.add (
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
         this.getAllTeams(this.paginator.pageIndex, this.myTeam.search);
-    });
+      }));
   }
   /**
    * this function is used to navigate user to previous table if current table is empty.

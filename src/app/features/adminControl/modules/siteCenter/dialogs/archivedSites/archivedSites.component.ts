@@ -8,6 +8,7 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
 import {PaginationData, ViewAllSiteArchivedData} from 'src/app/models/site.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-archivedSites',
@@ -18,6 +19,7 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   archivedSitesObj: SiteCentre = <SiteCentre>{};
   displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'siteSafetyManager', 'symbol'];
+  private subs = new SubSink();
 
 
   constructor(
@@ -31,17 +33,18 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
   ) {
     this.archivedSitesObj.loading = true;
     this.initialize();
-    this.archivedSitesObj.subscription = this.navService.selectedEntityData.subscribe((res) => {
-      if (res && res !== 1) {
-        this.archivedSitesObj.entityId = res.entityInfo.id;
-        this.getSitesData(this.archivedSitesObj.firstIndex, this.archivedSitesObj.search);
-      }
-    });
-    this.archivedSitesObj.subscription = this.navService.currentUserData.subscribe((res) => {
-      if (res) {
-        this.archivedSitesObj.currentUserData = res;
-      }
-    });
+    this.subs.add(
+      this.navService.selectedEntityData.subscribe((res) => {
+        if (res && res !== 1) {
+          this.archivedSitesObj.entityId = res.entityInfo.id;
+          this.getSitesData(this.archivedSitesObj.firstIndex, this.archivedSitesObj.search);
+        }
+      }),
+      this.navService.currentUserData.subscribe((res) => {
+        if (res) {
+          this.archivedSitesObj.currentUserData = res;
+        }
+      }));
   }
 
   /**
@@ -63,11 +66,12 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    */
 
   ngOnInit() {
-    this.archivedSitesObj.subscription = this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.archivedSitesObj.permissions = data;
-      }
-    });
+    this.subs.add(
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.archivedSitesObj.permissions = data;
+        }
+      }));
   }
 
   /**
@@ -75,9 +79,10 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    * component so that this would not affect the other components and this function is also used for hiding the debugging messages.
    */
   ngOnDestroy() {
-    if (this.archivedSitesObj.subscription !== null && this.archivedSitesObj.subscription !== undefined) {
-      this.archivedSitesObj.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.archivedSitesObj.subscription !== null && this.archivedSitesObj.subscription !== undefined) {
+    //   this.archivedSitesObj.subscription.unsubscribe();
+    // }
   }
 
   /**
@@ -97,30 +102,31 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
     if (typeof (search) === 'string' && search.length === 0) {
       this.archivedSitesObj.loading = true;
     }
-    this.adminServices.viewArchivedSites(entityData, paginationData).subscribe((res) => {
-      if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.archivedSitesObj.pageCount = res.data.pageCount;
-        this.archivedSitesObj.sitesData = this.compiler.constructAllSitesArchivedData(res.data.sitesList);
-        this.adminServices.changeSites(this.archivedSitesObj.sitesData);
-        this.archivedSitesObj.dataSource = new MatTableDataSource(this.archivedSitesObj.sitesData);
-        this.archivedSitesObj.loading = false;
-        if (this.archivedSitesObj.sitesData.length === 0 && this.paginator.pageIndex !== 0) {
-          this.goToPreviousTable();
+    this.subs.add(
+      this.adminServices.viewArchivedSites(entityData, paginationData).subscribe((res) => {
+        if (res && res.responseDetails && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.archivedSitesObj.pageCount = res.data.pageCount;
+          this.archivedSitesObj.sitesData = this.compiler.constructAllSitesArchivedData(res.data.sitesList);
+          this.adminServices.changeSites(this.archivedSitesObj.sitesData);
+          this.archivedSitesObj.dataSource = new MatTableDataSource(this.archivedSitesObj.sitesData);
+          this.archivedSitesObj.loading = false;
+          if (this.archivedSitesObj.sitesData.length === 0 && this.paginator.pageIndex !== 0) {
+            this.goToPreviousTable();
+          }
+        } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+          this.archivedSitesObj.dataSource = null;
+          this.archivedSitesObj.loading = false;
+        } else {
+          this.archivedSitesObj.dataSource = null;
+          this.archivedSitesObj.loading = false;
         }
-      } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[3]) {
+      }, (error: HttpErrorResponse) => {
+        this.onNoClick();
         this.archivedSitesObj.dataSource = null;
         this.archivedSitesObj.loading = false;
-      } else {
-        this.archivedSitesObj.dataSource = null;
-        this.archivedSitesObj.loading = false;
-      }
-    }, (error: HttpErrorResponse) => {
-      this.onNoClick();
-      this.archivedSitesObj.dataSource = null;
-      this.archivedSitesObj.loading = false;
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
-        this.helperService.constants.status.ERROR);
-    });
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG,
+          this.helperService.constants.status.ERROR);
+      }));
   }
 
   /**
@@ -128,21 +134,22 @@ export class ArchivedSitesComponent implements OnInit, OnDestroy {
    * @params siteData
    */
   unarchiveSite(siteData: any) {
-    this.adminServices.unarchiveSite(siteData.id).subscribe((res) => {
-      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-        this.getSitesData(this.paginator.pageIndex, this.archivedSitesObj.search);
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_SUCCESS,
-          this.helperService.constants.status.SUCCESS);
-      } else {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_FAILURE,
-          this.helperService.constants.status.ERROR);
+    this.subs.add(
+      this.adminServices.unarchiveSite(siteData.id).subscribe((res) => {
+        if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+          this.getSitesData(this.paginator.pageIndex, this.archivedSitesObj.search);
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_SUCCESS,
+            this.helperService.constants.status.SUCCESS);
+        } else {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.SITE_UNARCHIVE_FAILURE,
+            this.helperService.constants.status.ERROR);
+          this.onNoClick();
+        }
+      }, (error) => {
         this.onNoClick();
-      }
-    }, (error) => {
-      this.onNoClick();
-      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
 
-    });
+      }));
   }
 
   /**

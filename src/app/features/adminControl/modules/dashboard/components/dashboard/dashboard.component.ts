@@ -14,6 +14,7 @@ import {
 import * as Highcharts from 'highcharts';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
+import {SubSink} from 'subsink';
 
 @Component({
     selector: 'app-dashboard',
@@ -23,6 +24,7 @@ import {NavigationService} from 'src/app/features/navigation/services/navigation
 export class DashboardComponent implements OnDestroy, OnInit {
     translated: Translation;
     dashboardObj: Report = <Report>{};
+    private subs = new SubSink();
 
     constructor(
         public helperService: HelperService,
@@ -35,20 +37,22 @@ export class DashboardComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit() {
-        this.dashboardObj.subscription = this.navigationService.selectedEntityData.subscribe((res) => {
+        this.subs.add(
+          this.navigationService.selectedEntityData.subscribe((res) => {
             if (res && res !== 1) {
-                this.dashboardObj.entityId = res.entityInfo.id;
-                this.makeReport(7, null, null);
-                this.makeHazardReport(7, null, null, null, false);
-                this.makePulseReport(7, null, null, null, false);
+              this.dashboardObj.entityId = res.entityInfo.id;
+              this.makeReport(7, null, null);
+              this.makeHazardReport(7, null, null, null, false);
+              this.makePulseReport(7, null, null, null, false);
             }
-        })
+          }));
     }
 
     ngOnDestroy(): void {
-        if (this.dashboardObj.subscription !== null && this.dashboardObj.subscription !== undefined) {
-            this.dashboardObj.subscription.unsubscribe();
-        }
+        this.subs.unsubscribe();
+        // if (this.dashboardObj.subscription !== null && this.dashboardObj.subscription !== undefined) {
+        //     this.dashboardObj.subscription.unsubscribe();
+        // }
     }
 
     makeReport(days, dateTo, dateFrom) {
@@ -59,27 +63,28 @@ export class DashboardComponent implements OnDestroy, OnInit {
             'dateFrom': dateFrom,
             'days': days,
         };
-        this.analyticsService.actionReport(data).subscribe((res) => {
+        this.subs.add(
+          this.analyticsService.actionReport(data).subscribe((res) => {
             if (res && res.responseDetails.code === 100) {
-                this.dashboardObj.actionReportData = res.data.checkInList;
-                let chartType: HighChartType = {
-                    type: 'column',
-                    title: 'Action Report',
-                    subtitle: ''
-                };
-                let data = this.highChartSettings.reportSettings(chartType, [],
-                    this.generateCharSeries(this.dashboardObj.actionReportData));
-                this.dashboardObj.containerDiv = document.getElementById('actionReport')
-                if (this.dashboardObj.containerDiv) {
-                    Highcharts.chart(this.dashboardObj.containerDiv, data);
-                }
+              this.dashboardObj.actionReportData = res.data.checkInList;
+              let chartType: HighChartType = {
+                type: 'column',
+                title: 'Action Report',
+                subtitle: ''
+              };
+              let data = this.highChartSettings.reportSettings(chartType, [],
+                this.generateCharSeries(this.dashboardObj.actionReportData));
+              this.dashboardObj.containerDiv = document.getElementById('actionReport')
+              if (this.dashboardObj.containerDiv) {
+                Highcharts.chart(this.dashboardObj.containerDiv, data);
+              }
             } else {
-                this.dashboardObj.loading = false;
+              this.dashboardObj.loading = false;
             }
-        }, (error) => {
+          }, (error) => {
             this.dashboardObj.loading = false;
             this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-        });
+          }));
     }
 
     makeHazardReport(days, dateTo, dateFrom, user, archive) {
@@ -91,21 +96,22 @@ export class DashboardComponent implements OnDestroy, OnInit {
             'user': user,
             'archive': archive
         };
-        this.analyticsService.getHazardReport(data).subscribe((res) => {
+        this.subs.add(
+          this.analyticsService.getHazardReport(data).subscribe((res) => {
             if (res && res.responseDetails.code === 100) {
-                this.dashboardObj.hazardReportData = res.data.hazardReportBySeverity;
-                this.dashboardObj.resolvedHazards = res.data.resolvedHazard;
-                this.dashboardObj.unResolvedHazards = res.data.unResolvedHazard;
-                this.dashboardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
-                this.reportBySeverity(this.dashboardObj.hazardReportData);
-                this.reportByStatus(this.dashboardObj.hazardReportByStatusData);
+              this.dashboardObj.hazardReportData = res.data.hazardReportBySeverity;
+              this.dashboardObj.resolvedHazards = res.data.resolvedHazard;
+              this.dashboardObj.unResolvedHazards = res.data.unResolvedHazard;
+              this.dashboardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
+              this.reportBySeverity(this.dashboardObj.hazardReportData);
+              this.reportByStatus(this.dashboardObj.hazardReportByStatusData);
             } else {
-                this.dashboardObj.loading = false;
+              this.dashboardObj.loading = false;
             }
-        }, (error) => {
+          }, (error) => {
             this.dashboardObj.loading = false;
             this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-        });
+          }));
     }
 
     reportBySeverity(hazardSeverityData) {
@@ -145,27 +151,28 @@ export class DashboardComponent implements OnDestroy, OnInit {
             'user': userId,
             'archive': archive
         };
-        this.analyticsService.pulseByEntity(data).subscribe((res) => {
+        this.subs.add(
+          this.analyticsService.pulseByEntity(data).subscribe((res) => {
             if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-                this.dashboardObj.pulseByEntityReportData = res.data.pulseByEntity;
-                let chartType: HighChartType = {
-                    type: 'column',
-                    title: 'Pulse Report',
-                    subtitle: ''
-                };
-                let data = this.highChartSettings.reportSettings(chartType,
-                    [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData));
-                this.dashboardObj.pulseDiv = document.getElementById('pulseReport')
-                if (this.dashboardObj.pulseDiv) {
-                    Highcharts.chart(this.dashboardObj.pulseDiv, data);
-                }
-                this.dashboardObj.loading = false;
+              this.dashboardObj.pulseByEntityReportData = res.data.pulseByEntity;
+              let chartType: HighChartType = {
+                type: 'column',
+                title: 'Pulse Report',
+                subtitle: ''
+              };
+              let data = this.highChartSettings.reportSettings(chartType,
+                [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData));
+              this.dashboardObj.pulseDiv = document.getElementById('pulseReport')
+              if (this.dashboardObj.pulseDiv) {
+                Highcharts.chart(this.dashboardObj.pulseDiv, data);
+              }
+              this.dashboardObj.loading = false;
             } else {
-                this.dashboardObj.loading = false;
+              this.dashboardObj.loading = false;
             }
-        }, (error) => {
+          }, (error) => {
             this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-        });
+          }));
     }
 
     generatePulseCharSeries(reportData: any) {
