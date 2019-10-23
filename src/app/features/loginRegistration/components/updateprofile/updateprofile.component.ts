@@ -177,7 +177,7 @@ export class UpdateprofileComponent implements OnInit, OnDestroy {
       first_name: data.value.first_name,
       last_name: data.value.last_name,
       email: this.userData.email,
-      contactNo: '+' + data.value.countryCode + '-' + data.value.contactNo,
+      contactNo: data.value.countryCode + '-' + data.value.contactNo,
       password: data.value.password1,
     };
 

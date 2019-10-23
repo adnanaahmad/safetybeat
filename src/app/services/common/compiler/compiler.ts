@@ -306,7 +306,7 @@ export class CompilerProvider {
       'address': this.helperService.address,
       'accountNo': '12344532',
       'billingEmail': registerObj.userEmail.email,
-      'phoneNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
+      'phoneNo': userForm.countryCode + '-' + userForm.contactNo,
       'type': registerObj.organizationTypeForm.value.type
     } as OrgData;
   }
@@ -318,12 +318,13 @@ export class CompilerProvider {
       'last_name': userForm.last_name,
       'password1': userForm.password1,
       'password2': userForm.password2,
-      'contactNo': '+' + userForm.countryCode + '-' + userForm.contactNo,
+      'contactNo': userForm.countryCode + '-' + userForm.contactNo,
       'organization': registerObj.organizationData,
       'invitation': false,
       'moduleName': 'Safetybeat',
       'package': 'Trial',
-      'roleId': 'Owner'
+      'roleId': 'Owner',
+      'passwordChanged': true
     } as RegUserData;
   }
 
