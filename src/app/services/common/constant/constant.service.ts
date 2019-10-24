@@ -117,6 +117,9 @@ export class ConstantService {
     getPulseTypes: `${environment.apiUrl}/api/sendPulseType/getPulseTypes/`,
     archivePulse: `${environment.apiUrl}/api/sendPulseType/archivePulse/`,
     pulseType: `${environment.apiUrl}/api/sendPulseType/`,
+    defaultIntervals: `${environment.apiUrl}/api/reportInInterval/getIntervals/`,
+    updateIntervals: `${environment.apiUrl}/api/reportInInterval/`
+
   };
   /**
    * all the api methods are declared here.
