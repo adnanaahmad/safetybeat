@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 
-const serverUrl = 'http://192.168.69.13:8000';
+const serverUrl = 'http://192.168.69.70:8000';
 const clientUrl = 'http://localhost:4200/#';
 
 export const environment = {
@@ -11,7 +11,6 @@ export const environment = {
   apiUrl: `${serverUrl}/safetybeat`,
   serverUrl: `${serverUrl}`,
   clientUrl: `${clientUrl}`,
-  // clientSignupUrl: `${clientSignupUrl}`,
   firebaseConfig: {
     apiKey: 'AIzaSyA5fX1GOd488hjQnYnih4aFLmJhoRBBiMs',
     authDomain: 'safetybeat-12abc.firebaseapp.com',
