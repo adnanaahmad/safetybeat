@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Intervals} from 'src/app/models/Settings/entitySetting.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,15 @@ export class SettingsService {
   changePassword(data) {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
       this.helperService.constants.apiRoutes.changePassword, data);
+  }
+
+  getDefaultIntervals(data): Observable<Intervals> {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.defaultIntervals, data);
+  }
+
+  updateIntervals(data, id): Observable<Intervals> {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
+      `${this.helperService.constants.apiRoutes.updateIntervals}${id}/`, data);
   }
 }
