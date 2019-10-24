@@ -4,55 +4,106 @@
 <br><br>
 <mat-divider></mat-divider><br><br>
 <div class="spinner-wrap" *ngIf="entitySettingObj.loading">
-  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
 <form [formGroup]="entitySettingObj.entityForm"
       (ngSubmit)="updateEntity(entitySettingObj.entityForm)">
-    <div class="form-row">
-        <mat-form-field appearance="outline">
-            <mat-label>{{ helperService.translated.TABLEHEADINGS.NAME }}</mat-label>
-            <input matInput type="text" formControlName="{{ helperService.appConstants.name }}" required />
-            <mat-error class="text-right" *ngIf="entityFormValidations.errors">
+    <div class="flexbox">
+        <mat-card class="mat-elevation-z0" fullWidth>
+            <mat-form-field fullWidth appearance="outline">
+                <mat-label>{{ helperService.translated.TABLEHEADINGS.NAME }}</mat-label>
+                <input matInput type="text" formControlName="{{ helperService.appConstants.name }}" required/>
+                <mat-error class="text-right" *ngIf="entityFormValidations.errors">
                 <span
-                    *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Entity Code</mat-label>
-            <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required/>
-        </mat-form-field>
-      <mat-form-field appearance="outline" fullWidth>
-        <mat-label>{{helperService.translated.STRINGS.ENTITYMANAGER}}</mat-label>
-        <mat-select
-          [formControlName]="helperService.appConstants.entityManager">
-          <mat-option *ngFor="let user of entitySettingObj.entityUsers" [value]="user.id">
-            {{user.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="entityFormValidations.entityManager.errors">
+                        *ngIf="entityFormValidations.name.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fullWidth appearance="outline">
+                <mat-label>Entity Code</mat-label>
+                <input matInput type="text" formControlName="{{ helperService.appConstants.code }}" required/>
+            </mat-form-field>
+            <mat-form-field fullWidth appearance="outline" fullWidth>
+                <mat-label>{{helperService.translated.STRINGS.ENTITYMANAGER}}</mat-label>
+                <mat-select
+                        [formControlName]="helperService.appConstants.entityManager">
+                    <mat-option *ngFor="let user of entitySettingObj.entityUsers" [value]="user.id">
+                        {{user.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="entityFormValidations.entityManager.errors">
               <span
-                *ngIf="entityFormValidations.entityManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
-        </mat-error>
-      </mat-form-field>
+                      *ngIf="entityFormValidations.entityManager.errors.required">{{helperService.translated.MESSAGES.SAFETY_MANAGER_REQ}}</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fullWidth appearance="outline" fullWidth>
+                <mat-label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</mat-label>
+                <input matInput type="text" appGooglePlaces
+                       formControlName="{{ helperService.appConstants.headOffice }}"
+                       (onSelect)="helperService.setAddress($event,gMapElement,entityFormValidations.headOffice)"
+                       (keyup)="helperService.setFalse($event)" required/>
+            </mat-form-field>
+        </mat-card>
+        <mat-card class="mat-elevation-z0" fullWidth>
+            <div #gmap class="site-map"></div>
+        </mat-card>
     </div>
-    <mat-form-field appearance="outline" fullWidth>
-        <mat-label>{{ helperService.translated.TABLEHEADINGS.ENTITY_HEADOFFICE }}</mat-label>
-        <input matInput type="text" appGooglePlaces formControlName="{{ helperService.appConstants.headOffice }}"
-               (onSelect)="helperService.setAddress($event,gMapElement,entityFormValidations.headOffice)"
-               (keyup)="helperService.setFalse($event)" required/>
-    </mat-form-field>
-    <mat-card>
-        <div #gmap class="site-map"></div>
-    </mat-card>
+    <mat-divider></mat-divider>
+
+    <!-- Notification Interval Settings -->
+    <div class="notification-interval">
+        <h5>Notification Interval</h5>
+        <table mat-table fullWidth [dataSource]="dataSource" class="mat-elevation-z0 customTable">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> Notifications</th>
+                <td mat-cell *matCellDef="let element"> {{element.position}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Set interval</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="number-input">
+                        <input type="number" value="120">
+                        <span class="inc">+</span>
+                        <span class="dec">-</span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef> Notifies to</th>
+                <td mat-cell *matCellDef="let element">
+                    <ul class="tagcloud">
+                        <li>User</li>
+                        <li>Team Leaders</li>
+                    </ul>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+    </div>
+    <!-- /Notification Interval Settings -->
+
     <div *ngIf="entitySettingObj.disabled" class="btn-grp">
         <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
                 [disabled]="entitySettingObj.entityForm.pristine || entitySettingObj.entityForm.invalid">
-                <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
-                {{ helperService.translated.BUTTONS.SAVE }}
-            </button>
-            <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
+            <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
+            {{ helperService.translated.BUTTONS.SAVE }}
+        </button>
+        <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
                 (click)="cancelEditEntity()">
-                {{helperService.translated.BUTTONS.CANCEL}}
-            </button>
-        </div>
+            {{helperService.translated.BUTTONS.CANCEL}}
+        </button>
+    </div>
 </form>

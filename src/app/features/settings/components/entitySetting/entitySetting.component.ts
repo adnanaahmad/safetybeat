@@ -10,7 +10,16 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {SettingsService} from 'src/app/features/settings/services/settings.service';
 import {PaginationData} from '../../../../models/site.model';
 import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
-
+export interface PeriodicElement {
+    name: string;
+    position: string;
+    weight: number;
+}
+const ELEMENT_DATA: PeriodicElement[] = [
+    {position: '1st', name: 'Hydrogen', weight: 1.0079},
+    {position: '2nd', name: 'Helium', weight: 4.0026},
+    {position: '3rd', name: 'Lithium', weight: 6.941}
+];
 @Component({
   selector: 'app-entity-setting',
   templateUrl: './entitySetting.component.html',
@@ -19,7 +28,8 @@ import {MemberCenterService} from '../../../adminControl/modules/memberCenter/se
 export class EntitySettingComponent implements OnInit, OnDestroy {
   entitySettingObj: EntitySetting = <EntitySetting>{};
   @ViewChild('gmap') gMapElement: ElementRef;
-
+    displayedColumns: string[] = ['position', 'name', 'weight'];
+    dataSource = ELEMENT_DATA;
   constructor(private formBuilder: FormBuilder,
               public helperService: HelperService,
               private navService: NavigationService,
