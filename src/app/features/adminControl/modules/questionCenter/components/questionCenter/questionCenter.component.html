@@ -3,21 +3,23 @@
 </div>
 <div class="paddingbox">
     <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.QUESTION_CENTER }}</h3>
+        <h4>{{ helperService.translated.SITETITLE.QUESTION_CENTER }}</h4>
+
+        <!-- Buttons -->
         <div class="buttonRow">
             <button matTooltip="{{ helperService.translated.BUTTONS.CREATENEWQUESTION}}"
-                    class="mat-elevation-z6" *ngIf="QuestionObj.permissions.createQuestion" (click)="createQuestion()"
+                    *ngIf="QuestionObj.permissions.createQuestion" (click)="createQuestion()"
                     mat-raised-button color="primary">
                 <mat-icon>{{ helperService.appIcons.createNote }}</mat-icon>
-                {{ helperService.translated.BUTTONS.CREATE_QUESTION}}
             </button>
             <button matTooltip="{{ helperService.translated.BUTTONS.ADDQUESTION}}"
-                    class="mat-elevation-z6" *ngIf="QuestionObj.permissions.addQuestion" (click)="addQuestion()"
+                    *ngIf="QuestionObj.permissions.addQuestion" (click)="addQuestion()"
                     mat-raised-button color="primary">
                 <mat-icon>{{ helperService.appIcons.add }}</mat-icon>
-                {{ helperService.translated.BUTTONS.ADD_QUESTION}}
             </button>
         </div>
+
+        <!--Filter-->
         <div class="data-filter">
             <div class="input-wrap">
                 <input class="search-input" autocomplete="off" matInput placeholder="Search"
@@ -25,9 +27,12 @@
                        (keyup)="getAllQuestions(QuestionObj.firstIndex,$event.target.value)">
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </div>
-            <a class="mat-body-strong mat-small pointer">&nbsp;</a>
+            <!--<a (click)="advanceSearch()"-->
+            <!--class="mat-body-strong mat-small pointer">&nbsp;</a>-->
         </div>
+        <!-- /Filter-->
     </div>
+    <!-- /Buttons -->
     <mat-grid-list cols="3" rowHeight="fit" gutterSize="10px" class="dashboard-widgets">
         <mat-grid-tile class="overflow-unset" *ngFor="let card of cards | async" [colspan]="card.cols"
                        [rowspan]="card.rows">

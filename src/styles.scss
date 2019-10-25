@@ -237,21 +237,23 @@ input[type=number] {
 
 .page-title {
   padding: 0 0 20px;
-  display: flex;
-  align-items: center;
-
-  h3 {
+  h4 {
     margin: 0;
+    font-weight: 500;
+    display: inline-block;
   }
 
   .buttonRow {
     margin-left: auto;
-
+    text-align: right;
+    display: inline-block;
+    float: right;
     button {
       padding: 0 6px;
       margin-left: 4px;
       font-size: 12px;
-
+      line-height: 30px;
+      min-width: 45px;
       mat-icon {
         width: auto;
         height: auto;
@@ -538,6 +540,45 @@ input:-internal-autofill-selected {
   }
 }
 
+.data-filter {
+  padding: 0 0 0 10px;
+  position: relative;
+  width: 36px;
+  cursor: pointer;
+  float: right;
+  transition: all ease 0.3s;
+  &:hover, &:focus-within {
+    width: 160px;
+  }
+  .input-wrap {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #fff;
+    .search-input {
+      border: 0;
+      background: transparent;
+      width: 100%;
+      outline: 0 none;
+    }
+  }
+  mat-icon {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    background: #fff;
+    height: 31px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 1.3;
+    width: 33px;
+  }
+  mat-form-field {
+    margin: 0 10px;
+    width: 150px;
+  }
+}
+
 @media (max-width: 992px) {
   .sideLegend {
     .legendContent {
@@ -702,6 +743,7 @@ input:-internal-autofill-selected {
   .data-filter {
     width: $fullValue !important;
     padding: 0 !important;
+    margin-bottom: 10px;
   }
   .settings-parent {
     .navigator {
@@ -726,18 +768,6 @@ input:-internal-autofill-selected {
         display: block !important;
       }
     }
-  }
-  .buttonRow {
-    text-align: center;
-
-    button {
-      margin: 10px auto 0;
-    }
-  }
-  .page-title {
-    margin: 10px 0 0;
-    display: block;
-    text-align: center;
   }
   .notification-drawer {
     width: 100%;

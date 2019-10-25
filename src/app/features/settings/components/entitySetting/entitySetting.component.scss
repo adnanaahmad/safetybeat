@@ -5,7 +5,10 @@
       height: 300px;
       width: 100%;
     }
-    @media (max-width: 768px) {
+    button[edit] {
+      float: right;
+    }
+    @media (max-width: 992px) {
       .flexbox {
         display: block;
         mat-card {

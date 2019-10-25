@@ -1,31 +1,10 @@
 @import "~@angular/material/theming";
+
 @mixin amte-questionCenter($primary, $accent, $warn) {
   :host,
   app-questionCenter {
     position: relative;
     height: $fullValue;
-    .data-filter {
-      padding: 0 0 0 10px;
-      top: 11px;
-      position: relative;
-      width: 160px;
-      .input-wrap {
-        display: flex;
-        border: 1px solid #ddd;
-        padding: 5px;
-        border-radius: 4px;
-        .search-input {
-          border: 0;
-          background: transparent;
-          width: 100%;
-          outline: 0 none;
-        }
-      }
-      mat-form-field {
-        margin: 0 10px;
-        width: 150px;
-      }
-    }
     mat-grid-list {
       height: calc(88vh - 100px);
     }

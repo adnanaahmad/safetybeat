@@ -208,7 +208,8 @@
     "ARCHIVED_TEAMS": "Archived Teams",
     "BUYPACKAGE": "Pay",
     "CREATENEWQUESTION": "Create a new question",
-    "ADDQUESTION": "Add existing question"
+    "ADDQUESTION": "Add existing question",
+    "ADDUSER": "Add User"
   },
   "MESSAGES": {
     "ORG_DETAILS": "Organization Details Updated.",
@@ -493,7 +494,8 @@
     "SITE_ACTIVITY_REPORT": "Site Activity Report",
     "HAZARD_REPORTS": "Hazard Reports",
     "LEAVES": "Leaves",
-    "ADDLEAVES": "Add Leave"
+    "ADDLEAVES": "Add Leave",
+    "MANAGELEAVES_TITLE": "Manage Leaves"
   },
   "TABLEHEADINGS": {
     "ENTITY_ID": "Id",
