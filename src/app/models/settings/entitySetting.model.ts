@@ -1,10 +1,12 @@
 import {FormGroup} from '@angular/forms';
 import {EntityInfo} from '../userEntityData.model';
 import {Subscription} from 'rxjs';
-import {User} from '../user.model';
+import {responseDetails, User} from '../user.model';
 
 
 export interface EntitySetting {
+  selectedEntityData: any;
+  intervalForm: FormGroup;
   entityUsers: Array<User>;
   loading: boolean;
   entitiesList: any;
@@ -16,4 +18,20 @@ export interface EntitySetting {
   entityForm: FormGroup;
   disabled: boolean;
   entitiesData: EntityInfo;
+}
+
+export interface Intervals {
+  data: IntervalsData;
+  responseDetails: responseDetails;
+}
+
+export interface IntervalsData {
+  default: boolean;
+  entity: number;
+  id: number;
+  interval1: number;
+  interval2: number;
+  interval3: number;
+  interval4: number;
+  interval5: number;
 }

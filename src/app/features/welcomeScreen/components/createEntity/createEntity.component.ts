@@ -83,12 +83,12 @@ export class CreateEntityComponent implements OnInit {
             this.createEntityObj.entitiesList = res;
             this.createEntityObj.entityUserData = this.compiler.constructUserEntityData(this.createEntityObj.entitiesList.data.allEntities);
             this.navService.changeEntites(this.createEntityObj.entityUserData);
+            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
             this.createEntityObj.loading = false;
             this.helperService.createSnack(
               this.createEntityObj.entityResponse.responseDetails.message,
               this.helperService.constants.status.SUCCESS
             );
-            this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
           });
         } else if (this.createEntityObj.entityResponse.responseDetails.code === this.helperService.appConstants.codeValidations[3] ||
           this.helperService.appConstants.codeValidations[4]) {

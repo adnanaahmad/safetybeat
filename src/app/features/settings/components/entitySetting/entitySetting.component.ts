@@ -1,25 +1,58 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EditEntity} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {EntitySetting} from 'src/app/models/Settings/entitySetting.model';
+import {EntitySetting, Intervals, IntervalsData} from 'src/app/models/Settings/entitySetting.model';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {SettingsService} from 'src/app/features/settings/services/settings.service';
-import {PaginationData} from '../../../../models/site.model';
-import {MemberCenterService} from '../../../adminControl/modules/memberCenter/services/member-center.service';
+import {PaginationData} from 'src/app/models/site.model';
+import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
+
 export interface PeriodicElement {
-    name: string;
-    position: string;
-    weight: number;
+  position: string;
+  notifiesUser: string;
+  interval: string;
+  notifiesTeamLead?: string;
+  notifiesSiteSafetyManager?: string;
+  notifiesEntityManager?: string;
+  notifiesAdmin?: string;
+
+
 }
+
 const ELEMENT_DATA: PeriodicElement[] = [
-    {position: '1st', name: 'Hydrogen', weight: 1.0079},
-    {position: '2nd', name: 'Helium', weight: 4.0026},
-    {position: '3rd', name: 'Lithium', weight: 6.941}
+  {position: '1st', notifiesUser: 'User', interval: 'interval1'},
+  {position: '2nd', notifiesUser: 'User', notifiesTeamLead: 'Team Leader', interval: 'interval2'},
+  {
+    position: '3rd',
+    notifiesUser: 'User',
+    notifiesTeamLead: 'Team Leader',
+    notifiesSiteSafetyManager: 'Site Safety Manager',
+    interval: 'interval3'
+  },
+  {
+    position: '4th',
+    notifiesUser: 'User',
+    notifiesTeamLead: 'Team Leader',
+    notifiesSiteSafetyManager: 'Site Safety Manager',
+    notifiesEntityManager: 'Entity Manager',
+    interval: 'interval4'
+  },
+  {
+    position: '5th',
+    notifiesUser: 'User',
+    notifiesTeamLead: 'Team Leader',
+    notifiesSiteSafetyManager: 'Site Safety Manager',
+    notifiesEntityManager: 'Entity Manager',
+    notifiesAdmin: 'Administrator',
+    interval: 'interval5',
+  }
+
 ];
+
 @Component({
   selector: 'app-entity-setting',
   templateUrl: './entitySetting.component.html',
@@ -28,8 +61,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class EntitySettingComponent implements OnInit, OnDestroy {
   entitySettingObj: EntitySetting = <EntitySetting>{};
   @ViewChild('gmap') gMapElement: ElementRef;
-    displayedColumns: string[] = ['position', 'name', 'weight'];
-    dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['position', 'name', 'weight'];
+  dataSource = ELEMENT_DATA;
+  intervalData: IntervalsData;
+
   constructor(private formBuilder: FormBuilder,
               public helperService: HelperService,
               private navService: NavigationService,
@@ -38,7 +73,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
               private compiler: CompilerProvider,
               public settings: SettingsService,
               private memberService: MemberCenterService) {
-
     this.entitySettingObj.disabled = false;
     this.entitySettingObj.loading = false;
   }
@@ -69,11 +103,19 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       headOffice: ['', Validators.required],
       entityManager: [''],
     });
+    this.entitySettingObj.intervalForm = this.formBuilder.group({
+      interval1: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
+      interval2: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
+      interval3: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
+      interval4: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
+      interval5: ['', [Validators.required, Validators.max(1440), Validators.min(5)]]
+    });
     this.entitySettingObj.entityForm.disable();
     this.entitySettingObj.subscription = this.navService.selectedEntityData.subscribe((selectedEntity) => {
       if (selectedEntity !== 1) {
         this.entitySettingObj.entitiesData = selectedEntity.entityInfo;
         this.entitySettingObj.entityManagedBy = selectedEntity.managedBy;
+        this.defaultIntervals(this.entitySettingObj.entitiesData.id);
         this.entityFormValidations['name'].setValue(this.entitySettingObj.entitiesData.name);
         this.entityFormValidations['code'].setValue(this.entitySettingObj.entitiesData.code);
         this.entityFormValidations['headOffice'].setValue(this.entitySettingObj.entitiesData.headOffice);
@@ -83,6 +125,24 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
           this.helperService.createMap(this.gMapElement)).then();
       }
     });
+  }
+
+  defaultIntervals(entity: number) {
+    let data = {
+      entityId: entity
+    };
+    this.settings.getDefaultIntervals(data).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.intervalData = res.data;
+        this.intervalFormValidations['interval1'].setValue(this.intervalData.interval1);
+        this.intervalFormValidations['interval2'].setValue(this.intervalData.interval2);
+        this.intervalFormValidations['interval3'].setValue(this.intervalData.interval3);
+        this.intervalFormValidations['interval4'].setValue(this.intervalData.interval4);
+        this.intervalFormValidations['interval5'].setValue(this.intervalData.interval5);
+      }
+    }, ((error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    }));
   }
 
   cancelEditEntity() {
@@ -159,6 +219,10 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     return this.entitySettingObj.entityForm.controls;
   }
 
+  get intervalFormValidations() {
+    return this.entitySettingObj.intervalForm.controls;
+  }
+
   getAllEntityUsers() {
     let data = {
       entityId: this.entitySettingObj.entitiesData.id
@@ -170,5 +234,43 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
     });
+  }
+
+  intervalSubmit(intervalForm: FormGroup) {
+    let data = {
+      entity: this.entitySettingObj.entitiesData.id,
+      interval1: intervalForm.value.interval1,
+      interval2: intervalForm.value.interval2,
+      interval3: intervalForm.value.interval3,
+      interval4: intervalForm.value.interval4,
+      interval5: intervalForm.value.interval5
+    };
+    this.settings.updateIntervals(data, this.intervalData.id).subscribe((res) => {
+      if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.intervalData = res.data;
+        this.intervalFormValidations['interval1'].setValue(this.intervalData.interval1);
+        this.intervalFormValidations['interval2'].setValue(this.intervalData.interval2);
+        this.intervalFormValidations['interval3'].setValue(this.intervalData.interval3);
+        this.intervalFormValidations['interval4'].setValue(this.intervalData.interval4);
+        this.intervalFormValidations['interval5'].setValue(this.intervalData.interval5);
+        this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
+      }
+    }, (error) => {
+      this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+    });
+  }
+
+  addition(interval: any) {
+    if (this.intervalFormValidations[interval].value < 1440) {
+      let updatedValue = this.intervalFormValidations[interval].value + 5;
+      this.intervalFormValidations[interval].setValue(parseInt(updatedValue, 10));
+    }
+  }
+
+  subtraction(interval: any) {
+    if (this.intervalFormValidations[interval].value !== 5) {
+      let updatedValue = this.intervalFormValidations[interval].value - 5;
+      this.intervalFormValidations[interval].setValue(updatedValue);
+    }
   }
 }
