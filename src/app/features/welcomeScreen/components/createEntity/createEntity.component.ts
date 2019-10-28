@@ -83,6 +83,13 @@ export class CreateEntityComponent implements OnInit {
             this.createEntityObj.entitiesList = res;
             this.createEntityObj.entityUserData = this.compiler.constructUserEntityData(this.createEntityObj.entitiesList.data.allEntities);
             this.navService.changeEntites(this.createEntityObj.entityUserData);
+            if (this.createEntityObj.entityUserData.entities.length === 1) {
+              let entityCode = this.createEntityObj.entityResponse.data.entityCode;
+              let index = this.helperService.findIndex(this.createEntityObj.entityUserData.entities, function (entity) {
+                return entity.entityInfo.code === entityCode;
+              });
+              this.navService.changeSelectedEntity(this.createEntityObj.entityUserData.entities[index]);
+            }
             this.helperService.navigateTo([this.helperService.appConstants.paths.home]);
             this.createEntityObj.loading = false;
             this.helperService.createSnack(

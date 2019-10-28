@@ -78,6 +78,7 @@ export class ConstantService {
     addQuestion: `${environment.apiUrl}/api/questions/`,
     getAllQuestions: `${environment.apiUrl}/api/questions/viewAllQuestions/`,
     viewAllConnections: `${environment.apiUrl}/api/connections/viewAllConnections/`,
+    changeActiveEntity: `${environment.apiUrl}/entity/changeActiveEntity/`,
     getAllDocuments: `${environment.apiUrl}/api/documents/viewAllDocuments/`,
     getRootDocuments: `${environment.apiUrl}/api/documents/rootFolderDocuments/`,
     documents: `${environment.apiUrl}/api/documents/`,
