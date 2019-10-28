@@ -1,68 +1,70 @@
 <div class="spinner-wrap" *ngIf="actionReportObj.loading">
-  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
 <div [class]="actionReportObj.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
-  <div class="paddingbox">
-    <div class="page-title">
-      <h3>{{helperService.translated.SITETITLE.ACTION_REPORT}}</h3>
-    </div>
-    <p style="margin-top:0;">{{helperService.translated.MESSAGES.ACTION_REPORT_MSG}}</p>
-    <mat-card>
-      <form [formGroup]="actionReportObj.actionReportForm"
-            (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm)
-            (keydown.enter)="$event.preventDefault()">
-
-        <div class="form-group inline">
-          <mat-form-field appearance="outline">
-            <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
-            <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>
-            <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-              *ngIf="actionFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker1" [formControlName]="helperService.appConstants.dateFrom"
-                   [max]="actionReportObj.maxDate"
-                   (dateChange)="enableDateFrom()"
-                   placeholder="Date From" readonly>
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-              *ngIf="actionFormValidations.dateFrom.errors.required">
-              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
-                   [max]="actionReportObj.maxDate"
-                   [min]="actionReportObj.minDate"
-                   placeholder="Date To" readonly>
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-            <mat-error class="text-right" *ngIf="actionFormValidations.errors">
-            <span
-              *ngIf="actionFormValidations.dateTo.errors.required">
-              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
-            <mat-select [formControlName]="helperService.appConstants.filter"
-                        (selectionChange)="enableDates($event.value)">
-              <mat-option *ngFor="let filter of actionReportObj.filters" [value]="filter.id">
-                {{ filter.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-raised-button custom-btn color="primary">
-            {{helperService.translated.BUTTONS.GENERATE_REPORT}}
-          </button>
+    <div class="paddingbox">
+        <div class="page-title p-0">
+            <h4>{{helperService.translated.SITETITLE.ACTION_REPORT}}</h4>
+            <p class="mat-body mat-caption">{{helperService.translated.MESSAGES.ACTION_REPORT_MSG}}</p>
         </div>
-        <br>
-      </form>
-      <div id="action"></div>
-    </mat-card>
-  </div>
+        <mat-card>
+            <form [formGroup]="actionReportObj.actionReportForm"
+                  (ngSubmit)=actionReportFormSubmit(actionReportObj.actionReportForm)
+                  (keydown.enter)="$event.preventDefault()">
+
+                <div class="form-group inline">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
+                        <input matInput type="text" [formControlName]="helperService.appConstants.entityName"
+                               [disabled]/>
+                        <mat-error class="text-right" *ngIf="actionFormValidations.errors">
+            <span
+                    *ngIf="actionFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="picker1"
+                               [formControlName]="helperService.appConstants.dateFrom"
+                               [max]="actionReportObj.maxDate"
+                               (dateChange)="enableDateFrom()"
+                               placeholder="Date From" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error class="text-right" *ngIf="actionFormValidations.errors">
+            <span
+                    *ngIf="actionFormValidations.dateFrom.errors.required">
+              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="picker2" [formControlName]="helperService.appConstants.dateTo"
+                               [max]="actionReportObj.maxDate"
+                               [min]="actionReportObj.minDate"
+                               placeholder="Date To" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <mat-error class="text-right" *ngIf="actionFormValidations.errors">
+            <span
+                    *ngIf="actionFormValidations.dateTo.errors.required">
+              {{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{helperService.translated.STRINGS.SELECT_FILTER}}</mat-label>
+                        <mat-select [formControlName]="helperService.appConstants.filter"
+                                    (selectionChange)="enableDates($event.value)">
+                            <mat-option *ngFor="let filter of actionReportObj.filters" [value]="filter.id">
+                                {{ filter.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-raised-button custom-btn color="primary">
+                        {{helperService.translated.BUTTONS.GENERATE_REPORT}}
+                    </button>
+                </div>
+                <br>
+            </form>
+            <div id="action"></div>
+        </mat-card>
+    </div>
 </div>
