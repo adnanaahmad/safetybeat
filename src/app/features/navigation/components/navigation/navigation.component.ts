@@ -51,7 +51,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.breakpointObserver
-      .observe(['(min-width: 768px)'])
+      .observe(['(min-width: 992px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
           this.opened = true;

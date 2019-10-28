@@ -3,15 +3,18 @@
 </div>
 <div class="paddingbox">
     <div class="page-title">
-        <h3>Manage Leaves</h3>
+        <h4>{{ helperService.translated.SITETITLE.MANAGELEAVES_TITLE }}</h4>
+        <!--Filter-->
         <div class="data-filter">
             <div class="input-wrap">
                 <input class="search-input" autocomplete="off" matInput placeholder="Search"
                        (keyup)=viewAllUserLeaves(leaveModel.firstIndex,$event.target.value)>
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </div>
-            <a _ngcontent-c19="" class="mat-body-strong mat-small pointer">&nbsp;</a>
+            <!--<a (click)="advanceSearch()"-->
+            <!--class="mat-body-strong mat-small pointer">&nbsp;</a>-->
         </div>
+        <!-- /Filter-->
     </div>
     <div class="table-wrap mat-elevation-z2">
         <table matSort mat-table [dataSource]="leaveModel.dataSource" class="customTable mat-elevation-z3">
@@ -68,11 +71,11 @@
                         Actions
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="approveLeave(element)" >
+                        <button mat-menu-item (click)="approveLeave(element)">
                             <mat-icon>{{ helperService.appIcons.fingerPrint }}</mat-icon>
                             Accept
                         </button>
-                        <button mat-menu-item (click)="rejectLeave(element)" >
+                        <button mat-menu-item (click)="rejectLeave(element)">
                             <mat-icon>{{ helperService.appIcons.edit }}</mat-icon>
                             Reject
                         </button>

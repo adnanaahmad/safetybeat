@@ -5,11 +5,22 @@
       height: 300px;
       width: 100%;
     }
-    [edit] {
-      font-size: 12px;
-      padding: 3px 0;
-      line-height: 2;
+    button[edit] {
       float: right;
+    }
+    .flexbox{
+      mat-card{
+        width: 50%;
+      }
+    }
+    @media (max-width: 992px) {
+      .flexbox {
+        display: block;
+        mat-card {
+          width: 100%;
+          padding: 0;
+        }
+      }
     }
   }
 }

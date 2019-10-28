@@ -3,20 +3,23 @@
 </div>
 <div class="paddingbox">
     <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.MY_TEAM}}</h3>
+        <h4>{{ helperService.translated.SITETITLE.MY_TEAM}}</h4>
+        <!-- Buttons -->
         <div class="buttonRow">
-            <button class="mat-elevation-z6" mat-raised-button color="primary"
+            <button mat-raised-button color="primary"
                     *ngIf="myTeam.permissions?.canArchiveTeam"
-                    (click)="getArchivedTeams()">
+                    (click)="getArchivedTeams()" matTooltip="{{ helperService.translated.BUTTONS.ARCHIVED_TEAMS }}"
+                    aria-label="Button that displays a tooltip when focused or hovered over">
                 <mat-icon>{{ helperService.appIcons.archived }}</mat-icon>
-                {{ helperService.translated.BUTTONS.ARCHIVED_TEAMS }}
             </button>
-            <button class="mat-elevation-z6" mat-raised-button color="primary" *ngIf="myTeam.permissions.registerTeam"
-                    (click)="registerTeam()">
+            <button mat-raised-button color="primary" *ngIf="myTeam.permissions.registerTeam"
+                    (click)="registerTeam()" matTooltip="{{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM}}"
+                    aria-label="Button that displays a tooltip when focused or hovered over">
                 <mat-icon>{{ helperService.appIcons.groupAdd }}</mat-icon>
-                {{ helperService.translated.TABLEHEADINGS.REGISTER_TEAM}}
             </button>
         </div>
+        <!-- /Buttons -->
+
         <!--Filter-->
         <div class="data-filter">
             <div class="input-wrap">
@@ -24,7 +27,8 @@
                        (keyup)=getAllTeams(myTeam.firstIndex,$event.target.value)>
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </div>
-            <a class="mat-body-strong mat-small pointer">&nbsp;</a>
+            <!--<a (click)="advanceSearch()"-->
+            <!--class="mat-body-strong mat-small pointer">&nbsp;</a>-->
         </div>
         <!--/Filter-->
     </div>

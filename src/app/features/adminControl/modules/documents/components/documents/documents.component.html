@@ -3,19 +3,24 @@
 </div>
 <div class="paddingbox">
     <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
+        <h4>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h4>
+
+        <!-- Buttons -->
         <div class="buttonRow">
-            <button class="mat-elevation-z6" *ngIf="documentsData.permissions.uploadDocument" mat-raised-button
-                    color="primary" (click)="uploadDoc()">
+            <button *ngIf="documentsData.permissions.uploadDocument" mat-raised-button
+                    color="primary" (click)="uploadDoc()"
+                    matTooltip="{{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}"
+                    aria-label="Button that displays a tooltip when focused or hovered over">
                 <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
-                {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
             </button>
-            <button class="mat-elevation-z6" *ngIf="documentsData.permissions.createFolder" mat-raised-button
-                    color="primary" (click)="createFolder()">
+            <button *ngIf="documentsData.permissions.createFolder" mat-raised-button
+                    color="primary" (click)="createFolder()"
+                    matTooltip="{{ helperService.translated.BUTTONS.CREATE_FOLDER }}"
+                    aria-label="Button that displays a tooltip when focused or hovered over">
                 <mat-icon>{{ helperService.appIcons.createFolder }}</mat-icon>
-                {{ helperService.translated.BUTTONS.CREATE_FOLDER }}
             </button>
         </div>
+        <!-- /Buttons -->
     </div>
 
     <!--Search-->

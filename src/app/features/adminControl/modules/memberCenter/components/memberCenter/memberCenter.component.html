@@ -3,15 +3,18 @@
 </div>
 <div class="paddingbox">
     <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.MEMBERCENTER_TITLE }}</h3>
+        <h4>{{ helperService.translated.SITETITLE.MEMBERCENTER_TITLE }}</h4>
+        <!-- Buttons -->
         <div class="buttonRow" *ngIf="memberCenter.currentRole">
-            <button class="mat-elevation-z6" btn-primary mat-raised-button color="primary"
+            <button mat-raised-button color="primary"
                     *ngIf="memberCenter.permissions?.inviteUser"
-                    (click)="inviteUser()">
+                    (click)="inviteUser()" matTooltip="{{ helperService.translated.BUTTONS.ADDUSER }}"
+                    aria-label="Button that displays a tooltip when focused or hovered over">
                 <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
-                Add User
             </button>
         </div>
+        <!-- /Buttons -->
+
         <!--Filter-->
         <div class="data-filter">
             <div class="input-wrap">
@@ -19,7 +22,8 @@
                        (keyup)=getAllUsers(memberCenter.firstIndex,$event.target.value)>
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </div>
-            <a class="mat-body-strong mat-small pointer">&nbsp;</a>
+            <!--<a (click)="advanceSearch()"-->
+            <!--class="mat-body-strong mat-small pointer">&nbsp;</a>-->
         </div>
         <!--/Filter-->
     </div>
