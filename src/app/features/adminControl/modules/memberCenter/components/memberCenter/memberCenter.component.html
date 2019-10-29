@@ -93,6 +93,11 @@
                             <mat-icon>remove_circle_outline</mat-icon>
                             {{element.status ? 'Deactivate User' : 'Activate User'}}
                         </button>
+                        <button mat-menu-item *ngIf="memberCenter.permissions?.viewUserProfile"
+                                (click)="element.suspend? unSuspendUser(element.id) : suspendUser(element.id)">
+                            <mat-icon>block</mat-icon>
+                            {{element.suspend ? 'Unsuspend User' : 'Suspend User'}}
+                        </button>
                     </mat-menu>
                 </td>
             </ng-container>

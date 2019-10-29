@@ -86,7 +86,12 @@ export class MemberCenterService {
   activateUser(data) {
     return this.helperService.requestCall(this.method.put, this.apiRoutes.activateUser, data);
   }
-
+  suspendUser(data) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.suspendUser, data);
+  }
+  unSuspendUser(data) {
+    return this.helperService.requestCall(this.method.post, this.apiRoutes.unSuspendUser, data);
+  }
   changeEntityUsers(usersInfo: any) {
     this.allentityUsers.next(usersInfo);
   }

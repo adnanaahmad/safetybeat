@@ -39,6 +39,7 @@ export interface entityUsersApiResponseUserData {
   status: boolean;
   user: User;
   permissions: PermissionsModel
+  suspend: boolean;
 }
 
 export interface entityUsersApiResponseData {

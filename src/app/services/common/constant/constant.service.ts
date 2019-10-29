@@ -59,6 +59,8 @@ export class ConstantService {
     unarchiveEntity: `${environment.apiUrl}/entity/unArchiveEntity/`,
     deactivateUser: `${environment.apiUrl}/users/deactivateUser/`,
     activateUser: `${environment.apiUrl}/users/activateUser/`,
+    suspendUser: `${environment.apiUrl}/entity/suspendUserFromEntity/`,
+    unSuspendUser: `${environment.apiUrl}/entity/unSuspendUserFromEntity/`,
     viewSiteInfo: `${environment.apiUrl}/api/sites/`,
     archiveSite: `${environment.apiUrl}/api/sites/archiveSite/`,
     unarchiveSite: `${environment.apiUrl}/api/sites/unArchiveSite/`,

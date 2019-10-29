@@ -691,6 +691,8 @@ export interface Status {
 export interface Confirmation {
     ACTIVATE_USER: string;
     DEACTIVATE_USER: string;
+    UNSUSPEND_USER: string;
+    SUSPEND_USER: string;
     DELETE_SITE: string;
     DELETE_HAZARD: string;
     DELETE_ENTITY: string;
