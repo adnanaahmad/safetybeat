@@ -3,13 +3,14 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EditEntity} from 'src/app/models/profile.model';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {EntitySetting, Intervals, IntervalsData} from 'src/app/models/Settings/entitySetting.model';
+import {EntitySetting, IntervalsData} from 'src/app/models/Settings/entitySetting.model';
 import {ProfileService} from 'src/app/features/profile/services/profile.service';
 import {AdminControlService} from 'src/app/features/adminControl/services/adminControl.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {SettingsService} from 'src/app/features/settings/services/settings.service';
 import {PaginationData} from 'src/app/models/site.model';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
+import {ValidateInterval} from './interval.validator';
 
 export interface PeriodicElement {
   position: string;
@@ -104,11 +105,11 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       entityManager: [''],
     });
     this.entitySettingObj.intervalForm = this.formBuilder.group({
-      interval1: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
-      interval2: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
-      interval3: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
-      interval4: ['', [Validators.required, Validators.max(1440), Validators.min(5)]],
-      interval5: ['', [Validators.required, Validators.max(1440), Validators.min(5)]]
+      interval1: ['', [Validators.required, ValidateInterval, Validators.max(1440), Validators.min(5)]],
+      interval2: ['', [Validators.required, ValidateInterval, Validators.max(1440), Validators.min(5)]],
+      interval3: ['', [Validators.required, ValidateInterval, Validators.max(1440), Validators.min(5)]],
+      interval4: ['', [Validators.required, ValidateInterval, Validators.max(1440), Validators.min(5)]],
+      interval5: ['', [Validators.required, ValidateInterval, Validators.max(1440), Validators.min(5)]]
     });
     this.entitySettingObj.entityForm.disable();
     this.entitySettingObj.subscription = this.navService.selectedEntityData.subscribe((selectedEntity) => {
@@ -127,6 +128,11 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  get intervalFormValidations() {
+    return this.entitySettingObj.intervalForm.controls;
+  }
+
   defaultIntervals(entity: number) {
     let data = {
       entityId: entity
@@ -134,6 +140,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.settings.getDefaultIntervals(data).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
         this.intervalData = res.data;
+        localStorage.setItem('defaultIntervals', JSON.stringify(this.intervalData));
         this.intervalFormValidations['interval1'].setValue(this.intervalData.interval1);
         this.intervalFormValidations['interval2'].setValue(this.intervalData.interval2);
         this.intervalFormValidations['interval3'].setValue(this.intervalData.interval3);
@@ -219,9 +226,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     return this.entitySettingObj.entityForm.controls;
   }
 
-  get intervalFormValidations() {
-    return this.entitySettingObj.intervalForm.controls;
-  }
 
   getAllEntityUsers() {
     let data = {
@@ -237,13 +241,38 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
   }
 
   intervalSubmit(intervalForm: FormGroup) {
+    if (intervalForm.invalid) {
+      this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
+      return;
+    }
+    let interval1 = intervalForm.value.interval1;
+    let interval2 = intervalForm.value.interval2;
+    let interval3 = intervalForm.value.interval3;
+    let interval4 = intervalForm.value.interval4;
+    let interval5 = intervalForm.value.interval5;
+    if (interval1 >= interval2 || interval1 >= interval3 || interval1 >= interval4 || interval1 >= interval5) {
+      this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
+      return;
+    } else if (interval2 <= interval1 || interval2 >= interval3 || interval2 >= interval4 || interval2 >= interval5) {
+      this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
+      return;
+    } else if (interval3 <= interval1 || interval3 <= interval2 || interval3 >= interval4 || interval4 >= interval5) {
+      this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
+      return;
+    } else if (interval4 <= interval1 || interval4 <= interval2 || interval4 <= interval3 || interval4 >= interval5) {
+      this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
+      return;
+    } else if (interval5 <= interval1 || interval5 <= interval2 || interval5 <= interval3 || interval5 <= interval4) {
+      this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
+      return;
+    }
     let data = {
       entity: this.entitySettingObj.entitiesData.id,
-      interval1: intervalForm.value.interval1,
-      interval2: intervalForm.value.interval2,
-      interval3: intervalForm.value.interval3,
-      interval4: intervalForm.value.interval4,
-      interval5: intervalForm.value.interval5
+      interval1: interval1,
+      interval2: interval2,
+      interval3: interval3,
+      interval4: interval4,
+      interval5: interval5
     };
     this.settings.updateIntervals(data, this.intervalData.id).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -272,5 +301,14 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       let updatedValue = this.intervalFormValidations[interval].value - 5;
       this.intervalFormValidations[interval].setValue(updatedValue);
     }
+  }
+
+  cancelEditIntervals() {
+    this.intervalData = JSON.parse(localStorage.getItem('defaultIntervals'));
+    this.intervalFormValidations['interval1'].setValue(this.intervalData.interval1);
+    this.intervalFormValidations['interval2'].setValue(this.intervalData.interval2);
+    this.intervalFormValidations['interval3'].setValue(this.intervalData.interval3);
+    this.intervalFormValidations['interval4'].setValue(this.intervalData.interval4);
+    this.intervalFormValidations['interval5'].setValue(this.intervalData.interval5);
   }
 }

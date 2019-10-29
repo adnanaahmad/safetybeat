@@ -85,6 +85,26 @@
             <input type="number" formControlName="{{element.interval}}" required readonly>
             <span class="inc" (click)=addition(element.interval)>+</span>
             <span class="dec" (click)=subtraction(element.interval)>-</span>
+            <span *ngIf="entitySettingObj.intervalForm.get('interval1').errors &&
+            entitySettingObj.intervalForm.get('interval1').errors.validInterval">
+              Interval1 must not be equal to 0.
+            </span>
+            <span *ngIf="entitySettingObj.intervalForm.get('interval2').errors &&
+            entitySettingObj.intervalForm.get('interval2').errors.validInterval">
+              Interval2 must not be equal to 0.
+            </span>
+            <span *ngIf="entitySettingObj.intervalForm.get('interval3').errors &&
+            entitySettingObj.intervalForm.get('interval3').errors.validInterval">
+              Interval3 must not be equal to 0.
+            </span>
+            <span *ngIf="entitySettingObj.intervalForm.get('interval4').errors &&
+            entitySettingObj.intervalForm.get('interval4').errors.validInterval">
+              Interval4 must not be equal to 0.
+            </span>
+            <span *ngIf="entitySettingObj.intervalForm.get('interval5').errors &&
+            entitySettingObj.intervalForm.get('interval5').errors.validInterval">
+              Interval5 must not be equal to 0.
+            </span>
           </div>
         </td>
       </form>
@@ -108,15 +128,18 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <p>
+    Note: Intervals must be in Ascending order from 1st to 5th.
+  </p>
+
   <div class="btn-grp">
     <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
-            [disabled]="entitySettingObj.intervalForm.invalid"
             (click)="intervalSubmit(entitySettingObj.intervalForm)">
       <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
       {{ helperService.translated.BUTTONS.SAVE }}
     </button>
-    <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button">
-      {{helperService.translated.BUTTONS.CANCEL}}
+    <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="secondary" type="button"
+            (click)="cancelEditIntervals()">Reset
     </button>
   </div>
 </div>
