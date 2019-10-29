@@ -594,6 +594,8 @@
   "CONFIRMATION": {
     "ACTIVATE_USER": "Are you sure you want to Activate this user?",
     "DEACTIVATE_USER": "Are you sure you want to Deactivate this user?",
+    "SUSPEND_USER": "Are you sure you want to Suspend this user",
+    "UNSUSPEND_USER": "Are you sure you want to Unsuspend this user",
     "DELETE_SITE": "Are you sure you want Delete this site?",
     "ARCHIVE_SITE": "Are you sure you want archive this site?",
     "DELETE_HAZARD": "Are you sure you want Delete this hazard?",

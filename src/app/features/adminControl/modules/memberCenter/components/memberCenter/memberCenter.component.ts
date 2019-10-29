@@ -185,7 +185,60 @@ export class MemberCenterComponent implements OnInit, OnDestroy {
         }
       }));
   }
+  /**
+   * this function is used to suspend the user
+   * userId  id of the selected user, entityId id of the selected entity.
+   * @params userId, entityId
+   */
 
+  suspendUser(userId) {
+    this.helperService.createDialog(ConfirmationModalComponent, {
+      data: {
+        message: this.helperService.translated.CONFIRMATION.SUSPEND_USER
+      }
+    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res === this.helperService.appConstants.yes) {
+          let data = {'userId': userId, 'entityId': this.memberCenter.entityId};
+          this.subs.add(
+            this.memberService.suspendUser(data).subscribe((res) => {
+              if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+                this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
+              }
+            }, (error) => {
+              this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+            }));
+        }
+      }));
+  }
+  /**
+   * this function is used to unsuspend the user
+   * userId  id of the selected user, entityId id of the selected entity.
+   * @params userId, entityId
+   */
+
+  unSuspendUser(userId) {
+    this.helperService.createDialog(ConfirmationModalComponent, {
+      data: {
+        message: this.helperService.translated.CONFIRMATION.UNSUSPEND_USER
+      }
+    });
+    this.subs.add(
+      this.helperService.dialogRef.afterClosed().subscribe(res => {
+        if (res === this.helperService.appConstants.yes) {
+          let data = {'userId': userId, 'entityId': this.memberCenter.entityId};
+          this.subs.add(
+            this.memberService.unSuspendUser(data).subscribe((res) => {
+              if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+                this.getAllUsers(this.memberCenter.firstIndex, this.memberCenter.search);
+              }
+            }, (error) => {
+              this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+            }));
+        }
+      }));
+  }
   /**
    * this function is used for adding connections
    * receivedBy  id of the selected user.

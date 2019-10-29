@@ -212,7 +212,8 @@ export class CompilerProvider {
         pendingConnection: obj.pendingConnection,
         nature: obj.nature,
         buttonText: buttonText,
-        permissions: obj.permissions
+        permissions: obj.permissions,
+        suspend: obj.suspend
       };
       usersArray.push(user);
     });
