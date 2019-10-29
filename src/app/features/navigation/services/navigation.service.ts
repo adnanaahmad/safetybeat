@@ -156,6 +156,14 @@ export class NavigationService {
    * this api function is called to logout the user and this api reponse makes the token disable and removes
    * form the db.
    */
+  changeActiveEntity(id: number) {
+    const data = {'entityId': id};
+    return this.helperService.requestCall(
+      this.helperService.constants.apiMethod.post,
+      this.helperService.constants.apiRoutes.changeActiveEntity,
+      data
+    );
+  }
 
   logoutUser() {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.get, this.helperService.constants.apiRoutes.logout);

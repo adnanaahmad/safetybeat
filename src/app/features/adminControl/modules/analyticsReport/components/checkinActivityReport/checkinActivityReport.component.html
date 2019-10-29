@@ -2,25 +2,25 @@
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
 <div class="paddingbox">
-    <div class="page-title">
-        <h3>{{helperService.translated.SITETITLE.NUMBER_CHECKINS_BY_ACTIVITY}}</h3>
-        <h3>{{helperService.translated.SITETITLE.HOURS_CHECKINS_BY_ACTIVITY}}</h3>
+    <div class="page-title p-0">
+        <h4>{{helperService.translated.SITETITLE.NUMBER_CHECKINS_BY_ACTIVITY}}</h4>
+        <p class="mat-body mat-caption">{{helperService.translated.MESSAGES.NUMBER_CHECKIN_MSG}}</p>
     </div>
-    <p style="margin-top:0;">{{helperService.translated.MESSAGES.NUMBER_CHECKIN_MSG}}</p>
     <mat-card>
         <form [formGroup]="checkInActivityObj.checkInActivityForm"
               (ngSubmit)=checkInActivityFormSubmit(checkInActivityObj.checkInActivityForm)
               (keydown.enter)="$event.preventDefault()">
-          <div>
-            <mat-slide-toggle [formControlName]="helperService.appConstants.archive">Archived Check-in Type</mat-slide-toggle>
-          </div>
-          <br>
+            <div>
+                <mat-slide-toggle [formControlName]="helperService.appConstants.archive">Archived Check-in Type
+                </mat-slide-toggle>
+            </div>
+            <br>
             <div class="form-group inline">
                 <mat-form-field appearance="outline">
                     <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>
                     <input matInput type="text" [formControlName]="helperService.appConstants.entityName" [disabled]/>
                     <mat-error class="text-right" *ngIf="checkInActivityFormValidations.errors">
-            <span *ngIf="checkInActivityFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
+                        <span *ngIf="checkInActivityFormValidations.entityName.errors.required">{{helperService.translated.AUTH.PASSWORD_REQ}}</span>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">

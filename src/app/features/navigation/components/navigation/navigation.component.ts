@@ -51,7 +51,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.breakpointObserver
-      .observe(['(min-width: 768px)'])
+      .observe(['(min-width: 992px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
           this.opened = true;
@@ -211,6 +211,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.navModel.selectedEntity = data;
       this.navService.changeSelectedEntity(this.navModel.selectedEntity);
+      this.navService.changeActiveEntity(this.navModel.selectedEntity.entityInfo.id).subscribe((res) => {
+        if (res && res.responseDetails.code === 100) {
+          let permissionData = JSON.stringify(this.navModel.selectedEntity.permissions);
+          localStorage.setItem('url', this.helperService.encrypt(permissionData, this.helperService.appConstants.key))
+        };
+      }, error => {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+      });
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
   }

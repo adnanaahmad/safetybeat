@@ -2,17 +2,18 @@
     <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
 </div>
 <div class="paddingbox">
-    <div class="page-title">
-        <h3>{{helperService.translated.SITETITLE.PULSE_REPORT}}</h3>
+    <div class="page-title p-0">
+        <h4>{{helperService.translated.SITETITLE.PULSE_REPORT}}</h4>
+        <p class="mat-body mat-caption">{{helperService.translated.MESSAGES.PULSE_REPORT_MSG}}</p>
     </div>
-    <p style="margin-top:0;">{{helperService.translated.MESSAGES.PULSE_REPORT_MSG}}</p>
     <mat-card>
         <form [formGroup]="pulseEntityObj.pulseEntityForm" (ngSubmit)=formSubmit(pulseEntityObj.pulseEntityForm)
               (keydown.enter)="$event.preventDefault()">
-          <div>
-            <mat-slide-toggle [formControlName]="helperService.appConstants.archive">Archived Pulse Type</mat-slide-toggle>
-          </div>
-          <br>
+            <div>
+                <mat-slide-toggle [formControlName]="helperService.appConstants.archive">Archived Pulse Type
+                </mat-slide-toggle>
+            </div>
+            <br>
             <div class="form-group inline">
                 <mat-form-field appearance="outline">
                     <mat-label>{{helperService.translated.MESSAGES.ENTITYNAME}}</mat-label>

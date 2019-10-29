@@ -292,6 +292,7 @@ export interface Buttons {
     ARCHIVED_ENTITIES: string;
     CREATENEWQUESTION: string;
     ADDQUESTION: string;
+    ADDUSER: string;
 }
 
 export interface Messages {
@@ -642,6 +643,7 @@ export interface SiteTitle {
     HAZARD_REPORTS: string;
     LEAVES: string;
     ADDLEAVES: string;
+    MANAGELEAVES_TITLE: string;
 }
 
 export interface TableHeadings {
@@ -689,6 +691,8 @@ export interface Status {
 export interface Confirmation {
     ACTIVATE_USER: string;
     DEACTIVATE_USER: string;
+    UNSUSPEND_USER: string;
+    SUSPEND_USER: string;
     DELETE_SITE: string;
     DELETE_HAZARD: string;
     DELETE_ENTITY: string;
