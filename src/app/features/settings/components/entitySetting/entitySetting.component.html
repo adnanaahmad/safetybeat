@@ -48,17 +48,17 @@
       <div #gmap class="site-map"></div>
     </mat-card>
   </div>
-  <div *ngIf="entitySettingObj.disabled" class="btn-grp">
-    <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
-            [disabled]="entitySettingObj.entityForm.pristine || entitySettingObj.entityForm.invalid">
-      <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
-      {{ helperService.translated.BUTTONS.SAVE }}
-    </button>
-    <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
-            (click)="cancelEditEntity()">
-      {{helperService.translated.BUTTONS.CANCEL}}
-    </button>
-  </div>
+  <!--  <div *ngIf="entitySettingObj.disabled" class="btn-grp">-->
+  <!--    <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"-->
+  <!--            [disabled]="entitySettingObj.entityForm.pristine || entitySettingObj.entityForm.invalid">-->
+  <!--      <mat-icon>{{ helperService.appIcons.save }}</mat-icon>-->
+  <!--      {{ helperService.translated.BUTTONS.SAVE }}-->
+  <!--    </button>-->
+  <!--      <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"-->
+  <!--              (click)="cancelEditEntity()">-->
+  <!--        {{helperService.translated.BUTTONS.CANCEL}}-->
+  <!--      </button>-->
+  <!--  </div>-->
 </form>
 <mat-divider></mat-divider>
 
@@ -83,8 +83,9 @@
         <td mat-cell *matCellDef="let element">
           <div class="number-input">
             <input type="number" formControlName="{{element.interval}}" required readonly>
-            <span class="inc" (click)=addition(element.interval)>+</span>
-            <span class="dec" (click)=subtraction(element.interval)>-</span>
+            <span class="inc" *ngIf="entitySettingObj.intervalForm.enabled" (click)=addition(element.interval)>+</span>
+            <span class="dec" *ngIf="entitySettingObj.intervalForm.enabled"
+                  (click)=subtraction(element.interval)>-</span>
             <span *ngIf="entitySettingObj.intervalForm.get('interval1').errors &&
             entitySettingObj.intervalForm.get('interval1').errors.validInterval">
               Interval1 must not be equal to 0.
@@ -132,14 +133,17 @@
     Note: Intervals must be in Ascending order from 1st to 5th.
   </p>
 
-  <div class="btn-grp">
+  <div *ngIf="entitySettingObj.disabled" class="btn-grp">
     <button mat-raised-button class="mat-elevation-z6" custom-btn btn-danger color="primary" type="submit"
-            (click)="intervalSubmit(entitySettingObj.intervalForm)">
+            [disabled]="entitySettingObj.entityForm.pristine && entitySettingObj.intervalPristine || entitySettingObj.entityForm.invalid
+            ||entitySettingObj.intervalForm.invalid"
+            (click)="intervalSubmit(entitySettingObj.intervalForm, entitySettingObj.entityForm)">
       <mat-icon>{{ helperService.appIcons.save }}</mat-icon>
       {{ helperService.translated.BUTTONS.SAVE }}
     </button>
-    <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="secondary" type="button"
-            (click)="cancelEditIntervals()">Reset
+    <button mat-raised-button btn-danger class="mat-elevation-z6" custom-btn color="warn" type="button"
+            (click)="cancelEditEntity()">
+      {{helperService.translated.BUTTONS.CANCEL}}
     </button>
   </div>
 </div>

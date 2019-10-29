@@ -76,6 +76,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
               private memberService: MemberCenterService) {
     this.entitySettingObj.disabled = false;
     this.entitySettingObj.loading = false;
+    this.entitySettingObj.intervalPristine = true;
   }
 
   ngOnInit() {
@@ -111,6 +112,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
       interval4: ['', [Validators.required, ValidateInterval, Validators.max(1440), Validators.min(5)]],
       interval5: ['', [Validators.required, ValidateInterval, Validators.max(1440), Validators.min(5)]]
     });
+    this.entitySettingObj.intervalForm.disable();
     this.entitySettingObj.entityForm.disable();
     this.entitySettingObj.subscription = this.navService.selectedEntityData.subscribe((selectedEntity) => {
       if (selectedEntity !== 1) {
@@ -158,6 +160,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.selectedEntityData();
     this.entitySettingObj.subscription.unsubscribe();
     this.entitySettingObj.entityForm.markAsPristine();
+    this.cancelEditIntervals();
   }
 
   getAllUsers(pageIndex) {
@@ -220,6 +223,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.entitySettingObj.disabled = true;
     this.entitySettingObj.entityForm.enable();
     this.entityFormValidations['code'].disable();
+    this.entitySettingObj.intervalForm.enable();
   }
 
   get entityFormValidations() {
@@ -240,7 +244,10 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     });
   }
 
-  intervalSubmit(intervalForm: FormGroup) {
+  intervalSubmit(intervalForm: FormGroup, entityForm: FormGroup) {
+    this.entitySettingObj.disabled = false;
+    // tslint:disable-next-line:no-unused-expression
+    entityForm.valid ? this.updateEntity(entityForm) : null;
     if (intervalForm.invalid) {
       this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
       return;
@@ -276,6 +283,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     };
     this.settings.updateIntervals(data, this.intervalData.id).subscribe((res) => {
       if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+        this.entitySettingObj.intervalPristine = true;
         this.intervalData = res.data;
         this.intervalFormValidations['interval1'].setValue(this.intervalData.interval1);
         this.intervalFormValidations['interval2'].setValue(this.intervalData.interval2);
@@ -290,6 +298,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
   }
 
   addition(interval: any) {
+    this.entitySettingObj.intervalPristine = false;
     if (this.intervalFormValidations[interval].value < 1440) {
       let updatedValue = this.intervalFormValidations[interval].value + 5;
       this.intervalFormValidations[interval].setValue(parseInt(updatedValue, 10));
@@ -297,6 +306,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
   }
 
   subtraction(interval: any) {
+    this.entitySettingObj.intervalPristine = false;
     if (this.intervalFormValidations[interval].value !== 5) {
       let updatedValue = this.intervalFormValidations[interval].value - 5;
       this.intervalFormValidations[interval].setValue(updatedValue);
@@ -310,5 +320,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
     this.intervalFormValidations['interval3'].setValue(this.intervalData.interval3);
     this.intervalFormValidations['interval4'].setValue(this.intervalData.interval4);
     this.intervalFormValidations['interval5'].setValue(this.intervalData.interval5);
+    this.entitySettingObj.intervalForm.disable();
+    this.entitySettingObj.intervalPristine = true;
   }
 }
