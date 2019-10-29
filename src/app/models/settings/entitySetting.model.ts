@@ -5,6 +5,7 @@ import {responseDetails, User} from '../user.model';
 
 
 export interface EntitySetting {
+  intervalPristine: boolean;
   selectedEntityData: any;
   intervalForm: FormGroup;
   entityUsers: Array<User>;

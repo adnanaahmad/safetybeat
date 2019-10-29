@@ -71,7 +71,6 @@ export class RegisterTeamComponent implements OnInit, OnDestroy {
   }
 
   teamFormSubmit({value, valid}: { value: any; valid: boolean }) {
-    debugger
     if (this.registerTeamObj.teamLeadID === null) {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.SELECT_TEAMLEAD, this.helperService.constants.status.WARNING);
     } else {
