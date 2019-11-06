@@ -30,7 +30,7 @@
                         <img [src]="hazardObj.url">
                         <input type='file' accept='image/*' (change)="onFileSelected($event.target.files)"
                                formControlName="pic"/>
-                        <mat-icon class="remove-picture" (click)="removePicture()">
+                        <mat-icon class="remove-picture" *ngIf="hazardObj.url !== helperService.appConstants.noHazard" (click)="removePicture()">
                             {{helperService.appIcons.deleteForever}}
                         </mat-icon>
                     </div><!-- Upload Picture -->
