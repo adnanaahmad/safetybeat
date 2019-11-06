@@ -1,8 +1,10 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="data.modalType">
     {{helperService.translated.STRINGS.UPLOAD_DOC}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!data.modalType">
     {{helperService.translated.STRINGS.UPLOAD_DOC}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div mat-dialog-content>
     <div class="spinner-wrap" *ngIf="documentsData.loader">
@@ -23,12 +25,12 @@
                       [disabled]="!documentsData.folderExist || newDoc.disableButton">Save in Folder
         </mat-checkbox>
         <ng-container *ngIf="data.modalType">
-            <mat-form-field appearance="outline" fullWidth *ngIf = "documentsData.folderLength && newDoc.isEnabled">
+            <mat-form-field appearance="outline" fullWidth *ngIf="documentsData.folderLength && newDoc.isEnabled">
                 <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
                 <mat-select formControlName="folders" [disabled]="newDoc.disableButton">
                     <ng-container *ngFor="let folder of newDoc.folderList">
                         <div>
-                            <mat-option [value]="folder.id" *ngIf = "folder">
+                            <mat-option [value]="folder.id" *ngIf="folder">
                                 {{folder.name}}
                             </mat-option>
                         </div>

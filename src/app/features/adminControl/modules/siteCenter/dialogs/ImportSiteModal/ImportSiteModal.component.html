@@ -1,44 +1,46 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
-  {{helperService.translated.MESSAGES.IMPORTSITE_MSG}}
-  <mat-icon matTooltip="{{helperService.translated.MESSAGES.IMPORTSITE_NOTE}}"
-            aria-label="Button that displays a tooltip when focused or hovered over">
-    error
-  </mat-icon>
+    {{helperService.translated.MESSAGES.IMPORTSITE_MSG}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+    <mat-icon matTooltip="{{helperService.translated.MESSAGES.IMPORTSITE_NOTE}}"
+              aria-label="Button that displays a tooltip when focused or hovered over">
+        error
+    </mat-icon>
 </mat-card-title>
 
 <div mat-dialog-content>
-  <div class="spinner-wrap" *ngIf="importSiteModal.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
-  </div>
-  <h1 class="mat-h3">{{helperService.translated.MESSAGES.CSVIMPORT_MSG}}</h1>
-  <div>
-    <a href="https://new-safetybeat.s3-ap-southeast-2.amazonaws.com/documents/SampleCSV.csv">Download Sample File</a>
-  </div>
-  <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)
-        [enctype]="importSiteModal.type">
-    <div class="form-group">
-      <div class="file-uploader">
-        <button class="fake-uploader">
-          <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon>
-          {{fileName ? fileName : 'Choose File'}}
-        </button>
-        <input type='file' name="{{helperService.appConstants.importSite}}"
-               id="{{helperService.appConstants.importSite}}" accept='.csv' (change)=onFileSelected($event)>
-      </div>
+    <div class="spinner-wrap" *ngIf="importSiteModal.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
     </div>
-    <mat-dialog-actions>
-      <button mat-raised-button cdkFocusInitial custom-btn [disabled]="!fileName || importSiteModal.loading"
-              color="primary">{{ helperService.translated.BUTTONS.IMPORT_SITE }}
-        <div class="main-loader" *ngIf="importSiteModal.loading">
-          <span class="loader1"></span>
-          <span class="loader2"></span>
-          <span class="loader3"></span>
+    <h1 class="mat-h3">{{helperService.translated.MESSAGES.CSVIMPORT_MSG}}</h1>
+    <div>
+        <a href="https://new-safetybeat.s3-ap-southeast-2.amazonaws.com/documents/SampleCSV.csv">Download Sample
+            File</a>
+    </div>
+    <form [formGroup]="importSiteModal.importSiteForm" (ngSubmit)=importSite(importSiteModal.importSiteForm)
+          [enctype]="importSiteModal.type">
+        <div class="form-group">
+            <div class="file-uploader">
+                <button class="fake-uploader">
+                    <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon>
+                    {{fileName ? fileName : 'Choose File'}}
+                </button>
+                <input type='file' name="{{helperService.appConstants.importSite}}"
+                       id="{{helperService.appConstants.importSite}}" accept='.csv' (change)=onFileSelected($event)>
+            </div>
         </div>
-      </button>
+        <mat-dialog-actions>
+            <button mat-raised-button cdkFocusInitial custom-btn [disabled]="!fileName || importSiteModal.loading"
+                    color="primary">{{ helperService.translated.BUTTONS.IMPORT_SITE }}
+                <div class="main-loader" *ngIf="importSiteModal.loading">
+                    <span class="loader1"></span>
+                    <span class="loader2"></span>
+                    <span class="loader3"></span>
+                </div>
+            </button>
 
-      <button mat-button [mat-dialog-close]="'NO'">
-        {{ helperService.translated.BUTTONS.CANCEL }}
-      </button>
-    </mat-dialog-actions>
-  </form>
+            <button mat-button [mat-dialog-close]="'NO'">
+                {{ helperService.translated.BUTTONS.CANCEL }}
+            </button>
+        </mat-dialog-actions>
+    </form>
 </div>

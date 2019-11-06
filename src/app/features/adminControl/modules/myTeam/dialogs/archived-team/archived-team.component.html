@@ -1,5 +1,6 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
     {{helperService.translated.BUTTONS.ARCHIVED_TEAMS}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
     <div class="heading-search">
         <input type="text" placeholder="Search" autocomplete="off" placeholder="Search"
                (keyup)=getAllTeams(myTeam.firstIndex,$event.target.value)>

@@ -1,5 +1,6 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
     {{helperService.translated.BUTTONS.ARCHIVED_SITES}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
     <div class="heading-search">
         <input type="text" autocomplete="off" placeholder="Search"
                (keyup)=getSitesData(archivedSitesObj.firstIndex,$event.target.value)>
@@ -71,7 +72,8 @@
         <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
     </div>
 
-    <div class="paddingbox text-center mat-select-placeholder" *ngIf="!archivedSitesObj.loading && !archivedSitesObj.dataSource">
+    <div class="paddingbox text-center mat-select-placeholder"
+         *ngIf="!archivedSitesObj.loading && !archivedSitesObj.dataSource">
         {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
 
