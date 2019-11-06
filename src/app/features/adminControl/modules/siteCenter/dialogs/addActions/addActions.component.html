@@ -7,7 +7,7 @@
   <mat-form-field appearance="outline" fullWidth>
     <mat-label>{{helperService.translated.STRINGS.PERSON_FOR_ACTION}}</mat-label>
     <mat-select placeholder="Moderate" formControlName="actionUser">
-      <mat-option *ngFor="let user of users" [value]="user">{{user.username}}</mat-option>
+      <mat-option *ngFor="let user of users" [value]="user">{{user.first_name + ' ' + user.last_name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline" fullWidth>
