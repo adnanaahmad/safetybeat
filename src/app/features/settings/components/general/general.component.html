@@ -1,66 +1,70 @@
 <mat-card-title
-  class="mat-dialog-title mat-elevation-z6">{{helperService.translated.MESSAGES.EDITPROFILE}}</mat-card-title>
+        class="mat-dialog-title mat-elevation-z6">
+    {{helperService.translated.MESSAGES.EDITPROFILE}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+</mat-card-title>
 <div class="mat-dialog-content">
-  <div class="spinner-wrap" *ngIf="generalObj.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
-  </div>
-  <form [formGroup]="generalObj.generalForm" class="settings-list"
-        (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
-    <mat-form-field appearance="outline" fullWidth>
-      <mat-label>First name</mat-label>
-      <input matInput type="text" formControlName="first_name" class="showonly" required
-             (keypress)="characterOnly($event)"/>
-      <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
-        <span>Field is Required</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" fullWidth>
-      <mat-label>Last Name</mat-label>
-      <input matInput type="text" formControlName="last_name" class="showonly" required
-             (keypress)="characterOnly($event)"/>
-      <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
-        <span>Field is Required</span>
-      </mat-error>
-    </mat-form-field>
-    <div class = "form-row">
-      <mat-form-field class = "number-fields" appearance="outline" fullWidth>
-        <mat-label>Country Code</mat-label>
-        <input class="country-code" matInput type="text" [formControlName]="helperService.appConstants.countryCode"
-                         (keypress)="numberOnly($event)" onPaste="return false" autocomplete="off"/>
-        <mat-error class="text-right" *ngIf="generalViewForm.countryCode.errors">
-          <span *ngIf="generalViewForm.countryCode.errors.maxlength">Invalid Code</span>
-        </mat-error>
-      </mat-form-field>
+    <div class="spinner-wrap" *ngIf="generalObj.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+    </div>
+    <form [formGroup]="generalObj.generalForm" class="settings-list"
+          (ngSubmit)="updateGeneralInfo(generalObj.generalForm)">
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>First name</mat-label>
+            <input matInput type="text" formControlName="first_name" class="showonly" required
+                   (keypress)="characterOnly($event)"/>
+            <mat-error class="text-right" *ngIf="generalViewForm.first_name.errors">
+                <span>Field is Required</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fullWidth>
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" formControlName="last_name" class="showonly" required
+                   (keypress)="characterOnly($event)"/>
+            <mat-error class="text-right" *ngIf="generalViewForm.last_name.errors">
+                <span>Field is Required</span>
+            </mat-error>
+        </mat-form-field>
+        <div class="form-row">
+            <mat-form-field class="number-fields" appearance="outline" fullWidth>
+                <mat-label>Country Code</mat-label>
+                <input class="country-code" matInput type="text"
+                       [formControlName]="helperService.appConstants.countryCode"
+                       (keypress)="numberOnly($event)" onPaste="return false" autocomplete="off"/>
+                <mat-error class="text-right" *ngIf="generalViewForm.countryCode.errors">
+                    <span *ngIf="generalViewForm.countryCode.errors.maxlength">Invalid Code</span>
+                </mat-error>
+            </mat-form-field>
 
-      <mat-form-field appearance="outline" fullWidth>
-        <mat-label>Contact Number</mat-label>
-        <input matInput type="text" class="showonly number-input" required
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Contact Number</mat-label>
+                <input matInput type="text" class="showonly number-input" required
                        [formControlName]="helperService.appConstants.contactNo"
                        (keypress)="numberOnly($event)&&phoneNumberValid(generalObj.generalForm)" onPaste="return false"
                        autocomplete="off"/>
-        <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
-          <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-          <span *ngIf="generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
+                <mat-error class="text-right" *ngIf="generalViewForm.contactNo.errors">
+                    <span *ngIf="generalViewForm.contactNo.errors.required">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+                    <span *ngIf="generalViewForm.contactNo.errors.inValid">{{helperService.translated.AUTH.MOBILE_REQ}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-    <div class="input">
-      <mat-form-field appearance="outline" fullWidth>
-        <mat-label>Email</mat-label>
-        <input matInput type="text" formControlName="email" class="showonly" required
-               (blur)="checkEmail(generalObj.generalForm)"/>
-        <mat-error class="text-right" *ngIf="generalViewForm.email.errors">
-          <span *ngIf="generalViewForm.email.errors.required">Field is Required</span>
-          <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <mat-dialog-actions>
-      <button type="submit" class="mat-elevation-z6" mat-raised-button custom-btn
-              [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
-      </button>
-      <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
-    </mat-dialog-actions>
-  </form>
+        <div class="input">
+            <mat-form-field appearance="outline" fullWidth>
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="email" class="showonly" required
+                       (blur)="checkEmail(generalObj.generalForm)"/>
+                <mat-error class="text-right" *ngIf="generalViewForm.email.errors">
+                    <span *ngIf="generalViewForm.email.errors.required">Field is Required</span>
+                    <span *ngIf="generalViewForm.email.errors.email">Enter Valid Email</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <mat-dialog-actions>
+            <button type="submit" class="mat-elevation-z6" mat-raised-button custom-btn
+                    [disabled]="generalObj.generalForm.pristine || !generalObj.generalForm.valid">Save
+            </button>
+            <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+        </mat-dialog-actions>
+    </form>
 </div>
