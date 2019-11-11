@@ -1,8 +1,10 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="documentsData.modalType">
     {{helperService.translated.BUTTONS.CREATE_FOLDER}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!documentsData.modalType">
     {{helperService.translated.STRINGS.RENAME_FOLDER}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div mat-dialog-content>
     <div class="spinner-wrap" *ngIf="documentsData.loader">

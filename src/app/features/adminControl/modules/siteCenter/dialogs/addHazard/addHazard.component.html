@@ -1,8 +1,10 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!hazardObj.editModal">
     {{ helperService.translated.MESSAGES.ADD_HAZARD }}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="hazardObj.editModal">
     {{ helperService.translated.MESSAGES.EDIT_HAZARD }}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div mat-dialog-content>
     <div class="spinner-wrap" *ngIf="hazardObj.loading">
@@ -28,7 +30,7 @@
                         <img [src]="hazardObj.url">
                         <input type='file' accept='image/*' (change)="onFileSelected($event.target.files)"
                                formControlName="pic"/>
-                        <mat-icon class="remove-picture" (click)="removePicture()">
+                        <mat-icon class="remove-picture" *ngIf="hazardObj.url !== helperService.appConstants.noHazard" (click)="removePicture()">
                             {{helperService.appIcons.deleteForever}}
                         </mat-icon>
                     </div><!-- Upload Picture -->

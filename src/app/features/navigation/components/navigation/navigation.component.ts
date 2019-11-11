@@ -15,6 +15,7 @@ import {FirebaseService} from 'src/app/services/common/FirebaseNotification/fire
 import {BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {map} from 'rxjs/operators';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-navigation',
@@ -34,6 +35,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   matcher: MediaQueryList;
   notificationCount: number;
   opened: boolean = false;
+  private subs = new SubSink();
 
   constructor(
     public core: CoreService,
@@ -50,16 +52,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.breakpointObserver
-      .observe(['(min-width: 992px)'])
-      .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          this.opened = true;
-        } else {
-          this.opened = false;
-        }
-      });
-    this.navModel.subscription = this.navService.data.subscribe((res) => {
+    this.subs.add(
+      this.breakpointObserver.observe(['(min-width: 992px)']).subscribe((state: BreakpointState) => {
+          if (state.matches) {
+            this.opened = true;
+          } else {
+            this.opened = false;
+          }
+        }));
+    this.subs.add(
+      this.navService.data.subscribe((res) => {
       if (res && res !== 1) {
         if (res.entities.length === 0) {
           this.helperService.navigateTo(['/welcomeScreen/entityCreation']);
@@ -83,17 +85,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
       } else {
         this.getAllEntities();
       }
-    });
+    }));
     this.getSelectedEntity();
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.matcher = this.mediaMatcher.matchMedia('(min-width: 500px)');
     this.getProfileData();
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.navModel.permissions = data;
-      }
-    });
+    this.subs.add(
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.navModel.permissions = data;
+        }
+      }));
   }
 
 
@@ -101,7 +104,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * Get Profile Data of User
    */
   getProfileData() {
-    this.navModel.subscription = this.navService.currentUserData.subscribe((res) => {
+    this.subs.add(
+      this.navService.currentUserData.subscribe((res) => {
       if (res !== 1) {
         this.profileModel.profileData = res;
         this.profileModel.username = this.profileModel.profileData.username;
@@ -110,7 +114,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       } else {
         this.getCurrentUser();
       }
-    });
+    }));
   }
 
   /**
@@ -137,20 +141,22 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
 
   getSelectedEntity() {
-    this.navModel.subscription = this.navService.packageData.subscribe(
+    this.subs.add(
+      this.navService.packageData.subscribe(
       (packageDataResult) => {
         if (packageDataResult !== 1) {
           this.packageInfo = packageDataResult;
         } else {
-          this.navService.getPackageInfo().subscribe(res => {
-            this.packageInfo = res.data[0];
-            localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
-            (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
-          }, error => {
-            this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-          });
+          this.subs.add(
+            this.navService.getPackageInfo().subscribe(res => {
+              this.packageInfo = res.data[0];
+              localStorage.setItem(this.helperService.constants.localStorageKeys.packageInfo, this.helperService.encrypt
+              (JSON.stringify(this.packageInfo), this.helperService.appConstants.key).toString()); // Store package data in local storage
+            }, error => {
+              this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+            }));
         }
-      });
+      }));
   }
 
   /**
@@ -158,18 +164,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
 
   getAllEntities() {
-    this.adminServices
-      .viewEntities(this.moduleData)
-      .subscribe(entitesData => {
-        if (entitesData && entitesData.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
-          this.navModel.entityUserData = this.compiler.constructUserEntityData(entitesData.data.allEntities);
-          this.navService.changeEntites(this.navModel.entityUserData);
-        } else {
-          this.helperService.createSnack(entitesData.responseDetails.message, this.helperService.constants.status.ERROR);
-        }
-      }, (error) => {
-        this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-      });
+    this.subs.add(
+      this.adminServices.viewEntities(this.moduleData).subscribe(entitesData => {
+          if (entitesData && entitesData.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
+            this.navModel.entityUserData = this.compiler.constructUserEntityData(entitesData.data.allEntities);
+            this.navService.changeEntites(this.navModel.entityUserData);
+          } else {
+            this.helperService.createSnack(entitesData.responseDetails.message, this.helperService.constants.status.ERROR);
+          }
+        }, (error) => {
+          this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
+        }));
   }
 
   /**
@@ -183,20 +188,22 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.helperService.hideLoggers();
-    if (this.navModel.entityUserData !== undefined || this.profileModel.username !== undefined && this.navModel.subscription !== null) {
-      this.navModel.subscription.unsubscribe();
-    }
+    this.subs.unsubscribe();
+    // if (this.navModel.entityUserData !== undefined || this.profileModel.username !== undefined && this.navModel.subscription !== null) {
+    //   this.navModel.subscription.unsubscribe();
+    // }
   }
 
   /**
    * this function is used to get current user
    */
   getCurrentUser() {
-    this.profile.getUser().subscribe((res) => {
-      this.profileModel.dataRecieved = res;
-      let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
-      this.navService.updateCurrentUser(userData);
-    });
+    this.subs.add(
+      this.profile.getUser().subscribe((res) => {
+        this.profileModel.dataRecieved = res;
+        let userData = this.compiler.constructProfileData(this.profileModel.dataRecieved.data.user);
+        this.navService.updateCurrentUser(userData);
+      }));
   }
 
   /**
@@ -211,14 +218,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
     } else {
       this.navModel.selectedEntity = data;
       this.navService.changeSelectedEntity(this.navModel.selectedEntity);
-      this.navService.changeActiveEntity(this.navModel.selectedEntity.entityInfo.id).subscribe((res) => {
+      this.subs.add(
+        this.navService.changeActiveEntity(this.navModel.selectedEntity.entityInfo.id).subscribe((res) => {
         if (res && res.responseDetails.code === 100) {
           let permissionData = JSON.stringify(this.navModel.selectedEntity.permissions);
           localStorage.setItem('url', this.helperService.encrypt(permissionData, this.helperService.appConstants.key))
         };
       }, error => {
           this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-      });
+      }));
       this.navModel.navLinks = this.compiler.switchSideMenuDefault(data);
     }
   }
@@ -229,16 +237,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
 
   logoutUser() {
-    this.navService.logoutUser().subscribe((res) => {
-      this.navModel.logoutDisable = true;
-      this.navModel.logoutResponse = res;
-      if (this.navModel.logoutResponse.detail === this.navModel.translated.AUTH.LOGOUTSUCCESSION) {
-        this.core.logoutUser();
-      }
-    }, (error) => {
-      this.navModel.logoutDisable = false;
-      this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
-    });
+    this.subs.add(
+      this.navService.logoutUser().subscribe((res) => {
+        this.navModel.logoutDisable = true;
+        this.navModel.logoutResponse = res;
+        if (this.navModel.logoutResponse.detail === this.navModel.translated.AUTH.LOGOUTSUCCESSION) {
+          this.core.logoutUser();
+        }
+      }, (error) => {
+        this.navModel.logoutDisable = false;
+        this.helperService.createSnack(this.navModel.translated.MESSAGES.LOGOUT_FAIL_MSG, this.navModel.translated.STATUS.ERROR);
+      }));
   }
 
   /**

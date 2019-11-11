@@ -1,9 +1,12 @@
-<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.INVITETEAMTITLE}}</mat-card-title>
+<mat-card-title class="mat-dialog-title">
+    {{helperService.translated.MESSAGES.INVITETEAMTITLE}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+</mat-card-title>
 <div mat-dialog-content>
     <div class="spinner-wrap" *ngIf="sendSiteCode.loading">
         <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
     </div>
-    <div class="entity-code mat-body-strong">Site Code: {{ data.inviteSiteCodeData.siteCodeData }} </div>
+    <div class="entity-code mat-body-strong">Site Code: {{ data.inviteSiteCodeData.siteCodeData }}</div>
     <br>
     <mat-form-field appearance="outline" class="example-chip-list" fullWidth>
         <mat-label>{{helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER}}</mat-label>

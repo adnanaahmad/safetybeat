@@ -1,5 +1,6 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
     Confirmation Alert
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div mat-dialog-content>
     <p>{{message? message : 'Are you sure to delete?'}}</p>

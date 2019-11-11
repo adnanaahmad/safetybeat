@@ -1,6 +1,7 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
     {{data.edit ? helperService.translated.MESSAGES.EDITQUESTION_MSG :
     helperService.translated.MESSAGES.CREATEQUESTION_MSG}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div mat-dialog-content>
     <div class="spinner-wrap" *ngIf="QuestionObj.loading">

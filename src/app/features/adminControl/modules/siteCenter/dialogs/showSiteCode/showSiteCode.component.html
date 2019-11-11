@@ -1,4 +1,6 @@
-<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.SITECODE_FOR}} {{ data.site.name }}
+<mat-card-title class="mat-dialog-title">
+    {{helperService.translated.MESSAGES.SITECODE_FOR}} {{ data.site.name }}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div class="entitycode-box" mat-dialog-content>
     <div class="spinner-wrap" *ngIf="siteCentreObj.loading">

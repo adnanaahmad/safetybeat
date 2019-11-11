@@ -1,5 +1,6 @@
 <mat-card-title class="mat-dialog-title">
     {{helperService.translated.MESSAGES.CHECKIN_CATEGORIES}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div class="mat-dialog-content">
     <form [formGroup]="checkInCategoryModal.addCheckInTypeForm"

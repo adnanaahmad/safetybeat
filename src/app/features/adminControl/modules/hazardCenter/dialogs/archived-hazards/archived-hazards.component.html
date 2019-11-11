@@ -1,5 +1,6 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
     {{helperService.translated.BUTTONS.ARCHIVED_HAZARDS}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
     <div class="heading-search">
         <input type="text" autocomplete="off" placeholder="Search"
                (keyup)=getHazardList(firstIndex,$event.target.value)>

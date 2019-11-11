@@ -1,52 +1,58 @@
-<mat-card-title class="mat-dialog-title">{{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}</mat-card-title>
+<mat-card-title class="mat-dialog-title">
+    {{helperService.translated.MESSAGES.CHANGE_ACCESS_LEVEL}}
+    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+</mat-card-title>
 <div class="mat-dialog-content">
-  <div class="spinner-wrap" *ngIf="permissions.loading">
-    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
-  </div>
-  <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
-    <mat-tab-group>
-      <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
-        <div class="permission-wrap" *ngFor="let permissionsArr of helperService.appConstants.permissions">
-          <mat-checkbox [formControlName]="permissionsArr.key"
-                        (change)="checkEnable($event.checked, permissionsArr.values);">{{permissionsArr.name}}
-          </mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permissionObj of permissionsArr.values">
-              <mat-checkbox [disabled]="!permissions.permissionsForm.controls[permissionsArr.key].value"
-                            [formControlName]="permissionObj.key">{{permissionObj.value}}
-              </mat-checkbox>
-              <br>
-            </mat-card-content>
-          </mat-card>
-        </div>
+    <div class="spinner-wrap" *ngIf="permissions.loading">
+        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+    </div>
+    <form [formGroup]="permissions.permissionsForm" (ngSubmit)=permissionsFormSubmit(permissions.permissionsForm)>
+        <mat-tab-group>
+            <mat-tab label="{{helperService.translated.BUTTONS.PERMISSIONS}}">
+                <div class="permission-wrap" *ngFor="let permissionsArr of helperService.appConstants.permissions">
+                    <mat-checkbox [formControlName]="permissionsArr.key"
+                                  (change)="checkEnable($event.checked, permissionsArr.values);">{{permissionsArr.name}}
+                    </mat-checkbox>
+                    <mat-card class="mat-elevation-z1">
+                        <mat-card-content *ngFor="let permissionObj of permissionsArr.values">
+                            <mat-checkbox [disabled]="!permissions.permissionsForm.controls[permissionsArr.key].value"
+                                          [formControlName]="permissionObj.key">{{permissionObj.value}}
+                            </mat-checkbox>
+                            <br>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
 
-      </mat-tab>
-      <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
-        <div class="permission-wrap">
-          <mat-checkbox [formControlName]="helperService.appConstants.reports"
-                        (change)="checkEnable($event.checked,helperService.appConstants.reportsPermissions)">Reports
-          </mat-checkbox>
-          <mat-card class="mat-elevation-z1">
-            <mat-card-content *ngFor="let permission of helperService.appConstants.reportsPermissions">
-              <mat-checkbox [disabled]="!permissions.permissionsForm.controls[helperService.appConstants.reports].value"
-                            [formControlName]="permission.key">{{permission.value}}
-              </mat-checkbox>&nbsp;&nbsp;<br>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-    <mat-dialog-actions>
-      <button [disabled]="permissions.unChanged" class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn
-              btn-primary
-              color="primary">{{helperService.translated.BUTTONS.SAVE}}
-        <div class="main-loader" *ngIf="permissions.loading">
-          <span class="loader1"></span>
-          <span class="loader2"></span>
-          <span class="loader3"></span>
-        </div>
-      </button>
-      <button mat-button [mat-dialog-close]="'NO'">{{helperService.translated.BUTTONS.CANCEL}}</button>
-    </mat-dialog-actions>
-  </form>
+            </mat-tab>
+            <mat-tab label="{{helperService.translated.BUTTONS.REPORTS}}">
+                <div class="permission-wrap">
+                    <mat-checkbox [formControlName]="helperService.appConstants.reports"
+                                  (change)="checkEnable($event.checked,helperService.appConstants.reportsPermissions)">
+                        Reports
+                    </mat-checkbox>
+                    <mat-card class="mat-elevation-z1">
+                        <mat-card-content *ngFor="let permission of helperService.appConstants.reportsPermissions">
+                            <mat-checkbox
+                                    [disabled]="!permissions.permissionsForm.controls[helperService.appConstants.reports].value"
+                                    [formControlName]="permission.key">{{permission.value}}
+                            </mat-checkbox>&nbsp;&nbsp;<br>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <mat-dialog-actions>
+            <button [disabled]="permissions.unChanged" class="mat-elevation-z1" mat-raised-button cdkFocusInitial
+                    custom-btn
+                    btn-primary
+                    color="primary">{{helperService.translated.BUTTONS.SAVE}}
+                <div class="main-loader" *ngIf="permissions.loading">
+                    <span class="loader1"></span>
+                    <span class="loader2"></span>
+                    <span class="loader3"></span>
+                </div>
+            </button>
+            <button mat-button [mat-dialog-close]="'NO'">{{helperService.translated.BUTTONS.CANCEL}}</button>
+        </mat-dialog-actions>
+    </form>
 </div>
