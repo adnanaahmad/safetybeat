@@ -39,31 +39,30 @@
       padding: 0;
       width: 100%;
       .siteinfo-row {
-        display: flex;
         padding: 10px;
+        display: flex;
         align-items: center;
         .safe-icon {
           color: #fff;
           width: auto;
           height: auto;
-          font-size: 10px;
           &.safe {
-            background-color: green;
+            color: green;
           }
           &.unsafe {
-            background-color: mat-color($warn);
+            color: mat-color($warn);
           }
         }
         mat-icon {
           border-radius: 100px;
-          padding: 5px;
+          padding: 0 16px 0 0;
+          font-size: 30px;
         }
         strong {
           width: 100%;
-          padding: 10px;
         }
         p {
-          margin: 0;
+          margin: 10px 0 0;
           flex-basis: 100%;
         }
       }

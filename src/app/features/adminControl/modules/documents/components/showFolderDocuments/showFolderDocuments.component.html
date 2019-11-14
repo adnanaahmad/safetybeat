@@ -3,13 +3,24 @@
 </div>
 <div class="paddingbox">
     <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
+        <h4>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h4>
+        <!-- Buttons -->
         <div class="buttonRow">
             <button class="mat-elevation-z6" mat-raised-button color="primary" (click)="uploadDoc()">
                 <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
                 {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
             </button>
         </div>
+        <!-- /Buttons -->
+
+        <!--Filter-->
+        <div class="data-filter">
+            <div class="input-wrap">
+                <input class="search-input" autocomplete="off" matInput placeholder="Search">
+                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+            </div>
+        </div>
+        <!--/Filter-->
     </div>
 
     <!--Go to root folder-->
