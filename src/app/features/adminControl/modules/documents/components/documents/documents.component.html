@@ -25,7 +25,9 @@
         <!--Filter-->
         <div class="data-filter">
             <div class="input-wrap">
-                <input class="search-input" autocomplete="off" matInput placeholder="Search">
+                <input class="search-input" autocomplete="off" matInput placeholder="Search"
+                (keyup)=getRootDocuments(documentsData.entityID,$event.target.value)
+                (keyup)=getAllFolders(documentsData.entityID,$event.target.value)>
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </div>
         </div>
