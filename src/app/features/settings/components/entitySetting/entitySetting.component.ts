@@ -246,7 +246,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
 
   intervalSubmit(intervalForm: FormGroup, entityForm: FormGroup) {
     this.entitySettingObj.disabled = false;
-    // tslint:disable-next-line:no-unused-expression
+    this.entitySettingObj.intervalForm.disable();
     entityForm.valid ? this.updateEntity(entityForm) : null;
     if (intervalForm.invalid) {
       this.helperService.createSnack('Notification intervals must be in ascending order.', this.helperService.constants.status.ERROR);
@@ -291,7 +291,6 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
         this.intervalFormValidations['interval4'].setValue(this.intervalData.interval4);
         this.intervalFormValidations['interval5'].setValue(this.intervalData.interval5);
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
-        this.entitySettingObj.intervalForm.disable();
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
