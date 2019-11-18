@@ -173,19 +173,16 @@ export class NavigationService {
     this.currentUser.next(data);
   };
 
-  getDocuments(data: object) {
+  getDocuments(data: object, search: string) {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.getAllDocuments,
-      data
-    );
+      `${this.helperService.constants.apiRoutes.getAllDocuments}?search=${search}`, data);
   }
 
-  getRootDocuments(data: object): Observable<RootDocumentsApiResponse> {
+  getRootDocuments(data: object, search: string): Observable<RootDocumentsApiResponse> {
     return this.helperService.requestCall(
       this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.getRootDocuments, data
-    );
+      `${this.helperService.constants.apiRoutes.getRootDocuments}?search=${search}`, data);
   }
 
   uploadDocuments(data: object) {
@@ -204,10 +201,9 @@ export class NavigationService {
     );
   }
 
-  allFolders(data): Observable<FolderApiResponse> {
+  allFolders(data, search): Observable<FolderApiResponse> {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.post,
-      this.helperService.constants.apiRoutes.getFolders,
-      data);
+      `${this.helperService.constants.apiRoutes.getFolders}?search=${search}`, data);
   }
 
   createFolder(data) {

@@ -16,7 +16,8 @@
         <!--Filter-->
         <div class="data-filter">
             <div class="input-wrap">
-                <input class="search-input" autocomplete="off" matInput placeholder="Search">
+                <input class="search-input" autocomplete="off" matInput placeholder="Search"
+                  (keyup)=docsOfFolder(this.documentsData.folderId,$event.target.value)>
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </div>
         </div>
@@ -31,15 +32,16 @@
 
 
     <!--Search-->
-    <div class="search-bar">
-        <form autocomplete="off" *ngIf="documentsData.docList && documentsData.docList.length">
+    <!--<div class="search-bar">
+        <form autocomplete="off">
             <mat-form-field fullWidth autocomplete="off" appearance="outline">
                 <mat-label>Search file or folder</mat-label>
-                <input matInput placeholder="Search file or folder">
+                <input matInput placeholder="Search file or folder"
+                (keyup)=docsOfFolder(this.documentsData.folderId,$event.target.value)>
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </mat-form-field>
         </form>
-    </div>
+    </div>-->
     <!--/Search-->
 
     <!--Files-->
