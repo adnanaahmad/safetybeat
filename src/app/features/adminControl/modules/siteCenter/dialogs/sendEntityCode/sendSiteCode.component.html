@@ -1,40 +1,36 @@
 <mat-card-title class="mat-dialog-title">
-    {{helperService.translated.MESSAGES.INVITETEAMTITLE}}
-    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+  {{helperService.translated.MESSAGES.INVITETEAMTITLE}}
+  <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div mat-dialog-content>
-    <div class="spinner-wrap" *ngIf="sendSiteCode.loading">
-        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
-    </div>
-    <div class="entity-code mat-body-strong">Site Code: {{ data.inviteSiteCodeData.siteCodeData }}</div>
-    <br>
-    <mat-form-field appearance="outline" class="example-chip-list" fullWidth>
-        <mat-label>{{helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER}}</mat-label>
-        <mat-chip-list #chipList>
-            <mat-chip *ngFor="let user of sendSiteCode.users" [removable]="sendSiteCode.removable"
-                      (removed)="remove(user)">
-                {{user.first_name}} {{user.last_name}}
-                <mat-icon matChipRemove *ngIf="sendSiteCode.removable">cancel</mat-icon>
-            </mat-chip>
-            <input #userInput [formControl]="sendSiteCode.userCtrl" [matAutocomplete]="auto"
-                   [matChipInputFor]="chipList"
-                   [matChipInputSeparatorKeyCodes]="sendSiteCode.separatorKeysCodes">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let user of sendSiteCode.filteredUsers | async" [value]="user">
-                {{user.first_name}} {{user.last_name}} <{{user.email}}>
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+  <div class="spinner-wrap" *ngIf="sendSiteCode.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+  </div>
+  <div class="entity-code mat-body-strong">Site Code: {{ data.inviteSiteCodeData.siteCodeData }}</div>
+  <br>
+  <mat-form-field appearance="outline" class="example-chip-list" fullWidth>
+    <mat-label>{{helperService.translated.MESSAGES.INVITETEAMPLACEHOLDER}}</mat-label>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let user of sendSiteCode.users" [removable]="sendSiteCode.removable"
+                (removed)="remove(user)">
+        {{user.first_name}} {{user.last_name}}
+        <mat-icon matChipRemove *ngIf="sendSiteCode.removable">cancel</mat-icon>
+      </mat-chip>
+      <input #userInput [formControl]="sendSiteCode.userCtrl" [matAutocomplete]="auto"
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="sendSiteCode.separatorKeysCodes">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let user of sendSiteCode.filteredUsers | async" [value]="user">
+        {{user.first_name}} {{user.last_name}} <{{user.email}}>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
-    <mat-dialog-actions>
-        <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
-                [disabled]="sendSiteCode.loading || !sendSiteCode.users.length" (click)='sendUsersSiteCodes()'>
-            {{ helperService.translated.BUTTONS.INVITETEAM }}
-        </button>
-
-        <button mat-button mat-dialog-close (click)='onNoClick()'>
-            {{ helperService.translated.BUTTONS.CANCEL }}
-        </button>
-    </mat-dialog-actions>
+  <mat-dialog-actions>
+    <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary color="primary"
+            [disabled]="sendSiteCode.loading || !sendSiteCode.users.length" (click)='sendUsersSiteCodes()'>
+      {{ helperService.translated.BUTTONS.INVITETEAM }}
+    </button>
+  </mat-dialog-actions>
 </div>

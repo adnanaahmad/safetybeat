@@ -1,28 +1,27 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
-    {{helperService.translated.MESSAGES.TEAM}}
-    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+  {{helperService.translated.MESSAGES.TEAM}}
+  <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div class="mat-dialog-content">
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let member of team.users">
-            <div class="member-thumbnail">
-                <img src="{{ member | profileImage}}">
-            </div>
-            <div class="list-content">
-                <label>{{member.first_name}} {{member.last_name}}
-                    <div *ngIf="member.id === team.teamLead.id" class="role">Team Lead</div>
-                </label>
-                <span>
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let member of team.users">
+      <div class="member-thumbnail">
+        <img src="{{ member | profileImage}}">
+      </div>
+      <div class="list-content">
+        <label>{{member.first_name}} {{member.last_name}}
+          <div *ngIf="member.id === team.teamLead.id" class="role">Team Lead</div>
+        </label>
+        <span>
           <mat-icon>{{helperService.appIcons.email}}</mat-icon>
           {{member.email}}
         </span>
-                <span>
+        <span>
           <mat-icon>{{helperService.appIcons.phone}}</mat-icon>
           {{member.contactNo}}
         </span>
-            </div>
-        </mat-list-item>
-    </mat-list>
-    <br>
-    <button mat-button mat-dialog-close>{{helperService.translated.BUTTONS.CANCEL}}</button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+  <br>
 </div>
