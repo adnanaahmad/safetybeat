@@ -291,6 +291,7 @@ export class EntitySettingComponent implements OnInit, OnDestroy {
         this.intervalFormValidations['interval4'].setValue(this.intervalData.interval4);
         this.intervalFormValidations['interval5'].setValue(this.intervalData.interval5);
         this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
+        this.entitySettingObj.intervalForm.disable();
       }
     }, (error) => {
       this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
