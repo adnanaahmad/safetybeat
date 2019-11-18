@@ -6,7 +6,7 @@
         <div class="user-avatar mat-elevation-z2">
             <div [class]="profileModel.loading ? 'preloading-wrap blur' : 'preloading-wrap'">
                 <img src="{{ profileModel.profileImage != null ? profileModel.profileImage : helperService.appConstants.avatar}}"
-                        (load)="onImageLoad()"/>
+                     (load)="onImageLoad()"/>
                 <span class="change-avatar" *ngIf="profileModel.currentUserProfile">
         <input type='file' name="{{helperService.appConstants.profileImage}}"
                id="{{helperService.appConstants.profileImage}}" accept='image/*' (change)=uploadProfileImage($event)>
@@ -15,8 +15,7 @@
         </div>
     </div>
     <div class="user-info" *ngIf="profileModel.profileData">
-        <h3 class="mat-body-strong" matTooltipPosition="after" matTooltip="{{profileModel.email}}"
-            aria-label="Button that displays a tooltip when focused or hovered over">{{ profileModel.name }}
+        <h3 class="mat-body-strong">{{ profileModel.name }}
         </h3>
         <p>{{profileModel.role}} <strong>{{profileModel.entityName}}</strong></p>
     </div>

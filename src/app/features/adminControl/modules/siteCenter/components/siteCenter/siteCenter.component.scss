@@ -7,11 +7,12 @@
       color: #fff;
       border-radius: 100px;
       padding: 5px;
+      font-size: 30px;
       &.safe {
-        background-color: green;
+        color: green;
       }
       &.unsafe {
-        background-color: mat-color($warn);
+        color: mat-color($warn);
       }
     }
   }

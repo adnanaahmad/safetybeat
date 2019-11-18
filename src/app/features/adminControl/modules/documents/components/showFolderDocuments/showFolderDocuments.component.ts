@@ -31,7 +31,7 @@ export class ShowFolderDocumentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.docsOfFolder(this.documentsData.folderId);
+    this.docsOfFolder(this.documentsData.folderId, '');
   }
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -45,13 +45,13 @@ export class ShowFolderDocumentsComponent implements OnInit, OnDestroy {
    * Get folder docs and refresh variables
    * @params folderID
    */
-  docsOfFolder(folderID: number) {
+  docsOfFolder(folderID: number, search: string) {
     this.documentsData.panelOpenState = true;
     let data = {
       'folderId': folderID
     };
     this.subs.add(
-      this.navService.getDocuments(data).subscribe((res) => {
+      this.navService.getDocuments(data, search).subscribe((res) => {
         if (res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.documentsData.folderDoc = true;
           this.documentsData.docList = this.compiler.constructDocuments(res);
@@ -86,7 +86,7 @@ export class ShowFolderDocumentsComponent implements OnInit, OnDestroy {
     });
     this.subs.add(
       this.helperService.dialogRef.afterClosed().subscribe(res => {
-        this.docsOfFolder(this.documentsData.folderId);
+        this.docsOfFolder(this.documentsData.folderId, '');
       }));
   }
 
@@ -96,7 +96,7 @@ export class ShowFolderDocumentsComponent implements OnInit, OnDestroy {
    */
   refreshFiles(status: boolean) {
     if (status) {
-      this.docsOfFolder(this.documentsData.folderId);
+      this.docsOfFolder(this.documentsData.folderId, '');
     }
   }
 }

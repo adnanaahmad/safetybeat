@@ -3,13 +3,25 @@
 </div>
 <div class="paddingbox">
     <div class="page-title">
-        <h3>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h3>
+        <h4>{{ helperService.translated.SITETITLE.DOCUMENTS }}</h4>
+        <!-- Buttons -->
         <div class="buttonRow">
             <button class="mat-elevation-z6" mat-raised-button color="primary" (click)="uploadDoc()">
                 <mat-icon>{{ helperService.appIcons.createEntity }}</mat-icon>
                 {{ helperService.translated.BUTTONS.UPLOAD_DOCUMENT }}
             </button>
         </div>
+        <!-- /Buttons -->
+
+        <!--Filter-->
+        <div class="data-filter">
+            <div class="input-wrap">
+                <input class="search-input" autocomplete="off" matInput placeholder="Search"
+                  (keyup)=docsOfFolder(this.documentsData.folderId,$event.target.value)>
+                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+            </div>
+        </div>
+        <!--/Filter-->
     </div>
 
     <!--Go to root folder-->
@@ -20,15 +32,16 @@
 
 
     <!--Search-->
-    <div class="search-bar">
-        <form autocomplete="off" *ngIf="documentsData.docList && documentsData.docList.length">
+    <!--<div class="search-bar">
+        <form autocomplete="off">
             <mat-form-field fullWidth autocomplete="off" appearance="outline">
                 <mat-label>Search file or folder</mat-label>
-                <input matInput placeholder="Search file or folder">
+                <input matInput placeholder="Search file or folder"
+                (keyup)=docsOfFolder(this.documentsData.folderId,$event.target.value)>
                 <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
             </mat-form-field>
         </form>
-    </div>
+    </div>-->
     <!--/Search-->
 
     <!--Files-->
