@@ -85,7 +85,7 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
     this.QuestionObj.translated = this.helperService.translated;
     this.QuestionObj.search = '';
     this.QuestionObj.firstIndex = 0;
-    this.QuestionObj.pageSize = 10;
+    this.QuestionObj.pageSize = 7;
     this.QuestionObj.parentQuestions = [];
     this.QuestionObj.childQuestions = [];
   }
@@ -101,8 +101,8 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
     };
 
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
-      limit: this.helperService.constants.appConstant.paginationLimit,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimitForProfile,
+      limit: this.helperService.constants.appConstant.paginationLimitForProfile,
       search: search ? search : ''
     };
     this.subs.add(
@@ -232,8 +232,8 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
       'entityId': this.QuestionObj.entityId ? this.QuestionObj.entityId : this.helperService.getEntityId()
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
-      limit: this.helperService.constants.appConstant.paginationLimit,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimitForProfile,
+      limit: this.helperService.constants.appConstant.paginationLimitForProfile,
       search: search ? search : ''
     };
     this.subs.add(
