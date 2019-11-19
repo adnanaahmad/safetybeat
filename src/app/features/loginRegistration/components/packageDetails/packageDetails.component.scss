@@ -45,55 +45,100 @@
       padding: 16px 100px;
     }
     .packages-wrapper {
-      padding: 16px 30px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      .package-box {
-        border-radius: 6px;
-        width: 350px;
-        margin: 10px;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        .mat-list-item {
-          font-size: 14px;
+      //.package-box {
+      //  border-radius: 6px;
+      //  width: 350px;
+      //  margin: 10px;
+      //  padding-top: 30px;
+      //  padding-bottom: 30px;
+      //  .mat-list-item {
+      //    font-size: 14px;
+      //  }
+      //  .mat-figure {
+      //    display: block;
+      //    padding: 2rem;
+      //  }
+      //  .package-label {
+      //    margin: 0;
+      //    text-align: center;
+      //  }
+      //  .package-price {
+      //    text-align: center;
+      //    margin: 1rem 0;
+      //    color: mat-color($primary, 500);
+      //    font-size: 2rem;
+      //    span {
+      //      font-size: 1rem;
+      //    }
+      //  }
+      //  p {
+      //    text-align: center;
+      //    font-size: 12px;
+      //  }
+      //  [custom-btn] {
+      //    display: block;
+      //    width: 150px;
+      //    margin: 0 auto;
+      //  }
+      //  .package-features {
+      //    margin-bottom: 20px;
+      //    .mat-list-item:nth-child(even) {
+      //      background-color: mat-color($primary, 50);
+      //      border-radius: 4px;
+      //    }
+      //    .mat-icon {
+      //      margin-left: auto;
+      //      opacity: 0.4;
+      //    }
+      //  }
+      //}
+    }
+    .package-features {
+      ul {
+        list-style-type: none;
+        padding: 0;
+        li:not(:last-child) {
+          margin-bottom: 35px;
         }
-        .mat-figure {
-          display: block;
+        mat-icon {
+          vertical-align: middle;
+          color: mat-color($primary, 500);
+          margin-right: 10px;
+        }
+      }
+    }
+    .pricing-section {
+      .package-row {
+        background-color: mat-color($primary, 50);
+        display: flex;
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+        position: relative;
+        align-items: center;
+        .icon-right {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          margin: 0 auto;
+          left: 0;
+          right: 0;
+          font-size: 2rem;
+          color: mat-color($primary);
+        }
+        & > div {
           padding: 2rem;
         }
-        .package-label {
+        h1 {
+          display: inline-block;
           margin: 0;
-          text-align: center;
-        }
-        .package-price {
-          text-align: center;
-          margin: 1rem 0;
-          color: mat-color($primary, 500);
-          font-size: 2rem;
-          span {
-            font-size: 1rem;
-          }
         }
         p {
-          text-align: center;
-          font-size: 12px;
+          margin: 0;
         }
-        [custom-btn] {
-          display: block;
-          width: 150px;
-          margin: 0 auto;
-        }
-        .package-features {
-          margin-bottom: 20px;
-          .mat-list-item:nth-child(even) {
-            background-color: mat-color($primary, 50);
-            border-radius: 4px;
-          }
-          .mat-icon {
-            margin-left: auto;
-            opacity: 0.4;
-          }
+        .person-count {
+          margin-left: auto;
         }
       }
     }
@@ -134,16 +179,12 @@
         font-weight: 600;
       }
     }
-    @media (max-width: 992px) {
-      .packages-wrapper {
-        .package-box {
-          .package-price {
-            font-size: 1.4rem;
-          }
+    @media (max-width: 768px) {
+      [fullWidth]{
+        .mat-form-field-infix{
+          width: 100%;
         }
       }
-    }
-    @media (max-width: 768px) {
       .legend-header {
         padding: 20px;
         mat-card-title {
@@ -179,6 +220,24 @@
         }
         p {
           font-size: 14px;
+        }
+      }
+      .paddingbox {
+        padding: 16px;
+      }
+      .mat-card {
+        padding: 0;
+      }
+      .pricing-section{
+        margin-top: 2rem;
+      }
+    }
+    @media (max-width: 992px) {
+      .packages-wrapper {
+        .package-box {
+          .package-price {
+            font-size: 1.4rem;
+          }
         }
       }
     }
