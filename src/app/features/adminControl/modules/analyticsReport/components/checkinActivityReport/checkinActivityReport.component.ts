@@ -134,7 +134,8 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
           let chartType: HighChartType = {
             type: 'column',
             title: 'Check In By Activity Report',
-            subtitle: ''
+            subtitle: '',
+            inverted: false
           };
           let data = this.highChartSettings.reportSettings(chartType,
             [], this.generateCharSeries(this.checkInActivityObj.checkInByActivityReportData));
@@ -210,9 +211,6 @@ export class CheckInActivityReportComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
-    // if (this.checkInActivityObj.subscription !== null && this.checkInActivityObj.subscription !== undefined) {
-    //   this.checkInActivityObj.subscription.unsubscribe();
-    // }
   }
 
 }

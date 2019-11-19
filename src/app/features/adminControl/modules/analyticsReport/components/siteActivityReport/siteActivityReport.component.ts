@@ -111,7 +111,8 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
             let chartType: HighChartType = {
               type: 'column',
               title: 'Site Detail Activity',
-              subtitle: ''
+              subtitle: '',
+              inverted: false
             };
             let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
               [], this.generateSiteDetailReport(this.siteReportObj.siteReportDetails));
@@ -121,7 +122,8 @@ export class SiteActivityReportComponent implements OnInit, OnDestroy {
             let chartType: HighChartType = {
               type: 'column',
               title: 'All Sites Activity',
-              subtitle: ''
+              subtitle: '',
+              inverted: false
             };
             let siteActivityReportData = this.highChartSettings.reportSettings(chartType,
               [], this.generateCharSeries(this.siteReportObj.siteReportData));

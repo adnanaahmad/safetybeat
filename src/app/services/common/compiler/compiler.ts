@@ -443,6 +443,12 @@ export class CompilerProvider {
             route: '/home/adminControl/analyticsReport/hazardReport',
             disabled: data.permissions.hazardReports,
             bottom: false
+          },
+          {
+            displayName: 'Average Daily Action Reports',
+            route: '/home/adminControl/analyticsReport/averageDailyActionsReport',
+            disabled: data.permissions.averageDailyReport,
+            bottom: false
           }
         ]
       },

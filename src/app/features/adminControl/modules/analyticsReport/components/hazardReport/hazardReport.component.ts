@@ -132,7 +132,8 @@ export class HazardReportComponent implements OnInit, OnDestroy {
     let chartType: HighChartType = {
       type: 'column',
       title: 'Hazard Report with Severity',
-      subtitle: ''
+      subtitle: '',
+      inverted: false
     };
     let reportBySeverityData = this.highChartSettings.reportSettings(chartType,
       [], this.generateCharSeries(hazardSeverityData));
@@ -146,7 +147,8 @@ export class HazardReportComponent implements OnInit, OnDestroy {
     let chartTypeForStatus: HighChartType = {
       type: 'column',
       title: 'Hazard Report with Status',
-      subtitle: ''
+      subtitle: '',
+      inverted: false
     };
     let reportByStatusData = this.highChartSettings.reportSettings(chartTypeForStatus,
       [], this.generateHazardStatusData(hazardStatusData));

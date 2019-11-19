@@ -5,8 +5,12 @@ import {HelperService} from '../helperService/helper.service';
 import exporting from 'highcharts/modules/exporting';
 import {SettingService} from '../settings/setting.service';
 import {Subscription} from 'rxjs';
+import more from 'highcharts/highcharts-more'
+
 
 exporting(Highcharts);
+more(Highcharts);
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +41,7 @@ export class HighchartService implements OnDestroy {
       chart: {
 
         type: chartType.type,
+        inverted: chartType.inverted,
         animation: true,
 
       },
@@ -91,9 +96,14 @@ export class HighchartService implements OnDestroy {
           },
         },
         column: {
-          // stacking: 'normal',
           pointPadding: 0.2,
           borderWidth: 0
+        },
+        columnrange: {
+          dataLabels: {
+            enabled: true,
+            // format: '{y}°C'
+          }
         }
       },
       series: charSeries.charSeries,
