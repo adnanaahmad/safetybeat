@@ -1,42 +1,36 @@
 <mat-card-title class="mat-dialog-title">
-    {{helperService.translated.MESSAGES.PULSE_CATEGORIES}}
-    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+  {{helperService.translated.MESSAGES.PULSE_CATEGORIES}}
+  <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div class="mat-dialog-content">
-    <form [formGroup]="pulseCategoryModal.addPulseTypeForm" (ngSubmit)="addPulse(pulseCategoryModal.addPulseTypeForm)">
-        <mat-form-field fullWidth appearance="outline">
-            <mat-label>{{helperService.translated.MESSAGES.PULSE_CATEGORY_TITLE}}</mat-label>
-            <input matInput type="text" [formControlName]=helperService.appConstants.title>
-            <button class="add-cat" type="submit">
-                <mat-icon color="primary" class="pointer"
-                          matSuffix>
-                    {{helperService.appIcons.addCircle}}
-                </mat-icon>
+  <form [formGroup]="pulseCategoryModal.addPulseTypeForm" (ngSubmit)="addPulse(pulseCategoryModal.addPulseTypeForm)">
+    <mat-form-field fullWidth appearance="outline">
+      <mat-label>{{helperService.translated.MESSAGES.PULSE_CATEGORY_TITLE}}</mat-label>
+      <input matInput type="text" [formControlName]=helperService.appConstants.title>
+      <button class="add-cat" type="submit">
+        <mat-icon color="primary" class="pointer"
+                  matSuffix>
+          {{helperService.appIcons.addCircle}}
+        </mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  <div class="data-search">
+    <div class="data-result">
+
+      <ng-container>
+        <mat-list *ngFor="let element of pulseCategoryModal.pulseTypes">
+          <mat-list-item>
+
+            {{element.pulseType.name}}
+            <button custom-btn mat-raised-button class="remove-type mat-elevation-z1"
+                    [disabled]="pulseCategoryModal.disableRemove"
+                    (click)="archivePulse(element.id)">Remove
             </button>
-        </mat-form-field>
-    </form>
-    <div class="data-search">
-        <div class="data-result">
-
-            <ng-container>
-                <mat-list *ngFor="let element of pulseCategoryModal.pulseTypes">
-                    <mat-list-item>
-
-                        {{element.pulseType.name}}
-                        <button custom-btn mat-raised-button class="remove-type mat-elevation-z1"
-                                [disabled]="pulseCategoryModal.disableRemove"
-                                (click)="archivePulse(element.id)">Remove
-                        </button>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                </mat-list>
-            </ng-container>
-        </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </ng-container>
     </div>
-    <mat-dialog-actions>
-
-        <button mat-button [mat-dialog-close]="'NO'" type="button">
-            {{ helperService.translated.BUTTONS.CLOSE }}
-        </button>
-    </mat-dialog-actions>
+  </div>
 </div>

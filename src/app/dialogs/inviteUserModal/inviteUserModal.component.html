@@ -1,100 +1,99 @@
 <mat-card-title class="mat-dialog-title">
-    {{helperService.translated.MESSAGES.INVITE_USER}}
-    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+  {{helperService.translated.MESSAGES.INVITE_USER}}
+  <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div class="mat-dialog-content">
-    <div class="spinner-wrap" *ngIf="inviteUserModal.loading">
-        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  <div class="spinner-wrap" *ngIf="inviteUserModal.loading">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+  </div>
+  <form [formGroup]="inviteUserModal.inviteUserForm" (ngSubmit)="inviteUser(inviteUserModal.inviteUserForm)">
+    <div class="input">
+      <label class="mat-h4 selected-entity">
+        <strong>{{helperService.translated.STRINGS.SELECTED_ENTITY}}: {{selectedEntity.name}}</strong>
+      </label>
+      <br>
+      <br>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.AUTH.FIRSTNAME}}</mat-label>
+        <input matInput type="text" (keypress)="characterOnly($event)"
+               [formControlName]=helperService.appConstants.firstName required/>
+        <mat-error *ngIf="formValidation.first_name.errors">
+          <span *ngIf="formValidation.first_name.errors.required">{{helperService.translated.AUTH.FIRSTNAME_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
     </div>
-    <form [formGroup]="inviteUserModal.inviteUserForm" (ngSubmit)="inviteUser(inviteUserModal.inviteUserForm)">
-        <div class="input">
-            <label class="mat-h4 selected-entity">
-                <strong>{{helperService.translated.STRINGS.SELECTED_ENTITY}}: {{selectedEntity.name}}</strong>
-            </label>
-            <br>
-            <br>
-            <mat-form-field appearance="outline" fullWidth>
-                <mat-label>{{helperService.translated.AUTH.FIRSTNAME}}</mat-label>
-                <input matInput type="text" (keypress)="characterOnly($event)"
-                       [formControlName]=helperService.appConstants.firstName required/>
-                <mat-error *ngIf="formValidation.first_name.errors">
-                    <span *ngIf="formValidation.first_name.errors.required">{{helperService.translated.AUTH.FIRSTNAME_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="input">
-            <mat-form-field appearance="outline" fullWidth>
-                <mat-label>{{helperService.translated.AUTH.LASTNAME}}</mat-label>
-                <input matInput type="text" (keypress)="characterOnly($event)"
-                       [formControlName]=helperService.appConstants.lastName required/>
-                <mat-error *ngIf="formValidation.last_name.errors">
-                    <span *ngIf="formValidation.last_name.errors.required">{{helperService.translated.AUTH.LASTNAME_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="input">
-            <mat-form-field appearance="outline" fullWidth>
-                <mat-label>{{helperService.translated.AUTH.EMAIL}}</mat-label>
-                <input matInput type="email" [formControlName]=helperService.appConstants.email required
-                       (blur)="checkEmail(inviteUserModal.inviteUserForm)"/>
-                <mat-error *ngIf="formValidation.email.errors">
-                    <span *ngIf="formValidation.email.errors.email">{{helperService.translated.AUTH.EMAIL_VALID}}</span>
-                    <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
-                    <span *ngIf="formValidation.email.errors?.exists">{{helperService.translated.AUTH.EMAIL_EXISTS}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div class="input">
+    <div class="input">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.AUTH.LASTNAME}}</mat-label>
+        <input matInput type="text" (keypress)="characterOnly($event)"
+               [formControlName]=helperService.appConstants.lastName required/>
+        <mat-error *ngIf="formValidation.last_name.errors">
+          <span *ngIf="formValidation.last_name.errors.required">{{helperService.translated.AUTH.LASTNAME_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input">
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.AUTH.EMAIL}}</mat-label>
+        <input matInput type="email" [formControlName]=helperService.appConstants.email required
+               (blur)="checkEmail(inviteUserModal.inviteUserForm)"/>
+        <mat-error *ngIf="formValidation.email.errors">
+          <span *ngIf="formValidation.email.errors.email">{{helperService.translated.AUTH.EMAIL_VALID}}</span>
+          <span *ngIf="formValidation.email.errors.required">{{helperService.translated.AUTH.EMAIL_REQ}}</span>
+          <span *ngIf="formValidation.email.errors?.exists">{{helperService.translated.AUTH.EMAIL_EXISTS}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="input">
 
-            <mat-form-field appearance="outline" fullWidth>
-                <mat-label>{{helperService.translated.AUTH.ROLE}}</mat-label>
-                <mat-select [(value)]="inviteUserModal.selectedRole" [formControlName]="helperService.appConstants.role"
-                            (selectionChange)="changeSelection(inviteUserModal.selectedRole)" required>
-                    <ng-container *ngFor="let role of inviteUserModal.roleList">
-                        <mat-option *ngIf="role.name != helperService.appConstants.roles.owner" [value]="role">
-                            {{role.name}}
-                        </mat-option>
-                    </ng-container>
-                </mat-select>
-                <mat-error *ngIf="formValidation.role.errors">
-                    <span *ngIf="formValidation.role.errors.required">{{helperService.translated.AUTH.ROLE_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth>
+        <mat-label>{{helperService.translated.AUTH.ROLE}}</mat-label>
+        <mat-select [(value)]="inviteUserModal.selectedRole" [formControlName]="helperService.appConstants.role"
+                    (selectionChange)="changeSelection(inviteUserModal.selectedRole)" required>
+          <ng-container *ngFor="let role of inviteUserModal.roleList">
+            <mat-option *ngIf="role.name != helperService.appConstants.roles.owner" [value]="role">
+              {{role.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="formValidation.role.errors">
+          <span *ngIf="formValidation.role.errors.required">{{helperService.translated.AUTH.ROLE_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline" fullWidth
-                            *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">
-                <mat-label>{{helperService.translated.AUTH.SITE}}</mat-label>
-                <mat-select [(value)]="inviteUserModal.selectedSite.id"
-                            [formControlName]=helperService.appConstants.sites>
-                    <mat-option *ngFor="let site of inviteUserModal.siteList" [value]="site.id">
-                        {{ site.name}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="formValidation.sites.errors">
-                    <span *ngIf="formValidation.sites.errors.required">{{helperService.translated.AUTH.SITE_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" fullWidth
-                            *ngIf="inviteUserModal.showTeams && inviteUserModal.selectedTeam">
-                <mat-label>{{helperService.translated.MESSAGES.TEAM}}</mat-label>
-                <mat-select [(value)]="inviteUserModal.selectedTeam.id"
-                            [formControlName]=helperService.appConstants.team>
-                    <mat-option *ngFor="let teamData of inviteUserModal.teamsList" [value]="teamData.team.id">
-                        {{ teamData.team.title}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="formValidation.sites.errors">
-                    <span *ngIf="formValidation.sites.errors.required">{{helperService.translated.AUTH.SITE_REQ}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
+      <mat-form-field appearance="outline" fullWidth
+                      *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">
+        <mat-label>{{helperService.translated.AUTH.SITE}}</mat-label>
+        <mat-select [(value)]="inviteUserModal.selectedSite.id"
+                    [formControlName]=helperService.appConstants.sites>
+          <mat-option *ngFor="let site of inviteUserModal.siteList" [value]="site.id">
+            {{ site.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formValidation.sites.errors">
+          <span *ngIf="formValidation.sites.errors.required">{{helperService.translated.AUTH.SITE_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fullWidth
+                      *ngIf="inviteUserModal.showTeams && inviteUserModal.selectedTeam">
+        <mat-label>{{helperService.translated.MESSAGES.TEAM}}</mat-label>
+        <mat-select [(value)]="inviteUserModal.selectedTeam.id"
+                    [formControlName]=helperService.appConstants.team>
+          <mat-option *ngFor="let teamData of inviteUserModal.teamsList" [value]="teamData.team.id">
+            {{ teamData.team.title}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formValidation.sites.errors">
+          <span *ngIf="formValidation.sites.errors.required">{{helperService.translated.AUTH.SITE_REQ}}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-        <mat-dialog-actions>
-            <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
-                    [disabled]="inviteUserModal.loading || !inviteUserModal.inviteUserForm.valid" color="primary">
-                {{helperService.translated.BUTTONS.INVITE}}
-            </button>
-            <button mat-button [mat-dialog-close]="'NO'">{{helperService.translated.BUTTONS.CANCEL}}</button>
-        </mat-dialog-actions>
-    </form>
+    <mat-dialog-actions>
+      <button class="mat-elevation-z1" mat-raised-button cdkFocusInitial custom-btn btn-primary
+              [disabled]="inviteUserModal.loading || !inviteUserModal.inviteUserForm.valid" color="primary">
+        {{helperService.translated.BUTTONS.INVITE}}
+      </button>
+    </mat-dialog-actions>
+  </form>
 </div>
