@@ -1,38 +1,37 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6">
-    Leaves Info
-    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+  Leaves Info
+  <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div class="mat-dialog-content">
-    <mat-list role="list">
-        <mat-list-item role="listitem">
-            <div class="member-thumbnail">
-                <img class="table-img"
-                     src="{{ userLeaveData.actions.profileImage  ? userLeaveData.actions.profileImage : helperService.appConstants.avatar}}"/>
-            </div>
-            <div class="list-content">
-                <label>{{userLeaveData.actions.first_name}} {{userLeaveData.actions.last_name}}
-                </label>
-                <button *ngIf="isEditable" class="delete-btn" mat-menu-item [mat-dialog-close]="'DELETE'"
-                        (click)="deleteLeave()">
-                    <mat-icon style="color:red; margin-right: 0px">{{ helperService.appIcons.deleteForever }}</mat-icon>
-                </button>
-                <span>
+  <mat-list role="list">
+    <mat-list-item role="listitem">
+      <div class="member-thumbnail">
+        <img class="table-img"
+             src="{{ userLeaveData.actions.profileImage  ? userLeaveData.actions.profileImage : helperService.appConstants.avatar}}"/>
+      </div>
+      <div class="list-content">
+        <label>{{userLeaveData.actions.first_name}} {{userLeaveData.actions.last_name}}
+        </label>
+        <button *ngIf="isEditable" class="delete-btn" mat-menu-item [mat-dialog-close]="'DELETE'"
+                (click)="deleteLeave()">
+          <mat-icon style="color:red; margin-right: 0px">{{ helperService.appIcons.deleteForever }}</mat-icon>
+        </button>
+        <span>
               <mat-icon>{{helperService.appIcons.date}}</mat-icon>
           {{userLeaveData.start}} - {{userLeaveData.end}}
 
             </span>
-                <span>
+        <span>
               <mat-icon>{{helperService.appIcons.insertDriveFile}}</mat-icon>
           {{userLeaveData.title}}
             </span>
-            </div>
-        </mat-list-item>
-    </mat-list>
-    <br>
-    <mat-dialog-actions>
-        <button mat-button mat-primary *ngIf="isEditable" (click)="editLeave()">
-            {{helperService.translated.BUTTONS.EDIT}}
-        </button>
-        <button mat-button [mat-dialog-close]="'NO'">{{helperService.translated.BUTTONS.CANCEL}}</button>
-    </mat-dialog-actions>
+      </div>
+    </mat-list-item>
+  </mat-list>
+  <br>
+  <mat-dialog-actions>
+    <button mat-button mat-primary *ngIf="isEditable" (click)="editLeave()">
+      {{helperService.translated.BUTTONS.EDIT}}
+    </button>
+  </mat-dialog-actions>
 </div>

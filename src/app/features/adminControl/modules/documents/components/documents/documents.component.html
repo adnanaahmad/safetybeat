@@ -21,20 +21,32 @@
             </button>
         </div>
         <!-- /Buttons -->
+
+        <!--Filter-->
+        <div class="data-filter">
+            <div class="input-wrap">
+                <input class="search-input" autocomplete="off" matInput placeholder="Search"
+                (keyup)=getRootDocuments(documentsData.entityID,$event.target.value)
+                (keyup)=getAllFolders(documentsData.entityID,$event.target.value)>
+                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
+            </div>
+        </div>
+        <!--/Filter-->
     </div>
 
     <!--Search-->
-    <div class="search-bar"
-         *ngIf="documentsData.folderList && documentsData.rootDocs && (documentsData.folderList.length || documentsData.rootDocs.length)">
-        <form autocomplete="off">
-            <mat-form-field fullWidth autocomplete="off" appearance="outline">
-                <mat-label>Search file or folder</mat-label>
-                <input matInput placeholder="Search file or folder">
-                <mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>
-            </mat-form-field>
-        </form>
-    </div>
+    <!--<div class="search-bar"-->
+    <!--*ngIf="documentsData.folderList && documentsData.rootDocs && (documentsData.folderList.length || documentsData.rootDocs.length)">-->
+    <!--<form autocomplete="off">-->
+    <!--<mat-form-field fullWidth autocomplete="off" appearance="outline">-->
+    <!--<mat-label>Search file or folder</mat-label>-->
+    <!--<input matInput placeholder="Search file or folder">-->
+    <!--<mat-icon matSuffix>{{ helperService.appIcons.search }}</mat-icon>-->
+    <!--</mat-form-field>-->
+    <!--</form>-->
+    <!--</div>-->
     <!--/Search-->
+
 
     <!-- Folders -->
     <div class="folders-wrapper" *ngIf="documentsData.folderList && documentsData.folderList.length">

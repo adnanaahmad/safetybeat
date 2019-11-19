@@ -64,10 +64,10 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * Get and refresh all folders from DB
    * @params entityID
    */
-  getAllFolders(entityID: number) {
+  getAllFolders(entityID: number, search: string) {
     this.loadingBar = true;
     this.subs.add(
-      this.navService.allFolders({entityId: entityID}).subscribe((res) => {
+      this.navService.allFolders({entityId: entityID}, search).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.documentsData.folderList = res.data.length === 0 ? [] : res.data;
         } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
@@ -88,11 +88,11 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    * Get all root docs
    * @params entityId
    */
-  getRootDocuments(entityId: number) {
+  getRootDocuments(entityId: number, search: string) {
     this.loadingBar = true;
     let data = {'entityId': entityId};
     this.subs.add(
-      this.navService.getRootDocuments(data).subscribe((res) => {
+      this.navService.getRootDocuments(data, search).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.documentsData.rootDocs = res.data.length === 0 ? [] : this.compiler.constructDocuments(res);
         } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
@@ -107,7 +107,6 @@ export class DocumentsComponent implements OnInit, OnDestroy {
           this.helperService.constants.status.ERROR);
       }));
   }
-
   /**
    * Upload new document at root folder
    */
@@ -140,7 +139,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.helperService.dialogRef.afterClosed().subscribe(res => {
         if (res !== 'cancel') {
-          this.getAllFolders(this.documentsData.entityID);
+          this.getAllFolders(this.documentsData.entityID, '');
         }
       }));
   }
@@ -151,7 +150,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    */
   refreshFolders(status: boolean) {
     if (status) {
-      this.getAllFolders(this.documentsData.entityID);
+      this.getAllFolders(this.documentsData.entityID, '');
     }
   }
 
@@ -161,7 +160,7 @@ export class DocumentsComponent implements OnInit, OnDestroy {
    */
   refreshFiles(status: boolean) {
     if (status) {
-      this.getRootDocuments(this.documentsData.entityID);
+      this.getRootDocuments(this.documentsData.entityID, '');
     }
   }
 

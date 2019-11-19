@@ -1,51 +1,48 @@
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="data.modalType">
-    {{helperService.translated.STRINGS.UPLOAD_DOC}}
-    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+  {{helperService.translated.STRINGS.UPLOAD_DOC}}
+  <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <mat-card-title class="mat-dialog-title mat-elevation-z6" *ngIf="!data.modalType">
-    {{helperService.translated.STRINGS.UPLOAD_DOC}}
-    <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
+  {{helperService.translated.STRINGS.UPLOAD_DOC}}
+  <button mat-button class="close-dialog" [mat-dialog-close]="'NO'"><i class="material-icons">close</i></button>
 </mat-card-title>
 <div mat-dialog-content>
-    <div class="spinner-wrap" *ngIf="documentsData.loader">
-        <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+  <div class="spinner-wrap" *ngIf="documentsData.loader">
+    <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstantModal"></mat-spinner>
+  </div>
+  <form [formGroup]="newDoc.uploadDocForm" (ngSubmit)="folderFormSubmit(newDoc.uploadDocForm)">
+    <div>
+      <div class="file-uploader">
+        <button class="fake-uploader" [disabled]="newDoc.disableButton">
+          <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon>
+          {{newDoc.fileName}}
+        </button>
+        <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt"
+               (change)=uploadFile($event) [attr.disabled]="newDoc.disableButton ? '' : null" required/>
+      </div>
     </div>
-    <form [formGroup]="newDoc.uploadDocForm" (ngSubmit)="folderFormSubmit(newDoc.uploadDocForm)">
-        <div>
-            <div class="file-uploader">
-                <button class="fake-uploader" [disabled]="newDoc.disableButton">
-                    <mat-icon>{{helperService.appIcons.cloudUpload}}</mat-icon>
-                    {{newDoc.fileName}}
-                </button>
-                <input id="input-file-id" formControlName="doc" type="file" accept=".doc, .docx, .pdf, .xls, .txt"
-                       (change)=uploadFile($event) [attr.disabled]="newDoc.disableButton ? '' : null" required/>
+    <mat-checkbox *ngIf="data.modalType && documentsData.folderLength" (change)="showFolderList()"
+                  [disabled]="!documentsData.folderExist || newDoc.disableButton">Save in Folder
+    </mat-checkbox>
+    <ng-container *ngIf="data.modalType">
+      <mat-form-field appearance="outline" fullWidth *ngIf="documentsData.folderLength && newDoc.isEnabled">
+        <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
+        <mat-select formControlName="folders" [disabled]="newDoc.disableButton">
+          <ng-container *ngFor="let folder of newDoc.folderList">
+            <div>
+              <mat-option [value]="folder.id" *ngIf="folder">
+                {{folder.name}}
+              </mat-option>
             </div>
-        </div>
-        <mat-checkbox *ngIf="data.modalType && documentsData.folderLength" (change)="showFolderList()"
-                      [disabled]="!documentsData.folderExist || newDoc.disableButton">Save in Folder
-        </mat-checkbox>
-        <ng-container *ngIf="data.modalType">
-            <mat-form-field appearance="outline" fullWidth *ngIf="documentsData.folderLength && newDoc.isEnabled">
-                <mat-label>{{helperService.translated.STRINGS.SELECT_FOLDER}}</mat-label>
-                <mat-select formControlName="folders" [disabled]="newDoc.disableButton">
-                    <ng-container *ngFor="let folder of newDoc.folderList">
-                        <div>
-                            <mat-option [value]="folder.id" *ngIf="folder">
-                                {{folder.name}}
-                            </mat-option>
-                        </div>
-                    </ng-container>
-                </mat-select>
-            </mat-form-field>
-        </ng-container>
-        <mat-dialog-actions>
-            <button mat-raised-button type="submit" custom-btn color="primary"
-                    [disabled]="!newDoc.uploadDocForm.valid || newDoc.disableButton">
-                {{helperService.translated.STRINGS.UPLOAD_DOC}}
-            </button>
-            <button mat-button [mat-dialog-close]="'cancel'" type="button" [disabled]="newDoc.disableButton">
-                {{helperService.translated.BUTTONS.CANCEL}}
-            </button>
-        </mat-dialog-actions>
-    </form>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <mat-dialog-actions>
+      <button mat-raised-button type="submit" custom-btn color="primary"
+              [disabled]="!newDoc.uploadDocForm.valid || newDoc.disableButton">
+        {{helperService.translated.STRINGS.UPLOAD_DOC}}
+      </button>
+    </mat-dialog-actions>
+  </form>
 </div>

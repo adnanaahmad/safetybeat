@@ -85,7 +85,7 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
     this.QuestionObj.translated = this.helperService.translated;
     this.QuestionObj.search = '';
     this.QuestionObj.firstIndex = 0;
-    this.QuestionObj.pageSize = 10;
+    this.QuestionObj.pageSize = 7;
     this.QuestionObj.parentQuestions = [];
     this.QuestionObj.childQuestions = [];
   }
@@ -101,8 +101,8 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
     };
 
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
-      limit: this.helperService.constants.appConstant.paginationLimit,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimitForProfile,
+      limit: this.helperService.constants.appConstant.paginationLimitForProfile,
       search: search ? search : ''
     };
     this.subs.add(
@@ -113,7 +113,9 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
           this.getParentChildQuestions(this.QuestionObj.allQuestions.questionList);
           this.QuestionObj.loading = false;
           this.QuestionObj.dataSource = new MatTableDataSource(this.QuestionObj.allQuestions.questionList);
-          // this.QuestionObj.dataSource.paginator = this.questionBankPaginator;
+          if (this.QuestionObj.allQuestions.questionList.length === 0 && this.questionBankPaginator.pageIndex !== 0) {
+            this.goToPreviousQuestionBankTable();
+          }
         } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.QuestionObj.dataSource = null;
           this.QuestionObj.loading = false;
@@ -230,8 +232,8 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
       'entityId': this.QuestionObj.entityId ? this.QuestionObj.entityId : this.helperService.getEntityId()
     };
     let paginationData: PaginationData = {
-      offset: pageIndex * this.helperService.constants.appConstant.paginationLimit,
-      limit: this.helperService.constants.appConstant.paginationLimit,
+      offset: pageIndex * this.helperService.constants.appConstant.paginationLimitForProfile,
+      limit: this.helperService.constants.appConstant.paginationLimitForProfile,
       search: search ? search : ''
     };
     this.subs.add(
@@ -242,7 +244,9 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
           if (res && res.data.entityQuestionList) {
             this.QuestionObj.loading = false;
             this.QuestionObj.entityQuestions = new MatTableDataSource(this.QuestionObj.entityQuestionsResponse.entityQuestionList);
-            // this.QuestionObj.entityQuestions.paginator = this.entityQuestionPaginator;
+            if (this.QuestionObj.entityQuestionsResponse.entityQuestionList.length === 0 && this.entityQuestionPaginator.pageIndex !== 0) {
+              this.goToPreviousEntityQuestionTable();
+            }
           } else if (res && !res.data.entityQuestionList) {
             this.QuestionObj.loading = false;
             this.QuestionObj.entityQuestions = null;
@@ -271,7 +275,7 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.questionCenterService.deleteQuestion(questionId).subscribe((res) => {
         this.QuestionObj.loading = false;
-        this.getAllEntityQuestions(this.QuestionObj.firstIndex, this.QuestionObj.search);
+        this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
       }, (error) => {
@@ -288,7 +292,7 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
     this.QuestionObj.loading = true;
     this.subs.add(
       this.questionCenterService.deleteQuestionFromQuestionBank(questionId).subscribe((res) => {
-        this.getAllQuestions(this.QuestionObj.firstIndex);
+        this.getAllQuestions(this.questionBankPaginator.pageIndex);
         this.QuestionObj.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.DELETE_QUESTION_SUCCESS,
           this.helperService.constants.status.SUCCESS);
@@ -316,5 +320,18 @@ export class QuestionCenterComponent implements OnInit, OnDestroy {
           deleteModal ? this.deleteQuestion(questionId) : this.deleteQuestionFromQuestionBank(questionId);
         }
       }));
+  }
+
+  /**
+   * this function is used to navigate user to previous table if current table is empty.
+   */
+  goToPreviousQuestionBankTable() {
+    this.questionBankPaginator.pageIndex = this.questionBankPaginator.pageIndex - 1;
+    this.getAllQuestions(this.questionBankPaginator.pageIndex);
+  }
+
+  goToPreviousEntityQuestionTable() {
+    this.entityQuestionPaginator.pageIndex = this.entityQuestionPaginator.pageIndex - 1;
+    this.getAllEntityQuestions(this.entityQuestionPaginator.pageIndex, this.QuestionObj.search);
   }
 }
