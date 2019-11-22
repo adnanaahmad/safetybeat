@@ -19,103 +19,76 @@
     </mat-card-title>
     <p class="subheading">{{helperService.translated.MESSAGES.PRICING_TAGLINE}}</p>
 </div>
-<div class="paddingbox packages-wrapper">
-    <!--<mat-card class="package-box mat-elevation-z2" *ngFor="let package of packages">-->
-    <!--<h4 class="package-label">{{package.package.packageName}}</h4>-->
-    <!--<h1 class="package-price">{{package.package.cost|currency:'USD'}} <span>/ month</span></h1>-->
-    <!--<p>{{helperService.translated.STRINGS.PACKAGE_DESCRIPTION_1}}</p>-->
-    <!--<mat-list class="package-features" role="list">-->
-    <!--<mat-list-item role="listitem" *ngFor="let feature of package.features">{{feature.name}}-->
-    <!--<mat-icon color="primary" *ngIf="feature.featureExist">done</mat-icon>-->
-    <!--<mat-icon color="warn" *ngIf="!feature.featureExist">clear</mat-icon>-->
-    <!--</mat-list-item>-->
-    <!--</mat-list>-->
-    <!--<a (click)=" updatePackage(package.package)" mat-raised-button custom-btn class="package-button">-->
-    <!--{{helperService.translated.BUTTONS.GETSTARTED}}-->
-    <!--<mat-icon>{{ helperService.appIcons.arrowRight }}</mat-icon>-->
-    <!--</a>-->
-    <!--</mat-card>-->
+<form autocomplete="off">
+    <div class="paddingbox packages-wrapper">
+        <!--<mat-card class="package-box mat-elevation-z2" *ngFor="let package of packages">-->
+        <!--<h4 class="package-label">{{package.package.packageName}}</h4>-->
+        <!--<h1 class="package-price">{{package.package.cost|currency:'USD'}} <span>/ month</span></h1>-->
+        <!--<p>{{helperService.translated.STRINGS.PACKAGE_DESCRIPTION_1}}</p>-->
+        <!--<mat-list class="package-features" role="list">-->
+        <!--<mat-list-item role="listitem" *ngFor="let feature of package.features">{{feature.name}}-->
+        <!--<mat-icon color="primary" *ngIf="feature.featureExist">done</mat-icon>-->
+        <!--<mat-icon color="warn" *ngIf="!feature.featureExist">clear</mat-icon>-->
+        <!--</mat-list-item>-->
+        <!--</mat-list>-->
+        <!--<a (click)=" updatePackage(package.package)" mat-raised-button custom-btn class="package-button">-->
+        <!--{{helperService.translated.BUTTONS.GETSTARTED}}-->
+        <!--<mat-icon>{{ helperService.appIcons.arrowRight }}</mat-icon>-->
+        <!--</a>-->
+        <!--</mat-card>-->
 
-    <mat-card class="package-features mat-elevation-z0" fullWidth>
-        <ul>
-            <li><mat-icon>check_circle</mat-icon>Unlimited Sites, check in & outs</li>
-            <li><mat-icon>check_circle</mat-icon>Notifications & reminders</li>
-            <li><mat-icon>check_circle</mat-icon>Man Down Alerts</li>
-            <li><mat-icon>check_circle</mat-icon>Hazard Reporting</li>
-            <li><mat-icon>check_circle</mat-icon>Live Dashboard</li>
-            <li><mat-icon>check_circle</mat-icon>Full Reporting Suite</li>
-            <li><mat-icon>check_circle</mat-icon>Web Access & Admin Tools</li>
-            <li><mat-icon>check_circle</mat-icon>Safety Document Storage</li>
-            <li><mat-icon>check_circle</mat-icon>In-app Messaging</li>
-            <li><mat-icon>check_circle</mat-icon>Web/Apple IOS/Android</li>
-        </ul>
-    </mat-card>
-    <mat-card class="pricing-section mat-elevation-z0" fullWidth>
-        <form autocomplete="off">
-        <div class="package-row">
-            <div class="price">
-                <mat-radio-button value="1">
-                    <h1>$5</h1>
+        <mat-card class="package-features mat-elevation-z0">
+            <h2>Choose Package</h2>
+            <p>With SafetyBeat, you can manage your workers on the sites you choose.</p>
+            <p>You can report hazards, store safety documents, send man down alerts and communicate with your
+                workers.</p>
+            <ul>
+                <li>
+                    <mat-icon>check_circle</mat-icon>
+                    Site registration
+                </li>
+                <li>
+                    <mat-icon>check_circle</mat-icon>
+                    Dashboard access
+                </li>
+                <li>
+                    <mat-icon>check_circle</mat-icon>
+                    Report access
+                </li>
+            </ul>
+        </mat-card>
+        <mat-card class="pricing-section flexbox text-center mat-elevation-z0">
+            <div class="package-row">
+                <mat-radio-button value="1"></mat-radio-button>
+                <div class="price">
+                    <h1>$50</h1>
                     <p>Per month</p>
-                </mat-radio-button>
+                </div>
+                <div class="person-count">
+                    <h1>Unlimited</h1> Workers
+                </div>
             </div>
-            <div class="person-count">
-                <p>Up to</p>
-                <h1>5</h1> Workers
-            </div>
-            <mat-icon class="icon-right">{{helperService.appIcons.arrowRight}}</mat-icon>
-        </div>
 
-        <div class="package-row">
-            <div class="price">
-                <mat-radio-button value="1">
-                    <h1>$25</h1>
-                    <p>Per month</p>
-                </mat-radio-button>
-            </div>
-            <div class="person-count">
-                <p>Up to</p>
-                <h1>25</h1> Workers
-            </div>
-            <mat-icon class="icon-right">{{helperService.appIcons.arrowRight}}</mat-icon>
-        </div>
-
-        <div class="package-row">
-            <div class="price">
-                <mat-radio-button value="1">
-                    <h1>$75</h1>
-                    <p>Per month</p>
-                </mat-radio-button>
-            </div>
-            <div class="person-count">
-                <p>Up to</p>
-                <h1>75</h1> Workers
-            </div>
-            <mat-icon class="icon-right">{{helperService.appIcons.arrowRight}}</mat-icon>
-        </div>
-
-        <div class="package-row">
-            <div class="price">
-                <mat-radio-button value="1">
+            <div class="package-row custom text-center">
+                <mat-radio-button class="light-radio" value="1"></mat-radio-button>
+                <div class="price">
                     <h1>$100</h1>
                     <p>Per month</p>
-                </mat-radio-button>
+                </div>
+                <div class="person-count">
+                    <p>Up to</p>
+                    <input type="text" class="add-users-input" placeholder="Add number of users">
+                </div>
             </div>
-            <div class="person-count">
-                <p>Up to</p>
-                <mat-form-field fullWidth>
-                    <input type="number" matInput placeholder="Add number of users">
-                </mat-form-field>
-            </div>
-            <mat-icon class="icon-right">{{helperService.appIcons.arrowRight}}</mat-icon>
-        </div>
-            <button color="primary" class="btn btn-primary" mat-raised-button>
-                Proceed to payment <mat-icon>{{helperService.appIcons.arrowRight}}</mat-icon>
-            </button>
-        </form>
-    </mat-card>
-</div>
-
+        </mat-card>
+    </div>
+    <div class="text-center">
+        <button color="primary" class="btn btn-primary" mat-raised-button>
+            Proceed to payment
+            <mat-icon>{{helperService.appIcons.arrowRight}}</mat-icon>
+        </button>
+    </div>
+</form>
 <!-- Call to action -->
 <div class="call-to-action">
     <h1>{{helperService.translated.MESSAGES.CALLTOACTION_TITLE}}</h1>
