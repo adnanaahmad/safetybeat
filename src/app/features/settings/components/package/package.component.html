@@ -1,0 +1,50 @@
+<form autocomplete="off">
+    <mat-card class="package-features mat-elevation-z0">
+        <h2>Update your Package</h2>
+        <p>You are currently using Unlimited Package ($100/Month)</p>
+        <ul>
+            <li>
+                <mat-icon>check_circle</mat-icon>
+                Site registration
+            </li>
+            <li>
+                <mat-icon>check_circle</mat-icon>
+                Dashboard access
+            </li>
+            <li>
+                <mat-icon>check_circle</mat-icon>
+                Report access
+            </li>
+        </ul>
+    </mat-card>
+    <mat-card class="pricing-section flexbox text-center mat-elevation-z0">
+        <div class="package-row">
+            <mat-radio-button value="1"></mat-radio-button>
+            <div class="price">
+                <h1>$50</h1>
+                <p>Per month</p>
+            </div>
+            <div class="person-count">
+                <h1>Unlimited</h1> Users
+            </div>
+        </div>
+
+        <div class="package-row custom text-center">
+            <mat-radio-button class="light-radio" value="1"></mat-radio-button>
+            <div class="price">
+                <h1>$100</h1>
+                <p>Per month</p>
+            </div>
+            <div class="person-count">
+                <p>Users up to</p>
+                <input type="number" class="add-users-input" placeholder="Add number of users">
+            </div>
+        </div>
+    </mat-card>
+    <div class="text-center">
+        <button color="primary" class="btn btn-primary" mat-raised-button>
+            Proceed to payment
+            <mat-icon>{{helperService.appIcons.arrowRight}}</mat-icon>
+        </button>
+    </div>
+</form>
