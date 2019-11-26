@@ -12,9 +12,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OrganizationInfoComponent} from './components/organizationInfo/organizationInfo.component';
 import {EntitySettingComponent} from './components/entitySetting/entitySetting.component';
 import {ProfileModule} from 'src/app/features/profile/profile.module';
+import { PackageComponent } from './components/package/package.component';
 
 @NgModule({
-  declarations: [SettingsComponent, OrganizationInfoComponent, EntitySettingComponent],
+  declarations: [SettingsComponent, OrganizationInfoComponent, EntitySettingComponent, PackageComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

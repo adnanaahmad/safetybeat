@@ -36,7 +36,7 @@
     <mat-grid-list cols="3" rowHeight="fit" gutterSize="10px" class="dashboard-widgets">
         <mat-grid-tile class="overflow-unset" *ngFor="let card of cards | async" [colspan]="card.cols"
                        [rowspan]="card.rows">
-            <div class="table-wrap" *ngIf="card.title==='qBank'">
+            <div fullWidth *ngIf="card.title==='qBank'">
                 <table class="customTable question-table mat-elevation-z2" mat-table
                        [dataSource]="QuestionObj.entityQuestions">
 
@@ -94,7 +94,7 @@
                                [length]="QuestionObj.entityPageCount"
                                (page)="getAllEntityQuestions(entityQuestionPaginator.pageIndex, QuestionObj.search)"></mat-paginator>
             </div>
-            <div class="table-wrap" *ngIf="card.title==='pcqBank'">
+            <div fullWidth *ngIf="card.title==='pcqBank'">
 
                 <table class="customTable question-table mat-elevation-z2" mat-table
                        [dataSource]="QuestionObj.dataSource">

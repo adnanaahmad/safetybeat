@@ -35,21 +35,6 @@
       }
     }
 
-    .legend-header {
-      text-align: center;
-      margin-bottom: 30px;
-      padding: 60px;
-      background-color: mat-color($primary, 50);
-
-      mat-card-title {
-        font-size: 2rem;
-      }
-
-      p {
-        margin-bottom: 0;
-      }
-    }
-
     .paddingbox {
       padding: 16px 100px;
     }
@@ -118,47 +103,6 @@
         }
       }
     }
-
-    .call-to-action {
-      background: mat-color($primary, 500);
-      padding: 4rem 10rem;
-      text-align: center;
-      color: #fff;
-      margin-top: 30px;
-
-      h1 {
-        font-weight: 500;
-        margin: 0;
-      }
-
-      p {
-        margin: 10px 0 20px;
-      }
-
-      a {
-        color: #fff;
-        display: flex;
-        margin: 0 auto;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        width: 150px;
-        text-decoration: none;
-      }
-    }
-
-    .faqs {
-      margin-bottom: 50px;
-
-      h1 {
-        text-align: center;
-        margin-top: 0;
-      }
-
-      mat-panel-title {
-        font-weight: 600;
-      }
-    }
     .country-code {
       width: 20%;
       float: left;
@@ -190,16 +134,16 @@
       float: left;
       margin-left: 3%;
     }
-    .midbox{
+    .midbox {
       width: 50%;
-      margin:0 auto;
+      margin: 0 auto;
     }
-    @media (max-width: 575px){
-      .paddingbox{
+    @media (max-width: 575px) {
+      .paddingbox {
         padding: 16px;
       }
-      .update-form{
-        .input{
+      .update-form {
+        .input {
           width: 100%;
           margin-left: 0;
         }

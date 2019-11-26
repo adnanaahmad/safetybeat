@@ -623,6 +623,7 @@ export interface SiteTitle {
     MEMBERCENTER_TITLE: string;
     ENTITYCONTROL_TITLE: string;
     USERS_TITLE: string;
+    PACKAGE_TITLE: string;
     SETTINGS_TITLE: string;
     SETTINGS_DESCRIPTION: string;
     SITE_CENTRE: string;

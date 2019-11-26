@@ -93,6 +93,14 @@ app-toaster,
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+mat-radio-button.light-radio {
+  .mat-radio-outer-circle {
+    border-color: #fff !important;
+  }
+  .mat-radio-inner-circle {
+    background-color: #fff !important;
+  }
+}
 
 .dual-grid {
   display: flex;

@@ -475,7 +475,8 @@ export class ConstantService {
         favorite: 'favorite',
         checkIn: 'person_pin',
         addCircle: 'add_circle',
-        createNote: 'post_add'
+        createNote: 'post_add',
+        wallet: 'account_balance_wallet'
     };
     /**
      * all the particle container icon names are declared here.

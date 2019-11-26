@@ -68,6 +68,7 @@
 @import "~src/app/features/adminControl/modules/entityControl/dialogs/archived-entity/archived-entity.component.scss";
 @import "~src/app/features/adminControl/modules/entityControl/dialogs/checkInCategoryModal/checkInCategoryModal.component.scss";
 @import "~src/app/features/adminControl/modules/entityControl/dialogs/pulseCategoyModal/pulseCategoyModal.component.scss";
+@import "~src/app/features/settings/components/package/package.component.scss";
 
 @mixin amte-setTheme($theme) {
   $primary: map-get($theme, primary);
@@ -146,4 +147,5 @@
   @include app-archived-entity($primary, $accent, $warn);
   @include amte-app-check-in-category-modal($primary, $accent, $warn);
   @include amte-app-pulse-category-modal($primary, $accent, $warn);
+  @include amte-app-package-settings($primary, $accent, $warn);
 }
