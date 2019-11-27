@@ -111,7 +111,8 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
           let chartType: HighChartType = {
             type: 'column',
             title: 'Pulse Report',
-            subtitle: ''
+            subtitle: '',
+            inverted: false
           };
           let data = this.highChartSettings.reportSettings(chartType,
             [], this.generateCharSeries(this.pulseEntityObj.pulseByEntityReportData));
@@ -200,8 +201,5 @@ export class EntityPulseReportComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
-    // if (this.pulseEntityObj.subscription !== null && this.pulseEntityObj.subscription !== undefined) {
-    //   this.pulseEntityObj.subscription.unsubscribe();
-    // }
   }
 }

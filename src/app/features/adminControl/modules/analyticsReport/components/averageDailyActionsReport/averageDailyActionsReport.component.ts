@@ -1,12 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
 import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
-import {Report} from 'src/app/models/analyticsReport/reports.model';
+import {
+  ActionReportApiData,
+  Report
+} from 'src/app/models/analyticsReport/reports.model';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {SubSink} from 'subsink';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {PaginationData} from '../../../../../../models/site.model';
 
 @Component({
   selector: 'app-averageDailyActionsReport',
@@ -14,7 +19,9 @@ import {SubSink} from 'subsink';
   styleUrls: ['./averageDailyActionsReport.component.scss']
 })
 export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   averageActionObj: Report = <Report>{};
+  displayedColumns: string[] = ['user', 'averageCheckIn', 'averageCheckOut', 'averageDuration'];
   private subs = new SubSink();
 
   constructor(public helperService: HelperService,
@@ -31,7 +38,7 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.makeReport(0, null, null, null)
+    this.makeReport(7, null, null, null, 0)
   }
 
   initialize() {
@@ -41,7 +48,10 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       dateTo: [],
       dateFrom: [],
       user: ['']
+
     });
+    this.averageActionObj.search = '';
+    this.averageActionObj.pageSize = 10;
     this.averageActionObj.entityId = this.helperService.getEntityId();
     this.averageDailyActionsValidations[this.helperService.appConstants.dateFrom].disable();
     this.averageDailyActionsValidations[this.helperService.appConstants.dateTo].disable();
@@ -49,9 +59,6 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-    // if (this.averageActionObj.subscription !== null && this.averageActionObj.subscription !== undefined) {
-    //   this.averageActionObj.subscription.unsubscribe();
-    // }
   }
 
   setEntityName() {
@@ -78,6 +85,17 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       }));
   }
 
+  averageActionSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
+    console.log(value);
+    if (!valid) {
+      return;
+    }
+    this.averageActionObj.days = this.helperService.find(this.averageActionObj.filters, function (obj) {
+      return obj.id === value.filter;
+    });
+    this.makeReport(this.averageActionObj.days.days, value.dateTo, value.dateFrom, value.user, 0);
+  }
+
   getAllUsers() {
     let data = {
       entityId: this.helperService.getEntityId()
@@ -90,10 +108,6 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }));
-  }
-
-  averageActionSubmit(averageActionForm: FormGroup) {
-
   }
 
   get averageDailyActionsValidations() {
@@ -113,7 +127,7 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  makeReport(days, dateTo, dateFrom, user) {
+  makeReport(days, dateTo, dateFrom, user, pageIndex) {
     this.averageActionObj.loading = true;
     let data = {
       'entityId': this.averageActionObj.entityId,
@@ -122,18 +136,19 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       'days': days,
       'user': user
     };
+    let paginationData: PaginationData = {
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit,
+    };
     this.subs.add(
-      this.analyticsService.averageDailyActionsReport(data).subscribe((res) => {
+      this.analyticsService.averageDailyActionsReport(data, paginationData).subscribe((res) => {
         if (res && res.responseDetails.code === 100) {
-          // this.hazardObj.hazardReportData = res.data.hazardReportBySeverity;
-          // this.hazardObj.resolvedHazards = res.data.resolvedHazard;
-          // this.hazardObj.unResolvedHazards = res.data.unResolvedHazard;
-          // this.hazardObj.hazardReportByStatusData = res.data.hazardReportByStatus;
-          // this.reportBySeverity(this.hazardObj.hazardReportData);
-          // this.reportByStatus(this.hazardObj.hazardReportByStatusData);
-          // this.hazardObj.loading = false;
+          this.averageActionObj.pageCount = res.data.pageCount;
+          this.averageActionObj.averageActionReportData = res.data.report;
+          this.averageActionObj.dataSource = new MatTableDataSource(this.averageActionObj.averageActionReportData);
+          this.averageActionObj.loading = false;
         } else {
-          // this.hazardObj.loading = false;
+          this.averageActionObj.loading = false;
         }
       }));
   }
