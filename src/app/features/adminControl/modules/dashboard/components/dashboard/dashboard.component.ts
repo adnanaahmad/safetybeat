@@ -70,7 +70,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
               let chartType: HighChartType = {
                 type: 'column',
                 title: 'Action Report',
-                subtitle: ''
+                subtitle: '',
+                inverted: false
               };
               let data = this.highChartSettings.reportSettings(chartType, [],
                 this.generateCharSeries(this.dashboardObj.actionReportData));
@@ -118,7 +119,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
         let chartType: HighChartType = {
             type: 'column',
             title: 'Hazard Report with Severity',
-            subtitle: ''
+            subtitle: '',
+            inverted: false
         };
         let reportBySeverityData = this.highChartSettings.reportSettings(chartType,
             [], this.generateCharHazardSeries(hazardSeverityData));
@@ -132,7 +134,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
         let chartTypeForStatus: HighChartType = {
             type: 'column',
             title: 'Hazard Report with Status',
-            subtitle: ''
+            subtitle: '',
+            inverted: false
         };
         let reportByStatusData = this.highChartSettings.reportSettings(chartTypeForStatus,
             [], this.generateHazardStatusData(hazardStatusData));
@@ -158,7 +161,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
               let chartType: HighChartType = {
                 type: 'column',
                 title: 'Pulse Report',
-                subtitle: ''
+                subtitle: '',
+                inverted: false
               };
               let data = this.highChartSettings.reportSettings(chartType,
                 [], this.generatePulseCharSeries(this.dashboardObj.pulseByEntityReportData));

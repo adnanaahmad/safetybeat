@@ -28,7 +28,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
     private highChartSettings: HighchartService
   ) {
     this.initialize();
-    // this.setEntityName();
     this.getFilters();
   }
 
@@ -91,7 +90,8 @@ export class ActionReportComponent implements OnInit, OnDestroy {
           let chartType: HighChartType = {
             type: 'column',
             title: 'Action Report',
-            subtitle: ''
+            subtitle: '',
+            inverted: false
           };
           let data = this.highChartSettings.reportSettings(chartType, [], this.generateCharSeries(this.actionReportObj.actionReportData));
           this.actionReportObj.containerDiv = document.getElementById('action');
@@ -135,6 +135,7 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   actionReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
+    console.log(value);
     if (!valid) {
       return;
     }
@@ -146,9 +147,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
-    // if (this.actionReportObj.subscription !== null && this.actionReportObj.subscription !== undefined) {
-    //   this.actionReportObj.subscription.unsubscribe();
-    // }
   }
 
   enableDates(value: any) {
