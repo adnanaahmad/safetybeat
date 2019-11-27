@@ -8,20 +8,20 @@ const clientUrl = 'http://localhost:4200/#';
 const clientSignupUrl = 'http://192.168.69.70:8000/';
 
 export const environment = {
-  production: false,
-  apiUrl: `${serverUrl}/safetybeat`,
-  serverUrl: `${serverUrl}`,
-  clientUrl: `${clientUrl}`,
-  clientSignupUrl: `${clientSignupUrl}`,
-  firebaseConfig: {
-    apiKey: 'AIzaSyA5fX1GOd488hjQnYnih4aFLmJhoRBBiMs',
-    authDomain: 'safetybeat-12abc.firebaseapp.com',
-    databaseURL: 'https://safetybeat-12abc.firebaseio.com',
-    projectId: 'safetybeat-12abc',
-    storageBucket: '',
-    messagingSenderId: '907574511477',
-    appId: '1:907574511477:web:73c22bb0597786f6'
-  }
+    production: false,
+    apiUrl: `${serverUrl}/safetybeat`,
+    serverUrl: `${serverUrl}`,
+    clientUrl: `${clientUrl}`,
+    clientSignupUrl: `${clientSignupUrl}`,
+    firebaseConfig: {
+        apiKey: 'AIzaSyA5fX1GOd488hjQnYnih4aFLmJhoRBBiMs',
+        authDomain: 'safetybeat-12abc.firebaseapp.com',
+        databaseURL: 'https://safetybeat-12abc.firebaseio.com',
+        projectId: 'safetybeat-12abc',
+        storageBucket: '',
+        messagingSenderId: '907574511477',
+        appId: '1:907574511477:web:73c22bb0597786f6'
+    }
 };
 
 /*
