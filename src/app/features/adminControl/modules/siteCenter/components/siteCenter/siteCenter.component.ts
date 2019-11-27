@@ -30,7 +30,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   siteCentreObj: SiteCentre = <SiteCentre>{};
   displayedColumns: string[] = ['name', 'location', 'safeZone', 'createdBy', 'siteSafetyManager', 'symbol'];
-  private dataSource: MatTableDataSource<any>;
   private subs = new SubSink();
 
   constructor(
@@ -90,9 +89,6 @@ export class SiteCenterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
-    // if (this.siteCentreObj.subscription !== null && this.siteCentreObj.subscription !== undefined) {
-    //   this.siteCentreObj.subscription.unsubscribe();
-    // }
   }
 
   /**

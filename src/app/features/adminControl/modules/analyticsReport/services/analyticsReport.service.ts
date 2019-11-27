@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
+import {PaginationData} from '../../../../../models/site.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,10 +61,10 @@ export class AnalyticsReportService {
     );
   }
 
-  averageDailyActionsReport(data: any) {
+  averageDailyActionsReport(data: any, paginationData?: PaginationData) {
     return this.helperService.requestCall(
       this.method.post,
-      this.apiRoutes.averageDailyActionsReport,
+      `${this.apiRoutes.averageDailyActionsReport}?limit=${paginationData.limit}&offset=${paginationData.offset}`,
       data
     );
   }

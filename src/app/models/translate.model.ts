@@ -677,6 +677,9 @@ export interface TableHeadings {
     HAZARD_DETAILS: string;
     TEAM_LEAD: string;
     ARCHIVE_ENTITY: string;
+    AVERAGE_CHECK_IN: string;
+    AVERAGE_CHECK_OUT: string;
+    AVERAGE_DURATION: string;
 }
 
 export interface Status {

@@ -1,11 +1,17 @@
 import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
+import {MatTableDataSource} from '@angular/material';
 import {FilterModel} from 'src/app/models/filter.model';
 import {User} from '../user.model';
 import {Site} from 'src/app/models/site.model';
 
 
 export interface Report {
+  firstIndex: number;
+  search: string;
+  pageSize: number;
+  pageCount: number;
+  dataSource: MatTableDataSource<AverageDailyActionReport>;
   averageActionReportData: any;
   minDate: Date;
   maxDate: Date;

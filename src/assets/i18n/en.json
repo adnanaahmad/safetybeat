@@ -527,7 +527,10 @@
     "HAZARD_DETAILS": "View Hazard",
     "TEAM_LEAD": "Team Lead",
     "RADIUS": "Radius",
-    "ARCHIVE_ENTITY": "Archive"
+    "ARCHIVE_ENTITY": "Archive",
+    "AVERAGE_CHECK_IN": "Average Check-in Time",
+    "AVERAGE_CHECK_OUT": "Average Check-out Time",
+    "AVERAGE_DURATION": "Average Duration"
   },
   "LOGGER": {
     "STATUS": {

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HelperService} from 'src/app/services/common/helperService/helper.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MemberCenterService} from 'src/app/features/adminControl/modules/memberCenter/services/member-center.service';
@@ -6,19 +6,12 @@ import {CompilerProvider} from 'src/app/services/common/compiler/compiler';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {
   ActionReportApiData,
-  ActionReportData,
-  AverageDailyActionReport,
-  HighChartType,
   Report
 } from 'src/app/models/analyticsReport/reports.model';
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {SubSink} from 'subsink';
-import * as Highcharts from 'highcharts';
-import {HighchartService} from '../../../../../../services/common/highchart/highchart.service';
-import * as moment from 'moment';
-import {time} from 'highcharts';
-import {timestamp} from 'rxjs/operators';
-import {Time} from '@angular/common';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {PaginationData} from '../../../../../../models/site.model';
 
 @Component({
   selector: 'app-averageDailyActionsReport',
@@ -26,16 +19,16 @@ import {Time} from '@angular/common';
   styleUrls: ['./averageDailyActionsReport.component.scss']
 })
 export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   averageActionObj: Report = <Report>{};
+  displayedColumns: string[] = ['user', 'averageCheckIn', 'averageCheckOut', 'averageDuration'];
   private subs = new SubSink();
-  week = 7;
 
   constructor(public helperService: HelperService,
               public formBuilder: FormBuilder,
               public memberService: MemberCenterService,
               public compiler: CompilerProvider,
               private navService: NavigationService,
-              private highChartSettings: HighchartService,
               public analyticsService: AnalyticsReportService) {
     this.initialize();
     this.setEntityName();
@@ -45,7 +38,7 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.makeReport(7, null, null, null)
+    this.makeReport(7, null, null, null, 0)
   }
 
   initialize() {
@@ -55,7 +48,10 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       dateTo: [],
       dateFrom: [],
       user: ['']
+
     });
+    this.averageActionObj.search = '';
+    this.averageActionObj.pageSize = 10;
     this.averageActionObj.entityId = this.helperService.getEntityId();
     this.averageDailyActionsValidations[this.helperService.appConstants.dateFrom].disable();
     this.averageDailyActionsValidations[this.helperService.appConstants.dateTo].disable();
@@ -89,6 +85,17 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       }));
   }
 
+  averageActionSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
+    console.log(value);
+    if (!valid) {
+      return;
+    }
+    this.averageActionObj.days = this.helperService.find(this.averageActionObj.filters, function (obj) {
+      return obj.id === value.filter;
+    });
+    this.makeReport(this.averageActionObj.days.days, value.dateTo, value.dateFrom, value.user, 0);
+  }
+
   getAllUsers() {
     let data = {
       entityId: this.helperService.getEntityId()
@@ -101,17 +108,6 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }));
-  }
-
-  averageActionSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
-    console.log(value);
-    if (!valid) {
-      return;
-    }
-    this.averageActionObj.days = this.helperService.find(this.averageActionObj.filters, function (obj) {
-      return obj.id === value.filter;
-    });
-    this.makeReport(this.averageActionObj.days.days, value.dateTo, value.dateFrom, value.user);
   }
 
   get averageDailyActionsValidations() {
@@ -131,7 +127,7 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
     }
   }
 
-  makeReport(days, dateTo, dateFrom, user) {
+  makeReport(days, dateTo, dateFrom, user, pageIndex) {
     this.averageActionObj.loading = true;
     let data = {
       'entityId': this.averageActionObj.entityId,
@@ -140,47 +136,20 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
       'days': days,
       'user': user
     };
+    let paginationData: PaginationData = {
+      offset: pageIndex * this.helperService.appConstants.paginationLimit,
+      limit: this.helperService.appConstants.paginationLimit,
+    };
     this.subs.add(
-      this.analyticsService.averageDailyActionsReport(data).subscribe((res) => {
+      this.analyticsService.averageDailyActionsReport(data, paginationData).subscribe((res) => {
         if (res && res.responseDetails.code === 100) {
-          this.averageActionObj.averageActionReportData = res.data;
-          let chartType: HighChartType = {
-            type: 'columnrange',
-            title: 'Average Daily Action Report',
-            subtitle: '',
-            inverted: true
-          };
-          let data = this.highChartSettings.reportSettings(chartType, [],
-            this.generateCharSeries(this.averageActionObj.averageActionReportData));
-          this.averageActionObj.containerDiv = document.getElementById('avgAction');
-          if (this.averageActionObj.containerDiv) {
-            Highcharts.chart(this.averageActionObj.containerDiv, data);
-          }
+          this.averageActionObj.pageCount = res.data.pageCount;
+          this.averageActionObj.averageActionReportData = res.data.report;
+          this.averageActionObj.dataSource = new MatTableDataSource(this.averageActionObj.averageActionReportData);
           this.averageActionObj.loading = false;
         } else {
           this.averageActionObj.loading = false;
         }
       }));
-  }
-
-  generateCharSeries(reportData: any) {
-    let users = [];
-    let avgCheckInsCheckOuts = [];
-    this.helperService.iterations(reportData, function (avgActionReport: AverageDailyActionReport) {
-      let checkInTime = avgActionReport.averageCheckIn
-      let checkOutTime = avgActionReport.averageCheckOut
-      avgCheckInsCheckOuts.push([checkInTime, checkOutTime]);
-      users.push(avgActionReport.user);
-    });
-    let charSeries = [{
-      name: 'Time',
-      data: avgCheckInsCheckOuts,
-    }];
-    let data = {
-      charSeries: charSeries,
-      categories: users,
-      title: 'Users Average Check-in time and Average Check-out Time'
-    };
-    return data;
   }
 }
