@@ -94,19 +94,21 @@ app-toaster,
   text-overflow: ellipsis;
 }
 
-mat-radio-button.light-radio {
-  .mat-radio-outer-circle {
-    border-color: #fff !important;
-  }
-  .mat-radio-inner-circle {
-    background-color: #fff !important;
-  }
-}
-
+//.package-row.active{
+//  mat-radio-button {
+//    .mat-radio-outer-circle {
+//      border-color: #fff !important;
+//    }
+//    .mat-radio-inner-circle {
+//      background-color: #fff !important;
+//    }
+//  }
+//}
 .dual-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+
   .grid-box {
     flex-basis: calc(50% - 25px);
     margin-top: 10px;
@@ -199,12 +201,12 @@ mat-form-field[appearance="outline"] {
   }
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
-  -webkit-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
+//input::-webkit-outer-spin-button,
+//input::-webkit-inner-spin-button {
+//  /* display: none; <- Crashes Chrome on hover */
+//  -webkit-appearance: none;
+//  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+//}
 
 input[type=number] {
   -moz-appearance: textfield; /* Firefox */
@@ -216,6 +218,7 @@ input[type=number] {
       color: initial;
     }
   }
+
   .mat-header-row {
     background: transparent;
   }
@@ -224,17 +227,20 @@ input[type=number] {
 .heading-search {
   float: right;
   position: relative;
+
   input {
     border: 0;
     border-radius: 4px;
     height: 30px;
     padding: 0 10px;
     width: 135px;
+
     &:focus {
       outline: 0 none;
       border: 0;
     }
   }
+
   mat-icon {
     vertical-align: middle;
     position: absolute;
@@ -246,6 +252,7 @@ input[type=number] {
 
 .page-title {
   padding: 0 0 20px;
+
   h4 {
     margin: 0;
     font-weight: 500;
@@ -257,12 +264,14 @@ input[type=number] {
     text-align: right;
     display: inline-block;
     float: right;
+
     button {
       padding: 0 6px;
       margin-left: 4px;
       font-size: 12px;
       line-height: 30px;
       min-width: 45px;
+
       mat-icon {
         width: auto;
         height: auto;
@@ -280,6 +289,7 @@ input[type=number] {
 
 .flexbox {
   display: flex;
+
   & > div {
     width: $fullValue;
     text-align: center;
@@ -403,6 +413,7 @@ input[type=number] {
   th {
     padding: 10px !important;
   }
+
   .table-img {
     width: 40px;
     height: 40px;
@@ -509,6 +520,7 @@ input:-internal-autofill-selected {
 .number-input {
   position: relative;
   display: inline-block;
+
   span {
     position: absolute;
     right: 0;
@@ -519,15 +531,18 @@ input:-internal-autofill-selected {
     cursor: pointer;
     border-left: 1px solid #ddd;
     top: 0;
+
     &:last-child {
       bottom: 0;
       top: unset;
       border-top: 1px solid #ddd;
     }
+
     &:hover {
       opacity: 0.6;
     }
   }
+
   input {
     padding: 10px;
     border-radius: 4px;
@@ -538,6 +553,7 @@ input:-internal-autofill-selected {
 .tagcloud {
   padding: 0;
   margin: 0;
+
   li {
     display: inline-block;
     border-radius: 100px;
@@ -545,18 +561,23 @@ input:-internal-autofill-selected {
     font-size: 12px;
     margin: 5px;
     color: #fff;
+
     &:nth-child(1) {
       background-color: #05647c;
     }
+
     &:nth-child(2) {
       background-color: #3cb371;
     }
+
     &:nth-child(3) {
       background-color: #f8961c;
     }
+
     &:nth-child(4) {
       background-color: #fbae1e;
     }
+
     &:nth-child(5) {
       background-color: #ee4c17;
     }
@@ -570,15 +591,18 @@ input:-internal-autofill-selected {
   cursor: pointer;
   float: right;
   transition: all ease 0.3s;
+
   &:hover, &:focus-within {
     width: 160px;
   }
+
   .input-wrap {
     border: 1px solid #ccc;
     padding: 5px;
     border-radius: 4px;
     background-color: #fff;
     position: relative;
+
     .search-input {
       border: 0;
       background: transparent;
@@ -586,6 +610,7 @@ input:-internal-autofill-selected {
       outline: 0 none;
     }
   }
+
   mat-icon {
     position: absolute;
     right: 0;
@@ -597,6 +622,7 @@ input:-internal-autofill-selected {
     line-height: 1.3;
     width: 33px;
   }
+
   mat-form-field {
     margin: 0 10px;
     width: 150px;
@@ -609,6 +635,7 @@ input:-internal-autofill-selected {
   line-height: 0 !important;
   float: right;
   margin-top: 15px !important;
+
   i {
     font-size: 20px;
     line-height: 0;
@@ -759,6 +786,7 @@ input:-internal-autofill-selected {
   }
   .dual-grid {
     display: block;
+
     .grid-box {
       flex-basis: unset;
     }

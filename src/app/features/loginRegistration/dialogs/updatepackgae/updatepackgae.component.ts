@@ -92,12 +92,13 @@ export class UpdatepackgaeComponent implements OnInit {
     }, (error) => {
       this.dialogRef.close('NO');
       this.helperService.createSnack(error.message, this.helperService.constants.status.ERROR);
-    })
+    });
   }
 
   updatePackage() {
     let data = {
-      'packageId': this.data.id
+      'package': this.data.packageName,
+      'price': this.data.price
     };
     this.loginService.updatePackage(data).subscribe((res) => {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
