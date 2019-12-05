@@ -121,7 +121,8 @@ export class ConstantService {
         archivePulse: `${environment.apiUrl}/api/sendPulseType/archivePulse/`,
         pulseType: `${environment.apiUrl}/api/sendPulseType/`,
         defaultIntervals: `${environment.apiUrl}/api/reportInInterval/getIntervals/`,
-        updateIntervals: `${environment.apiUrl}/api/reportInInterval/`
+        updateIntervals: `${environment.apiUrl}/api/reportInInterval/`,
+        getPackage: `${environment.apiUrl}/packages/getPackage/`
 
     };
     /**

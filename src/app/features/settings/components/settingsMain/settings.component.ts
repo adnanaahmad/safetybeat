@@ -16,11 +16,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
     ownerView: boolean = false;
     themeSelected: any;
     settingFeatures = {
-        'package': true,
         'organization': false,
         'entity': false,
         'theme': false,
-        'allUsers': false
+        'allUsers': false,
+        'package': true
     };
     private subscription: Subscription;
 
@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
             if (res && res === 'Owner') {
                 this.ownerView = true;
             } else if (res && res !== 'Owner') {
-                this.settingFeatures.package = false;
+                this.settingFeatures.organization = false;
                 this.settingFeatures.theme = true;
             }
         });
