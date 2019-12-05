@@ -77,6 +77,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   data: any;
   events: any;
   private subs = new SubSink();
+  rangeAt: any;
 
   constructor(
     private profile: ProfileService,
@@ -361,7 +362,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
 
   uploadProfileImage(event) {
-    debugger
     this.profileModel.loading = true;
     this.profileModel.imageFile = <File>event.target.files[0];
     let blob = new Blob([this.profileModel.imageFile], {type: 'image/*'});
@@ -384,6 +384,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }));
+  }
+
+  dateSelected(data, event) {
+    this.rangeAt = event.value;
+    this.filterFormValidations[this.helperService.appConstants.dateTo].enable();
   }
 
   /**
@@ -418,6 +423,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           if (res.data.recentActivities.length === 0) {
             this.profileModel.recentActivities = null;
+            this.profileModel.dataSource = null;
             this.profileModel.loading = false;
           } else {
             this.profileModel.activitiesCount = res.data.pageCount;
@@ -428,12 +434,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
         } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.profileModel.recentActivities = null;
           this.profileModel.loading = false;
+          this.profileModel.dataSource = null;
         } else {
           this.profileModel.recentActivities = null;
           this.profileModel.loading = false;
+          this.profileModel.dataSource = null
         }
       }, (error) => {
         this.profileModel.recentActivities = null;
+        this.profileModel.dataSource = null;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
         this.profileModel.loading = false;
       }));
@@ -441,11 +450,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   filteredReport(value: number) {
     if (value !== -1) {
+      this.filterFormValidations[this.helperService.appConstants.dateFrom].reset();
+      this.filterFormValidations[this.helperService.appConstants.dateTo].reset();
       this.filterFormValidations[this.helperService.appConstants.dateFrom].disable();
       this.filterFormValidations[this.helperService.appConstants.dateTo].disable();
     } else {
       this.filterFormValidations[this.helperService.appConstants.dateFrom].enable();
-      this.filterFormValidations[this.helperService.appConstants.dateTo].enable();
+      this.filterFormValidations[this.helperService.appConstants.dateTo].disable();
     }
   }
 
