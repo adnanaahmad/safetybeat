@@ -4,11 +4,13 @@ import {PermissionsModel} from './adminControl/permissions.model';
 import {Subscription} from 'rxjs';
 
 export interface ManageLeave {
+  approved: boolean;
+  rejected: boolean;
   selectedEntitySubscription: Subscription;
   entityId: number;
   subscription: Subscription;
   permissions: PermissionsModel;
-  currentDate: Date;
+  currentDate: any;
   loading: boolean;
   pageCount: number;
   pageSize: number;

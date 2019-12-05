@@ -1,4 +1,4 @@
-const serverUrl = 'https://4p9i3qp3rl.execute-api.ap-southeast-1.amazonaws.com/dev';
+const serverUrl = 'https://main.safetybeat.com';
 
 export const environment = {
   production: true,
