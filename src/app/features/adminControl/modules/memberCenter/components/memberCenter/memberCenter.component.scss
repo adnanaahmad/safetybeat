@@ -2,10 +2,6 @@
   :host,
   app-memberCenter {
     position: relative;
-    height: $fullValue;
-    .customTable td,
-    .customTable th {
-      padding: 3px !important;
-    }
+    height: $fullValue; 
   }
 }
