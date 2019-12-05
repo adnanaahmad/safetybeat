@@ -18,11 +18,9 @@
     </form>
     <div class="data-search">
         <div class="data-result">
-
             <ng-container>
                 <mat-list *ngFor="let element of checkInCategoryModal.checkInTypes">
                     <mat-list-item>
-
                         {{element.checkInType.name}}
                         <button custom-btn mat-raised-button class="remove-type mat-elevation-z1"
                                 [disabled]="checkInCategoryModal.disableRemove"
