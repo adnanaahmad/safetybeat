@@ -85,9 +85,12 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="!averageActionObj.dataSource">
+      {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+    </div>
 
     <div class="paddingbox text-center mat-select-placeholder"
-         *ngIf="!averageActionObj.loading && !averageActionObj.dataSource">
+         *ngIf="!averageActionObj.loading && averageActionObj.pageCount===0">
       {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
     <mat-paginator class="mat-elevation-z2" [pageSize]="averageActionObj.pageSize" [length]="averageActionObj.pageCount" ></mat-paginator>
