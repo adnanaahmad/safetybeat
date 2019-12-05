@@ -148,7 +148,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    * to the behavior subject of the profile data.
    */
   ngOnInit() {
-    this.profileModel.loading = true;
+    //this.profileModel.loading = true;
     this.subs.add(
       this.navService.currentUserData.subscribe((res) => {
         if (res !== 1) {
@@ -214,7 +214,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       'role',
       'administrator'
     ];
-    this.profileModel.loading = false;
+    //
+    // this.profileModel.loading = false;
   }
 
   /**
@@ -362,7 +363,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
 
   uploadProfileImage(event) {
-    this.profileModel.loading = true;
+    //this.profileModel.loading = true;
     this.profileModel.imageFile = <File>event.target.files[0];
     let blob = new Blob([this.profileModel.imageFile], {type: 'image/*'});
     let formData = new FormData();
@@ -425,20 +426,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.profileModel.recentActivities = null;
             this.profileModel.dataSource = null;
             this.profileModel.loading = false;
+            this.profileModel.activitiesCount = res.data.pageCount;
+            this.paginator.pageIndex = paginationData;
           } else {
             this.profileModel.activitiesCount = res.data.pageCount;
             this.profileModel.recentActivities = this.compiler.constructRecentActivitiesData(res.data);
             this.profileModel.dataSource = new MatTableDataSource(this.profileModel.recentActivities);
             this.profileModel.loading = false;
+            this.profileModel.activitiesCount = res.data.pageCount;
+            this.paginator.pageIndex = paginationData;
           }
         } else if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.profileModel.recentActivities = null;
           this.profileModel.loading = false;
           this.profileModel.dataSource = null;
+          this.profileModel.activitiesCount = res.data.pageCount;
+          this.paginator.pageIndex = paginationData;
         } else {
           this.profileModel.recentActivities = null;
           this.profileModel.loading = false;
           this.profileModel.dataSource = null
+          this.profileModel.activitiesCount = res.data.pageCount;
+          this.paginator.pageIndex = paginationData;
         }
       }, (error) => {
         this.profileModel.recentActivities = null;
@@ -461,7 +470,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   getUserConnections(userId: number, paginationData) {
-    this.profileModel.loading = true;
+    //this.profileModel.loading = true;
     this.profileModel.allConnectionsData = [];
     let pagination: PaginationData = {
       offset: paginationData * this.helperService.appConstants.paginationLimitForProfile,
@@ -473,19 +482,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.profileModel.connectionCount = res.data.pageCount;
           this.profileModel.allConnectionsRes = res;
           this.profileModel.allConnectionsData = this.compiler.constructAllConnectionData(res);
-          this.profileModel.loading = false;
+          //this.profileModel.loading = false;
         } else if (res.responseDetails.code === this.helperService.appConstants.codeValidations[4]) {
           this.profileModel.noConnection = true;
-          this.profileModel.loading = false;
+          //this.profileModel.loading = false;
         } else {
           this.profileModel.noConnection = true;
           this.helperService.createSnack(
             this.helperService.translated.MESSAGES.GET_CONNECTIONS_FAILURE, this.helperService.constants.status.ERROR);
-          this.profileModel.loading = false;
+          //this.profileModel.loading = false;
         }
       }, (error) => {
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
-        this.profileModel.loading = false;
+        //this.profileModel.loading = false;
       }));
   }
 
@@ -566,7 +575,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   userLeaves(userId: number) {
-    this.profileModel.loading = true;
+    //this.profileModel.loading = true;
     let data = {
       userId: userId,
       entityId: this.profileModel.entityId
@@ -601,12 +610,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
             self.profileModel.events.push(self.profileModel.eventData);
             self.refresh.next();
           });
-          this.profileModel.loading = false;
+          //this.profileModel.loading = false;
         } else {
           this.removeLeaves();
         }
       }, (error) => {
-        this.profileModel.loading = false;
+        //this.profileModel.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }));
   }
