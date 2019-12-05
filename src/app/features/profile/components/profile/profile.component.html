@@ -114,20 +114,12 @@
                             </div>
                             <div class="btn-group text-right">
 
-                                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                                    <mat-button-toggle mat-button (click)="setView(CalendarView.Month)"
-                                                       [class.active]="view === CalendarView.Month">
-                                        Month
-                                    </mat-button-toggle>
-                                    <mat-button-toggle mat-button (click)="setView(CalendarView.Week)"
-                                                       [class.active]="view === CalendarView.Week">
-                                        Week
-                                    </mat-button-toggle>
-                                    <mat-button-toggle mat-button (click)="setView(CalendarView.Day)"
-                                                       [class.active]="view === CalendarView.Day">
-                                        Day
-                                    </mat-button-toggle>
-                                </mat-button-toggle-group>
+<!--                                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">-->
+<!--                                    <mat-button-toggle mat-button (click)="setView(CalendarView.Month)"-->
+<!--                                                       [class.active]="view === CalendarView.Month">-->
+<!--                                        Month-->
+<!--                                    </mat-button-toggle>-->
+<!--                                </mat-button-toggle-group>-->
                             </div>
                         </div>
 
@@ -169,7 +161,8 @@
                                 <mat-form-field appearance="outline">
                                     <input matInput [matDatepicker]="picker1"
                                            [formControlName]="helperService.appConstants.dateFrom"
-                                           placeholder="Date From" readonly>
+                                           placeholder="Date From" readonly
+                                           (dateChange)="dateSelected('change', $event)">
                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                     <mat-datepicker #picker1></mat-datepicker>
                                     <mat-error class="text-right" *ngIf="filterFormValidations.errors">
@@ -180,6 +173,7 @@
                                 <mat-form-field appearance="outline">
                                     <input matInput [matDatepicker]="picker2"
                                            [formControlName]="helperService.appConstants.dateTo"
+                                           [min]="rangeAt"
                                            placeholder="Date To" readonly>
                                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                     <mat-datepicker #picker2></mat-datepicker>

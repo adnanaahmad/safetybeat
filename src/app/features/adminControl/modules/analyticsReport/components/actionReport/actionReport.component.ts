@@ -135,7 +135,6 @@ export class ActionReportComponent implements OnInit, OnDestroy {
   }
 
   actionReportFormSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
-    console.log(value);
     if (!valid) {
       return;
     }

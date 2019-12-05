@@ -9,6 +9,7 @@ import {PaginationData} from 'src/app/models/site.model';
 import {PermissionsModel} from 'src/app/models/adminControl/permissions.model';
 import {NavigationService} from 'src/app/features/navigation/services/navigation.service';
 import {SubSink} from 'subsink';
+import {compareDates} from 'flatpickr/dist/utils/dates';
 
 @Component({
   selector: 'app-manageLeave',
@@ -39,11 +40,11 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
           this.viewAllUserLeaves(this.leaveModel.firstIndex, this.leaveModel.search);
         }
       }),
-    this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
-      if (data) {
-        this.leaveModel.permissions = data;
-      }
-    }));
+      this.navService.entityPermissions.subscribe((data: PermissionsModel) => {
+        if (data) {
+          this.leaveModel.permissions = data;
+        }
+      }));
   }
 
   ngOnDestroy(): void {
@@ -55,7 +56,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
 
   initialize() {
     this.leaveModel.currentDate = new Date();
-    console.log(this.leaveModel.currentDate);
+    this.leaveModel.currentDate.setHours(0, 0, 0);
     this.leaveModel.loading = false;
     this.leaveModel.search = '';
     this.leaveModel.firstIndex = 0;
@@ -95,7 +96,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
       limit: this.helperService.appConstants.paginationLimit,
       search: search
     };
-    this.subs.add (
+    this.subs.add(
       this.leaveService.viewAllUserLeavesData(data, pagination).subscribe((res) => {
         this.leaveModel.pageCount = res.data.pageCount;
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
@@ -113,6 +114,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
 
 
   approveLeave(data) {
+    this.leaveModel.approved = false;
     this.leaveModel.loading = true;
     let leaveData = {
       approveReject: true,
@@ -130,6 +132,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.viewAllUserLeaves(this.paginator.pageIndex, this.leaveModel.search);
           this.leaveModel.loading = false;
+          this.leaveModel.approved = true;
           this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
         } else {
           this.leaveModel.loading = false;
@@ -142,6 +145,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
   }
 
   rejectLeave(data) {
+    this.leaveModel.rejected = false;
     this.leaveModel.loading = true;
     let leaveData = {
       approveReject: true,
@@ -159,6 +163,7 @@ export class ManageLeaveComponent implements OnInit, OnDestroy {
         if (res && res.responseDetails.code === this.helperService.appConstants.codeValidations[0]) {
           this.viewAllUserLeaves(this.paginator.pageIndex, this.leaveModel.search);
           this.leaveModel.loading = false;
+          this.leaveModel.rejected = true;
           this.helperService.createSnack(res.responseDetails.message, this.helperService.constants.status.SUCCESS);
         } else {
           this.leaveModel.loading = false;

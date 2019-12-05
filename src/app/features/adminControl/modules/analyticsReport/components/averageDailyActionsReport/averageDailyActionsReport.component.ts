@@ -86,7 +86,6 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   }
 
   averageActionSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
-    console.log(value);
     if (!valid) {
       return;
     }
