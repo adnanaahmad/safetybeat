@@ -101,6 +101,9 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $light-theme: mat-light-theme($primary, $secondary, $warn);
 .light-theme {
+  .package-row {
+    background-color: mat-color($primary, 50);
+  }
   .page-content {
     background-color: #ecf0f4;
   }
@@ -161,6 +164,14 @@ $light-theme: mat-light-theme($primary, $secondary, $warn);
       .read-notif {
         background: mat-color($primary-pallet, 100);
       }
+    }
+  }
+  app-profile{
+    .pagehead{
+      background-image: url("~src/assets/images/legend-headerbg2.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
   }
   app-settings {

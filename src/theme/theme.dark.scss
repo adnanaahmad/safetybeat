@@ -144,6 +144,21 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $theme: createTheme($primary, $secondary, $warn);
 .dark-theme {
+  .legend-header {
+    color: #fff;
+  }
+  .package-row{
+    background-color: mat-color($primary, 400);
+  }
+  app-package-settings {
+    .package-features {
+      ul {
+        mat-icon {
+          color: inherit !important;
+        }
+      }
+    }
+  }
   .data-filter {
     mat-icon {
       background-color: mat-color($primary-pallet, 300);
@@ -194,6 +209,7 @@ $theme: createTheme($primary, $secondary, $warn);
       background-color: mat-color($primary, 400);
     }
   }
+
   app-login,
   app-forgot-password {
     .mat-figure {
@@ -508,6 +524,20 @@ $theme: createTheme($primary, $secondary, $warn);
   app-profile {
     .mat-header-row {
       background-color: mat-color($primary, 400) !important;
+    }
+    .navigator{
+      mat-list-item{
+        mat-icon{
+          color: #fff !important;
+        }
+      }
+    }
+  }
+  .customTable.modal {
+    .mat-header-row {
+      .mat-header-cell {
+        color: #fff;
+      }
     }
   }
   .entity-code {

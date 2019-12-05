@@ -201,7 +201,7 @@
                                 </button>
                             </div>
                         </form>
-                        <div class="table-wrap">
+                        <div>
                             <table mat-table [dataSource]="profileModel.dataSource" class="customTable">
                                 <ng-container matColumnDef="name">
                                     <th mat-header-cell *matHeaderCellDef> Name</th>
@@ -247,7 +247,7 @@
                     <!-- ================================================================================================= -->
                     <!-- for connections insert data here -->
                     <mat-card-content *ngIf="profileFeatures.connections">
-                        <div class="table-wrap">
+                        <div>
                             <mat-card-title>Your Connections</mat-card-title>
                             <table mat-table [dataSource]="profileModel.allConnectionsData" class="customTable">
                                 <ng-container matColumnDef="img">
