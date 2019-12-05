@@ -1,50 +1,61 @@
-<form autocomplete="off">
-    <mat-card class="package-features mat-elevation-z0">
-        <h2>Update your Package</h2>
-        <p>You are currently using Unlimited Package ($100/Month)</p>
-        <ul>
-            <li>
-                <mat-icon>check_circle</mat-icon>
-                Site registration
-            </li>
-            <li>
-                <mat-icon>check_circle</mat-icon>
-                Dashboard access
-            </li>
-            <li>
-                <mat-icon>check_circle</mat-icon>
-                Report access
-            </li>
-        </ul>
-    </mat-card>
-    <mat-card class="pricing-section flexbox text-center mat-elevation-z0">
-        <div class="package-row">
-            <mat-radio-button value="1"></mat-radio-button>
-            <div class="price">
-                <h1>$50</h1>
-                <p>Per month</p>
-            </div>
-            <div class="person-count">
-                <h1>Unlimited</h1> Users
-            </div>
-        </div>
-
-        <div class="package-row custom text-center">
-            <mat-radio-button class="light-radio" value="2"></mat-radio-button>
-            <div class="price">
-                <h1>$100</h1>
-                <p>Per month</p>
-            </div>
-            <div class="person-count">
-                <p>Users up to</p>
-                <input type="number" class="add-users-input" placeholder="Add number of users">
-            </div>
-        </div>
-    </mat-card>
-    <div class="text-center">
-        <button color="primary" class="btn btn-primary" mat-raised-button>
-            Proceed to payment
-            <mat-icon>{{helperService.appIcons.arrowRight}}</mat-icon>
-        </button>
+<mat-card class="package-features mat-elevation-z0">
+  <h2>Update your Package</h2>
+  <p>You are currently using {{package.currentPackage}} Package </p>
+  <ul>
+    <li>
+      <mat-icon>check_circle</mat-icon>
+      Site registration
+    </li>
+    <li>
+      <mat-icon>check_circle</mat-icon>
+      Dashboard access
+    </li>
+    <li>
+      <mat-icon>check_circle</mat-icon>
+      Report access
+    </li>
+  </ul>
+</mat-card>
+<mat-card class="pricing-section flexbox text-center mat-elevation-z0">
+  <div class="package-row pointer" [ngClass]="package.name==='Trial' ? 'active' : ''"
+       (click)="updateSelection('Trial')">
+    <div class="price">
+      <h1>Free</h1>
+      <p>7 days</p>
     </div>
-</form>
+    <div class="person-count">
+      <h1>Trial</h1>
+      <h1>10</h1> Users
+    </div>
+  </div>
+  <div class="package-row pointer text-center" [ngClass]="package.name==='Custom' ? 'active' : ''"
+       (click)="updateSelection('Custom')">
+    <div class="price">
+      <h1>AU${{package.packagePrice}}</h1>
+      <p>Per month</p>
+    </div>
+    <div class="person-count">
+      <h1>Custom</h1>
+      <p>Users up to</p>
+      <input id=price type="number" min="10" class="add-users-input" value="10" placeholder="Add number of users"
+             (change)="updatePrice($event.target.value)">
+    </div>
+  </div>
+  <div class="package-row pointer" [ngClass]="package.name==='Unlimited' ? 'active' : ''"
+       (click)="updateSelection('Unlimited')">
+    <div class="price">
+      <h1>AU$500</h1>
+      <p>Per month</p>
+    </div>
+    <div class="person-count">
+      <h1>Unlimited</h1> Users
+    </div>
+  </div>
+</mat-card>
+<div class="text-center">
+  <button color="primary" class="btn btn-primary" mat-raised-button (click)="proceedToPayment()"
+          disabled="{{package.name==='Trial'? true:false}}">
+    Proceed to payment
+    <mat-icon>{{helperService.appIcons.arrowRight}}</mat-icon>
+  </button>
+</div>

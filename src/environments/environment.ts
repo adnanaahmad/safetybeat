@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 
-const serverUrl = 'http://192.168.69.62:8000';
+const serverUrl = 'http://192.168.69.20:8000';
 const clientUrl = 'http://localhost:4200/#';
-const clientSignupUrl = 'http://192.168.69.70:8000/';
+const clientSignupUrl = 'http://localhost:8000/';
 
 export const environment = {
     production: false,

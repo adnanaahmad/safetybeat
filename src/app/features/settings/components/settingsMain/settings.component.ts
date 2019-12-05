@@ -16,11 +16,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
     ownerView: boolean = false;
     themeSelected: any;
     settingFeatures = {
-        'organization': true,
+        'organization': false,
         'entity': false,
         'theme': false,
         'allUsers': false,
-        'package': false
+        'package': true
     };
     private subscription: Subscription;
 

@@ -2,6 +2,12 @@
     <!-- Settings navigation -->
     <div class="navigator">
         <mat-list role="list">
+          <mat-list-item role="listitem" *ngIf="ownerView">
+                <span [ngClass]="settingFeatures.package ? 'settingNav' : ''" (click)="changeSetting('package')">
+                  <mat-icon>{{helperService.appIcons.wallet}}</mat-icon>
+                  {{ helperService.translated.SITETITLE.PACKAGE_TITLE }}
+                </span>
+          </mat-list-item>
             <mat-list-item role="listitem" *ngIf="ownerView">
                 <span [ngClass]="settingFeatures.organization ? 'settingNav' : ''"
                       (click)="changeSetting('organization')">
@@ -19,12 +25,6 @@
                 <span [ngClass]="settingFeatures.allUsers ? 'settingNav' : ''" (click)="changeSetting('allUsers')">
                   <mat-icon>{{helperService.appIcons.group}}</mat-icon>
                   {{ helperService.translated.SITETITLE.USERS_TITLE }}
-                </span>
-            </mat-list-item>
-            <mat-list-item role="listitem" *ngIf="ownerView">
-                <span [ngClass]="settingFeatures.package ? 'settingNav' : ''" (click)="changeSetting('package')">
-                  <mat-icon>{{helperService.appIcons.wallet}}</mat-icon>
-                  {{ helperService.translated.SITETITLE.PACKAGE_TITLE }}
                 </span>
             </mat-list-item>
             <mat-list-item role="listitem">

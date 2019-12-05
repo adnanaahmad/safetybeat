@@ -64,4 +64,9 @@ export class SettingsService {
     return this.helperService.requestCall(this.helperService.constants.apiMethod.put,
       `${this.helperService.constants.apiRoutes.updateIntervals}${id}/`, data);
   }
+
+  getPackage() {
+    return this.helperService.requestCall(this.helperService.constants.apiMethod.get,
+      this.helperService.constants.apiRoutes.getPackage);
+  }
 }

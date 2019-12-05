@@ -19,7 +19,7 @@
       <mat-toolbar class="topbar mat-elevation-z6">
         <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&!packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_LEFT_1}}{{packageInfo.daysLeft}}{{helperService.translated.MESSAGES.TRIAL_LEFT_2}}
-          <button routerLink="/package">{{helperService.translated.BUTTONS.UPGRADE}}</button>
+          <button routerLink="/home/settings">{{helperService.translated.BUTTONS.UPGRADE}}</button>
         </div>
         <div class="product-notice" *ngIf="isOwner&&packageInfo.package=='Trial'&&packageInfo.expired">
           {{helperService.translated.MESSAGES.TRIAL_EXPIRED}}
