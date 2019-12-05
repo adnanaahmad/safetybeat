@@ -9,6 +9,12 @@
                 </span>
           </mat-list-item>
             <mat-list-item role="listitem" *ngIf="ownerView">
+                <span [ngClass]="settingFeatures.package ? 'settingNav' : ''" (click)="changeSetting('package')">
+                  <mat-icon>{{helperService.appIcons.wallet}}</mat-icon>
+                  {{ helperService.translated.SITETITLE.PACKAGE_TITLE }}
+                </span>
+            </mat-list-item>
+            <mat-list-item role="listitem" *ngIf="ownerView">
                 <span [ngClass]="settingFeatures.organization ? 'settingNav' : ''"
                       (click)="changeSetting('organization')">
                   <mat-icon>{{ helperService.appIcons.business }}</mat-icon>
@@ -38,6 +44,11 @@
 
     <div class="settings-wrap theme-selector">
         <div class="flexbox">
+            <!-- Package -->
+            <div class="package" *ngIf="settingFeatures.package && ownerView">
+                <app-package-settings></app-package-settings>
+            </div>
+
             <!--Organization Settings-->
             <div *ngIf="settingFeatures.organization && ownerView">
                 <app-organization-info></app-organization-info>
@@ -51,11 +62,6 @@
             <!-- All Users -->
             <div class="all-users" *ngIf="settingFeatures.allUsers && ownerView">
                 <app-user></app-user>
-            </div>
-
-            <!-- Package -->
-            <div class="package" *ngIf="settingFeatures.package && ownerView">
-                <app-package-settings></app-package-settings>
             </div>
 
             <!--Change Theme-->

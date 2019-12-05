@@ -144,6 +144,27 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $theme: createTheme($primary, $secondary, $warn);
 .dark-theme {
+  .data-filter {
+    mat-icon {
+      background-color: mat-color($primary-pallet, 300);
+    }
+    .input-wrap {
+      background-color: transparent;
+      border: 1px solid rgba(204, 204, 204, 0.13);
+    }
+    .search-input {
+      caret-color: #fff !important;
+      color: #fff;
+    }
+  }
+  .spinner-wrap {
+    background-color: rgba(255, 255, 255, 0.1);
+    .mat-progress-spinner {
+      circle {
+        stroke: mat-color($primary-pallet, 50);
+      }
+    }
+  }
   .loginbox,
   app-modal-dialog {
     .mat-form-field.mat-focused {

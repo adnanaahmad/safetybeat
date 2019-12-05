@@ -1,3 +1,6 @@
+<div class="spinner-wrap" *ngIf="averageActionObj.loading">
+  <mat-spinner [diameter]="helperService.constants.appConstant.spinnerConstant"></mat-spinner>
+</div>
 <div class="paddingbox">
   <div class="page-title p-0">
     <h4>{{helperService.translated.SITETITLE.AVERAGE_DAILY_ACTION_REPORT}}</h4>
@@ -85,11 +88,15 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>
-
-    <div class="paddingbox text-center mat-select-placeholder"
-         *ngIf="!averageActionObj.loading && !averageActionObj.dataSource">
+    <div class="paddingbox text-center mat-select-placeholder" *ngIf="!averageActionObj.dataSource">
       {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
     </div>
-    <mat-paginator class="mat-elevation-z2" [pageSize]="averageActionObj.pageSize" [length]="averageActionObj.pageCount" ></mat-paginator>
+
+    <div class="paddingbox text-center mat-select-placeholder"
+         *ngIf="!averageActionObj.loading && averageActionObj.pageCount===0">
+      {{helperService.translated.MESSAGES.NO_RECORD_AVAILABLE}}
+    </div>
+    <mat-paginator class="mat-elevation-z2" [pageSize]="averageActionObj.pageSize" [length]="averageActionObj.pageCount" (page)="this.makeReport(7, null, null, null, paginator.pageIndex)
+"></mat-paginator>
   </mat-card>
 </div>

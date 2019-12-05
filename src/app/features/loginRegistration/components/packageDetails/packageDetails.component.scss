@@ -132,6 +132,15 @@
         text-decoration: none;
       }
     }
+    @media (max-width: 576px) {
+      .pricing-section {
+        display: block;
+        .package-row {
+          width: 100% !important;
+          padding: 2rem 0;
+        }
+      }
+    }
     @media (max-width: 768px) {
       [fullWidth] {
         .mat-form-field-infix {

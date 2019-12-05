@@ -21,7 +21,7 @@ export class AddleavesComponent implements OnInit, OnDestroy {
     const day = d.getDay();
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
-  }
+  };
 
   constructor(
     public helperService: HelperService,
@@ -40,6 +40,9 @@ export class AddleavesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isEdit = this.data.currentData === null ? false : true;
+    if (this.isEdit) {
+      this.leavesModel.selectedLeave = this.data.currentData.leaveType;
+    }
     this.leavesModel.leaveForm = this.formBuilder.group({
       entity: ['', Validators.required],
       description: ['', Validators.required],
@@ -54,15 +57,15 @@ export class AddleavesComponent implements OnInit, OnDestroy {
         this.addLeaveFormValidations['entity'].disable();
       }
     });
-    if (this.data.currentData !== null && this.data && this.data.currentData) {
+    if (this.data && this.data.currentData !== null && this.data.currentData && this.isEdit) {
       this.addLeaveFormValidations['description'].setValue(this.data.currentData.title);
       this.addLeaveFormValidations['dateFrom'].setValue(new Date(this.data.currentData.start));
       this.addLeaveFormValidations['dateTo'].setValue(new Date(this.data.currentData.end));
       this.addLeaveFormValidations['leaveType'].setValue(this.data.currentData.leaveType.id);
     }
-    this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
-    this.data ? this.addLeaveFormValidations[this.helperService.appConstants.dateTo].enable()
-      : this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
+      this.addLeaveFormValidations['leaveType'].setValue(this.leavesModel.selectedLeave);
+      this.data ? this.addLeaveFormValidations[this.helperService.appConstants.dateTo].enable()
+        : this.addLeaveFormValidations[this.helperService.appConstants.dateTo].disable();
   }
 
   /**

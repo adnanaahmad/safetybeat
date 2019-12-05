@@ -11,7 +11,7 @@ import {
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {SubSink} from 'subsink';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {PaginationData} from '../../../../../../models/site.model';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-averageDailyActionsReport',
@@ -33,15 +33,16 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
     this.initialize();
     this.setEntityName();
     this.getAllUsers();
-    this.getFilters()
+    this.getFilters();
 
   }
 
   ngOnInit() {
-    this.makeReport(7, null, null, null, 0)
+    this.makeReport(7, null, null, null, 0);
   }
 
   initialize() {
+    this.averageActionObj.loading = false;
     this.averageActionObj.averageActionForm = this.formBuilder.group({
       filter: [''],
       entityName: ['', Validators.required],
@@ -86,7 +87,6 @@ export class AverageDailyActionsReportComponent implements OnInit, OnDestroy {
   }
 
   averageActionSubmit({value, valid}: { value: ActionReportApiData; valid: boolean; }) {
-    console.log(value);
     if (!valid) {
       return;
     }
