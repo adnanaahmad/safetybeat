@@ -40,9 +40,7 @@
     }
     .legend-header {
       text-align: center;
-      margin-bottom: 5rem;
       padding: 60px;
-      background-color: mat-color($primary, 50);
       mat-card-title {
         font-size: 2rem;
       }
@@ -76,7 +74,6 @@
       align-self: flex-start;
       justify-content: space-evenly;
       .package-row {
-        background-color: mat-color($primary, 50);
         display: inline-block;
         border-radius: 4px;
         position: relative;
