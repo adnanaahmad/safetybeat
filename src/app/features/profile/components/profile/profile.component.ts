@@ -361,6 +361,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
 
   uploadProfileImage(event) {
+    debugger
     this.profileModel.loading = true;
     this.profileModel.imageFile = <File>event.target.files[0];
     let blob = new Blob([this.profileModel.imageFile], {type: 'image/*'});
@@ -594,7 +595,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.removeLeaves();
         }
       }, (error) => {
-        this.profileModel.loading  = false;
+        this.profileModel.loading = false;
         this.helperService.createSnack(this.helperService.translated.MESSAGES.ERROR_MSG, this.helperService.constants.status.ERROR);
       }));
   }

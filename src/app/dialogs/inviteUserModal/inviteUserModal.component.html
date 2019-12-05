@@ -46,20 +46,20 @@
     </div>
     <div class="input">
 
-      <mat-form-field appearance="outline" fullWidth>
-        <mat-label>{{helperService.translated.AUTH.ROLE}}</mat-label>
-        <mat-select [(value)]="inviteUserModal.selectedRole" [formControlName]="helperService.appConstants.role"
-                    (selectionChange)="changeSelection(inviteUserModal.selectedRole)" required>
-          <ng-container *ngFor="let role of inviteUserModal.roleList">
-            <mat-option *ngIf="role.name != helperService.appConstants.roles.owner" [value]="role">
-              {{role.name}}
-            </mat-option>
-          </ng-container>
-        </mat-select>
-        <mat-error *ngIf="formValidation.role.errors">
-          <span *ngIf="formValidation.role.errors.required">{{helperService.translated.AUTH.ROLE_REQ}}</span>
-        </mat-error>
-      </mat-form-field>
+<!--      <mat-form-field appearance="outline" fullWidth>-->
+<!--        <mat-label>{{helperService.translated.AUTH.ROLE}}</mat-label>-->
+<!--        <mat-select [(value)]="inviteUserModal.selectedRole" [formControlName]="helperService.appConstants.role"-->
+<!--                    (selectionChange)="changeSelection(inviteUserModal.selectedRole)" required>-->
+<!--          <ng-container *ngFor="let role of inviteUserModal.roleList">-->
+<!--            <mat-option *ngIf="role.name != helperService.appConstants.roles.owner" [value]="role">-->
+<!--              {{role.name}}-->
+<!--            </mat-option>-->
+<!--          </ng-container>-->
+<!--        </mat-select>-->
+<!--        <mat-error *ngIf="formValidation.role.errors">-->
+<!--          <span *ngIf="formValidation.role.errors.required">{{helperService.translated.AUTH.ROLE_REQ}}</span>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
 
       <mat-form-field appearance="outline" fullWidth
                       *ngIf="inviteUserModal.showSites && inviteUserModal.selectedSite">

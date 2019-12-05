@@ -11,7 +11,7 @@ import {
 import {AnalyticsReportService} from 'src/app/features/adminControl/modules/analyticsReport/services/analyticsReport.service';
 import {SubSink} from 'subsink';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
-import {PaginationData} from '../../../../../../models/site.model';
+import {PaginationData} from 'src/app/models/site.model';
 
 @Component({
   selector: 'app-averageDailyActionsReport',

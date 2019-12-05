@@ -51,11 +51,11 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      role: ['', Validators.required],
+      // role: ['', Validators.required],
       sites: [''],
       team: ['']
     });
-    this.formValidation['role'].setValue(this.inviteUserModal.selectedRole);
+    // this.formValidation['role'].setValue(this.inviteUserModal.selectedRole);
     this.viewSitesData();
     this.viewTeamsData();
   }
@@ -107,7 +107,7 @@ export class InviteUserModalComponent implements OnInit, OnDestroy {
       email: value.email,
       contactNo: null,
       invitation: true,
-      roleId: value.role.id,
+      roleId: 5,
       moduleName: 'Safetybeat',
       entityId: this.selectedEntity.id,
       siteId: value.sites,
