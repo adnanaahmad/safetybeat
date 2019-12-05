@@ -144,6 +144,15 @@ $secondary: mat-palette($secondary-pallet);
 $warn: mat-palette($mat-red);
 $theme: createTheme($primary, $secondary, $warn);
 .dark-theme {
+  app-package-settings {
+    .package-features {
+      ul {
+        mat-icon {
+          color: inherit;
+        }
+      }
+    }
+  }
   .data-filter {
     mat-icon {
       background-color: mat-color($primary-pallet, 300);

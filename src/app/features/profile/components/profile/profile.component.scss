@@ -87,7 +87,10 @@
     .pagehead {
       height: auto !important;
       padding: 10px 16px !important;
-      background: url("~src/assets/images/legend-headerbg2.jpg") no-repeat center/cover;
+      background-image: url("~src/assets/images/legend-headerbg2.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       .user-avatar {
         width: 100px;
         position: relative;
